@@ -1,0 +1,1 @@
+web: PORT=$PORT HOST=0.0.0.0 ~/website/server/target/release/server
