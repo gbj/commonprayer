@@ -13,13 +13,16 @@ const LOCALES: [&str; 1] = ["en"];
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    let host = std::env::var("HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
+    let port = std::env::var("PORT").unwrap_or_else(|_| "1234".to_string());
+
     HttpServer::new(|| {
         App::new()
             .service(daily_summary)
             .service(Files::new("/static", "../website/static"))
             .configure(|cfg| add_pages(cfg, &LOCALES))
     })
-    .bind("127.0.0.1:1840")?
+    .bind(&format!("{}:{}", host, port))?
     .run()
     .await
 }
@@ -91,15 +94,26 @@ where
 
         // Page with no locale => redirect based on preferred locale in request
         cfg.service(
-            web::resource(if path == "index" { "/" } else { path.as_str() }).route(web::get().to(|req: HttpRequest| {
-                let preferred_locale = req
-                    .headers()
-                    .get("Accept-Language")
-                    .and_then(|locale| locale.to_str().unwrap().split('-').next())
-                    .unwrap_or("en");
-                let path = req.path();
-                HttpResponse::TemporaryRedirect().set_header(actix_web::http::header::LOCATION, format!("/{}{}", preferred_locale, if path == "/" { "" } else { path })).finish()
-            })),
+            web::resource(if path == "index" { "/" } else { path.as_str() }).route(web::get().to(
+                |req: HttpRequest| {
+                    let preferred_locale = req
+                        .headers()
+                        .get("Accept-Language")
+                        .and_then(|locale| locale.to_str().unwrap().split('-').next())
+                        .unwrap_or("en");
+                    let path = req.path();
+                    HttpResponse::TemporaryRedirect()
+                        .set_header(
+                            actix_web::http::header::LOCATION,
+                            format!(
+                                "/{}{}",
+                                preferred_locale,
+                                if path == "/" { "" } else { path }
+                            ),
+                        )
+                        .finish()
+                },
+            )),
         );
 
         // The page
