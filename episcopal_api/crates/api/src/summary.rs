@@ -1,10 +1,11 @@
-use calendar::{Feast, LiturgicalDay, LiturgicalDayId};
+use calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId};
 use lectionary::Reading;
 use liturgy::Psalm;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]
 pub struct DailySummary {
+    pub date: Date,
     pub morning: PartialDailySummary,
     pub evening: PartialDailySummary,
 }

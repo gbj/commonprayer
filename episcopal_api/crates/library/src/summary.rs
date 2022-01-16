@@ -29,7 +29,11 @@ impl CommonPrayer {
             language,
         );
 
-        DailySummary { morning, evening }
+        DailySummary {
+            date: *date,
+            morning,
+            evening,
+        }
     }
 }
 

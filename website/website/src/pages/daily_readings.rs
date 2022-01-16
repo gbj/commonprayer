@@ -14,10 +14,7 @@ use wasm_bindgen::UnwrapThrowExt;
 
 use crate::{
     components::*,
-    utils::{
-        language::locale_to_language,
-        time::{current_hour, today},
-    },
+    utils::{language::locale_to_language, time::current_hour},
 };
 
 pub fn daily_readings() -> Page<DailyReadingsPageProps, DailyReadingsUrlParams> {
@@ -30,7 +27,6 @@ pub fn daily_readings() -> Page<DailyReadingsPageProps, DailyReadingsUrlParams> 
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct DailyReadingsPageProps {
-    date: Option<Date>,
     summary: Option<DailySummary>,
 }
 
@@ -39,14 +35,33 @@ pub struct DailyReadingsUrlParams {
     date: Option<String>,
 }
 
-fn head(_locale: &str, _props: &DailyReadingsPageProps) -> View {
+fn head(locale: &str, props: &DailyReadingsPageProps) -> View {
     let title = format!("{} – {}", t!("toc.daily_readings"), t!("common_prayer"));
+
+    // no summary means no date param is present in URL => redirect to client's current day
+    let redirect_script = if props.summary.is_none() {
+        let js = format!(
+            r#"
+            const now = new Date(),
+                formatted = `${{now.getFullYear()}}-${{now.getMonth() + 1}}-${{now.getDate()}}`;
+            window.location.href = `/{}/daily-readings/${{formatted}}`;
+        "#,
+            locale
+        );
+        view! {
+            <script>{js}</script>
+        }
+    } else {
+        View::Empty
+    };
+
     view! {
         <>
             <title>{title}</title>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
             <link rel="stylesheet" href="/static/daily-readings.css"/>
+            {redirect_script}
         </>
     }
 }
@@ -64,7 +79,7 @@ fn static_props(
         .and_then(|date| Date::parse_from_str(date, "%Y-%m-%d").ok());
     let summary = date.map(|date| CommonPrayer::summarize_date(&date, language));
 
-    DailyReadingsPageProps { date, summary }
+    DailyReadingsPageProps { summary }
 }
 
 fn build_paths_fn() -> Vec<String> {
@@ -151,7 +166,6 @@ fn body(locale: &str, props: &DailyReadingsPageProps) -> View {
         );
 
         let locale = locale.to_string();
-        let date = props.date.unwrap_or_else(today);
 
         let primary_reading_links = reading_links(
             &summary.morning.observed,
@@ -182,7 +196,7 @@ fn body(locale: &str, props: &DailyReadingsPageProps) -> View {
                     <label class="stacked">
                         {leptos::View::StaticText(t!("date"))}
                         <dyn:input type="date" class="centered"
-                            value={date.to_padded_string()}
+                            value={summary.date.to_padded_string()}
                             on:change={
                                 let locale = locale.clone();
                                 move |ev: Event| redirect_to_date(&locale, event_target_value(ev))
@@ -216,17 +230,12 @@ fn body(locale: &str, props: &DailyReadingsPageProps) -> View {
             </>
         }
     }
-    // if no summary, redirect to current date
+    // if no summary, Javascript (see header) will redirect to current date
     else {
-        let today_url = format!("/{}/daily-readings/{}", &locale, today());
-        if !is_server!() {
-            location().set_href(&today_url).unwrap_throw();
-        }
         view! {
             <>
                 {header(locale, &t!("toc.daily_readings"))}
                 <main>
-                    <a href={today_url}>{t!("daily_readings.todays_readings")}</a>
                 </main>
             </>
         }
