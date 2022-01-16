@@ -1,0 +1,18 @@
+.readings {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.readings li {
+  margin: 0;
+  padding: 0;
+}
+
+details summary:hover {
+  cursor: pointer;
+}
+
+.choice nav {
+  text-align: right;
+}

@@ -1,0 +1,11 @@
+[package]
+name = "api"
+version = "0.1.0"
+edition = "2021"
+description = "Types that can be shared between API servers and clients that consume them."
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+calendar = { path = "../calendar" }
+lectionary = { path = "../lectionary" }
+liturgy = { path = "../liturgy" }

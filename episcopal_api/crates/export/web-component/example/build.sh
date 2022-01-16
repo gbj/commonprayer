@@ -1,0 +1,1 @@
+wasm-pack build --target web && rm -R ./pkg && mv ../pkg .

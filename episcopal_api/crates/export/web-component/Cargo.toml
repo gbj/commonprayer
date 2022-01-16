@@ -1,0 +1,15 @@
+[package]
+name = "web-component"
+version = "0.1.0"
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+custom-elements = "0.2"
+sauron = "0.43"
+liturgy = { path = "../../liturgy" }
+web = { path = "../web" }
+serde = "1.0"
+serde_json = "1.0"

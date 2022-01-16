@@ -1,0 +1,18 @@
+[package]
+name = "liturgy"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+calendar = { path = "../calendar" }
+canticle-table = {path = "../canticle-table" }
+language = { path = "../language" }
+lectionary = { path = "../lectionary" }
+reference-parser = { path = "../reference-parser" }
+serde = { version = "1.0", features = ["derive"]}
+itertools = "0.10"
+thiserror = "1"
+
+[dev-dependencies]
+psalter = { path = "../psalter" }
+library = { path = "../library" }

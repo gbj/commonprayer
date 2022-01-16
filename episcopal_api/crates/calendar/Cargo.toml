@@ -1,0 +1,10 @@
+[package]
+name = "calendar"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+chrono = { version = "0.4", features = ["serde"] }
+serde = { version = "1.0", features = ["derive"] }
+thiserror = "1"
+language = { path = "../language" }

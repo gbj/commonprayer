@@ -1,0 +1,124 @@
+Website Todos
+=============
+
+- [ ] Deploy new website/repo to Heroku
+- [x] Figure out side/setting menu
+	- [ ] Daily Readings page (for date selection)
+	- [ ] Calendar page (for date selection)
+	- [ ] Daily Office page (for settings/prefs)
+- [ ] Daily Office pages
+	- [ ] Canticle rendering
+		- [ ] headers show be flex-row
+		- [ ] Canticle 12 sections and titles not rendering properly
+- [ ] Category pages
+- [ ] Psalter page
+- [ ] Error handling for pages: need to return a `Result` because possible path doesn't work if dynamic
+- [ ] Figure out partial hydration again
+- [ ] Merge this back into the Episcopal-API repo
+- [ ] Sunday Readings page (a copy of Daily Readings, but use RCL?)
+- [ ] Additional library of documents
+- [ ] Clean up Index page + links
+- [ ] Additional Tests
+	- [ ] Does each holy day have 2 LFF collects + LFF readings?
+- [ ] Bugs
+	- [ ] psalms_by_citation (for e.g., Psalm 106:1-5) not capturing verses correctly? (http://localhost:1234/en/holy-day/JohnMasonNeale)
+	- [ ] Build actual pages for lookups
+- [ ] Collects of the Day w/ two versions
+    - [ ] Export
+      - [x] Rite II
+      - [x] Rite I
+      - [ ] Rite II collect page #s
+      - [ ] check Rite I against Rite II collects
+      - [ ] Compare LFF Rite 1 and Rite 2
+      - [ ] Sort LFF collects by date order
+      - [ ] Sanity check on LFF collect names
+      - [ ] LFF collect page #s
+    - [ ] Compile in Library compiler
+    - [x] Build page
+      - [ ] Sort (Seasons of the Year, Holy Days, etc. as in prayer book)
+      - [x] Search function
+        - [ ] Debounce
+      - [ ] Remove duplicates
+    - [x] Links to page
+    - [ ] Order collects by page
+    - [ ] Add page numbers to collects
+  - [x] Category
+    - [x] Handle different versions (in link, and in page generation)
+    - [x] Category pages (as distinct from document pages) with labels etc.
+    - [ ] Group documents by label
+  - [ ] Summary pages for each category of document
+  - [ ] Calendar
+    - [ ] LFF propers for holy days
+      - [x] Convert lectionary
+      - [x] Add to /holy-day pages
+      - [ ] Add missing doubled sets (marked with *or*, like All Saints’ Day)
+      - [ ] Add to summary page
+      - [ ] Sort the list
+      - [ ] Add page numbers within LFF
+      - [ ] Add "Preface of _____"
+    - [ ] Add collects to holy-day pages
+  - [ ] Psalter page
+  - [ ] About page
+- [ ] Local preferences for...
+  - [ ] Choices on Daily Readings page
+  - [ ] Choice on Calendar page
+- [ ] Alternative web/HTML setup (Perseus/Sycamore)
+  - [x] Build compiling based on date
+  - [ ] Build preferences
+  - [ ] Build static category pages
+  - [ ] Use these components for the HTML export
+- Calendar 
+  - [ ] Make sure every feast has a day name
+  - [ ] Filter `holy_days` field so it doesn't include: (note, this is for purposes of display)
+    - the observed day
+    - the alternate day
+    - a red-letter day that was displaced by a Sunday
+- [ ] Heroku deployment
+  - [ ] API endpoint
+    - [ ] eject and serve from Perseus Warp server?
+    - [ ] separate endpoints for dev/prod 
+- [ ] Improvements to BiblicalCitation async loading
+  - [ ] Include paragraphs/spacing
+  - Bugs
+    - [ ] Proverbs 8:22-30 (12/27 St. John)
+    - [ ] Wisdom 4:7-15 (when?)
+- [ ] Morning Prayer
+  - [ ] Clean up internal TODO items
+  - [ ] rotate `Choice`s for things like prayers for mission and daily collects?
+- [x] Preferences
+  - [ ] Tests (in conditions)
+- [ ] Canticle Tables
+  - [ ] Compile
+    - [ ] Fallbacks
+    - [ ] Traditional language
+  - [x] Port canticle tables over from JSON
+    - [ ] "Classical" tables for Rite I + Rite II
+  - [ ] Actually look up canticles (cf. Psalter)
+  - [ ] Tests
+- [ ] Liturgies
+  - [x] Compline
+  - [ ] Evening Prayer
+  - [ ] Build preferences/choices into liturgies
+  - [ ] Add many more source citations
+- [ ] Compiler additions
+  - [ ] Rotate/randomize
+  - [ ] In-depth compiler tests to prevent future breakage
+- [ ] Rendering
+  - All lookups (`SubLiturgy`, `Category`, `CanticleTableEntry`, etc.) can be drawn as info boxes
+  - `SubLiturgy`
+    - [ ] Compiler
+- [ ] `BibleReference` to `String`
+  - [ ] and TODO in `crates/psalter/lib.rs`
+- [ ] Compiler
+  - [x] PsalmCitation
+    - [ ] Allow multiple psalters based on preferences
+  - [ ] Collect of the Day
+    - [ ] Add to Daily Readings page
+  - [x] Date/Day
+- [ ] Lectionary tests against JS versions
+  - [ ] RCL
+- [ ] Calendar tests
+  - [ ] Test feasts like "Eve of Trinity Sunday" etc.
+- [ ] Sort and prettify various constant arrays
+- [ ] Localization
+  - [ ] LiturgicalWeek => color
