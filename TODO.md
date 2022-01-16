@@ -1,7 +1,7 @@
 Website Todos
 =============
 
-- [ ] Deploy new website/repo to Heroku
+- [ ] Deploy new website/repo to Heroku 
 - [x] Figure out side/setting menu
 	- [ ] Daily Readings page (for date selection)
 	- [ ] Calendar page (for date selection)
