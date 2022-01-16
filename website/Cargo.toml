@@ -1,0 +1,11 @@
+[workspace]
+members = [
+  "client/calendar",
+  "client/canticle_table",
+  "client/daily_readings",
+  "client/document",
+  "client/holy_day",
+  "client/index",
+  "server",
+  "website"
+]
