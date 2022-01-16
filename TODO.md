@@ -10,6 +10,7 @@ Website Todos
 	- [ ] Canticle rendering
 		- [ ] headers show be flex-row
 		- [ ] Canticle 12 sections and titles not rendering properly
+- [ ] Systematic distinction between server date/current time (when rendering, either SSR or even more so SSG) and client current time/date — replaces instances where the prerendered UI accidentally assumes server time (e.g., Morning/Evening in daily readings page)
 - [ ] Category pages
 - [ ] Psalter page
 - [ ] Error handling for pages: need to return a `Result` because possible path doesn't work if dynamic
