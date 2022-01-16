@@ -5,11 +5,17 @@ use actix_web::{
     App, HttpRequest, HttpResponse, HttpServer, Result,
 };
 use episcopal_api::{api::summary::DailySummary, calendar::Date};
+use lazy_static::lazy_static;
 use leptos::Page;
 use serde::{de::DeserializeOwned, Serialize};
 use website::{pages::*, utils::language::locale_to_language};
 
 const LOCALES: [&str; 1] = ["en"];
+
+lazy_static! {
+    pub static ref PROJECT_ROOT: String =
+        std::env::var("PROJECT_ROOT").unwrap_or_else(|_| "..".to_string());
+}
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -19,7 +25,10 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .service(daily_summary)
-            .service(Files::new("/static", "../website/static"))
+            .service(Files::new(
+                "/static",
+                &format!("{}/website/static", *PROJECT_ROOT),
+            ))
             .configure(|cfg| add_pages(cfg, &LOCALES))
     })
     .bind(&format!("{}:{}", host, port))?
@@ -52,15 +61,15 @@ fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
 
 async fn serve_page_js(name: String) -> Result<NamedFile> {
     Ok(NamedFile::open(&format!(
-        "../client/{}/pkg/{}_page.js",
-        name, name
+        "{}/client/{}/pkg/{}_page.js",
+        *PROJECT_ROOT, name, name
     ))?)
 }
 
 async fn serve_page_wasm(name: String) -> Result<NamedFile> {
     Ok(NamedFile::open(&format!(
-        "../client/{}/pkg/{}_page_bg.wasm",
-        name, name
+        "{}/client/{}/pkg/{}_page_bg.wasm",
+        *PROJECT_ROOT, name, name
     ))?)
 }
 
