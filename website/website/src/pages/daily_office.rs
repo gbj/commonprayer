@@ -37,14 +37,14 @@ fn body(locale: &str, _props: &()) -> View {
         // TODO load time ranges from preferences
         let office = current_preferred_liturgy(&DEFAULT_OFFICE_TIMES);
 
-        let version = preferences::get(PreferenceKey::Global(GlobalPref::Version))
+        let version = preferences::get(&PreferenceKey::Global(GlobalPref::Version))
             .and_then(|value| match value {
                 PreferenceValue::Version(version) => Some(version),
                 _ => None,
             })
             .unwrap_or(Version::RiteII);
 
-        let calendar = preferences::get(PreferenceKey::Global(GlobalPref::Calendar))
+        let calendar = preferences::get(&PreferenceKey::Global(GlobalPref::Calendar))
             .and_then(|value| match value {
                 PreferenceValue::Local(calendar_slug) => Some(calendar_slug),
                 _ => None,
@@ -52,7 +52,7 @@ fn body(locale: &str, _props: &()) -> View {
             .unwrap_or_else(|| "bcp1979".to_string());
 
         // TODO load prefs for liturgy from stored preferences
-        let prefs = preferences::get_prefs_for_office(office);
+        let prefs = preferences::get_prefs_for_office(office, version);
 
         let url = format!(
             "/{}/document/office/{}/{:#?}/{}/{}/{}",
