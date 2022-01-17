@@ -1,9 +1,8 @@
 use std::collections::HashMap;
 
-use episcopal_api::liturgy::{PreferenceKey, PreferenceValue};
-use futures::TryFutureExt;
+use episcopal_api::liturgy::{PreferenceKey, PreferenceValue, Version};
 use leptos::window;
-use wasm_bindgen::{JsValue, UnwrapThrowExt};
+use serde::Serialize;
 
 pub enum StorageError {
     StorageNotAvailable,
@@ -12,7 +11,20 @@ pub enum StorageError {
     SerializeValue,
 }
 
-pub fn get(key: PreferenceKey) -> Option<PreferenceValue> {
+fn set_localstorage(key: &str, value: impl Serialize) -> Result<(), StorageError> {
+    let storage = window()
+        .local_storage()
+        .map_err(|_| StorageError::StorageNotAvailable)?
+        .ok_or(StorageError::StorageNotAvailable)?;
+
+    let value = serde_json::to_string(&value).map_err(|_| StorageError::SerializeValue)?;
+
+    storage
+        .set_item(key, &value)
+        .map_err(|_| StorageError::SettingStorage)
+}
+
+pub fn get(key: &PreferenceKey) -> Option<PreferenceValue> {
     let key = serde_json::to_string(&key).ok()?;
     let storage = window().local_storage().ok()??;
     storage
@@ -22,18 +34,32 @@ pub fn get(key: PreferenceKey) -> Option<PreferenceValue> {
         .and_then(|value| serde_json::from_str(&value).ok())
 }
 
-pub fn set(key: PreferenceKey, value: PreferenceValue) -> Result<(), StorageError> {
+pub fn set(key: &PreferenceKey, value: &PreferenceValue) -> Result<(), StorageError> {
     let key = serde_json::to_string(&key).map_err(|_| StorageError::SerializeKey)?;
-    let storage = window()
-        .local_storage()
-        .map_err(|_| StorageError::StorageNotAvailable)?
-        .ok_or(StorageError::StorageNotAvailable)?;
-    let value = serde_json::to_string(&value).map_err(|_| StorageError::SerializeValue)?;
-    storage
-        .set_item(&key, &value)
-        .map_err(|_| StorageError::SettingStorage)
+    set_localstorage(&key, value)
 }
 
-pub fn get_prefs_for_office(office: &str) -> HashMap<PreferenceKey, PreferenceValue> {
-    HashMap::new()
+pub fn set_prefs_for_office(
+    office: &str,
+    prefs: HashMap<PreferenceKey, PreferenceValue>,
+) -> Result<(), StorageError> {
+    set_localstorage(office, prefs)
+}
+
+pub fn get_prefs_for_office(
+    office: &str,
+    version: Version,
+) -> HashMap<PreferenceKey, PreferenceValue> {
+    window()
+        .local_storage()
+        .ok()
+        .flatten()
+        .and_then(|storage| {
+            storage
+                .get_item(&format!("{}-{:#?}", office, version))
+                .ok()
+                .flatten()
+                .and_then(|value| serde_json::from_str(&value).ok())
+        })
+        .unwrap_or_default()
 }
