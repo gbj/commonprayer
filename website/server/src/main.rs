@@ -51,6 +51,7 @@ async fn daily_summary(
 fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
     for locale in locales {
         add_page(cfg, locale, calendar());
+        add_page(cfg, locale, daily_office());
         add_page(cfg, locale, daily_readings());
         add_page(cfg, locale, holy_day());
         add_page(cfg, locale, index());

@@ -94,3 +94,22 @@ mod tests {
         });
     }
 }
+
+// Convert string slugs to calendars
+impl From<&str> for Calendar {
+    fn from(s: &str) -> Self {
+        match s {
+            "lff2018" => LFF2018_CALENDAR,
+            "LFF2018" => LFF2018_CALENDAR,
+            "lff" => LFF2018_CALENDAR,
+            "LFF" => LFF2018_CALENDAR,
+            _ => BCP1979_CALENDAR,
+        }
+    }
+}
+
+impl Default for Calendar {
+    fn default() -> Self {
+        BCP1979_CALENDAR
+    }
+}

@@ -39,21 +39,7 @@ fn head(locale: &str, props: &DailyReadingsPageProps) -> View {
     let title = format!("{} – {}", t!("toc.daily_readings"), t!("common_prayer"));
 
     // no summary means no date param is present in URL => redirect to client's current day
-    let redirect_script = if props.summary.is_none() {
-        let js = format!(
-            r#"
-            const now = new Date(),
-                formatted = `${{now.getFullYear()}}-${{now.getMonth() + 1}}-${{now.getDate()}}`;
-            window.location.href = `/{}/daily-readings/${{formatted}}`;
-        "#,
-            locale
-        );
-        view! {
-            <script>{js}</script>
-        }
-    } else {
-        View::Empty
-    };
+    let redirect = redirect_script(locale, "daily-readings", props.summary.is_none());
 
     view! {
         <>
@@ -61,7 +47,7 @@ fn head(locale: &str, props: &DailyReadingsPageProps) -> View {
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
             <link rel="stylesheet" href="/static/daily-readings.css"/>
-            {redirect_script}
+            {redirect}
         </>
     }
 }

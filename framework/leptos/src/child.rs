@@ -48,6 +48,12 @@ impl IntoDynamicViewChild for String {
     }
 }
 
+impl IntoDynamicViewChild for &String {
+    fn into_dynamic_view_child(self) -> View {
+        View::StaticText(self.clone())
+    }
+}
+
 impl IntoDynamicViewChild for &str {
     fn into_dynamic_view_child(self) -> View {
         View::StaticText(self.to_string())

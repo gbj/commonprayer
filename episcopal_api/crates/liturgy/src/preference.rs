@@ -14,6 +14,8 @@ pub enum PreferenceKey {
 
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub enum GlobalPref {
+    Calendar,
+    Version,
     BibleVersion,
     PsalterVersion,
     Lectionary,

@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 
-use crate::{components::*, utils::time::today, TABLE_OF_CONTENTS};
+use crate::{components::*, TABLE_OF_CONTENTS};
 use episcopal_api::{
-    calendar::{Date, BCP1979_CALENDAR},
+    calendar::{Calendar, Date},
     library::{CommonPrayer, Library},
-    liturgy::{Content, Document, Version},
+    liturgy::{Content, Document, PreferenceKey, PreferenceValue, Version},
 };
 use futures::StreamExt;
 use leptos::*;
@@ -20,6 +20,9 @@ pub struct DocumentPageParams {
     slug: String,
     version: Version,
     date: Option<Date>,
+    calendar: Option<String>,
+    prefs: Option<String>, // a JSON-serialized HashMap<PreferenceKey, PreferenceValue>
+    alternate: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -36,6 +39,16 @@ pub fn document() -> Page<DocumentPageProps, DocumentPageParams> {
         .build_paths_fn(get_static_paths)
 }
 
+pub fn get_static_paths() -> Vec<String> {
+    vec![
+        "{category}/{slug}/{version}".into(),
+        "{category}/{slug}/{version}/{date}".into(),
+        "{category}/{slug}/{version}/{date}/{calendar}".into(),
+        "{category}/{slug}/{version}/{date}/{calendar}/{prefs}".into(),
+        "{category}/{slug}/{version}/{date}/{calendar}/{prefs}/{alternate}".into(),
+    ]
+}
+
 pub fn head(_locale: &str, props: &DocumentPageProps) -> View {
     let title = match &props.doc.label {
         Some(label) => format!("{} – {}", label, t!("common_prayer")),
@@ -48,59 +61,6 @@ pub fn head(_locale: &str, props: &DocumentPageProps) -> View {
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
         </>
-    }
-}
-
-pub fn get_static_paths() -> Vec<String> {
-    vec![
-        "{category}/{slug}/{version}".into(),
-        "{category}/{slug}/{version}/{date}".into(),
-    ]
-}
-
-pub fn get_static_props(
-    locale: &str,
-    _path: &str,
-    params: DocumentPageParams,
-) -> DocumentPageProps {
-    let doc = TABLE_OF_CONTENTS
-        .iter()
-        .flat_map(|(category, docs)| {
-            docs.iter()
-                .map(move |(slug, _, doc)| (category.clone(), slug.clone(), doc.version, doc))
-        })
-        .find(|(category, slug, version, _)| {
-            category == &params.category && slug == &params.slug && version == &params.version
-        })
-        .map(|(_, _, _, doc)| doc.clone())
-        .expect("could not find document");
-    let doc = if let Some(date) = params.date {
-        if let Content::Liturgy(liturgy) = &doc.content {
-            let evening = liturgy.evening;
-            let day = BCP1979_CALENDAR.liturgical_day(date, evening);
-            let prefs = HashMap::new();
-            CommonPrayer::compile(
-                doc.clone(),
-                &BCP1979_CALENDAR,
-                &day,
-                &day.observed,
-                &prefs,
-                &liturgy.preferences,
-            )
-            .unwrap()
-        } else {
-            doc
-        }
-    } else {
-        doc
-    };
-
-    DocumentPageProps {
-        doc,
-        base_path: format!(
-            "/{}/document/{}/{}/{:#?}",
-            locale, params.category, params.slug, params.version
-        ),
     }
 }
 
@@ -151,5 +111,78 @@ pub fn body(locale: &str, props: &DocumentPageProps) -> View {
                 <dyn:view view={document_view(locale, doc)}/>
             </main>
         </>
+    }
+}
+
+pub fn get_static_props(
+    locale: &str,
+    _path: &str,
+    params: DocumentPageParams,
+) -> DocumentPageProps {
+    let doc = TABLE_OF_CONTENTS
+        .iter()
+        .flat_map(|(category, docs)| {
+            docs.iter()
+                .map(move |(slug, _, doc)| (category.clone(), slug.clone(), doc.version, doc))
+        })
+        .find(|(category, slug, version, _)| {
+            category == &params.category && slug == &params.slug && version == &params.version
+        })
+        .map(|(_, _, _, doc)| doc.clone())
+        .expect("could not find document");
+
+    let doc = if let Some(date) = params.date {
+        let calendar = params
+            .calendar
+            .map(|slug| Calendar::from(slug.as_str()))
+            .unwrap_or_default();
+
+        let evening = if let Content::Liturgy(liturgy) = &doc.content {
+            liturgy.evening
+        } else {
+            false
+        };
+
+        let day = calendar.liturgical_day(date, evening);
+
+        let observed = params
+            .alternate
+            .map(|slug| {
+                if slug == "alternate" {
+                    day.alternate.unwrap_or(day.observed)
+                } else {
+                    day.observed
+                }
+            })
+            .unwrap_or(day.observed);
+
+        let prefs: HashMap<PreferenceKey, PreferenceValue> = params
+            .prefs
+            .and_then(|json| serde_json::from_str(&json).ok())
+            .unwrap_or_default();
+
+        if let Content::Liturgy(liturgy) = &doc.content {
+            CommonPrayer::compile(
+                doc.clone(),
+                &calendar,
+                &day,
+                &observed,
+                &prefs,
+                &liturgy.preferences,
+            )
+            .unwrap()
+        } else {
+            doc
+        }
+    } else {
+        doc
+    };
+
+    DocumentPageProps {
+        doc,
+        base_path: format!(
+            "/{}/document/{}/{}/{:#?}",
+            locale, params.category, params.slug, params.version
+        ),
     }
 }

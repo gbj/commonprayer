@@ -2,6 +2,7 @@
 
 mod components;
 pub mod pages;
+pub mod preferences;
 mod table_of_contents;
 pub mod utils;
 

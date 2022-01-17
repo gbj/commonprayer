@@ -1,7 +1,6 @@
 Website Todos
 =============
 
-- [ ] Deploy new website/repo to Heroku
 - [x] Figure out side/setting menu
 	- [ ] Daily Readings page (for date selection)
 	- [ ] Calendar page (for date selection)
@@ -10,6 +9,7 @@ Website Todos
 	- [ ] Canticle rendering
 		- [ ] headers show be flex-row
 		- [ ] Canticle 12 sections and titles not rendering properly
+- [ ] Rite II collects need Version::RiteII, not default (Version::BCP1979)
 - [ ] Systematic distinction between server date/current time (when rendering, either SSR or even more so SSG) and client current time/date — replaces instances where the prerendered UI accidentally assumes server time (e.g., Morning/Evening in daily readings page)
 - [ ] Category pages
 - [ ] Psalter page
