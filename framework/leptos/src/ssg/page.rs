@@ -124,19 +124,20 @@ where
             .map_err(|_| PageRenderError::SerializingProps)?
             .replace('\\', "\\\\");
         let hydration_js = format!(
-            "
+            r#"
                 import init, {{ hydrate_{} }} from '/pkg/{}_page.js';
-                const state = `{}`;
+                const state = JSON.parse(`{}`);
                 async function main() {{
                     await init();
-                    hydrate_{}(state);
+                    hydrate_{}("{}", state);
                 }}
                 main();
-                ",
+                "#,
             &hydration_function_name,
             &hydration_function_name,
             serialized_state,
-            &hydration_function_name
+            &hydration_function_name,
+            locale
         );
         Ok(view! {
             <!DOCTYPE html>

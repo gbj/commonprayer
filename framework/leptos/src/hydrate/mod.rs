@@ -3,16 +3,19 @@ use wasm_bindgen::JsValue;
 
 use crate::{body, set_panic_hook, Page, PageRenderError};
 
-pub fn hydrate_page<T, P>(page: fn() -> Page<T, P>, serialized_state: &str) -> Result<(), JsValue>
+pub fn hydrate_page<T, P>(
+    page: fn() -> Page<T, P>,
+    locale: &str,
+    serialized_state: JsValue,
+) -> Result<(), JsValue>
 where
     T: Serialize + DeserializeOwned,
     P: DeserializeOwned,
 {
     set_panic_hook();
 
-    let locale = "en"; // TODO
-
-    let props = serde_json::from_str(serialized_state)
+    let props = serialized_state
+        .into_serde()
         .map_err(|_| PageRenderError::DeserializingProps.to_string())?;
 
     let body = body().unwrap();
