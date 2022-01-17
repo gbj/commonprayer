@@ -85,11 +85,7 @@ fn body(locale: &str, props: &HolyDayProps) -> View {
     let header_title = format!(
         "{}: {}",
         props.date,
-        props
-            .name
-            .split(',')
-            .next()
-            .unwrap_or_else(|| props.name.as_str())
+        props.name.split(',').next().unwrap_or(props.name.as_str())
     );
 
     view! {
@@ -211,18 +207,13 @@ fn filter_readings(readings: &[(ReadingType, String)], reading_type: ReadingType
 
     let document = if reading_type == ReadingType::Psalm {
         if is_server!() {
-            Document::choice_or_document(
-                &mut filtered
-                    .into_iter()
-                    .map(|(_, citation)| {
-                        BCP1979_PSALTER
-                            .psalms_by_citation(citation.as_str())
-                            .iter()
-                            .map(|psalm| Document::from(psalm.clone()))
-                            .collect::<Vec<_>>()
-                    })
-                    .flatten(),
-            )
+            Document::choice_or_document(&mut filtered.into_iter().flat_map(|(_, citation)| {
+                BCP1979_PSALTER
+                    .psalms_by_citation(citation.as_str())
+                    .iter()
+                    .map(|psalm| Document::from(psalm.clone()))
+                    .collect::<Vec<_>>()
+            }))
         } else {
             None
         }
