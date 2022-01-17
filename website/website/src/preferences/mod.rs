@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use episcopal_api::liturgy::{PreferenceKey, PreferenceValue, Version};
+use episcopal_api::liturgy::{GlobalPref, PreferenceKey, PreferenceValue, Version};
 use leptos::window;
 use serde::Serialize;
 
@@ -50,7 +50,7 @@ pub fn get_prefs_for_office(
     office: &str,
     version: Version,
 ) -> HashMap<PreferenceKey, PreferenceValue> {
-    window()
+    let mut prefs: HashMap<PreferenceKey, PreferenceValue> = window()
         .local_storage()
         .ok()
         .flatten()
@@ -61,5 +61,13 @@ pub fn get_prefs_for_office(
                 .flatten()
                 .and_then(|value| serde_json::from_str(&value).ok())
         })
-        .unwrap_or_default()
+        .unwrap_or_default();
+
+    // Overwrite particular global prefs with stored prefs:
+    // - PsalmCycle
+    if let Some(value) = get(&PreferenceKey::from(GlobalPref::PsalmCycle)) {
+        prefs.insert(PreferenceKey::from(GlobalPref::PsalmCycle), value);
+    }
+
+    prefs
 }
