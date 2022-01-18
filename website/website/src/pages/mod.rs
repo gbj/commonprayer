@@ -5,6 +5,7 @@ mod daily_readings;
 mod document;
 mod holy_day;
 mod index;
+mod settings;
 
 pub use calendar::*;
 pub use canticle_table::*;
@@ -13,3 +14,4 @@ pub use daily_readings::*;
 pub use document::*;
 pub use holy_day::*;
 pub use index::*;
+pub use settings::*;

@@ -12,6 +12,10 @@
   --error-color: rgb(234, 0, 0);
   --error-color-tint: rgba(234, 0, 0, 0.5);
 
+  /* Colors */
+  --color-success-background: rgba(5, 131, 5, 0.05);
+  --color-success: rgb(5, 131, 5);
+
   /* Navigation menu settings */
   --nav-button-height: 1.5rem;
   --menu-border-color: #f0f0f0;

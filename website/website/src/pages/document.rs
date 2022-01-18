@@ -158,8 +158,14 @@ pub fn get_static_props(
 
         let prefs: HashMap<PreferenceKey, PreferenceValue> = params
             .prefs
-            .and_then(|json| serde_json::from_str(&json).ok())
-            .unwrap_or_default();
+            // this strange indirection is necessary because serde_json can't use structs/enums as map keys
+            // (due to JSON format limitations)
+            .and_then(|json| {
+                serde_json::from_str::<Vec<(PreferenceKey, PreferenceValue)>>(&json).ok()
+            })
+            .unwrap_or_default()
+            .into_iter()
+            .collect();
 
         if let Content::Liturgy(liturgy) = &doc.content {
             CommonPrayer::compile(

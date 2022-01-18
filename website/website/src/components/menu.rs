@@ -88,6 +88,9 @@ pub fn menu(locale: &str) -> View {
                 <li>
                     <a href={format!("/{}/daily-office", locale)}>{t!("toc.daily_office")}</a>
                 </li>
+                <li>
+                    <a href={format!("/{}/settings", locale)}>{t!("settings.title")}</a>
+                </li>
             </ul>
         },
     )

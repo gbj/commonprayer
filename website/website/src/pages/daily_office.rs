@@ -51,17 +51,14 @@ fn body(locale: &str, _props: &()) -> View {
             })
             .unwrap_or_else(|| "bcp1979".to_string());
 
-        // TODO load prefs for liturgy from stored preferences
         let prefs = preferences::get_prefs_for_office(office, version);
+        // convert HashMap<K, V> to Vec<(K, V)> because serde_json can't serialize a HashMap with enum keys to a JSON map
+        let serialized_prefs =
+            serde_json::to_string(&prefs.iter().collect::<Vec<_>>()).unwrap_or_default();
 
         let url = format!(
             "/{}/document/office/{}/{:#?}/{}/{}/{}",
-            locale,
-            office,
-            version,
-            date,
-            calendar,
-            serde_json::to_string(&prefs).unwrap_or_else(|_| "{}".to_string()),
+            locale, office, version, date, calendar, serialized_prefs,
         );
         location().set_href(&url).unwrap_throw();
     }

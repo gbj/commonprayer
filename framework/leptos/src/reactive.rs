@@ -5,6 +5,9 @@ use futures::{
     Stream, StreamExt,
 };
 use pin_project_lite::pin_project;
+use wasm_bindgen_futures::spawn_local;
+
+use crate::is_server;
 
 // Reactive signals
 #[derive(Clone)]
@@ -183,6 +186,31 @@ where
                     Poll::Ready(Some((this.last_a.clone(), this.last_b.clone())))
                 }
             }
+        }
+    }
+}
+
+pub trait EffectExt {
+    type Item;
+
+    fn create_effect(self, cb: impl Fn(Self::Item) + 'static);
+}
+
+impl<T, U> EffectExt for T
+where
+    T: Stream<Item = U> + 'static,
+    U: 'static,
+{
+    type Item = U;
+
+    fn create_effect(self, cb: impl Fn(Self::Item) + 'static) {
+        let mut stream = self.boxed_local();
+        if !is_server!() {
+            spawn_local(async move {
+                while let Some(value) = stream.next().await {
+                    (cb)(value);
+                }
+            })
         }
     }
 }

@@ -23,6 +23,13 @@ en:
   rite_i: Rite I
   rite_ii: Rite II
 
+  settings:
+    title: Settings
+    calendar: Calendar
+    success: "Your settings have been updated."
+    error: "Something went wrong while updating your preferences. Try again later."
+    not_available: "We were unable to save your settings in your browser’s local storage. Is it possible your privacy settings have this disabled?"
+
   toc:
     table_of_contents: Table of Contents
     work_in_progress: (Work in Progress)
