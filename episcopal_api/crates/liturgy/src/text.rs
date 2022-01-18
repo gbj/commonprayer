@@ -12,11 +12,13 @@ pub struct Text {
 }
 
 impl Text {
+    #[must_use]
     pub fn display_format(mut self, display_format: DisplayFormat) -> Self {
         self.display_format = display_format;
         self
     }
 
+    #[must_use]
     pub fn response<T>(mut self, response: T) -> Self
     where
         T: Display,

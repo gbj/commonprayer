@@ -72,8 +72,7 @@ fn psalms_filtered_by_time(
             (day.evening && reading.reading_type == ReadingType::EveningPsalm)
                 || (!day.evening && reading.reading_type == ReadingType::MorningPsalm)
         })
-        .map(|reading| psalter.psalms_by_citation(&reading.citation))
-        .flatten()
+        .flat_map(|reading| psalter.psalms_by_citation(&reading.citation))
         .collect::<Vec<_>>();
     // sort by the number and first verse of each psalm
     psalms.sort_by_key(|psalm| {

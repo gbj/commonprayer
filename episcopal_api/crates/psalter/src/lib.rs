@@ -40,7 +40,7 @@ impl Psalter {
         reference
             .ranges
             .iter()
-            .map(|range| {
+            .flat_map(|range| {
                 if let Some(end) = range.end {
                     if let Some(start_chapter) = range.start.chapter {
                         if let Some(end_chapter) = end.chapter {
@@ -61,7 +61,6 @@ impl Psalter {
                         as Box<dyn Iterator<Item = u16>>
                 }
             })
-            .flatten()
             .unique()
             .filter_map(|number| {
                 // try to convert the psalm number from a u16 to a u8

@@ -136,47 +136,56 @@ impl Document {
         has_own_date_condition || has_child_date_condition
     }
 
+    #[must_use]
     pub fn content(mut self, content: Content) -> Self {
         self.content = content;
         self
     }
 
+    #[must_use]
     pub fn label(mut self, label: impl Display) -> Self {
         self.label = Some(label.to_string());
         self
     }
 
+    #[must_use]
     pub fn condition(mut self, condition: Condition) -> Self {
         self.condition = Some(condition);
         self
     }
 
+    #[must_use]
     pub fn display(mut self, show: Show) -> Self {
         self.display = show;
         self
     }
 
     /// Marks the document's source as being a particular page of the 1979 BCP. Shorthand for `.source(Reference::from(page))`
+    #[must_use]
     pub fn page(mut self, page: u16) -> Self {
         self.source = Some(Reference::from(page));
         self
     }
 
+    #[must_use]
     pub fn source(mut self, source: Reference) -> Self {
         self.source = Some(source);
         self
     }
 
+    #[must_use]
     pub fn status(mut self, status: Status) -> Self {
         self.status = status;
         self
     }
 
+    #[must_use]
     pub fn version(mut self, version: Version) -> Self {
         self.version = version;
         self
     }
 
+    #[must_use]
     pub fn version_label(mut self, version_label: impl Display) -> Self {
         self.version_label = Some(version_label.to_string());
         self

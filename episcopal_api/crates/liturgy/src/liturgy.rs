@@ -14,11 +14,13 @@ pub struct Liturgy {
 }
 
 impl Liturgy {
+    #[must_use]
     pub fn evening(mut self, is_evening_liturgy: bool) -> Self {
         self.evening = is_evening_liturgy;
         self
     }
 
+    #[must_use]
     pub fn preferences<T>(mut self, preferences: T) -> Self
     where
         T: Into<LiturgyPreferences>,
@@ -112,6 +114,7 @@ where
 }
 
 impl LiturgyPreference {
+    #[must_use]
     pub fn category<T>(mut self, category: T) -> Self
     where
         T: Display,
@@ -120,11 +123,13 @@ impl LiturgyPreference {
         self
     }
 
+    #[must_use]
     pub fn default_value(mut self, default_value: PreferenceValue) -> Self {
         self.default_value = Some(default_value);
         self
     }
 
+    #[must_use]
     pub fn description<T>(mut self, description: T) -> Self
     where
         T: Display,
@@ -133,6 +138,7 @@ impl LiturgyPreference {
         self
     }
 
+    #[must_use]
     pub fn reference(mut self, reference: Reference) -> Self {
         self.reference = Some(reference);
         self
@@ -149,6 +155,7 @@ pub struct LiturgyPreferenceOption {
 }
 
 impl LiturgyPreferenceOption {
+    #[must_use]
     pub fn fallback_value(mut self, fallback_value: Option<PreferenceValue>) -> Self {
         self.fallback_value = fallback_value;
         self

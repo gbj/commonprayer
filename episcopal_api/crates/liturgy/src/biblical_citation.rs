@@ -16,6 +16,7 @@ impl BiblicalCitation {
         &self.citation
     }
 
+    #[must_use]
     pub fn intro(mut self, intro: BiblicalReadingIntro) -> Self {
         self.intro = Some(intro);
         self

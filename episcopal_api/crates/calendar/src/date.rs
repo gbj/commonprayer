@@ -73,21 +73,25 @@ impl Date {
         (self.day() + 7 - 1) / 7
     }
 
+    #[must_use]
     pub fn add_weeks(&self, weeks: impl Into<i64>) -> Self {
         let naive_date = self.naive_date + chrono::Duration::weeks(weeks.into());
         Self { naive_date }
     }
 
+    #[must_use]
     pub fn subtract_weeks(&self, weeks: impl Into<i64>) -> Self {
         let naive_date = self.naive_date - chrono::Duration::weeks(weeks.into());
         Self { naive_date }
     }
 
+    #[must_use]
     pub fn add_days(&self, days: impl Into<i64>) -> Self {
         let naive_date = self.naive_date + chrono::Duration::days(days.into());
         Self { naive_date }
     }
 
+    #[must_use]
     pub fn subtract_days(&self, days: impl Into<i64>) -> Self {
         let naive_date = self.naive_date - chrono::Duration::days(days.into());
         Self { naive_date }
@@ -118,6 +122,7 @@ impl Date {
     /// assert_eq!(test_4.month(), 10);
     /// assert_eq!(test_4.day(), 3);
     /// ```
+    #[must_use]
     pub fn sunday_before(&self) -> Date {
         let date = self.naive_date;
         let nth_weekday_from_sunday = date.weekday().num_days_from_sunday();

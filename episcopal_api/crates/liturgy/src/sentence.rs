@@ -12,6 +12,7 @@ pub struct Sentence {
 }
 
 impl Sentence {
+    #[must_use]
     pub fn citation<T>(mut self, citation: T) -> Self
     where
         T: Display,
@@ -20,6 +21,7 @@ impl Sentence {
         self
     }
 
+    #[must_use]
     pub fn response<T>(mut self, response: T) -> Self
     where
         T: Into<Document>,

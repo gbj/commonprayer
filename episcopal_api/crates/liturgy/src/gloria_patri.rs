@@ -12,6 +12,7 @@ pub struct GloriaPatri {
 
 impl GloriaPatri {
     /// Sets the [DisplayFormat](crate::DisplayFormat) for the document.
+    #[must_use]
     pub fn display_format(mut self, display_format: DisplayFormat) -> Self {
         self.display_format = display_format;
         self
