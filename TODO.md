@@ -4,6 +4,8 @@ Website Todos
 - [x] Compiler
   - [x] Collect of the Day
     - [x] Add to Daily Readings page
+- [ ] Add Calendar choice to Daily Readings page
+- [ ] Deduplicate collects (e.g., 1/18 has same collect text for Confession of St. Peter from both BCP and LFF)
 - [ ] Settings page
   - [ ] Bible Version
   - [ ] Liturgy-specific settings

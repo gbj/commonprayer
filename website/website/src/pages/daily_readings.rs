@@ -407,7 +407,12 @@ fn observance_view(
     let collect_view = observance
         .collects
         .as_ref()
-        .map(|collects| document_view(locale, collects))
+        .map(|collects| {
+            view! {
+                <h2>{t!("lookup.collect_of_the_day")}</h2>
+                <dyn:view view={document_view(locale, collects)} />
+            }
+        })
         .unwrap_or(View::Empty);
 
     view! {
@@ -418,7 +423,7 @@ fn observance_view(
             <h1>{&observance.localized_name}</h1>
             <ul class="black-letter-days">{black_letter_days}</ul>
 
-            <dyn:view view={collect_view} />
+            {collect_view}
 
             <dyn:section
                 class:hidden={use_thirty_day_psalms.stream().map(|use_30| use_30).boxed_local()}
