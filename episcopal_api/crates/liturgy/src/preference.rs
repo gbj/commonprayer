@@ -24,6 +24,7 @@ pub enum GlobalPref {
     ReadingA,
     ReadingB,
     ReadingC,
+    UseBlackLetterCollects,
     /// Whether to insert the Gloria Patri after each psalm in the Daily Office, or only at the end of the psalms
     InsertGloria,
 }
@@ -50,6 +51,7 @@ pub enum PreferenceValue {
     CanticleTable(CanticleTables),
     ReadingType(ReadingType),
     Local(String),
+    Bool(bool),
 }
 
 impl From<Version> for PreferenceValue {
@@ -85,6 +87,12 @@ impl From<String> for PreferenceValue {
 impl From<&str> for PreferenceValue {
     fn from(value: &str) -> Self {
         Self::Local(value.to_string())
+    }
+}
+
+impl From<bool> for PreferenceValue {
+    fn from(value: bool) -> Self {
+        Self::Bool(value)
     }
 }
 

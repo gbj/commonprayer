@@ -1,6 +1,6 @@
 use calendar::{
     feasts::CommonOfSaints, Calendar, Feast, LiturgicalDay, LiturgicalDayId, LiturgicalWeek,
-    Proper, Season, Weekday,
+    Proper, Rank, Season, Weekday,
 };
 use canticle_table::{CanticleId, CanticleTable};
 use lectionary::{Lectionary, ReadingType};
@@ -8,6 +8,12 @@ use liturgy::*;
 use psalter::{bcp1979::BCP1979_PSALTER, Psalter};
 
 use serde::{Deserialize, Serialize};
+
+use crate::{
+    lff2018::collects::{LFF_COLLECTS_CONTEMPORARY, LFF_COLLECTS_TRADITIONAL},
+    rite1::collects::COLLECTS_TRADITIONAL,
+    rite2::collects::COLLECTS_CONTEMPORARY,
+};
 
 #[macro_use]
 extern crate lazy_static;
@@ -269,6 +275,129 @@ pub trait Library {
                     } else {
                         Some(Document::from(Series::from(psalms)))
                     }
+                }
+                Content::CollectOfTheDay { allow_multiple } => {
+                    let traditional_language = matches!(document.version, Version::RiteI);
+                    let use_black_letter_collects = prefs
+                        .value(&PreferenceKey::from(GlobalPref::UseBlackLetterCollects))
+                        .and_then(|value| match value {
+                            PreferenceValue::Bool(bool) => Some(*bool),
+                            _ => None,
+                        })
+                        .unwrap_or(true);
+
+                    // create collect list, based on version + calendar + black-letter collect preferences
+                    let collects: Box<dyn Iterator<Item = &(CollectId, Document)>> =
+                        match (traditional_language, use_black_letter_collects) {
+                            (true, true) => Box::new(
+                                COLLECTS_TRADITIONAL
+                                    .iter()
+                                    .chain(LFF_COLLECTS_TRADITIONAL.iter()),
+                            ),
+                            (true, false) => Box::new(COLLECTS_TRADITIONAL.iter()),
+                            (false, true) => Box::new(
+                                COLLECTS_CONTEMPORARY
+                                    .iter()
+                                    .chain(LFF_COLLECTS_CONTEMPORARY.iter()),
+                            ),
+                            (false, false) => Box::new(COLLECTS_CONTEMPORARY.iter()),
+                        };
+                    let collects = collects.collect::<Vec<_>>();
+
+                    let day_rank = calendar.rank(day);
+                    let holy_day_collect = match observed {
+                        LiturgicalDayId::Feast(feast) => {
+                            if day_rank >= Rank::HolyDay {
+                                Some(Document::choice_or_document(
+                                    &mut collects.iter().filter_map(move |(id, document)| {
+                                        if *id == CollectId::Feast(*feast) {
+                                            Some(document.clone())
+                                        } else {
+                                            None
+                                        }
+                                    }),
+                                ))
+                            } else {
+                                None
+                            }
+                        }
+                        _ => None,
+                    }
+                    .flatten();
+
+                    let sunday_collect = if holy_day_collect.is_none() {
+                        let week_id = if let Some(proper) = day.proper {
+                            CollectId::Proper(proper)
+                        } else {
+                            CollectId::Week(day.week)
+                        };
+                        Document::choice_or_document(&mut collects.iter().filter_map(
+                            move |(id, document)| {
+                                if *id == week_id {
+                                    Some(document.clone())
+                                } else {
+                                    None
+                                }
+                            },
+                        ))
+                    } else {
+                        None
+                    };
+
+                    let sunday_or_holy_day = match (holy_day_collect, sunday_collect) {
+                        (None, None) => None,
+                        (None, Some(sunday)) => Some(sunday),
+                        (Some(holy_day), None) => Some(holy_day),
+                        (Some(holy_day), Some(_)) => Some(holy_day),
+                    };
+
+                    let day_season = calendar.season(day);
+                    let seasonal_collect = collects
+                        .iter()
+                        .find(|(id, _)| id == &CollectId::Season(day_season))
+                        .map(|(_, document)| document.clone());
+
+                    let black_letter_feast_ids = day
+                        .holy_days
+                        .iter()
+                        .filter(|feast| {
+                            day.observed != LiturgicalDayId::Feast(**feast)
+                                && day.alternate != Some(LiturgicalDayId::Feast(**feast))
+                        })
+                        .map(|feast| CollectId::Feast(*feast))
+                        .collect::<Vec<_>>();
+
+                    let black_letter_collects = if use_black_letter_collects {
+                        Some(
+                            collects
+                                .iter()
+                                .filter_map(|(id, document)| {
+                                    if black_letter_feast_ids.contains(id) {
+                                        Some(document.clone())
+                                    } else {
+                                        None
+                                    }
+                                })
+                                .collect::<Vec<_>>(),
+                        )
+                    } else {
+                        None
+                    };
+
+                    let mut collects = Vec::new();
+                    // Sunday or Holy Day
+                    if let Some(collect) = sunday_or_holy_day {
+                        collects.push(collect);
+                    }
+                    // Black-letter collects
+                    if let Some(mut bl_collects) = black_letter_collects {
+                        collects.append(&mut bl_collects);
+                    }
+                    // Seasonal collect
+                    if let Some(collect) = seasonal_collect {
+                        collects.push(collect);
+                    }
+                    Document::series_or_document(&mut collects.into_iter())
                 }
                 // Collection types
                 Content::Liturgy(liturgy) => Some(Document {

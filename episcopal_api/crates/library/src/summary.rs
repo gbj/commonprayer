@@ -1,6 +1,8 @@
+use std::collections::HashMap;
+
 use api::summary::{DailySummary, ObservanceSummary, PartialDailySummary};
 use calendar::{Calendar, Date, LiturgicalDay, LiturgicalDayId, Weekday, BCP1979_CALENDAR};
-use liturgy::Psalm;
+use liturgy::{Content, Document, LiturgyPreferences, Psalm};
 use psalter::{bcp1979::BCP1979_PSALTER, Psalter};
 
 use language::Language;
@@ -9,7 +11,7 @@ use lectionary::{
     BCP1979_DAILY_OFFICE_PSALTER,
 };
 
-use crate::CommonPrayer;
+use crate::{CommonPrayer, Library};
 
 impl CommonPrayer {
     pub fn summarize_date(date: &Date, language: Language) -> DailySummary {
@@ -135,12 +137,24 @@ fn summarize_observance(
         day,
     );
 
+    let collects = CommonPrayer::compile(
+        Document::from(Content::CollectOfTheDay {
+            allow_multiple: true,
+        }),
+        calendar,
+        day,
+        observance,
+        &HashMap::new(),
+        &LiturgyPreferences::default(),
+    );
+
     ObservanceSummary {
         observance: *observance,
         localized_name,
         black_letter_days,
         daily_office_readings,
         daily_office_psalms,
+        collects,
     }
 }
 

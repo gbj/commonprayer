@@ -1,6 +1,12 @@
 Website Todos
 =============
 
+- [x] Compiler
+  - [x] Collect of the Day
+    - [x] Add to Daily Readings page
+- [ ] Settings page
+  - [ ] Bible Version
+  - [ ] Liturgy-specific settings
 - [x] Figure out side/setting menu
 	- [ ] Daily Readings page (for date selection)
 	- [ ] Calendar page (for date selection)
@@ -110,11 +116,6 @@ Website Todos
     - [ ] Compiler
 - [ ] `BibleReference` to `String`
   - [ ] and TODO in `crates/psalter/lib.rs`
-- [ ] Compiler
-  - [x] PsalmCitation
-    - [ ] Allow multiple psalters based on preferences
-  - [ ] Collect of the Day
-    - [ ] Add to Daily Readings page
   - [x] Date/Day
 - [ ] Lectionary tests against JS versions
   - [ ] RCL
@@ -123,3 +124,5 @@ Website Todos
 - [ ] Sort and prettify various constant arrays
 - [ ] Localization
   - [ ] LiturgicalWeek => color
+- [x] PsalmCitation
+  - [ ] Allow multiple psalters based on preferences

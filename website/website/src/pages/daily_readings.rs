@@ -404,6 +404,12 @@ fn observance_view(
             .collect(),
     );
 
+    let collect_view = observance
+        .collects
+        .as_ref()
+        .map(|collects| document_view(locale, collects))
+        .unwrap_or(View::Empty);
+
     view! {
         <dyn:section
             class={if use_default { "" } else { "hidden" }}
@@ -411,6 +417,8 @@ fn observance_view(
         >
             <h1>{&observance.localized_name}</h1>
             <ul class="black-letter-days">{black_letter_days}</ul>
+
+            <dyn:view view={collect_view} />
 
             <dyn:section
                 class:hidden={use_thirty_day_psalms.stream().map(|use_30| use_30).boxed_local()}
