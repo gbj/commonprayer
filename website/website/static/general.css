@@ -145,7 +145,7 @@ fieldset.toggle {
   padding: 0;
   border: none;
   width: fit-content;
-  margin: 0.25rem auto 0.5rem auto;
+  margin: 0.25rem auto 0.25rem auto;
 }
 
 fieldset.toggle legend {
