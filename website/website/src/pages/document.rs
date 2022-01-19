@@ -12,7 +12,6 @@ use rust_i18n::t;
 use serde::Serialize;
 use serde_derive::Deserialize;
 use wasm_bindgen::UnwrapThrowExt;
-use wasm_bindgen_futures::spawn_local;
 
 #[derive(Deserialize, Clone)]
 pub struct DocumentPageParams {
