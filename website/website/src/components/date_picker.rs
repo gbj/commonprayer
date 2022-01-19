@@ -30,7 +30,6 @@ impl DatePicker {
             <>
                 <fieldset class="centered stacked date-picker">
                     <label>
-                        <img src="/static/icons/tabler-icon-calendar-event.svg" alt={&self.label} />
                         {&self.label}
                         <dyn:input
                             type="date"
