@@ -5,7 +5,8 @@ Website Todos
   - [x] Collect of the Day
     - [x] Add to Daily Readings page
 - [ ] Add Calendar choice to Daily Readings page
-- [ ] Deduplicate collects (e.g., 1/18 has same collect text for Confession of St. Peter from both BCP and LFF)
+- [x] Deduplicate collects (e.g., 1/18 has same collect text for Confession of St. Peter from both BCP and LFF)
+  - [ ] Fix LFF collects with empty labels
 - [ ] Settings page
   - [ ] Bible Version
   - [ ] Liturgy-specific settings
@@ -91,6 +92,7 @@ Website Todos
   - Bugs
     - [ ] Proverbs 8:22-30 (12/27 St. John)
     - [ ] Wisdom 4:7-15 (when?)
+    - [ ] Song of Songs http://localhost:1844/en/holy-day/AgnesAndCeciliaOfRome#first-lesson
 - [ ] Morning Prayer
   - [ ] Clean up internal TODO items
   - [ ] rotate `Choice`s for things like prayers for mission and daily collects?

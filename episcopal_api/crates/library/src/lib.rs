@@ -3,6 +3,7 @@ use calendar::{
     Proper, Rank, Season, Weekday,
 };
 use canticle_table::{CanticleId, CanticleTable};
+use itertools::Itertools;
 use lectionary::{Lectionary, ReadingType};
 use liturgy::*;
 use psalter::{bcp1979::BCP1979_PSALTER, Psalter};
@@ -309,13 +310,16 @@ pub trait Library {
                         LiturgicalDayId::Feast(feast) => {
                             if day_rank >= Rank::HolyDay {
                                 Some(Document::choice_or_document(
-                                    &mut collects.iter().filter_map(move |(id, document)| {
-                                        if *id == CollectId::Feast(*feast) {
-                                            Some(document.clone())
-                                        } else {
-                                            None
-                                        }
-                                    }),
+                                    &mut collects
+                                        .iter()
+                                        .filter_map(move |(id, document)| {
+                                            if *id == CollectId::Feast(*feast) {
+                                                Some(document.clone())
+                                            } else {
+                                                None
+                                            }
+                                        })
+                                        .unique_by(|doc| doc.content.clone()),
                                 ))
                             } else {
                                 None
