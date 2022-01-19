@@ -10,7 +10,6 @@ use episcopal_api::{
     },
 };
 use futures::{Stream, StreamExt};
-use js_sys::WebAssembly::Global;
 use leptos::*;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::UnwrapThrowExt;

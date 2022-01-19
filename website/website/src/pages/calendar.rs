@@ -142,14 +142,10 @@ pub fn body(locale: &str, props: &CalendarPageProps) -> View {
     let initial_toggle_value = match props.default_calendar {
         CalendarChoice::BCP1979 => false,
         CalendarChoice::LFF2018 => true,
-        CalendarChoice::None => {
-            if is_server!() {
-                false
-            } else {
-                preferences::get(&PreferenceKey::from(GlobalPref::Calendar))
-                    == Some(PreferenceValue::from("lff2018"))
-            }
-        }
+        CalendarChoice::None => preferences::is(
+            &PreferenceKey::from(GlobalPref::Calendar),
+            &PreferenceValue::from("lff2018"),
+        ),
     };
 
     let use_lff_toggle = Toggle::new(

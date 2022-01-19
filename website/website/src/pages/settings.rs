@@ -104,11 +104,7 @@ fn setting_toggle(
     let (off_label, off_value) = off;
     let (on_label, on_value) = on;
     let toggle = Toggle::new(
-        if is_server!() {
-            false
-        } else {
-            preferences::get(&key).as_ref() == Some(&on_value)
-        },
+        preferences::is(&key, &on_value),
         name,
         off_label,
         on_label,
