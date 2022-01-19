@@ -73,23 +73,22 @@ pub fn body(locale: &str, props: &DocumentPageProps) -> View {
     };
 
     let date_picker = DatePicker::new(t!("date"), None);
-    if !is_server!() {
-        let mut date = date_picker.date.stream().skip(1);
-        let base_path = props.base_path.clone();
-        spawn_local(async move {
-            // skip the first value, because the initial value of the input will
-            // always be emitted but has already been reflected in the page
-            while let Some(date) = date.next().await {
-                if let Some(date) = date {
-                    location()
-                        .set_href(&format!("{}/{}", base_path, date))
-                        .unwrap_throw();
-                } else {
-                    location().set_href(&base_path).unwrap_throw();
-                }
+    let base_path = props.base_path.clone();
+    date_picker
+        .date
+        .stream()
+        // skip the first value, because the initial value of the input will
+        // always be emitted but has already been reflected in the page
+        .skip(1)
+        .create_effect(move |date| {
+            if let Some(date) = date {
+                location()
+                    .set_href(&format!("{}/{}", base_path, date))
+                    .unwrap_throw();
+            } else {
+                location().set_href(&base_path).unwrap_throw();
             }
-        })
-    }
+        });
 
     let side_menu = if doc.has_date_condition() {
         side_menu(

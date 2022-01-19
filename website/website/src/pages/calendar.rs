@@ -18,8 +18,7 @@ use leptos::LiftStreamExt;
 use leptos::*;
 use rust_i18n::t;
 use serde_derive::{Deserialize, Serialize};
-use wasm_bindgen::{JsCast, UnwrapThrowExt};
-use wasm_bindgen_futures::spawn_local;
+use wasm_bindgen::UnwrapThrowExt;
 use web_sys::ScrollToOptions;
 
 pub fn calendar() -> Page<CalendarPageProps, ()> {
@@ -180,45 +179,35 @@ pub fn body(locale: &str, props: &CalendarPageProps) -> View {
     );
 
     // auto-scroll either to current day or to the day selected in the date picker
-    if !is_server!() {
-        let mut date = date_picker.date.stream();
-        spawn_local(async move {
-            while let Some(date) = date.next().await {
-                if let Some(date) = date {
-                    location()
-                        .set_hash(&format!("{}-{}", date.month(), date.day()))
-                        .unwrap_throw();
-                }
-            }
-        });
+    date_picker.date.stream().create_effect(|date| {
+        if let Some(date) = date {
+            location()
+                .set_hash(&format!("{}-{}", date.month(), date.day()))
+                .unwrap_throw();
+        }
+    });
 
-        let hashchange = event_stream(window().unchecked_ref(), "hashchange");
-        let calendar_choice = use_lff_toggle.toggled.stream().map(|toggled| {
-            if toggled {
-                CalendarChoice::LFF2018
-            } else {
-                CalendarChoice::BCP1979
-            }
+    let hashchange = window_event_stream("hashchange");
+    let calendar_choice = use_lff_toggle.toggled.stream().map(|toggled| {
+        if toggled {
+            CalendarChoice::LFF2018
+        } else {
+            CalendarChoice::BCP1979
+        }
+    });
+    let lifted = (hashchange, calendar_choice).lift();
+    let default_calendar = props.default_calendar;
+    lifted.create_effect(move |(_, calendar_choice)| {
+        // use requestAnimationFrame here so that the attempt to scroll happens on the next tick
+        // otherwise, if this is firing because we've switched calendars,
+        // the other calendar will not yet be visible so the coordinates will be off
+        request_animation_frame(move || {
+            scroll_to_row(
+                calendar_choice.unwrap_or(default_calendar),
+                &location_hash().unwrap_or_default(),
+            )
         });
-        let mut lifted = (hashchange, calendar_choice).lift();
-
-        spawn_local({
-            let default_calendar = props.default_calendar;
-            async move {
-                while let Some((_, calendar_choice)) = lifted.next().await {
-                    // use requestAnimationFrame here so that the attempt to scroll happens on the next tick
-                    // otherwise, if this is firing because we've switched calendars,
-                    // the other calendar will not yet be visible so the coordinates will be off
-                    request_animation_frame(move || {
-                        scroll_to_row(
-                            calendar_choice.unwrap_or(default_calendar),
-                            &location_hash().unwrap_or_default(),
-                        )
-                    });
-                }
-            }
-        });
-    }
+    });
 
     // Main view
     view! {

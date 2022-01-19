@@ -14,7 +14,7 @@ mod view;
 
 pub use child::IntoViewChild;
 pub use dynamic_element::DynamicElement;
-pub use event_stream::event_stream;
+pub use event_stream::*;
 pub use hydrate::hydrate_page;
 pub use leptos_macro::view;
 pub use operations::{
