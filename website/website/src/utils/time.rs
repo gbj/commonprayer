@@ -14,8 +14,6 @@ pub fn current_hour() -> u32 {
 
 #[cfg(target_arch = "wasm32")]
 pub fn input_date_now() -> String {
-    use wasm_bindgen::JsValue;
-
     let now = js_sys::Date::new_0();
     format!(
         "{}-{:02}-{:02}",
