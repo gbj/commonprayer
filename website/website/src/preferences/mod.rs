@@ -64,9 +64,16 @@ pub fn get_prefs_for_office(
         .unwrap_or_default();
 
     // Overwrite particular global prefs with stored prefs:
+    // - UseBlackLetterCollects
     // - PsalmCycle
     if let Some(value) = get(&PreferenceKey::from(GlobalPref::PsalmCycle)) {
         prefs.insert(PreferenceKey::from(GlobalPref::PsalmCycle), value);
+    }
+    if let Some(value) = get(&PreferenceKey::from(GlobalPref::UseBlackLetterCollects)) {
+        prefs.insert(
+            PreferenceKey::from(GlobalPref::UseBlackLetterCollects),
+            value,
+        );
     }
 
     prefs

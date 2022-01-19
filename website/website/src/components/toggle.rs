@@ -5,15 +5,23 @@ pub struct Toggle {
     name: &'static str,
     on_label: String,
     off_label: String,
+    legend: Option<String>,
     pub toggled: Behavior<bool>,
 }
 
 impl Toggle {
-    pub fn new(is_toggled: bool, name: &'static str, off_label: String, on_label: String) -> Self {
+    pub fn new(
+        is_toggled: bool,
+        name: &'static str,
+        off_label: String,
+        on_label: String,
+        legend: Option<String>,
+    ) -> Self {
         Self {
             name,
             on_label,
             off_label,
+            legend,
             toggled: Behavior::new(is_toggled),
         }
     }
@@ -39,8 +47,14 @@ impl Toggle {
             .map(|toggled| if toggled { Some("".to_string()) } else { None })
             .boxed_local();
 
+        let legend_view = match &self.legend {
+            Some(legend) => view! { <legend>{legend}</legend> },
+            None => View::Empty,
+        };
+
         view! {
             <fieldset class="toggle">
+                {legend_view}
                 <dyn:input
                     type="radio"
                     id={&id_off}

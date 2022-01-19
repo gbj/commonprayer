@@ -138,6 +138,7 @@ pub fn body(locale: &str, props: &CalendarPageProps) -> View {
         "calendar",
         t!("bcp_1979"),
         t!("lff_2018"),
+        None,
     );
 
     let initial_date = if is_server!() { None } else { location_hash() }.and_then(|hash| {

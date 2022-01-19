@@ -497,12 +497,14 @@ impl Controls {
             "time_of_day",
             t!("daily_readings.morning"),
             t!("daily_readings.evening"),
+            None,
         );
         let use_30_day_psalter = Toggle::new(
             false, // TODO user preference
             "psalm_cycle",
             t!("daily_readings.daily_office_psalms"),
             t!("daily_readings.thirty_day_psalms"),
+            None,
         );
         let use_alternate_observance =
             ObservancePicker::new(use_evening.toggled.clone(), Rc::new(summary));

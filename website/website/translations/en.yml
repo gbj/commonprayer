@@ -26,6 +26,10 @@ en:
   settings:
     title: Settings
     calendar: Calendar
+    psalm_cycle: Psalm Cycle
+    use_black_letter_collects: Use Collects for Black-Letter Days
+    yes: Yes
+    no: No
     success: "Your settings have been updated."
     error: "Something went wrong while updating your preferences. Try again later."
     not_available: "We were unable to save your settings in your browser’s local storage. Is it possible your privacy settings have this disabled?"

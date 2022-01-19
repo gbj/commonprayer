@@ -26,81 +26,57 @@ fn head(_locale: &str, _props: &()) -> View {
     }
 }
 
+#[derive(Copy, Clone, PartialEq, Eq)]
+enum Status {
+    Idle,
+    Success,
+    Error,
+    NotAvailable,
+}
+
 fn body(locale: &str, _props: &()) -> View {
     let status = Behavior::new(Status::Idle);
 
-    // Calendar preference
-    let calendar_toggle = Toggle::new(
-        if is_server!() {
-            false
-        } else {
-            preferences::get(&PreferenceKey::from(GlobalPref::Calendar))
-                == Some(PreferenceValue::from("lff2018"))
-        },
+    let calendar_setting = setting_toggle(
+        &status,
         "calendar",
-        t!("bcp_1979"),
-        t!("lff_2018"),
+        PreferenceKey::from(GlobalPref::Calendar),
+        t!("settings.calendar"),
+        (t!("bcp_1979"), PreferenceValue::from("bcp1979")),
+        (t!("lff_2018"), PreferenceValue::from("lff2018")),
     );
 
-    // On initial load from localStorage or default, don't display message/set preference redundantly
-    calendar_toggle.toggled.stream().skip(1).create_effect({
-        let status = status.clone();
-        move |use_lff| {
-            if use_lff {
-                set_preference(
-                    &status,
-                    PreferenceKey::from(GlobalPref::Calendar),
-                    PreferenceValue::from("lff2018"),
-                );
-            } else {
-                set_preference(
-                    &status,
-                    PreferenceKey::from(GlobalPref::Calendar),
-                    PreferenceValue::from("bcp1979"),
-                );
-            }
-        }
-    });
-
-    // Psalm cycle preference
-    let psalm_cycle_toggle = Toggle::new(
-        if is_server!() {
-            false
-        } else {
-            preferences::get(&PreferenceKey::from(GlobalPref::PsalmCycle))
-                == Some(PreferenceValue::from(Lectionaries::BCP1979ThirtyDayPsalms))
-        },
+    let psalm_cycle_setting = setting_toggle(
+        &status,
         "psalm_cycle",
-        t!("daily_readings.daily_office_psalms"),
-        t!("daily_readings.thirty_day_psalms"),
+        PreferenceKey::from(GlobalPref::PsalmCycle),
+        t!("settings.psalm_cycle"),
+        (
+            t!("daily_readings.daily_office_psalms"),
+            PreferenceValue::from(Lectionaries::BCP1979DailyOfficePsalms),
+        ),
+        (
+            t!("daily_readings.thirty_day_psalms"),
+            PreferenceValue::from(Lectionaries::BCP1979ThirtyDayPsalms),
+        ),
     );
 
-    // On initial load from localStorage or default, don't display message/set preference redundantly
-    psalm_cycle_toggle.toggled.stream().skip(1).create_effect({
-        let status = status.clone();
-        move |use_30| {
-            if use_30 {
-                set_preference(
-                    &status,
-                    PreferenceKey::from(GlobalPref::PsalmCycle),
-                    PreferenceValue::from(Lectionaries::BCP1979ThirtyDayPsalms),
-                );
-            } else {
-                set_preference(
-                    &status,
-                    PreferenceKey::from(GlobalPref::Calendar),
-                    PreferenceValue::from(Lectionaries::BCP1979DailyOfficePsalms),
-                );
-            }
-        }
-    });
+    let black_letter_collect_setting = setting_toggle(
+        &status,
+        "ublc",
+        PreferenceKey::from(GlobalPref::UseBlackLetterCollects),
+        t!("settings.use_black_letter_collects"),
+        (t!("settings.yes"), PreferenceValue::Bool(true)),
+        (t!("settings.no"), PreferenceValue::Bool(false)),
+    );
 
     view! {
         <>
             {header(locale, &t!("settings.title"))}
             <main>
-                <dyn:view view={calendar_toggle.view()} />
-                <dyn:view view={psalm_cycle_toggle.view()} />
+                <dyn:view view={calendar_setting} />
+                <dyn:view view={psalm_cycle_setting} />
+                <dyn:view view={black_letter_collect_setting} />
             </main>
             <footer>
                 <dyn:p class="success hidden" class:hidden={status.stream().map(|status| status != Status::Success).boxed_local()}>
@@ -117,15 +93,44 @@ fn body(locale: &str, _props: &()) -> View {
     }
 }
 
-#[derive(Copy, Clone, PartialEq, Eq)]
-enum Status {
-    Idle,
-    Success,
-    Error,
-    NotAvailable,
+fn setting_toggle(
+    status: &Behavior<Status>,
+    name: &'static str,
+    key: PreferenceKey,
+    legend: String,
+    off: (String, PreferenceValue),
+    on: (String, PreferenceValue),
+) -> View {
+    let (off_label, off_value) = off;
+    let (on_label, on_value) = on;
+    let toggle = Toggle::new(
+        if is_server!() {
+            false
+        } else {
+            preferences::get(&key).as_ref() == Some(&on_value)
+        },
+        name,
+        off_label,
+        on_label,
+        Some(legend),
+    );
+
+    // On initial load from localStorage or default, don't display message/set preference redundantly
+    toggle.toggled.stream().skip(1).create_effect({
+        let status = status.clone();
+        move |toggled| {
+            if toggled {
+                set_preference(&status, &key, &on_value);
+            } else {
+                set_preference(&status, &key, &off_value);
+            }
+        }
+    });
+
+    toggle.view()
 }
 
-fn set_preference(status: &Behavior<Status>, key: PreferenceKey, value: PreferenceValue) {
+fn set_preference(status: &Behavior<Status>, key: &PreferenceKey, value: &PreferenceValue) {
     if !is_server!() {
         leptos::log(&format!("setting preference {:#?} to {:#?}", key, value));
         let (new_status, delay_before_clearing) = match preferences::set(&key, &value) {
