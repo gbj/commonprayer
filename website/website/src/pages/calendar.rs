@@ -1,5 +1,8 @@
+use std::pin::Pin;
+
 use crate::{
     components::*,
+    preferences,
     utils::{language::locale_to_language, time::today},
 };
 use episcopal_api::{
@@ -8,8 +11,9 @@ use episcopal_api::{
         LFF2018_CALENDAR,
     },
     language::Language,
+    liturgy::{GlobalPref, PreferenceKey, PreferenceValue},
 };
-use futures::StreamExt;
+use futures::{Stream, StreamExt};
 use leptos::LiftStreamExt;
 use leptos::*;
 use rust_i18n::t;
@@ -42,6 +46,7 @@ pub fn get_static_paths() -> Vec<String> {
 
 #[derive(Copy, Clone, Debug, Hash, PartialEq, Eq, Serialize, Deserialize)]
 enum CalendarChoice {
+    None,
     BCP1979,
     LFF2018,
 }
@@ -92,8 +97,10 @@ pub fn get_static_props(locale: &str, path: &str, _params: ()) -> CalendarPagePr
 
     let default_calendar = if path.ends_with("lff2018") {
         CalendarChoice::LFF2018
-    } else {
+    } else if path.ends_with("bcp1979") {
         CalendarChoice::BCP1979
+    } else {
+        CalendarChoice::None
     };
     let bcp1979 = summarize_calendar(
         language,
@@ -133,8 +140,21 @@ pub fn body(locale: &str, props: &CalendarPageProps) -> View {
     let bcp = calendar_view(CalendarChoice::BCP1979, locale, &props.bcp1979);
     let lff = calendar_view(CalendarChoice::LFF2018, locale, &props.lff2018);
 
+    let initial_toggle_value = match props.default_calendar {
+        CalendarChoice::BCP1979 => false,
+        CalendarChoice::LFF2018 => true,
+        CalendarChoice::None => {
+            if is_server!() {
+                false
+            } else {
+                preferences::get(&PreferenceKey::from(GlobalPref::Calendar))
+                    == Some(PreferenceValue::from("lff2018"))
+            }
+        }
+    };
+
     let use_lff_toggle = Toggle::new(
-        props.default_calendar == CalendarChoice::LFF2018,
+        initial_toggle_value,
         "calendar",
         t!("bcp_1979"),
         t!("lff_2018"),
@@ -161,8 +181,6 @@ pub fn body(locale: &str, props: &CalendarPageProps) -> View {
 
     // auto-scroll either to current day or to the day selected in the date picker
     if !is_server!() {
-        log("setting async handlers");
-
         let mut date = date_picker.date.stream();
         spawn_local(async move {
             while let Some(date) = date.next().await {
@@ -202,50 +220,50 @@ pub fn body(locale: &str, props: &CalendarPageProps) -> View {
         });
     }
 
-    let bcp_class = use_lff_toggle
-        .toggled
-        .stream()
-        .map(|using_lff| {
-            if using_lff {
-                String::from("hidden")
-            } else {
-                String::from("visible")
-            }
-        })
-        .boxed_local();
-
-    let lff_class = use_lff_toggle
-        .toggled
-        .stream()
-        .map(|using_lff| {
-            if using_lff {
-                String::from("visible")
-            } else {
-                String::from("hidden")
-            }
-        })
-        .boxed_local();
-
     // Main view
     view! {
         <>
             {header_with_side_menu(locale, &t!("menu.calendar"), side_menu)}
             <main>
+                <dyn:h2
+                    class={show_hide_class(use_lff_toggle.toggled.stream())}
+                >
+                    {t!("bcp_1979")}
+                </dyn:h2>
+                <dyn:h2
+                    class={show_hide_class(use_lff_toggle.toggled.stream().map(|n| !n))}
+                >
+                    {t!("bcp_1979")}
+                </dyn:h2>
                 <dyn:section
                     class={if props.default_calendar == CalendarChoice::BCP1979 { "visible" } else { "hidden" }}
-                    class={bcp_class}
+                    class={show_hide_class(use_lff_toggle.toggled.stream())}
                 >
                     {bcp}
                 </dyn:section>
                 <dyn:section
                     class={if props.default_calendar == CalendarChoice::LFF2018 { "visible" } else { "hidden" }}
-                    class={lff_class}
+                    class={show_hide_class(use_lff_toggle.toggled.stream().map(|n| !n))}
                 >
                     {lff}
                 </dyn:section>
             </main>
         </>
     }
+}
+
+fn show_hide_class(
+    toggled: impl Stream<Item = bool> + 'static,
+) -> Pin<Box<dyn Stream<Item = String>>> {
+    toggled
+        .map(|using_lff| {
+            if using_lff {
+                String::from("hidden")
+            } else {
+                String::from("visible")
+            }
+        })
+        .boxed_local()
 }
 
 fn scroll_to_row(calendar: CalendarChoice, hash: &str) {
@@ -263,6 +281,7 @@ fn root_id(calendar: CalendarChoice) -> &'static str {
     match calendar {
         CalendarChoice::BCP1979 => "bcp",
         CalendarChoice::LFF2018 => "lff",
+        CalendarChoice::None => "",
     }
 }
 
@@ -314,7 +333,7 @@ fn calendar_view(calendar: CalendarChoice, locale: &str, listing: &CalendarListi
 
                 view! {
                     <>
-                        <h2>{name}</h2>
+                        <h3>{name}</h3>
                         <table id={id}>{rows}</table>
                     </>
                 }
