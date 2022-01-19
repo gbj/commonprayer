@@ -401,7 +401,12 @@ pub trait Library {
                     if let Some(collect) = seasonal_collect {
                         collects.push(collect);
                     }
-                    Document::series_or_document(&mut collects.into_iter())
+
+                    if *allow_multiple {
+                        Document::series_or_document(&mut collects.into_iter())
+                    } else {
+                        collects.get(0).cloned()
+                    }
                 }
                 // Collection types
                 Content::Liturgy(liturgy) => Some(Document {
