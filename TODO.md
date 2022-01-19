@@ -1,19 +1,11 @@
 Website Todos
 =============
 
-- [x] Compiler
-  - [x] Collect of the Day
-    - [x] Add to Daily Readings page
 - [ ] Add Calendar choice to Daily Readings page
-- [x] Deduplicate collects (e.g., 1/18 has same collect text for Confession of St. Peter from both BCP and LFF)
-  - [ ] Fix LFF collects with empty labels
+- [ ] Fix LFF collects with empty labels
 - [ ] Settings page
   - [ ] Bible Version
   - [ ] Liturgy-specific settings
-- [x] Figure out side/setting menu
-	- [ ] Daily Readings page (for date selection)
-	- [ ] Calendar page (for date selection)
-	- [ ] Daily Office page (for settings/prefs)
 - [ ] Daily Office pages
 	- [ ] Canticle rendering
 		- [ ] headers show be flex-row
