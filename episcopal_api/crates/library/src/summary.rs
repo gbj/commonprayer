@@ -1,7 +1,10 @@
 use std::collections::HashMap;
 
 use api::summary::{DailySummary, ObservanceSummary, PartialDailySummary};
-use calendar::{Calendar, Date, LiturgicalDay, LiturgicalDayId, Weekday, BCP1979_CALENDAR};
+use calendar::{
+    Calendar, Date, Feast, LiturgicalDay, LiturgicalDayId, Weekday, BCP1979_CALENDAR,
+    LFF2018_CALENDAR,
+};
 use liturgy::{Content, Document, LiturgyPreferences, Psalm};
 use psalter::{bcp1979::BCP1979_PSALTER, Psalter};
 
@@ -15,21 +18,10 @@ use crate::{CommonPrayer, Library};
 
 impl CommonPrayer {
     pub fn summarize_date(date: &Date, language: Language) -> DailySummary {
-        let calendar = &BCP1979_CALENDAR; // TODO allow LFF
         let psalter = &BCP1979_PSALTER;
 
-        let morning = summarize_time(
-            &calendar.liturgical_day(*date, false),
-            calendar,
-            psalter,
-            language,
-        );
-        let evening = summarize_time(
-            &calendar.liturgical_day(*date, true),
-            calendar,
-            psalter,
-            language,
-        );
+        let morning = summarize_time(date, false, psalter, language);
+        let evening = summarize_time(date, true, psalter, language);
 
         DailySummary {
             date: *date,
@@ -40,20 +32,23 @@ impl CommonPrayer {
 }
 
 fn summarize_time(
-    day: &LiturgicalDay,
-    calendar: &Calendar,
+    date: &Date,
+    evening: bool,
     psalter: &Psalter,
     language: Language,
 ) -> PartialDailySummary {
-    let observed = summarize_observance(day, &day.observed, calendar, language);
+    let day = BCP1979_CALENDAR.liturgical_day(*date, evening);
+    let lff_day = LFF2018_CALENDAR.liturgical_day(*date, evening);
+    let lff_holy_days = lff_day.holy_days;
+    let observed = summarize_observance(&day, &day.observed, &lff_holy_days, language);
     let alternate = day
         .alternate
-        .map(|alternate| summarize_observance(day, &alternate, calendar, language));
+        .map(|alternate| summarize_observance(&day, &alternate, &lff_holy_days, language));
     let thirty_day_psalms =
-        psalms_filtered_by_time(&BCP1979_30_DAY_PSALTER, psalter, &day.observed, day);
+        psalms_filtered_by_time(&BCP1979_30_DAY_PSALTER, psalter, &day.observed, &day);
 
     PartialDailySummary {
-        day: day.clone(),
+        day,
         observed,
         alternate,
         thirty_day_psalms,
@@ -90,30 +85,12 @@ fn psalms_filtered_by_time(
 fn summarize_observance(
     day: &LiturgicalDay,
     observance: &LiturgicalDayId,
-    calendar: &Calendar,
+    lff_holy_days: &[Feast],
     language: Language,
 ) -> ObservanceSummary {
-    let localized_name = localize_day_name(day, observance, calendar, language);
-    let black_letter_days = if day.weekday == Weekday::Sun {
-        Vec::new()
-    } else {
-        day.holy_days
-            .iter()
-            .filter(|feast| {
-                day.observed != LiturgicalDayId::Feast(**feast)
-                    && day.alternate != Some(LiturgicalDayId::Feast(**feast))
-            })
-            .map(|feast| {
-                (
-                    *feast,
-                    calendar
-                        .feast_name(*feast, language)
-                        .unwrap_or_default()
-                        .to_string(),
-                )
-            })
-            .collect()
-    };
+    let localized_name = localize_day_name(day, observance, &BCP1979_CALENDAR, language);
+    let bcp_black_letter_days = black_letter_days(&BCP1979_CALENDAR, day, &day.holy_days, language);
+    let lff_black_letter_days = black_letter_days(&LFF2018_CALENDAR, day, lff_holy_days, language);
 
     let daily_office_readings = BCP1979_DAILY_OFFICE_LECTIONARY
         .readings_by_day(observance, day)
@@ -140,7 +117,7 @@ fn summarize_observance(
         Document::from(Content::CollectOfTheDay {
             allow_multiple: true,
         }),
-        calendar,
+        &LFF2018_CALENDAR,
         day,
         observance,
         &HashMap::new(),
@@ -150,10 +127,39 @@ fn summarize_observance(
     ObservanceSummary {
         observance: *observance,
         localized_name,
-        black_letter_days,
+        bcp_black_letter_days,
+        lff_black_letter_days,
         daily_office_readings,
         daily_office_psalms,
         collects,
+    }
+}
+
+fn black_letter_days(
+    calendar: &Calendar,
+    day: &LiturgicalDay,
+    holy_days: &[Feast],
+    language: Language,
+) -> Vec<(Feast, String)> {
+    if day.weekday == Weekday::Sun {
+        Vec::new()
+    } else {
+        holy_days
+            .iter()
+            .filter(|feast| {
+                day.observed != LiturgicalDayId::Feast(**feast)
+                    && day.alternate != Some(LiturgicalDayId::Feast(**feast))
+            })
+            .map(|feast| {
+                (
+                    *feast,
+                    calendar
+                        .feast_name(*feast, language)
+                        .unwrap_or_default()
+                        .to_string(),
+                )
+            })
+            .collect()
     }
 }
 

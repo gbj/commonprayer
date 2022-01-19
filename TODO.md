@@ -1,11 +1,9 @@
 Website Todos
 =============
-
-- [ ] Add Calendar choice to Daily Readings page
-- [ ] Fix LFF collects with empty labels
 - [ ] Settings page
   - [ ] Bible Version
   - [ ] Liturgy-specific settings
+- [ ] Fix LFF collects with empty labels
 - [ ] Daily Office pages
 	- [ ] Canticle rendering
 		- [ ] headers show be flex-row

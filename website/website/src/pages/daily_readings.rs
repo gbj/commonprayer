@@ -88,6 +88,7 @@ fn body(locale: &str, props: &DailyReadingsPageProps) -> View {
                     evening.map(|evening| !evening && !alternate.unwrap_or(false))
                 }),
             controls.use_30_day_psalter.toggled.clone(),
+            controls.use_lff_2018.toggled.clone(),
             &summary.morning.observed,
             &summary.morning.thirty_day_psalms,
         );
@@ -104,6 +105,7 @@ fn body(locale: &str, props: &DailyReadingsPageProps) -> View {
                     evening.map(|evening| evening && !alternate.unwrap_or(false))
                 }),
             controls.use_30_day_psalter.toggled.clone(),
+            controls.use_lff_2018.toggled.clone(),
             &summary.evening.observed,
             &summary.evening.thirty_day_psalms,
         );
@@ -122,6 +124,7 @@ fn body(locale: &str, props: &DailyReadingsPageProps) -> View {
                     _ => Some(false),
                 }),
             controls.use_30_day_psalter.toggled.clone(),
+            controls.use_lff_2018.toggled.clone(),
             summary
                 .morning
                 .alternate
@@ -143,6 +146,7 @@ fn body(locale: &str, props: &DailyReadingsPageProps) -> View {
                     _ => Some(false),
                 }),
             controls.use_30_day_psalter.toggled.clone(),
+            controls.use_lff_2018.toggled.clone(),
             summary
                 .evening
                 .alternate
@@ -386,12 +390,28 @@ fn observance_view(
     use_default: bool,
     use_this_observance: impl Stream<Item = Option<bool>> + 'static,
     use_thirty_day_psalms: Behavior<bool>,
+    use_lff_2018: Behavior<bool>,
     observance: &ObservanceSummary,
     thirty_day_psalms: &[Psalm],
 ) -> View {
-    let black_letter_days = View::Fragment(
+    let bcp_black_letter_days = View::Fragment(
         observance
-            .black_letter_days
+            .bcp_black_letter_days
+            .iter()
+            .map(|(feast, name)| {
+                let url = format!("/{}/holy-day/{:#?}", locale, feast);
+                view! {
+                    <li>
+                        <a href={url}>{name}</a>
+                    </li>
+                }
+            })
+            .collect(),
+    );
+
+    let lff_black_letter_days = View::Fragment(
+        observance
+            .lff_black_letter_days
             .iter()
             .map(|(feast, name)| {
                 let url = format!("/{}/holy-day/{:#?}", locale, feast);
@@ -415,13 +435,25 @@ fn observance_view(
         })
         .unwrap_or(View::Empty);
 
+    let hide_bcp_black_letter_days = use_lff_2018.stream().boxed_local();
+    let hide_lff_black_letter_days = use_lff_2018.stream().map(|n| !n).boxed_local();
+
     view! {
         <dyn:section
             class={if use_default { "" } else { "hidden" }}
             class:hidden={use_this_observance.map(move |yes| !yes.unwrap_or(use_default)).boxed_local()}
         >
             <h1>{&observance.localized_name}</h1>
-            <ul class="black-letter-days">{black_letter_days}</ul>
+            <dyn:ul class="black-letter-days"
+                class:hidden={hide_bcp_black_letter_days}
+            >
+                {bcp_black_letter_days}
+            </dyn:ul>
+            <dyn:ul class="black-letter-days hidden"
+                class:hidden={hide_lff_black_letter_days}
+            >
+                {lff_black_letter_days}
+            </dyn:ul>
 
             {collect_view}
 
@@ -488,10 +520,18 @@ struct Controls {
     use_evening: Toggle,
     use_30_day_psalter: Toggle,
     use_alternate_observance: ObservancePicker,
+    use_lff_2018: Toggle,
 }
 
 impl Controls {
     fn new(summary: DailySummary) -> Self {
+        let use_lff_2018 = Toggle::new(
+            false, // TODO user preference
+            "calendar",
+            t!("bcp_1979"),
+            t!("lff_2018"),
+            None,
+        );
         let use_evening = Toggle::new(
             current_hour() >= 13,
             "time_of_day",
@@ -512,12 +552,14 @@ impl Controls {
             use_evening,
             use_30_day_psalter,
             use_alternate_observance,
+            use_lff_2018,
         }
     }
 
     fn view(&self) -> View {
         view! {
             <>
+                <dyn:view view={self.use_lff_2018.view()}/>
                 <dyn:view view={self.use_evening.view()}/>
                 <dyn:view view={self.use_30_day_psalter.view()}/>
                 <dyn:view view={self.use_alternate_observance.view()}/>

@@ -26,6 +26,9 @@ h2.day-name {
   align-items: center;
   justify-content: center;
 }
+.black-letter-days.hidden {
+  display: none;
+}
 
 .toggle.no-observance {
   visibility: hidden;
