@@ -138,7 +138,7 @@ pub fn body(locale: &str, props: &CalendarPageProps) -> View {
         "calendar",
         t!("bcp_1979"),
         t!("lff_2018"),
-        None,
+        Some(t!("settings.calendar")),
     );
 
     let initial_date = if is_server!() { None } else { location_hash() }.and_then(|hash| {
@@ -149,6 +149,15 @@ pub fn body(locale: &str, props: &CalendarPageProps) -> View {
             .or(Some(today))
     });
     let date_picker = DatePicker::new(t!("date"), initial_date);
+    let side_menu = side_menu(
+        Icon::Calendar,
+        view! {
+            <section class="preview-menu">
+                <dyn:view view={use_lff_toggle.view()} />
+                <dyn:view view={date_picker.view()}/>
+            </section>
+        },
+    );
 
     // auto-scroll either to current day or to the day selected in the date picker
     if !is_server!() {
@@ -220,12 +229,8 @@ pub fn body(locale: &str, props: &CalendarPageProps) -> View {
     // Main view
     view! {
         <>
-            {header(locale, &t!("menu.calendar"))}
+            {header_with_side_menu(locale, &t!("menu.calendar"), side_menu)}
             <main>
-                <section class="selection-menu">
-                    <dyn:view view={use_lff_toggle.view()} />
-                    <dyn:view view={date_picker.view()} />
-                </section>
                 <dyn:section
                     class={if props.default_calendar == CalendarChoice::BCP1979 { "visible" } else { "hidden" }}
                     class={bcp_class}

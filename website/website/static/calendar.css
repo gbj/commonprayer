@@ -1,21 +1,3 @@
-.selection-menu {
-  position: sticky;
-  top: 0.25rem;
-  z-index: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: auto;
-  max-width: 75vw;
-}
-
-.selection-menu fieldset,
-.selection-menu button {
-  height: 1.75rem;
-}
-
 tr {
   vertical-align: top;
 }
