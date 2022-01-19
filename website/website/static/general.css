@@ -351,8 +351,17 @@ fieldset.stacked label {
   transform: translateX(-110%);
 }
 
+/* Right-menu content is an overlay */
 .menu.right .menu-content {
-  transform: translateX(100%);
+  display: block;
+  height: auto;
+  width: auto;
+  max-width: calc(90vw - 4rem);
+  padding: 2rem;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-400%);
 }
 
 .menu.left input.menu-toggle-input:checked ~ .menu-content {
@@ -360,7 +369,7 @@ fieldset.stacked label {
 }
 
 .menu.right input.menu-toggle-input:checked ~ .menu-content {
-  transform: translateX(-100%);
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .menu .overlay {
