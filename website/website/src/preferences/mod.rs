@@ -86,3 +86,13 @@ pub fn is(key: &PreferenceKey, value: &PreferenceValue) -> bool {
         get(key).as_ref() == Some(value)
     }
 }
+
+pub fn is_with_default(key: &PreferenceKey, value: &PreferenceValue, default: bool) -> bool {
+    if is_server!() {
+        default
+    } else if let Some(stored_value) = get(key).as_ref() {
+        stored_value == value
+    } else {
+        default
+    }
+}

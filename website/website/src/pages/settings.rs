@@ -44,6 +44,7 @@ fn body(locale: &str, _props: &()) -> View {
         t!("settings.calendar"),
         (t!("bcp_1979"), PreferenceValue::from("bcp1979")),
         (t!("lff_2018"), PreferenceValue::from("lff2018")),
+        false,
     );
 
     let psalm_cycle_setting = setting_toggle(
@@ -59,6 +60,7 @@ fn body(locale: &str, _props: &()) -> View {
             t!("daily_readings.thirty_day_psalms"),
             PreferenceValue::from(Lectionaries::BCP1979ThirtyDayPsalms),
         ),
+        false,
     );
 
     let black_letter_collect_setting = setting_toggle(
@@ -66,8 +68,9 @@ fn body(locale: &str, _props: &()) -> View {
         "ublc",
         PreferenceKey::from(GlobalPref::UseBlackLetterCollects),
         t!("settings.use_black_letter_collects"),
-        (t!("settings.yes"), PreferenceValue::Bool(true)),
         (t!("settings.no"), PreferenceValue::Bool(false)),
+        (t!("settings.yes"), PreferenceValue::Bool(true)),
+        true,
     );
 
     view! {
@@ -100,11 +103,12 @@ fn setting_toggle(
     legend: String,
     off: (String, PreferenceValue),
     on: (String, PreferenceValue),
+    toggled_by_default: bool,
 ) -> View {
     let (off_label, off_value) = off;
     let (on_label, on_value) = on;
     let toggle = Toggle::new(
-        preferences::is(&key, &on_value),
+        preferences::is_with_default(&key, &on_value, toggled_by_default),
         name,
         off_label,
         on_label,
