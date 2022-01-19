@@ -133,7 +133,7 @@ fn setting_toggle(
 fn set_preference(status: &Behavior<Status>, key: &PreferenceKey, value: &PreferenceValue) {
     if !is_server!() {
         leptos::log(&format!("setting preference {:#?} to {:#?}", key, value));
-        let (new_status, delay_before_clearing) = match preferences::set(&key, &value) {
+        let (new_status, delay_before_clearing) = match preferences::set(key, value) {
             Ok(_) => (Status::Success, Duration::from_secs(3)),
             Err(StorageError::StorageNotAvailable) => {
                 (Status::NotAvailable, Duration::from_secs(8))
