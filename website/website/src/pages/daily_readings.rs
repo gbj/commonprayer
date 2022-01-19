@@ -5,15 +5,19 @@ use episcopal_api::{
     calendar::Date,
     lectionary::Reading,
     library::CommonPrayer,
-    liturgy::{BiblicalCitation, Document, Psalm},
+    liturgy::{
+        BiblicalCitation, Document, GlobalPref, Lectionaries, PreferenceKey, PreferenceValue, Psalm,
+    },
 };
 use futures::{Stream, StreamExt};
+use js_sys::WebAssembly::Global;
 use leptos::*;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::UnwrapThrowExt;
 
 use crate::{
     components::*,
+    preferences,
     utils::{language::locale_to_language, time::current_hour},
 };
 
@@ -357,7 +361,7 @@ fn psalm_links_view(
                 {daily_psalm_links}
             </dyn:ul>
             <dyn:ul
-                class="hidden" // TODO allow this to be set by default preference
+                class="hidden"
                 class:hidden={use_thirty_day_psalms.stream().map(|use_30| !use_30).boxed_local()}
             >
                 {thirty_psalm_links}
@@ -464,7 +468,7 @@ fn observance_view(
                 {psalms_view(locale, &observance.daily_office_psalms)}
             </dyn:section>
             <dyn:section
-                class="hidden" // TODO allow this to be set by default preference
+                class="hidden"
                 class:hidden={use_thirty_day_psalms.stream().map(|use_30| !use_30).boxed_local()}
             >
                 <h2>{t!("daily_readings.psalms")}</h2>
@@ -526,7 +530,10 @@ struct Controls {
 impl Controls {
     fn new(summary: DailySummary) -> Self {
         let use_lff_2018 = Toggle::new(
-            false, // TODO user preference
+            preferences::is(
+                &PreferenceKey::from(GlobalPref::Calendar),
+                &PreferenceValue::from("lff2018"),
+            ),
             "calendar",
             t!("bcp_1979"),
             t!("lff_2018"),
@@ -540,7 +547,10 @@ impl Controls {
             None,
         );
         let use_30_day_psalter = Toggle::new(
-            false, // TODO user preference
+            preferences::is(
+                &PreferenceKey::from(GlobalPref::PsalmCycle),
+                &PreferenceValue::from(Lectionaries::BCP1979ThirtyDayPsalms),
+            ),
             "psalm_cycle",
             t!("daily_readings.daily_office_psalms"),
             t!("daily_readings.thirty_day_psalms"),

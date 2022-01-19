@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use episcopal_api::liturgy::{GlobalPref, PreferenceKey, PreferenceValue, Version};
-use leptos::window;
+use leptos::{is_server, window};
 use serde::Serialize;
 
 pub enum StorageError {
@@ -77,4 +77,12 @@ pub fn get_prefs_for_office(
     }
 
     prefs
+}
+
+pub fn is(key: &PreferenceKey, value: &PreferenceValue) -> bool {
+    if is_server!() {
+        false
+    } else {
+        get(key).as_ref() == Some(value)
+    }
 }
