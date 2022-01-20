@@ -21,3 +21,10 @@ footer {
 .success.hidden {
   display: none;
 }
+
+.description {
+  text-align: center;
+  font-style: italic;
+  margin-top: -0.125rem;
+  margin-bottom: 0.25rem;
+}

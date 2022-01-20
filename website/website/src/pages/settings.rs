@@ -1,10 +1,10 @@
 use std::time::Duration;
 
 use crate::{
-    components::{header, Toggle},
+    components::{header, SegmentButton, Toggle},
     preferences::{self, StorageError},
 };
-use episcopal_api::liturgy::{GlobalPref, Lectionaries, PreferenceKey, PreferenceValue};
+use episcopal_api::liturgy::{GlobalPref, Lectionaries, PreferenceKey, PreferenceValue, Version};
 use futures::StreamExt;
 use leptos::*;
 use rust_i18n::t;
@@ -73,12 +73,60 @@ fn body(locale: &str, _props: &()) -> View {
         true,
     );
 
+    let bible_version_setting = SegmentButton::new_with_default_value(
+        "bible_version",
+        Some(t!("settings.bible_version")),
+        [
+            (
+                Version::NRSV,
+                t!("bible_version.NRSV"),
+                Some(t!("bible_version.NRSV_full")),
+            ),
+            (
+                Version::ESV,
+                t!("bible_version.ESV"),
+                Some(t!("bible_version.ESV_full")),
+            ),
+            (
+                Version::CEB,
+                t!("bible_version.CEB"),
+                Some(t!("bible_version.CEB_full")),
+            ),
+            (
+                Version::KJV,
+                t!("bible_version.KJV"),
+                Some(t!("bible_version.KJV_full")),
+            ),
+        ],
+        if is_server!() {
+            Version::NRSV
+        } else {
+            preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
+                .and_then(|value| match value {
+                    PreferenceValue::Version(version) => Some(version),
+                    _ => None,
+                })
+                .unwrap_or(Version::NRSV)
+        },
+    );
+    bible_version_setting.value.stream().skip(1).create_effect({
+        let status = status.clone();
+        move |new_value| {
+            set_preference(
+                &status,
+                &PreferenceKey::from(GlobalPref::BibleVersion),
+                &PreferenceValue::from(new_value),
+            )
+        }
+    });
+
     view! {
         <>
             {header(locale, &t!("settings.title"))}
             <main>
                 <dyn:view view={calendar_setting} />
                 <dyn:view view={psalm_cycle_setting} />
+                <dyn:view view={bible_version_setting.view()} />
                 <dyn:view view={black_letter_collect_setting} />
             </main>
             <footer>

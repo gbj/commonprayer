@@ -6,6 +6,7 @@ mod js_redirect_to_current_date;
 mod lookup;
 mod menu;
 mod observance_picker;
+mod segment_button;
 mod toggle;
 
 pub use biblical_citation::*;
@@ -15,4 +16,5 @@ pub use header::*;
 pub use js_redirect_to_current_date::*;
 pub use menu::*;
 pub use observance_picker::*;
+pub use segment_button::*;
 pub use toggle::*;

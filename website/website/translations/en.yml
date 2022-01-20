@@ -23,10 +23,21 @@ en:
   rite_i: Rite I
   rite_ii: Rite II
 
+  bible_version:
+    NRSV_full: New Revised Standard Version (NRSV)
+    ESV_full: English Standard Version (ESV)
+    CEB_full: Common English Bible (CEB)
+    KJV_full: King James Version (KJV)
+    NRSV: NRSV
+    ESV: ESV
+    CEB: CEB
+    KJV: KJV
+
   settings:
     title: Settings
     calendar: Calendar
     psalm_cycle: Psalm Cycle
+    bible_version: Bible Version
     use_black_letter_collects: Use Collects for Black-Letter Days
     yes: Yes
     no: No
