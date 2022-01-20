@@ -160,10 +160,11 @@ fieldset.toggle label {
   cursor: pointer;
   border: 1px solid var(--ui-toggle-checked-background);
   max-width: calc(45% - 0.5rem);
-  min-width: 2rem;
+  min-width: 3rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: auto;
 }
 
 fieldset.toggle label:first-of-type {
@@ -356,12 +357,19 @@ fieldset.stacked label {
   display: block;
   height: auto;
   width: auto;
-  max-width: calc(90vw - 4rem);
-  padding: 2rem;
+  max-width: calc(95vw - 2rem);
+  padding: 1rem;
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-400%);
+}
+
+@media (min-width: 767px) {
+  .menu.right .menu-content {
+    max-width: calc(90vw - 4rem);
+    padding: 2rem;
+  }
 }
 
 .menu.left input.menu-toggle-input:checked ~ .menu-content {
