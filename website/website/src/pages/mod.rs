@@ -2,7 +2,7 @@ mod calendar;
 mod canticle_table;
 mod daily_office;
 mod daily_readings;
-mod document;
+pub mod document;
 mod holy_day;
 mod index;
 mod settings;

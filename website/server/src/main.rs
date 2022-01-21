@@ -4,7 +4,7 @@ use actix_web::{
     web::{self, Path},
     App, HttpRequest, HttpResponse, HttpServer, Result,
 };
-use episcopal_api::{api::summary::DailySummary, calendar::Date};
+use episcopal_api::{api::summary::DailySummary, calendar::Date, liturgy::Document};
 use lazy_static::lazy_static;
 use leptos::Page;
 use serde::{de::DeserializeOwned, Serialize};
@@ -25,6 +25,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .service(daily_summary)
+            .service(json_document_export)
             .service(Files::new(
                 "/static",
                 &format!("{}/website/static", *PROJECT_ROOT),
@@ -36,7 +37,7 @@ async fn main() -> std::io::Result<()> {
     .await
 }
 
-// JSON API
+// JSON Daily Summary API
 #[get("/api/daily_summary/{locale}/{date}.json")]
 async fn daily_summary(
     web::Path((locale, date)): web::Path<(String, String)>,
@@ -45,6 +46,16 @@ async fn daily_summary(
     let language = locale_to_language(&locale);
     let summary = episcopal_api::library::CommonPrayer::summarize_date(&date, language);
     Ok(web::Json(summary))
+}
+
+// Document Export APIs
+#[get("/api/export/{category}/{version}/{date}/{calendar}/{prefs}/{alternate}/{slug}.json")]
+async fn json_document_export(
+    params: web::Path<DocumentPageParams>,
+) -> Result<web::Json<Document>, ()> {
+    // path is not used, and locale is only used for building the base URL at this point, so can be set to "" and "en"
+    let props = website::pages::document::get_static_props("en", "", params.into_inner());
+    Ok(web::Json(props.doc))
 }
 
 // Add additional pages, defined programmatically

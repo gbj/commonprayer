@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{components::*, TABLE_OF_CONTENTS};
+use crate::{components::*, utils::time::today, TABLE_OF_CONTENTS};
 use episcopal_api::{
     calendar::{Calendar, Date},
     library::{CommonPrayer, Library},
@@ -26,7 +26,8 @@ pub struct DocumentPageParams {
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct DocumentPageProps {
-    doc: Document,
+    pub doc: Document,
+    api_path: String,
     base_path: String,
 }
 
@@ -106,6 +107,14 @@ pub fn body(locale: &str, props: &DocumentPageProps) -> View {
         <>
             {header_with_side_menu(locale, &title, side_menu)}
             <main>
+                // TODO clean up ugly export links
+                <ul class="export-links">
+                    <a class="link" href="#">{t!("export.link")}</a>
+                    <a class="link" href="#">{t!("export.embed")}</a>
+                    <a class="word" href="">{t!("export.word")}</a>
+                    <a class="venite" href="#">{t!("export.venite")}</a>
+                    <a class="json" download href={&format!("{}.json", &props.api_path)}>{t!("export.json")}</a>
+                </ul>
                 <dyn:view view={document_view(locale, doc)}/>
             </main>
         </>
@@ -117,6 +126,23 @@ pub fn get_static_props(
     _path: &str,
     params: DocumentPageParams,
 ) -> DocumentPageProps {
+    let api_path = format!(
+        "/api/export/{}/{:#?}/{}/{}/{}/{}/{}",
+        params.category,
+        params.version,
+        params.date.unwrap_or_else(today),
+        params
+            .calendar
+            .clone()
+            .unwrap_or_else(|| String::from("bcp1979")),
+        urlencoding::encode(&params.prefs.clone().unwrap_or_default()),
+        params
+            .alternate
+            .clone()
+            .unwrap_or_else(|| String::from("observed")),
+        params.slug
+    );
+
     let doc = TABLE_OF_CONTENTS
         .iter()
         .flat_map(|(category, docs)| {
@@ -188,5 +214,6 @@ pub fn get_static_props(
             "/{}/document/{}/{}/{:#?}",
             locale, params.category, params.slug, params.version
         ),
+        api_path,
     }
 }

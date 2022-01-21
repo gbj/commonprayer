@@ -1,6 +1,16 @@
 Website Todos
 =============
 
+- [ ] Exports
+  - [ ] docx
+  - [ ] LDF JSON
+    - [ ] create a Venite page to create a bulletin from a JSON API URL here
+  - [ ] Export menu on Document page
+    - [ ] Link
+    - [ ] Embed (iFrame)
+    - [ ] Word
+    - [ ] Venite
+    - [x] JSON
 - [ ] Fix LFF collects with empty labels
 - [ ] Daily Office pages
 	- [ ] Canticle rendering

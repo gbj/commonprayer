@@ -132,6 +132,13 @@ en:
     eow_canticle_table_note: The published edition includes a handful of typographical errors in the table of suggested canticles. This page reflects a version of the text which has been corrected and conformed in capitalization and punctuation to the Book of Common Prayer.
     canticles_appointed_for_christmas: "* Canticles appointed for Christmas may be used through the First Sunday after the Epiphany."
 
+  export:
+    link: Share Link
+    embed: Embed Code
+    word: Open in Word
+    venite: Open in Venite.app Bulletin Editor
+    json: Download (JSON)
+
   bcp_1979: Book of Common Prayer (1979)
   lff_2018: Lesser Feasts & Fasts (2018)
   eow_1: Enriching Our Worship
