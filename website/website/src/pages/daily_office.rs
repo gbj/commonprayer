@@ -1,4 +1,7 @@
-use episcopal_api::liturgy::{GlobalPref, PreferenceKey, PreferenceValue, Version};
+use episcopal_api::{
+    language::Language,
+    liturgy::{GlobalPref, PreferenceKey, PreferenceValue, Version},
+};
 use leptos::*;
 use wasm_bindgen::UnwrapThrowExt;
 
@@ -37,6 +40,13 @@ fn body(locale: &str, _props: &()) -> View {
         // TODO load time ranges from preferences
         let office = current_preferred_liturgy(&DEFAULT_OFFICE_TIMES);
 
+        let language = preferences::get(&PreferenceKey::Global(GlobalPref::Language))
+            .and_then(|value| match value {
+                PreferenceValue::Language(version) => Some(version),
+                _ => None,
+            })
+            .unwrap_or(Language::En);
+
         let version = preferences::get(&PreferenceKey::Global(GlobalPref::Version))
             .and_then(|value| match value {
                 PreferenceValue::Version(version) => Some(version),
@@ -51,7 +61,8 @@ fn body(locale: &str, _props: &()) -> View {
             })
             .unwrap_or_else(|| "bcp1979".to_string());
 
-        let prefs = preferences::get_prefs_for_office(office, version);
+        let prefs = preferences::get_prefs_for_liturgy(office, language, version);
+
         // convert HashMap<K, V> to Vec<(K, V)> because serde_json can't serialize a HashMap with enum keys to a JSON map
         let serialized_prefs =
             serde_json::to_string(&prefs.iter().collect::<Vec<_>>()).unwrap_or_default();

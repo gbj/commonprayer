@@ -1,3 +1,4 @@
+use language::Language;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fmt::Display;
@@ -14,6 +15,7 @@ pub enum PreferenceKey {
 
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub enum GlobalPref {
+    Language,
     Calendar,
     Version,
     BibleVersion,
@@ -46,12 +48,19 @@ impl From<GlobalPref> for PreferenceKey {
 
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub enum PreferenceValue {
+    Language(Language),
     Version(Version),
     Lectionary(Lectionaries),
     CanticleTable(CanticleTables),
     ReadingType(ReadingType),
     Local(String),
     Bool(bool),
+}
+
+impl From<Language> for PreferenceValue {
+    fn from(language: Language) -> Self {
+        Self::Language(language)
+    }
 }
 
 impl From<Version> for PreferenceValue {

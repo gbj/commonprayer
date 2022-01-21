@@ -1,5 +1,7 @@
 use episcopal_api::calendar::Date;
 
+use crate::table_of_contents::TOCLiturgy;
+
 #[cfg(target_arch = "wasm32")]
 pub fn current_hour() -> u32 {
     js_sys::Date::new_0().get_hours()
@@ -78,17 +80,17 @@ pub const DEFAULT_OFFICE_TIMES: OfficeTimeRanges = OfficeTimeRanges {
     night: OfficeTimeRange((20, 0), (3, 0)),
 };
 
-pub fn current_preferred_liturgy(ranges: &OfficeTimeRanges) -> &'static str {
+pub fn current_preferred_liturgy(ranges: &OfficeTimeRanges) -> TOCLiturgy {
     let (hour, minute) = now();
     if ranges.morning.includes(hour, minute) {
-        "morning-prayer"
+        TOCLiturgy::MP
     } else if ranges.noon.includes(hour, minute) {
-        "noonday-prayer"
+        TOCLiturgy::NP
     } else if ranges.evening.includes(hour, minute) {
-        "evening-prayer"
+        TOCLiturgy::EP
     } else if ranges.night.includes(hour, minute) {
-        "compline"
+        TOCLiturgy::Compline
     } else {
-        ""
+        TOCLiturgy::NotFound
     }
 }

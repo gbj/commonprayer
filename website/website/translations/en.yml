@@ -35,12 +35,18 @@ en:
 
   settings:
     title: Settings
+    general: General Settings
+    liturgy: Liturgy Settings
+    version: Version
     calendar: Calendar
     psalm_cycle: Psalm Cycle
     bible_version: Bible Version
+    no_bible_version: The Bible version can be set for each liturgy below, or a global preference can be chosen here.
     use_black_letter_collects: Use Collects for Black-Letter Days
     yes: Yes
     no: No
+    rite_i: Rite I (Traditional Language)
+    rite_ii: Rite II (Contemporary Language)
     success: "Your settings have been updated."
     error: "Something went wrong while updating your preferences. Try again later."
     not_available: "We were unable to save your settings in your browser’s local storage. Is it possible your privacy settings have this disabled?"

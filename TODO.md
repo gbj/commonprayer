@@ -1,8 +1,6 @@
 Website Todos
 =============
-- [ ] Settings page
-  - [ ] Bible Version
-  - [ ] Liturgy-specific settings
+
 - [ ] Fix LFF collects with empty labels
 - [ ] Daily Office pages
 	- [ ] Canticle rendering

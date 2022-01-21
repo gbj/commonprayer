@@ -3,6 +3,47 @@ use std::collections::HashMap;
 use episcopal_api::library;
 use episcopal_api::liturgy::{Document, Series};
 use lazy_static::lazy_static;
+use serde::{Deserialize, Serialize};
+
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub enum TOCLiturgy {
+    MP,
+    NP,
+    EP,
+    Compline,
+    Eucharist,
+    NotFound,
+}
+
+impl From<&str> for TOCLiturgy {
+    fn from(s: &str) -> Self {
+        match s {
+            "morning-prayer" => TOCLiturgy::MP,
+            "evening-prayer" => TOCLiturgy::EP,
+            "noonday-prayer" => TOCLiturgy::NP,
+            "compline" => TOCLiturgy::Compline,
+            "eucharist" => TOCLiturgy::Eucharist,
+            _ => TOCLiturgy::NotFound,
+        }
+    }
+}
+
+impl std::fmt::Display for TOCLiturgy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{}",
+            match self {
+                TOCLiturgy::MP => "morning-prayer",
+                TOCLiturgy::NP => "noonday-prayer",
+                TOCLiturgy::EP => "evening-prayer",
+                TOCLiturgy::Compline => "compline",
+                TOCLiturgy::Eucharist => "eucharist",
+                TOCLiturgy::NotFound => "404",
+            }
+        )
+    }
+}
 
 macro_rules! hash_map {
     ($( $key: expr => $val: expr ),*) => {{
@@ -21,9 +62,9 @@ pub enum PageType {
 lazy_static! {
     pub static ref TABLE_OF_CONTENTS: HashMap<String, Vec<(String, PageType, Document)>> = hash_map! {
         "office".into() => vec![
-            ("morning-prayer".into(), PageType::Document, library::rite2::office::MORNING_PRAYER_II.clone()),
-            ("noonday-prayer".into(), PageType::Document, library::rite2::office::NOONDAY_PRAYER.clone()),
-            ("compline".into(), PageType::Document, library::rite2::office::COMPLINE.clone()),
+            (TOCLiturgy::MP.to_string(), PageType::Document, library::rite2::office::MORNING_PRAYER_II.clone()),
+            (TOCLiturgy::NP.to_string(), PageType::Document, library::rite2::office::NOONDAY_PRAYER.clone()),
+            (TOCLiturgy::Compline.to_string(), PageType::Document, library::rite2::office::COMPLINE.clone()),
         ],
         "canticle".into() => vec![
             ("1".into(), PageType::Document, library::rite1::canticles::CANTICLE_1.clone()),

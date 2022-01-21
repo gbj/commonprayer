@@ -1,4 +1,4 @@
-use std::fmt::Display;
+use std::{fmt::Display, iter};
 
 use serde::{Deserialize, Serialize};
 
@@ -46,6 +46,14 @@ impl From<Series> for Liturgy {
 pub struct LiturgyPreferences(Vec<LiturgyPreference>);
 
 impl LiturgyPreferences {
+    pub fn iter(&self) -> impl Iterator<Item = &LiturgyPreference> {
+        self.0.iter()
+    }
+
+    pub fn into_iter(self) -> impl Iterator<Item = LiturgyPreference> {
+        self.0.into_iter()
+    }
+
     pub fn default_value_for_key(&self, key: &PreferenceKey) -> Option<&PreferenceValue> {
         let pref = self.0.iter().find(|pref| pref.key == *key);
         pref.map(|pref| {
@@ -114,6 +122,14 @@ where
 }
 
 impl LiturgyPreference {
+    pub fn choices(&self) -> impl Iterator<Item = &LiturgyPreferenceOption> {
+        iter::once(&self.first_choice).chain(self.choices.iter())
+    }
+
+    pub fn only_one_choice(&self) -> bool {
+        self.choices.is_empty()
+    }
+
     #[must_use]
     pub fn category<T>(mut self, category: T) -> Self
     where

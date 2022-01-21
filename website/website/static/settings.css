@@ -1,24 +1,37 @@
 footer {
+  background: var(--background);
   position: fixed;
   bottom: 0;
-  height: 3rem;
   width: 100vw;
   text-align: center;
+  z-index: 5;
 }
 
-.success {
+.success,
+.error {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  height: 100%;
+  height: 3rem;
   width: 100%;
-  background-color: var(--color-success-background);
-  color: var(--color-success);
   margin: 0;
 }
 
+.success {
+  background-color: var(--color-success-background);
+  color: var(--color-success);
+}
+
+.error {
+  background-color: var(--color-error-background);
+  color: var(--color-error);
+}
+
 .success.hidden {
+  display: none;
+}
+.error.hidden {
   display: none;
 }
 
@@ -27,4 +40,10 @@ footer {
   font-style: italic;
   margin-top: -0.125rem;
   margin-bottom: 0.25rem;
+}
+
+.preference {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
 }
