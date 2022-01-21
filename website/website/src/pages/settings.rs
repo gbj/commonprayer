@@ -219,7 +219,6 @@ fn body(locale: &str, props: &SettingsPageProps) -> View {
                 <dyn:view view={calendar_setting.view()} />
                 <dyn:view view={psalm_cycle_setting.view()} />
                 <dyn:view view={bible_version_setting.view()} />
-                <dyn:view view={black_letter_collect_setting.view()} />
 
                 <h2>{t!("settings.liturgy")}</h2>
                 <dyn:view view={liturgy_picker.view()} />
@@ -253,6 +252,9 @@ fn body(locale: &str, props: &SettingsPageProps) -> View {
                 >
                     <dyn:view view={liturgy_preferences_view(&status, TOCLiturgy::Compline, Language::En, Version::BCP1979, &props.cp_prefs)} />
                 </dyn:section>
+
+                <h2>{t!("settings.advanced")}</h2>
+                <dyn:view view={black_letter_collect_setting.view()} />
             </main>
             <footer>
                 <dyn:p class="success hidden" class:hidden={status.stream().map(|status| status != Status::Success).boxed_local()}>
@@ -283,8 +285,7 @@ fn liturgy_preferences_view(
     };
 
     if let Some((label, prefs)) = prefs.as_ref() {
-        let categories = View::Fragment(
-            prefs
+        let categories = prefs
                 .iter()
                 .group_by(|pref| pref.category.as_ref())
                 .into_iter()
@@ -365,14 +366,17 @@ fn liturgy_preferences_view(
                         </>
                     }
                 })
-                .collect(),
-        );
+                .collect::<Vec<_>>();
 
-        view! {
-            <>
-                <h3>{label}</h3>
-                {categories}
-            </>
+        if categories.is_empty() {
+            View::Empty
+        } else {
+            view! {
+                <>
+                    <h3>{label}</h3>
+                    {View::Fragment(categories)}
+                </>
+            }
         }
     } else {
         View::Empty

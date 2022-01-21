@@ -37,6 +37,7 @@ en:
     title: Settings
     general: General Settings
     liturgy: Liturgy Settings
+    advanced: Advanced Settings
     version: Version
     calendar: Calendar
     psalm_cycle: Psalm Cycle
