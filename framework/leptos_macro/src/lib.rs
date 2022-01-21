@@ -198,7 +198,7 @@ fn dynamic_element(node: &Node, tag_name: String, children: &[TokenStream]) -> O
         .iter()
         .filter(|node| node.name_as_string().unwrap().starts_with("prop:"))
         .map(|node| {
-            let name = node.name_as_string().unwrap().replace("on:", "");
+            let name = node.name_as_string().unwrap().replace("prop:", "");
             let value = node.value.as_ref().unwrap();
             Some(quote::quote! {
                 .property(#name, #value)
