@@ -11,6 +11,9 @@
   --rubric-color: #ea0000;
   --error-color: rgb(234, 0, 0);
   --error-color-tint: rgba(234, 0, 0, 0.5);
+  --button-filter-light: invert(97%) sepia(97%) saturate(0%) hue-rotate(36deg)
+    brightness(104%) contrast(105%);
+  --button-filter-dark: gray saturate(0%) brightness(70%) contrast(1000%);
 
   /* Colors */
   --color-success-background: rgba(5, 131, 5, 0.05);
@@ -438,4 +441,56 @@ ul.reading-links,
 .reading-links ul {
   list-style-type: none;
   padding: 0;
+}
+
+/* Export Links */
+.export-links {
+  display: flex;
+}
+
+.export-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  text-decoration: none;
+  color: var(--color);
+  background: var(--background);
+}
+
+.export-links a img {
+  width: 1rem;
+  height: auto;
+  margin: 0.5rem;
+}
+
+.export-links a:hover {
+  background: var(--border-color);
+}
+
+.export-links a:first-child {
+  border-top-left-radius: var(--ui-border-radius);
+  border-bottom-left-radius: var(--ui-border-radius);
+}
+
+.export-links a:last-child {
+  border-top-right-radius: var(--ui-border-radius);
+  border-bottom-right-radius: var(--ui-border-radius);
+}
+
+.export-links .venite:hover {
+  background-color: black;
+  border-color: black;
+  color: white;
+}
+
+.export-links .word:hover {
+  background-color: rgb(20, 67, 144);
+  border-color: rgb(20, 67, 144);
+  color: white;
+}
+
+.export-links .word:hover img {
+  filter: var(--button-filter-light);
 }

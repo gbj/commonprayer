@@ -109,11 +109,26 @@ pub fn body(locale: &str, props: &DocumentPageProps) -> View {
             <main>
                 // TODO clean up ugly export links
                 <ul class="export-links">
-                    <a class="link" href="#">{t!("export.link")}</a>
-                    <a class="link" href="#">{t!("export.embed")}</a>
-                    <a class="word" href="">{t!("export.word")}</a>
-                    <a class="venite" href="#">{t!("export.venite")}</a>
-                    <a class="json" download href={&format!("{}.json", &props.api_path)}>{t!("export.json")}</a>
+                    <a class="link" href="#">
+                        <img src="/static/icons/tabler-icon-link.svg"/>
+                        {t!("export.link")}
+                    </a>
+                    <a class="embed" href="#">
+                        <img src="/static/icons/tabler-icon-code.svg"/>
+                        {t!("export.embed")}
+                    </a>
+                    <a class="word" download href={&format!("{}.docx", &props.api_path)}>
+                        <img src="/static/icons/file-word-regular.svg"/>
+                        {t!("export.word")}
+                    </a>
+                    <a class="venite" href="#">
+                        <img src="/static/icons/venite.svg"/>
+                        {t!("export.venite")}
+                    </a>
+                    <a class="json" download href={&format!("{}.json", &props.api_path)}>
+                        <img src="/static/icons/tabler-icon-download.svg"/>
+                        {t!("export.json")}
+                    </a>
                 </ul>
                 <dyn:view view={document_view(locale, doc)}/>
             </main>
