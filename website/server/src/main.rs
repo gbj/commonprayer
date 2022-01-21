@@ -26,6 +26,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .service(daily_summary)
             .service(json_document_export)
+            .service(docx_document_export)
             .service(Files::new(
                 "/static",
                 &format!("{}/website/static", *PROJECT_ROOT),
@@ -56,6 +57,16 @@ async fn json_document_export(
     // path is not used, and locale is only used for building the base URL at this point, so can be set to "" and "en"
     let props = website::pages::document::get_static_props("en", "", params.into_inner());
     Ok(web::Json(props.doc))
+}
+
+#[get("/api/export/{category}/{version}/{date}/{calendar}/{prefs}/{alternate}/{slug}.docx")]
+async fn docx_document_export(params: web::Path<DocumentPageParams>) -> Result<HttpResponse, ()> {
+    // path is not used, and locale is only used for building the base URL at this point, so can be set to "" and "en"
+    let props = website::pages::document::get_static_props("en", "", params.into_inner());
+    let docx = episcopal_api::docx::DocxDocument::from(props.doc);
+    Ok(HttpResponse::Ok()
+        .content_type("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        .body(docx.to_bytes()))
 }
 
 // Add additional pages, defined programmatically
