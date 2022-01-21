@@ -1716,7 +1716,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 34",
         ),
         (
-            LiturgicalDayId::Feast(Feast::RichardMeuxBenson),
+            LiturgicalDayId::Feast(Feast::RichardMeuxBensonAndCharlesGore),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 27:5–11",
@@ -1902,7 +1902,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Luke 23:39–43",
         ),
         (
-            LiturgicalDayId::Feast(Feast::RichardMeuxBenson),
+            LiturgicalDayId::Feast(Feast::RichardMeuxBensonAndCharlesGore),
             Year::Any,
             ReadingType::Gospel,
             "John 17:6–11",
@@ -4146,7 +4146,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 34:1–8",
         ),
         (
-            LiturgicalDayId::Feast(Feast::RichardMeuxBenson),
+            LiturgicalDayId::Feast(Feast::RichardMeuxBensonAndCharlesGore),
             Year::Any,
             ReadingType::FirstReading,
             "1 Kings 19:9–18",
