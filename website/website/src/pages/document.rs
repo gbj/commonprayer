@@ -15,19 +15,19 @@ use wasm_bindgen::UnwrapThrowExt;
 
 #[derive(Deserialize, Clone)]
 pub struct DocumentPageParams {
-    category: String,
-    slug: String,
-    version: Version,
-    date: Option<Date>,
-    calendar: Option<String>,
-    prefs: Option<String>, // a JSON-serialized HashMap<PreferenceKey, PreferenceValue>
-    alternate: Option<String>,
+    pub category: String,
+    pub slug: String,
+    pub version: Version,
+    pub date: Option<Date>,
+    pub calendar: Option<String>,
+    pub prefs: Option<String>, // a JSON-serialized HashMap<PreferenceKey, PreferenceValue>
+    pub alternate: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct DocumentPageProps {
     pub doc: Document,
-    api_path: String,
+    pub api_path: String,
     base_path: String,
 }
 

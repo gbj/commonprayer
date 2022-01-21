@@ -1,3 +1,8 @@
+use std::{
+    env::current_dir,
+    fs::{self, File},
+};
+
 use actix_files::{Files, NamedFile};
 use actix_web::{
     get,
@@ -60,13 +65,57 @@ async fn json_document_export(
 }
 
 #[get("/api/export/{category}/{version}/{date}/{calendar}/{prefs}/{alternate}/{slug}.docx")]
-async fn docx_document_export(params: web::Path<DocumentPageParams>) -> Result<HttpResponse, ()> {
+async fn docx_document_export(params: web::Path<DocumentPageParams>) -> Result<NamedFile> {
+    fn today() -> Date {
+        use chrono::Datelike;
+
+        let local = chrono::Local::now();
+        Date::parse_from_str(
+            &format!("{}-{}-{}", local.year(), local.month(), local.day()),
+            "%Y-%m-%d",
+        )
+        .unwrap()
+    }
+
     // path is not used, and locale is only used for building the base URL at this point, so can be set to "" and "en"
-    let props = website::pages::document::get_static_props("en", "", params.into_inner());
-    let docx = episcopal_api::docx::DocxDocument::from(props.doc);
-    Ok(HttpResponse::Ok()
-        .content_type("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-        .body(docx.to_bytes()))
+    let params = params.into_inner();
+
+    // create the document
+    let props = website::pages::document::get_static_props("en", "", params.clone());
+
+    // create a temporary file to write into
+    // TODO -- can statically generate these and serve the one that already exists
+    let temp_dir = current_dir()
+        .expect("should have current_dir")
+        .join("artifacts");
+
+    let temp_parent = temp_dir
+        .join(params.category)
+        .join(&format!("{:#?}", params.version))
+        .join(params.calendar.unwrap_or_else(|| String::from("bcp1979")))
+        .join(params.date.unwrap_or_else(today).to_string())
+        .join(params.alternate.unwrap_or_else(|| String::from("observed")))
+        .join(base64::encode(
+            params.prefs.unwrap_or_else(|| String::from("[]")),
+        ));
+
+    let temp_file_path = temp_parent.join(&format!(
+        "{}-{}.docx",
+        params.slug,
+        params.date.unwrap_or_else(today)
+    ));
+
+    fs::create_dir_all(temp_parent)
+        .expect("should be able to recursively create parent directory for file");
+
+    let file = File::create(&temp_file_path).expect("should be able to create file");
+
+    // covert to DOCX
+    let mut docx = episcopal_api::docx::DocxDocument::from(props.doc);
+    docx.write(file).expect("should be able to write to file");
+
+    // serve the file
+    Ok(NamedFile::open(&temp_file_path).expect("should be able to open temp .docx file"))
 }
 
 // Add additional pages, defined programmatically

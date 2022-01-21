@@ -4,4 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+thiserror = "1"
+docx-rs = "0.3"
 liturgy = { path = "../../liturgy" }
