@@ -254,7 +254,7 @@ pub enum Feast {
     PriscillaAndAquila,
     RemigiusOfRheims,
     RichardHooker,
-    RichardMeuxBenson,
+    RichardMeuxBensonAndCharlesGore,
     RichardOfChichester,
     RichardRolle,
     RobertGrosseteste,
