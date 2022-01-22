@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{components::*, utils::time::today, TABLE_OF_CONTENTS};
+use crate::{components::*, TABLE_OF_CONTENTS};
 use episcopal_api::{
     calendar::{Calendar, Date},
     library::{CommonPrayer, Library},
@@ -11,9 +11,7 @@ use leptos::*;
 use rust_i18n::t;
 use serde::Serialize;
 use serde_derive::Deserialize;
-use wasm_bindgen::{JsCast, UnwrapThrowExt};
-use wasm_bindgen_futures::{spawn_local, JsFuture};
-use web_sys::{Blob, HtmlAnchorElement, Url};
+use wasm_bindgen::UnwrapThrowExt;
 
 #[derive(Deserialize, Clone)]
 pub struct DocumentPageParams {
@@ -176,47 +174,9 @@ pub fn body(locale: &str, props: &DocumentPageProps) -> View {
                         {t!("export.json")}
                     </dyn:a>
                 </ul>
-                <dyn:view view={document_view(locale, doc)}/>
+                <dyn:view view={DocumentController::from(document_state).view(locale)}/>
             </main>
         </>
-    }
-}
-
-#[derive(Clone, Debug)]
-enum ExportError {
-    Serialization,
-    Server(u16, String),
-    Network,
-    Binary,
-    DocumentUrl,
-}
-
-async fn create_docx(doc: Behavior<Document>) -> Result<(), ExportError> {
-    let serialized_doc =
-        serde_json::to_string(&doc.get()).map_err(|_| ExportError::Serialization)?;
-    let resp = reqwasm::http::Request::post("/api/export/docx")
-        .body(serialized_doc)
-        .send()
-        .await
-        .map_err(|_| ExportError::Network)?;
-    if resp.status() == 200 {
-        let blob = resp.as_raw().blob().map_err(|_| ExportError::Binary)?;
-        let blob: Blob = JsFuture::from(blob)
-            .await
-            .map_err(|_| ExportError::Binary)?
-            .unchecked_into();
-        let document_url =
-            Url::create_object_url_with_blob(&blob).map_err(|_| ExportError::DocumentUrl)?;
-        let a = leptos::create_element(&leptos::document(), "a");
-        let body = leptos::body().unwrap();
-        leptos::set_attribute(&a, "href", &document_url);
-        leptos::set_attribute(&a, "download", "test.docx");
-        leptos::append_child(&body, &a);
-        a.unchecked_ref::<HtmlAnchorElement>().click();
-        body.remove_child(&a).unwrap();
-        Ok(())
-    } else {
-        Err(ExportError::Server(resp.status(), resp.status_text()))
     }
 }
 
