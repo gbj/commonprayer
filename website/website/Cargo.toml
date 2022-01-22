@@ -15,7 +15,7 @@ episcopal-api = { path = "../../episcopal_api" }
 chrono = "0.4"
 js-sys = "0.3"
 urlencoding = "2"
-web-sys = { version = "0.3", features = ["Event", "EventTarget", "HtmlSelectElement", "Window", "DomRect", "ScrollToOptions", "Storage"]}
+web-sys = { version = "0.3", features = ["Blob", "Event", "EventTarget", "HtmlAnchorElement", "HtmlSelectElement", "Window", "DomRect", "ScrollToOptions", "Storage", "Url"]}
 wasm-bindgen = "0.2"
 wasm-bindgen-futures = "0.4"
 futures = "0.3"

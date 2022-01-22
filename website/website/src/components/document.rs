@@ -6,6 +6,25 @@ use crate::components::biblical_citation::biblical_citation;
 
 use super::lookup::{lookup_links, LookupType};
 
+pub struct DocumentView {
+    // this intentionally only updates in one direction: it should always hold the current
+    // state of the document and sub-documents, but updating it won't necessarily rip out
+    // and update the whole View for the Document
+    pub state: Behavior<Document>,
+}
+
+impl DocumentView {
+    pub fn new(document: Document) -> Self {
+        Self {
+            state: Behavior::new(document),
+        }
+    }
+
+    pub fn view(&self, locale: &str) -> View {
+        document_view(locale, &self.state.get())
+    }
+}
+
 pub fn document_view(locale: &str, doc: &Document) -> View {
     let label = if matches!(doc.content, Content::Liturgy(_)) {
         View::Empty

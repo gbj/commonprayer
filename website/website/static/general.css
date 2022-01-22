@@ -448,7 +448,8 @@ ul.reading-links,
   display: flex;
 }
 
-.export-links a {
+.export-links a,
+.export-links button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -459,22 +460,27 @@ ul.reading-links,
   background: var(--background);
 }
 
-.export-links a img {
+.export-links a img,
+.export-links button img {
   width: 1rem;
   height: auto;
   margin: 0.5rem;
 }
 
-.export-links a:hover {
+.export-links a:hover,
+.export-links button:hover {
   background: var(--border-color);
+  cursor: pointer;
 }
 
-.export-links a:first-child {
+.export-links a:first-child,
+.export-links button:first-child {
   border-top-left-radius: var(--ui-border-radius);
   border-bottom-left-radius: var(--ui-border-radius);
 }
 
-.export-links a:last-child {
+.export-links a:last-child,
+.export-links button:last-child {
   border-top-right-radius: var(--ui-border-radius);
   border-bottom-right-radius: var(--ui-border-radius);
 }

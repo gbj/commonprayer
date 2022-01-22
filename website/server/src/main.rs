@@ -5,14 +5,17 @@ use std::{
 
 use actix_files::{Files, NamedFile};
 use actix_web::{
-    get,
+    error, get,
+    http::{self, StatusCode},
+    post,
     web::{self, Path},
-    App, HttpRequest, HttpResponse, HttpServer, Result,
+    App, FromRequest, HttpRequest, HttpResponse, HttpServer, ResponseError, Result,
 };
 use episcopal_api::{api::summary::DailySummary, calendar::Date, liturgy::Document};
 use lazy_static::lazy_static;
 use leptos::Page;
-use serde::{de::DeserializeOwned, Serialize};
+use serde::{de::DeserializeOwned, Deserialize, Serialize};
+use tempfile::tempdir;
 use website::{pages::*, utils::language::locale_to_language};
 
 const LOCALES: [&str; 1] = ["en"];
@@ -32,6 +35,13 @@ async fn main() -> std::io::Result<()> {
             .service(daily_summary)
             .service(json_document_export)
             .service(docx_document_export)
+            .service(
+                web::resource("/api/export/docx")
+                    .route(web::post().to(export_docx))
+                    .data(web::Form::<DocxExportFormData>::configure(|cfg| {
+                        cfg.limit(256 * 1024)
+                    })),
+            )
             .service(Files::new(
                 "/static",
                 &format!("{}/website/static", *PROJECT_ROOT),
@@ -54,7 +64,33 @@ async fn daily_summary(
     Ok(web::Json(summary))
 }
 
+#[derive(Deserialize)]
+struct DocxExportFormData {
+    liturgy: String,
+    date: String,
+    doc: String,
+}
+
 // Document Export APIs
+async fn export_docx(data: web::Form<DocxExportFormData>) -> Result<NamedFile> {
+    let data = data.into_inner();
+    let doc: Document = serde_json::from_str(&data.doc)?;
+
+    let file_name = if !data.date.is_empty() {
+        format!("{}-{}.docx", data.liturgy, data.date)
+    } else {
+        format!("{}.docx", data.liturgy)
+    };
+    let dir = tempdir()?;
+    let path = dir.path().join(file_name);
+    let file = File::create(&path)?;
+
+    let mut docx = episcopal_api::docx::DocxDocument::from(doc);
+    docx.write(&file)
+        .map_err(|e| error::InternalError::new(e.to_string(), StatusCode::INTERNAL_SERVER_ERROR))?;
+    Ok(NamedFile::open(path)?)
+}
+
 #[get("/api/export/{category}/{version}/{date}/{calendar}/{prefs}/{alternate}/{slug}.json")]
 async fn json_document_export(
     params: web::Path<DocumentPageParams>,

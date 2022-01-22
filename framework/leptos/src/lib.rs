@@ -18,8 +18,8 @@ pub use event_stream::*;
 pub use hydrate::hydrate_page;
 pub use leptos_macro::view;
 pub use operations::{
-    body, document, event_target_value, location, location_hash, location_pathname, log,
-    request_animation_frame, set_timeout, window,
+    append_child, body, create_element, document, event_target_value, location, location_hash,
+    location_pathname, log, request_animation_frame, set_attribute, set_timeout, window,
 };
 pub use reactive::*;
 pub use ssg::*;

@@ -3,8 +3,9 @@ Website Todos
 
 - [ ] Exports
   - [ ] docx
-  - [ ] LDF JSON
-    - [ ] create a Venite page to create a bulletin from a JSON API URL here
+    - [ ] actually need to track current state (for things like BiblicalCitations and changing canticles)
+    - [x] and then POST this to the server
+  - [x] LDF JSON
   - [ ] Export menu on Document page
     - [ ] Link
     - [ ] Embed (iFrame)

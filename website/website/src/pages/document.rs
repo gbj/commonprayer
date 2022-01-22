@@ -11,7 +11,9 @@ use leptos::*;
 use rust_i18n::t;
 use serde::Serialize;
 use serde_derive::Deserialize;
-use wasm_bindgen::UnwrapThrowExt;
+use wasm_bindgen::{JsCast, UnwrapThrowExt};
+use wasm_bindgen_futures::{spawn_local, JsFuture};
+use web_sys::{Blob, HtmlAnchorElement, Url};
 
 #[derive(Deserialize, Clone)]
 pub struct DocumentPageParams {
@@ -27,8 +29,9 @@ pub struct DocumentPageParams {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct DocumentPageProps {
     pub doc: Document,
-    pub api_path: String,
     base_path: String,
+    slug: String,
+    date: String,
 }
 
 pub fn document() -> Page<DocumentPageProps, DocumentPageParams> {
@@ -103,36 +106,117 @@ pub fn body(locale: &str, props: &DocumentPageProps) -> View {
         View::Empty
     };
 
+    let document_state = Behavior::new(doc.clone());
+
+    /* let on_word_export = {
+        let state = document_state;
+        move |_ev: Event| {
+            let state = state.clone();
+            spawn_local(async move {
+                match create_docx(state.clone()).await {
+                    Ok(resp) => log(&format!("POST request succeeded, response was {:#?}", resp)),
+                    Err(e) => log(&format!("POST request failed, error was {:#?}", e)),
+                }
+            })
+        }
+    }; */
+
+    let serialized_doc_stream = document_state
+        .stream()
+        .map(|doc| serde_json::to_string(&doc).unwrap())
+        .boxed_local();
+
+    let json_link_stream = document_state
+        .stream()
+        .map(|doc| serde_json::to_string(&doc).unwrap())
+        .map(|json| format!("data:application/json,{}", js_sys::encode_uri(&json)))
+        .boxed_local();
+
     view! {
         <>
             {header_with_side_menu(locale, &title, side_menu)}
             <main>
-                // TODO clean up ugly export links
                 <ul class="export-links">
+                    // Link: TODO
                     <a class="link" href="#">
                         <img src="/static/icons/tabler-icon-link.svg"/>
                         {t!("export.link")}
                     </a>
+
+                    // Embed code: TODO
                     <a class="embed" href="#">
                         <img src="/static/icons/tabler-icon-code.svg"/>
                         {t!("export.embed")}
                     </a>
-                    <a class="word" download href={&format!("{}.docx", &props.api_path)}>
-                        <img src="/static/icons/file-word-regular.svg"/>
-                        {t!("export.word")}
-                    </a>
+
+                    // Word: posts a hidden form to the server and opens the result in a new tab
+                    <form target="_blank" method="post" action="/api/export/docx">
+                        <input type="hidden" name="liturgy" value={&props.slug}/>
+                        <input type="hidden" name="date" value={&props.date}/>
+                        <dyn:input type="hidden" name="doc" value={serialized_doc_stream}/>
+                        <button type="submit">
+                            <img src="/static/icons/file-word-regular.svg"/>
+                            {t!("export.word")}
+                        </button>
+                    </form>
+
+                    // Venite: TODO
                     <a class="venite" href="#">
                         <img src="/static/icons/venite.svg"/>
                         {t!("export.venite")}
                     </a>
-                    <a class="json" download href={&format!("{}.json", &props.api_path)}>
+
+                    // JSON: downloads a named JSON file
+                    <dyn:a
+                        class="json"
+                        download={&format!("{}{}{}.json", &props.slug, if props.date.is_empty() { "" } else { "-" }, &props.date)}
+                        href={json_link_stream}
+                    >
                         <img src="/static/icons/tabler-icon-download.svg"/>
                         {t!("export.json")}
-                    </a>
+                    </dyn:a>
                 </ul>
                 <dyn:view view={document_view(locale, doc)}/>
             </main>
         </>
+    }
+}
+
+#[derive(Clone, Debug)]
+enum ExportError {
+    Serialization,
+    Server(u16, String),
+    Network,
+    Binary,
+    DocumentUrl,
+}
+
+async fn create_docx(doc: Behavior<Document>) -> Result<(), ExportError> {
+    let serialized_doc =
+        serde_json::to_string(&doc.get()).map_err(|_| ExportError::Serialization)?;
+    let resp = reqwasm::http::Request::post("/api/export/docx")
+        .body(serialized_doc)
+        .send()
+        .await
+        .map_err(|_| ExportError::Network)?;
+    if resp.status() == 200 {
+        let blob = resp.as_raw().blob().map_err(|_| ExportError::Binary)?;
+        let blob: Blob = JsFuture::from(blob)
+            .await
+            .map_err(|_| ExportError::Binary)?
+            .unchecked_into();
+        let document_url =
+            Url::create_object_url_with_blob(&blob).map_err(|_| ExportError::DocumentUrl)?;
+        let a = leptos::create_element(&leptos::document(), "a");
+        let body = leptos::body().unwrap();
+        leptos::set_attribute(&a, "href", &document_url);
+        leptos::set_attribute(&a, "download", "test.docx");
+        leptos::append_child(&body, &a);
+        a.unchecked_ref::<HtmlAnchorElement>().click();
+        body.remove_child(&a).unwrap();
+        Ok(())
+    } else {
+        Err(ExportError::Server(resp.status(), resp.status_text()))
     }
 }
 
@@ -141,23 +225,6 @@ pub fn get_static_props(
     _path: &str,
     params: DocumentPageParams,
 ) -> DocumentPageProps {
-    let api_path = format!(
-        "/api/export/{}/{:#?}/{}/{}/{}/{}/{}",
-        params.category,
-        params.version,
-        params.date.unwrap_or_else(today),
-        params
-            .calendar
-            .clone()
-            .unwrap_or_else(|| String::from("bcp1979")),
-        urlencoding::encode(&params.prefs.clone().unwrap_or_default()),
-        params
-            .alternate
-            .clone()
-            .unwrap_or_else(|| String::from("observed")),
-        params.slug
-    );
-
     let doc = TABLE_OF_CONTENTS
         .iter()
         .flat_map(|(category, docs)| {
@@ -229,6 +296,7 @@ pub fn get_static_props(
             "/{}/document/{}/{}/{:#?}",
             locale, params.category, params.slug, params.version
         ),
-        api_path,
+        slug: params.slug,
+        date: params.date.map(|date| date.to_string()).unwrap_or_default(),
     }
 }
