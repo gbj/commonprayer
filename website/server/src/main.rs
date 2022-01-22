@@ -1,15 +1,11 @@
-use std::{
-    env::current_dir,
-    fs::{self, File},
-};
+use std::fs::File;
 
 use actix_files::{Files, NamedFile};
 use actix_web::{
     error, get,
-    http::{self, StatusCode},
-    post,
+    http::StatusCode,
     web::{self, Path},
-    App, FromRequest, HttpRequest, HttpResponse, HttpServer, ResponseError, Result,
+    App, FromRequest, HttpRequest, HttpResponse, HttpServer, Result,
 };
 use episcopal_api::{api::summary::DailySummary, calendar::Date, liturgy::Document};
 use lazy_static::lazy_static;
@@ -33,8 +29,6 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .service(daily_summary)
-            .service(json_document_export)
-            .service(docx_document_export)
             .service(
                 web::resource("/api/export/docx")
                     .route(web::post().to(export_docx))
@@ -89,69 +83,6 @@ async fn export_docx(data: web::Form<DocxExportFormData>) -> Result<NamedFile> {
     docx.write(&file)
         .map_err(|e| error::InternalError::new(e.to_string(), StatusCode::INTERNAL_SERVER_ERROR))?;
     Ok(NamedFile::open(path)?)
-}
-
-#[get("/api/export/{category}/{version}/{date}/{calendar}/{prefs}/{alternate}/{slug}.json")]
-async fn json_document_export(
-    params: web::Path<DocumentPageParams>,
-) -> Result<web::Json<Document>, ()> {
-    // path is not used, and locale is only used for building the base URL at this point, so can be set to "" and "en"
-    let props = website::pages::document::get_static_props("en", "", params.into_inner());
-    Ok(web::Json(props.doc))
-}
-
-#[get("/api/export/{category}/{version}/{date}/{calendar}/{prefs}/{alternate}/{slug}.docx")]
-async fn docx_document_export(params: web::Path<DocumentPageParams>) -> Result<NamedFile> {
-    fn today() -> Date {
-        use chrono::Datelike;
-
-        let local = chrono::Local::now();
-        Date::parse_from_str(
-            &format!("{}-{}-{}", local.year(), local.month(), local.day()),
-            "%Y-%m-%d",
-        )
-        .unwrap()
-    }
-
-    // path is not used, and locale is only used for building the base URL at this point, so can be set to "" and "en"
-    let params = params.into_inner();
-
-    // create the document
-    let props = website::pages::document::get_static_props("en", "", params.clone());
-
-    // create a temporary file to write into
-    // TODO -- can statically generate these and serve the one that already exists
-    let temp_dir = current_dir()
-        .expect("should have current_dir")
-        .join("artifacts");
-
-    let temp_parent = temp_dir
-        .join(params.category)
-        .join(&format!("{:#?}", params.version))
-        .join(params.calendar.unwrap_or_else(|| String::from("bcp1979")))
-        .join(params.date.unwrap_or_else(today).to_string())
-        .join(params.alternate.unwrap_or_else(|| String::from("observed")))
-        .join(base64::encode(
-            params.prefs.unwrap_or_else(|| String::from("[]")),
-        ));
-
-    let temp_file_path = temp_parent.join(&format!(
-        "{}-{}.docx",
-        params.slug,
-        params.date.unwrap_or_else(today)
-    ));
-
-    fs::create_dir_all(temp_parent)
-        .expect("should be able to recursively create parent directory for file");
-
-    let file = File::create(&temp_file_path).expect("should be able to create file");
-
-    // covert to DOCX
-    let mut docx = episcopal_api::docx::DocxDocument::from(props.doc);
-    docx.write(file).expect("should be able to write to file");
-
-    // serve the file
-    Ok(NamedFile::open(&temp_file_path).expect("should be able to open temp .docx file"))
 }
 
 // Add additional pages, defined programmatically
