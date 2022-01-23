@@ -140,7 +140,9 @@ en:
     json: Download (JSON)
 
   bcp_1979: Book of Common Prayer (1979)
+  bcp_1979_abbrev: BCP (1979)
   lff_2018: Lesser Feasts & Fasts (2018)
+  lff_2018_abbrev: LFF (2018)
   eow_1: Enriching Our Worship
 
   collects: Collects

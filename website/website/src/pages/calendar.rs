@@ -151,8 +151,8 @@ pub fn body(locale: &str, props: &CalendarPageProps) -> View {
     let use_lff_toggle = Toggle::new(
         initial_toggle_value,
         "calendar",
-        t!("bcp_1979"),
-        t!("lff_2018"),
+        t!("bcp_1979_abbrev"),
+        t!("lff_2018_abbrev"),
         Some(t!("settings.calendar")),
     );
 
