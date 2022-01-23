@@ -106,10 +106,6 @@ pub fn body(locale: &str, props: &DocumentPageProps) -> View {
 
     let document_controller = DocumentController::new(doc.clone());
 
-    document_controller
-        .stream()
-        .create_effect(|state| log(&format!("document state = {:#?}", state)));
-
     let serialized_doc_stream = document_controller
         .stream()
         .map(|doc| serde_json::to_string(&doc).unwrap())
