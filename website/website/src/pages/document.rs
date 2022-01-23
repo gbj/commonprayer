@@ -104,27 +104,18 @@ pub fn body(locale: &str, props: &DocumentPageProps) -> View {
         View::Empty
     };
 
-    let document_state = Behavior::new(doc.clone());
+    let document_controller = DocumentController::new(doc.clone());
 
-    /* let on_word_export = {
-        let state = document_state;
-        move |_ev: Event| {
-            let state = state.clone();
-            spawn_local(async move {
-                match create_docx(state.clone()).await {
-                    Ok(resp) => log(&format!("POST request succeeded, response was {:#?}", resp)),
-                    Err(e) => log(&format!("POST request failed, error was {:#?}", e)),
-                }
-            })
-        }
-    }; */
+    document_controller
+        .stream()
+        .create_effect(|state| log(&format!("document state = {:#?}", state)));
 
-    let serialized_doc_stream = document_state
+    let serialized_doc_stream = document_controller
         .stream()
         .map(|doc| serde_json::to_string(&doc).unwrap())
         .boxed_local();
 
-    let json_link_stream = document_state
+    let json_link_stream = document_controller
         .stream()
         .map(|doc| serde_json::to_string(&doc).unwrap())
         .map(|json| format!("data:application/json,{}", js_sys::encode_uri(&json)))
@@ -148,7 +139,7 @@ pub fn body(locale: &str, props: &DocumentPageProps) -> View {
                     </a>
 
                     // Word: posts a hidden form to the server and opens the result in a new tab
-                    <form target="_blank" method="post" action="/api/export/docx">
+                    <form class="word" target="_blank" method="post" action="/api/export/docx">
                         <input type="hidden" name="liturgy" value={&props.slug}/>
                         <input type="hidden" name="date" value={&props.date}/>
                         <dyn:input type="hidden" name="doc" value={serialized_doc_stream}/>
@@ -174,7 +165,7 @@ pub fn body(locale: &str, props: &DocumentPageProps) -> View {
                         {t!("export.json")}
                     </dyn:a>
                 </ul>
-                <dyn:view view={DocumentController::from(document_state).view(locale)}/>
+                <dyn:view view={document_controller.view(locale)}/>
             </main>
         </>
     }

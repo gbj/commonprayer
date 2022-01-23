@@ -36,7 +36,11 @@ fn add_content(docx: Docx, doc: &Document) -> Docx {
             docx.add_paragraph(paragraph_with_text("[TODO parallel]"))
         }
         liturgy::Content::Choice(choice) => {
-            docx.add_paragraph(paragraph_with_text("[TODO choice]"))
+            if let Some(selected_doc) = choice.options.get(choice.selected) {
+                add_content(docx, selected_doc)
+            } else {
+                docx
+            }
         }
         liturgy::Content::Category(content) => content.add_to_docx(docx),
         liturgy::Content::CollectOfTheDay { allow_multiple } => {
@@ -113,7 +117,22 @@ impl AddToDocx for BiblicalCitation {
 
 impl AddToDocx for BiblicalReading {
     fn add_to_docx(&self, docx: Docx) -> Docx {
-        docx.add_paragraph(paragraph_with_text("TODO"))
+        // Add intro
+        let docx = if let Some(intro) = &self.intro {
+            let doc = Document::from(intro.clone());
+            add_content(docx, &doc)
+        } else {
+            docx
+        };
+
+        let docx = docx.add_paragraph(paragraph_with_text(&self.citation).style("Heading 3"));
+
+        let para = Paragraph::new();
+        let para = self.text.iter().fold(para, |para, (_verse_number, text)| {
+            para.add_run(Run::new().add_text(text))
+        });
+
+        docx.add_paragraph(para)
     }
 }
 

@@ -1,6 +1,6 @@
 use crate::components::biblical_reading;
 use episcopal_api::{
-    liturgy::{BiblicalCitation, BiblicalReading, Version},
+    liturgy::{BiblicalCitation, BiblicalReading, Content, Version},
     reference_parser::{BibleVerse, BibleVersePart, Book},
 };
 use futures::StreamExt;
@@ -10,6 +10,8 @@ use serde::Deserialize;
 use wasm_bindgen::UnwrapThrowExt;
 use wasm_bindgen_futures::spawn_local;
 
+use super::DocumentController;
+
 #[derive(Clone, Debug, PartialEq, Eq)]
 enum State {
     Idle,
@@ -18,19 +20,35 @@ enum State {
     Success(Box<BiblicalReading>),
 }
 
-pub fn biblical_citation(locale: &str, citation: &BiblicalCitation) -> View {
+pub fn biblical_citation(
+    locale: &str,
+    controller: &DocumentController,
+    path: Vec<usize>,
+    citation: &BiblicalCitation,
+) -> View {
     let state = Behavior::new(State::Idle);
 
     if !is_server!() {
-        log("setting state to State::Loading");
         {
             let state = state.clone();
             let citation = citation.clone();
+            let controller = controller.clone();
+            let path = path.clone();
             spawn_local(async move {
                 if state.get() == State::Idle {
                     state.set(State::Loading);
                     match fetch_reading(&citation, Version::NRSV).await {
-                        Ok(reading) => state.set(State::Success(Box::new(reading))),
+                        Ok(reading) => {
+                            state.set(State::Success(Box::new(reading.clone())));
+                            if let Err(e) = controller
+                                .update_content_at_path(path, Content::BiblicalReading(reading))
+                            {
+                                log(&format!(
+                                    "(biblical_citation) error updating controller {:#?}",
+                                    e
+                                ))
+                            };
+                        }
                         Err(_) => state.set(State::Error),
                     }
                 }
@@ -43,13 +61,16 @@ pub fn biblical_citation(locale: &str, citation: &BiblicalCitation) -> View {
         .map({
             let citation = citation.citation.clone();
             let locale = locale.to_string();
+            let controller = controller.clone();
             move |state| match state {
                 State::Idle => View::Empty,
                 State::Loading => View::StaticText(t!("loading")),
                 State::Error => view! {
                     <p class="error">{t!("biblical_citation.error", citation = &citation)}</p>
                 },
-                State::Success(reading) => biblical_reading(&locale, &reading).1,
+                State::Success(reading) => {
+                    biblical_reading(&locale, &controller, path.clone(), &reading).1
+                }
             }
         })
         .boxed_local();

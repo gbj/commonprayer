@@ -74,13 +74,11 @@ fn body(locale: &str, props: &HolyDayProps) -> View {
         _ => String::default(),
     };
 
-    let collect_view = document_view(
-        locale,
-        &Document::from(Choice::from([
-            props.collect_contemporary.clone(),
-            props.collect_traditional.clone(),
-        ])),
-    );
+    let collect_view = DocumentController::new(Document::from(Choice::from([
+        props.collect_contemporary.clone(),
+        props.collect_traditional.clone(),
+    ])))
+    .view(locale);
 
     let header_title = format!(
         "{}: {}",
@@ -113,13 +111,13 @@ fn body(locale: &str, props: &HolyDayProps) -> View {
                 <h2>{t!("holy_day.lessons_and_psalm")}</h2>
                 <a id="first-lesson"></a>
                 <h3>{t!("holy_day.first_lesson")}</h3>
-                <dyn:view view={document_view(locale, &props.first_lesson)}/>
+                <dyn:view view={DocumentController::new(props.first_lesson.clone()).view(locale)}/>
                 <a id="psalm"></a>
                 <h3>{t!("holy_day.psalm")}</h3>
-                {document_view(locale, &props.psalm)}
+                <dyn:view view={DocumentController::new(props.psalm.clone()).view(locale)}/>
                 <a id="gospel"></a>
                 <h3>{t!("holy_day.gospel")}</h3>
-                <dyn:view view={document_view(locale, &props.gospel)}/>
+                <dyn:view view={DocumentController::new(props.gospel.clone()).view(locale)}/>
 
             </main>
         </>

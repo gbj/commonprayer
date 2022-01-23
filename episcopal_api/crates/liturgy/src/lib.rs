@@ -45,6 +45,7 @@ pub use heading::*;
 pub use lectionary_reading::*;
 pub use litany::*;
 pub use parallel::*;
+pub use path::*;
 pub use preces::*;
 pub use preference::*;
 pub use psalm::*;

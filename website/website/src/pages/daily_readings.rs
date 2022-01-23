@@ -433,7 +433,7 @@ fn observance_view(
         .map(|collects| {
             view! {
                 <h2>{t!("lookup.collect_of_the_day")}</h2>
-                <dyn:view view={document_view(locale, collects)} />
+                <dyn:view view={DocumentController::new(collects.clone()).view(locale)} />
             }
         })
         .unwrap_or(View::Empty);
@@ -489,7 +489,7 @@ fn psalms_view(locale: &str, psalms: &[Psalm]) -> View {
                 let id = psalm.citation.clone().unwrap_or_default();
                 view! {
                     <article class="document" id={id}>
-                        {document_view(locale, &Document::from(psalm.clone()))}
+                        {DocumentController::new(Document::from(psalm.clone())).view(locale)}
                     </article>
                 }
             })
@@ -510,7 +510,7 @@ fn readings_view(locale: &str, summary: &ObservanceSummary) -> View {
                     view! {
                         <>
                             <a id={&reading.citation}></a>
-                            {biblical_citation(locale, &BiblicalCitation::from(reading.citation.clone()))}
+                            {DocumentController::new(Document::from(BiblicalCitation::from(reading.citation.clone()))).view(locale)}
                         </>
                     }
                 })

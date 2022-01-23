@@ -1,19 +1,27 @@
 use episcopal_api::liturgy::*;
-use futures::StreamExt;
+use futures::{Stream, StreamExt};
 use leptos::*;
+use wasm_bindgen::UnwrapThrowExt;
 
 use crate::components::biblical_citation::biblical_citation;
 
 use super::lookup::{lookup_links, LookupType};
 
-pub struct DocumentView {
+#[derive(Clone)]
+pub struct DocumentController {
     // this intentionally only updates in one direction: it should always hold the current
     // state of the document and sub-documents, but updating it won't necessarily rip out
     // and update the whole View for the Document
-    pub state: Behavior<Document>,
+    state: Behavior<Document>,
 }
 
-impl DocumentView {
+impl From<Behavior<Document>> for DocumentController {
+    fn from(state: Behavior<Document>) -> Self {
+        Self { state }
+    }
+}
+
+impl DocumentController {
     pub fn new(document: Document) -> Self {
         Self {
             state: Behavior::new(document),
@@ -21,11 +29,37 @@ impl DocumentView {
     }
 
     pub fn view(&self, locale: &str) -> View {
-        document_view(locale, &self.state.get())
+        document_view(locale, self, vec![], &self.state.get())
+    }
+
+    pub fn get_state(&self) -> Document {
+        self.state.get()
+    }
+
+    pub fn stream(&self) -> impl Stream<Item = Document> {
+        self.state.stream()
+    }
+
+    pub fn update_content_at_path(
+        &self,
+        path: impl IntoIterator<Item = usize>,
+        content: Content,
+    ) -> Result<(), PathError> {
+        let mut current_state = self.get_state();
+        let subdoc = current_state.at_path_mut(path)?;
+        subdoc.content = content;
+
+        self.state.set(current_state);
+        Ok(())
     }
 }
 
-pub fn document_view(locale: &str, doc: &Document) -> View {
+pub fn document_view(
+    locale: &str,
+    controller: &DocumentController,
+    path: Vec<usize>,
+    doc: &Document,
+) -> View {
     let label = if matches!(doc.content, Content::Liturgy(_)) {
         View::Empty
     } else if let Some(label) = &doc.label {
@@ -37,12 +71,12 @@ pub fn document_view(locale: &str, doc: &Document) -> View {
     };
 
     let header_and_main = match &doc.content {
-        Content::Series(content) => series(locale, content),
-        Content::Liturgy(content) => series(locale, &content.body),
+        Content::Series(content) => series(locale, controller, path, content),
+        Content::Liturgy(content) => series(locale, &controller.clone(), path, &content.body),
         Content::Rubric(content) => rubric(content),
         Content::Text(content) => text(content),
-        Content::Choice(content) => choice(locale, content),
-        Content::Parallel(content) => parallel(locale, content),
+        Content::Choice(content) => choice(locale, &controller.clone(), path, content),
+        Content::Parallel(content) => parallel(locale, controller, path, content),
         Content::Category(content) => category(locale, content, doc.version),
         Content::CollectOfTheDay { allow_multiple } => {
             collect_of_the_day(locale, *allow_multiple, doc.version)
@@ -52,9 +86,9 @@ pub fn document_view(locale: &str, doc: &Document) -> View {
         Content::Antiphon(content) => antiphon(content),
         Content::BiblicalCitation(content) => (
             None,
-            view! { <dyn:view view={biblical_citation(locale, content)}/>},
+            view! { <dyn:view view={biblical_citation(locale, controller, path, content)}/>},
         ),
-        Content::BiblicalReading(content) => biblical_reading(locale, content),
+        Content::BiblicalReading(content) => biblical_reading(locale, controller, path, content),
         Content::Canticle(content) => canticle(content),
         Content::CanticleTableEntry(content) => canticle_table_entry(locale, content),
         Content::GloriaPatri(content) => gloria_patri(content),
@@ -65,7 +99,7 @@ pub fn document_view(locale: &str, doc: &Document) -> View {
         Content::Psalm(content) => psalm(content),
         Content::PsalmCitation(content) => psalm_citation(content),
         Content::ResponsivePrayer(content) => responsive_prayer(content),
-        Content::Sentence(content) => sentence(locale, content),
+        Content::Sentence(content) => sentence(locale, controller, path, content),
     };
 
     let header = if let Some(header) = header_and_main.0 {
@@ -94,10 +128,15 @@ pub fn antiphon(antiphon: &Antiphon) -> HeaderAndMain {
     )
 }
 
-pub fn biblical_reading(locale: &str, reading: &BiblicalReading) -> HeaderAndMain {
+pub fn biblical_reading(
+    locale: &str,
+    controller: &DocumentController,
+    path: Vec<usize>,
+    reading: &BiblicalReading,
+) -> HeaderAndMain {
     let intro = if let Some(intro) = &reading.intro {
         let doc = Document::from(intro.clone());
-        document_view(locale, &doc)
+        document_view(locale, controller, path, &doc)
     } else {
         View::Empty
     };
@@ -206,8 +245,30 @@ pub fn category(locale: &str, content: &Category, version: Version) -> HeaderAnd
     )
 }
 
-pub fn choice(locale: &str, choice: &Choice) -> HeaderAndMain {
+pub fn choice(
+    locale: &str,
+    controller: &DocumentController,
+    path: Vec<usize>,
+    choice: &Choice,
+) -> HeaderAndMain {
     let selected_str = Behavior::new(choice.selected.to_string());
+
+    // after initial value, edit parent document on every fire
+    selected_str.stream().skip(1).create_effect({
+        let choice = choice.clone();
+        let controller = controller.clone();
+        let path = path.clone();
+        move |value| {
+            let mut new_choice = choice.clone();
+            let new_idx = value.parse::<usize>().unwrap_throw();
+            new_choice.selected = new_idx;
+            if let Err(e) =
+                controller.update_content_at_path(path.clone(), Content::Choice(new_choice))
+            {
+                log(&format!("error updating controller {:#?}", e));
+            };
+        }
+    });
 
     let options = View::Fragment(
         choice
@@ -231,17 +292,21 @@ pub fn choice(locale: &str, choice: &Choice) -> HeaderAndMain {
             .map({
                 let selected_str = selected_str.clone();
                 move |(idx, option)| {
+                    let mut new_path = path.clone();
+
                     let hidden = selected_str
                         .stream()
                         .map(move |selected_str| selected_str.parse::<usize>().unwrap_or(0) != idx)
                         .boxed_local();
+
+                    new_path.push(idx);
 
                     view! {
                         <dyn:li
                             class={if idx == choice.selected { "" } else { "hidden"}}
                             class:hidden={hidden}
                         >
-                            {document_view(locale, option)}
+                            {document_view(locale, controller, new_path.clone(), option)}
                         </dyn:li>
                     }
                 }
@@ -422,11 +487,23 @@ pub fn litany(litany: &Litany) -> HeaderAndMain {
     (None, main)
 }
 
-pub fn parallel(locale: &str, parallel: &Parallel) -> HeaderAndMain {
+pub fn parallel(
+    locale: &str,
+    controller: &DocumentController,
+    path: Vec<usize>,
+    parallel: &Parallel,
+) -> HeaderAndMain {
     let children = View::Fragment(
         parallel
             .iter()
-            .map(|doc| document_view(locale, doc))
+            .enumerate()
+            .map({
+                move |(idx, doc)| {
+                    let mut new_path = path.clone();
+                    new_path.push(idx);
+                    document_view(locale, controller, new_path.clone(), doc)
+                }
+            })
             .collect(),
     );
 
@@ -573,7 +650,12 @@ pub fn rubric(rubric: &Rubric) -> HeaderAndMain {
     })
 }
 
-pub fn sentence(locale: &str, sentence: &Sentence) -> HeaderAndMain {
+pub fn sentence(
+    locale: &str,
+    controller: &DocumentController,
+    path: Vec<usize>,
+    sentence: &Sentence,
+) -> HeaderAndMain {
     let short_text_response = sentence
         .response
         .as_ref()
@@ -610,7 +692,7 @@ pub fn sentence(locale: &str, sentence: &Sentence) -> HeaderAndMain {
         (Some(response), None) => view! {
             <div>
                 <p>{text} {citation}</p>
-                {document_view(locale, response)}
+                {document_view(locale, controller, path, response)}
             </div>
         },
     };
@@ -622,15 +704,25 @@ pub fn sentence(locale: &str, sentence: &Sentence) -> HeaderAndMain {
     (None, main)
 }
 
-pub fn series(locale: &str, series: &Series) -> HeaderAndMain {
+pub fn series(
+    locale: &str,
+    controller: &DocumentController,
+    path: Vec<usize>,
+    series: &Series,
+) -> HeaderAndMain {
     (
         None,
         View::Fragment(
             series
                 .iter()
-                .map(|doc| {
-                    view! {
-                        <article class={document_class(doc)}>{document_view(locale, doc)}</article>
+                .enumerate()
+                .map({
+                    move |(idx, doc)| {
+                        let mut new_path = path.clone();
+                        new_path.push(idx);
+                        view! {
+                            <article class={document_class(doc)}>{document_view(locale, controller, new_path.clone(), doc)}</article>
+                        }
                     }
                 })
                 .collect(),

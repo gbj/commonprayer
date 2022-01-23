@@ -3,13 +3,7 @@ Website Todos
 
 - [ ] Exports
   - [ ] docx
-    - [ ] actually need to track current state (for things like BiblicalCitations and changing canticles)
-      - [x] `DocumentController` that holds state
-      - [ ] pass `Path` around to `Choice` and `BiblicalCitation` and the various multi-doc types (`Liturgy`/`Series`/`Choice`/`Parallel`) and build the path as we iterate over the document
-      - [ ] modify the `DocumentController` at that path
-      - [ ] modify use of `document_view` in several places to use `DocumentController` or more specific types
-      - [ ] test that it is reflected in JSON/DOCX export!
-    - [x] and then POST this to the server
+    - [ ] finish DOCX export code
   - [x] LDF JSON
   - [ ] Export menu on Document page
     - [ ] Link
