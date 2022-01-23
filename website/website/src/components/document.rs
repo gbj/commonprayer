@@ -171,18 +171,20 @@ pub fn biblical_reading(
 pub fn canticle(content: &Canticle) -> HeaderAndMain {
     let citation = if let Some(citation) = &content.citation {
         view! {
-            <h3 class="citation">{citation}</h3>
+            <p class="citation">{citation}</p>
         }
     } else {
         View::Empty
     };
 
-    let header = View::Fragment(vec![
-        view! { <h3 class="canticle-number">{content.number.to_string()}</h3> },
-        view! { <h4 class="local-name">{&content.local_name}</h4> },
-        view! { <em class="latin-name">{content.latin_name.as_ref().cloned().unwrap_or_default()}</em> },
-        citation,
-    ]);
+    let header = view! {
+        <header class="canticle-header">
+            <h3 class="canticle-number">{content.number.to_string()}</h3>
+            <h4 class="local-name">{&content.local_name}</h4>
+            <em class="latin-name">{content.latin_name.as_ref().cloned().unwrap_or_default()}</em>
+             <p class="citation">{citation}</p>
+        </header>
+    };
 
     let sections = View::Fragment(
         content

@@ -216,14 +216,37 @@ a.reference {
 }
 
 /* Canticle */
-h3.canticle-number {
-  margin: 0;
-  padding: 0;
+.document > header.canticle-header {
+  display: grid;
+  grid-template-areas: "number local latin" "number citation citation";
+  grid-template-columns: 4rem 0.5fr 0.5fr;
+  margin-top: 1rem;
 }
 
-h4.canticle-number {
+.canticle-header .canticle-number {
   margin: 0;
   padding: 0;
+  grid-area: number;
+  font-size: 2.5rem;
+  margin-top: -0.25rem;
+}
+
+.canticle-header h4.local-name {
+  margin: 0;
+  padding: 0;
+  grid-area: local;
+  line-height: 1.25rem;
+}
+
+.canticle-header .latin-name {
+  grid-area: latin;
+  line-height: 1.25rem;
+}
+
+.canticle-header .citation {
+  font-style: italic;
+  grid-area: citation;
+  line-height: 1.25rem;
 }
 
 .canticle > section > main > .verse {
