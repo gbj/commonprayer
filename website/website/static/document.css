@@ -15,6 +15,10 @@
   width: 1px;
 }
 
+.lord {
+  font-variant: small-caps;
+}
+
 /** Document Header (label, citation, etc.) */
 .document > header,
 .psalm > section > header {

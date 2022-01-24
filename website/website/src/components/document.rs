@@ -152,7 +152,7 @@ pub fn biblical_reading(
             .map(|(verse, verse_text)| {
                 view! {
                   <sup class="verse-number">{verse.verse.to_string()}</sup>
-                  <span>{verse_text}</span>
+                  <span>{small_capify(verse_text)}</span>
                 }
             })
             .collect(),
@@ -217,8 +217,8 @@ pub fn canticle(content: &Canticle) -> HeaderAndMain {
                         .map(|verse| {
                             view! {
                                 <p class="verse">
-                                    <span class="a">{&verse.a}</span>
-                                    <span class="b">{&verse.b}</span>
+                                    <span class="a">{small_capify(&verse.a)}</span>
+                                    <span class="b">{small_capify(&verse.b)}</span>
                                 </p>
                             }
                         })
@@ -615,8 +615,8 @@ pub fn psalm(psalm: &Psalm) -> HeaderAndMain {
                         .into_iter()
                         .map(|verse| {
                             let number = verse.number;
-                            let a = verse.a;
-                            let b = verse.b;
+                            let a = small_capify(&verse.a);
+                            let b = small_capify(&verse.b);
 
                             view! {
                                 <p class="verse">
@@ -857,4 +857,36 @@ fn display_format_as_class(display_format: DisplayFormat) -> &'static str {
         DisplayFormat::Omit => "omit",
         DisplayFormat::Unison => "unison",
     }
+}
+
+pub fn small_capify(s: &str) -> View {
+    View::Fragment(
+        s.split_inclusive("LORD")
+            .flat_map(|s| s.split_inclusive("GOD"))
+            .flat_map(|s| s.split_inclusive("YAHWEH"))
+            .flat_map(|piece| {
+                if piece.ends_with("LORD") {
+                    [
+                        View::StaticText(piece.replace("LORD", "")),
+                        view! { <span class="lord">"Lord"</span> },
+                    ]
+                    .into_iter()
+                } else if piece.ends_with("GOD") {
+                    [
+                        View::StaticText(piece.replace("GOD", "")),
+                        view! { <span class="lord">"God"</span> },
+                    ]
+                    .into_iter()
+                } else if piece.ends_with("YAHWEH") {
+                    [
+                        View::StaticText(piece.replace("YAHWEH", "")),
+                        view! { <span class="lord">"Yahweh"</span> },
+                    ]
+                    .into_iter()
+                } else {
+                    [View::Empty, View::StaticText(piece.to_string())].into_iter()
+                }
+            })
+            .collect::<Vec<_>>(),
+    )
 }
