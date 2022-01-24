@@ -7,6 +7,7 @@ lazy_static! {
         citation: Some(String::from("Julian of Norwich")),
         local_name: String::from("Canticle R"),
         latin_name: None,
+        rubric: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -43,6 +44,5 @@ Christ is the one whom we love."
             ]
         }]
     })
-    .version(Version::EOW)
-    ;
+    .version(Version::EOW);
 }

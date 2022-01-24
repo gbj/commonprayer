@@ -7,6 +7,7 @@ lazy_static! {
         citation: Some(String::from("1 Peter 1:3-4,18-21")),
         local_name: String::from("Canticle M"),
         latin_name: None,
+        rubric: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -33,6 +34,5 @@ lazy_static! {
             ]
         }]
     })
-    .version(Version::EOW)
-    ;
+    .version(Version::EOW);
 }

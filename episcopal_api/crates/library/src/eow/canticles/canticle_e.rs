@@ -7,6 +7,7 @@ lazy_static! {
         citation: Some(String::from("Isaiah 66:10-14")),
         local_name: String::from("Canticle E"),
         latin_name: None,
+        rubric: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -42,6 +43,5 @@ the wealth of nations like an overflowing stream."
             ]
         }]
     })
-    .version(Version::EOW)
-    ;
+    .version(Version::EOW);
 }

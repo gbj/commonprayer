@@ -308,6 +308,12 @@ a.reference {
   grid-area: b;
 }
 
+.canticle .canticle-section-title {
+  font-weight: normal;
+  font-style: italic;
+  margin: 1rem 0;
+}
+
 /* Choice */
 .choice nav select {
   display: block;

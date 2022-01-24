@@ -7,6 +7,7 @@ lazy_static! {
         citation: Some(String::from("Anselm of Canterbury")),
         local_name: String::from("Canticle Q"),
         latin_name: None,
+        rubric: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -45,6 +46,5 @@ lazy_static! {
             ]
         }]
     })
-    .version(Version::EOW)
-    ;
+    .version(Version::EOW);
 }

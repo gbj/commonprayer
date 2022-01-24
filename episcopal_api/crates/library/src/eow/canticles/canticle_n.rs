@@ -7,6 +7,7 @@ lazy_static! {
         citation: Some(String::from("1 John 4:7-11")),
         local_name: String::from("Canticle N"),
         latin_name: None,
+        rubric: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -35,6 +36,5 @@ so that we might live through Jesus Christ."
             ]
         }]
     })
-    .version(Version::EOW)
-    ;
+    .version(Version::EOW);
 }

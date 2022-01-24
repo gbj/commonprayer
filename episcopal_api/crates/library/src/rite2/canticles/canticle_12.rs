@@ -7,9 +7,10 @@ lazy_static! {
         citation: Some(String::from("Song of the Three Young Men, 35-65")),
         local_name: String::from("A Song of Creation"),
         latin_name: Some(String::from("Benedicite, omnia opera Domini")),
+        rubric: Some(String::from("One or more sections of this Canticle may be used. Whatever the selection, it begins with the Invocation and concludes with the Doxology.")),
         sections: vec![
             CanticleSection {
-                title: None,
+                title: Some(String::from("Invocation")),
                 verses: vec![
                     CanticleVerse::from((
                         "Glorify the Lord, all you works of the Lord, *",
@@ -22,7 +23,7 @@ lazy_static! {
                 ]
             },
             CanticleSection {
-                title: None,
+                title: Some(String::from("I\tThe Cosmic Order")),
                 verses: vec![
                     CanticleVerse::from((
                         "Glorify the Lord, you angels and all powers of the Lord, *",
@@ -59,7 +60,7 @@ lazy_static! {
                 ]
             },
             CanticleSection {
-                title: None,
+                title: Some(String::from("II\tThe Earth and its Creatures")),
                 verses: vec![
                     CanticleVerse::from((
                         "Let the earth glorify the Lord, *",
@@ -89,7 +90,7 @@ and all that grows upon the earth, *",
                 ]
             },
             CanticleSection {
-                title: None,
+                title: Some(String::from("II\tThe People of God")),
                 verses: vec![
                     CanticleVerse::from((
                         "Let the people of God glorify the Lord, *",
@@ -110,7 +111,7 @@ and all that grows upon the earth, *",
                 ]
             },
             CanticleSection {
-                title: None,
+                title: Some(String::from("Doxology")),
                 verses: vec![
                     CanticleVerse::from((
                         "Let us glorify the Lord:  Father, Son, and Holy Spirit; *",

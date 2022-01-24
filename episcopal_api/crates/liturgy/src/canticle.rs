@@ -33,6 +33,8 @@ pub struct Canticle {
     pub latin_name: Option<String>,
     /// The content of the psalm, by section
     pub sections: Vec<CanticleSection>,
+    /// An initial, explanatory rubric (used for e.g., Canticle 12)
+    pub rubric: Option<String>,
 }
 
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]

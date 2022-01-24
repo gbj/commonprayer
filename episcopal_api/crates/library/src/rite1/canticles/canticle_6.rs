@@ -7,6 +7,7 @@ lazy_static! {
         citation: None,
         local_name: String::from("Glory be to God"),
         latin_name: Some(String::from("Gloria in Excelsis")),
+        rubric: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![CanticleVerse::from((

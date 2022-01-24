@@ -7,6 +7,7 @@ lazy_static! {
         citation: Some(String::from("Luke 2:29-32")),
         local_name: String::from("The Song of Simeon"),
         latin_name: Some(String::from("Nunc Dimittis")),
+rubric: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![

@@ -113,12 +113,12 @@ body > main {
   margin: auto;
   max-width: calc(100vw - calc(2 * var(--page-padding)));
   padding: 0.25rem;
-  width: 30rem;
+  width: 37.5rem;
 }
 
 @media (min-width: 767px) {
   body > main {
-    width: 35rem;
+    width: 40rem;
   }
 }
 

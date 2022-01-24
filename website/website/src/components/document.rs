@@ -182,8 +182,16 @@ pub fn canticle(content: &Canticle) -> HeaderAndMain {
             <h3 class="canticle-number">{content.number.to_string()}</h3>
             <h4 class="local-name">{&content.local_name}</h4>
             <em class="latin-name">{content.latin_name.as_ref().cloned().unwrap_or_default()}</em>
-             <p class="citation">{citation}</p>
+            {citation}
         </header>
+    };
+
+    let rubric = if let Some(rubric) = &content.rubric {
+        view! {
+            <em class="rubric">{rubric}</em>
+        }
+    } else {
+        View::Empty
     };
 
     let sections = View::Fragment(
@@ -228,7 +236,10 @@ pub fn canticle(content: &Canticle) -> HeaderAndMain {
     );
 
     let main = view! {
-        <main class="canticle">{sections}</main>
+        <main class="canticle">
+            {rubric}
+            {sections}
+        </main>
     };
 
     (Some(header), main)

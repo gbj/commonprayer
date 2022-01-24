@@ -7,6 +7,7 @@ lazy_static! {
         citation: Some(String::from("Prayer of Manasseh 1-2, 4, 6-7, 11-15")),
         local_name: String::from("A Song of Penitence"),
         latin_name: Some(String::from("Kyrie Pantokrator")),
+        rubric: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
