@@ -315,6 +315,11 @@ a.reference {
   margin: 1rem 0;
 }
 
+.canticle .rubric {
+  display: block;
+  margin-top: 1rem;
+}
+
 /* Choice */
 .choice nav select {
   display: block;

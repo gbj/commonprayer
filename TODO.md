@@ -1,6 +1,7 @@
 Website Todos
 =============
 
+- [ ] LORD (in psalms and readings)
 - Build out
   - [ ] Evening Prayer
 - Clean up
