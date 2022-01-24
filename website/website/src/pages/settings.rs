@@ -81,6 +81,43 @@ enum Status {
 fn body(locale: &str, props: &SettingsPageProps) -> View {
     let status = Behavior::new(Status::Idle);
 
+    let dark_mode_setting = SegmentButton::new_with_default_value(
+        "dark_mode",
+        Some(t!("settings.dark_mode.label")),
+        [
+            (None, t!("settings.dark_mode.auto"), Some(t!("settings.dark_mode.auto_explanation"))),
+            (Some("light".to_string()), t!("settings.dark_mode.light"), Some(t!("settings.dark_mode.light_explanation"))),
+            (Some("dark".to_string()), t!("settings.dark_mode.dark"), Some(t!("settings.dark_mode.dark_explanation")))
+        ],
+        preferences::get_raw(DARK_MODE_KEY)
+    );
+    dark_mode_setting.value.stream().skip(1).create_effect({
+        let status = status.clone();
+        
+        move |new_value| {
+            let body_class_list = leptos::body().unwrap().class_list();
+            match new_value {
+                Some(value) => {
+                    preference_effect(&status, || {
+                        preferences::set_raw(DARK_MODE_KEY, &value)?;
+                        body_class_list.remove_1("dark-mode-light").map_err(|_| StorageError::SettingStorage)?;
+                        body_class_list.remove_1("dark-mode-dark").map_err(|_| StorageError::SettingStorage)?;
+                        body_class_list.add_1(&format!("dark-mode-{}", value)).map_err(|_| StorageError::SettingStorage)?;
+                        Ok(())
+                    });
+                },
+                None => {
+                    preference_effect(&status, || {
+                        preferences::clear_raw(DARK_MODE_KEY)?;
+                        body_class_list.remove_1("dark-mode-light").map_err(|_| StorageError::SettingStorage)?;
+                        body_class_list.remove_1("dark-mode-dark").map_err(|_| StorageError::SettingStorage)?;
+                        Ok(())
+                    });
+                },
+            }
+        }
+    });
+
     let version_setting = setting_toggle(
         &status,
         "version",
@@ -156,16 +193,13 @@ fn body(locale: &str, props: &SettingsPageProps) -> View {
                 Some(t!("bible_version.KJV_full")),
             ),
         ],
-        if is_server!() {
-            None
-        } else {
+        
             preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion)).and_then(|value| {
                 match value {
                     PreferenceValue::Version(version) => Some(version),
                     _ => None,
                 }
             })
-        },
     );
     bible_version_setting.value.stream().skip(1).create_effect({
         let status = status.clone();
@@ -215,6 +249,7 @@ fn body(locale: &str, props: &SettingsPageProps) -> View {
             {header(locale, &t!("settings.title"))}
             <main>
                 <h2>{t!("settings.general")}</h2>
+                <dyn:view view={dark_mode_setting.view()} />
                 <dyn:view view={version_setting.view()} />
                 <dyn:view view={calendar_setting.view()} />
                 <dyn:view view={psalm_cycle_setting.view()} />

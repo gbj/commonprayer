@@ -27,6 +27,8 @@ pub use static_element::StaticElement;
 pub use view::View;
 pub use web_sys::Event;
 
+pub const DARK_MODE_KEY: &str = "dark_mode";
+
 use cfg_if::cfg_if;
 
 cfg_if! {

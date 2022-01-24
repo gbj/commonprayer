@@ -17,11 +17,6 @@ pub enum StorageError {
 }
 
 fn set_localstorage(key: &str, value: impl Serialize) -> Result<(), StorageError> {
-    let storage = window()
-        .local_storage()
-        .map_err(|_| StorageError::StorageNotAvailable)?
-        .ok_or(StorageError::StorageNotAvailable)?;
-
     let value = serde_json::to_string(&value).map_err(|err| {
         log(&format!(
             "(set_localstorage) error for key {}\n\n{}",
@@ -30,19 +25,50 @@ fn set_localstorage(key: &str, value: impl Serialize) -> Result<(), StorageError
         StorageError::SerializeValue
     })?;
 
-    storage
-        .set_item(key, &value)
-        .map_err(|_| StorageError::SettingStorage)
+    set_raw(key, &value)
+}
+
+pub fn set_raw(key: &str, value: &str) -> Result<(), StorageError> {
+    if is_server!() {
+        Err(StorageError::StorageNotAvailable)
+    } else {
+        let storage = window()
+            .local_storage()
+            .map_err(|_| StorageError::StorageNotAvailable)?
+            .ok_or(StorageError::StorageNotAvailable)?;
+
+        storage
+            .set_item(key, value)
+            .map_err(|_| StorageError::SettingStorage)
+    }
+}
+
+pub fn get_raw(key: &str) -> Option<String> {
+    if is_server!() {
+        None
+    } else {
+        let storage = window().local_storage().ok()??;
+        storage.get_item(key).ok().flatten()
+    }
+}
+
+pub fn clear_raw(key: &str) -> Result<(), StorageError> {
+    if is_server!() {
+        Err(StorageError::StorageNotAvailable)
+    } else {
+        let storage = window()
+            .local_storage()
+            .map_err(|_| StorageError::StorageNotAvailable)?
+            .ok_or(StorageError::StorageNotAvailable)?;
+        storage
+            .delete(key)
+            .map_err(|_| StorageError::SettingStorage)
+    }
 }
 
 pub fn get(key: &PreferenceKey) -> Option<PreferenceValue> {
     let key = serde_json::to_string(&key).ok()?;
-    let storage = window().local_storage().ok()??;
-    storage
-        .get_item(&key)
-        .ok()
-        .flatten()
-        .and_then(|value| serde_json::from_str(&value).ok())
+    get_raw(&key).and_then(|value| serde_json::from_str(&value).ok())
 }
 
 pub fn set(key: &PreferenceKey, value: &PreferenceValue) -> Result<(), StorageError> {
@@ -52,13 +78,7 @@ pub fn set(key: &PreferenceKey, value: &PreferenceValue) -> Result<(), StorageEr
 
 pub fn clear(key: &PreferenceKey) -> Result<(), StorageError> {
     let key = serde_json::to_string(&key).map_err(|_| StorageError::SerializeKey)?;
-    let storage = window()
-        .local_storage()
-        .map_err(|_| StorageError::StorageNotAvailable)?
-        .ok_or(StorageError::StorageNotAvailable)?;
-    storage
-        .delete(&key)
-        .map_err(|_| StorageError::SettingStorage)
+    clear_raw(&key)
 }
 
 fn liturgy_key(liturgy: TOCLiturgy, language: Language, version: Version) -> String {

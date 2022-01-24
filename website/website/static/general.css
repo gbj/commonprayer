@@ -4,7 +4,6 @@
   --border-color: #e0e0e0;
   --overlay-shadow-color: #d0d0d0;
   --color: #101010;
-  --ui-background: #3030ff;
   --font-family: "Sabon", Garamond, serif;
   --page-padding: 1rem;
   --rubric-size: 0.9rem;
@@ -40,6 +39,89 @@
   --ui-toggle-checked-background: #c63232;
   --ui-toggle-unchecked-background: #f0f0f0;
   --ui-toggle-unchecked-background-hover: #f6abab;
+
+  /* Links */
+  --link-color: #c63232;
+  --link-visited-color: #9a2626;
+}
+
+a {
+  color: var(--link-color);
+}
+
+a:visited {
+  color: var(--link-visited-color);
+}
+
+/* Dark Mode — Colors */
+@media (prefers-color-scheme: dark) {
+  body:not(.dark-mode-light) {
+    --background: #101010;
+    --border-color: #202020;
+    --overlay-shadow-color: #303030;
+    --color: #fefefe;
+    --rubric-color: #ff7070;
+    --error-color: rgb(234, 0, 0);
+    --error-color-tint: rgba(234, 0, 0, 0.5);
+
+    /* Colors */
+    --color-success-background: rgba(5, 131, 5, 0.05);
+    --color-success: rgb(5, 131, 5);
+    --color-error-background: rgba(131, 5, 5, 0.05);
+    --color-error: rgb(131, 5, 5);
+
+    /* Navigation menu settings */
+    --menu-border-color: #303030;
+    --nav-link-hover: #303030;
+
+    /* Toggle buttons */
+    --ui-toggle-checked-color: #e0e0e0;
+    --ui-toggle-checked-background: #862222;
+    --ui-toggle-unchecked-background: #303030;
+    --ui-toggle-unchecked-background-hover: #c63232;
+
+    /* Links */
+    --link-color: #c45f5f;
+    --link-visited-color: #c45f5f;
+  }
+
+  .menu-toggle-button:not(.hamburger) {
+    filter: var(--button-filter-light);
+  }
+}
+
+body.dark-mode-dark {
+  --background: #101010;
+  --border-color: #202020;
+  --overlay-shadow-color: #303030;
+  --color: #fefefe;
+  --rubric-color: #ff7070;
+  --error-color: rgb(234, 0, 0);
+  --error-color-tint: rgba(234, 0, 0, 0.5);
+
+  /* Colors */
+  --color-success-background: rgba(5, 131, 5, 0.05);
+  --color-success: rgb(5, 131, 5);
+  --color-error-background: rgba(131, 5, 5, 0.05);
+  --color-error: rgb(131, 5, 5);
+
+  /* Navigation menu settings */
+  --menu-border-color: #303030;
+  --nav-link-hover: #303030;
+
+  /* Toggle buttons */
+  --ui-toggle-checked-color: #e0e0e0;
+  --ui-toggle-checked-background: #862222;
+  --ui-toggle-unchecked-background: #303030;
+  --ui-toggle-unchecked-background-hover: #c63232;
+
+  /* Links */
+  --link-color: #c45f5f;
+  --link-visited-color: #c45f5f;
+}
+
+body.dark-mode-dark .menu-toggle-button:not(.hamburger) {
+  filter: var(--button-filter-light);
 }
 
 /* Font Definitions */

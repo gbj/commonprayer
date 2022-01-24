@@ -36,6 +36,7 @@ features = [
   "Location",
   "Node",
   "NodeList",
+  "Storage",
   "Text",
   "TreeWalker",
   "Window"

@@ -34,6 +34,14 @@ en:
     KJV: KJV
 
   settings:
+    dark_mode:
+      label: Dark Mode
+      auto: Auto
+      auto_explanation: Site will match your device’s mode.
+      light: Light
+      light_explanation: Site will always use light mode.
+      dark: Dark
+      dark_explanation: Site will always use dark mode.
     title: Settings
     general: General Settings
     liturgy: Liturgy Settings
