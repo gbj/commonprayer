@@ -398,6 +398,7 @@ pub fn gloria_patri(content: &GloriaPatri) -> HeaderAndMain {
             <p>
                 <span class="a">{a}</span>
                 <span class="b">{b}</span>
+                <br/>
                 <span class="c">{c}</span>
                 <span class="d">{d}</span>
             </p>
