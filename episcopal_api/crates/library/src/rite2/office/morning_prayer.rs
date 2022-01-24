@@ -6,6 +6,7 @@ use calendar::Weekday;
 use canticle_table::CanticleNumber;
 use lectionary::ReadingType;
 use liturgy::*;
+use psalter::bcp1979::PSALM_95;
 
 lazy_static! {
     pub static ref MORNING_PRAYER_II: Document = Document::from(
@@ -61,10 +62,152 @@ lazy_static! {
           // TODO: insert invitatories as printed
           // TODO add antiphons during compilation
           Document::from(Choice::from([
-            // TODO Document::from(undefined).version(Version::RiteII).label("Venite").source(Reference::from(82)).condition(/* {"conditions":[{"preference":{"key":"psalmCycle","value":"30day-psalter","is":false}},{"day_of_month":{"neq":"19"}}],"mode":"or"} */),
-            // TODO Document::from(undefined).version(Version::RiteII).label("Jubilate").source(Reference::from(82)),
-            // TODO Document::from(undefined).version(Version::RiteII).label("Christ our Passover").version_label("Pascha Nostrum").source(Reference::from(83)).condition(/* {"mode":"and","conditions":[{"season":{"except":[],"only":["Easter","Ascension","Pentecost"]}}]} */)
-          ])),
+            Document::from(Invitatory {
+              local_name: String::from("Venite"),
+              citation: Some(String::from("Psalm 95:1-7")),
+              latin_name: None,
+              antiphon: SeasonalAntiphon::Insert,
+              gloria_patri: None,
+              sections: vec![
+                InvitatorySection {
+                    verses: vec![
+                      InvitatoryVerse {
+                            a: String::from("Come, let us sing to the Lord; *"),
+                            b: String::from("let us shout for joy to the Rock of our salvation.")
+                        },
+                      InvitatoryVerse {
+                            a: String::from("Let us come before his presence with thanksgiving *"),
+                            b: String::from("and raise a loud shout to him with psalms.")
+                        },
+                        ]
+                },
+                InvitatorySection {
+                  verses: vec![
+                      InvitatoryVerse {
+                            a: String::from("For the LORD is a great God, *"),
+                            b: String::from("and a great King above all gods.")
+                        },
+                      InvitatoryVerse {
+                            a: String::from("In his hand are the caverns of the earth, *"),
+                            b: String::from("and the heights of the hills are his also.")
+                        },
+                      InvitatoryVerse {
+                            a: String::from("The sea is his, for he made it, *"),
+                            b: String::from("and his hands have molded the dry land.")
+                        },
+                        ]
+                },
+                InvitatorySection {
+                  verses: vec![
+                      InvitatoryVerse {
+                            a: String::from("Come, let us bow down, and bend the knee, *"),
+                            b: String::from("and kneel before the LORD our Maker.")
+                        },
+                      InvitatoryVerse {
+                            a: String::from("For he is our God,\nand we are the people of his pasture and the sheep of his hand. *"),
+                            b: String::from("Oh, that today you would hearken to his voice!")
+                        },
+                    ]
+                  }
+              ]
+          }).version_label("Venite"),
+          Document::from(PSALM_95.clone()).version_label("Psalm 95"),
+          Document::from(Invitatory {
+              local_name: String::from("Jubilate"),
+              citation: Some(String::from("Psalm 100")),
+              latin_name: None,
+              antiphon: SeasonalAntiphon::Insert,
+              gloria_patri: None,
+              sections: vec![
+                InvitatorySection {
+                  verses: vec![
+                    InvitatoryVerse {
+                        a: String::from("Be joyful in the LORD, all you lands; *"),
+                        b: String::from("serve the LORD with gladness\n and come before his presence with a song.")
+                    }
+                  ]
+                },
+                InvitatorySection {
+                  verses: vec![
+                    InvitatoryVerse {
+                        a: String::from("Know this: The LORD himself is God; *"),
+                        b: String::from("he himself has made us, and we are his;\n we are his people and the sheep of his pasture.")
+                    }
+                  ]
+                },
+                InvitatorySection {
+                  verses: vec![
+                    InvitatoryVerse {
+                        a: String::from("Enter his gates with thanksgiving;\ngo into his courts with praise; *"),
+                        b: String::from("give thanks to him and call upon his Name.")
+                    }
+                  ]
+                },
+                InvitatorySection {
+                  verses: vec![
+                    InvitatoryVerse {
+                        a: String::from("For the LORD is good;\nhis mercy is everlasting; *"),
+                        b: String::from("and his faithfulness endures from age to age.")
+                    }
+                  ]
+                }
+              ]
+          }).version_label("Jubilate"),
+          Document::from(Invitatory {
+              local_name: String::from("Christ our Passover"),
+              citation: Some(String::from("1 Corinthians 5:7-8; Romans 6:9-11; 1 Corinthians 15:20-22 ")),
+              latin_name: Some(String::from("Pascha Nostrum")),
+              antiphon: SeasonalAntiphon::Omit,
+              gloria_patri: None,
+              sections: vec![
+                  InvitatorySection {
+                      verses: vec![
+                          InvitatoryVerse {
+                              a: String::from("Alleluia.\nChrist our Passover has been sacrificed for us; * "),
+                              b: String::from("therefore let us keep the feast,")
+                          },
+                          InvitatoryVerse {
+                              a: String::from("Not with the old leaven, the leaven of malice and evil, *"),
+                              b: String::from("but with the unleavened bread of sincerity and truth. Alleluia.")
+                          }
+                      ]
+                  },
+                  InvitatorySection {
+                      verses: vec![
+                          InvitatoryVerse {
+                              a: String::from("Christ being raised from the dead will never die again; *"),
+                              b: String::from("death no longer has dominion over him.")
+                          },
+                          InvitatoryVerse {
+                              a: String::from("The death that he died, he died to sin, once for all; *"),
+                              b: String::from("but the life he lives, he lives to God.")
+                          },
+                          InvitatoryVerse {
+                              a: String::from("So also consider yourselves dead to sin, *"),
+                              b: String::from("and alive to God in Jesus Christ our Lord. Alleluia.")
+                          }
+                      ]
+                  },
+                  InvitatorySection {
+                      verses: vec![
+                          InvitatoryVerse {
+                              a: String::from("Christ has been raised from the dead, *"),
+                              b: String::from("the first fruits of those who have fallen asleep.")
+                          },
+                          InvitatoryVerse {
+                              a: String::from("For since by a man came death, * "),
+                              b: String::from("by a man has come also the resurrection of the dead.")
+                          },
+                          InvitatoryVerse {
+                              a: String::from("For as in Adam all die, *"),
+                              b: String::from("so also in Christ shall all be made alive. Alleluia.")
+                          }
+                      ]
+                  }
+              ]
+          }).version_label("Pascha Nostrum").condition(EASTER_SEASON.clone())
+
+        ])),
 
           // Psalms
           Document::from(Rubric::from("Then follows")),

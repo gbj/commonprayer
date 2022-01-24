@@ -252,6 +252,8 @@ pub enum Content {
     GloriaPatri(GloriaPatri),
     /// A title, subtitle, label, or other heading
     Heading(Heading),
+    /// An invitatory psalm
+    Invitatory(Invitatory),
     /// A generic reference to a lectionary reading (i.e., “First Reading” from the Daily Office Lectionary).
     LectionaryReading(LectionaryReading),
     /// A responsive prayer in which the same response is given to every petition
@@ -321,6 +323,9 @@ impl Content {
                 Heading::Day { name, proper, holy_days } => name.contains(text) || proper.as_ref().map(|name| name.contains(text)).unwrap_or(false) || holy_days.as_ref().map(|days| days.iter().any(|day| day.contains(text))).unwrap_or(false),
                 Heading::Text(_, s) => s.contains(text),
                 _ => false,
+            },
+            Content::Invitatory(invitatory) => {
+                invitatory.citation.as_ref().map(|citation| citation.contains(text)).unwrap_or(false) || invitatory.sections.iter().any(|section| section.verses.iter().any(|verse| verse.a.contains(text) || verse.b.contains(text)))
             },
             Content::LectionaryReading(_) => false,
             Content::Litany(litany) => litany.response.contains(text) || litany.iter().any(|line| line.contains(text)),
@@ -422,6 +427,12 @@ impl From<GloriaPatri> for Document {
 impl From<Heading> for Document {
     fn from(content: Heading) -> Self {
         Self::from(Content::Heading(content))
+    }
+}
+
+impl From<Invitatory> for Document {
+    fn from(content: Invitatory) -> Self {
+        Self::from(Content::Invitatory(content))
     }
 }
 

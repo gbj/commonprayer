@@ -93,6 +93,7 @@ pub fn document_view(
         Content::CanticleTableEntry(content) => canticle_table_entry(locale, content),
         Content::GloriaPatri(content) => gloria_patri(content),
         Content::Heading(content) => heading(content),
+        Content::Invitatory(content) => invitatory(content),
         Content::LectionaryReading(content) => lectionary_reading(locale, content),
         Content::Litany(content) => litany(content),
         Content::Preces(content) => preces(content),
@@ -475,6 +476,95 @@ pub fn heading(heading: &Heading) -> HeaderAndMain {
     };
 
     (None, main)
+}
+
+pub fn invitatory(psalm: &Invitatory) -> HeaderAndMain {
+    let latin_name = if let Some(latin) = &psalm.latin_name {
+        view! {
+            <h4 class="latin-name">{latin}</h4>
+        }
+    } else {
+        View::Empty
+    };
+
+    let citation = if let Some(citation) = &psalm.citation {
+        view! {
+            <p class="citation">{citation}</p>
+        }
+    } else {
+        View::Empty
+    };
+
+    let header = view! {
+         <header class="invitatory-header">
+            <h3 class="local-name">{&psalm.local_name}</h3>
+            {latin_name}
+            {citation}
+        </header>
+    };
+
+    let sections = View::Fragment(
+        psalm
+            .sections
+            .iter()
+            .map(|section| {
+                let verses = View::Fragment(
+                    section
+                        .verses
+                        .iter()
+                        .map(|verse| {
+                            let a = small_capify(&verse.a);
+                            let b = small_capify(&verse.b);
+
+                            view! {
+                                <p class="verse">
+                                    <span class="a">{a}</span>
+                                    <span class="b">{b}</span>
+                                </p>
+                            }
+                        })
+                        .collect(),
+                );
+
+                let antiphon = if let SeasonalAntiphon::Antiphon(ant) = &psalm.antiphon {
+                    view! {
+                        <section class="repeat-antiphon">{antiphon(ant).1}</section>
+                    }
+                } else {
+                    View::Empty
+                };
+
+                view! {
+                    <section>
+                        <main>{verses}</main>
+                        {antiphon}
+                    </section>
+                }
+            })
+            .collect(),
+    );
+
+    let antiphon_before = if let SeasonalAntiphon::Antiphon(ant) = &psalm.antiphon {
+        antiphon(ant).1
+    } else {
+        View::Empty
+    };
+
+    let antiphon_after = if let SeasonalAntiphon::Antiphon(ant) = &psalm.antiphon {
+        antiphon(ant).1
+    } else {
+        View::Empty
+    };
+
+    let main = view! {
+        <main class="invitatory">
+            {antiphon_before}
+            {sections}
+            {antiphon_after}
+        </main>
+    };
+
+    (Some(header), main)
 }
 
 pub fn lectionary_reading(locale: &str, entry: &LectionaryReading) -> HeaderAndMain {

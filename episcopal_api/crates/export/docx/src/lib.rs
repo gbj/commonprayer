@@ -1,4 +1,7 @@
-use std::io::{Seek, Write};
+use std::{
+    io::{Seek, Write},
+    ops::Add,
+};
 use thiserror::Error;
 
 use docx_rs::{BreakType, Docx, Header, Paragraph, Run, Table, TableCell, TableRow};
@@ -30,40 +33,39 @@ impl From<Document> for DocxDocument {
 
 fn add_content(docx: Docx, doc: &Document) -> Docx {
     match &doc.content {
-        liturgy::Content::Liturgy(liturgy) => liturgy.body.iter().fold(docx, add_content),
-        liturgy::Content::Series(series) => series.iter().fold(docx, add_content),
-        liturgy::Content::Parallel(parallel) => {
-            docx.add_paragraph(paragraph_with_text("[TODO parallel]"))
-        }
-        liturgy::Content::Choice(choice) => {
+        Content::Liturgy(liturgy) => liturgy.body.iter().fold(docx, add_content),
+        Content::Series(series) => series.iter().fold(docx, add_content),
+        Content::Parallel(parallel) => docx.add_paragraph(paragraph_with_text("[TODO parallel]")),
+        Content::Choice(choice) => {
             if let Some(selected_doc) = choice.options.get(choice.selected) {
                 add_content(docx, selected_doc)
             } else {
                 docx
             }
         }
-        liturgy::Content::Category(content) => content.add_to_docx(docx),
-        liturgy::Content::CollectOfTheDay { allow_multiple } => {
+        Content::Category(content) => content.add_to_docx(docx),
+        Content::CollectOfTheDay { allow_multiple } => {
             docx.header(Header::new().add_paragraph(paragraph_with_text("The Collect of the Day")))
         }
-        liturgy::Content::Empty => docx,
-        liturgy::Content::Error(content) => content.add_to_docx(docx),
-        liturgy::Content::Antiphon(content) => content.add_to_docx(docx),
-        liturgy::Content::BiblicalCitation(content) => content.add_to_docx(docx),
-        liturgy::Content::BiblicalReading(content) => content.add_to_docx(docx),
-        liturgy::Content::Canticle(content) => content.add_to_docx(docx),
-        liturgy::Content::CanticleTableEntry(content) => content.add_to_docx(docx),
-        liturgy::Content::GloriaPatri(content) => content.add_to_docx(docx),
-        liturgy::Content::Heading(content) => content.add_to_docx(docx),
-        liturgy::Content::LectionaryReading(content) => content.add_to_docx(docx),
-        liturgy::Content::Litany(content) => content.add_to_docx(docx),
-        liturgy::Content::Preces(content) => content.add_to_docx(docx),
-        liturgy::Content::Psalm(content) => content.add_to_docx(docx),
-        liturgy::Content::PsalmCitation(content) => content.add_to_docx(docx),
-        liturgy::Content::ResponsivePrayer(content) => content.add_to_docx(docx),
-        liturgy::Content::Rubric(content) => content.add_to_docx(docx),
-        liturgy::Content::Sentence(content) => content.add_to_docx(docx),
-        liturgy::Content::Text(content) => content.add_to_docx(docx),
+        Content::Empty => docx,
+        Content::Error(content) => content.add_to_docx(docx),
+        Content::Antiphon(content) => content.add_to_docx(docx),
+        Content::BiblicalCitation(content) => content.add_to_docx(docx),
+        Content::BiblicalReading(content) => content.add_to_docx(docx),
+        Content::Canticle(content) => content.add_to_docx(docx),
+        Content::CanticleTableEntry(content) => content.add_to_docx(docx),
+        Content::GloriaPatri(content) => content.add_to_docx(docx),
+        Content::Heading(content) => content.add_to_docx(docx),
+        Content::Invitatory(content) => content.add_to_docx(docx),
+        Content::LectionaryReading(content) => content.add_to_docx(docx),
+        Content::Litany(content) => content.add_to_docx(docx),
+        Content::Preces(content) => content.add_to_docx(docx),
+        Content::Psalm(content) => content.add_to_docx(docx),
+        Content::PsalmCitation(content) => content.add_to_docx(docx),
+        Content::ResponsivePrayer(content) => content.add_to_docx(docx),
+        Content::Rubric(content) => content.add_to_docx(docx),
+        Content::Sentence(content) => content.add_to_docx(docx),
+        Content::Text(content) => content.add_to_docx(docx),
     }
 }
 
@@ -215,6 +217,12 @@ impl AddToDocx for Heading {
                 )))
             }
         }
+    }
+}
+
+impl AddToDocx for Invitatory {
+    fn add_to_docx(&self, docx: Docx) -> Docx {
+        docx.add_paragraph(paragraph_with_text("TODO"))
     }
 }
 
