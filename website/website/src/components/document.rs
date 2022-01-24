@@ -540,14 +540,52 @@ pub fn preces(preces: &Preces) -> HeaderAndMain {
 
 pub fn psalm(psalm: &Psalm) -> HeaderAndMain {
     let psalm_number = psalm.number;
+    let filtered_sections = psalm.filtered_sections();
+
+    let section_1_header = filtered_sections
+        .get(0)
+        .map(|section| {
+            view! {
+                <>
+                    {if section.local_name.is_empty() {
+                        View::Empty
+                    } else {
+                        view! {
+                            <h3 class="local-name">{&section.local_name}</h3>
+                        }
+                    }}
+                    <em class="latin-name">{&section.latin_name}</em>
+                    {reference(&section.reference)}
+                </>
+            }
+        })
+        .unwrap_or(View::Empty);
+
+    let header_class = filtered_sections
+        .get(0)
+        .and_then(|section| {
+            if section.local_name.is_empty() {
+                None
+            } else {
+                Some("psalm-header with-local-name")
+            }
+        })
+        .unwrap_or("psalm-header");
+
+    let header = view! {
+         <header class={header_class}>
+            <h3 class="psalm-number">{psalm.number.to_string()}</h3>
+            {section_1_header}
+        </header>
+    };
+
     let sections = View::Fragment(
-        psalm
-            .filtered_sections()
+        filtered_sections
             .into_iter()
-            .map(|section| {
+            .enumerate()
+            .map(|(idx, section)| {
                 let local = section.local_name;
                 let latin = section.latin_name;
-                let reference = reference(&section.reference);
 
                 let verses = View::Fragment(
                     section
@@ -570,13 +608,26 @@ pub fn psalm(psalm: &Psalm) -> HeaderAndMain {
                         .collect(),
                 );
 
+                let header = if idx > 0 {
+                    view! {
+                        <header class={if local.is_empty() { "psalm-header section" } else { "psalm-header section with-local-name" }}>
+                            {if local.is_empty() {
+                                View::Empty
+                            } else {
+                                view! {
+                                    <h3 class="local-name">{local}</h3>
+                                }
+                            }}
+                            <em class="latin-name">{latin}</em>
+                        </header>
+                    }
+                } else {
+                    View::Empty
+                };
+
                 view! {
                     <section>
-                        <header>
-                            <h3 class="local-name">{local}</h3>
-                            <em class="latin-name">{latin}</em>
-                            {reference}
-                        </header>
+                        {header}
                         <main>{verses}</main>
                     </section>
                 }
@@ -588,7 +639,7 @@ pub fn psalm(psalm: &Psalm) -> HeaderAndMain {
         <main class="psalm">{sections}</main>
     };
 
-    (None, main)
+    (Some(header), main)
 }
 
 pub fn psalm_citation(citation: &PsalmCitation) -> HeaderAndMain {

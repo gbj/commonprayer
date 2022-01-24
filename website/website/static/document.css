@@ -215,20 +215,63 @@ a.reference {
   grid-area: b;
 }
 
-/* Canticle */
+/* Psalm/Canticle */
+.document header.psalm-header,
 .document > header.canticle-header {
   display: grid;
-  grid-template-areas: "number local latin" "number citation citation";
-  grid-template-columns: 4rem 0.5fr 0.5fr;
   margin-top: 1rem;
 }
 
+.document header.psalm-header > * {
+  margin: 0;
+  padding: 0;
+}
+
+.document header.psalm-header {
+  grid-template-areas: "number latin reference" "number blank blank";
+  grid-template-columns: 5rem 0.5fr 0.5fr;
+}
+
+.document header.psalm-header.with-local-name {
+  grid-template-columns: 5rem 0.5fr 0.5fr;
+  grid-template-areas: "number number reference" "local latin latin";
+}
+
+.document header.psalm-header.section.with-local-name {
+  grid-template-columns: 5rem 1fr;
+  grid-template-areas: "local latin";
+}
+
+.document header.psalm-header .local-name {
+  grid-area: local;
+}
+
+.document header.psalm-header .latin-name {
+  grid-area: latin;
+}
+
+.document header.psalm-header .reference {
+  grid-area: reference;
+  text-align: right;
+}
+
+.psalm-header .psalm-number,
 .canticle-header .canticle-number {
   margin: 0;
   padding: 0;
   grid-area: number;
   font-size: 2.5rem;
   margin-top: -0.25rem;
+}
+
+.psalm-header {
+  line-height: 2rem;
+}
+
+/* Canticle */
+.document > header.canticle-header {
+  grid-template-areas: "number local latin" "number citation citation";
+  grid-template-columns: 4rem 0.5fr 0.5fr 3rem;
 }
 
 .canticle-header h4.local-name {

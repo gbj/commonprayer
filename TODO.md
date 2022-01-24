@@ -1,6 +1,12 @@
 Website Todos
 =============
 
+- Build out
+  - [ ] Evening Prayer
+- Clean up
+  - [ ] Morning Prayer
+  - [ ] Noonday Prayer
+  - [ ] Compline
 - [ ] Exports
   - [ ] docx
     - [ ] finish DOCX export code

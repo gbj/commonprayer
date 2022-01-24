@@ -8,7 +8,7 @@ lazy_static! {
                 source: Source::BCP1979,
                 page: 586
             },
-            local_name: String::from("Psalm 2"),
+            local_name: String::from(""),
             latin_name: String::from("Quare fremuerunt gentes?"),
             verses: vec![
               PsalmVerse {

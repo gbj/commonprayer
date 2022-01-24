@@ -9,7 +9,7 @@ lazy_static! {
           source: Source::BCP1979,
           page: 640
         },
-        local_name: String::from("Psalm 40"),
+        local_name: String::from(""),
         latin_name: String::from("Expectans, expectavi"),
         verses: vec![
                       PsalmVerse {
@@ -113,7 +113,7 @@ lazy_static! {
           source: Source::BCP1979,
           page: 640
         },
-        local_name: String::from("Psalm 40"),
+        local_name: String::from(""),
         latin_name: String::from("Expectans, expectavi"),
         verses: vec![
                       PsalmVerse {

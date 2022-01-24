@@ -9,7 +9,7 @@ lazy_static! {
                 source: Source::BCP1979,
                 page: 709
               },
-              local_name: String::from("Psalm 86"),
+              local_name: String::from(""),
               latin_name: String::from("Inclina, Domine"),
               verses: vec![
                 PsalmVerse {

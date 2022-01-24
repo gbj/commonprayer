@@ -8,7 +8,7 @@ lazy_static! {
                 source: Source::BCP1979,
                 page: 650
             },
-            local_name: String::from("Psalm 47"),
+            local_name: String::from(""),
             latin_name: String::from("Omnes gentes, plaudite"),
             verses: vec![
                 PsalmVerse {

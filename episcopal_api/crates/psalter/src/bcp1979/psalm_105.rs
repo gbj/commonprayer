@@ -9,7 +9,7 @@ lazy_static! {
                     source: Source::BCP1979,
                     page: 738
                 },
-                local_name: String::from("Psalm 105: Part I"),
+                local_name: String::from("Part I"),
                 latin_name: String::from("Confitemini Domino"),
                 verses: vec![
                     PsalmVerse {
@@ -129,7 +129,7 @@ lazy_static! {
                     source: Source::BCP1979,
                     page: 739
                 },
-                local_name: String::from("Psalm 105: Part II"),
+                local_name: String::from("Part II"),
                 latin_name: String::from("Et intravit Israel"),
                 verses: vec![
                     PsalmVerse {

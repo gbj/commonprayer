@@ -8,7 +8,7 @@ lazy_static! {
                 source: Source::BCP1979,
                 page: 780
             },
-            local_name: String::from("Psalm 123"),
+            local_name: String::from(""),
             latin_name: String::from("Ad te levavi oculos meos"),
             verses: vec![
                 PsalmVerse {
