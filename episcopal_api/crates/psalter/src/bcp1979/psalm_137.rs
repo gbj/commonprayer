@@ -29,7 +29,7 @@ lazy_static! {
                   },
                 PsalmVerse {
                       number: 4,
-                      a: String::from("How shall we sing the LORD’S song *"),
+                      a: String::from("How shall we sing the LORD’s song *"),
                       b: String::from("upon an alien soil?")
                   },
                 PsalmVerse {

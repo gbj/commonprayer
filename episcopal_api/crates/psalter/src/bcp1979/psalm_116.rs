@@ -94,7 +94,7 @@ lazy_static! {
                   },
                 PsalmVerse {
                       number: 17,
-                      a: String::from("In the courts of the LORD’S house, *"),
+                      a: String::from("In the courts of the LORD’s house, *"),
                       b: String::from("in the midst of you, O Jerusalem.\n Hallelujah!")
                   },
               ]

@@ -29,7 +29,7 @@ lazy_static! {
   PsalmVerse {
         number: 4,
         a: String::from("The LORD is in his holy temple; *"),
-        b: String::from("the LORD’S throne is in heaven.")
+        b: String::from("the LORD’s throne is in heaven.")
     },
   PsalmVerse {
         number: 5,

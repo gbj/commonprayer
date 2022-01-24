@@ -155,7 +155,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 29,
                       a: String::from("My soul shall live for him;\nmy descendants shall serve him; *"),
-                      b: String::from("they shall be known as the LORD’S for ever.")
+                      b: String::from("they shall be known as the LORD’s for ever.")
                   },
                 PsalmVerse {
                       number: 30,

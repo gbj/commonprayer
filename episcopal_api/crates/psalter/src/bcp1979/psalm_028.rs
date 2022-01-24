@@ -39,7 +39,7 @@ lazy_static! {
                   },
                 PsalmVerse {
                       number: 6,
-                      a: String::from("They have no understanding of the LORD’S doings,\nnor of the works of his hands; *"),
+                      a: String::from("They have no understanding of the LORD’s doings,\nnor of the works of his hands; *"),
                       b: String::from("therefore he will break them down and not build them up.")
                   },
                 PsalmVerse {

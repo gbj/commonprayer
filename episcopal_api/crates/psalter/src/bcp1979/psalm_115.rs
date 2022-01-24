@@ -94,7 +94,7 @@ lazy_static! {
                 },
                 PsalmVerse {
                     number: 16,
-                    a: String::from("The heaven of heavens is the LORD’S, *"),
+                    a: String::from("The heaven of heavens is the LORD’s, *"),
                     b: String::from("but he entrusted the earth to its peoples.")
                 },
                 PsalmVerse {

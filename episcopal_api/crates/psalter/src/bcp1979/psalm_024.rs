@@ -14,7 +14,7 @@ lazy_static! {
               verses: vec![
                 PsalmVerse {
                       number: 1,
-                      a: String::from("The earth is the LORD’S and all that is in it, *"),
+                      a: String::from("The earth is the LORD’s and all that is in it, *"),
                       b: String::from("the world and all who dwell therein.")
                   },
                 PsalmVerse {

@@ -63,7 +63,7 @@ lazy_static! {
                 },
                 PsalmVerse {
                     number: 11,
-                    a: String::from("But the LORD’S will stands fast for ever, *"),
+                    a: String::from("But the LORD’s will stands fast for ever, *"),
                     b: String::from("and the designs of his heart from age to age.")
                 },
                 PsalmVerse {

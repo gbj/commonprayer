@@ -124,7 +124,7 @@ lazy_static! {
                   },
                 PsalmVerse {
                       number: 23,
-                      a: String::from("This is the LORD’S doing, *"),
+                      a: String::from("This is the LORD’s doing, *"),
                       b: String::from("and it is marvelous in our eyes.")
                   },
                 PsalmVerse {

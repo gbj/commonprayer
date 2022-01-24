@@ -99,7 +99,7 @@ lazy_static! {
                   },
                 PsalmVerse {
                       number: 18,
-                      a: String::from("O tarry and await the LORD’S pleasure;\nbe strong, and he shall comfort your heart; *"),
+                      a: String::from("O tarry and await the LORD’s pleasure;\nbe strong, and he shall comfort your heart; *"),
                       b: String::from("wait patiently for the LORD.")
                   },
               ]
