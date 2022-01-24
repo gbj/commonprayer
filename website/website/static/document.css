@@ -101,6 +101,7 @@ a.reference {
 /* Preces */
 .preces {
   display: table;
+  margin-top: 1rem;
 }
 
 .preces > .line {
