@@ -68,7 +68,7 @@ lazy_static! {
 
           // Psalms
           Document::from(Rubric::from("Then follows")),
-          Document::from(Heading::from((HeadingLevel::Heading3, "The Psalm or Psalms Appointed"))).display(Show::TemplateOnly),
+          Document::from(Heading::from((HeadingLevel::Heading3, "The Psalm or Psalms Appointed"))),
           Document::from(LectionaryReading {
             reading_type: ReadingTypeTable::Selected(ReadingType::MorningPsalm),
             lectionary: LectionaryTableChoice::Preference(PreferenceKey::from(GlobalPref::PsalmCycle)),
