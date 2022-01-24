@@ -1,5 +1,5 @@
 use canticle_table::CanticleId;
-use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Version};
+use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Reference, Source, Version};
 
 lazy_static! {
     pub static ref CANTICLE_16_EOW: Document = Document::from(Canticle {
@@ -7,7 +7,8 @@ lazy_static! {
         citation: Some(String::from("Luke 1: 68-79")),
         local_name: String::from("The Song of Zechariah"),
         latin_name: Some(String::from("Benedictus Dominus Deus")),
-rubric: None,
+        rubric: None,
+        gloria_patri: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -57,5 +58,9 @@ and the shadow of death, *",
             ]
         }]
     })
-    .version(Version::EOW);
+    .version(Version::EOW)
+    .source(Reference {
+        source: Source::EOW1,
+        page: 27
+    });
 }

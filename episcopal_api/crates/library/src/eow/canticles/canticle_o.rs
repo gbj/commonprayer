@@ -1,5 +1,5 @@
 use canticle_table::CanticleId;
-use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Version};
+use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Reference, Source, Version};
 
 lazy_static! {
     pub static ref CANTICLE_O: Document = Document::from(Canticle {
@@ -7,7 +7,8 @@ lazy_static! {
         citation: Some(String::from("Revelation 21:22-26, 22:1-4")),
         local_name: String::from("Canticle O"),
         latin_name: None,
-rubric: None,
+        rubric: None,
+        gloria_patri: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -44,5 +45,8 @@ and all servants give worship there; *",
         }]
     })
     .version(Version::EOW)
-    ;
+    .source(Reference {
+        source: Source::EOW1,
+        page: 38
+    });
 }

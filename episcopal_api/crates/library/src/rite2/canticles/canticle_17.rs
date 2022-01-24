@@ -1,13 +1,15 @@
 use canticle_table::CanticleId;
 use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Version};
 
+use crate::rite2::GLORIA_PATRI;
+
 lazy_static! {
     pub static ref CANTICLE_17: Document = Document::from(Canticle {
         number: CanticleId::Canticle17,
         citation: Some(String::from("Luke 2:29-32")),
         local_name: String::from("The Song of Simeon"),
         latin_name: Some(String::from("Nunc Dimittis")),
-rubric: None,
+        rubric: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -24,7 +26,9 @@ rubric: None,
                     "and the glory of your people Israel."
                 ))
             ]
-        }]
+        }],
+        gloria_patri: Some(GLORIA_PATRI.clone()),
     })
-    .version(Version::RiteII);
+    .version(Version::RiteII)
+    .page(93);
 }

@@ -5,7 +5,7 @@ lazy_static! {
     pub static ref CANTICLE_20: Document = Document::from(Canticle {
         number: CanticleId::Canticle20,
         citation: None,
-        local_name: String::from("Gloria in excelsis"),
+        local_name: String::from("Glory to God"),
         latin_name: Some(String::from("Gloria in excelsis")),
         rubric: None,
         sections: vec![CanticleSection {
@@ -43,7 +43,9 @@ with the Holy Spirit,
 in the glory of God the Father. Amen."
                 ))
             ]
-        }]
+        }],
+        gloria_patri: None,
     })
-    .version(Version::RiteII);
+    .version(Version::RiteII)
+    .page(94);
 }

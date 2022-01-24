@@ -1,13 +1,15 @@
 use canticle_table::CanticleId;
 use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Version};
 
+use crate::rite2::GLORIA_PATRI;
+
 lazy_static! {
     pub static ref CANTICLE_8: Document = Document::from(Canticle {
         number: CanticleId::Canticle8,
         citation: Some(String::from("Exodus 15:1-6, 11-13, 17-18")),
         local_name: String::from("The Song of Moses"),
         latin_name: Some(String::from("Cantemus Domino")),
-        rubric: None,
+        rubric: Some(String::from("Especially suitable for use in Easter Season")),
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -59,7 +61,9 @@ awesome in renown, and worker of wonders?"
                 )),
                 CanticleVerse::from(("The Lord shall reign *", "for ever and for ever."))
             ]
-        }]
+        }],
+        gloria_patri: Some(GLORIA_PATRI.clone())
     })
-    .version(Version::RiteII);
+    .version(Version::RiteII)
+    .page(85);
 }

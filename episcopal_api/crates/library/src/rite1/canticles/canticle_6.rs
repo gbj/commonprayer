@@ -36,7 +36,9 @@ thou only, O Christ,
     art most high in the glory of God the Father.",
                 "undefined"
             ))]
-        }]
+        }],
+        gloria_patri: None
     })
-    .version(Version::RiteI);
+    .version(Version::RiteI)
+    .page(52);
 }

@@ -1,5 +1,5 @@
 use canticle_table::CanticleId;
-use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Version};
+use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Reference, Source, Version};
 
 lazy_static! {
     pub static ref CANTICLE_B: Document = Document::from(Canticle {
@@ -7,7 +7,8 @@ lazy_static! {
         citation: Some(String::from("Ecclesiasticus 51:13-16,20b-22")),
         local_name: String::from("Canticle B"),
         latin_name: Some(String::from("Priusquam errarem")),
-rubric: None,
+        rubric: None,
+        gloria_patri: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -51,5 +52,9 @@ even while I was very young, *",
             ]
         }]
     })
-    .version(Version::EOW);
+    .version(Version::EOW)
+    .source(Reference {
+        source: Source::EOW1,
+        page: 30
+    });
 }

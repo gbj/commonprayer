@@ -2,7 +2,7 @@ use std::fmt::Display;
 
 use serde::{Deserialize, Serialize};
 
-use crate::{CanticleTables, PreferenceKey};
+use crate::{CanticleTables, GloriaPatri, PreferenceKey};
 use canticle_table::{CanticleId, CanticleNumber};
 
 /// An entry that can be looked up from a [CanticleTable](canticle_table::CanticleTable).
@@ -31,10 +31,12 @@ pub struct Canticle {
     pub local_name: String,
     /// Latin name for the canticle
     pub latin_name: Option<String>,
-    /// The content of the psalm, by section
-    pub sections: Vec<CanticleSection>,
     /// An initial, explanatory rubric (used for e.g., Canticle 12)
     pub rubric: Option<String>,
+    /// The content of the psalm, by section
+    pub sections: Vec<CanticleSection>,
+    /// The text of the Gloria Patri, to be included (or not) at the end of the canticle
+    pub gloria_patri: Option<GloriaPatri>,
 }
 
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]

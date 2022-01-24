@@ -1,5 +1,5 @@
 use canticle_table::CanticleId;
-use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Version};
+use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Reference, Source, Version};
 
 lazy_static! {
     pub static ref CANTICLE_S: Document = Document::from(Canticle {
@@ -7,7 +7,8 @@ lazy_static! {
         citation: Some(String::from("Julian of Norwich")),
         local_name: String::from("Canticle S"),
         latin_name: None,
-rubric: None,
+        rubric: None,
+        gloria_patri: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -45,5 +46,8 @@ for the honor and nobility of all, *",
         }]
     })
     .version(Version::EOW)
-    ;
+    .source(Reference {
+        source: Source::EOW1,
+        page: 40
+    });
 }

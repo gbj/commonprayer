@@ -2,6 +2,9 @@ Website Todos
 =============
 
 - [ ] LORD (in psalms and readings)
+- [ ] Gloria Patri in canticles
+  - [x] EOW canticle Glora Patris and page numbers
+  - [ ] Gloria Patri preference
 - Build out
   - [ ] Evening Prayer
 - Clean up

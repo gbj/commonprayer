@@ -235,10 +235,20 @@ pub fn canticle(content: &Canticle) -> HeaderAndMain {
             .collect(),
     );
 
+    let gloria = content
+        .gloria_patri
+        .as_ref()
+        .map(|content| {
+            let gloria_main = gloria_patri(content).1;
+            view! { <article class="document">{gloria_main}</article> }
+        })
+        .unwrap_or(View::Empty);
+
     let main = view! {
         <main class="canticle">
             {rubric}
             {sections}
+            {gloria}
         </main>
     };
 

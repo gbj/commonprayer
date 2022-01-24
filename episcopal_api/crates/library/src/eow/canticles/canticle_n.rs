@@ -1,5 +1,5 @@
 use canticle_table::CanticleId;
-use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Version};
+use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Reference, Source, Version};
 
 lazy_static! {
     pub static ref CANTICLE_N: Document = Document::from(Canticle {
@@ -8,6 +8,7 @@ lazy_static! {
         local_name: String::from("Canticle N"),
         latin_name: None,
         rubric: None,
+        gloria_patri: None,
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -36,5 +37,9 @@ so that we might live through Jesus Christ."
             ]
         }]
     })
-    .version(Version::EOW);
+    .version(Version::EOW)
+    .source(Reference {
+        source: Source::EOW1,
+        page: 37
+    });
 }

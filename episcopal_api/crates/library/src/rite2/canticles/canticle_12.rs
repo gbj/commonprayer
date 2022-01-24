@@ -123,7 +123,8 @@ and all that grows upon the earth, *",
                     ))
                 ]
             }
-        ]
+        ],
+        gloria_patri: None
     })
-    .version(Version::RiteII);
+    .version(Version::RiteII).page(88);
 }

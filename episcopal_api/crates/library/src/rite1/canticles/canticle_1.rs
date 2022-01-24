@@ -124,7 +124,9 @@ lazy_static! {
                     ))
                 ]
             }
-        ]
+        ],
+        gloria_patri: None
     })
-    .version(Version::RiteI);
+    .version(Version::RiteI)
+    .page(47);
 }

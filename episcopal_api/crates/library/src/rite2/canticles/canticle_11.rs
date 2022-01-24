@@ -1,6 +1,8 @@
 use canticle_table::CanticleId;
 use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Version};
 
+use crate::rite2::GLORIA_PATRI;
+
 lazy_static! {
     pub static ref CANTICLE_11: Document = Document::from(Canticle {
         number: CanticleId::Canticle11,
@@ -52,7 +54,9 @@ lazy_static! {
                     "and your God will be your glory."
                 ))
             ]
-        }]
+        }],
+        gloria_patri: Some(GLORIA_PATRI.clone()),
     })
-    .version(Version::RiteII);
+    .version(Version::RiteII)
+    .page(87);
 }

@@ -41,7 +41,9 @@ and dwellest between the Cherubim; *",
                     "praised and exalted above all for ever."
                 ))
             ]
-        }]
+        }],
+        gloria_patri: None
     })
-    .version(Version::RiteI);
+    .version(Version::RiteI)
+    .page(49);
 }

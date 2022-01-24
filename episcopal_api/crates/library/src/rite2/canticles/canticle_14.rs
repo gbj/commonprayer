@@ -7,7 +7,9 @@ lazy_static! {
         citation: Some(String::from("Prayer of Manasseh 1-2, 4, 6-7, 11-15")),
         local_name: String::from("A Song of Penitence"),
         latin_name: Some(String::from("Kyrie Pantokrator")),
-        rubric: None,
+        rubric: Some(String::from(
+            "Especially suitable in Lent, and on other penitential occasions"
+        )),
         sections: vec![CanticleSection {
             title: None,
             verses: vec![
@@ -71,7 +73,9 @@ in accordance with your great mercy, *",
                     "and yours is the glory to ages of ages. Amen."
                 ))
             ]
-        }]
+        }],
+        gloria_patri: None
     })
-    .version(Version::RiteII);
+    .version(Version::RiteII)
+    .page(90);
 }
