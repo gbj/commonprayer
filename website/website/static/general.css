@@ -69,6 +69,17 @@
 }
 
 /* Styles applying to everything */
+html {
+  font-size: 100%;
+}
+
+/* Respond to iOS preferences re: font size, weight for accessibility */
+@supports (font: -apple-system-body) {
+  html {
+    font: -apple-system-body;
+  }
+}
+
 body {
   color: var(--color);
   background-color: var(--background);
@@ -79,7 +90,8 @@ body {
   overflow-x: hidden;
 }
 
-input {
+input,
+select {
   font-size: max(1rem, 16px);
 }
 
@@ -113,12 +125,12 @@ body > main {
   margin: auto;
   max-width: calc(100vw - calc(2 * var(--page-padding)));
   padding: 0.25rem;
-  width: 37.5rem;
+  width: 35rem;
 }
 
 @media (min-width: 767px) {
   body > main {
-    width: 40rem;
+    width: 37.5rem;
   }
 }
 
