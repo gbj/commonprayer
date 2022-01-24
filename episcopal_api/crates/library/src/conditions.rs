@@ -1,5 +1,5 @@
-use calendar::Season;
-use liturgy::{Condition, GlobalPref, PreferenceKey, PreferenceValue};
+use calendar::{Season, Weekday};
+use liturgy::{Condition, GlobalPref, Lectionaries, PreferenceKey, PreferenceValue};
 
 lazy_static! {
     /// True when it is not Lent (including Holy Week)
@@ -20,4 +20,18 @@ lazy_static! {
         Condition::Season(Season::Ascension),
         Condition::Season(Season::Pentecost)
     ]);
+
+    /// True only on Fridays in Lent
+    pub static ref FRIDAY_IN_LENT: Condition = Condition::And(
+        Box::new(Condition::Season(Season::Lent)),
+        Box::new(Condition::Weekday(Weekday::Fri))
+    );
+
+
+    /// True unless it's the 19th of the month and you're using the 30-day Psalter,
+    /// in which case Psalm 95 is appointed for Morning Prayer, so we use the Jubilate
+    pub static ref VENITE_NOT_IN_PSALMS: Condition = Condition::Not(Box::new(Condition::And(
+        Box::new(Condition::Preference(PreferenceKey::from(GlobalPref::PsalmCycle), PreferenceValue::from(Lectionaries::BCP1979ThirtyDayPsalms))),
+        Box::new(Condition::DayOfMonth(19))
+    )));
 }

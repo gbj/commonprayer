@@ -340,15 +340,23 @@ pub fn choice(
 
     let on_change = move |ev: Event| selected_str.set(event_target_value(ev));
 
+    let menu = if choice.options.len() > 1 {
+        view! {
+            <nav>
+                <dyn:select on:change={on_change}>
+                    {options}
+                </dyn:select>
+            </nav>
+        }
+    } else {
+        View::Empty
+    };
+
     (
         None,
         view! {
             <section class="choice">
-                <nav>
-                    <dyn:select on:change={on_change}>
-                        {options}
-                    </dyn:select>
-                </nav>
+                {menu}
                 <ol>{main}</ol>
             </section>
         },

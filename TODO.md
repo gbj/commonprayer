@@ -4,8 +4,8 @@ Website Todos
 - [ ] LORD (in psalms and readings)
 - [ ] Invitatories
   - [ ] Insert seasonal antiphon
-  - [ ] omit Venite/Psalm 95 when Psalm 95 is selected
-  - [ ] use Psalm 95 on Fridays in Lent
+  - [x] omit Venite/Psalm 95 when Psalm 95 is selected
+  - [x] use Psalm 95 on Fridays in Lent
 - [ ] Gloria Patri in canticles
   - [x] EOW canticle Glora Patris and page numbers
   - [ ] Gloria Patri preference

@@ -1,8 +1,10 @@
-use crate::conditions::{EASTER_SEASON, NOT_INSERT_GLORIA, NOT_LENT};
+use crate::conditions::{
+    EASTER_SEASON, FRIDAY_IN_LENT, NOT_INSERT_GLORIA, NOT_LENT, VENITE_NOT_IN_PSALMS,
+};
 use crate::rite2::{
     APOSTLES_CREED, GLORIA_PATRI, LORDS_PRAYER_CONTEMPORARY_AND_TRADITIONAL, WORD_OF_THE_LORD,
 };
-use calendar::Weekday;
+use calendar::{LiturgicalWeek, Weekday};
 use canticle_table::CanticleNumber;
 use lectionary::ReadingType;
 use liturgy::*;
@@ -54,12 +56,10 @@ lazy_static! {
           Document::from(Categories::InvitatoryAntiphons)
             .version(Version::RiteII)
             .display(Show::TemplateOnly),
-          Document::from(Rubric::from("Then follows one of the Invitatory Psalms, Venite or Jubilate.")).display(Show::TemplateOnly),
+          Document::from(Rubric::from("Then follows one of the Invitatory Psalms, Venite or Jubilate.")),
           Document::from(Rubric::from("In Easter Week, in place of an Invitatory Psalm, the Pascha Nostrum is sung or said. It may also be used daily until the Day of Pentecost."))
-            .condition(EASTER_SEASON.clone())
-            .display(Show::TemplateOnly),
+            .condition(EASTER_SEASON.clone()),
 
-          // TODO: insert invitatories as printed
           // TODO add antiphons during compilation
           Document::from(Choice::from([
             Document::from(Invitatory {
@@ -110,8 +110,18 @@ lazy_static! {
                     ]
                   }
               ]
-          }).version_label("Venite"),
-          Document::from(PSALM_95.clone()).version_label("Psalm 95"),
+          }).version_label("Venite")
+            .condition(Condition::All(vec![
+              Condition::Not(Box::new(FRIDAY_IN_LENT.clone())), // Psalm 95 used on Fridays in Lent
+              Condition::Not(Box::new(Condition::Week(LiturgicalWeek::Easter))), // Pascha Nostrum must be used in Easter Week
+              VENITE_NOT_IN_PSALMS.clone()
+            ])),
+          Document::from(PSALM_95.clone())
+            .version_label("Psalm 95")
+            .condition(Condition::All(vec![
+                Condition::Not(Box::new(Condition::Week(LiturgicalWeek::Easter))), // Pascha Nostrum must be used in Easter Week
+                VENITE_NOT_IN_PSALMS.clone()
+            ])),
           Document::from(Invitatory {
               local_name: String::from("Jubilate"),
               citation: Some(String::from("Psalm 100")),
@@ -152,7 +162,12 @@ lazy_static! {
                   ]
                 }
               ]
-          }).version_label("Jubilate"),
+          }).version_label("Jubilate")
+              .condition(Condition::All(vec![
+              Condition::Not(Box::new(FRIDAY_IN_LENT.clone())), // Psalm 95 used on Fridays in Lent
+              Condition::Not(Box::new(Condition::Week(LiturgicalWeek::Easter))), // Pascha Nostrum must be used in Easter Week
+              VENITE_NOT_IN_PSALMS.clone()
+            ])),
           Document::from(Invitatory {
               local_name: String::from("Christ our Passover"),
               citation: Some(String::from("1 Corinthians 5:7-8; Romans 6:9-11; 1 Corinthians 15:20-22 ")),
