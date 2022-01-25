@@ -34,7 +34,9 @@ pub enum Condition {
     /// assert_eq!(condition.include(&BCP1979_CALENDAR, &good_friday, &prefs, &liturgy_prefs), false);
     /// ```
     Feast(Feast),
-    /// Included if the given day falls in this [Season](calendar::Season).
+    /// Included if the given day falls in this [Season](calendar::Season). This matches either the day’s
+    /// observed season or its base season, so e.g., would be `true` for either `Saints` or `Lent` for a saint’s day
+    /// in Lent, unlike [Condition::ObservedSeason].
     /// ```
     /// # use crate::liturgy::{Condition, PreferenceKey, PreferenceValue, LiturgyPreferences};
     /// # use calendar::{Date, LiturgicalDayId, Feast, Season, BCP1979_CALENDAR};
@@ -53,6 +55,26 @@ pub enum Condition {
     /// assert_eq!(condition.include(&BCP1979_CALENDAR, &annunciation, &prefs, &liturgy_prefs), true);
     /// ```
     Season(Season),
+    /// Included if the season observed for this day is this [Season](calendar::Season).
+    /// Unlike [Condition::Season], this would *not* match `Lent` for a saint’s day during Lent, only `Saints`.
+    /// ```
+    /// # use crate::liturgy::{Condition, PreferenceKey, PreferenceValue, LiturgyPreferences};
+    /// # use calendar::{Date, LiturgicalDayId, Feast, Season, BCP1979_CALENDAR};
+    /// # let prefs : [(PreferenceKey, PreferenceValue); 0] = [];
+    /// # let liturgy_prefs = LiturgyPreferences::default();
+    /// // applies for days that are unambiguously during a season
+    /// let good_friday = BCP1979_CALENDAR.liturgical_day(Date::from_ymd(2022, 4, 15), false);
+    /// let condition = Condition::ObservedSeason(Season::HolyWeek);
+    /// assert_eq!(condition.include(&BCP1979_CALENDAR, &good_friday, &prefs, &liturgy_prefs), true);
+    /// let condition = Condition::ObservedSeason(Season::Easter);
+    /// assert_eq!(condition.include(&BCP1979_CALENDAR, &good_friday, &prefs, &liturgy_prefs), false);
+    /// // does not apply for something like a holy day, when the season is overridden on that day
+    /// let condition = Condition::ObservedSeason(Season::Lent);
+    /// let annunciation = BCP1979_CALENDAR.liturgical_day(Date::from_ymd(2022, 3, 25), false);
+    /// assert_ne!(BCP1979_CALENDAR.season(&annunciation), Season::Lent);
+    /// assert_ne!(condition.include(&BCP1979_CALENDAR, &annunciation, &prefs, &liturgy_prefs), true);
+    /// ```
+    ObservedSeason(Season),
     /// Included if the given day falls in this [LiturgicalWeek](calendar::LiturgicalWeek).
     /// ```
     /// # use crate::liturgy::{Condition, PreferenceKey, PreferenceValue, LiturgyPreferences};
@@ -325,6 +347,7 @@ impl Condition {
                 LiturgicalDayId::Feast(s_feast) => s_feast == feast,
                 _ => false,
             },
+            Condition::ObservedSeason(season) => calendar.season(day) == *season,
             Condition::Season(season) => {
                 calendar.season(day) == *season || calendar.base_season(day) == *season
             }
