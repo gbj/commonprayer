@@ -217,6 +217,15 @@ a.reference {
   margin: 0.5rem 0;
 }
 
+/* Antiphons */
+.antiphon {
+  font-style: italic;
+}
+
+.repeat-antiphon {
+  display: none;
+}
+
 /* Psalm */
 .psalm > section > header,
 .psalm > section > main {
