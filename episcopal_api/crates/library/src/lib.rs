@@ -258,6 +258,46 @@ pub trait Library {
                     _ => Some(document),
                 },
 
+                // Insert seasonal antiphon for invitatories
+                Content::Invitatory(invitatory) => match invitatory.antiphon {
+                    SeasonalAntiphon::Insert => {
+                        if let Some(antiphon) = Self::compile(
+                            Document::from(Content::Category(Category::from(
+                                Categories::InvitatoryAntiphons,
+                            ))),
+                            calendar,
+                            day,
+                            observed,
+                            prefs,
+                            liturgy_prefs,
+                        ) {
+                            match (&antiphon.content, &mut document.content) {
+                                (
+                                    Content::Antiphon(ant),
+                                    Content::Invitatory(ref mut invitatory),
+                                ) => {
+                                    invitatory.antiphon = SeasonalAntiphon::Antiphon(ant.clone());
+                                    Some(document)
+                                }
+                                (
+                                    Content::Choice(choice),
+                                    Content::Invitatory(ref mut invitatory),
+                                ) => {
+                                    let selection = &choice.options[choice.selected];
+                                    if let Content::Antiphon(ant) = &selection.content {
+                                        invitatory.antiphon =
+                                            SeasonalAntiphon::Antiphon(ant.clone());
+                                    }
+                                    Some(document)
+                                }
+                                _ => Some(document),
+                            }
+                        } else {
+                            Some(document)
+                        }
+                    }
+                    _ => Some(document),
+                },
                 // Lookup types
                 Content::PsalmCitation(citation) => {
                     let psalter_pref = match preference_value_for_key(&PreferenceKey::from(
