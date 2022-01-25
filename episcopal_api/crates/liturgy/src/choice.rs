@@ -202,6 +202,8 @@ mod tests {
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
                 latin_name: Some(String::from("Benedicite, omnia opera Domini")),
+                rubric: None,
+                gloria_patri: None,
             })
             .version(Version::RiteI),
             Document::from(Canticle {
@@ -210,6 +212,8 @@ mod tests {
                 sections: vec![],
                 local_name: String::from("A Song of Praise"),
                 latin_name: Some(String::from("Benedictus es, Domine")),
+                rubric: None,
+                gloria_patri: None,
             })
             .version(Version::RiteI),
         ]);
@@ -232,6 +236,8 @@ mod tests {
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
                 latin_name: Some(String::from("Benedicite, omnia opera Domini")),
+                rubric: None,
+                gloria_patri: None,
             })
             .version(Version::RiteI),
             Document::from(Canticle {
@@ -240,6 +246,8 @@ mod tests {
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
                 latin_name: Some(String::from("Benedicite, omnia opera Domini")),
+                rubric: None,
+                gloria_patri: None,
             })
             .version(Version::RiteII),
         ]);
@@ -256,6 +264,8 @@ mod tests {
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
                 latin_name: Some(String::from("Benedicite, omnia opera Domini")),
+                rubric: None,
+                gloria_patri: None,
             })
             .version(Version::RiteII),
             Document::from(Canticle {
@@ -264,6 +274,8 @@ mod tests {
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
                 latin_name: Some(String::from("Benedicite, omnia opera Domini")),
+                rubric: None,
+                gloria_patri: None,
             })
             .version(Version::EOW),
         ]);
@@ -280,6 +292,8 @@ mod tests {
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
                 latin_name: Some(String::from("Benedicite, omnia opera Domini")),
+                rubric: None,
+                gloria_patri: None,
             })
             .version(Version::RiteI),
             Document::from(Canticle {
@@ -288,6 +302,8 @@ mod tests {
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
                 latin_name: Some(String::from("Benedicite, omnia opera Domini")),
+                rubric: None,
+                gloria_patri: None,
             })
             .version(Version::RiteII),
             Document::from(Canticle {
@@ -296,6 +312,8 @@ mod tests {
                 sections: vec![],
                 local_name: String::from("A Song of Praise"),
                 latin_name: Some(String::from("Benedictus es, Domine")),
+                rubric: None,
+                gloria_patri: None,
             })
             .version(Version::RiteI),
         ]);
