@@ -167,7 +167,6 @@ impl View {
 
     pub fn hydrate(self, parent: &web_sys::Element) {
         let mut starting_key = 0;
-        log("beginning hydration");
         self.hydrate_with_hydration_key(parent, &mut starting_key);
     }
 
@@ -188,11 +187,6 @@ impl View {
             }
             View::DynamicElement(element) => {
                 *hydration_key += 1;
-
-                log(&format!(
-                    "hydrating dynamic element with key {}",
-                    hydration_key
-                ));
 
                 if let Ok(Some(el)) =
                     parent.query_selector(&format!("[data-hk=\"{}\"]", hydration_key))
