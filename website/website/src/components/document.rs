@@ -338,12 +338,18 @@ pub fn choice(
             .collect(),
     );
 
-    let on_change = move |ev: Event| selected_str.set(event_target_value(ev));
+    let on_change = {
+        let selected_str = selected_str.clone();
+        move |ev: Event| selected_str.set(event_target_value(ev))
+    };
 
     let menu = if choice.options.len() > 1 {
         view! {
             <nav>
-                <dyn:select on:change={on_change}>
+                <dyn:select
+                    prop:value={selected_str.stream().map(Some).boxed_local()}
+                    on:change={on_change}
+                >
                     {options}
                 </dyn:select>
             </nav>
