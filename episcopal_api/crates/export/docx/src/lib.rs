@@ -1,10 +1,7 @@
-use std::{
-    io::{Seek, Write},
-    ops::Add,
-};
+use std::io::{Seek, Write};
 use thiserror::Error;
 
-use docx_rs::{BreakType, Docx, Header, Paragraph, Run, Table, TableCell, TableRow};
+use docx_rs::{BreakType, Docx, Header, Paragraph, Run};
 use liturgy::*;
 
 pub struct DocxDocument(Docx);
@@ -35,7 +32,7 @@ fn add_content(docx: Docx, doc: &Document) -> Docx {
     match &doc.content {
         Content::Liturgy(liturgy) => liturgy.body.iter().fold(docx, add_content),
         Content::Series(series) => series.iter().fold(docx, add_content),
-        Content::Parallel(parallel) => docx.add_paragraph(paragraph_with_text("[TODO parallel]")),
+        Content::Parallel(_parallel) => docx.add_paragraph(paragraph_with_text("[TODO parallel]")),
         Content::Choice(choice) => {
             if let Some(selected_doc) = choice.options.get(choice.selected) {
                 add_content(docx, selected_doc)
@@ -44,7 +41,7 @@ fn add_content(docx: Docx, doc: &Document) -> Docx {
             }
         }
         Content::Category(content) => content.add_to_docx(docx),
-        Content::CollectOfTheDay { allow_multiple } => {
+        Content::CollectOfTheDay { allow_multiple: _ } => {
             docx.header(Header::new().add_paragraph(paragraph_with_text("The Collect of the Day")))
         }
         Content::Empty => docx,
