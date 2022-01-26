@@ -7,7 +7,7 @@ use wasm_bindgen_futures::spawn_local;
 use crate::{
     attribute::{DynamicAttributeValue, StaticAttributeValue},
     document,
-    dynamic_element::{ClassStream, DynamicElement, EventListener, PropertyStream},
+    dynamic_element::{ClassStream, DynamicElement, EventListener, PropertyStream, StyleStream},
     log,
     operations::{
         append_child, create_comment_node, create_element, create_fragment, create_text_node,
@@ -194,6 +194,7 @@ impl View {
                     add_event_listeners(&el, element.event_listeners);
                     add_reactive_attributes(&el, element.attributes);
                     add_reactive_classes(&el, element.classes);
+                    add_reactive_styles(&el, element.styles);
                     add_reactive_properties(&el, element.properties);
                 } else {
                     log(&format!(
@@ -263,6 +264,7 @@ impl View {
                 add_event_listeners(&el, element.event_listeners);
                 add_reactive_attributes(&el, element.attributes);
                 add_reactive_classes(&el, element.classes);
+                add_reactive_styles(&el, element.styles);
                 add_reactive_properties(&el, element.properties);
 
                 for child in element.children {
@@ -367,6 +369,20 @@ fn add_reactive_classes(el: &web_sys::Element, classes: Vec<(&'static str, Class
                     } else {
                         el.class_list().remove_1(class_name).unwrap_throw();
                     }
+                }
+            }
+        });
+    }
+}
+
+fn add_reactive_styles(el: &web_sys::Element, styles: Vec<(&'static str, StyleStream)>) {
+    for (style_name, mut stream) in styles {
+        spawn_local({
+            let el = el.clone();
+            async move {
+                while let Some(value) = stream.next().await {
+                    let style = el.unchecked_ref::<web_sys::HtmlElement>().style();
+                    style.set_property(&style_name, &value).unwrap_throw();
                 }
             }
         });

@@ -26,6 +26,7 @@ version = "0.3"
 features = [
   "console",
   "Comment",
+  "CssStyleDeclaration",
   "Document",
   "DocumentFragment",
   "DomTokenList",
