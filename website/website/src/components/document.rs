@@ -1,7 +1,7 @@
 use episcopal_api::liturgy::*;
 use futures::{Stream, StreamExt};
 use leptos::*;
-use wasm_bindgen::UnwrapThrowExt;
+use wasm_bindgen::{JsCast, UnwrapThrowExt};
 
 use crate::components::biblical_citation::biblical_citation;
 
@@ -275,6 +275,8 @@ pub fn choice(
     path: Vec<usize>,
     choice: &Choice,
 ) -> HeaderAndMain {
+    let max_idx = choice.options.len() - 1;
+
     let selected_str = Behavior::new(choice.selected.to_string());
 
     // after initial value, edit parent document on every fire
@@ -294,6 +296,7 @@ pub fn choice(
         }
     });
 
+    // View
     let options = View::Fragment(
         choice
             .options
@@ -325,10 +328,69 @@ pub fn choice(
 
                     new_path.push(idx);
 
+                    // swiping left and right on touch-enabled devices will rotate among selections
+                    let swipestart = Behavior::new(0);
+                    let swipe_offset = Behavior::new(0);
+                    let swipe_offset_style = swipe_offset.stream().map(|offset| format!("translateX({}px)", offset)).boxed_local();
+                    let can_swipe_left = idx > 0;
+                    let can_swipe_right = idx < max_idx;
+
                     view! {
                         <dyn:li
                             class={if idx == choice.selected { "" } else { "hidden"}}
                             class:hidden={hidden}
+                            style:transform={swipe_offset_style}
+                            on:touchstart={
+                                let swipestart = swipestart.clone();
+                                let swipe_offset = swipe_offset.clone();
+                                move |ev: Event| {
+                                    // prevent click event
+                                    ev.prevent_default();
+
+                                    // reset offset and set base X coordinate
+                                    swipe_offset.set(0);
+                                    swipestart.set(ev.unchecked_into::<web_sys::TouchEvent>().touches().get(0).unwrap().screen_x());
+                                }
+                            }
+                            on:touchmove={
+                                let swipestart = swipestart.clone();
+                                let swipe_offset = swipe_offset.clone();
+                                move |ev: Event| {
+                                    // prevent click event
+                                    ev.prevent_default();
+
+                                    // set offset (moves item on screen)
+                                    let current_x = ev.unchecked_into::<web_sys::TouchEvent>().touches().get(0).unwrap().screen_x();
+                                    let offset = current_x - swipestart.get();
+
+                                    if offset == 0 || (offset < 0 && can_swipe_right) || (offset > 0 && can_swipe_left) {
+                                        swipe_offset.set(offset);
+                                    } else {
+                                        log("can't swipe further in the desire direction");
+                                    }
+                                }
+                            }
+                            on:touchend={
+                                let selected_str = selected_str.clone();
+                                move |ev: Event| {
+                                    // prevent click event
+                                    ev.prevent_default();
+
+                                    let offset = swipe_offset.get();
+                                    // if you've swiped 50px or more in either direction, swap
+                                    if let Ok(current_idx) = selected_str.get().parse::<usize>() {
+                                        if offset <= -50 && can_swipe_right {
+                                            selected_str.set((current_idx + 1).to_string());
+                                        } else if offset >= 50 && can_swipe_left {
+                                            selected_str.set((current_idx - 1).to_string());
+                                        }
+                                    }
+
+                                    // reset screen offset and base, so it snaps back and is ready to be swiped again
+                                    swipestart.set(0);
+                                    swipe_offset.set(0);
+                                }
+                            }
                         >
                             {document_view(locale, controller, new_path.clone(), option)}
                         </dyn:li>

@@ -87,6 +87,13 @@ fn node_to_tokens(node: &Node, hydrate_only: bool) -> Option<TokenStream> {
                     .class(#name, #value)
                 })
             }
+            // Styles
+            else if name.starts_with("style:") {
+                let name = name.replace("style:", "").replace("_", "-");
+                Some(quote::quote! {
+                    .style(#name, #value)
+                })
+            }
             // Attributes
             // Attributes with values can simply be set
             else if let Some(value) = value {
