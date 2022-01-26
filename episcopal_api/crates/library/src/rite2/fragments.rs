@@ -30,5 +30,6 @@ lazy_static! {
     ]);
 
     pub static ref APOSTLES_CREED: Text = Text::from("I believe in God, the Father almighty,\n	creator of heaven and earth.\nI believe in Jesus Christ, his only Son, our Lord.\n	He was conceived by the power of the Holy Spirit\n	and born of the Virgin Mary.\n	He suffered under Pontius Pilate,\n	was crucified, died, and was buried. \n	He descended to the dead.\n	On the third day he rose again.\n	He ascended into heaven,\n	and is seated at the right hand of the Father.\n	He will come again to judge the living and the dead.\nI believe in the Holy Spirit,\n	the holy catholic Church,\n	the communion of saints,\n	the forgiveness of sins,\n	the resurrection of the body,\n	and the life everlasting.")
+      .response("Amen.")
       .display_format(DisplayFormat::Unison);
 }
