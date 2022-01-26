@@ -187,18 +187,19 @@ impl AddToDocx for Heading {
                 if let Some(holy_days) = holy_days {
                     let para = Paragraph::new();
                     let holy_days_len = holy_days.len();
-                    let para = holy_days
-                        .iter()
-                        .enumerate()
-                        .fold(para, |para, (idx, holy_day)| {
-                            para.add_run(if idx == holy_days_len - 1 {
-                                Run::new().add_text(holy_day)
-                            } else {
-                                Run::new()
-                                    .add_text(holy_day)
-                                    .add_break(BreakType::TextWrapping)
-                            })
-                        });
+                    let para =
+                        holy_days
+                            .iter()
+                            .enumerate()
+                            .fold(para, |para, (idx, (_, holy_day))| {
+                                para.add_run(if idx == holy_days_len - 1 {
+                                    Run::new().add_text(holy_day)
+                                } else {
+                                    Run::new()
+                                        .add_text(holy_day)
+                                        .add_break(BreakType::TextWrapping)
+                                })
+                            });
                     docx.add_paragraph(para)
                 } else {
                     docx

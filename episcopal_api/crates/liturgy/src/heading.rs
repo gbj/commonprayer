@@ -1,5 +1,6 @@
 use std::fmt::Display;
 
+use calendar::Feast;
 use serde::{Deserialize, Serialize};
 
 /// A title, subtitle, label, or other heading; can be used to automatically insert date/liturgical day name, or text with a level.
@@ -11,7 +12,7 @@ pub enum Heading {
     Day {
         name: String,
         proper: Option<String>,
-        holy_days: Option<Vec<String>>,
+        holy_days: Option<Vec<(Feast, String)>>,
     },
     Text(HeadingLevel, String),
 }

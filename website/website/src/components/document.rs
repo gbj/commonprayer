@@ -92,7 +92,7 @@ pub fn document_view(
         Content::Canticle(content) => canticle(content),
         Content::CanticleTableEntry(content) => canticle_table_entry(locale, content),
         Content::GloriaPatri(content) => gloria_patri(content),
-        Content::Heading(content) => heading(content),
+        Content::Heading(content) => heading(locale, content),
         Content::Invitatory(content) => invitatory(content),
         Content::LectionaryReading(content) => lectionary_reading(locale, content),
         Content::Litany(content) => litany(content),
@@ -433,7 +433,7 @@ pub fn gloria_patri(content: &GloriaPatri) -> HeaderAndMain {
     (None, main)
 }
 
-pub fn heading(heading: &Heading) -> HeaderAndMain {
+pub fn heading(locale: &str, heading: &Heading) -> HeaderAndMain {
     let main = match heading {
         Heading::Date(date) => view! {
             <main class="heading">
@@ -457,7 +457,11 @@ pub fn heading(heading: &Heading) -> HeaderAndMain {
                 View::Fragment(
                     holy_days
                         .iter()
-                        .map(|holy_day| view! { <li>{holy_day}</li> })
+                        .map(|(feast, name)| view! {
+                            <li>
+                                <a href={&format!("/{}/holy-day/{:#?}", locale, feast)}>{name}</a>
+                            </li>
+                        })
                         .collect(),
                 )
             } else {

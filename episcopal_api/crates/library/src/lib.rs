@@ -272,9 +272,10 @@ pub trait Library {
                                         _ => true,
                                     })
                                     .filter_map(|feast| {
-                                        calendar.feast_name(*feast, document.language)
+                                        calendar
+                                            .feast_name(*feast, document.language)
+                                            .map(|name| (*feast, name.to_string()))
                                     })
-                                    .map(|name| name.to_string())
                                     .collect::<Vec<_>>(),
                             )
                         };

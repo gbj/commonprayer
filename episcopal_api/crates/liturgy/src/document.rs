@@ -320,7 +320,7 @@ impl Content {
             Content::GloriaPatri(gloria) => gloria.text.0.contains(text) || gloria.text.1.contains(text) || gloria.text.2.contains(text) || gloria.text.3.contains(text),
             Content::Heading(heading) => match heading {
                 Heading::Date(s) => s.contains(text),
-                Heading::Day { name, proper, holy_days } => name.contains(text) || proper.as_ref().map(|name| name.contains(text)).unwrap_or(false) || holy_days.as_ref().map(|days| days.iter().any(|day| day.contains(text))).unwrap_or(false),
+                Heading::Day { name, proper, holy_days } => name.contains(text) || proper.as_ref().map(|name| name.contains(text)).unwrap_or(false) || holy_days.as_ref().map(|days| days.iter().any(|(_, day)| day.contains(text))).unwrap_or(false),
                 Heading::Text(_, s) => s.contains(text),
                 _ => false,
             },
