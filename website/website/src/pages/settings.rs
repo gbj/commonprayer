@@ -167,6 +167,17 @@ fn body(locale: &str, props: &SettingsPageProps) -> View {
         true,
     );
 
+    let gloria_patri_setting = setting_toggle(
+        &status,
+        "gloria-patri",
+        PreferenceKey::from(GlobalPref::GloriaPatriTraditional),
+        t!("settings.gloria_patri"),
+        (t!("settings.gloria_patri_2"), PreferenceValue::Bool(false)),
+        (t!("settings.gloria_patri_1"), PreferenceValue::Bool(true)),
+        false,
+    );
+
+
     let bible_version_setting = SegmentButton::new_with_default_value(
         "bible_version",
         Some(t!("settings.bible_version")),
@@ -289,6 +300,7 @@ fn body(locale: &str, props: &SettingsPageProps) -> View {
                 </dyn:section>
 
                 <h2>{t!("settings.advanced")}</h2>
+                <dyn:view view={gloria_patri_setting.view()} />
                 <dyn:view view={black_letter_collect_setting.view()} />
             </main>
             <footer>

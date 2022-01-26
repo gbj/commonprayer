@@ -52,6 +52,9 @@ en:
     bible_version: Bible Version
     no_bible_version: The Bible version can be set for each liturgy below, or a global preference can be chosen here.
     use_black_letter_collects: Use Collects for Black-Letter Days
+    gloria_patri: Gloria Patri
+    gloria_patri_2: Glory to the Father...
+    gloria_patri_1: Glory be to the Father...
     yes: Yes
     no: No
     rite_i: Rite I (Traditional Language)

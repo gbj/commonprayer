@@ -8,6 +8,7 @@ use lectionary::{Lectionary, ReadingType};
 use liturgy::*;
 use psalter::{bcp1979::BCP1979_PSALTER, Psalter};
 
+use rite1::GLORIA_PATRI_TRADITIONAL;
 use serde::{Deserialize, Serialize};
 
 use crate::{
@@ -179,14 +180,40 @@ pub trait Library {
                     let entries = table.find(calendar, day, entry.nth, None, false);
 
                     let mut docs = entries.iter().map(|id| {
-                        Self::canticle(*id, document.version).unwrap_or_else(|| {
-                            Document::from(DocumentError::from(format!(
-                                "{:#?} not available in {:#?}",
-                                id, document.version
-                            )))
-                        })
+                        let mut canticle =
+                            Self::canticle(*id, document.version).unwrap_or_else(|| {
+                                Document::from(DocumentError::from(format!(
+                                    "{:#?} not available in {:#?}",
+                                    id, document.version
+                                )))
+                            });
+                        // Switch between contemporary and traditional Gloria Patri depending on preference
+                        if prefs.value(&PreferenceKey::from(GlobalPref::GloriaPatriTraditional))
+                            == Some(&PreferenceValue::Bool(true))
+                        {
+                            if let Content::Canticle(ref mut canticle) = &mut canticle.content {
+                                if canticle.gloria_patri.is_some() {
+                                    canticle.gloria_patri = Some(GLORIA_PATRI_TRADITIONAL.clone());
+                                }
+                            }
+                        }
+                        canticle
                     });
                     Document::choice_or_document(&mut docs)
+                }
+
+                // Switch between contemporary and traditional Gloria Patri depending on preference
+                Content::GloriaPatri(_) => {
+                    if prefs.value(&PreferenceKey::from(GlobalPref::GloriaPatriTraditional))
+                        == Some(&PreferenceValue::Bool(true))
+                    {
+                        Some(Document {
+                            content: Content::GloriaPatri(GLORIA_PATRI_TRADITIONAL.clone()),
+                            ..document
+                        })
+                    } else {
+                        Some(document)
+                    }
                 }
 
                 // Headings

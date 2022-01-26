@@ -1,9 +1,7 @@
 Website Todos
 =============
 
-- [ ] Gloria Patri in canticles
-  - [x] EOW canticle Glora Patris and page numbers
-  - [ ] Gloria Patri preference
+- [ ] Clean up small bugs from notes
 - Build out
   - [ ] Evening Prayer
 - Clean up

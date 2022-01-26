@@ -29,6 +29,7 @@ pub enum GlobalPref {
     UseBlackLetterCollects,
     /// Whether to insert the Gloria Patri after each psalm in the Daily Office, or only at the end of the psalms
     InsertGloria,
+    GloriaPatriTraditional,
 }
 
 impl<T> From<T> for PreferenceKey

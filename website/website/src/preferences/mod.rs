@@ -119,23 +119,18 @@ pub fn get_prefs_for_liturgy(
         .unwrap_or_default();
 
     // Overwrite particular global prefs with stored prefs:
-    // - BibleVersion
-    // - UseBlackLetterCollects
-    // - PsalmCycle
-    if let Some(value) = get(&PreferenceKey::from(GlobalPref::BibleVersion)) {
-        prefs.insert(PreferenceKey::from(GlobalPref::BibleVersion), value);
-    }
-    if let Some(value) = get(&PreferenceKey::from(GlobalPref::PsalmCycle)) {
-        prefs.insert(PreferenceKey::from(GlobalPref::PsalmCycle), value);
-    }
-    if let Some(value) = get(&PreferenceKey::from(GlobalPref::UseBlackLetterCollects)) {
-        prefs.insert(
-            PreferenceKey::from(GlobalPref::UseBlackLetterCollects),
-            value,
-        );
-    }
+    insert_global_pref(&mut prefs, GlobalPref::BibleVersion);
+    insert_global_pref(&mut prefs, GlobalPref::PsalmCycle);
+    insert_global_pref(&mut prefs, GlobalPref::UseBlackLetterCollects);
+    insert_global_pref(&mut prefs, GlobalPref::GloriaPatriTraditional);
 
     prefs
+}
+
+fn insert_global_pref(prefs: &mut HashMap<PreferenceKey, PreferenceValue>, pref: GlobalPref) {
+    if let Some(value) = get(&PreferenceKey::from(pref)) {
+        prefs.insert(PreferenceKey::from(pref), value);
+    }
 }
 
 pub fn is(key: &PreferenceKey, value: &PreferenceValue) -> bool {
