@@ -544,25 +544,32 @@ pub trait Library {
                     let index_of_prev_selection = prev_selection
                         .and_then(|prev| sub.options.iter().position(|search| search == prev));
 
+                    let mut choice = Choice {
+                        options: sub
+                            .options
+                            .iter()
+                            .filter_map(|doc| {
+                                Self::compile(
+                                    doc.clone(),
+                                    calendar,
+                                    day,
+                                    observed,
+                                    prefs,
+                                    liturgy_prefs,
+                                )
+                            })
+                            .collect(),
+                        selected: index_of_prev_selection.unwrap_or(0),
+                        rotated: sub.rotated,
+                        should_rotate: sub.should_rotate,
+                    };
+
+                    if choice.should_rotate {
+                        choice.rotate(&day.date);
+                    }
+
                     Some(Document {
-                        content: Content::Choice(Choice {
-                            options: sub
-                                .options
-                                .iter()
-                                .filter_map(|doc| {
-                                    Self::compile(
-                                        doc.clone(),
-                                        calendar,
-                                        day,
-                                        observed,
-                                        prefs,
-                                        liturgy_prefs,
-                                    )
-                                })
-                                .collect(),
-                            selected: index_of_prev_selection.unwrap_or(0),
-                            rotated: sub.rotated,
-                        }),
+                        content: Content::Choice(choice),
                         ..document
                     })
                 }

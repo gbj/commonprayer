@@ -10,6 +10,7 @@ pub struct Choice {
     pub options: Vec<Document>,
     pub selected: usize,
     pub rotated: bool,
+    pub should_rotate: bool,
 }
 
 impl<T> From<T> for Choice
@@ -21,6 +22,7 @@ where
             selected: 0,
             options: options.into_iter().collect(),
             rotated: false,
+            should_rotate: false,
         }
     }
 }
@@ -44,6 +46,13 @@ impl Choice {
         self.rotated = true;
         let nth_day: usize = date.day_in_year().into();
         self.selected = nth_day % self.options.len();
+    }
+
+    /// Instruct the compiler to rotate
+    #[must_use]
+    pub fn should_rotate(mut self) -> Self {
+        self.should_rotate = true;
+        self
     }
 
     /// Generates an appropriate label to differentiate this option from all the others

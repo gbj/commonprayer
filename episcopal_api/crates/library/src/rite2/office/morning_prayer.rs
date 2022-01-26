@@ -401,7 +401,7 @@ lazy_static! {
             .response("Amen.")),
           Document::from(Text::from("Lord Jesus Christ, you stretched out your arms of love on the hard wood of the cross that everyone might come within the reach of your saving embrace: So clothe us in your Spirit that we, reaching forth our hands in love, may bring those who do not know you to the knowledge and love of you; for the honor of your Name.")
             .response("Amen.")),
-        ])),
+        ]).should_rotate()),
 
         // Possible location #2 for sermon
         Document::from(Heading::from((HeadingLevel::Heading3, "The Sermon")))
