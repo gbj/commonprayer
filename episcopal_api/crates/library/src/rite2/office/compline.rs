@@ -12,7 +12,7 @@ lazy_static! {
       Document::from(Heading::InsertDate),
       Document::from(Heading::InsertDay),
       Document::from(Rubric::from("The Officiant begins")),
-      Document::from(Text::from("The Lord Almighty grant us a peaceful night and a perfect end.").response("Amen")).source(Reference::from(127)),
+      Document::from(Text::from("The Lord Almighty grant us a peaceful night and a perfect end.").response("Amen.")).source(Reference::from(127)),
       Document::from(Preces::from([
           ("Officiant", "Our help is in the name of the Lord."),
           ("People", "The maker of heaven and earth.")
@@ -21,9 +21,9 @@ lazy_static! {
 Document::from("Let us confess our sins to God."),
 Document::from(Rubric::from("Silence may be kept.")),
 Document::from(Rubric::from("Officiant and People")),
-Document::from(Text::from("Almighty God, our heavenly Father:\nWe have sinned against you,\nthrough our own fault,\nin thought, and word, and deed,\nand in what we have left undone.\nFor the sake of your Son our Lord Jesus Christ,\nforgive us all our offenses;\nand grant that we may serve you\nin newness of life,\nto the glory of your Name.").response("Amen").display_format(DisplayFormat::Unison)),
+Document::from(Text::from("Almighty God, our heavenly Father:\nWe have sinned against you,\nthrough our own fault,\nin thought, and word, and deed,\nand in what we have left undone.\nFor the sake of your Son our Lord Jesus Christ,\nforgive us all our offenses;\nand grant that we may serve you\nin newness of life,\nto the glory of your Name.").response("Amen.").display_format(DisplayFormat::Unison)),
 Document::from(Rubric::from("Officiant")),
-Document::from(Text::from("May the Almighty God grant us forgiveness of all our sins, and the grace and comfort of the Holy Spirit.").response("Amen")),
+Document::from(Text::from("May the Almighty God grant us forgiveness of all our sins, and the grace and comfort of the Holy Spirit.").response("Amen.")),
 Document::from(Rubric::from("The Officiant then says")),
 Document::from(Preces::from([
           ("", "O God, make speed to save us."),
@@ -68,16 +68,16 @@ Document::from(Preces::from([
 ("Officiant", "Let us pray.")
         ])),
 Document::from(Choice::from([
-Document::from(Text::from("Be our light in the darkness, O Lord, and in your great mercy defend us from all perils and dangers of this night; for the love of your only Son, our Savior Jesus Christ.").response("Amen")),
-Document::from(Text::from("Be present, O merciful God, and protect us through the hours of this night, so that we who are wearied by the changes and chances of this life may rest in your eternal changelessness; through Jesus Christ our Lord.").response("Amen")),
-Document::from(Text::from("Look down, O Lord, from your heavenly throne, and illumine this night with your celestial brightness; that by night as by day your people may glorify your holy Name; through Jesus Christ our Lord.").response("Amen")),
-Document::from(Text::from("Visit this place, O Lord, and drive far from it all snares of the enemy; let your holy angels dwell with us to preserve us in peace; and let your blessing be upon us always; through Jesus Christ our Lord.").response("Amen")),
+Document::from(Text::from("Be our light in the darkness, O Lord, and in your great mercy defend us from all perils and dangers of this night; for the love of your only Son, our Savior Jesus Christ.").response("Amen.")),
+Document::from(Text::from("Be present, O merciful God, and protect us through the hours of this night, so that we who are wearied by the changes and chances of this life may rest in your eternal changelessness; through Jesus Christ our Lord.").response("Amen.")),
+Document::from(Text::from("Look down, O Lord, from your heavenly throne, and illumine this night with your celestial brightness; that by night as by day your people may glorify your holy Name; through Jesus Christ our Lord.").response("Amen.")),
+Document::from(Text::from("Visit this place, O Lord, and drive far from it all snares of the enemy; let your holy angels dwell with us to preserve us in peace; and let your blessing be upon us always; through Jesus Christ our Lord.").response("Amen.")),
 ])),
-Document::from(Text::from("We give you thanks, O God, for revealing your Son Jesus Christ to us by the light of his resurrection: Grant that as we sing your glory at the close of this day, our joy may abound in the morning as we celebrate the Paschal mystery; through Jesus Christ our Lord.").response("Amen")).label("A Collect for Saturdays").condition(Condition::Weekday(Weekday::Sat)),
+Document::from(Text::from("We give you thanks, O God, for revealing your Son Jesus Christ to us by the light of his resurrection: Grant that as we sing your glory at the close of this day, our joy may abound in the morning as we celebrate the Paschal mystery; through Jesus Christ our Lord.").response("Amen.")).label("A Collect for Saturdays").condition(Condition::Weekday(Weekday::Sat)),
 Document::from(Rubric::from("One of the following prayers may be added")),
 Document::from(Choice::from([
-      Document::from(Text::from("Keep watch, dear Lord, with those who work, or watch, or weep this night, and give your angels charge over those who sleep. Tend the sick, Lord Christ; give rest to the weary, bless the dying, soothe the suffering, pity the afflicted, shield the joyous; and all for your love’s sake.").response("Amen")),
-Document::from(Text::from("O God, your unfailing providence sustains the world we live in and the life we live: Watch over those, both night and day, who work while others sleep, and grant that we may never forget that our common life depends upon each other’s toil; through Jesus Christ our Lord.").response("Amen"))
+      Document::from(Text::from("Keep watch, dear Lord, with those who work, or watch, or weep this night, and give your angels charge over those who sleep. Tend the sick, Lord Christ; give rest to the weary, bless the dying, soothe the suffering, pity the afflicted, shield the joyous; and all for your love’s sake.").response("Amen.")),
+Document::from(Text::from("O God, your unfailing providence sustains the world we live in and the life we live: Watch over those, both night and day, who work while others sleep, and grant that we may never forget that our common life depends upon each other’s toil; through Jesus Christ our Lord.").response("Amen."))
     ])),
 Document::from(Rubric::from("Silence may be kept, and free intercessions and thanksgivings may be offered.\n")),
 Document::from(Rubric::from("The service concludes with the Song of Simeon with this Antiphon, which is sung or said by all")),
@@ -94,7 +94,7 @@ Document::from(Preces::from([
 ("People", "Thanks be to God.")
         ])),
 Document::from(Rubric::from("The Officiant concludes")),
-Document::from(Text::from("The almighty and merciful Lord, Father, Son, and Holy Spirit, bless us and keep us.").response("Amen"))
+Document::from(Text::from("The almighty and merciful Lord, Father, Son, and Holy Spirit, bless us and keep us.").response("Amen."))
     ])).evening(true)).version(Version::RiteII).label("Compline")
 ;
 }

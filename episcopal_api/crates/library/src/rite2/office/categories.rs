@@ -49,7 +49,7 @@ lazy_static! {
   ];
 
   pub static ref CLOSING_SENTENCES: Vec<Document> = vec![
-    Document::from(Sentence::from("The grace of our Lord Jesus Christ, and the love of God, and the fellowship of the Holy Spirit, be with us all evermore. ").citation("2 Corinthians 13:14")),
+    Document::from(Sentence::from("The grace of our Lord Jesus Christ, and the love of God, and the fellowship of the Holy Spirit, be with us all evermore.").citation("2 Corinthians 13:14").response("Amen.")),
     Document::from(Sentence::from("May the God of hope fill us with all joy and peace in believing through the power of the Holy Spirit.").citation("Romans 15:13").response("Amen.")),
     Document::from(Sentence::from("Glory to God whose power, working in us, can do infinitely more than we can ask or imagine: Glory to him from generation to generation in the Church, and in Christ Jesus for ever and ever.").citation("Ephesians 3:20,21").response("Amen."))
  ];
