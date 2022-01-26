@@ -10,6 +10,7 @@ use crate::PreferenceKey;
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct LectionaryReading {
     pub reading_type: ReadingTypeTable,
+    pub reading_type_overridden_by: Option<ReadingType>,
     pub lectionary: LectionaryTableChoice,
     pub intro: Option<BiblicalReadingIntroTemplate>,
 }

@@ -114,8 +114,14 @@ pub trait Library {
                     let lectionary = Self::lectionary(chosen_lectionary);
 
                     if let Some(reading_type) = reading_type {
-                        let mut docs = lectionary.reading_by_type(observed, day, reading_type).map(
-                            |reading| {
+                        let mut docs = lectionary
+                            .reading_by_type_with_override(
+                                observed,
+                                day,
+                                reading_type,
+                                lectionary_reading.reading_type_overridden_by,
+                            )
+                            .map(|reading| {
                                 if reading_type.is_psalm() {
                                     Self::compile(
                                         Document::from(PsalmCitation::from(reading.citation)),
@@ -138,8 +144,7 @@ pub trait Library {
                                         ..document.clone()
                                     }
                                 }
-                            },
-                        );
+                            });
 
                         // MorningPsalm and EveningPsalm are the only ones that include multiple of the same reading type in sequence
                         if matches!(

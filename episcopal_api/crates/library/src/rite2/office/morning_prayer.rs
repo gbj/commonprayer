@@ -229,6 +229,7 @@ lazy_static! {
           Document::from(Heading::from((HeadingLevel::Heading3, "The Psalm or Psalms Appointed"))),
           Document::from(LectionaryReading {
             reading_type: ReadingTypeTable::Selected(ReadingType::MorningPsalm),
+            reading_type_overridden_by: None,
             lectionary: LectionaryTableChoice::Preference(PreferenceKey::from(GlobalPref::PsalmCycle)),
             intro: None,
           }),
@@ -246,6 +247,7 @@ lazy_static! {
           // A link to the daily readings page, TemplateOnly
           Document::from(LectionaryReading {
             reading_type: ReadingTypeTable::Preference(PreferenceKey::from(GlobalPref::ReadingA)),
+            reading_type_overridden_by: None,
             lectionary: LectionaryTableChoice::Preference(PreferenceKey::from(GlobalPref::Lectionary)),
             intro: Some(BiblicalReadingIntroTemplate::from(Text::from("A Reading from {{long_name}}."))),
           }).display(Show::TemplateOnly),
@@ -260,6 +262,7 @@ lazy_static! {
           // First Lesson
           Document::from(LectionaryReading {
             reading_type: ReadingTypeTable::Preference(PreferenceKey::from(GlobalPref::ReadingA)),
+            reading_type_overridden_by: Some(ReadingType::Morning1),
             lectionary: LectionaryTableChoice::Preference(PreferenceKey::from(GlobalPref::Lectionary)),
             intro: Some(BiblicalReadingIntroTemplate::from(Text::from("A Reading from {{long_name}}."))),
           }).label("The First Lesson").display(Show::CompiledOnly),
@@ -275,6 +278,7 @@ lazy_static! {
           Document::from(Series::from([
             Document::from(LectionaryReading {
               reading_type: ReadingTypeTable::Preference(PreferenceKey::from(GlobalPref::ReadingB)),
+              reading_type_overridden_by: Some(ReadingType::Morning2),
               lectionary: LectionaryTableChoice::Preference(PreferenceKey::from(GlobalPref::Lectionary)),
               intro: Some(BiblicalReadingIntroTemplate::from(Text::from("A Reading from {{long_name}}."))),
             }).label("The Second Lesson").display(Show::CompiledOnly),
@@ -297,6 +301,7 @@ lazy_static! {
           Document::from(Series::from([
             Document::from(LectionaryReading {
               reading_type: ReadingTypeTable::Preference(PreferenceKey::from(GlobalPref::ReadingC)),
+              reading_type_overridden_by: None,
               lectionary: LectionaryTableChoice::Preference(PreferenceKey::from(GlobalPref::Lectionary)),
               intro: Some(BiblicalReadingIntroTemplate::from(Text::from("A Reading from {{longName}}."))),
             }).label("The Third Lesson"),

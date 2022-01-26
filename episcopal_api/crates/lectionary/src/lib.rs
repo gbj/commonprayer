@@ -74,4 +74,27 @@ impl Lectionary {
         self.readings_by_day(observed, &day)
             .filter(move |reading| reading.reading_type == reading_type)
     }
+
+    pub fn reading_by_type_with_override(
+        &'static self,
+        observed: &LiturgicalDayId,
+        day: &LiturgicalDay,
+        reading_type: ReadingType,
+        override_type: Option<ReadingType>,
+    ) -> impl Iterator<Item = Reading> {
+        match override_type {
+            Some(override_type) => {
+                let mut override_readings = self
+                    .reading_by_type(observed, day, override_type)
+                    .peekable();
+                let has_override_reading = override_readings.peek().is_some();
+                if has_override_reading {
+                    self.reading_by_type(observed, day, override_type)
+                } else {
+                    self.reading_by_type(observed, day, reading_type)
+                }
+            }
+            None => self.reading_by_type(observed, day, reading_type),
+        }
+    }
 }
