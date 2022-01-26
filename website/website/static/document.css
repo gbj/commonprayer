@@ -407,6 +407,11 @@ a.reference {
 /* Biblical Reading */
 .biblical-reading sup.verse-number {
   margin-right: 0.25rem;
+  font-size: 0.8rem;
+  /* Prevent superscript from affecting line-height */
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
 }
 
 /* Lookups */
