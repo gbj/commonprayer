@@ -864,6 +864,7 @@ pub fn sentence(
         (_, Some(response)) => view! {
             <p>
                 {text}
+                " "
                 <strong class="response">{response.to_string()}</strong>
                 {citation}
             </p>
@@ -871,6 +872,7 @@ pub fn sentence(
         (Some(response), None) => view! {
             <div>
                 <p>{text} {citation}</p>
+                " "
                 {document_view(locale, controller, path, response)}
             </div>
         },
