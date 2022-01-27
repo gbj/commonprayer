@@ -344,9 +344,6 @@ pub fn choice(
                                 let swipestart = swipestart.clone();
                                 let swipe_offset = swipe_offset.clone();
                                 move |ev: Event| {
-                                    // prevent click event
-                                    ev.prevent_default();
-
                                     // reset offset and set base X coordinate
                                     swipe_offset.set(0);
                                     swipestart.set(ev.unchecked_into::<web_sys::TouchEvent>().touches().get(0).unwrap().screen_x());
@@ -356,9 +353,6 @@ pub fn choice(
                                 let swipestart = swipestart.clone();
                                 let swipe_offset = swipe_offset.clone();
                                 move |ev: Event| {
-                                    // prevent click event
-                                    ev.prevent_default();
-
                                     // set offset (moves item on screen)
                                     let current_x = ev.unchecked_into::<web_sys::TouchEvent>().touches().get(0).unwrap().screen_x();
                                     let offset = current_x - swipestart.get();
@@ -373,15 +367,12 @@ pub fn choice(
                             on:touchend={
                                 let selected_str = selected_str.clone();
                                 move |ev: Event| {
-                                    // prevent click event
-                                    ev.prevent_default();
-
                                     let offset = swipe_offset.get();
-                                    // if you've swiped 50px or more in either direction, swap
+                                    // if you've swiped 100px or more in either direction, swap
                                     if let Ok(current_idx) = selected_str.get().parse::<usize>() {
-                                        if offset <= -50 && can_swipe_right {
+                                        if offset <= -100 && can_swipe_right {
                                             selected_str.set((current_idx + 1).to_string());
-                                        } else if offset >= 50 && can_swipe_left {
+                                        } else if offset >= 100 && can_swipe_left {
                                             selected_str.set((current_idx - 1).to_string());
                                         }
                                     }
