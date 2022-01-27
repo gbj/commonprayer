@@ -262,10 +262,12 @@ a.reference {
 .invitatory > section > main > .verse > .a {
   display: block;
   grid-area: a;
+  white-space: pre-wrap;
 }
 .psalm > section > main > .verse > .b,
 .invitatory > section > main > .verse > .b {
   grid-area: b;
+  white-space: pre-wrap;
 }
 
 /* Psalm/Canticle */
