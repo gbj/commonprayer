@@ -354,9 +354,16 @@ pub fn choice(
                                 let swipe_offset = swipe_offset.clone();
                                 move |ev: Event| {
                                     // set offset (moves item on screen)
-                                    let current_x = ev.unchecked_into::<web_sys::TouchEvent>().touches().get(0).unwrap().screen_x();
+                                    let current_x = ev.clone().unchecked_into::<web_sys::TouchEvent>().touches().get(0).unwrap().screen_x();
                                     let offset = current_x - swipestart.get();
 
+                                    // if it's clear that they're trying to swipe, and not scroll (i.e., offset has
+                                    // gotten big enough), then prevent other events (like click and scroll)
+                                    if offset.abs() > 30 {
+                                        ev.prevent_default();
+                                    }
+
+                                    // update offset
                                     if offset == 0 || (offset < 0 && can_swipe_right) || (offset > 0 && can_swipe_left) {
                                         swipe_offset.set(offset);
                                     } else {
