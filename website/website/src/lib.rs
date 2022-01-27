@@ -1,4 +1,5 @@
 #![allow(unused_braces)]
+#![feature(iter_intersperse)]
 
 mod components;
 pub mod pages;

@@ -56,23 +56,9 @@ fn body(locale: &str, props: &HolyDayProps) -> View {
             .collect(),
     );
 
-    let first_lesson_citation = match &props.first_lesson.content {
-        Content::BiblicalCitation(citation) => citation.to_string(),
-        Content::BiblicalReading(reading) => reading.citation.clone(),
-        _ => String::default(),
-    };
-
-    let psalm_citation = match &props.psalm.content {
-        Content::PsalmCitation(citation) => citation.to_string(),
-        Content::Psalm(psalm) => psalm.citation.clone().unwrap_or_default(),
-        _ => String::default(),
-    };
-
-    let gospel_citation = match &props.gospel.content {
-        Content::BiblicalCitation(citation) => citation.to_string(),
-        Content::BiblicalReading(reading) => reading.citation.clone(),
-        _ => String::default(),
-    };
+    let first_lesson_citation = content_to_citation(&props.first_lesson.content);
+    let psalm_citation = content_to_citation(&props.psalm.content);
+    let gospel_citation = content_to_citation(&props.gospel.content);
 
     let collect_view = DocumentController::new(Document::from(Choice::from([
         props.collect_contemporary.clone(),
@@ -111,13 +97,19 @@ fn body(locale: &str, props: &HolyDayProps) -> View {
                 <h2>{t!("holy_day.lessons_and_psalm")}</h2>
                 <a id="first-lesson"></a>
                 <h3>{t!("holy_day.first_lesson")}</h3>
-                <dyn:view view={DocumentController::new(props.first_lesson.clone()).view(locale)}/>
+                <article class="document">
+                    <dyn:view view={DocumentController::new(props.first_lesson.clone()).view(locale)}/>
+                </article>
                 <a id="psalm"></a>
                 <h3>{t!("holy_day.psalm")}</h3>
-                <dyn:view view={DocumentController::new(props.psalm.clone()).view(locale)}/>
+                <article class="document">
+                    <dyn:view view={DocumentController::new(props.psalm.clone()).view(locale)}/>
+                </article>
                 <a id="gospel"></a>
                 <h3>{t!("holy_day.gospel")}</h3>
-                <dyn:view view={DocumentController::new(props.gospel.clone()).view(locale)}/>
+                <article class="document">
+                    <dyn:view view={DocumentController::new(props.gospel.clone()).view(locale)}/>
+                </article>
 
             </main>
         </>
@@ -224,4 +216,20 @@ fn filter_readings(readings: &[(ReadingType, String)], reading_type: ReadingType
     };
 
     document.unwrap_or_else(|| Document::from(Content::Empty))
+}
+
+fn content_to_citation(content: &Content) -> String {
+    match content {
+        Content::BiblicalCitation(citation) => citation.to_string(),
+        Content::BiblicalReading(reading) => reading.citation.clone(),
+        Content::PsalmCitation(citation) => citation.to_string(),
+        Content::Psalm(psalm) => psalm.citation.clone().unwrap_or_default(),
+        Content::Choice(choice) => choice
+            .options
+            .iter()
+            .map(|doc| content_to_citation(&doc.content))
+            .intersperse(format!(" {} ", t!("daily_readings.or")))
+            .collect(),
+        _ => String::default(),
+    }
 }

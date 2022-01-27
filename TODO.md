@@ -1,9 +1,16 @@
 Website Todos
 =============
 
-- [ ] Clean up small bugs from notes
-- Build out
+- Bugs
+  - [ ] No black-letter observances on Sundays
+  - [ ] Canticles 16/21 for feast days
+  - [ ] Display of primary/alternate on e.g., 12/27 in compiled day-name
+ - Build out
   - [ ] Evening Prayer
+- [ ] Swap Canticle feature
+- [ ] Category pages
+  - [ ] Search
+  - [ ] Headings in Collects page
 - Clean up
   - [ ] Noonday Prayer
   - [ ] Compline
@@ -21,8 +28,10 @@ Website Todos
 - [ ] Condense Psalm 119 citations in Daily Office lectionary
 - [ ] Rite II collects need Version::RiteII, not default (Version::BCP1979)
 - [ ] Systematic distinction between server date/current time (when rendering, either SSR or even more so SSG) and client current time/date — replaces instances where the prerendered UI accidentally assumes server time (e.g., Morning/Evening in daily readings page)
-- [ ] Category pages
 - [ ] Psalter page
+  - [ ] Page
+  - [ ] In liturgy
+- [ ] Prayers & Thanksgivings
 - [ ] Error handling for pages: need to return a `Result` because possible path doesn't work if dynamic
 - [ ] Figure out partial hydration again
 - [ ] Merge this back into the Episcopal-API repo
