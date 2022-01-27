@@ -274,7 +274,7 @@ a.reference {
 .document header.psalm-header,
 .document > header.canticle-header {
   display: grid;
-  margin-top: 1rem;
+  margin: 1rem 0;
 }
 
 .document header.psalm-header > * {
@@ -327,7 +327,6 @@ a.reference {
 .document > header.canticle-header {
   grid-template-areas: "number local latin" "number citation citation";
   grid-template-columns: 4rem 0.5fr 0.5fr 3rem;
-  margin-bottom: 1rem;
 }
 
 .canticle-header h4.local-name {
@@ -378,7 +377,7 @@ a.reference {
 
 .canticle .rubric {
   display: block;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 /* Choice */
