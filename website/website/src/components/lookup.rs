@@ -24,7 +24,9 @@ pub fn lookup_links(locale: &str, lookup_type: &LookupType) -> String {
             )
         }
         LookupType::Canticle(_) => format!("/{}/canticle-table", locale),
-        LookupType::Collect(version) => format!("/{}/collects/{:#?}", locale, version),
+        LookupType::Collect(version) => {
+            format!("/{}/document/category/collects/{:#?}", locale, version)
+        }
         LookupType::Lectionary(lectionary) => match lectionary {
             LectionaryTableChoice::Preference(_) => format!("/{}/daily-readings", locale),
             LectionaryTableChoice::Selected(lectionary) => {
