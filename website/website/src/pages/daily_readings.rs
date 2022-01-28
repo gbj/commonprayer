@@ -68,8 +68,6 @@ fn static_props(
         .and_then(|date| Date::parse_from_str(date, "%Y-%m-%d").ok());
     let summary = date.map(|date| CommonPrayer::summarize_date(&date, language));
 
-    println!("day.observed = {:#?}", summary.clone().unwrap().morning.day.observed);
-
     DailyReadingsPageProps { summary }
 }
 
