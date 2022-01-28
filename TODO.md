@@ -1,12 +1,7 @@
 Website Todos
 =============
 
-- Bugs
-  - [ ] Canticles 16/21 for feast days
-- [ ] Evening Prayer
-  - [ ] Opening Sentences for Evening in particular
-  - [ ] Link to Service of Light
-  - [ ] Finish liturgy
+- [ ] Evening Prayer: Opening Sentences for Evening
 - [ ] Swap Canticle feature
 - [ ] Category pages
   - [ ] Search
