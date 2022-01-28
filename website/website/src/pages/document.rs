@@ -3,10 +3,11 @@ use std::collections::HashMap;
 use crate::{components::*, TABLE_OF_CONTENTS};
 use episcopal_api::{
     calendar::{Calendar, Date},
-    library::{CommonPrayer, Library},
-    liturgy::{Content, Document, PreferenceKey, PreferenceValue, Version},
+    library::{CommonPrayer, Library, self},
+    liturgy::{Content, Document, PreferenceKey, PreferenceValue, Version, Series, Text},
 };
 use futures::StreamExt;
+use itertools::Itertools;
 use leptos::*;
 use rust_i18n::t;
 use serde::Serialize;

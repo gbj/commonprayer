@@ -1,7 +1,8 @@
 use std::collections::HashMap;
 
 use episcopal_api::library;
-use episcopal_api::liturgy::{Document, Series};
+use episcopal_api::liturgy::{Document, Series, Text, Heading, HeadingLevel};
+use itertools::Itertools;
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 
@@ -115,7 +116,28 @@ lazy_static! {
             ("s".into(), PageType::Document, library::eow::canticles::CANTICLE_S.clone()),
         ],
         "category".into() => vec![
-            ("opening-sentences".into(), PageType::Category("Opening Sentences"), Document::from(Series::from(library::rite2::OPENING_SENTENCES.clone()))),
+            ("opening-sentences".into(), PageType::Category("Opening Sentences"), Document::from(Series::from(
+                // group sentences by label before displaying in category page
+                library::rite2::OPENING_SENTENCES
+                    .iter()
+                    .group_by(|doc| doc.label.clone())
+                    .into_iter()
+                    .map(|(label, group)| {
+                        Document::from(
+                            Series::from(
+                                // insert label before each group
+                                std::iter::once(
+                                    Document::from(
+                                        Heading::Text(HeadingLevel::Heading3, label.unwrap_or_default())
+                                    )
+                                )
+                                // remove label from individual docs
+                                .chain(group.map(|doc| Document { label: None, ..doc.clone()}))
+                                .collect::<Vec<_>>()
+                            )
+                        )
+                    })
+            ))),
             ("invitatory-antiphons".into(), PageType::Category("Invitatory Antiphons"), Document::from(Series::from(library::rite2::INVITATORY_ANTIPHONS.clone()))),
             ("closing-sentences".into(), PageType::Category("Closing Sentences"), Document::from(Series::from(library::rite2::OPENING_SENTENCES.clone()))),
             ("service-of-light".into(), PageType::Document, library::rite2::office::AN_ORDER_OF_WORSHIP_FOR_EVENING.clone()),

@@ -1,7 +1,6 @@
 Website Todos
 =============
 
-- [ ] Evening Prayer: Opening Sentences for Evening
 - [ ] Swap Canticle feature
 - [ ] Category pages
   - [ ] Search
