@@ -64,6 +64,7 @@ lazy_static! {
         "office".into() => vec![
             (TOCLiturgy::MP.to_string(), PageType::Document, library::rite2::office::MORNING_PRAYER_II.clone()),
             (TOCLiturgy::NP.to_string(), PageType::Document, library::rite2::office::NOONDAY_PRAYER.clone()),
+            (TOCLiturgy::EP.to_string(), PageType::Document, library::rite2::office::EVENING_PRAYER_II.clone()),
             (TOCLiturgy::Compline.to_string(), PageType::Document, library::rite2::office::COMPLINE.clone()),
         ],
         "canticle".into() => vec![
@@ -117,6 +118,7 @@ lazy_static! {
             ("opening-sentences".into(), PageType::Category("Opening Sentences"), Document::from(Series::from(library::rite2::OPENING_SENTENCES.clone()))),
             ("invitatory-antiphons".into(), PageType::Category("Invitatory Antiphons"), Document::from(Series::from(library::rite2::INVITATORY_ANTIPHONS.clone()))),
             ("closing-sentences".into(), PageType::Category("Closing Sentences"), Document::from(Series::from(library::rite2::OPENING_SENTENCES.clone()))),
+            ("service-of-light".into(), PageType::Document, library::rite2::office::AN_ORDER_OF_WORSHIP_FOR_EVENING.clone()),
         ]
     };
 }

@@ -5,8 +5,10 @@ Website Todos
   - [ ] No black-letter observances on Sundays
   - [ ] Canticles 16/21 for feast days
   - [ ] Display of primary/alternate on e.g., 12/27 in compiled day-name
- - Build out
-  - [ ] Evening Prayer
+- [ ] Evening Prayer
+  - [ ] Opening Sentences for Evening in particular
+  - [ ] Link to Service of Light
+  - [ ] Finish liturgy
 - [ ] Swap Canticle feature
 - [ ] Category pages
   - [ ] Search
@@ -14,6 +16,9 @@ Website Todos
 - Clean up
   - [ ] Noonday Prayer
   - [ ] Compline
+  - [ ] Morning Prayer
+    - [ ] Prefer Suffrages B on feast days
+  - [ ] Proofread Evening Prayer
 - [ ] Exports
   - [ ] docx
     - [ ] finish DOCX export code

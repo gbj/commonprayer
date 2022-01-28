@@ -2,7 +2,7 @@ use std::{fmt::Display, iter};
 
 use serde::{Deserialize, Serialize};
 
-use crate::{PreferenceKey, PreferenceValue, Reference, Series};
+use crate::{Document, PreferenceKey, PreferenceValue, Reference, Series};
 
 /// A liturgical template that can carry a set of possible preferences and
 /// other metadata, as well as sub-documents.
@@ -36,6 +36,20 @@ impl From<Series> for Liturgy {
             evening: false,
             preferences: LiturgyPreferences::default(),
             body,
+        }
+    }
+}
+
+impl<T, U> From<T> for Liturgy
+where
+    T: IntoIterator<Item = U>,
+    U: Into<Document>,
+{
+    fn from(items: T) -> Self {
+        Self {
+            evening: false,
+            preferences: LiturgyPreferences::default(),
+            body: Series::from(items),
         }
     }
 }

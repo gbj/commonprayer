@@ -63,7 +63,7 @@ fn body(locale: &str, _props: &()) -> View {
                                         {make_link(locale, "document/office/evening-prayer/RiteI", "rite_i", true)}
                                     </li>
                                     <li>
-                                        {make_link(locale, "document/office/evening-prayer/RiteII", "rite_ii", true)}
+                                        {make_link(locale, "document/office/evening-prayer/RiteII", "rite_ii", false)}
                                     </li>
                                 </ul>
                             </li>

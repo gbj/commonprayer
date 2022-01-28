@@ -23,6 +23,7 @@ pub enum GlobalPref {
     Lectionary,
     PsalmCycle,
     CanticleTable,
+    OmitForeOffice,
     ReadingA,
     ReadingB,
     ReadingC,
