@@ -419,6 +419,7 @@ a.reference {
 .lookup {
   border-radius: var(--border-radius);
   font-style: italic;
+  margin: 0.5rem 0;
 }
 
 .lookup a,
