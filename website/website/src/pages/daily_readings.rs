@@ -2,7 +2,7 @@ use std::rc::Rc;
 
 use episcopal_api::{
     api::summary::{DailySummary, ObservanceSummary},
-    calendar::Date,
+    calendar::{Date, LiturgicalDayId},
     lectionary::Reading,
     library::CommonPrayer,
     liturgy::{
@@ -67,6 +67,8 @@ fn static_props(
         .as_ref()
         .and_then(|date| Date::parse_from_str(date, "%Y-%m-%d").ok());
     let summary = date.map(|date| CommonPrayer::summarize_date(&date, language));
+
+    println!("day.observed = {:#?}", summary.clone().unwrap().morning.day.observed);
 
     DailyReadingsPageProps { summary }
 }
@@ -441,12 +443,30 @@ fn observance_view(
     let hide_bcp_black_letter_days = use_lff_2018.stream().boxed_local();
     let hide_lff_black_letter_days = use_lff_2018.stream().map(|n| !n).boxed_local();
 
+    let title = match observance.observance {
+        LiturgicalDayId::Feast(feast) => view! {
+            <h1>
+                <a href={&format!("/{}/holy-day/{:#?}", locale, feast)}>{&observance.localized_name}</a>
+            </h1>
+        },
+        LiturgicalDayId::TransferredFeast(feast) => view! {
+            <h1>
+                <a href={&format!("/{}/holy-day/{:#?}", locale, feast)}>{&observance.localized_name}</a>
+                <br/>
+                {t!("daily_readings.transferred")}
+            </h1>
+        },
+        _ => view! {
+            <h1>{&observance.localized_name}</h1>
+        }
+    };
+
     view! {
         <dyn:section
             class={if use_default { "" } else { "hidden" }}
             class:hidden={use_this_observance.map(move |yes| !yes.unwrap_or(use_default)).boxed_local()}
         >
-            <h1>{&observance.localized_name}</h1>
+            {title}
             <dyn:ul class="black-letter-days"
                 class:hidden={hide_bcp_black_letter_days}
             >
