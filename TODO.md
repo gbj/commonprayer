@@ -2,9 +2,7 @@ Website Todos
 =============
 
 - Bugs
-  - [ ] No black-letter observances on Sundays
   - [ ] Canticles 16/21 for feast days
-  - [ ] Display of primary/alternate on e.g., 12/27 in compiled day-name
 - [ ] Evening Prayer
   - [ ] Opening Sentences for Evening in particular
   - [ ] Link to Service of Light
@@ -41,6 +39,7 @@ Website Todos
 - [ ] Figure out partial hydration again
 - [ ] Merge this back into the Episcopal-API repo
 - [ ] Sunday Readings page (a copy of Daily Readings, but use RCL?)
+- [ ] CI/CD
 - [ ] Additional library of documents
 - [ ] Clean up Index page + links
 - [ ] Additional Tests

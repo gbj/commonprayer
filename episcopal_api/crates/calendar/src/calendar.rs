@@ -50,12 +50,14 @@ impl Calendar {
     /// assert_eq!(thursday_easter_6.weekday, Weekday::Thu);
     /// assert_eq!(thursday_easter_6.daily_office_year, DailyOfficeYear::Two);
     /// assert_eq!(thursday_easter_6.rcl_year, RCLYear::A);
-    /// assert_eq!(thursday_easter_6.holy_days, vec![Feast::AscensionDay]);
+    /// assert_eq!(thursday_easter_6.holy_days, vec![]);
     /// assert_eq!(thursday_easter_6.proper, None);
     /// assert_eq!(thursday_easter_6.observed, LiturgicalDayId::Feast(Feast::AscensionDay));
     /// ```
     pub fn liturgical_day(&self, date: Date, evening: bool) -> LiturgicalDay {
         let mut original = self.liturgical_day_without_transferred_feasts(date, evening);
+
+        // modify if feasts should be transferred
         let transferred = self.transferred_feast(&original);
         if let Some(transferred) = transferred {
             let alternate = std::mem::replace(
@@ -64,6 +66,28 @@ impl Calendar {
             );
             original.alternate = Some(alternate);
         }
+
+        // remove certain feasts from from holy_days
+        // - the actual feast being observed
+        // - the alternate
+        // - black-letter days if it's a Sunday or a holy day
+        let observed = original.observed;
+        let weekday = original.weekday;
+        original.holy_days.retain(|feast| {
+            let feast_rank = self.feast_day_rank(feast);
+            match observed {
+                LiturgicalDayId::Feast(o_feast) => {
+                    o_feast != *feast && feast_rank >= Rank::PrecedenceOverWeekday
+                }
+                LiturgicalDayId::TransferredFeast(t_feast) => { 
+                    // to be honest it's a little unclear whether a transferred red-letter day should
+                    // cause the original black-letter day to be ignored, or also commemorated
+                    t_feast != *feast
+                }
+                _ => weekday != Weekday::Sun,
+            }
+        });
+
         original
     }
 
@@ -77,7 +101,7 @@ impl Calendar {
     /// assert_eq!(thursday_easter_6.weekday, Weekday::Thu);
     /// assert_eq!(thursday_easter_6.daily_office_year, DailyOfficeYear::Two);
     /// assert_eq!(thursday_easter_6.rcl_year, RCLYear::A);
-    /// assert_eq!(thursday_easter_6.holy_days, vec![Feast::AscensionDay]);
+    /// assert_eq!(thursday_easter_6.holy_days, vec![]);
     /// assert_eq!(thursday_easter_6.proper, None);
     /// assert_eq!(thursday_easter_6.observed, LiturgicalDayId::Feast(Feast::AscensionDay));
     /// ```
@@ -93,6 +117,7 @@ impl Calendar {
             .holy_days(date, week, evening, false)
             .collect::<Vec<_>>();
         let (observed, alternate) = self.observed_day(week, proper, weekday, &holy_days);
+
         LiturgicalDay {
             date,
             evening,
