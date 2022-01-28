@@ -498,13 +498,13 @@ pub const LFF2018_FEASTS: [KalendarEntry; 270] = [
     ),
     (
         HolyDayId::Date(5, 2),
-        Feast::ElisabethCruciger,
+        Feast::AthanasiusOfAlexandria,
         Time::AllDay,
         None,
     ),
     (
         HolyDayId::Date(5, 3),
-        Feast::AthanasiusOfAlexandria,
+        Feast::ElisabethCruciger,
         Time::AllDay,
         None,
     ),
