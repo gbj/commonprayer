@@ -83,7 +83,7 @@ lazy_static! {
                 InvitatorySection {
                   verses: vec![
                       InvitatoryVerse {
-                            a: String::from("For the LORD is a great God, *"),
+                            a: String::from("For the Lord is a great God, *"),
                             b: String::from("and a great King above all gods.")
                         },
                       InvitatoryVerse {
@@ -100,7 +100,7 @@ lazy_static! {
                   verses: vec![
                       InvitatoryVerse {
                             a: String::from("Come, let us bow down, and bend the knee, *"),
-                            b: String::from("and kneel before the LORD our Maker.")
+                            b: String::from("and kneel before the Lord our Maker.")
                         },
                       InvitatoryVerse {
                             a: String::from("For he is our God,\nand we are the people of his pasture and the sheep of his hand. *"),
@@ -131,15 +131,15 @@ lazy_static! {
                 InvitatorySection {
                   verses: vec![
                     InvitatoryVerse {
-                        a: String::from("Be joyful in the LORD, all you lands; *"),
-                        b: String::from("serve the LORD with gladness\n and come before his presence with a song.")
+                        a: String::from("Be joyful in the Lord, all you lands; *"),
+                        b: String::from("serve the Lord with gladness\n and come before his presence with a song.")
                     }
                   ]
                 },
                 InvitatorySection {
                   verses: vec![
                     InvitatoryVerse {
-                        a: String::from("Know this: The LORD himself is God; *"),
+                        a: String::from("Know this: The Lord himself is God; *"),
                         b: String::from("he himself has made us, and we are his;\n we are his people and the sheep of his pasture.")
                     }
                   ]
@@ -155,7 +155,7 @@ lazy_static! {
                 InvitatorySection {
                   verses: vec![
                     InvitatoryVerse {
-                        a: String::from("For the LORD is good;\nhis mercy is everlasting; *"),
+                        a: String::from("For the Lord is good;\nhis mercy is everlasting; *"),
                         b: String::from("and his faithfulness endures from age to age.")
                     }
                   ]
