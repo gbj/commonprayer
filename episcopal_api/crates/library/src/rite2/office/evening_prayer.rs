@@ -1,10 +1,8 @@
-use crate::conditions::{
-    EASTER_SEASON, FRIDAY_IN_LENT, NOT_INSERT_GLORIA, NOT_LENT, VENITE_NOT_IN_PSALMS,
-};
+use crate::conditions::{EASTER_SEASON, NOT_INSERT_GLORIA, NOT_LENT};
 use crate::rite2::{
     APOSTLES_CREED, GLORIA_PATRI, LORDS_PRAYER_CONTEMPORARY_AND_TRADITIONAL, WORD_OF_THE_LORD,
 };
-use calendar::{LiturgicalWeek, Weekday};
+use calendar::Weekday;
 use canticle_table::CanticleNumber;
 use lectionary::ReadingType;
 use liturgy::*;
@@ -72,7 +70,7 @@ lazy_static! {
             Document::from(Choice::from([
                   Document::from("Dearly beloved, we have come together in the presence of Almighty God our heavenly Father, to set forth his praise, to hear his holy Word, and to ask, for ourselves and on behalf of others, those things that are necessary for our life and our salvation. And so that we may prepare ourselves in heart and mind to worship him, let us kneel in silence, and with penitent and obedient hearts confess our sins, that we may obtain forgiveness by his infinite goodness and mercy. ").version_label("Long"),
                   Document::from("Let us confess our sins against God and our neighbor.").version_label("Short")
-                ])).page(116),
+                ]).selected(1)).page(116),
             Document::from(Rubric::from("Silence may be kept.\n\nOfficiant and People together, all kneeling")),
             Document::from(Text::from("Most merciful God,\nwe confxess that we have sinned against you\nin thought, word, and deed,\nby what we have done,\nand by what we have left undone.\nWe have not loved you with our whole heart;\nwe have not loved our neighbors as ourselves.\nWe are truly sorry and we humbly repent.\nFor the sake of your Son Jesus Christ,\nhave mercy on us and forgive us;\nthat we may delight in your will,\nand walk in your ways,\nto the glory of your Name.")
                 .response("Amen.")

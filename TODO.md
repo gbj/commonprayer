@@ -24,6 +24,7 @@ Website Todos
 - [ ] Condense Psalm 119 citations in Daily Office lectionary
 - [ ] Rite II collects need Version::RiteII, not default (Version::BCP1979)
 - [ ] Systematic distinction between server date/current time (when rendering, either SSR or even more so SSG) and client current time/date — replaces instances where the prerendered UI accidentally assumes server time (e.g., Morning/Evening in daily readings page)
+- [ ] Stored selections for certain Choices
 - [ ] Psalter page
   - [ ] Page
   - [ ] In liturgy

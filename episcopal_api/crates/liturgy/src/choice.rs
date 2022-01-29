@@ -55,6 +55,13 @@ impl Choice {
         self
     }
 
+    /// Set the default selection
+    #[must_use]
+    pub fn selected(mut self, idx: usize) -> Self {
+        self.selected = idx;
+        self
+    }
+
     /// Generates an appropriate label to differentiate this option from all the others
     /// ```
     /// # use crate::liturgy::{Document, Choice};
