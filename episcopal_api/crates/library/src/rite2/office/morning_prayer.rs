@@ -4,7 +4,7 @@ use crate::conditions::{
 use crate::rite2::{
     APOSTLES_CREED, GLORIA_PATRI, LORDS_PRAYER_CONTEMPORARY_AND_TRADITIONAL, WORD_OF_THE_LORD,
 };
-use calendar::{LiturgicalWeek, Weekday};
+use calendar::{LiturgicalWeek, Rank, Weekday};
 use canticle_table::CanticleNumber;
 use lectionary::ReadingType;
 use liturgy::*;
@@ -336,6 +336,18 @@ lazy_static! {
         Document::from(Rubric::from("Then follows one of these sets of Suffrages")),
         Document::from(Choice::from([
           Document::from(Preces::from([
+            ("V.", "Save your people, Lord, and bless your inheritance;"),
+            ("R.", "Govern and uphold them, now and always."),
+            ("V.", "Day by day we bless you;"),
+            ("R.", "We praise your name for ever."),
+            ("V.", "Lord, keep us from all sin today;"),
+            ("R.", "Have mercy on us, Lord, have mercy."),
+            ("V.", "Lord, show us your love and mercy;"),
+            ("R.", "For we put our trust in you."),
+            ("V.", "In you, Lord, is our hope;"),
+            ("R.", "And we shall never hope in vain.")
+          ])).label("B").condition(Condition::RankGte(Rank::HolyDay)),
+          Document::from(Preces::from([
             ("V.", "Show us your mercy, O Lord;"),
             ("R.", "And grant us your salvation."),
             ("V.", "Clothe your ministers with righteousness;"),
@@ -362,7 +374,7 @@ lazy_static! {
             ("R.", "For we put our trust in you."),
             ("V.", "In you, Lord, is our hope;"),
             ("R.", "And we shall never hope in vain.")
-          ])).label("B")
+          ])).label("B").condition(Condition::Not(Box::new(Condition::RankGte(Rank::HolyDay))))
         ])),
         Document::from(Rubric::from("The Officiant then says one or more of the following Collects")),
 
