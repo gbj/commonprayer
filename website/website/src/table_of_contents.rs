@@ -119,8 +119,12 @@ lazy_static! {
             ("opening-sentences".into(), PageType::Category(
                 "Opening Sentences".into(),
                 Version::RiteII,
-                // group sentences by label before displaying in category page
                 library::rite2::OPENING_SENTENCES.clone()
+            )),
+            ("collects".into(), PageType::Category(
+                "Collects: Contemporary".into(),
+                Version::RiteII,
+                library::rite2::collects::COLLECTS_CONTEMPORARY.iter().map(|(_, doc)| doc.clone()).collect()
             )),
             ("invitatory-antiphons".into(), PageType::Category("Invitatory Antiphons".into(), Version::RiteII, library::rite2::INVITATORY_ANTIPHONS.clone())),
             ("closing-sentences".into(), PageType::Category("Closing Sentences".into(), Version::RiteII, library::rite2::OPENING_SENTENCES.clone())),
