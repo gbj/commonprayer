@@ -210,6 +210,27 @@ impl Document {
         let content_contains = self.content.contains(text);
         label_contains || version_label_contains || source_contains || content_contains
     }
+
+    /// Whether any of the document's fields, or its content, contains the given text, ignoring the search string case
+    pub fn contains_case_insensitive(&self, text: &str) -> bool {
+        let text = text.to_lowercase();
+        let label_contains = self
+            .label
+            .as_ref()
+            .map(|label| label.to_lowercase().contains(&text))
+            .unwrap_or(false);
+        let version_label_contains = self
+            .version_label
+            .as_ref()
+            .map(|label| label.to_lowercase().contains(&text))
+            .unwrap_or(false);
+        let source_contains = self
+            .source
+            .map(|reference| reference.page.to_string().to_lowercase() == text)
+            .unwrap_or(false);
+        let content_contains = self.content.contains_case_insensitive(&text);
+        label_contains || version_label_contains || source_contains || content_contains
+    }
 }
 
 impl Default for Document {
@@ -339,6 +360,67 @@ impl Content {
             Content::Rubric(rubric) => rubric.to_string().contains(text),
             Content::Sentence(sentence) => sentence.text.contains(text),
             Content::Text(t) => t.to_string().contains(text),
+        }
+    }
+
+    pub fn contains_case_insensitive(&self, text: &str) -> bool {
+        match self {
+            Content::Series(docs) => docs.iter().any(|doc| doc.contains_case_insensitive(text)),
+            Content::Parallel(docs) => docs.iter().any(|doc| doc.contains_case_insensitive(text)),
+            Content::Choice(docs) => docs.options.iter().any(|doc| doc.contains_case_insensitive(text)),
+            Content::Category(_) => false,
+            Content::CollectOfTheDay { allow_multiple: _ } => false,
+            Content::Empty => false,
+            Content::Error(_) => false,
+            Content::Antiphon(antiphon) => antiphon.to_string().to_lowercase().contains(text),
+            Content::BiblicalCitation(_) => false,
+            Content::BiblicalReading(reading) => {
+                reading.text.iter().any(|(_, verse)| verse.to_lowercase().contains(text))
+            }
+            Content::Canticle(canticle) => {
+                // if any canticle metadata includes it
+                canticle.number.to_string().to_lowercase().contains(text) || 
+                canticle.local_name.to_lowercase().contains(text) ||
+                canticle.latin_name.as_ref().map(|name| name.to_lowercase().contains(text)).unwrap_or(false) ||
+                canticle.citation.as_ref().map(|name| name.to_lowercase().contains(text)).unwrap_or(false) ||
+                // if any section title or text contains it
+                canticle.sections.iter().any(|section| {
+                    // if section title exists and contains it
+                    section
+                        .title
+                        .as_ref()
+                        .map(|title| title.to_lowercase().contains(text))
+                        .unwrap_or(false)
+                        // if any verses contain it
+                        || section
+                            .verses
+                            .iter()
+                            .any(|verse| verse.a.to_lowercase().contains(text) || verse.b.to_lowercase().contains(text))
+                })
+            }
+            Content::CanticleTableEntry(_) => false,
+            Content::GloriaPatri(gloria) => gloria.text.0.to_lowercase().contains(text) || gloria.text.1.to_lowercase().contains(text) || gloria.text.2.to_lowercase().contains(text) || gloria.text.3.to_lowercase().contains(text),
+            Content::Heading(heading) => match heading {
+                Heading::Date(s) => s.to_lowercase().contains(text),
+                Heading::Day { name, proper, holy_days } => name.to_lowercase().contains(text) || proper.as_ref().map(|name| name.to_lowercase().contains(text)).unwrap_or(false) || holy_days.as_ref().map(|days| days.iter().any(|(_, day)| day.to_lowercase().contains(text))).unwrap_or(false),
+                Heading::Text(_, s) => s.to_lowercase().contains(text),
+                _ => false,
+            },
+            Content::Invitatory(invitatory) => {
+                invitatory.citation.as_ref().map(|citation| citation.to_lowercase().contains(text)).unwrap_or(false) || invitatory.sections.iter().any(|section| section.verses.iter().any(|verse| verse.a.to_lowercase().contains(text) || verse.b.to_lowercase().contains(text)))
+            },
+            Content::LectionaryReading(_) => false,
+            Content::Litany(litany) => litany.response.to_lowercase().contains(text) || litany.iter().any(|line| line.to_lowercase().contains(text)),
+            Content::Liturgy(liturgy) => liturgy.body.iter().any(|doc| doc.contains_case_insensitive(text)),
+            Content::Preces(preces) => preces.iter().any(|(a, b)| a.to_lowercase().contains(text) || b.to_lowercase().contains(text)),
+            Content::Psalm(psalm) => {
+                psalm.number.to_string().to_lowercase().contains(text) || psalm.citation.as_ref().map(|citation| citation.to_lowercase().contains(text)).unwrap_or(false) || psalm.sections.iter().any(|section| section.verses.iter().any(|verse| verse.number.to_string().to_lowercase().contains(text) || verse.a.to_lowercase().contains(text) || verse.b.to_lowercase().contains(text)))
+            },
+            Content::PsalmCitation(_) => false,
+            Content::ResponsivePrayer(lines) => lines.iter().any(|line| line.to_lowercase().contains(text)),
+            Content::Rubric(rubric) => rubric.to_string().to_lowercase().contains(text),
+            Content::Sentence(sentence) => sentence.text.to_lowercase().contains(text),
+            Content::Text(t) => t.to_string().to_lowercase().contains(text),
         }
     }
 }

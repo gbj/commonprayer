@@ -3,7 +3,6 @@ Website Todos
 
 - [ ] Swap Canticle feature
 - [ ] Category pages
-  - [ ] Search
   - [ ] Headings in Collects page
 - Clean up
   - [ ] Noonday Prayer

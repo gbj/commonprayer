@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 
-use crate::{components::*, TABLE_OF_CONTENTS};
+use crate::{components::*, table_of_contents::PageType, TABLE_OF_CONTENTS};
 use episcopal_api::{
     calendar::{Calendar, Date},
-    library::{CommonPrayer, Library, self},
-    liturgy::{Content, Document, PreferenceKey, PreferenceValue, Version, Series, Text},
+    library::{self, CommonPrayer, Library},
+    liturgy::{Content, Document, PreferenceKey, PreferenceValue, Series, Text, Version},
 };
 use futures::StreamExt;
 use itertools::Itertools;
@@ -27,7 +27,7 @@ pub struct DocumentPageParams {
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct DocumentPageProps {
-    pub doc: Document,
+    pub page_type: PageType,
     base_path: String,
     slug: String,
     date: String,
@@ -52,7 +52,11 @@ pub fn get_static_paths() -> Vec<String> {
 }
 
 pub fn head(_locale: &str, props: &DocumentPageProps) -> View {
-    let title = match &props.doc.label {
+    let label = match &props.page_type {
+        PageType::Document(doc) => doc.label.as_ref(),
+        PageType::Category(label, _, _) => Some(label),
+    };
+    let title = match label {
         Some(label) => format!("{} – {}", label, t!("common_prayer")),
         None => t!("common_prayer"),
     };
@@ -67,13 +71,21 @@ pub fn head(_locale: &str, props: &DocumentPageProps) -> View {
 }
 
 pub fn body(locale: &str, props: &DocumentPageProps) -> View {
-    let doc = &props.doc;
-
-    let title = match &doc.label {
-        Some(label) => label.clone(),
-        None => t!("common_prayer"),
+    let title = match &props.page_type {
+        PageType::Document(doc) => match &doc.label {
+            Some(label) => label.clone(),
+            None => t!("common_prayer"),
+        },
+        PageType::Category(label, _, _) => label.clone(),
     };
 
+    match &props.page_type {
+        PageType::Document(doc) => document_body(locale, props, title, doc),
+        PageType::Category(_, _, docs) => category_body(locale, props, title, docs),
+    }
+}
+
+fn document_body(locale: &str, props: &DocumentPageProps, title: String, doc: &Document) -> View {
     let date_picker = DatePicker::new(t!("date"), None);
     let base_path = props.base_path.clone();
     date_picker
@@ -107,65 +119,122 @@ pub fn body(locale: &str, props: &DocumentPageProps) -> View {
 
     let document_controller = DocumentController::new(doc.clone());
 
-    let serialized_doc_stream = document_controller
-        .stream()
-        .map(|doc| serde_json::to_string(&doc).unwrap())
-        .boxed_local();
-
-    let json_link_stream = document_controller
-        .stream()
-        .map(|doc| serde_json::to_string(&doc).unwrap())
-        .map(|json| format!("data:application/json,{}", js_sys::encode_uri(&json)))
-        .boxed_local();
-
     view! {
         <>
             {header_with_side_menu(locale, &title, side_menu)}
             <main>
-                <ul class="export-links">
-                    // Link: TODO
-                    <a class="link" href="#">
-                        <img src="/static/icons/tabler-icon-link.svg"/>
-                        {t!("export.link")}
-                    </a>
-
-                    // Embed code: TODO
-                    <a class="embed" href="#">
-                        <img src="/static/icons/tabler-icon-code.svg"/>
-                        {t!("export.embed")}
-                    </a>
-
-                    // Word: posts a hidden form to the server and opens the result in a new tab
-                    <form class="word" target="_blank" method="post" action="/api/export/docx">
-                        <input type="hidden" name="liturgy" value={&props.slug}/>
-                        <input type="hidden" name="date" value={&props.date}/>
-                        <dyn:input type="hidden" name="doc" value={serialized_doc_stream}/>
-                        <button type="submit">
-                            <img src="/static/icons/file-word-regular.svg"/>
-                            {t!("export.word")}
-                        </button>
-                    </form>
-
-                    // Venite: TODO
-                    <a class="venite" href="#">
-                        <img src="/static/icons/venite.svg"/>
-                        {t!("export.venite")}
-                    </a>
-
-                    // JSON: downloads a named JSON file
-                    <dyn:a
-                        class="json"
-                        download={&format!("{}{}{}.json", &props.slug, if props.date.is_empty() { "" } else { "-" }, &props.date)}
-                        href={json_link_stream}
-                    >
-                        <img src="/static/icons/tabler-icon-download.svg"/>
-                        {t!("export.json")}
-                    </dyn:a>
-                </ul>
+                <dyn:view view={export_links(&props.slug, &props.date, &document_controller)} />
                 <dyn:view view={document_controller.view(locale)}/>
             </main>
         </>
     }
+}
+
+fn category_body(
+    locale: &str,
+    _props: &DocumentPageProps,
+    title: String,
+    docs: &[Document],
+) -> View {
+    let search = SearchBar::new();
+
+    let categories = View::Fragment(
+        docs.iter()
+            .group_by(|doc| doc.label.clone())
+            .into_iter()
+            .map(|(label, group)| {
+                let docs = group.cloned().collect::<Vec<_>>();
+
+                let docs_view = View::Fragment(
+                    docs.iter()
+                        .map(|doc| {
+                            let hidden = search
+                                .value
+                                .stream()
+                                .map({
+                                    let doc = doc.clone();
+                                    move |search| {
+                                        !search.is_empty()
+                                            && !doc.contains_case_insensitive(&search)
+                                    }
+                                })
+                                .boxed_local();
+
+                            let doc = DocumentController::new(Document {
+                                label: None, // don't show the label again for each doc
+                                ..doc.clone()
+                            })
+                            .view(locale);
+
+                            view! {
+                                <dyn:article class="document" class:hidden={hidden}>
+                                    {doc}
+                                </dyn:article>
+                            }
+                        })
+                        .collect(),
+                );
+
+                let label = if let Some(label) = label {
+                    let hidden = search
+                        .value
+                        .stream()
+                        .map({
+                            let label = label.to_lowercase();
+                            move |search| {
+                                !label.contains(&search.to_lowercase())
+                                    && !docs
+                                        .iter()
+                                        .any(|doc| doc.contains_case_insensitive(&search))
+                            }
+                        })
+                        .boxed_local();
+                    view! {
+                        <dyn:h3 class:hidden={hidden}>{&label}</dyn:h3>
+                    }
+                } else {
+                    View::Empty
+                };
+
+                view! {
+                    <>
+                        {label}
+                        {docs_view}
+                    </>
+                }
+            })
+            .collect::<Vec<_>>(),
+    );
+
+    view! {
+        <>
+            {header(locale, &title)}
+            <main>
+                <dyn:view view={search.view()} />
+                <dyn:view view={categories} />
+            </main>
+        </>
+    }
+}
+
+fn find_page(category: &str, slug: &str, version: Option<Version>) -> Option<PageType> {
+    TABLE_OF_CONTENTS
+        .iter()
+        .flat_map(|(category, docs)| {
+            docs.iter().map(move |(slug, page_type)| {
+                let version = match &page_type {
+                    PageType::Document(doc) => doc.version,
+                    PageType::Category(_, version, _) => *version,
+                };
+                (category.clone(), slug.clone(), version, page_type)
+            })
+        })
+        .find(|(s_category, s_slug, s_version, _)| {
+            s_category == category
+                && s_slug == slug
+                && (version.is_none() || version == Some(*s_version))
+        })
+        .map(|(_, _, _, page_type)| page_type.clone())
 }
 
 pub fn get_static_props(
@@ -173,73 +242,71 @@ pub fn get_static_props(
     _path: &str,
     params: DocumentPageParams,
 ) -> DocumentPageProps {
-    let doc = TABLE_OF_CONTENTS
-        .iter()
-        .flat_map(|(category, docs)| {
-            docs.iter()
-                .map(move |(slug, _, doc)| (category.clone(), slug.clone(), doc.version, doc))
-        })
-        .find(|(category, slug, version, _)| {
-            category == &params.category && slug == &params.slug && version == &params.version
-        })
-        .map(|(_, _, _, doc)| doc.clone())
+    // find page
+    let page_type = find_page(&params.category, &params.slug, Some(params.version))
+        .or_else(|| find_page(&params.category, &params.slug, None))
         .expect("could not find document");
 
-    let doc = if let Some(date) = params.date {
-        let calendar = params
-            .calendar
-            .map(|slug| Calendar::from(slug.as_str()))
-            .unwrap_or_default();
+    // if it's a PageType::Document and we're given a date, compile it
+    let page_type = match (&page_type, &params.date) {
+        (PageType::Category(_, _, _), _) => page_type,
+        (PageType::Document(_), None) => page_type,
+        (PageType::Document(doc), Some(date)) => {
+            let calendar = params
+                .calendar
+                .map(|slug| Calendar::from(slug.as_str()))
+                .unwrap_or_default();
 
-        let evening = if let Content::Liturgy(liturgy) = &doc.content {
-            liturgy.evening
-        } else {
-            false
-        };
+            let evening = if let Content::Liturgy(liturgy) = &doc.content {
+                liturgy.evening
+            } else {
+                false
+            };
 
-        let day = calendar.liturgical_day(date, evening);
+            let day = calendar.liturgical_day(*date, evening);
 
-        let observed = params
-            .alternate
-            .map(|slug| {
-                if slug == "alternate" {
-                    day.alternate.unwrap_or(day.observed)
-                } else {
-                    day.observed
-                }
-            })
-            .unwrap_or(day.observed);
+            let observed = params
+                .alternate
+                .map(|slug| {
+                    if slug == "alternate" {
+                        day.alternate.unwrap_or(day.observed)
+                    } else {
+                        day.observed
+                    }
+                })
+                .unwrap_or(day.observed);
 
-        let prefs: HashMap<PreferenceKey, PreferenceValue> = params
-            .prefs
-            // this strange indirection is necessary because serde_json can't use structs/enums as map keys
-            // (due to JSON format limitations)
-            .and_then(|json| {
-                serde_json::from_str::<Vec<(PreferenceKey, PreferenceValue)>>(&json).ok()
-            })
-            .unwrap_or_default()
-            .into_iter()
-            .collect();
+            let prefs: HashMap<PreferenceKey, PreferenceValue> = params
+                .prefs
+                // this strange indirection is necessary because serde_json can't use structs/enums as map keys
+                // (due to JSON format limitations)
+                .and_then(|json| {
+                    serde_json::from_str::<Vec<(PreferenceKey, PreferenceValue)>>(&json).ok()
+                })
+                .unwrap_or_default()
+                .into_iter()
+                .collect();
 
-        if let Content::Liturgy(liturgy) = &doc.content {
-            CommonPrayer::compile(
-                doc.clone(),
-                &calendar,
-                &day,
-                &observed,
-                &prefs,
-                &liturgy.preferences,
-            )
-            .unwrap()
-        } else {
-            doc
+            let doc = if let Content::Liturgy(liturgy) = &doc.content {
+                CommonPrayer::compile(
+                    doc.clone(),
+                    &calendar,
+                    &day,
+                    &observed,
+                    &prefs,
+                    &liturgy.preferences,
+                )
+                .unwrap()
+            } else {
+                doc.clone()
+            };
+
+            PageType::Document(doc)
         }
-    } else {
-        doc
     };
 
     DocumentPageProps {
-        doc,
+        page_type,
         base_path: format!(
             "/{}/document/{}/{}/{:#?}",
             locale, params.category, params.slug, params.version
