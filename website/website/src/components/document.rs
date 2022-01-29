@@ -373,7 +373,7 @@ pub fn choice(
                             }
                             on:touchend={
                                 let selected_str = selected_str.clone();
-                                move |ev: Event| {
+                                move |_ev: Event| {
                                     let offset = swipe_offset.get();
                                     // if you've swiped 100px or more in either direction, swap
                                     if let Ok(current_idx) = selected_str.get().parse::<usize>() {

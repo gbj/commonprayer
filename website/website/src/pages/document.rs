@@ -3,8 +3,8 @@ use std::collections::HashMap;
 use crate::{components::*, table_of_contents::PageType, TABLE_OF_CONTENTS};
 use episcopal_api::{
     calendar::{Calendar, Date},
-    library::{self, CommonPrayer, Library},
-    liturgy::{Content, Document, PreferenceKey, PreferenceValue, Series, Text, Version},
+    library::{CommonPrayer, Library},
+    liturgy::{Content, Document, PreferenceKey, PreferenceValue, Version},
 };
 use futures::StreamExt;
 use itertools::Itertools;

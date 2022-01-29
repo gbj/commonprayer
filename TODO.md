@@ -8,7 +8,6 @@ Website Todos
   - [ ] Noonday Prayer
   - [ ] Compline
   - [ ] Morning Prayer
-    - [ ] Prefer Suffrages B on feast days
   - [ ] Proofread Evening Prayer
 - [ ] Exports
   - [ ] docx
