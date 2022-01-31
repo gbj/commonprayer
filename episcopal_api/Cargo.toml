@@ -27,6 +27,7 @@ members = [
   "crates/export/docx",
   "crates/export/web",
   "crates/export/web-component",
+  "crates/hymnal",
   "crates/language",
   "crates/lectionary",
   "crates/library",

@@ -1,7 +1,8 @@
 Website Todos
 =============
 
-- [ ] Migrate BiblicalCitation component to use Fetch util
+- [x] Add hymnal index
+  - [ ] Website hymnal page
 - [ ] Category pages
   - [ ] Headings in Collects page
 - Clean up
@@ -9,6 +10,7 @@ Website Todos
   - [ ] Compline
   - [ ] Morning Prayer
   - [ ] Proofread Evening Prayer
+- [ ] Better Biblical citation reading parsing (paragraphs)
 - [ ] Exports
   - [ ] docx
     - [ ] finish DOCX export code
