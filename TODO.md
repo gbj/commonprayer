@@ -2,6 +2,11 @@ Website Todos
 =============
 
 - [ ] Swap Canticle feature
+  - [x] "Loading" state on canticle list
+  - [ ] filter by version
+  - [ ] allow replaceWith on fragments somehow in leptos::operations (perhaps by using comments to bracket beginning/end?)
+  - [ ] clean up the code — push holes to the furthest nodes possible! (see header refactor...)
+- [ ] Migrate BiblicalCitation component to use Fetch util
 - [ ] Category pages
   - [ ] Headings in Collects page
 - Clean up

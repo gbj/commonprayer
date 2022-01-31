@@ -1,28 +1,11 @@
 use leptos::*;
 
+use super::Icon;
+
 #[derive(Copy, Clone, Debug, Hash, PartialEq, Eq)]
 enum Button {
     Hamburger,
     Image(Icon),
-}
-
-#[derive(Copy, Clone, Debug, Hash, PartialEq, Eq)]
-pub enum Icon {
-    Calendar,
-    Settings,
-}
-
-impl std::fmt::Display for Icon {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{}",
-            match self {
-                Icon::Calendar => "/static/icons/tabler-icon-calendar-event.svg",
-                Icon::Settings => "/static/icons/tabler-icon-settings.svg",
-            }
-        )
-    }
 }
 
 fn build_menu(id: &str, side: &'static str, button: Button, content: View) -> View {

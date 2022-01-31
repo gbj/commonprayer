@@ -119,6 +119,13 @@ en:
     todays_readings: Click here for today’s readings.
     or: or
 
+  canticle_swap:
+    change_canticle: Change Canticle
+    choose: Choose a Canticle
+    connection_error: There was an error connecting to our server. Are you connected to the Internet?
+    error: Something went wrong while loading canticle choices. Try again later?
+    close: Cancel
+
   canticle_table:
     canticles_mp: Suggested Canticles at Morning Prayer
     canticles_ep: Suggested Canticles at Evening Prayer

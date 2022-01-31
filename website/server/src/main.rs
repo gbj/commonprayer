@@ -7,12 +7,16 @@ use actix_web::{
     web::{self, Path},
     App, FromRequest, HttpRequest, HttpResponse, HttpServer, Result,
 };
-use episcopal_api::{api::summary::DailySummary, calendar::Date, liturgy::Document};
+use episcopal_api::{
+    api::summary::DailySummary,
+    calendar::Date,
+    liturgy::{Canticle, Document},
+};
 use lazy_static::lazy_static;
 use leptos::Page;
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use tempfile::tempdir;
-use website::{pages::*, utils::language::locale_to_language};
+use website::{pages::*, utils::language::locale_to_language, PageType, TABLE_OF_CONTENTS};
 
 const LOCALES: [&str; 1] = ["en"];
 
@@ -36,6 +40,7 @@ async fn main() -> std::io::Result<()> {
                         cfg.limit(256 * 1024)
                     })),
             )
+            .service(canticle_list_api)
             .service(Files::new(
                 "/static",
                 &format!("{}/website/static", *PROJECT_ROOT),
@@ -56,6 +61,24 @@ async fn daily_summary(
     let language = locale_to_language(&locale);
     let summary = episcopal_api::library::CommonPrayer::summarize_date(&date, language);
     Ok(web::Json(summary))
+}
+
+// Canticle List API
+#[get("/api/canticles.json")]
+async fn canticle_list_api() -> Result<web::Json<Vec<Document>>, ()> {
+    let canticles = TABLE_OF_CONTENTS
+        .get("canticle")
+        .unwrap()
+        .iter()
+        .filter_map(|(_, page_type)| {
+            if let PageType::Document(doc) = page_type {
+                Some(doc.clone())
+            } else {
+                None
+            }
+        })
+        .collect();
+    Ok(web::Json(canticles))
 }
 
 #[derive(Deserialize)]

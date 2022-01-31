@@ -2,8 +2,12 @@ use episcopal_api::liturgy::*;
 use futures::{Stream, StreamExt};
 use leptos::*;
 use wasm_bindgen::{JsCast, UnwrapThrowExt};
+use wasm_bindgen_futures::spawn_local;
 
-use crate::components::biblical_citation::biblical_citation;
+use crate::{
+    components::*,
+    utils::fetch::{Fetch, FetchError, FetchStatus},
+};
 
 use super::lookup::{lookup_links, LookupType};
 
@@ -52,6 +56,19 @@ impl DocumentController {
         self.state.set(current_state);
         Ok(())
     }
+
+    pub fn update_document_at_path(
+        &self,
+        path: impl IntoIterator<Item = usize>,
+        document: Document,
+    ) -> Result<(), PathError> {
+        let mut current_state = self.get_state();
+        let subdoc = current_state.at_path_mut(path)?;
+        *subdoc = document;
+
+        self.state.set(current_state);
+        Ok(())
+    }
 }
 
 pub fn document_view(
@@ -89,7 +106,7 @@ pub fn document_view(
             view! { <dyn:view view={biblical_citation(locale, controller, path, content)}/>},
         ),
         Content::BiblicalReading(content) => biblical_reading(locale, controller, path, content),
-        Content::Canticle(content) => canticle(content),
+        Content::Canticle(content) => canticle(content, doc.version, path, controller),
         Content::CanticleTableEntry(content) => canticle_table_entry(locale, content),
         Content::GloriaPatri(content) => gloria_patri(content),
         Content::Heading(content) => heading(locale, content),
@@ -169,91 +186,236 @@ pub fn biblical_reading(
     (Some(header), main)
 }
 
-pub fn canticle(content: &Canticle) -> HeaderAndMain {
-    let citation = if let Some(citation) = &content.citation {
-        view! {
-            <p class="citation">{citation}</p>
+pub fn canticle(
+    content: &Canticle,
+    default_version: Version,
+    path: Vec<usize>,
+    controller: &DocumentController,
+) -> HeaderAndMain {
+    let current_content = Behavior::new(content.clone());
+
+    // Canticle swap
+    let canticle_options = Fetch::<Vec<Document>>::new("/api/canticles.json");
+    let show_option_list = Behavior::new(false);
+
+    let change_canticle = {
+        let canticle_options = canticle_options.clone();
+        let show_option_list = show_option_list.clone();
+        move |_ev: Event| {
+            canticle_options.send();
+            show_option_list.set(true);
         }
-    } else {
-        View::Empty
     };
+
+    let option_list = canticle_options
+        .state
+        .stream()
+        .map({
+            let controller = controller.clone();
+            let current_content = current_content.clone();
+            let show_option_list = show_option_list.clone();
+            move |status| match status {
+                FetchStatus::Idle => View::Empty,
+                FetchStatus::Loading => view! { <p class="loading">{t!("loading")}</p> },
+                FetchStatus::Error(e) => {
+                    match e {
+                        FetchError::Connection => view! { <p class="error">{t!("canticle_swap.connection_error")}</p> },
+                        _ => view! { <p class="error">{t!("canticle_swap.error")}</p> }
+                    }
+                }
+                FetchStatus::Success(docs) => {
+                    let docs = View::Fragment(
+                        docs.iter()
+                            .filter_map({let path = path.clone(); let controller = controller.clone(); let current_content = current_content.clone(); let show_option_list = show_option_list.clone(); move |doc| {
+                                if let Content::Canticle(content) = &doc.content {
+                                    Some(view! {
+                                        <dyn:li
+                                            role="button"
+                                            on:click={
+                                                let doc = doc.clone();
+                                                let controller = controller.clone();
+                                                let path = path.clone();
+                                                let current_content = current_content.clone();
+                                                let show_option_list = show_option_list.clone();
+                                                move |_ev: Event| {
+                                                    controller.update_document_at_path(path.clone(), doc.clone());
+                                                    show_option_list.set(false);
+                                                    if let Content::Canticle(canticle) = doc.content.clone() {
+                                                        current_content.set(canticle);
+                                                    }
+                                                }
+                                            }
+                                        >
+                                            {content.number.to_string()} ". " {&content.local_name}
+                                        </dyn:li>
+                                    })
+                                } else {
+                                    None
+                                }
+                            }})
+                            .collect(),
+                    );
+
+                    view! {
+                        <ul>
+                            {docs}
+                        </ul>
+                    }
+                }
+        }})
+        .boxed_local();
+
+    let canticle_swap = view! {
+        <nav class="canticle-swap-menu">
+            <dyn:button
+                on:click=change_canticle.clone()
+            >
+                <img src={Icon::Swap.to_string()} alt=""/>
+                {t!("canticle_swap.change_canticle")}
+            </dyn:button>
+            <dyn:div
+                class:overlay={show_option_list.stream().map(|_| true).boxed_local()}
+                class:shown={show_option_list.stream().boxed_local()}
+                on:click={
+                    let show_option_list = show_option_list.clone();
+                    move |_ev: Event| show_option_list.set(false)
+                }
+            >
+            </dyn:div>
+            <dyn:section
+                class:menu_content={show_option_list.stream().map(|_| true).boxed_local()}
+                class:shown={show_option_list.stream().boxed_local()}
+            >
+                <header>
+                    <h1>{t!("canticle_swap.choose")}</h1>
+                    <dyn:button on:click={let show_option_list = show_option_list.clone(); move |_ev: Event| show_option_list.set(false)}>
+                        <img src={Icon::Close.to_string()} alt={t!("canticle_swap.close")}/>
+                    </dyn:button>
+                </header>
+                <main>
+                    {option_list}
+                </main>
+            </dyn:section>
+        </nav>
+    };
+
+    // Header proper
+    let number = current_content
+        .stream()
+        .map(|content| content.number.to_string())
+        .boxed_local();
+    let local = current_content
+        .stream()
+        .map(|content| content.local_name)
+        .boxed_local();
+    let latin = current_content
+        .stream()
+        .map(|content| content.latin_name.unwrap_or_default())
+        .boxed_local();
+    let citation = current_content
+        .stream()
+        .map(|content| content.citation.unwrap_or_default())
+        .boxed_local();
 
     let header = view! {
-        <header class="canticle-header">
-            <h3 class="canticle-number">{content.number.to_string()}</h3>
-            <h4 class="local-name">{&content.local_name}</h4>
-            <em class="latin-name">{content.latin_name.as_ref().cloned().unwrap_or_default()}</em>
-            {citation}
-        </header>
+        <>
+            <dyn:view view={canticle_swap} />
+            <header class="canticle-header">
+                <dyn:h3 class="canticle-number">{number}</dyn:h3>
+                <dyn:h4 class="local-name">{local}</dyn:h4>
+                <dyn:em class="latin-name">{latin}</dyn:em>
+                <dyn:p class="citation">{citation}</dyn:p>
+            </header>
+        </>
     };
 
-    let rubric = if let Some(rubric) = &content.rubric {
-        view! {
-            <em class="rubric">{rubric}</em>
-        }
-    } else {
-        View::Empty
-    };
-
-    let sections = View::Fragment(
-        content
-            .sections
-            .iter()
-            .map(|section| {
-                let title = section.title.clone();
-                let header = if let Some(title) = title {
-                    view! {
-                        <header>
-                            <h4 class="canticle-section-title">{title}</h4>
-                        </header>
-                    }
-                } else {
-                    View::Empty
-                };
-
-                let verses = View::Fragment(
-                    section
-                        .verses
-                        .iter()
-                        .map(|verse| {
-                            view! {
-                                <p class="verse">
-                                    <span class="a">{small_capify(&verse.a)}</span>
-                                    <span class="b">{small_capify(&verse.b)}</span>
-                                </p>
-                            }
-                        })
-                        .collect(),
-                );
-
-                view! {
-                    <section>
-                        {header}
-                        <main>{verses}</main>
-                    </section>
-                }
-            })
-            .collect(),
-    );
-
-    let gloria = content
-        .gloria_patri
-        .as_ref()
+    // Main
+    let rubric = current_content
+        .stream()
         .map(|content| {
-            let gloria_main = gloria_patri(content).1;
-            view! { <article class="document">{gloria_main}</article> }
+            if let Some(rubric) = &content.rubric {
+                view! {
+                    <em class="rubric">{rubric}</em>
+                }
+            } else {
+                View::Empty
+            }
         })
-        .unwrap_or(View::Empty);
+        .boxed_local();
 
-    let main = view! {
-        <main class="canticle">
-            {rubric}
-            {sections}
-            {gloria}
-        </main>
-    };
+    let gloria = current_content
+        .stream()
+        .map(|content| {
+            content
+                .gloria_patri
+                .as_ref()
+                .map(|content| {
+                    let gloria_main = gloria_patri(content).1;
+                    view! { <article class="document">{gloria_main}</article> }
+                })
+                .unwrap_or(View::Empty)
+        })
+        .boxed_local();
 
-    (Some(header), main)
+    let sections = current_content
+        .stream()
+        .map(|content| {
+            let sections = View::Fragment(
+                content
+                    .sections
+                    .iter()
+                    .map(|section| {
+                        let title = section.title.clone();
+                        let header = if let Some(title) = title {
+                            view! {
+                                <header>
+                                    <h4 class="canticle-section-title">{title}</h4>
+                                </header>
+                            }
+                        } else {
+                            View::Empty
+                        };
+
+                        let verses = View::Fragment(
+                            section
+                                .verses
+                                .iter()
+                                .map(|verse| {
+                                    view! {
+                                        <p class="verse">
+                                            <span class="a">{small_capify(&verse.a)}</span>
+                                            <span class="b">{small_capify(&verse.b)}</span>
+                                        </p>
+                                    }
+                                })
+                                .collect(),
+                        );
+
+                        view! {
+                            <section>
+                                {header}
+                                <main>{verses}</main>
+                            </section>
+                        }
+                    })
+                    .collect(),
+            );
+            view! {
+                <div>{sections}</div>
+            }
+        })
+        .boxed_local();
+
+    (
+        Some(header),
+        view! {
+            <main class="canticle">
+                {rubric}
+                {sections}
+                {gloria}
+            </main>
+        },
+    )
 }
 
 pub fn category(locale: &str, content: &Category, version: Version) -> HeaderAndMain {

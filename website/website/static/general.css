@@ -452,7 +452,8 @@ fieldset.stacked label {
 }
 
 /* Right-menu content is an overlay */
-.menu.right .menu-content {
+.menu.right .menu-content,
+.canticle-swap-menu .menu-content {
   display: none;
   height: auto;
   width: 350px;
@@ -476,20 +477,22 @@ fieldset.stacked label {
   transform: translateX(-10%);
 }
 
-.menu.right input.menu-toggle-input:checked ~ .menu-content {
+.menu.right input.menu-toggle-input:checked ~ .menu-content,
+.canticle-swap-menu .menu-content.shown {
   display: block;
   transform: translateX(-50%) translateY(-50%);
   z-index: 5;
 }
 
-.menu .overlay {
+.menu .overlay,
+.canticle-swap-menu .overlay {
   opacity: 0;
   z-index: -1;
   width: 0;
 }
 
-.menu input.menu-toggle-input:checked ~ label .overlay {
-  width: 100vw;
+.menu input.menu-toggle-input:checked ~ label .overlay,
+.canticle-swap-menu .overlay.shown {
   opacity: 0.25;
   background: black;
   position: fixed;
