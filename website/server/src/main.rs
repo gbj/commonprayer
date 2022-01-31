@@ -7,11 +7,7 @@ use actix_web::{
     web::{self, Path},
     App, FromRequest, HttpRequest, HttpResponse, HttpServer, Result,
 };
-use episcopal_api::{
-    api::summary::DailySummary,
-    calendar::Date,
-    liturgy::{Canticle, Document},
-};
+use episcopal_api::{api::summary::DailySummary, calendar::Date, liturgy::Document};
 use lazy_static::lazy_static;
 use leptos::Page;
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
@@ -117,6 +113,7 @@ fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
         add_page(cfg, locale, daily_readings());
         add_page(cfg, locale, document());
         add_page(cfg, locale, holy_day());
+        add_page(cfg, locale, hymnal());
         add_page(cfg, locale, index());
         add_page(cfg, locale, settings());
     }

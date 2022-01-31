@@ -2,6 +2,7 @@ pub use api;
 pub use calendar;
 pub use canticle_table;
 pub use docx;
+pub use hymnal;
 pub use language;
 pub use lectionary;
 pub use library;

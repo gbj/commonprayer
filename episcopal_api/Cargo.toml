@@ -12,6 +12,7 @@ api = { path = "crates/api" }
 calendar = { path = "crates/calendar" }
 canticle-table = { path = "crates/canticle-table" }
 docx = { path = "crates/export/docx" }
+hymnal = { path = "crates/hymnal" }
 language = { path = "crates/language" }
 lectionary = { path = "crates/lectionary" }
 library = { path = "crates/library" }

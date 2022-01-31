@@ -3,10 +3,11 @@ en:
   loading: Loading...
 
   menu:
+    open_menu: Open Menu
     home: Home
     calendar: Calendar
     canticle_table: Canticle Table
-    open_menu: Open Menu
+    hymnal: Hymnal
 
   holy_day:
     lessons_and_psalm: Lessons and Psalm

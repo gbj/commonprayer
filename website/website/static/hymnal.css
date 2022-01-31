@@ -1,0 +1,21 @@
+h2,
+h3 {
+  text-align: center;
+}
+
+h3 {
+  font-style: italic;
+}
+
+.copyright {
+  text-align: center;
+  font-style: italic;
+}
+
+td {
+  vertical-align: top;
+}
+
+.tune {
+  font-variant: small-caps;
+}
