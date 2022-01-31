@@ -1,8 +1,7 @@
 use std::collections::HashMap;
 
 use episcopal_api::library;
-use episcopal_api::liturgy::{Document, Heading, HeadingLevel, Series, Version};
-use itertools::Itertools;
+use episcopal_api::liturgy::{Document, Version};
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 
