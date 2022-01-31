@@ -5,7 +5,7 @@ lazy_static! {
     pub static ref CANTICLE_B: Document = Document::from(Canticle {
         number: CanticleId::CanticleB,
         citation: Some(String::from("Ecclesiasticus 51:13-16,20b-22")),
-        local_name: String::from("Canticle B"),
+        local_name: String::from("A Song of Pilgrimage"),
         latin_name: Some(String::from("Priusquam errarem")),
         rubric: None,
         gloria_patri: None,
