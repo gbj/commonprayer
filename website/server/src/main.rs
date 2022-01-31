@@ -7,7 +7,12 @@ use actix_web::{
     web::{self, Path},
     App, FromRequest, HttpRequest, HttpResponse, HttpServer, Result,
 };
-use episcopal_api::{api::summary::DailySummary, calendar::Date, liturgy::Document};
+use episcopal_api::{
+    api::summary::DailySummary,
+    calendar::Date,
+    hymnal::{Hymnal, Hymnals},
+    liturgy::Document,
+};
 use lazy_static::lazy_static;
 use leptos::Page;
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
@@ -37,6 +42,7 @@ async fn main() -> std::io::Result<()> {
                     })),
             )
             .service(canticle_list_api)
+            .service(hymnal_api)
             .service(Files::new(
                 "/static",
                 &format!("{}/website/static", *PROJECT_ROOT),
@@ -75,6 +81,12 @@ async fn canticle_list_api() -> Result<web::Json<Vec<Document>>, ()> {
         })
         .collect();
     Ok(web::Json(canticles))
+}
+
+// Hymnal API
+#[get("/api/hymnal/{hymnal}.json")]
+async fn hymnal_api(path: web::Path<Hymnals>) -> Result<web::Json<Hymnal>, ()> {
+    Ok(web::Json(path.into_inner().into()))
 }
 
 #[derive(Deserialize)]
