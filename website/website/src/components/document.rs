@@ -2,7 +2,6 @@ use episcopal_api::liturgy::*;
 use futures::{Stream, StreamExt};
 use leptos::*;
 use wasm_bindgen::{JsCast, UnwrapThrowExt};
-use wasm_bindgen_futures::spawn_local;
 
 use crate::{
     components::*,
@@ -103,7 +102,7 @@ pub fn document_view(
         Content::Antiphon(content) => antiphon(content),
         Content::BiblicalCitation(content) => (
             None,
-            view! { <dyn:view view={biblical_citation(locale, controller, path, content)}/>},
+            view! { <dyn:view view={biblical_citation(locale, controller, path, content, doc.version)}/>},
         ),
         Content::BiblicalReading(content) => biblical_reading(locale, controller, path, content),
         Content::Canticle(content) => canticle(content, doc.version, path, controller),
@@ -292,7 +291,7 @@ pub fn canticle(
     let canticle_swap = view! {
         <nav class="canticle-swap-menu">
             <dyn:button
-                on:click=change_canticle.clone()
+                on:click=change_canticle
             >
                 <img src={Icon::Swap.to_string()} alt=""/>
                 {t!("canticle_swap.change_canticle")}
@@ -312,7 +311,9 @@ pub fn canticle(
             >
                 <header>
                     <h1>{t!("canticle_swap.choose")}</h1>
-                    <dyn:button on:click={let show_option_list = show_option_list.clone(); move |_ev: Event| show_option_list.set(false)}>
+                    <dyn:button
+                        on:click=move |_ev: Event| show_option_list.set(false)
+                    >
                         <img src={Icon::Close.to_string()} alt={t!("canticle_swap.close")}/>
                     </dyn:button>
                 </header>

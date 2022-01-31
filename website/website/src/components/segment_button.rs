@@ -17,6 +17,7 @@ impl<T> SegmentButton<T>
 where
     T: Clone + PartialEq + 'static,
 {
+    #[allow(dead_code)]
     pub fn new(
         name: &'static str,
         legend: Option<String>,

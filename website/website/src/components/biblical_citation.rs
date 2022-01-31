@@ -1,74 +1,43 @@
-use crate::components::biblical_reading;
+use crate::{
+    components::biblical_reading,
+    utils::fetch::{Fetch, FetchStatus},
+};
 use episcopal_api::{
-    liturgy::{BiblicalCitation, BiblicalReading, Content, Version},
+    liturgy::{BiblicalCitation, BiblicalReading, Version},
     reference_parser::{BibleVerse, BibleVersePart, Book},
 };
 use futures::StreamExt;
 use leptos::*;
-use reqwasm::http::Request;
 use serde::Deserialize;
 use wasm_bindgen::UnwrapThrowExt;
-use wasm_bindgen_futures::spawn_local;
 
 use super::DocumentController;
-
-#[derive(Clone, Debug, PartialEq, Eq)]
-enum State {
-    Idle,
-    Loading,
-    Error,
-    Success(Box<BiblicalReading>),
-}
 
 pub fn biblical_citation(
     locale: &str,
     controller: &DocumentController,
     path: Vec<usize>,
     citation: &BiblicalCitation,
+    version: Version,
 ) -> View {
-    let state = Behavior::new(State::Idle);
+    let fetch = Fetch::<BibleReadingFromAPI>::new(reading_url(&citation.citation, version));
+    fetch.send();
 
-    if !is_server!() {
-        {
-            let state = state.clone();
-            let citation = citation.clone();
-            let controller = controller.clone();
-            let path = path.clone();
-            spawn_local(async move {
-                if state.get() == State::Idle {
-                    state.set(State::Loading);
-                    match fetch_reading(&citation, Version::NRSV).await {
-                        Ok(reading) => {
-                            state.set(State::Success(Box::new(reading.clone())));
-                            if let Err(e) = controller
-                                .update_content_at_path(path, Content::BiblicalReading(reading))
-                            {
-                                log(&format!(
-                                    "(biblical_citation) error updating controller {:#?}",
-                                    e
-                                ))
-                            };
-                        }
-                        Err(_) => state.set(State::Error),
-                    }
-                }
-            });
-        }
-    }
-
-    let main = state
+    let main = fetch
+        .state
         .stream()
         .map({
-            let citation = citation.citation.clone();
             let locale = locale.to_string();
             let controller = controller.clone();
+            let citation = citation.clone();
             move |state| match state {
-                State::Idle => View::Empty,
-                State::Loading => View::StaticText(t!("loading")),
-                State::Error => view! {
-                    <p class="error">{t!("biblical_citation.error", citation = &citation)}</p>
+                FetchStatus::Idle => View::Empty,
+                FetchStatus::Loading => View::StaticText(t!("loading")),
+                FetchStatus::Error(_) => view! {
+                    <p class="error">{t!("biblical_citation.error", citation = &citation.citation)}</p>
                 },
-                State::Success(reading) => {
+                FetchStatus::Success(reading) => {
+                    let reading = reading.api_data_to_biblical_reading(&citation);
                     biblical_reading(&locale, &controller, path.clone(), &reading).1
                 }
             }
@@ -87,24 +56,7 @@ pub fn biblical_citation(
     }
 }
 
-async fn fetch_reading(
-    citation: &BiblicalCitation,
-    version: Version,
-) -> Result<BiblicalReading, ()> {
-    let url = reading_url(&citation.citation, version);
-
-    let reading = Request::get(&url)
-        .send()
-        .await
-        .map_err(|_| ())?
-        .json::<BibleReadingFromAPI>()
-        .await
-        .map_err(|_| ())?
-        .api_data_to_biblical_reading(citation);
-    Ok(reading)
-}
-
-#[derive(Deserialize)]
+#[derive(Deserialize, Clone)]
 pub struct BibleReadingFromAPI {
     pub citation: String,
     pub label: String,
