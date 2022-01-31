@@ -22,6 +22,7 @@ en:
   contemporary: Contemporary
   rite_i: Rite I
   rite_ii: Rite II
+  eow: EOW
 
   bible_version:
     NRSV_full: New Revised Standard Version (NRSV)
@@ -125,6 +126,7 @@ en:
     connection_error: There was an error connecting to our server. Are you connected to the Internet?
     error: Something went wrong while loading canticle choices. Try again later?
     close: Cancel
+    any: —
 
   canticle_table:
     canticles_mp: Suggested Canticles at Morning Prayer

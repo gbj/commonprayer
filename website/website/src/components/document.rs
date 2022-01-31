@@ -207,6 +207,18 @@ pub fn canticle(
         }
     };
 
+    let version_filter = SegmentButton::new_with_default_value(
+        "canticle-version",
+        Some(t!("settings.version")),
+        [
+            (None, t!("canticle_swap.any"), None),
+            (Some(Version::RiteI), t!("rite_i"), None),
+            (Some(Version::RiteII), t!("rite_ii"), None),
+            (Some(Version::EOW), t!("eow"), None),
+        ],
+        Some(default_version),
+    );
+
     let option_list = canticle_options
         .state
         .stream()
@@ -214,6 +226,7 @@ pub fn canticle(
             let controller = controller.clone();
             let current_content = current_content.clone();
             let show_option_list = show_option_list.clone();
+            let version_filter_value = version_filter.value.clone();
             move |status| match status {
                 FetchStatus::Idle => View::Empty,
                 FetchStatus::Loading => view! { <p class="loading">{t!("loading")}</p> },
@@ -226,33 +239,44 @@ pub fn canticle(
                 FetchStatus::Success(docs) => {
                     let docs = View::Fragment(
                         docs.iter()
-                            .filter_map({let path = path.clone(); let controller = controller.clone(); let current_content = current_content.clone(); let show_option_list = show_option_list.clone(); move |doc| {
-                                if let Content::Canticle(content) = &doc.content {
-                                    Some(view! {
-                                        <dyn:li
-                                            role="button"
-                                            on:click={
-                                                let doc = doc.clone();
-                                                let controller = controller.clone();
-                                                let path = path.clone();
-                                                let current_content = current_content.clone();
-                                                let show_option_list = show_option_list.clone();
-                                                move |_ev: Event| {
-                                                    controller.update_document_at_path(path.clone(), doc.clone());
-                                                    show_option_list.set(false);
-                                                    if let Content::Canticle(canticle) = doc.content.clone() {
-                                                        current_content.set(canticle);
+                            .filter_map({
+                                let path = path.clone();
+                                let controller = controller.clone();
+                                let current_content = current_content.clone();
+                                let show_option_list = show_option_list.clone();
+                                let version_filter_value = version_filter_value.clone();
+                                move |doc| {
+                                    if let Content::Canticle(content) = &doc.content {
+                                        let doc_version = doc.version;
+                                        let hidden = version_filter_value.stream().map(move |version| version.is_some() && version.unwrap() != doc_version).boxed_local();
+
+                                        Some(view! {
+                                            <dyn:li
+                                                role="button"
+                                                class:hidden={hidden}
+                                                on:click={
+                                                    let doc = doc.clone();
+                                                    let controller = controller.clone();
+                                                    let path = path.clone();
+                                                    let current_content = current_content.clone();
+                                                    let show_option_list = show_option_list.clone();
+                                                    move |_ev: Event| {
+                                                        controller.update_document_at_path(path.clone(), doc.clone());
+                                                        show_option_list.set(false);
+                                                        if let Content::Canticle(canticle) = doc.content.clone() {
+                                                            current_content.set(canticle);
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        >
-                                            {content.number.to_string()} ". " {&content.local_name}
-                                        </dyn:li>
-                                    })
-                                } else {
-                                    None
+                                            >
+                                                {content.number.to_string()} ". " {&content.local_name}
+                                            </dyn:li>
+                                        })
+                                    } else {
+                                        None
+                                    }
                                 }
-                            }})
+                            })
                             .collect(),
                     );
 
@@ -293,6 +317,7 @@ pub fn canticle(
                     </dyn:button>
                 </header>
                 <main>
+                    {version_filter.view()}
                     {option_list}
                 </main>
             </dyn:section>
