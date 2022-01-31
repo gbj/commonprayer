@@ -365,8 +365,12 @@ a.reference {
   align-items: center;
   padding: 0.25rem;
   border: 0;
-  background: var(--background);
   color: var(--link-color);
+  background: var(--background);
+}
+
+.document .canticle-swap-menu button img {
+  filter: var(--link-color-filter);
 }
 
 .canticle-swap-menu button:hover {

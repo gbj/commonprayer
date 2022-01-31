@@ -42,6 +42,8 @@
 
   /* Links */
   --link-color: #c63232;
+  --link-color-filter: invert(38%) sepia(78%) saturate(2321%) hue-rotate(335deg)
+    brightness(76%) contrast(106%);
   --link-visited-color: #9a2626;
 }
 
@@ -82,6 +84,8 @@ a:visited {
 
     /* Links */
     --link-color: #c45f5f;
+    --link-color-filter: invert(53%) sepia(9%) saturate(3609%)
+      hue-rotate(314deg) brightness(87%) contrast(73%);
     --link-visited-color: #c45f5f;
   }
 
@@ -258,6 +262,7 @@ fieldset.toggle label {
   padding: 0.25rem 0.25rem;
   cursor: pointer;
   border: 1px solid var(--ui-toggle-checked-background);
+  border-right: 0;
   min-width: 3rem;
   white-space: nowrap;
   overflow: hidden;
@@ -272,6 +277,7 @@ fieldset.toggle label:first-of-type {
 }
 
 fieldset.toggle label:last-of-type {
+  border-right: 1px solid var(--ui-toggle-checked-background);
   border-top-right-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }
