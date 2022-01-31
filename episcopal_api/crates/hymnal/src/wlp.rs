@@ -22,6 +22,7 @@ mod tests {
 
 lazy_static! {
     pub static ref WLP : Hymnal = Hymnal {
+        id: Hymnals::WLP,
         title: "Wonder, Love, and Praise".to_string(),
         subtitle: "A Supplement to The Hymnal 1982".to_string(),
         copyright: "Copyright © 1997 by The Church Pension Fund".to_string(),

@@ -22,6 +22,7 @@ mod tests {
 
 lazy_static! {
     pub static ref HYMNAL_1982: Hymnal = Hymnal {
+        id: Hymnals::Hymnal1982,
         title: "The Hymnal 1982".to_string(),
         subtitle: "".to_string(),
         copyright: "Copyright © 1985 by The Church Pension Fund".to_string(),

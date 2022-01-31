@@ -21,6 +21,7 @@ mod tests {
 
 lazy_static! {
 	pub static ref LEVAS: Hymnal = Hymnal {
+		id: Hymnals::LEVAS,
 		title: "Lift Every Voice and Sing II".to_string(),
 		subtitle: "An African American Hymnal".to_string(),
 		copyright: "Copyright © 1993 by The Church Pension Fund".to_string(),

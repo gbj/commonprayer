@@ -18,8 +18,25 @@ pub enum Hymnals {
     WLP,
 }
 
+impl From<Hymnals> for Hymnal {
+    fn from(h: Hymnals) -> Self {
+        match h {
+            Hymnals::Hymnal1982 => HYMNAL_1982.clone(),
+            Hymnals::LEVAS => LEVAS.clone(),
+            Hymnals::WLP => WLP.clone(),
+        }
+    }
+}
+
+impl Default for Hymnals {
+    fn default() -> Self {
+        Self::Hymnal1982
+    }
+}
+
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Hymnal {
+    pub id: Hymnals,
     pub title: String,
     pub subtitle: String,
     pub copyright: String,

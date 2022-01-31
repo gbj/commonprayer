@@ -2,7 +2,14 @@ Website Todos
 =============
 
 - [x] Add hymnal index
-  - [ ] Website hymnal page
+  - [x] Website hymnal page
+  - [x] Hymn page
+  - [ ] Hymnal API
+  - [ ] Hymn API
+- [ ] 404 page from get_static_props => Option 
+  - [ ] server API
+  - [ ] migrate all pages
+  - [ ] focus on Document and Hymnal pages
 - [ ] Category pages
   - [ ] Headings in Collects page
 - Clean up

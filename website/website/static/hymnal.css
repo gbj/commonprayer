@@ -1,5 +1,4 @@
-h2,
-h3 {
+h2, h3, h4 {
   text-align: center;
 }
 
@@ -18,4 +17,10 @@ td {
 
 .tune {
   font-variant: small-caps;
+}
+
+.hymnary-link {
+	display: block;
+	margin: auto;
+	text-align: center;
 }

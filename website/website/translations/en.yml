@@ -15,6 +15,15 @@ en:
     psalm: Psalm
     gospel: Gospel
 
+  hymnal:
+    any: —
+    h82: The Hymnal 1982
+    levas: Lift Every Voice and Sing
+    wlp: Wonder, Love, and Praise
+    h82_abbrev: 1982
+    levas_abbrev: LEVAS
+    wlp_abbrev: WLP
+
   liturgy: Liturgy
   date: Date
   pray: Pray

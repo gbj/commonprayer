@@ -1,7 +1,6 @@
-use crate::components::{header, SearchBar};
+use crate::components::{header, SearchBar, SegmentButton};
 use episcopal_api::hymnal::*;
 use futures::StreamExt;
-use itertools::Itertools;
 use leptos::*;
 use serde::{Deserialize, Serialize};
 
@@ -12,8 +11,17 @@ pub struct HymnalPageParams {
 }
 
 #[derive(Clone, Deserialize, Serialize)]
-pub struct HymnalPageProps {
-    hymnals: Vec<Hymnal>,
+pub enum HymnalPageProps {
+    Hymnal(Vec<Hymnal>),
+    Hymn(HymnalMetadata, Hymn),
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct HymnalMetadata {
+    pub id: Hymnals,
+    pub title: String,
+    pub subtitle: String,
+    pub copyright: String,
 }
 
 pub fn hymnal() -> Page<HymnalPageProps, HymnalPageParams> {
@@ -25,10 +33,15 @@ pub fn hymnal() -> Page<HymnalPageProps, HymnalPageParams> {
 }
 
 pub fn head(_locale: &str, props: &HymnalPageProps) -> View {
-    let title = if props.hymnals.len() == 1 {
-        props.hymnals[0].title.clone()
-    } else {
-        t!("menu.hymnal")
+    let title = match props {
+        HymnalPageProps::Hymnal(hymnals) => {
+            if hymnals.len() == 1 {
+                hymnals[0].title.clone()
+            } else {
+                t!("menu.hymnal")
+            }
+        }
+        HymnalPageProps::Hymn(_, hymn) => format!("{} {}", hymn.number, hymn.title),
     };
 
     view! {
@@ -45,25 +58,60 @@ pub fn get_static_paths() -> Vec<String> {
 }
 
 pub fn get_static_props(_locale: &str, _path: &str, params: HymnalPageParams) -> HymnalPageProps {
-    HymnalPageProps {
-        hymnals: match params.hymnal {
-            None => vec![HYMNAL_1982.clone(), LEVAS.clone(), WLP.clone()],
-            Some(Hymnals::Hymnal1982) => vec![HYMNAL_1982.clone()],
-            Some(Hymnals::LEVAS) => vec![LEVAS.clone()],
-            Some(Hymnals::WLP) => vec![WLP.clone()],
-        },
+    match (params.hymnal, params.number) {
+        (None, None) => {
+            HymnalPageProps::Hymnal(vec![HYMNAL_1982.clone(), LEVAS.clone(), WLP.clone()])
+        }
+        (Some(hymnal), None) => HymnalPageProps::Hymnal(vec![hymnal.into()]),
+        (hymnal, Some(number)) => {
+            let hymnal: Hymnal = hymnal.unwrap_or_default().into();
+            let metadata = HymnalMetadata {
+                id: hymnal.id,
+                title: hymnal.title,
+                subtitle: hymnal.subtitle,
+                copyright: hymnal.copyright,
+            };
+            let hymn = hymnal
+                .hymns
+                .iter()
+                .find(|s_hymn| s_hymn.number == number)
+                .expect("no hymn with that number");
+            HymnalPageProps::Hymn(metadata, hymn.clone())
+        }
     }
 }
 
 pub fn body(locale: &str, props: &HymnalPageProps) -> View {
-    let search_bar = SearchBar::new();
+    match props {
+        HymnalPageProps::Hymnal(hymnals) => hymnal_body(locale, hymnals),
+        HymnalPageProps::Hymn(hymnal, hymn) => hymn_body(locale, hymnal, hymn),
+    }
+}
 
-    let hymnals = View::Fragment(
-        props
-            .hymnals
+pub fn hymnal_body(locale: &str, hymnals: &[Hymnal]) -> View {
+    let search_bar = SearchBar::new();
+    let hymnal_choice = SegmentButton::new_with_default_value(
+        "search-hymnal",
+        Some(t!("menu.hymnal")),
+        [
+            (None, t!("hymnal.any"), None),
+            (Some(Hymnals::Hymnal1982), t!("hymnal.h82_abbrev"), None),
+            (Some(Hymnals::LEVAS), t!("hymnal.levas_abbrev"), None),
+            (Some(Hymnals::WLP), t!("hymnal.wlp_abbrev"), None),
+        ],
+        if hymnals.len() == 1 {
+            hymnals.get(0).map(|h| h.id)
+        } else {
+            None
+        },
+    );
+
+    let hymnal_tables = View::Fragment(
+        hymnals
             .iter()
             .map({
                 let search = search_bar.value.clone();
+                let hymnal_choice = hymnal_choice.value.clone();
                 move |hymnal| {
                     let title = view! { <h2>{&hymnal.title}</h2> };
                     let subtitle = if !hymnal.subtitle.is_empty() {
@@ -106,10 +154,13 @@ pub fn body(locale: &str, props: &HymnalPageProps) -> View {
                                     })
                                     .boxed_local();
 
+                                let link =
+                                    format!("/{}/hymnal/{:#?}/{}", locale, hymnal.id, hymn.number);
+
                                 view! {
                                     <dyn:tr class:hidden={hidden}>
-                                        <td>{number}</td>
-                                        <td>{&hymn.title}</td>
+                                        <td><a href={&link}>{number}</a></td>
+                                        <td><a href={&link}>{&hymn.title}</a></td>
                                         <td class="tune">{&tune_name}</td>
                                     </dyn:tr>
                                 }
@@ -117,13 +168,21 @@ pub fn body(locale: &str, props: &HymnalPageProps) -> View {
                             .collect(),
                     );
 
+                    let id = hymnal.id;
+                    let hidden = hymnal_choice
+                        .stream()
+                        .map(move |choice| choice.is_some() && choice != Some(id))
+                        .boxed_local();
+
                     view! {
-                        {title}
-                        {subtitle}
-                        {copyright}
-                        <table>
-                            {hymns}
-                        </table>
+                        <dyn:section class:hidden={hidden}>
+                            {title}
+                            {subtitle}
+                            {copyright}
+                            <table>
+                                {hymns}
+                            </table>
+                        </dyn:section>
                     }
                 }
             })
@@ -135,7 +194,42 @@ pub fn body(locale: &str, props: &HymnalPageProps) -> View {
             {header(locale, &t!("menu.hymnal"))}
             <main>
                 {search_bar.view()}
-                {hymnals}
+                {if hymnals.len() == 1 {
+                    View::Empty
+                } else {
+                    hymnal_choice.view()
+                }}
+                {hymnal_tables}
+            </main>
+        </>
+    }
+}
+
+fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
+    let hymnary_link = format!(
+        "https://hymnary.org/hymn/{}/{}",
+        match hymnal.id {
+            Hymnals::Hymnal1982 => "EH1982",
+            Hymnals::LEVAS => "LEVAS1993",
+            Hymnals::WLP => "WLP1997",
+        },
+        hymn.number
+    );
+
+    view! {
+        <>
+            {header(locale, &format!("{} {}", hymn.number, hymn.title))}
+            <main>
+                <h2>
+                    <a href={&format!("/{}/hymnal/{:#?}", locale, hymnal.id)}>
+                        {&hymnal.title}
+                    </a>
+                    " "
+                    {hymn.number.to_string()}
+                </h2>
+                <h3>{&hymn.title}</h3>
+                <h4 class="tune">{hymn.tune.to_lowercase()}</h4>
+                <a class="hymnary-link" href={hymnary_link} target="_blank">"Hymnary.org"</a>
             </main>
         </>
     }
