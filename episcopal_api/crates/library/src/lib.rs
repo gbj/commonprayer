@@ -142,6 +142,13 @@ pub trait Library {
                                             citation: reading.citation,
                                             intro,
                                         }),
+                                        version: prefs
+                                            .value(&PreferenceKey::from(GlobalPref::BibleVersion))
+                                            .and_then(|value| match value {
+                                                PreferenceValue::Version(version) => Some(*version),
+                                                _ => None,
+                                            })
+                                            .unwrap_or(Version::NRSV),
                                         ..document.clone()
                                     }
                                 }

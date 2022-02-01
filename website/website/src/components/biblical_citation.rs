@@ -21,7 +21,7 @@ pub fn biblical_citation(
     version: Version,
 ) -> View {
     // TODO use version preferences
-    let fetch = Fetch::<BibleReadingFromAPI>::new(reading_url(&citation.citation, Version::NRSV));
+    let fetch = Fetch::<BibleReadingFromAPI>::new(reading_url(&citation.citation, version));
     fetch.send();
 
     let main = fetch

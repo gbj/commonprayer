@@ -6,7 +6,8 @@ use episcopal_api::{
     lectionary::Reading,
     library::CommonPrayer,
     liturgy::{
-        BiblicalCitation, Document, GlobalPref, Lectionaries, PreferenceKey, PreferenceValue, Psalm,
+        BiblicalCitation, Document, GlobalPref, Lectionaries, PreferenceKey, PreferenceValue,
+        Psalm, Version,
     },
 };
 use futures::{Stream, StreamExt};
@@ -456,7 +457,7 @@ fn observance_view(
         },
         _ => view! {
             <h1>{&observance.localized_name}</h1>
-        }
+        },
     };
 
     view! {
@@ -517,6 +518,12 @@ fn psalms_view(locale: &str, psalms: &[Psalm]) -> View {
 
 fn readings_view(locale: &str, summary: &ObservanceSummary) -> View {
     let readings = &summary.daily_office_readings;
+    let version = preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
+        .and_then(|value| match value {
+            PreferenceValue::Version(version) => Some(version),
+            _ => None,
+        })
+        .unwrap_or(Version::NRSV);
 
     if readings.is_empty() {
         View::Empty
@@ -528,7 +535,7 @@ fn readings_view(locale: &str, summary: &ObservanceSummary) -> View {
                     view! {
                         <>
                             <a id={&reading.citation}></a>
-                            {DocumentController::new(Document::from(BiblicalCitation::from(reading.citation.clone()))).view(locale)}
+                            {DocumentController::new(Document::from(BiblicalCitation::from(reading.citation.clone())).version(version)).view(locale)}
                         </>
                     }
                 })
