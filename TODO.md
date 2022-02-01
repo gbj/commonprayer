@@ -1,11 +1,7 @@
 Website Todos
 =============
 
-- [x] Add hymnal index
-  - [x] Website hymnal page
-  - [x] Hymn page
-  - [ ] Hymnal API
-  - [ ] Hymn API
+- [ ] Bible Version preference in Daily Office and Daily Readings
 - [ ] 404 page from get_static_props => Option 
   - [ ] server API
   - [ ] migrate all pages

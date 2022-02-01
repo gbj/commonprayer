@@ -20,7 +20,8 @@ pub fn biblical_citation(
     citation: &BiblicalCitation,
     version: Version,
 ) -> View {
-    let fetch = Fetch::<BibleReadingFromAPI>::new(reading_url(&citation.citation, version));
+    // TODO use version preferences
+    let fetch = Fetch::<BibleReadingFromAPI>::new(reading_url(&citation.citation, Version::NRSV));
     fetch.send();
 
     let main = fetch
