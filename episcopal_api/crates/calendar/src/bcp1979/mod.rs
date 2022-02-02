@@ -279,7 +279,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::SpecialDay(LiturgicalWeek::Epiphany, Weekday::Sat),
         Feast::EveOfEpiphany1,
-        Time::EveningOnly,
+        Time::EveningOnly(None),
         None,
     ),
     (
@@ -393,7 +393,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::SpecialDay(LiturgicalWeek::Easter6, Weekday::Wed),
         Feast::EveOfTheAscension,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::AscensionDay)),
         None,
     ),
     (
@@ -417,7 +417,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::SpecialDay(LiturgicalWeek::Easter7, Weekday::Sat),
         Feast::EveOfPentecost,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::Pentecost)),
         None,
     ),
     (
@@ -429,7 +429,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::SpecialDay(LiturgicalWeek::Pentecost, Weekday::Sat),
         Feast::EveOfTrinitySunday,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::TrinitySunday)),
         None,
     ),
     (
@@ -452,7 +452,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::Date(1, 5),
         Feast::EveOfEpiphany,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::Epiphany)),
         None,
     ),
     (HolyDayId::Date(1, 6), Feast::Epiphany, Time::AllDay, None),
@@ -562,7 +562,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::Date(2, 1),
         Feast::EveOfThePresentation,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::ThePresentation)),
         None,
     ),
     (
@@ -669,7 +669,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::Date(3, 24),
         Feast::EveOfTheAnnunciation,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::AscensionDay)),
         None,
     ),
     (
@@ -779,7 +779,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::Date(5, 30),
         Feast::EveOfTheVisitation,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::TheVisitation)),
         None,
     ),
     (
@@ -837,7 +837,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::Date(6, 23),
         Feast::EveOfStJohnTheBaptist,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::NativityOfStJohnTheBaptist)),
         None,
     ),
     (
@@ -910,7 +910,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::Date(8, 5),
         Feast::EveOfTheTransfiguration,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::TheTransfiguration)),
         None,
     ),
     (
@@ -997,7 +997,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::Date(9, 13),
         Feast::EveOfHolyCross,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::HolyCross)),
         None,
     ),
     (HolyDayId::Date(9, 14), Feast::HolyCross, Time::AllDay, None),
@@ -1106,7 +1106,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::Date(10, 31),
         Feast::EveOfAllSaints,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::AllSaintsDay)),
         None,
     ),
     (
@@ -1234,7 +1234,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::Date(12, 24),
         Feast::ChristmasEve,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::ChristmasDay)),
         None,
     ),
     (
@@ -1272,7 +1272,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     (
         HolyDayId::Date(12, 31),
         Feast::EveOfHolyName,
-        Time::EveningOnly,
+        Time::EveningOnly(Some(Feast::HolyName)),
         None,
     ),
 ];

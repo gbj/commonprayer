@@ -77,7 +77,7 @@ fn summarize_calendar(
                 // include black-letter and red-letter days, but not weird Daily Office lectionary days like December 29
                 // and don't include the Eve of ___ days
                 if (rank == Rank::OptionalObservance || rank >= Rank::HolyDay)
-                    && time != Time::EveningOnly
+                    && !matches!(time, Time::EveningOnly(_))
                 {
                     let name = calendar.feast_name(feast, language);
                     Some((id, feast, name.map(String::from).unwrap_or_default()))

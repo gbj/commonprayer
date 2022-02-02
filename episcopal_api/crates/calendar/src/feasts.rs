@@ -372,7 +372,7 @@ pub enum CommonOfSaints {
 pub enum Time {
     AllDay,
     MorningOnly,
-    EveningOnly,
+    EveningOnly(Option<Feast>),
 }
 
 /// (month, day, Feast, eve, not observed After this week begins (used for days between Epiphany and Epiphany 1))

@@ -79,7 +79,7 @@ impl Calendar {
                 LiturgicalDayId::Feast(o_feast) => {
                     o_feast != *feast && feast_rank >= Rank::PrecedenceOverWeekday
                 }
-                LiturgicalDayId::TransferredFeast(t_feast) => { 
+                LiturgicalDayId::TransferredFeast(t_feast) => {
                     // to be honest it's a little unclear whether a transferred red-letter day should
                     // cause the original black-letter day to be ignored, or also commemorated
                     t_feast != *feast
@@ -270,7 +270,7 @@ impl Calendar {
         self.holy_days
             .iter()
             .find(|(_, search_feast, _, _)| search_feast == feast)
-            .map(|(_, _, time, _)| *time == Time::EveningOnly)
+            .map(|(_, _, time, _)| matches!(*time, Time::EveningOnly(_)))
             .unwrap_or(false)
     }
 
@@ -292,8 +292,8 @@ impl Calendar {
                 } else {
                     false
                 };
-                let time_ok = (*f_time != Time::EveningOnly
-                    || (!ignore_evening && *f_time == Time::EveningOnly && evening))
+                let time_ok = (!matches!(*f_time, Time::EveningOnly(_))
+                    || (!ignore_evening && matches!(*f_time, Time::EveningOnly(_)) && evening))
                     && (*f_time != Time::MorningOnly || !evening);
                 match id {
                     HolyDayId::Date(f_month, f_day) => {

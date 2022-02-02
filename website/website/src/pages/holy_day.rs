@@ -1,6 +1,9 @@
 use crate::{components::*, utils::language::locale_to_language};
 use episcopal_api::{
-    calendar::{lff2018::LFF_BIOS, HolyDayId, LiturgicalDayId, Time, LFF2018_CALENDAR},
+    calendar::{
+        lff2018::LFF_BIOS, Feast, HolyDayId, LiturgicalDayId, Time, BCP1979_CALENDAR,
+        LFF2018_CALENDAR,
+    },
     lectionary::{ReadingType, LFF2018_LECTIONARY},
     library::{lff2018::collects::*, CollectId},
     liturgy::{BiblicalCitation, Choice, Content, Document},
@@ -9,6 +12,11 @@ use episcopal_api::{
 use leptos::*;
 use rust_i18n::t;
 use serde_derive::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Clone)]
+pub struct HolyDayParams {
+    feast: Feast,
+}
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct HolyDayProps {
@@ -23,7 +31,7 @@ pub struct HolyDayProps {
     gospel: Document,
 }
 
-pub fn holy_day() -> Page<HolyDayProps, ()> {
+pub fn holy_day() -> Page<HolyDayProps, HolyDayParams> {
     Page::new("holy-day")
         .head_fn(head)
         .body_fn(body)
@@ -116,20 +124,25 @@ fn body(locale: &str, props: &HolyDayProps) -> View {
     }
 }
 
-fn static_props(locale: &str, path: &str, _params: ()) -> HolyDayProps {
+fn static_props(locale: &str, _path: &str, params: HolyDayParams) -> HolyDayProps {
     let language = locale_to_language(locale);
-    let mut parts = path.split('/');
-    parts.next(); // /
-    parts.next(); // /{locale}
-    parts.next(); // /holy-day
-    let feast = parts
-        .next()
-        .map(|s| serde_json::from_str(&format!("\"{}\"", s)).unwrap())
-        .unwrap();
-    let date = LFF2018_CALENDAR
+    let feast = params.feast;
+    let eve_of = BCP1979_CALENDAR
         .holy_days
         .iter()
         .find(|(_, s_feast, _, _)| *s_feast == feast)
+        .and_then(|(_, _, time, _)| {
+            if let Time::EveningOnly(eve_of) = time {
+                eve_of.as_ref().copied()
+            } else {
+                None
+            }
+        });
+
+    let date = LFF2018_CALENDAR
+        .holy_days
+        .iter()
+        .find(|(_, s_feast, _, _)| *s_feast == feast || Some(*s_feast) == eve_of)
         .map(|(id, _, _, _)| match id {
             HolyDayId::Date(month, day) => format!("{} {}", language.month_name(*month), day),
             _ => panic!("expected a month/date pair for feast"),
@@ -137,13 +150,15 @@ fn static_props(locale: &str, path: &str, _params: ()) -> HolyDayProps {
         .expect("could not find info for feast");
     let name = LFF2018_CALENDAR
         .feast_name(feast, language)
-        .unwrap()
+        // or, search in BCP calendar if can't find in LFF (i.e., for Eve of ___)
+        .or_else(|| BCP1979_CALENDAR.feast_name(feast, language))
+        .expect("could not find feast name for feast")
         .to_string();
     let bio = LFF_BIOS
         .iter()
-        .find(|(s_feast, _)| *s_feast == feast)
+        .find(|(s_feast, _)| *s_feast == feast || Some(*s_feast) == eve_of)
         .map(|(_, bio)| bio.to_string())
-        .unwrap();
+        .expect("could not find bio for feast");
     let readings = LFF2018_LECTIONARY
         .readings
         .iter()
@@ -157,13 +172,17 @@ fn static_props(locale: &str, path: &str, _params: ()) -> HolyDayProps {
 
     let collect_traditional = LFF_COLLECTS_TRADITIONAL
         .iter()
-        .find(|(id, _)| *id == CollectId::Feast(feast))
+        .find(|(id, _)| {
+            *id == CollectId::Feast(feast) || Some(id) == eve_of.map(CollectId::Feast).as_ref()
+        })
         .map(|(_, doc)| doc.clone())
         .unwrap_or_else(|| Document::from(Content::Empty));
 
     let collect_contemporary = LFF_COLLECTS_CONTEMPORARY
         .iter()
-        .find(|(id, _)| *id == CollectId::Feast(feast))
+        .find(|(id, _)| {
+            *id == CollectId::Feast(feast) || Some(id) == eve_of.map(CollectId::Feast).as_ref()
+        })
         .map(|(_, doc)| doc.clone())
         .unwrap_or_else(|| Document::from(Content::Empty));
 
@@ -181,12 +200,7 @@ fn static_props(locale: &str, path: &str, _params: ()) -> HolyDayProps {
 }
 
 fn build_paths_fn() -> Vec<String> {
-    LFF2018_CALENDAR
-        .holy_days
-        .iter()
-        .filter(|(_, _, time, _)| *time != Time::EveningOnly)
-        .map(|(_, feast, _, _)| serde_json::to_string(feast).unwrap().replace('"', ""))
-        .collect()
+    vec!["{feast}".into()]
 }
 
 fn filter_readings(readings: &[(ReadingType, String)], reading_type: ReadingType) -> Document {
