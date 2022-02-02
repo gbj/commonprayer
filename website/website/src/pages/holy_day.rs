@@ -1,12 +1,15 @@
-use crate::{components::*, utils::language::locale_to_language};
+use crate::{components::*, preferences, utils::language::locale_to_language};
 use episcopal_api::{
     calendar::{
         lff2018::LFF_BIOS, Feast, HolyDayId, LiturgicalDayId, Time, BCP1979_CALENDAR,
         LFF2018_CALENDAR,
     },
-    lectionary::{ReadingType, LFF2018_LECTIONARY},
+    lectionary::{ReadingType, LFF2018_LECTIONARY, RCL},
     library::{lff2018::collects::*, CollectId},
-    liturgy::{BiblicalCitation, Choice, Content, Document},
+    liturgy::{
+        BiblicalCitation, Choice, Content, Document, GlobalPref, PreferenceKey, PreferenceValue,
+        Version,
+    },
     psalter::bcp1979::BCP1979_PSALTER,
 };
 use leptos::*;
@@ -28,6 +31,7 @@ pub struct HolyDayProps {
     collect_contemporary: Document,
     first_lesson: Document,
     psalm: Document,
+    epistle: Document,
     gospel: Document,
 }
 
@@ -66,6 +70,7 @@ fn body(locale: &str, props: &HolyDayProps) -> View {
 
     let first_lesson_citation = content_to_citation(&props.first_lesson.content);
     let psalm_citation = content_to_citation(&props.psalm.content);
+    let epistle_citation = content_to_citation(&props.epistle.content);
     let gospel_citation = content_to_citation(&props.gospel.content);
 
     let collect_view = DocumentController::new(Document::from(Choice::from([
@@ -80,6 +85,13 @@ fn body(locale: &str, props: &HolyDayProps) -> View {
         props.name.split(',').next().unwrap_or(props.name.as_str())
     );
 
+    let bible_version = preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
+        .and_then(|value| match value {
+            PreferenceValue::Version(version) => Some(version),
+            _ => None,
+        })
+        .unwrap_or(Version::NRSV);
+
     view! {
         <>
             {header(locale, &header_title)}
@@ -93,6 +105,13 @@ fn body(locale: &str, props: &HolyDayProps) -> View {
                 <ul class="reading-links">
                     <li><a href="#first-lesson">{first_lesson_citation}</a></li>
                     <li><a href="#psalm">{psalm_citation}</a></li>
+                    {if props.epistle.content != Content::Empty {
+                        view! {
+                            <li><a href="#epistle">{epistle_citation}</a></li>
+                        }
+                    } else {
+                        View::Empty
+                    }}
                     <li><a href="#gospel">{gospel_citation}</a></li>
                 </ul>
                 <hr/>
@@ -103,20 +122,39 @@ fn body(locale: &str, props: &HolyDayProps) -> View {
 
                 // Actual readings
                 <h2>{t!("holy_day.lessons_and_psalm")}</h2>
+
+                // First Lesson
                 <a id="first-lesson"></a>
                 <h3>{t!("holy_day.first_lesson")}</h3>
                 <article class="document">
-                    <dyn:view view={DocumentController::new(props.first_lesson.clone()).view(locale)}/>
+                    <dyn:view view={DocumentController::new(props.first_lesson.clone().version(bible_version)).view(locale)}/>
                 </article>
+
+                // Psalm
                 <a id="psalm"></a>
                 <h3>{t!("holy_day.psalm")}</h3>
                 <article class="document">
                     <dyn:view view={DocumentController::new(props.psalm.clone()).view(locale)}/>
                 </article>
+
+                // Epistle
+                {if props.epistle.content != Content::Empty {
+                    view! {
+                        <a id="epistle"></a>
+                        <h3>{t!("holy_day.epistle")}</h3>
+                        <article class="document">
+                            <dyn:view view={DocumentController::new(props.epistle.clone().version(bible_version)).view(locale)}/>
+                        </article>
+                    }
+                } else {
+                    View::Empty
+                }}
+
+                // Gospel
                 <a id="gospel"></a>
                 <h3>{t!("holy_day.gospel")}</h3>
                 <article class="document">
-                    <dyn:view view={DocumentController::new(props.gospel.clone()).view(locale)}/>
+                    <dyn:view view={DocumentController::new(props.gospel.clone().version(bible_version)).view(locale)}/>
                 </article>
 
             </main>
@@ -159,15 +197,19 @@ fn static_props(locale: &str, _path: &str, params: HolyDayParams) -> HolyDayProp
         .find(|(s_feast, _)| *s_feast == feast || Some(*s_feast) == eve_of)
         .map(|(_, bio)| bio.to_string())
         .expect("could not find bio for feast");
-    let readings = LFF2018_LECTIONARY
+    // search both RCL and LFF 2018 lectionary for holy day readings
+    let lectionary = RCL
         .readings
         .iter()
+        .chain(LFF2018_LECTIONARY.readings.iter());
+    let readings = lectionary
         .filter(|(id, _, _, _)| id == &LiturgicalDayId::Feast(feast))
         .map(|(_, _, reading_type, citation)| (*reading_type, citation.to_string()))
         .collect::<Vec<_>>();
 
     let first_lesson = filter_readings(&readings, ReadingType::FirstReading);
     let psalm = filter_readings(&readings, ReadingType::Psalm);
+    let epistle = filter_readings(&readings, ReadingType::SecondReading);
     let gospel = filter_readings(&readings, ReadingType::Gospel);
 
     let collect_traditional = LFF_COLLECTS_TRADITIONAL
@@ -193,6 +235,7 @@ fn static_props(locale: &str, _path: &str, params: HolyDayParams) -> HolyDayProp
         bio,
         first_lesson,
         psalm,
+        epistle,
         gospel,
         collect_traditional,
         collect_contemporary,
