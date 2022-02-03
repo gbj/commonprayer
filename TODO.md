@@ -1,8 +1,6 @@
 Website Todos
 =============
 
-- [x] Bible Version preference in Daily Office and Daily Readings
-- [ ] Ignore Holy Day page links on Daily Readings page for Eve of the ___ (or serve the feast of which it's the eve)
 - [ ] 404 page from get_static_props => Option 
   - [ ] server API
   - [ ] migrate all pages
