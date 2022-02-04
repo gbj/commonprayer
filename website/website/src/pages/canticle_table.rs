@@ -6,7 +6,7 @@ pub fn canticle_table() -> Page<(), ()> {
     Page::new("canticle-table")
         .body_fn(body)
         .head_fn(head)
-        .static_props_fn(|_, _, _| ())
+        .static_props_fn(|_, _, _| Some(()))
 }
 
 pub fn head(_locale: &str, _props: &()) -> View {

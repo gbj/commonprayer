@@ -1,12 +1,6 @@
 Website Todos
 =============
 
-- [ ] 404 page from get_static_props => Option 
-  - [ ] server API
-  - [ ] migrate all pages
-  - [ ] focus on Document and Hymnal pages
-- [ ] Category pages
-  - [ ] Headings in Collects page
 - Clean up
   - [ ] Noonday Prayer
   - [ ] Compline
@@ -23,6 +17,8 @@ Website Todos
     - [ ] Word
     - [ ] Venite
     - [x] JSON
+- [ ] Category pages
+  - [ ] Headings in Collects page
 - [ ] Fix LFF collects with empty labels
 - [ ] Condense Psalm 119 citations in Daily Office lectionary
 - [ ] Rite II collects need Version::RiteII, not default (Version::BCP1979)

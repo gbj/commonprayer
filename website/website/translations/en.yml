@@ -2,6 +2,13 @@ en:
   common_prayer: Common Prayer
   loading: Loading...
 
+  page_404:
+    title: Page Not Found
+    uh_oh: Uh-oh!
+    explanation: It seems that the page you’re looking for is missing. If you think this is a mistake, please send me a message using the link below. Otherwise, try again!
+    email_greg: Email Me
+    button_text: Go to the Table of Contents
+
   menu:
     open_menu: Open Menu
     home: Home

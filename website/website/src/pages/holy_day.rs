@@ -18,7 +18,7 @@ use serde_derive::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct HolyDayParams {
-    feast: Feast,
+    feast: String,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -162,84 +162,91 @@ fn body(locale: &str, props: &HolyDayProps) -> View {
     }
 }
 
-fn static_props(locale: &str, _path: &str, params: HolyDayParams) -> HolyDayProps {
-    let language = locale_to_language(locale);
-    let feast = params.feast;
-    let eve_of = BCP1979_CALENDAR
-        .holy_days
-        .iter()
-        .find(|(_, s_feast, _, _)| *s_feast == feast)
-        .and_then(|(_, _, time, _)| {
-            if let Time::EveningOnly(eve_of) = time {
-                eve_of.as_ref().copied()
-            } else {
-                None
-            }
-        });
+fn static_props(locale: &str, _path: &str, params: HolyDayParams) -> Option<HolyDayProps> {
+    // deserializing here instead of in the params means that
+    // a bad feast ID will be a 404 error (finds path, but branches here to None => 404)
+    // not a server error (when it's unable to find path b/c can't deserialize to Feast)
+    serde_json::from_str::<Feast>(&params.feast)
+        .ok()
+        .and_then(|feast| {
+            let language = locale_to_language(locale);
+            let eve_of = BCP1979_CALENDAR
+                .holy_days
+                .iter()
+                .find(|(_, s_feast, _, _)| *s_feast == feast)
+                .and_then(|(_, _, time, _)| {
+                    if let Time::EveningOnly(eve_of) = time {
+                        eve_of.as_ref().copied()
+                    } else {
+                        None
+                    }
+                });
 
-    let date = LFF2018_CALENDAR
-        .holy_days
-        .iter()
-        .find(|(_, s_feast, _, _)| *s_feast == feast || Some(*s_feast) == eve_of)
-        .map(|(id, _, _, _)| match id {
-            HolyDayId::Date(month, day) => format!("{} {}", language.month_name(*month), day),
-            _ => panic!("expected a month/date pair for feast"),
+            let date = LFF2018_CALENDAR
+                .holy_days
+                .iter()
+                .find(|(_, s_feast, _, _)| *s_feast == feast || Some(*s_feast) == eve_of)
+                .and_then(|(id, _, _, _)| match id {
+                    HolyDayId::Date(month, day) => {
+                        Some(format!("{} {}", language.month_name(*month), day))
+                    }
+                    _ => None,
+                })?;
+            let name = LFF2018_CALENDAR
+                .feast_name(feast, language)
+                // or, search in BCP calendar if can't find in LFF (i.e., for Eve of ___)
+                .or_else(|| BCP1979_CALENDAR.feast_name(feast, language))?
+                .to_string();
+            let bio = LFF_BIOS
+                .iter()
+                .find(|(s_feast, _)| *s_feast == feast || Some(*s_feast) == eve_of)
+                .map(|(_, bio)| bio.to_string())?;
+            // search both RCL and LFF 2018 lectionary for holy day readings
+            let lectionary = RCL
+                .readings
+                .iter()
+                .chain(LFF2018_LECTIONARY.readings.iter());
+            let readings = lectionary
+                .filter(|(id, _, _, _)| id == &LiturgicalDayId::Feast(feast))
+                .map(|(_, _, reading_type, citation)| (*reading_type, citation.to_string()))
+                .collect::<Vec<_>>();
+
+            let first_lesson = filter_readings(&readings, ReadingType::FirstReading);
+            let psalm = filter_readings(&readings, ReadingType::Psalm);
+            let epistle = filter_readings(&readings, ReadingType::SecondReading);
+            let gospel = filter_readings(&readings, ReadingType::Gospel);
+
+            let collect_traditional = LFF_COLLECTS_TRADITIONAL
+                .iter()
+                .find(|(id, _)| {
+                    *id == CollectId::Feast(feast)
+                        || Some(id) == eve_of.map(CollectId::Feast).as_ref()
+                })
+                .map(|(_, doc)| doc.clone())
+                .unwrap_or_else(|| Document::from(Content::Empty));
+
+            let collect_contemporary = LFF_COLLECTS_CONTEMPORARY
+                .iter()
+                .find(|(id, _)| {
+                    *id == CollectId::Feast(feast)
+                        || Some(id) == eve_of.map(CollectId::Feast).as_ref()
+                })
+                .map(|(_, doc)| doc.clone())
+                .unwrap_or_else(|| Document::from(Content::Empty));
+
+            Some(HolyDayProps {
+                date,
+                locale: locale.to_string(),
+                name,
+                bio,
+                first_lesson,
+                psalm,
+                epistle,
+                gospel,
+                collect_traditional,
+                collect_contemporary,
+            })
         })
-        .expect("could not find info for feast");
-    let name = LFF2018_CALENDAR
-        .feast_name(feast, language)
-        // or, search in BCP calendar if can't find in LFF (i.e., for Eve of ___)
-        .or_else(|| BCP1979_CALENDAR.feast_name(feast, language))
-        .expect("could not find feast name for feast")
-        .to_string();
-    let bio = LFF_BIOS
-        .iter()
-        .find(|(s_feast, _)| *s_feast == feast || Some(*s_feast) == eve_of)
-        .map(|(_, bio)| bio.to_string())
-        .expect("could not find bio for feast");
-    // search both RCL and LFF 2018 lectionary for holy day readings
-    let lectionary = RCL
-        .readings
-        .iter()
-        .chain(LFF2018_LECTIONARY.readings.iter());
-    let readings = lectionary
-        .filter(|(id, _, _, _)| id == &LiturgicalDayId::Feast(feast))
-        .map(|(_, _, reading_type, citation)| (*reading_type, citation.to_string()))
-        .collect::<Vec<_>>();
-
-    let first_lesson = filter_readings(&readings, ReadingType::FirstReading);
-    let psalm = filter_readings(&readings, ReadingType::Psalm);
-    let epistle = filter_readings(&readings, ReadingType::SecondReading);
-    let gospel = filter_readings(&readings, ReadingType::Gospel);
-
-    let collect_traditional = LFF_COLLECTS_TRADITIONAL
-        .iter()
-        .find(|(id, _)| {
-            *id == CollectId::Feast(feast) || Some(id) == eve_of.map(CollectId::Feast).as_ref()
-        })
-        .map(|(_, doc)| doc.clone())
-        .unwrap_or_else(|| Document::from(Content::Empty));
-
-    let collect_contemporary = LFF_COLLECTS_CONTEMPORARY
-        .iter()
-        .find(|(id, _)| {
-            *id == CollectId::Feast(feast) || Some(id) == eve_of.map(CollectId::Feast).as_ref()
-        })
-        .map(|(_, doc)| doc.clone())
-        .unwrap_or_else(|| Document::from(Content::Empty));
-
-    HolyDayProps {
-        date,
-        locale: locale.to_string(),
-        name,
-        bio,
-        first_lesson,
-        psalm,
-        epistle,
-        gospel,
-        collect_traditional,
-        collect_contemporary,
-    }
 }
 
 fn build_paths_fn() -> Vec<String> {

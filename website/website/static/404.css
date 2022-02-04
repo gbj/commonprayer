@@ -1,0 +1,29 @@
+h1 {
+  display: inline;
+}
+
+.links {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.email-link,
+.toc-link {
+  border: 2px solid var(--link-color);
+  border-radius: var(--border-radius);
+  padding: 0.25rem;
+  text-decoration: none;
+}
+
+.email-link,
+.email-link:visited {
+  color: var(--link-color);
+  background: var(--background);
+}
+
+.toc-link,
+.toc-link:visited {
+  color: var(--background);
+  background: var(--link-color);
+}

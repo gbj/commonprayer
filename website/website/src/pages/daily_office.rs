@@ -14,7 +14,7 @@ pub fn daily_office() -> Page<(), ()> {
     Page::new("daily-office")
         .head_fn(head)
         .body_fn(body)
-        .static_props_fn(|_, _, _| ())
+        .static_props_fn(|_, _, _| Some(()))
         .build_paths_fn(build_paths_fn)
 }
 

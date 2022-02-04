@@ -26,8 +26,8 @@ pub fn settings() -> Page<SettingsPageProps, ()> {
         .static_props_fn(static_props)
 }
 
-fn static_props(_locale: &str, _path: &str, _params: ()) -> SettingsPageProps {
-    SettingsPageProps {
+fn static_props(_locale: &str, _path: &str, _params: ()) -> Option<SettingsPageProps> {
+    Some(SettingsPageProps {
         mp_1_prefs: liturgy_to_preferences(&MORNING_PRAYER_II),
         mp_2_prefs: liturgy_to_preferences(&MORNING_PRAYER_II),
         np_prefs: liturgy_to_preferences(&NOONDAY_PRAYER),
@@ -35,7 +35,7 @@ fn static_props(_locale: &str, _path: &str, _params: ()) -> SettingsPageProps {
         ep_2_prefs: None, // TODO
         cp_prefs: liturgy_to_preferences(&COMPLINE),
         eucharist_prefs: None, // TODO
-    }
+    })
 }
 
 fn liturgy_to_preferences(document: &Document) -> Option<(String, LiturgyPreferences)> {

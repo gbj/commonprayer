@@ -241,77 +241,79 @@ pub fn get_static_props(
     locale: &str,
     _path: &str,
     params: DocumentPageParams,
-) -> DocumentPageProps {
-    // find page
-    let page_type = find_page(&params.category, &params.slug, Some(params.version))
+) -> Option<DocumentPageProps> {
+    // find page in TOC, either with the given version or in any version
+    find_page(&params.category, &params.slug, Some(params.version))
         .or_else(|| find_page(&params.category, &params.slug, None))
-        .expect("could not find document");
+        // if document is not found, with return None => 404
+        .map(|page_type| {
+            // if it's a PageType::Document and we're given a date, compile it
+            let page_type = match (&page_type, &params.date) {
+                (PageType::Category(_, _, _), _) => page_type,
+                (PageType::Document(_), None) => page_type,
+                (PageType::Document(doc), Some(date)) => {
+                    let calendar = params
+                        .calendar
+                        .map(|slug| Calendar::from(slug.as_str()))
+                        .unwrap_or_default();
 
-    // if it's a PageType::Document and we're given a date, compile it
-    let page_type = match (&page_type, &params.date) {
-        (PageType::Category(_, _, _), _) => page_type,
-        (PageType::Document(_), None) => page_type,
-        (PageType::Document(doc), Some(date)) => {
-            let calendar = params
-                .calendar
-                .map(|slug| Calendar::from(slug.as_str()))
-                .unwrap_or_default();
-
-            let evening = if let Content::Liturgy(liturgy) = &doc.content {
-                liturgy.evening
-            } else {
-                false
-            };
-
-            let day = calendar.liturgical_day(*date, evening);
-
-            let observed = params
-                .alternate
-                .map(|slug| {
-                    if slug == "alternate" {
-                        day.alternate.unwrap_or(day.observed)
+                    let evening = if let Content::Liturgy(liturgy) = &doc.content {
+                        liturgy.evening
                     } else {
-                        day.observed
-                    }
-                })
-                .unwrap_or(day.observed);
+                        false
+                    };
 
-            let prefs: HashMap<PreferenceKey, PreferenceValue> = params
-                .prefs
-                // this strange indirection is necessary because serde_json can't use structs/enums as map keys
-                // (due to JSON format limitations)
-                .and_then(|json| {
-                    serde_json::from_str::<Vec<(PreferenceKey, PreferenceValue)>>(&json).ok()
-                })
-                .unwrap_or_default()
-                .into_iter()
-                .collect();
+                    let day = calendar.liturgical_day(*date, evening);
 
-            let doc = if let Content::Liturgy(liturgy) = &doc.content {
-                CommonPrayer::compile(
-                    doc.clone(),
-                    &calendar,
-                    &day,
-                    &observed,
-                    &prefs,
-                    &liturgy.preferences,
-                )
-                .unwrap()
-            } else {
-                doc.clone()
+                    let observed = params
+                        .alternate
+                        .map(|slug| {
+                            if slug == "alternate" {
+                                day.alternate.unwrap_or(day.observed)
+                            } else {
+                                day.observed
+                            }
+                        })
+                        .unwrap_or(day.observed);
+
+                    let prefs: HashMap<PreferenceKey, PreferenceValue> = params
+                        .prefs
+                        // this strange indirection is necessary because serde_json can't use structs/enums as map keys
+                        // (due to JSON format limitations)
+                        .and_then(|json| {
+                            serde_json::from_str::<Vec<(PreferenceKey, PreferenceValue)>>(&json)
+                                .ok()
+                        })
+                        .unwrap_or_default()
+                        .into_iter()
+                        .collect();
+
+                    let doc = if let Content::Liturgy(liturgy) = &doc.content {
+                        CommonPrayer::compile(
+                            doc.clone(),
+                            &calendar,
+                            &day,
+                            &observed,
+                            &prefs,
+                            &liturgy.preferences,
+                        )
+                        .unwrap()
+                    } else {
+                        doc.clone()
+                    };
+
+                    PageType::Document(doc)
+                }
             };
 
-            PageType::Document(doc)
-        }
-    };
-
-    DocumentPageProps {
-        page_type,
-        base_path: format!(
-            "/{}/document/{}/{}/{:#?}",
-            locale, params.category, params.slug, params.version
-        ),
-        slug: params.slug,
-        date: params.date.map(|date| date.to_string()).unwrap_or_default(),
-    }
+            DocumentPageProps {
+                page_type,
+                base_path: format!(
+                    "/{}/document/{}/{}/{:#?}",
+                    locale, params.category, params.slug, params.version
+                ),
+                slug: params.slug,
+                date: params.date.map(|date| date.to_string()).unwrap_or_default(),
+            }
+        })
 }

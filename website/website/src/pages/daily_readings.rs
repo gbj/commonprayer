@@ -60,7 +60,7 @@ fn static_props(
     locale: &str,
     _path: &str,
     params: DailyReadingsUrlParams,
-) -> DailyReadingsPageProps {
+) -> Option<DailyReadingsPageProps> {
     let language = locale_to_language(locale);
 
     let date = params
@@ -69,7 +69,7 @@ fn static_props(
         .and_then(|date| Date::parse_from_str(date, "%Y-%m-%d").ok());
     let summary = date.map(|date| CommonPrayer::summarize_date(&date, language));
 
-    DailyReadingsPageProps { summary }
+    Some(DailyReadingsPageProps { summary })
 }
 
 fn build_paths_fn() -> Vec<String> {

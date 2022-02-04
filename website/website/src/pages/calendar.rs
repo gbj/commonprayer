@@ -91,7 +91,7 @@ fn summarize_calendar(
         .collect()
 }
 
-pub fn get_static_props(locale: &str, path: &str, _params: ()) -> CalendarPageProps {
+pub fn get_static_props(locale: &str, path: &str, _params: ()) -> Option<CalendarPageProps> {
     let language = locale_to_language(locale);
 
     let default_calendar = if path.ends_with("lff2018") {
@@ -112,11 +112,11 @@ pub fn get_static_props(locale: &str, path: &str, _params: ()) -> CalendarPagePr
         LFF2018_CALENDAR.holy_days.iter().cloned(),
     );
 
-    CalendarPageProps {
+    Some(CalendarPageProps {
         default_calendar,
         bcp1979,
         lff2018,
-    }
+    })
 }
 
 const MONTHS: [(u8, u8); 12] = [

@@ -6,7 +6,7 @@ pub fn index() -> Page<(), ()> {
     Page::new("index")
         .head_fn(head)
         .body_fn(body)
-        .static_props_fn(|_, _, _| ())
+        .static_props_fn(|_, _, _| Some(()))
 }
 
 fn head(_locale: &str, _props: &()) -> View {

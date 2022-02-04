@@ -57,8 +57,12 @@ pub fn get_static_paths() -> Vec<String> {
     vec!["".into(), "{hymnal}".into(), "{hymnal}/{number}".into()]
 }
 
-pub fn get_static_props(_locale: &str, _path: &str, params: HymnalPageParams) -> HymnalPageProps {
-    match (params.hymnal, params.number) {
+pub fn get_static_props(
+    _locale: &str,
+    _path: &str,
+    params: HymnalPageParams,
+) -> Option<HymnalPageProps> {
+    Some(match (params.hymnal, params.number) {
         (None, None) => {
             HymnalPageProps::Hymnal(vec![HYMNAL_1982.clone(), LEVAS.clone(), WLP.clone()])
         }
@@ -71,14 +75,10 @@ pub fn get_static_props(_locale: &str, _path: &str, params: HymnalPageParams) ->
                 subtitle: hymnal.subtitle,
                 copyright: hymnal.copyright,
             };
-            let hymn = hymnal
-                .hymns
-                .iter()
-                .find(|s_hymn| s_hymn.number == number)
-                .expect("no hymn with that number");
+            let hymn = hymnal.hymns.iter().find(|s_hymn| s_hymn.number == number)?;
             HymnalPageProps::Hymn(metadata, hymn.clone())
         }
-    }
+    })
 }
 
 pub fn body(locale: &str, props: &HymnalPageProps) -> View {

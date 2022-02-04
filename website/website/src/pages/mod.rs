@@ -6,6 +6,7 @@ pub mod document;
 mod holy_day;
 mod hymns;
 mod index;
+mod not_found_404;
 mod settings;
 
 pub use calendar::*;
@@ -16,4 +17,5 @@ pub use document::*;
 pub use holy_day::*;
 pub use hymns::*;
 pub use index::*;
+pub use not_found_404::*;
 pub use settings::*;

@@ -205,6 +205,10 @@ where
                 let path = req.path();
                 match page.build(&locale, path, params.into_inner()) {
                     Ok(view) => HttpResponse::Ok().body(&view.to_html()),
+                    Err(leptos::PageRenderError::NotFound) => {
+                        let not_found = not_found_404().build(&locale, path, ()).unwrap();
+                        HttpResponse::Ok().body(&not_found.to_html())
+                    }
                     Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
                 }
             }

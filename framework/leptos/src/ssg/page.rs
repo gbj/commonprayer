@@ -10,13 +10,16 @@ use thiserror::Error;
 type BodyFn<T> = fn(&str, &T) -> View;
 type HeadFn<T> = BodyFn<T>;
 
-/// Takes locale (as `&str`), path (as `&str`), and typed path params to create static props (`T`)
-type StaticPropsFn<T, P> = fn(&str, &str, P) -> T;
+/// Takes locale (as `&str`), path (as `&str`), and typed path params to create static props (`T`).
+/// `None` should lead to a 404 error.
+type StaticPropsFn<T, P> = fn(&str, &str, P) -> Option<T>;
 
 type BuildPathsFn = fn() -> Vec<String>;
 
 #[derive(Error, Debug)]
 pub enum PageRenderError {
+    #[error("could not find a page at that path")]
+    NotFound,
     #[error("could not serialize props to JSON")]
     SerializingProps,
     #[error("could not deserialize props from JSON")]
@@ -35,6 +38,7 @@ where
     static_props: Option<StaticPropsFn<T, P>>,
     build_paths: Option<BuildPathsFn>,
     incremental_generation: bool,
+    static_page: bool,
 }
 
 impl<T, P> Page<T, P>
@@ -50,6 +54,7 @@ where
             static_props: None,
             build_paths: None,
             incremental_generation: false,
+            static_page: false,
         }
     }
 
@@ -110,11 +115,17 @@ where
         }
     }
 
+    pub fn static_page(mut self) -> Self {
+        self.static_page = true;
+        self
+    }
+
     pub fn build(&self, locale: &str, path: &str, params: P) -> Result<View, PageRenderError> {
         let props = (self.static_props)
             .expect("a Page should have a defined static_props_fn to before build() is called")(
             locale, path, params,
-        );
+        )
+        .ok_or(PageRenderError::NotFound)?;
         self.render(locale, props)
     }
 
@@ -150,9 +161,15 @@ where
                 <body>
                 {self.body.map(|body_fn| (body_fn)(locale, &props)).unwrap_or(View::Empty)}
                 </body>
-                <script type="module">
-                {hydration_js}
-                </script>
+                {if self.static_page {
+                    View::Empty}
+                else {
+                    view! {
+                        <script type="module">
+                        {hydration_js}
+                        </script>
+                    }
+                }}
             </html>
         })
     }
