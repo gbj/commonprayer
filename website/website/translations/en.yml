@@ -31,6 +31,19 @@ en:
     h82_abbrev: 1982
     levas_abbrev: LEVAS
     wlp_abbrev: WLP
+    more_info: More information available on
+    alt_text: Page Scan from Hymnary.org
+    copyright_restriction: "[This page is unavailable due to copyright.]"
+    copyright_footer: All data and images for this page are taken from publicly-available data from Hymnary.org. To the best of my knowledge, no copyrighted material is reproduced on this page.
+    tune: Tune
+    first_line: First Line
+    refrain_first_line: First Line of Refrain
+    authors: Author(s)
+    composers: Composer(s)
+    meter: Meter
+    text_sources: Text Source(s)
+    tune_sources: Tune Source(s)
+    music_available: Music Available
 
   liturgy: Liturgy
   date: Date

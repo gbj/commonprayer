@@ -1,4 +1,61 @@
-h2, h3, h4 {
+main {
+  font-family: Garamond, serif;
+}
+
+.hymn-listing {
+  display: grid;
+  grid-template-areas: "available number title tune meter" "empty composer composer composer composer" "empty author author author author";
+  grid-template-columns: 1.5rem 2.5rem 1fr 1fr 5rem;
+  grid-template-rows: auto auto;
+  margin: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.hymn-listing.hidden {
+  display: none;
+}
+
+.hymn-listing:last-of-type {
+  border: none;
+}
+
+.hymn-listing .number {
+  grid-area: number;
+}
+
+.hymn-listing .title {
+  grid-area: title;
+}
+
+.hymn-listing .tune {
+  grid-area: tune;
+}
+
+.hymn-listing .music-available {
+  grid-area: available;
+  text-align: center;
+}
+
+.hymn-listing .meter {
+  grid-area: meter;
+  text-align: right;
+}
+
+.hymn-listing .composer {
+  grid-area: composer;
+}
+
+.hymn-listing .author {
+  grid-area: author;
+}
+
+.hymn-listing img {
+  height: 1rem;
+}
+
+h2,
+h3,
+h4 {
   text-align: center;
 }
 
@@ -19,8 +76,78 @@ td {
   font-variant: small-caps;
 }
 
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 767px) {
+  dl {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    width: 100%;
+    overflow: visible;
+  }
+  dl dt {
+    flex: 0 0 25%;
+  }
+  dl dd {
+    flex: 0 0 75%;
+    margin-left: auto;
+    text-align: left;
+  }
+}
+
 .hymnary-link {
-	display: block;
-	margin: auto;
-	text-align: center;
+  text-align: center;
+}
+
+.page-scan {
+  display: block;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  height: auto;
+  max-width: min(1000px, 95vw);
+  display: flex;
+  height: min(600px, 95vw);
+  align-items: center;
+  justify-content: center;
+  margin: 1rem auto;
+  padding: 2px;
+}
+
+.page-scan.expanded {
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  height: calc(100vh - 2rem);
+  max-height: none;
+  overflow-y: scroll;
+}
+
+.overlay.expanded {
+  opacity: 0.25;
+  background: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+}
+
+main footer {
+  text-align: center;
+  margin: auto;
+  font-size: 0.8rem;
+  font-style: italic;
 }

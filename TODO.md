@@ -1,6 +1,19 @@
 Website Todos
 =============
 
+- [ ] Expanded Hymnal data from Hymnary.org
+  - [x] Add detection for whether its a copyright page (based on Hymnary page index style)
+  - [x] Don't try to show image if copyright (and display that it is copyrighted)
+  - [ ] Fix errors with image URLs of some pages
+  - [ ] Import LEVAS and WLP, too
+    - [ ] LEVAS page scans
+  - [x] Display other fields on hymn page
+  - [x] Display other fields on hymnal page
+  - [x] Search by other fields
+    - [ ] fuzzy search
+  - [ ] scroll between image pages
+  - [ ] run tests and fix
+  - [ ] release
 - Clean up
   - [ ] Noonday Prayer
   - [ ] Compline

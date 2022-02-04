@@ -1,4 +1,4 @@
-use crate::components::{header, SearchBar, SegmentButton};
+use crate::components::{header, SearchBar, SegmentButton, Icon};
 use episcopal_api::hymnal::*;
 use futures::StreamExt;
 use leptos::*;
@@ -144,12 +144,18 @@ pub fn hymnal_body(locale: &str, hymnals: &[Hymnal]) -> View {
                                         let number = number.clone();
                                         let title = hymn.title.clone();
                                         let tune = hymn.tune.clone();
+                                        let author = hymn.authors.clone();
+                                        let composer = hymn.composers.clone();
+                                        let meter = hymn.meter.clone();
                                         move |search| {
                                             let search = search.to_lowercase();
                                             !search.is_empty()
                                                 && !number.to_lowercase().contains(&search)
                                                 && !title.to_lowercase().contains(&search)
                                                 && !tune.to_lowercase().contains(&search)
+                                                && !author.to_lowercase().contains(&search)
+                                                && !composer.to_lowercase().contains(&search)
+                                                && !meter.to_lowercase().contains(&search)
                                         }
                                     })
                                     .boxed_local();
@@ -158,11 +164,23 @@ pub fn hymnal_body(locale: &str, hymnals: &[Hymnal]) -> View {
                                     format!("/{}/hymnal/{:#?}/{}", locale, hymnal.id, hymn.number);
 
                                 view! {
-                                    <dyn:tr class:hidden={hidden}>
-                                        <td><a href={&link}>{number}</a></td>
-                                        <td><a href={&link}>{&hymn.title}</a></td>
-                                        <td class="tune">{&tune_name}</td>
-                                    </dyn:tr>
+                                    <dyn:article
+                                        class="hymn-listing"
+                                        class:hidden={hidden}
+                                    >
+
+                                        {if hymn.copyright_restriction { 
+                                            View::Empty 
+                                        } else {
+                                            view! { <span class="music-available"><img src={Icon::Music.to_string()} alt={t!("hymnal.music_available")}/></span> }
+                                        }}
+                                        <a class="number" href={&link}>{number}</a>
+                                        <a class="title" href={&link}>{&hymn.title}</a>
+                                        <span class="tune">{&tune_name}</span>
+                                        <span class="list-field meter">{&hymn.meter}</span>
+                                        <span class="list-field author">{&hymn.authors}</span>
+                                        <span class="list-field composer">{&hymn.composers}</span>
+                                    </dyn:article>
                                 }
                             })
                             .collect(),
@@ -206,15 +224,21 @@ pub fn hymnal_body(locale: &str, hymnals: &[Hymnal]) -> View {
 }
 
 fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
-    let hymnary_link = format!(
+    let hymnary_hymnal_id = match hymnal.id {
+        Hymnals::Hymnal1982 => "EH1982",
+        Hymnals::LEVAS => "LEVAS1993",
+        Hymnals::WLP => "WLP1997",
+    };
+    let hymnary_hymn_link = format!(
         "https://hymnary.org/hymn/{}/{}",
-        match hymnal.id {
-            Hymnals::Hymnal1982 => "EH1982",
-            Hymnals::LEVAS => "LEVAS1993",
-            Hymnals::WLP => "WLP1997",
-        },
-        hymn.number
+        &hymnary_hymnal_id, hymn.number
     );
+    let hymnary_high_res = format!(
+        "https://hymnary.org/page/fetch/{}/{}/high",
+        &hymnary_hymnal_id, hymn.page_number
+    );
+
+    let image_expanded = Behavior::new(false);
 
     view! {
         <>
@@ -227,10 +251,82 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                     " "
                     {hymn.number.to_string()}
                 </h2>
+
+                // Hymn metadata
                 <h3>{&hymn.title}</h3>
-                <h4 class="tune">{hymn.tune.to_lowercase()}</h4>
-                <a class="hymnary-link" href={hymnary_link} target="_blank">"Hymnary.org"</a>
+
+                <dl>
+                    <dt>{t!("hymnal.tune")}</dt>
+                    <dd class="tune">{hymn.tune.to_lowercase()}</dd>
+                    {possible_field(&t!("hymnal.first_line"), &hymn.first_line)}
+                    {possible_field(&t!("hymnal.text_title"), &hymn.text_title)}
+                    {possible_field(&t!("hymnal.refrain_first_line"), &hymn.refrain_first_line)}
+                    {possible_field(&t!("hymnal.authors"), &hymn.authors)}
+                    {possible_field(&t!("hymnal.composers"), &hymn.composers)}
+                    {possible_field(&t!("hymnal.meter"), &hymn.meter)}
+                    {possible_field(&t!("hymnal.text_sources"), &hymn.text_sources)}
+                    {possible_field(&t!("hymnal.tune_sources"), &hymn.tune_sources)}
+                </dl>
+                // Link to Hymnary.org
+                <p class="hymnary-link">
+                    {t!("hymnal.more_info")}
+                    " "
+                    <a class="hymnary-link" href={hymnary_hymn_link} target="_blank">"Hymnary.org"</a>
+                    "."
+                </p>
+
+                // Hymn image
+                <dyn:div class="overlay"
+                    class:expanded={image_expanded.stream().boxed_local()}
+                    on:click={
+                        let image_expanded = image_expanded.clone();
+                        move |_ev: Event| image_expanded.set(!image_expanded.get())
+                    }
+                ></dyn:div>
+                {if hymn.copyright_restriction {
+                    view! {
+                        <p class="page-scan">{t!("hymnal.copyright_restriction")}</p>
+                    }
+                } else {
+                    view! {
+                        <dyn:img
+                            src={hymnary_high_res}
+                            alt={t!("hymnal.alt_text")}
+                            class="page-scan"
+                            class:expanded={image_expanded.stream().boxed_local()}
+                            on:click=move |_ev: Event| image_expanded.set(!image_expanded.get())
+                        />
+                    }
+                }}
+
+                // Copyright notice in footer
+                <footer>
+                    {t!("hymnal.copyright_footer")}
+                </footer>
             </main>
         </>
+    }
+}
+
+fn possible_list_field(value: &str) -> View {
+    if value.is_empty() {
+         View::Empty
+    } else {
+        view! {
+            <span class="list-field">{value}</span>
+        }
+    }
+}
+
+fn possible_field(label: &str, value: &str) -> View {
+    if value.is_empty() {
+        View::Empty
+    } else {
+        view! {
+            <>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+            </>
+        }
     }
 }

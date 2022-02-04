@@ -47,9 +47,19 @@ pub struct Hymnal {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Hymn {
     pub source: Hymnals,
+    pub page_number: u16,
+    pub copyright_restriction: bool,
     pub number: HymnNumber,
     pub title: String,
     pub tune: String,
+    pub first_line: String,
+    pub text_title: String,
+    pub refrain_first_line: String,
+    pub authors: String,
+    pub composers: String,
+    pub meter: String,
+    pub text_sources: String,
+    pub tune_sources: String,
 }
 
 #[derive(Copy, Clone, Debug, PartialOrd, Ord, PartialEq, Eq, Hash)]
@@ -82,11 +92,19 @@ impl<'de> Deserialize<'de> for HymnNumber {
         D: serde::Deserializer<'de>,
     {
         let st = String::deserialize(deserializer)?;
-        let s = st.starts_with('S');
+        let s = st.starts_with('S') || st.starts_with("#S");
         let n = st
+            .replace('#', "")
+            // strip out S-whatever to get plain number
             .replace("S-", "")
             .replace("S ", "")
             .replace('S', "")
+            // strip out alternates/parts
+            .replace('a', "")
+            .replace('b', "")
+            .replace('c', "")
+            .replace('d', "")
+            .replace('e', "")
             .parse::<u16>()
             .map_err(|_| {
                 D::Error::invalid_value(Unexpected::Str(&st), &"an integer hymn number")
