@@ -290,9 +290,13 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                     {possible_field(&t!("hymnal.text_sources"), &hymn.text_sources)}
                     {possible_field(&t!("hymnal.tune_sources"), &hymn.tune_sources)}
                 </dl>
-                // Link to Hymnary.org
+                // Links to RiteSong and Hymnary
                 <p class="hymnary-link">
                     {t!("hymnal.more_info")}
+                    " "
+                    <a class="hymnary-link" href={rite_song_link(&hymn.source, &hymn.number)} target="_blank">"ritesong"</a>
+                    " "
+                    {t!("or")}
                     " "
                     <a class="hymnary-link" href={hymnary_hymn_link} target="_blank">"Hymnary.org"</a>
                     "."
@@ -402,3 +406,22 @@ fn strip_non_word_characters(original: &str) -> String {
         || ('0'..'9').contains(ch)).collect()
 }
 
+fn rite_song_link(hymnal: &Hymnals, number: &HymnNumber) -> String {
+    let id = match (hymnal, number) {
+        (Hymnals::Hymnal1982, HymnNumber::S(n)) => 1353 + (n - 1),
+        (Hymnals::Hymnal1982, HymnNumber::H(n)) => 193 + (n - 1),
+        (Hymnals::LEVAS, HymnNumber::H(n)) => 913 + (n - 1),
+        (Hymnals::LEVAS, HymnNumber::S(n)) => 913 + (n - 1),
+        (Hymnals::WLP, HymnNumber::H(n)) => 1968 + (n - 721),
+        (Hymnals::WLP, HymnNumber::S(n)) => 1968 + (n - 721),
+    };
+
+    let base = match (hymnal, number) {
+        (Hymnals::Hymnal1982, HymnNumber::S(n)) => "https://www.riteseries.org/song/Hymnal1982ServiceMusic/",
+        (Hymnals::Hymnal1982, HymnNumber::H(n)) => "https://www.riteseries.org/song/Hymnal1982/",
+        (Hymnals::LEVAS, _) => "https://www.riteseries.org/song/levs/",
+        (Hymnals::WLP, _) => "https://www.riteseries.org/song/wlp/",
+    };
+
+    format!("{}{}/", base, id)
+}
