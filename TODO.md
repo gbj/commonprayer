@@ -5,12 +5,14 @@ Website Todos
   - [x] Add detection for whether its a copyright page (based on Hymnary page index style)
   - [x] Don't try to show image if copyright (and display that it is copyrighted)
   - [ ] Fix errors with image URLs of some pages
-  - [ ] Import LEVAS and WLP, too
+  - [x] Import LEVAS and WLP, too
     - [ ] LEVAS page scans
+    - [ ] WLP page scans
   - [x] Display other fields on hymn page
   - [x] Display other fields on hymnal page
   - [x] Search by other fields
-    - [ ] fuzzy search
+    - [x] fuzzy search
+  - [ ] hymn texts
   - [ ] scroll between image pages
   - [ ] run tests and fix
   - [ ] release

@@ -141,21 +141,15 @@ pub fn hymnal_body(locale: &str, hymnals: &[Hymnal]) -> View {
                                 let hidden = search
                                     .stream()
                                     .map({
-                                        let number = number.clone();
-                                        let title = hymn.title.clone();
-                                        let tune = hymn.tune.clone();
-                                        let author = hymn.authors.clone();
-                                        let composer = hymn.composers.clone();
+                                        let number = strip_non_word_characters(&hymn.number.to_string().to_lowercase());
+                                        let title = strip_non_word_characters(&hymn.title.to_lowercase());
+                                        let tune = strip_non_word_characters(&hymn.tune.to_lowercase());
+                                        let authors = strip_non_word_characters(&hymn.authors.to_lowercase());
+                                        let composers = strip_non_word_characters(&hymn.composers.to_lowercase());
                                         let meter = hymn.meter.clone();
-                                        move |search| {
-                                            let search = search.to_lowercase();
-                                            !search.is_empty()
-                                                && !number.to_lowercase().contains(&search)
-                                                && !title.to_lowercase().contains(&search)
-                                                && !tune.to_lowercase().contains(&search)
-                                                && !author.to_lowercase().contains(&search)
-                                                && !composer.to_lowercase().contains(&search)
-                                                && !meter.to_lowercase().contains(&search)
+                                        move |orig_search| {
+                                            let search = strip_non_word_characters(&orig_search.to_lowercase());
+                                            !(search.is_empty() || number.contains(&search) || title.contains(&search) || tune.contains(&search) || authors.contains(&search) || composers.contains(&search) || meter.contains(&orig_search))
                                         }
                                     })
                                     .boxed_local();
@@ -308,16 +302,6 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
     }
 }
 
-fn possible_list_field(value: &str) -> View {
-    if value.is_empty() {
-         View::Empty
-    } else {
-        view! {
-            <span class="list-field">{value}</span>
-        }
-    }
-}
-
 fn possible_field(label: &str, value: &str) -> View {
     if value.is_empty() {
         View::Empty
@@ -329,4 +313,8 @@ fn possible_field(label: &str, value: &str) -> View {
             </>
         }
     }
+}
+
+fn strip_non_word_characters(original: &str) -> String {
+    original.chars().filter(|ch| ('a'..'z').contains(ch) || ('0'..'9').contains(ch)).collect()
 }
