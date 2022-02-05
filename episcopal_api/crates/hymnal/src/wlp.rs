@@ -9,13 +9,17 @@ mod tests {
     #[test]
     fn contains_all_consecutive_hymn_numbers() {
         let mut last_number = 720;
+		let mut last_title = String::default();
         for hymn in &WLP.hymns {
             let num = match hymn.number {
                 crate::HymnNumber::S(_) => panic!(), // no S section in WLP
                 crate::HymnNumber::H(n) => n,
             };
-            assert_eq!(num, last_number + 1);
+			if !(last_title == hymn.title || num == last_number + 1) {
+				panic!("chain broke at {}", num);
+			}
             last_number = num;
+			last_title = hymn.title.clone();
         }
     }
 }
@@ -28,7 +32,7 @@ lazy_static! {
         copyright: "Copyright © 1997 by The Church Pension Fund".to_string(),
         year: 1997,
         hymns: vec![
-            			Hymn {
+			Hymn {
 				source: Hymnals::WLP,
 				page_number: 1,
 				copyright_restriction: true,
@@ -507,6 +511,22 @@ lazy_static! {
 				meter: "6.4.6.4".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
+			},
+			Hymn {
+				source: Hymnals::WLP,
+				page_number: 37,
+				copyright_restriction: true,
+				number: HymnNumber::H(751),
+				title: "Ev'ry time I feel the spirit".into(),
+				tune: "[Up on the mountain my Lord spoke]".into(),
+				first_line: "Up on the mountain my Lord spoke".into(),
+				text_title: "Ev'ry time I feel the spirit".into(),
+				refrain_first_line: "Ev'ry time I feel the spirit".into(),
+				authors: "".into(),
+				composers: "".into(),
+				meter: "Irregular".into(),
+				text_sources: "Traditional".into(),
+				tune_sources: "Negro Spiritual".into(),
 			},
 			Hymn {
 				source: Hymnals::WLP,
@@ -1038,6 +1058,22 @@ lazy_static! {
 			},
 			Hymn {
 				source: Hymnals::WLP,
+				page_number: 83,
+				copyright_restriction: true,
+				number: HymnNumber::H(784),
+				title: "Hallelujah! We sing your praises! (Haleluya! Pelotso rona)".into(),
+				tune: "HALELUYA! PELO TSO RONA".into(),
+				first_line: "Christ the Lord to us said".into(),
+				text_title: "Hallelujah! We sing your praises! (Haleluya! Pelotso rona)".into(),
+				refrain_first_line: "Hallelujah! We sing your praises! (Haleluya! Pelotso rona)".into(),
+				authors: "".into(),
+				composers: "".into(),
+				meter: "Irregular".into(),
+				text_sources: "South African".into(),
+				tune_sources: "".into(),
+			},
+			Hymn {
+				source: Hymnals::WLP,
 				page_number: 84,
 				copyright_restriction: true,
 				number: HymnNumber::H(785),
@@ -1408,6 +1444,22 @@ lazy_static! {
 				source: Hymnals::WLP,
 				page_number: 113,
 				copyright_restriction: true,
+				number: HymnNumber::H(808),
+				title: "Thuma mina (Send me, Lord)".into(),
+				tune: "THUMA MINA".into(),
+				first_line: "Thuma mina (Send me, Lord)".into(),
+				text_title: "Thuma mina (Send me, Lord)".into(),
+				refrain_first_line: "".into(),
+				authors: "".into(),
+				composers: "".into(),
+				meter: "Irregular".into(),
+				text_sources: "South African".into(),
+				tune_sources: "South African".into(),
+			},
+			Hymn {
+				source: Hymnals::WLP,
+				page_number: 113,
+				copyright_restriction: true,
 				number: HymnNumber::H(809),
 				title: "We adore you".into(),
 				tune: "[We adore you]".into(),
@@ -1472,6 +1524,22 @@ lazy_static! {
 				source: Hymnals::WLP,
 				page_number: 126,
 				copyright_restriction: true,
+				number: HymnNumber::H(813),
+				title: "Way, way, way".into(),
+				tune: "[Way, way, way]".into(),
+				first_line: "Way, way, way".into(),
+				text_title: "Way, way, way".into(),
+				refrain_first_line: "".into(),
+				authors: "".into(),
+				composers: "".into(),
+				meter: "".into(),
+				text_sources: "Traditional Ojibway lullaby from Chippewa Music</i> by Frances Densmore (1867-1957)".into(),
+				tune_sources: "Traditional Ojibway lullaby from Chippewa Music</i> by Frances Densmore (1867-1957)".into(),
+			},
+			Hymn {
+				source: Hymnals::WLP,
+				page_number: 126,
+				copyright_restriction: true,
 				number: HymnNumber::H(814),
 				title: "Jesus Christ, Son of God".into(),
 				tune: "[Jesus Christ, Son of God]".into(),
@@ -1531,6 +1599,22 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
+			},
+			Hymn {
+				source: Hymnals::WLP,
+				page_number: 128,
+				copyright_restriction: false,
+				number: HymnNumber::H(818),
+				title: "Sh'ma Yisrael (Hear, O Israel)".into(),
+				tune: "[Sh'ma Yisrael (Hear, O Israel)]".into(),
+				first_line: "Sh'ma Yisrael (Hear, O Israel)".into(),
+				text_title: "Sh'ma Yisrael (Hear, O Israel)".into(),
+				refrain_first_line: "".into(),
+				authors: "".into(),
+				composers: "".into(),
+				meter: "".into(),
+				text_sources: "".into(),
+				tune_sources: "Traditional Hebrew".into(),
 			},
 			Hymn {
 				source: Hymnals::WLP,
@@ -1611,6 +1695,22 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
+			},
+			Hymn {
+				source: Hymnals::WLP,
+				page_number: 132,
+				copyright_restriction: false,
+				number: HymnNumber::H(824),
+				title: "God grant them many years!".into(),
+				tune: "[God grant them many years!]".into(),
+				first_line: "God grant them many years!".into(),
+				text_title: "God grant them many years!".into(),
+				refrain_first_line: "".into(),
+				authors: "".into(),
+				composers: "".into(),
+				meter: "".into(),
+				text_sources: "".into(),
+				tune_sources: "Setting: Traditional Russian".into(),
 			},
 			Hymn {
 				source: Hymnals::WLP,
@@ -2924,6 +3024,6 @@ lazy_static! {
 				text_sources: "".into(),
 				tune_sources: "".into(),
 			},
-        ],
+		],
     };
 }

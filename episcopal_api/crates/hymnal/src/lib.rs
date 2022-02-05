@@ -1,5 +1,5 @@
 use serde::{
-    de::{Error, Expected, Unexpected},
+    de::{Error, Unexpected},
     Deserialize, Serialize,
 };
 

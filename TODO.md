@@ -2,6 +2,7 @@ Website Todos
 =============
 
 - [ ] Expanded Hymnal data from Hymnary.org
+  - [ ] text_sources HTML escaped
   - [ ] hymn texts
   - [ ] run tests and fix
   - [ ] release
