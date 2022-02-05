@@ -371,12 +371,34 @@ fn possible_field(label: &str, value: &str) -> View {
         view! {
             <>
                 <dt>{label}</dt>
-                <dd>{value}</dd>
+                <dd>{escape_italics(value)}</dd>
             </>
         }
     }
 }
 
-fn strip_non_word_characters(original: &str) -> String {
-    original.chars().filter(|ch| ('a'..'z').contains(ch) || ('0'..'9').contains(ch)).collect()
+fn escape_italics(original: &str) -> View {
+    View::Fragment(
+        original.split("<i>")
+            .flat_map(|piece| piece.split("</i>"))
+            .enumerate()
+            .map(|(idx, piece)| if idx % 2 == 0 {
+                View::StaticText(piece.to_string())
+            } else {
+                // every odd character piece will be *after* a <i> but before a </i>
+                view! { <i>{piece}</i> }
+            })
+            .collect()
+    )
 }
+
+fn strip_non_word_characters(original: &str) -> String {
+    original.chars().filter(|ch| 
+        // so that date ranges don't get read as numbers, i.e., "111" should not match "1711-1759"
+        ch == &'-'
+        // letters
+        || ('a'..'z').contains(ch)
+        // digits so can search by hymn number
+        || ('0'..'9').contains(ch)).collect()
+}
+
