@@ -162,18 +162,41 @@ pub fn hymnal_body(locale: &str, hymnals: &[Hymnal]) -> View {
                                         class="hymn-listing"
                                         class:hidden={hidden}
                                     >
-
-                                        {if hymn.copyright_restriction { 
-                                            View::Empty 
-                                        } else {
-                                            view! { <span class="music-available"><img src={Icon::Music.to_string()} alt={t!("hymnal.music_available")}/></span> }
-                                        }}
-                                        <a class="number" href={&link}>{number}</a>
-                                        <a class="title" href={&link}>{&hymn.title}</a>
-                                        <span class="tune">{&tune_name}</span>
-                                        <span class="list-field meter">{&hymn.meter}</span>
-                                        <span class="list-field author">{&hymn.authors}</span>
-                                        <span class="list-field composer">{&hymn.composers}</span>
+                                        <div class="primary">
+                                            <span class="music-available">
+                                                {if hymn.copyright_restriction { 
+                                                    View::Empty 
+                                                } else {
+                                                    view! { <img src={Icon::Music.to_string()} alt={t!("hymnal.music_available")}/> }
+                                                }}
+                                            </span>
+                                            <a class="number" href={&link}>{number}</a>
+                                            <a class="title" href={&link}>{&hymn.title}</a>
+                                            <span class="tune">{&tune_name}</span>
+                                        </div>
+                                        <div class="secondary">
+                                            <div>
+                                                {if hymn.authors.is_empty() {
+                                                    View::Empty
+                                                } else {
+                                                    view! {
+                                                        <span class="list-field author">
+                                                            <span class="label">{t!("hymnal.text")} ": "</span>
+                                                            {&hymn.authors}
+                                                        </span>
+                                                }}}
+                                                {if hymn.composers.is_empty() {
+                                                    View::Empty
+                                                } else {
+                                                    view! {
+                                                        <span class="list-field composer">
+                                                            <span class="label">{t!("hymnal.music")} ": "</span>
+                                                            {&hymn.composers}
+                                                        </span>
+                                                }}}
+                                            </div>
+                                            <span class="list-field meter">{&hymn.meter}</span>
+                                        </div>
                                     </dyn:article>
                                 }
                             })

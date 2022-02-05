@@ -3,54 +3,59 @@ main {
 }
 
 .hymn-listing {
-  display: grid;
-  grid-template-areas: "available number title tune meter" "empty composer composer composer composer" "empty author author author author";
-  grid-template-columns: 1.5rem 2.5rem 1fr 1fr 5rem;
-  grid-template-rows: auto auto;
-  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
   border-bottom: 1px solid var(--border-color);
+}
+
+.hymn-listing .primary {
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+}
+
+.hymn-listing .secondary {
+  display: flex;
+  flex-direction: row;
+}
+
+.hymn-listing .secondary > * {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1.5rem;
+  justify-content: space-between;
 }
 
 .hymn-listing.hidden {
   display: none;
 }
 
-.hymn-listing:last-of-type {
-  border: none;
-}
-
-.hymn-listing .number {
-  grid-area: number;
-}
-
-.hymn-listing .title {
-  grid-area: title;
-}
-
-.hymn-listing .tune {
-  grid-area: tune;
+.hymn-listing img {
+  height: 1rem;
 }
 
 .hymn-listing .music-available {
-  grid-area: available;
-  text-align: center;
+  width: 1.5rem;
+}
+
+.hymn-listing .number {
+  width: 2.5rem;
+}
+
+.hymn-listing .label {
+  font-variant: small-caps;
 }
 
 .hymn-listing .meter {
-  grid-area: meter;
   text-align: right;
+  display: block;
+  margin-left: auto;
+  font-variant: small-caps;
 }
 
-.hymn-listing .composer {
-  grid-area: composer;
-}
-
-.hymn-listing .author {
-  grid-area: author;
-}
-
-.hymn-listing img {
-  height: 1rem;
+.hymn-listing .composer, .hymn-listing .author, .hymn-listing .meter {
+  font-size: 0.9rem;
 }
 
 h2,
@@ -74,6 +79,8 @@ td {
 
 .tune {
   font-variant: small-caps;
+  text-align: right;
+  margin-left: auto;
 }
 
 dt {

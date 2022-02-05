@@ -48,6 +48,8 @@ en:
     page_back: Turn Back One Page
     page_forward: Turn Forward One Page
     page_n: Page %{number}
+    text: Words
+    music: Music
 
   liturgy: Liturgy
   date: Date
