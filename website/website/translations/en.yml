@@ -37,6 +37,7 @@ en:
     copyright_footer: All data and images for this page are taken from publicly-available data from Hymnary.org. To the best of my knowledge, no copyrighted material is reproduced on this page.
     tune: Tune
     first_line: First Line
+    text_title: Text Title
     refrain_first_line: First Line of Refrain
     authors: Author(s)
     composers: Composer(s)
@@ -44,6 +45,9 @@ en:
     text_sources: Text Source(s)
     tune_sources: Tune Source(s)
     music_available: Music Available
+    page_back: Turn Back One Page
+    page_forward: Turn Forward One Page
+    page_n: Page %{number}
 
   liturgy: Liturgy
   date: Date

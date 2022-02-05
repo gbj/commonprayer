@@ -220,19 +220,25 @@ pub fn hymnal_body(locale: &str, hymnals: &[Hymnal]) -> View {
 fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
     let hymnary_hymnal_id = match hymnal.id {
         Hymnals::Hymnal1982 => "EH1982",
-        Hymnals::LEVAS => "LEVAS1993",
+        Hymnals::LEVAS => "LEVS1993",
         Hymnals::WLP => "WLP1997",
     };
     let hymnary_hymn_link = format!(
         "https://hymnary.org/hymn/{}/{}",
         &hymnary_hymnal_id, hymn.number
     );
-    let hymnary_high_res = format!(
-        "https://hymnary.org/page/fetch/{}/{}/high",
-        &hymnary_hymnal_id, hymn.page_number
-    );
 
     let image_expanded = Behavior::new(false);
+
+    // page scrolling through hymnal
+    let initial_page : i32 = hymn.page_number.into();
+    let page_scan_offset = Behavior::new(0);
+    let page_scan_url = page_scan_offset.stream().map(move |offset| { let current_page = initial_page + offset;
+        format!(
+        "https://hymnary.org/page/fetch/{}/{}/high",
+        &hymnary_hymnal_id, current_page
+    )
+    }).boxed_local();
 
     view! {
         <>
@@ -277,6 +283,36 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                         move |_ev: Event| image_expanded.set(!image_expanded.get())
                     }
                 ></dyn:div>
+
+                <dyn:div class="page-scan-controls"
+                    class:expanded={image_expanded.stream().boxed_local()}
+                >
+                    <dyn:button
+                        class="page-left"
+                        on:click={
+                            let page_scan_offset = page_scan_offset.clone();
+                            move |_ev: Event| {
+                                let current_offset = page_scan_offset.get();
+                                let current_page = initial_page + current_offset;
+                                if current_page > 1 {
+                                    page_scan_offset.set(current_offset - 1);
+                                }
+                            }
+                        }
+                    >
+                        <img src={Icon::Left.to_string()} alt={t!("hymnal.page_back")}/>
+                    </dyn:button>
+                    <dyn:p class="page-scan-number">
+                        {page_scan_offset.stream().map(move |offset| t!("hymnal.page_n", number = &(initial_page + offset).to_string() )).boxed_local()}
+                    </dyn:p>
+                    <dyn:button
+                        class="page-left"
+                        on:click=move |_ev: Event| page_scan_offset.set(page_scan_offset.get() + 1)
+                    >
+                        <img src={Icon::Right.to_string()} alt={t!("hymnal.page_forward")}/>
+                    </dyn:button>
+                </dyn:div>
+
                 {if hymn.copyright_restriction {
                     view! {
                         <p class="page-scan">{t!("hymnal.copyright_restriction")}</p>
@@ -284,11 +320,14 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                 } else {
                     view! {
                         <dyn:img
-                            src={hymnary_high_res}
+                            src={page_scan_url}
                             alt={t!("hymnal.alt_text")}
                             class="page-scan"
                             class:expanded={image_expanded.stream().boxed_local()}
-                            on:click=move |_ev: Event| image_expanded.set(!image_expanded.get())
+                            on:click={
+                                let image_expanded = image_expanded.clone();
+                                move |_ev: Event| image_expanded.set(!image_expanded.get())
+                            }
                         />
                     }
                 }}
