@@ -123,7 +123,7 @@ fn document_body(locale: &str, props: &DocumentPageProps, title: String, doc: &D
         <>
             {header_with_side_menu(locale, &title, side_menu)}
             <main>
-                <dyn:view view={export_links(&props.slug, &props.date, &document_controller)} />
+                //<dyn:view view={export_links(&props.slug, &props.date, &document_controller)} />
                 <dyn:view view={document_controller.view(locale)}/>
             </main>
         </>
