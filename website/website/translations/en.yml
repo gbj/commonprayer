@@ -51,6 +51,8 @@ en:
     page_n: Page %{number}
     text: Words
     music: Music
+    text_view: Text
+    music_view: Music
 
   liturgy: Liturgy
   date: Date

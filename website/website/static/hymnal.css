@@ -1,5 +1,6 @@
 main {
-	font-family: Baskerville,Baskerville Old Face,Hoefler Text,Garamond,Times New Roman,serif; 
+  font-family: Baskerville, Baskerville Old Face, Hoefler Text, Garamond,
+    Times New Roman, serif;
 }
 
 .hymn-listing {
@@ -23,7 +24,7 @@ main {
 .hymn-listing .secondary > * {
   display: flex;
   flex-direction: column;
-  padding-left: 1.5rem;
+  padding-left: 2.5rem;
   justify-content: space-between;
 }
 
@@ -36,7 +37,11 @@ main {
 }
 
 .hymn-listing .music-available {
-  width: 1.5rem;
+  width: 1rem;
+}
+
+.hymn-listing .text-available {
+  width: 1rem;
 }
 
 .hymn-listing .number {
@@ -54,7 +59,9 @@ main {
   font-variant: small-caps;
 }
 
-.hymn-listing .composer, .hymn-listing .author, .hymn-listing .meter {
+.hymn-listing .composer,
+.hymn-listing .author,
+.hymn-listing .meter {
   font-size: 0.9rem;
 }
 
@@ -79,6 +86,9 @@ td {
 
 .tune {
   font-variant: small-caps;
+}
+
+.hymn-listing .tune {
   text-align: right;
   margin-left: auto;
 }
@@ -177,4 +187,69 @@ main footer {
   margin: auto;
   font-size: 0.8rem;
   font-style: italic;
+}
+
+/* Toggle Button */
+input.toggle {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+label.toggle {
+  display: inline-block;
+  transition: border-color 0.15s ease-out, color 0.25s ease-out,
+    background-color 0.15s ease-out, box-shadow 0.15s ease-out;
+  background: var(--ui);
+  text-align: center;
+  padding: 0.25rem 0.25rem;
+  cursor: pointer;
+  border: 1px solid var(--ui-toggle-checked-background);
+  border-right: 0;
+  min-width: 3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: auto;
+  width: min(60px, 40vw);
+}
+
+input.toggle:checked + label.toggle {
+  background: var(--ui-toggle-checked-background);
+  box-shadow: 0 0 10px rgba(var(--ui-toggle-checked-background), 0.5);
+  color: var(--ui-toggle-checked-color);
+  font-weight: bold;
+}
+
+input.toggle:not(:checked) + label.toggle {
+  background: var(--ui-toggle-unchecked-background);
+}
+
+input.toggle:not(:checked) + label.toggle:hover {
+  background: var(--ui-toggle-unchecked-background-hover);
+}
+
+label.toggle:first-of-type {
+  margin-left: calc(50% - 80px);
+  border-bottom-left-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
+}
+
+label.toggle:last-of-type {
+  margin-right: calc(50% - 80px);
+  border-right: 1px solid var(--ui-toggle-checked-background);
+  border-bottom-right-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+#text-view:not(:checked) ~ .text-view {
+  display: none;
+}
+
+#image-view:not(:checked) ~ .image-view {
+  display: none;
 }

@@ -1,5 +1,6 @@
-use crate::components::{header, SearchBar, SegmentButton, Icon};
+use crate::components::*;
 use episcopal_api::hymnal::*;
+use episcopal_api::liturgy::Text;
 use futures::StreamExt;
 use leptos::*;
 use serde::{Deserialize, Serialize};
@@ -49,6 +50,7 @@ pub fn head(_locale: &str, props: &HymnalPageProps) -> View {
             <title>{title} " – " {t!("common_prayer")}</title>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/hymnal.css"/>
+            <link rel="stylesheet" href="/static/document.css"/>
         </>
     }
 }
@@ -146,10 +148,19 @@ pub fn hymnal_body(locale: &str, hymnals: &[Hymnal]) -> View {
                                         let tune = strip_non_word_characters(&hymn.tune.to_lowercase());
                                         let authors = strip_non_word_characters(&hymn.authors.to_lowercase());
                                         let composers = strip_non_word_characters(&hymn.composers.to_lowercase());
+                                        let text = strip_non_word_characters(&hymn.text.to_lowercase());
                                         let meter = hymn.meter.clone();
                                         move |orig_search| {
                                             let search = strip_non_word_characters(&orig_search.to_lowercase());
-                                            !(search.is_empty() || number.contains(&search) || title.contains(&search) || tune.contains(&search) || authors.contains(&search) || composers.contains(&search) || meter.contains(&orig_search))
+                                            !(search.is_empty()
+                                                || number.contains(&search)
+                                                || title.contains(&search)
+                                                || tune.contains(&search)
+                                                || authors.contains(&search)
+                                                || composers.contains(&search)
+                                                || meter.contains(&orig_search)
+                                                || text.contains(&search)
+                                            )
                                         }
                                     })
                                     .boxed_local();
@@ -168,6 +179,13 @@ pub fn hymnal_body(locale: &str, hymnals: &[Hymnal]) -> View {
                                                     View::Empty 
                                                 } else {
                                                     view! { <img src={Icon::Music.to_string()} alt={t!("hymnal.music_available")}/> }
+                                                }}
+                                            </span>
+                                            <span class="text-available">
+                                                {if hymn.text.is_empty() { 
+                                                    ""
+                                                } else {
+                                                    "T"
                                                 }}
                                             </span>
                                             <a class="number" href={&link}>{number}</a>
@@ -281,9 +299,6 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                 <dl>
                     <dt>{t!("hymnal.tune")}</dt>
                     <dd class="tune">{hymn.tune.to_lowercase()}</dd>
-                    {possible_field(&t!("hymnal.first_line"), &hymn.first_line)}
-                    {possible_field(&t!("hymnal.text_title"), &hymn.text_title)}
-                    {possible_field(&t!("hymnal.refrain_first_line"), &hymn.refrain_first_line)}
                     {possible_field(&t!("hymnal.authors"), &hymn.authors)}
                     {possible_field(&t!("hymnal.composers"), &hymn.composers)}
                     {possible_field(&t!("hymnal.meter"), &hymn.meter)}
@@ -302,60 +317,90 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                     "."
                 </p>
 
-                // Hymn image
-                <dyn:div class="overlay"
-                    class:expanded={image_expanded.stream().boxed_local()}
-                    on:click={
-                        let image_expanded = image_expanded.clone();
-                        move |_ev: Event| image_expanded.set(!image_expanded.get())
-                    }
-                ></dyn:div>
-
-                <dyn:div class="page-scan-controls"
-                    class:expanded={image_expanded.stream().boxed_local()}
-                >
-                    <dyn:button
-                        class="page-left"
-                        on:click={
-                            let page_scan_offset = page_scan_offset.clone();
-                            move |_ev: Event| {
-                                let current_offset = page_scan_offset.get();
-                                let current_page = initial_page + current_offset;
-                                if current_page > 1 {
-                                    page_scan_offset.set(current_offset - 1);
-                                }
-                            }
-                        }
-                    >
-                        <img src={Icon::Left.to_string()} alt={t!("hymnal.page_back")}/>
-                    </dyn:button>
-                    <dyn:p class="page-scan-number">
-                        {page_scan_offset.stream().map(move |offset| t!("hymnal.page_n", number = &(initial_page + offset).to_string() )).boxed_local()}
-                    </dyn:p>
-                    <dyn:button
-                        class="page-left"
-                        on:click=move |_ev: Event| page_scan_offset.set(page_scan_offset.get() + 1)
-                    >
-                        <img src={Icon::Right.to_string()} alt={t!("hymnal.page_forward")}/>
-                    </dyn:button>
-                </dyn:div>
-
-                {if hymn.copyright_restriction {
-                    view! {
-                        <p class="page-scan">{t!("hymnal.copyright_restriction")}</p>
-                    }
+                {if hymn.text.is_empty() || hymn.copyright_restriction {
+                    View::Empty
                 } else {
                     view! {
-                        <dyn:img
-                            src={page_scan_url}
-                            alt={t!("hymnal.alt_text")}
-                            class="page-scan"
-                            class:expanded={image_expanded.stream().boxed_local()}
-                            on:click={
-                                let image_expanded = image_expanded.clone();
-                                move |_ev: Event| image_expanded.set(!image_expanded.get())
-                            }
-                        />
+                        <>
+                            <input class="toggle" type="radio" id="text-view" name="view-mode" checked/>
+                            <label class="toggle" for="text-view">{t!("hymnal.text_view")}</label>
+                            <input class="toggle" type="radio" id="image-view" name="view-mode"/>
+                            <label class="toggle" for="image-view">{t!("hymnal.music_view")}</label>
+                        </>
+                    }
+                }}
+
+                // Hymn text
+                {if hymn.text.is_empty() {
+                    View::Empty
+                } else {
+                    view! {
+                        <div class="text-view">{text(&Text::from(hymn.text.clone())).1}</div>
+                    }
+                }}
+
+                // Hymn image
+                {if hymn.copyright_restriction {
+                    View::Empty
+                } else {
+                    view! {
+                        <div class="image-view">
+                            <dyn:div class="overlay"
+                                class:expanded={image_expanded.stream().boxed_local()}
+                                on:click={
+                                    let image_expanded = image_expanded.clone();
+                                    move |_ev: Event| image_expanded.set(!image_expanded.get())
+                                }
+                            ></dyn:div>
+
+                            <dyn:div class="page-scan-controls"
+                                class:expanded={image_expanded.stream().boxed_local()}
+                            >
+                                <dyn:button
+                                    class="page-left"
+                                    on:click={
+                                        let page_scan_offset = page_scan_offset.clone();
+                                        move |_ev: Event| {
+                                            let current_offset = page_scan_offset.get();
+                                            let current_page = initial_page + current_offset;
+                                            if current_page > 1 {
+                                                page_scan_offset.set(current_offset - 1);
+                                            }
+                                        }
+                                    }
+                                >
+                                    <img src={Icon::Left.to_string()} alt={t!("hymnal.page_back")}/>
+                                </dyn:button>
+                                <dyn:p class="page-scan-number">
+                                    {page_scan_offset.stream().map(move |offset| t!("hymnal.page_n", number = &(initial_page + offset).to_string() )).boxed_local()}
+                                </dyn:p>
+                                <dyn:button
+                                    class="page-left"
+                                    on:click=move |_ev: Event| page_scan_offset.set(page_scan_offset.get() + 1)
+                                >
+                                    <img src={Icon::Right.to_string()} alt={t!("hymnal.page_forward")}/>
+                                </dyn:button>
+                            </dyn:div>
+
+                            {if hymn.copyright_restriction {
+                                view! {
+                                    <p class="page-scan">{t!("hymnal.copyright_restriction")}</p>
+                                }
+                            } else {
+                                view! {
+                                    <dyn:img
+                                        src={page_scan_url}
+                                        alt={t!("hymnal.alt_text")}
+                                        class="page-scan"
+                                        class:expanded={image_expanded.stream().boxed_local()}
+                                        on:click={
+                                            let image_expanded = image_expanded.clone();
+                                            move |_ev: Event| image_expanded.set(!image_expanded.get())
+                                        }
+                                    />
+                                }
+                            }}
+                        </div>
                     }
                 }}
 

@@ -3,12 +3,10 @@ Website Todos
 
 - [ ] Set preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
 - [ ] Expanded Hymnal data from Hymnary.org
-  - [x] text_sources HTML escaped
-  - [x] RiteSong links for hymns
   - [ ] Categories/headings for hymns
     - [ ] And link from documents: so e.g., Morning Prayer spot for hymns should link to hymnal page w/ Morning category in search
-  - [ ] hymn texts
-  - [ ] release
+  - [ ] server-side search
+  - [ ] optimization: render-only state that's not serialized
 - Clean up
   - [ ] Noonday Prayer
   - [ ] Compline

@@ -52,14 +52,12 @@ pub struct Hymn {
     pub number: HymnNumber,
     pub title: String,
     pub tune: String,
-    pub first_line: String,
-    pub text_title: String,
-    pub refrain_first_line: String,
     pub authors: String,
     pub composers: String,
     pub meter: String,
     pub text_sources: String,
     pub tune_sources: String,
+    pub text: String,
 }
 
 #[derive(Copy, Clone, Debug, PartialOrd, Ord, PartialEq, Eq, Hash)]
