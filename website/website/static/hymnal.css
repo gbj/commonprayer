@@ -253,3 +253,13 @@ label.toggle:last-of-type {
 #image-view:not(:checked) ~ .image-view {
   display: none;
 }
+
+.search-state {
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+
+.search-state.hidden {
+  visibility: hidden;
+}

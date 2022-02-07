@@ -146,7 +146,6 @@ pub fn hymnal_body(
     hymnal_tocs: &[(Hymnals, Vec<HymnNumber>)],
     hymnals: &[Hymnal],
 ) -> View {
-    let search_bar = SearchBar::new();
     let hymnal_choice = SegmentButton::new_with_default_value(
         "search-hymnal",
         Some(t!("menu.hymnal")),
@@ -164,8 +163,17 @@ pub fn hymnal_body(
     );
 
     // server-side hymnal API search
+    let search_bar = SearchBar::new();
+
     let search_state: Behavior<Fetch<HashSet<(Hymnals, HymnNumber)>>> =
         Behavior::new(Fetch::new(""));
+
+    let is_searching = search_state
+        .stream()
+        .flat_map(|fetch| fetch.state.stream())
+        .map(|status| matches!(status, FetchStatus::Loading));
+
+    // send fetch when search changes
     search_bar.value.stream().create_effect({
         let search_state = search_state.clone();
         move |search| {
@@ -358,6 +366,11 @@ pub fn hymnal_body(
             {header(locale, &t!("menu.hymnal"))}
             <main>
                 {search_bar.view()}
+                <dyn:p class="search-state hidden"
+                    class:hidden={is_searching.map(|n| !n).boxed_local()}
+                >
+                    {t!("loading")}
+                </dyn:p>
                 {if hymnals.len() == 1 {
                     View::Empty
                 } else {
