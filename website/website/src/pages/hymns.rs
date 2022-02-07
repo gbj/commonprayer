@@ -286,6 +286,7 @@ pub fn hymnal_body(
 
                                     view! {
                                         <>
+                                            <a id={&format!("{:#?}-{}", hymn_id.0, hymn_id.1)}></a>
                                             <div class="primary">
                                                 <span class="music-available">
                                                     {if hymn.copyright_restriction {
