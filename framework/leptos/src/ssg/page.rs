@@ -1,18 +1,21 @@
 use serde::de::DeserializeOwned;
 use serde::Serialize;
 
-use crate as leptos;
+use crate::{self as leptos, is_server};
 use crate::{view, View};
 
 use thiserror::Error;
 
-/// Takes locale (as `&str`) and static props (`T`) to render a [View](leptos::View)
-type BodyFn<T> = fn(&str, &T) -> View;
-type HeadFn<T> = BodyFn<T>;
+/// Takes locale (as `&str`), hydration state (`T`), and render state (`R`) to render a [View](leptos::View)
+type BodyFn<T, R> = fn(&str, &T, &R) -> View;
+type HeadFn<T, R> = BodyFn<T, R>;
 
 /// Takes locale (as `&str`), path (as `&str`), and typed path params to create static props (`T`).
 /// `None` should lead to a 404 error.
-type StaticPropsFn<T, P> = fn(&str, &str, P) -> Option<T>;
+type HydrationStateFn<T, P> = fn(&str, &str, &P) -> Option<T>;
+
+/// State that is known only on the server-side, and never serialized and sent.
+type RenderStateFn<R, P> = fn(&str, &str, &P) -> Option<R>;
 
 type BuildPathsFn = fn() -> Vec<String>;
 
@@ -27,48 +30,52 @@ pub enum PageRenderError {
 }
 
 #[derive(Clone)]
-pub struct Page<T, P>
+pub struct Page<T, P, R>
 where
-    T: Serialize + DeserializeOwned,
-    P: DeserializeOwned,
+    T: Serialize + DeserializeOwned, // hydration state
+    P: DeserializeOwned, // URL params
+    R: Default // render-only state (known only on server-side, never serialized)
 {
     pub name: &'static str,
-    head: Option<HeadFn<T>>,
-    body: Option<BodyFn<T>>,
-    static_props: Option<StaticPropsFn<T, P>>,
+    head: Option<HeadFn<T, R>>,
+    body: Option<BodyFn<T, R>>,
+    hydration_state_fn: Option<HydrationStateFn<T, P>>,
+    render_state_fn: Option<RenderStateFn<R, P>>,
     build_paths: Option<BuildPathsFn>,
     incremental_generation: bool,
     static_page: bool,
 }
 
-impl<T, P> Page<T, P>
+impl<T, P, R> Page<T, P, R>
 where
     T: Serialize + DeserializeOwned,
     P: DeserializeOwned,
+    R: Default
 {
     pub fn new(name: &'static str) -> Self {
         Self {
             name,
             head: None,
             body: None,
-            static_props: None,
+            hydration_state_fn: None,
+            render_state_fn: None,
             build_paths: None,
             incremental_generation: false,
             static_page: false,
         }
     }
 
-    pub fn head_fn(mut self, head_fn: HeadFn<T>) -> Self {
+    pub fn head_fn(mut self, head_fn: HeadFn<T, R>) -> Self {
         self.head = Some(head_fn);
         self
     }
 
-    pub fn body_fn(mut self, body_fn: BodyFn<T>) -> Self {
+    pub fn body_fn(mut self, body_fn: BodyFn<T, R>) -> Self {
         self.body = Some(body_fn);
         self
     }
 
-    pub fn get_body_fn(&self) -> Option<BodyFn<T>> {
+    pub fn get_body_fn(&self) -> Option<BodyFn<T, R>> {
         self.body
     }
 
@@ -105,10 +112,20 @@ where
         paths
     }
 
-    pub fn static_props_fn(mut self, static_props_fn: StaticPropsFn<T, P>) -> Self {
-        // static props logic and any embedded data should not be included on WASM target
+    pub fn hydration_state(mut self, hydration_state_fn: HydrationStateFn<T, P>) -> Self {
+        // logic and any embedded data should not be included on WASM target
         if !cfg!(target_arch = "wasm32") {
-            self.static_props = Some(static_props_fn);
+            self.hydration_state_fn = Some(hydration_state_fn);
+            self
+        } else {
+            self
+        }
+    }
+
+    pub fn render_state(mut self, render_state_fn: RenderStateFn<R, P>) -> Self {
+        // render state logic and any embedded data should not be included on WASM target
+        if !cfg!(target_arch = "wasm32") {
+            self.render_state_fn = Some(render_state_fn);
             self
         } else {
             self
@@ -121,17 +138,24 @@ where
     }
 
     pub fn build(&self, locale: &str, path: &str, params: P) -> Result<View, PageRenderError> {
-        let props = (self.static_props)
+        let hydration_state = (self.hydration_state_fn)
             .expect("a Page should have a defined static_props_fn to before build() is called")(
-            locale, path, params,
+            locale, path, &params,
         )
         .ok_or(PageRenderError::NotFound)?;
-        self.render(locale, props)
+
+        let render_state = if is_server!() {
+            (self.render_state_fn).and_then(|f| (f)(locale, path, &params))
+        } else {
+            None
+        }.unwrap_or_default();
+
+        self.render(locale, hydration_state, render_state)
     }
 
-    pub fn render(&self, locale: &str, props: T) -> Result<View, PageRenderError> {
+    pub fn render(&self, locale: &str, hydration_state: T, render_state: R) -> Result<View, PageRenderError> {
         let hydration_function_name = self.name.replace('-', "_");
-        let serialized_state = serde_json::to_string(&props)
+        let serialized_state = serde_json::to_string(&hydration_state)
             .map_err(|_| PageRenderError::SerializingProps)?
             .replace('\\', "\\\\");
         let hydration_js = format!(
@@ -156,10 +180,10 @@ where
                 <head>
                     <meta charset="UTF-8" />
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                    {self.head.map(|head_fn| (head_fn)(locale, &props)).unwrap_or(View::Empty)}
+                    {self.head.map(|head_fn| (head_fn)(locale, &hydration_state, &render_state)).unwrap_or(View::Empty)}
                 </head>
                 <body>
-                {self.body.map(|body_fn| (body_fn)(locale, &props)).unwrap_or(View::Empty)}
+                {self.body.map(|body_fn| (body_fn)(locale, &hydration_state, &render_state)).unwrap_or(View::Empty)}
                 </body>
                 {if self.static_page {
                     View::Empty}

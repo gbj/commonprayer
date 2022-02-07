@@ -3,18 +3,19 @@ use wasm_bindgen::JsValue;
 
 use crate::{body, log, set_panic_hook, window, Page, PageRenderError, DARK_MODE_KEY};
 
-pub fn hydrate_page<T, P>(
-    page: fn() -> Page<T, P>,
+pub fn hydrate_page<T, P, R>(
+    page: fn() -> Page<T, P, R>,
     locale: &str,
     serialized_state: JsValue,
 ) -> Result<(), JsValue>
 where
     T: Serialize + DeserializeOwned,
     P: DeserializeOwned,
+    R: Default
 {
     set_panic_hook();
 
-    let props = serialized_state
+    let hydration_state = serialized_state
         .into_serde()
         .map_err(|_| PageRenderError::DeserializingProps.to_string())?;
 
@@ -37,7 +38,7 @@ where
 
     // hydrate the page
     if let Some(body_fn) = (page)().get_body_fn() {
-        (body_fn)(locale, &props).hydrate(&body);
+        (body_fn)(locale, &hydration_state, &R::default()).hydrate(&body);
     }
 
     Ok(())
