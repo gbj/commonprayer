@@ -2,14 +2,14 @@ use crate::components::*;
 use episcopal_api::liturgy::{Reference, Source};
 use leptos::*;
 
-pub fn canticle_table() -> Page<(), ()> {
+pub fn canticle_table() -> Page<(), (), ()> {
     Page::new("canticle-table")
         .body_fn(body)
         .head_fn(head)
-        .static_props_fn(|_, _, _| Some(()))
+        .hydration_state(|_, _, _| Some(()))
 }
 
-pub fn head(_locale: &str, _props: &()) -> View {
+pub fn head(_locale: &str, _props: &(), _render_state: &()) -> View {
     view! {
         <>
             <title>{t!("menu.canticle_table")} " – " {t!("common_prayer")}</title>
@@ -20,7 +20,7 @@ pub fn head(_locale: &str, _props: &()) -> View {
     }
 }
 
-pub fn body(locale: &str, _props: &()) -> View {
+pub fn body(locale: &str, _props: &(), _render_state: &()) -> View {
     view! {
         <>
             {header(locale, &t!("menu.canticle_table"))}

@@ -21,11 +21,11 @@ use crate::{
     utils::{language::locale_to_language, time::current_hour},
 };
 
-pub fn daily_readings() -> Page<DailyReadingsPageProps, DailyReadingsUrlParams> {
+pub fn daily_readings() -> Page<DailyReadingsPageProps, DailyReadingsUrlParams, ()> {
     Page::new("daily-readings")
         .head_fn(head)
         .body_fn(body)
-        .static_props_fn(static_props)
+        .hydration_state(static_props)
         .build_paths_fn(build_paths_fn)
 }
 
@@ -39,7 +39,7 @@ pub struct DailyReadingsUrlParams {
     date: Option<String>,
 }
 
-fn head(locale: &str, props: &DailyReadingsPageProps) -> View {
+fn head(locale: &str, props: &DailyReadingsPageProps, _render_state: &()) -> View {
     let title = format!("{} – {}", t!("toc.daily_readings"), t!("common_prayer"));
 
     // no summary means no date param is present in URL => redirect to client's current day
@@ -59,7 +59,7 @@ fn head(locale: &str, props: &DailyReadingsPageProps) -> View {
 fn static_props(
     locale: &str,
     _path: &str,
-    params: DailyReadingsUrlParams,
+    params: &DailyReadingsUrlParams,
 ) -> Option<DailyReadingsPageProps> {
     let language = locale_to_language(locale);
 
@@ -76,7 +76,7 @@ fn build_paths_fn() -> Vec<String> {
     vec!["{date}".into(), "".into()]
 }
 
-fn body(locale: &str, props: &DailyReadingsPageProps) -> View {
+fn body(locale: &str, props: &DailyReadingsPageProps, _render_state: &()) -> View {
     if let Some(summary) = props.summary.as_ref() {
         let controls = Controls::new(summary.clone());
 

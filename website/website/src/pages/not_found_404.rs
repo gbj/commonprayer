@@ -2,11 +2,11 @@ use crate::components::header;
 use leptos::*;
 use serde::{Deserialize, Serialize};
 
-pub fn not_found_404() -> Page<NotFoundPageProps, ()> {
+pub fn not_found_404() -> Page<NotFoundPageProps, (), ()> {
     Page::new("404")
         .head_fn(head)
         .body_fn(body)
-        .static_props_fn(|_, path, _| {
+        .hydration_state(|_, path, _| {
             Some(NotFoundPageProps {
                 path: path.to_string(),
             })
@@ -19,7 +19,7 @@ pub struct NotFoundPageProps {
     path: String,
 }
 
-fn head(_locale: &str, _props: &NotFoundPageProps) -> View {
+fn head(_locale: &str, _props: &NotFoundPageProps, _render_state: &()) -> View {
     view! {
         <>
             <title>{t!("page_404.title")} " – " {t!("common_prayer")}</title>
@@ -29,7 +29,7 @@ fn head(_locale: &str, _props: &NotFoundPageProps) -> View {
     }
 }
 
-fn body(locale: &str, props: &NotFoundPageProps) -> View {
+fn body(locale: &str, props: &NotFoundPageProps, _render_state: &()) -> View {
     view! {
         <>
             {header(locale, &t!("common_prayer"))}

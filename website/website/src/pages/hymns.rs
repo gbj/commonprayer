@@ -1,4 +1,4 @@
-use std::{rc::Rc, collections::HashSet};
+use std::{rc::Rc, collections::{HashSet, HashMap}};
 
 use crate::{components::*, utils::fetch::{Fetch, FetchStatus, FetchError}};
 use episcopal_api::hymnal::*;
@@ -14,10 +14,13 @@ pub struct HymnalPageParams {
 }
 
 #[derive(Clone, Deserialize, Serialize)]
-pub enum HymnalPageProps {
-    Hymnal(Vec<Hymnal>),
+pub enum HymnalPageHydrationState {
+    Hymnal(Vec<(Hymnals, HymnNumber)>),
     Hymn(HymnalMetadata, Hymn),
 }
+
+#[derive(Default, Clone)]
+pub struct HymnalPageRenderState(Vec<Hymnal>);
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct HymnalMetadata {
@@ -27,24 +30,25 @@ pub struct HymnalMetadata {
     pub copyright: String,
 }
 
-pub fn hymnal() -> Page<HymnalPageProps, HymnalPageParams> {
+pub fn hymnal() -> Page<HymnalPageHydrationState, HymnalPageParams, HymnalPageRenderState> {
     Page::new("hymnal")
         .head_fn(head)
         .body_fn(body)
-        .static_props_fn(get_static_props)
+        .hydration_state(hydration_state)
+        .render_state(render_state)
         .build_paths_fn(get_static_paths)
 }
 
-pub fn head(_locale: &str, props: &HymnalPageProps) -> View {
+pub fn head(_locale: &str, props: &HymnalPageHydrationState, render_state: &HymnalPageRenderState) -> View {
     let title = match props {
-        HymnalPageProps::Hymnal(hymnals) => {
-            if hymnals.len() == 1 {
-                hymnals[0].title.clone()
+        HymnalPageHydrationState::Hymnal(hymnals) => {
+            if render_state.0.len() == 1 {
+                render_state.0[0].title.clone()
             } else {
                 t!("menu.hymnal")
             }
         }
-        HymnalPageProps::Hymn(_, hymn) => format!("{} {}", hymn.number, hymn.title),
+        HymnalPageHydrationState::Hymn(_, hymn) => format!("{} {}", hymn.number, hymn.title),
     };
 
     view! {
@@ -61,16 +65,25 @@ pub fn get_static_paths() -> Vec<String> {
     vec!["".into(), "{hymnal}".into(), "{hymnal}/{number}".into()]
 }
 
-pub fn get_static_props(
+pub fn hydration_state(
     _locale: &str,
     _path: &str,
-    params: HymnalPageParams,
-) -> Option<HymnalPageProps> {
+    params: &HymnalPageParams,
+) -> Option<HymnalPageHydrationState> {
     Some(match (params.hymnal, params.number) {
         (None, None) => {
-            HymnalPageProps::Hymnal(vec![HYMNAL_1982.clone(), LEVAS.clone(), WLP.clone()])
+            HymnalPageHydrationState::Hymnal(
+                HYMNAL_1982.hymns.iter().map(|hymn| (Hymnals::Hymnal1982, hymn.number)).chain(
+                    LEVAS.hymns.iter().map(|hymn| (Hymnals::LEVAS, hymn.number))
+                ).chain(
+                    WLP.hymns.iter().map(|hymn| (Hymnals::WLP, hymn.number))
+                ).collect()
+            )
         }
-        (Some(hymnal), None) => HymnalPageProps::Hymnal(vec![hymnal.into()]),
+        (Some(hymnal_id), None) => {
+            let hymnal : Hymnal = hymnal_id.into();
+            HymnalPageHydrationState::Hymnal(hymnal.hymns.iter().map(|hymn| (hymnal_id, hymn.number)).collect())
+        }
         (hymnal, Some(number)) => {
             let hymnal: Hymnal = hymnal.unwrap_or_default().into();
             let metadata = HymnalMetadata {
@@ -80,19 +93,37 @@ pub fn get_static_props(
                 copyright: hymnal.copyright,
             };
             let hymn = hymnal.hymns.iter().find(|s_hymn| s_hymn.number == number)?;
-            HymnalPageProps::Hymn(metadata, hymn.clone())
+            HymnalPageHydrationState::Hymn(metadata, hymn.clone())
         }
     })
 }
 
-pub fn body(locale: &str, props: &HymnalPageProps) -> View {
+pub fn render_state(
+    _locale: &str,
+    _path: &str,
+    params: &HymnalPageParams,
+) -> Option<HymnalPageRenderState> {
+    Some(match (params.hymnal, params.number) {
+        (None, None) => HymnalPageRenderState(vec![HYMNAL_1982.clone(), LEVAS.clone(), WLP.clone()]),
+        (Some(hymnal_id), None) => {
+            let hymnal : Hymnal = hymnal_id.into();
+            HymnalPageRenderState(vec![hymnal])
+        },
+        (hymnal, Some(_)) => HymnalPageRenderState(Vec::new())
+    })
+}
+
+pub fn body(locale: &str, props: &HymnalPageHydrationState, render_state: &HymnalPageRenderState) -> View {
     match props {
-        HymnalPageProps::Hymnal(hymnals) => hymnal_body(locale, hymnals),
-        HymnalPageProps::Hymn(hymnal, hymn) => hymn_body(locale, hymnal, hymn),
+        HymnalPageHydrationState::Hymnal(hymnals) => hymnal_body(locale, hymnals, &render_state.0),
+        HymnalPageHydrationState::Hymn(hymnal, hymn) => hymn_body(locale, hymnal, hymn),
     }
 }
 
-pub fn hymnal_body(locale: &str, hymnals: &[Hymnal]) -> View {
+pub fn hymnal_body(locale: &str, hymnal_tocs: &[(Hymnals, HymnNumber)], hymnals: &[Hymnal]) -> View {
+    // WARNING: present only in server render process
+    let server_side_render_hymn_data = hymnals.iter().flat_map(|hymnal| hymnal.hymns.iter().map(|hymn| ((hymn.source, hymn.number), hymn.clone()))).collect::<HashMap<_, _>>();
+
     let search_bar = SearchBar::new();
     let hymnal_choice = SegmentButton::new_with_default_value(
         "search-hymnal",

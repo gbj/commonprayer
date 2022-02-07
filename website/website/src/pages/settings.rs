@@ -7,7 +7,7 @@ use crate::{
 };
 use episcopal_api::{
     language::Language,
-    library::rite2::{COMPLINE, MORNING_PRAYER_II, NOONDAY_PRAYER},
+    library::rite2::{COMPLINE, MORNING_PRAYER_II, NOONDAY_PRAYER, EVENING_PRAYER_II},
     liturgy::{
         Content, Document, GlobalPref, Lectionaries, LiturgyPreferences, PreferenceKey,
         PreferenceValue, Version,
@@ -19,20 +19,20 @@ use leptos::*;
 use rust_i18n::t;
 use serde::{Deserialize, Serialize};
 
-pub fn settings() -> Page<SettingsPageProps, ()> {
+pub fn settings() -> Page<SettingsPageProps, (), ()> {
     Page::new("settings")
         .head_fn(head)
         .body_fn(body)
-        .static_props_fn(static_props)
+        .hydration_state(static_props)
 }
 
-fn static_props(_locale: &str, _path: &str, _params: ()) -> Option<SettingsPageProps> {
+fn static_props(_locale: &str, _path: &str, _params: &()) -> Option<SettingsPageProps> {
     Some(SettingsPageProps {
         mp_1_prefs: liturgy_to_preferences(&MORNING_PRAYER_II),
         mp_2_prefs: liturgy_to_preferences(&MORNING_PRAYER_II),
         np_prefs: liturgy_to_preferences(&NOONDAY_PRAYER),
         ep_1_prefs: None, // TODO
-        ep_2_prefs: None, // TODO
+        ep_2_prefs: liturgy_to_preferences(&EVENING_PRAYER_II),
         cp_prefs: liturgy_to_preferences(&COMPLINE),
         eucharist_prefs: None, // TODO
     })
@@ -49,7 +49,7 @@ fn liturgy_to_preferences(document: &Document) -> Option<(String, LiturgyPrefere
     }
 }
 
-fn head(_locale: &str, _props: &SettingsPageProps) -> View {
+fn head(_locale: &str, _props: &SettingsPageProps, _render_state: &()) -> View {
     view! {
         <>
             <title>{t!("settings.title")} " – " {t!("common_prayer")}</title>
@@ -78,7 +78,7 @@ enum Status {
     NotAvailable,
 }
 
-fn body(locale: &str, props: &SettingsPageProps) -> View {
+fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
     let status = Behavior::new(Status::Idle);
 
     let dark_mode_setting = SegmentButton::new_with_default_value(

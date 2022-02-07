@@ -10,11 +10,11 @@ use crate::{
     utils::time::{current_preferred_liturgy, today, DEFAULT_OFFICE_TIMES},
 };
 
-pub fn daily_office() -> Page<(), ()> {
+pub fn daily_office() -> Page<(), (), ()> {
     Page::new("daily-office")
         .head_fn(head)
         .body_fn(body)
-        .static_props_fn(|_, _, _| Some(()))
+        .hydration_state(|_, _, _| Some(()))
         .build_paths_fn(build_paths_fn)
 }
 
@@ -22,7 +22,7 @@ fn build_paths_fn() -> Vec<String> {
     vec!["".into()]
 }
 
-fn head(_locale: &str, _props: &()) -> View {
+fn head(_locale: &str, _props: &(), _render_state: &()) -> View {
     let title = format!("{} – {}", t!("toc.daily_office"), t!("common_prayer"));
 
     view! {
@@ -32,7 +32,7 @@ fn head(_locale: &str, _props: &()) -> View {
     }
 }
 
-fn body(locale: &str, _props: &()) -> View {
+fn body(locale: &str, _props: &(), _render_state: &()) -> View {
     // Daily Office page exists simply to redirect based on client date/time and preferences
     if !is_server!() {
         let date = today();

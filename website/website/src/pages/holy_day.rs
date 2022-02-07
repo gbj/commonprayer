@@ -35,15 +35,15 @@ pub struct HolyDayProps {
     gospel: Document,
 }
 
-pub fn holy_day() -> Page<HolyDayProps, HolyDayParams> {
+pub fn holy_day() -> Page<HolyDayProps, HolyDayParams, ()> {
     Page::new("holy-day")
         .head_fn(head)
         .body_fn(body)
-        .static_props_fn(static_props)
+        .hydration_state(static_props)
         .build_paths_fn(build_paths_fn)
 }
 
-fn head(_locale: &str, props: &HolyDayProps) -> View {
+fn head(_locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
     let title = format!("{} – {}", props.name, t!("common_prayer"));
     view! {
         <>
@@ -55,7 +55,7 @@ fn head(_locale: &str, props: &HolyDayProps) -> View {
     }
 }
 
-fn body(locale: &str, props: &HolyDayProps) -> View {
+fn body(locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
     let bio = View::Fragment(
         props
             .bio
@@ -162,7 +162,7 @@ fn body(locale: &str, props: &HolyDayProps) -> View {
     }
 }
 
-fn static_props(locale: &str, _path: &str, params: HolyDayParams) -> Option<HolyDayProps> {
+fn static_props(locale: &str, _path: &str, params: &HolyDayParams) -> Option<HolyDayProps> {
     // deserializing here instead of in the params means that
     // a bad feast ID will be a 404 error (finds path, but branches here to None => 404)
     // not a server error (when it's unable to find path b/c can't deserialize to Feast)

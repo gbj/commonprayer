@@ -2,14 +2,14 @@ use crate::components::header;
 use leptos::*;
 use rust_i18n::t;
 
-pub fn index() -> Page<(), ()> {
+pub fn index() -> Page<(), (), ()> {
     Page::new("index")
         .head_fn(head)
         .body_fn(body)
-        .static_props_fn(|_, _, _| Some(()))
+        .hydration_state(|_, _, _| Some(()))
 }
 
-fn head(_locale: &str, _props: &()) -> View {
+fn head(_locale: &str, _props: &(), _render_state: &()) -> View {
     view! {
         <>
             <title>{t!("common_prayer")}</title>
@@ -18,7 +18,7 @@ fn head(_locale: &str, _props: &()) -> View {
     }
 }
 
-fn body(locale: &str, _props: &()) -> View {
+fn body(locale: &str, _props: &(), _render_state: &()) -> View {
     view! {
         <>
             {header(locale, &t!("common_prayer"))}

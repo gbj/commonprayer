@@ -139,7 +139,7 @@ where
 
     pub fn build(&self, locale: &str, path: &str, params: P) -> Result<View, PageRenderError> {
         let hydration_state = (self.hydration_state_fn)
-            .expect("a Page should have a defined static_props_fn to before build() is called")(
+            .expect("a Page should have a defined hydrate_fn to before build() is called")(
             locale, path, &params,
         )
         .ok_or(PageRenderError::NotFound)?;

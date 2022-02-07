@@ -33,11 +33,11 @@ pub struct DocumentPageProps {
     date: String,
 }
 
-pub fn document() -> Page<DocumentPageProps, DocumentPageParams> {
+pub fn document() -> Page<DocumentPageProps, DocumentPageParams, ()> {
     Page::new("document")
         .head_fn(head)
         .body_fn(body)
-        .static_props_fn(get_static_props)
+        .hydration_state(hydration_state)
         .build_paths_fn(get_static_paths)
 }
 
@@ -51,7 +51,7 @@ pub fn get_static_paths() -> Vec<String> {
     ]
 }
 
-pub fn head(_locale: &str, props: &DocumentPageProps) -> View {
+pub fn head(_locale: &str, props: &DocumentPageProps, _render_state: &()) -> View {
     let label = match &props.page_type {
         PageType::Document(doc) => doc.label.as_ref(),
         PageType::Category(label, _, _) => Some(label),
@@ -70,7 +70,7 @@ pub fn head(_locale: &str, props: &DocumentPageProps) -> View {
     }
 }
 
-pub fn body(locale: &str, props: &DocumentPageProps) -> View {
+pub fn body(locale: &str, props: &DocumentPageProps, _render_state: &()) -> View {
     let title = match &props.page_type {
         PageType::Document(doc) => match &doc.label {
             Some(label) => label.clone(),
@@ -237,10 +237,10 @@ fn find_page(category: &str, slug: &str, version: Option<Version>) -> Option<Pag
         .map(|(_, _, _, page_type)| page_type.clone())
 }
 
-pub fn get_static_props(
+pub fn hydration_state(
     locale: &str,
     _path: &str,
-    params: DocumentPageParams,
+    params: &DocumentPageParams,
 ) -> Option<DocumentPageProps> {
     // find page in TOC, either with the given version or in any version
     find_page(&params.category, &params.slug, Some(params.version))
@@ -254,6 +254,7 @@ pub fn get_static_props(
                 (PageType::Document(doc), Some(date)) => {
                     let calendar = params
                         .calendar
+                        .as_ref()
                         .map(|slug| Calendar::from(slug.as_str()))
                         .unwrap_or_default();
 
@@ -267,6 +268,7 @@ pub fn get_static_props(
 
                     let observed = params
                         .alternate
+                        .as_ref()
                         .map(|slug| {
                             if slug == "alternate" {
                                 day.alternate.unwrap_or(day.observed)
@@ -278,6 +280,7 @@ pub fn get_static_props(
 
                     let prefs: HashMap<PreferenceKey, PreferenceValue> = params
                         .prefs
+                        .as_ref()
                         // this strange indirection is necessary because serde_json can't use structs/enums as map keys
                         // (due to JSON format limitations)
                         .and_then(|json| {
@@ -312,7 +315,7 @@ pub fn get_static_props(
                     "/{}/document/{}/{}/{:#?}",
                     locale, params.category, params.slug, params.version
                 ),
-                slug: params.slug,
+                slug: params.slug.clone(),
                 date: params.date.map(|date| date.to_string()).unwrap_or_default(),
             }
         })

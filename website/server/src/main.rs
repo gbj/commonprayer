@@ -185,10 +185,11 @@ async fn serve_page_wasm(name: String) -> Result<NamedFile> {
     ))?)
 }
 
-fn add_page<T, P>(cfg: &mut web::ServiceConfig, locale: &str, page: Page<T, P>)
+fn add_page<T, P, R>(cfg: &mut web::ServiceConfig, locale: &str, page: Page<T, P, R>)
 where
     T: Serialize + DeserializeOwned + Clone + 'static,
     P: DeserializeOwned + Clone + 'static,
+    R: Default + Clone + 'static
 {
     println!("{}", page.name);
     for path in page.get_absolute_paths() {

@@ -21,15 +21,15 @@ use serde_derive::{Deserialize, Serialize};
 use wasm_bindgen::UnwrapThrowExt;
 use web_sys::ScrollToOptions;
 
-pub fn calendar() -> Page<CalendarPageProps, ()> {
+pub fn calendar() -> Page<CalendarPageProps, (), ()> {
     Page::new("calendar")
         .head_fn(head)
         .body_fn(body)
-        .static_props_fn(get_static_props)
+        .hydration_state(hydration_state)
         .build_paths_fn(get_static_paths)
 }
 
-pub fn head(_locale: &str, _props: &CalendarPageProps) -> View {
+pub fn head(_locale: &str, _props: &CalendarPageProps, _render_state: &()) -> View {
     view! {
         <>
             <title>{t!("menu.calendar")} " – " {t!("common_prayer")}</title>
@@ -91,7 +91,7 @@ fn summarize_calendar(
         .collect()
 }
 
-pub fn get_static_props(locale: &str, path: &str, _params: ()) -> Option<CalendarPageProps> {
+pub fn hydration_state(locale: &str, path: &str, _params: &()) -> Option<CalendarPageProps> {
     let language = locale_to_language(locale);
 
     let default_calendar = if path.ends_with("lff2018") {
@@ -134,7 +134,7 @@ const MONTHS: [(u8, u8); 12] = [
     (12, 31),
 ];
 
-pub fn body(locale: &str, props: &CalendarPageProps) -> View {
+pub fn body(locale: &str, props: &CalendarPageProps, _render_state: &()) -> View {
     // Render BCP and LFF calendars and choose between them
     let bcp = calendar_view(CalendarChoice::BCP1979, locale, &props.bcp1979);
     let lff = calendar_view(CalendarChoice::LFF2018, locale, &props.lff2018);
