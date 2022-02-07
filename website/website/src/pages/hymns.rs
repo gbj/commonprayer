@@ -1,4 +1,6 @@
-use crate::components::*;
+use std::{rc::Rc, collections::HashSet};
+
+use crate::{components::*, utils::fetch::{Fetch, FetchStatus, FetchError}};
 use episcopal_api::hymnal::*;
 use episcopal_api::liturgy::Text;
 use futures::StreamExt;
@@ -108,11 +110,34 @@ pub fn hymnal_body(locale: &str, hymnals: &[Hymnal]) -> View {
         },
     );
 
+    // server-side hymnal API search
+    let search_state : Behavior<Fetch<HashSet<(Hymnals, HymnNumber)>>> = Behavior::new(Fetch::new(""));
+    search_bar.value.stream().create_effect({
+        let search_state = search_state.clone();
+        move |search| {
+            // abort in-flight requests
+            let current_request = search_state.get();
+            if current_request.state.get() == FetchStatus::Loading {
+                current_request.abort();
+            }
+
+            // send request for new search
+            if !search.is_empty() {
+                let new_request = Fetch::new(&format!("/api/hymnal/search?q={}", search));
+                new_request.send();
+                search_state.set(new_request);
+            }
+            // if you've cleared the search, reset
+            else {
+                search_state.set(Fetch::new(""));
+            }
+        }
+    });
+
     let hymnal_tables = View::Fragment(
         hymnals
             .iter()
             .map({
-                let search = search_bar.value.clone();
                 let hymnal_choice = hymnal_choice.value.clone();
                 move |hymnal| {
                     let title = view! { <h2>{&hymnal.title}</h2> };
@@ -140,27 +165,24 @@ pub fn hymnal_body(locale: &str, hymnals: &[Hymnal]) -> View {
                                 }
                                 .to_lowercase();
 
-                                let hidden = search
+                                let hidden = search_state
                                     .stream()
-                                    .map({
-                                        let number = strip_non_word_characters(&hymn.number.to_string().to_lowercase());
-                                        let title = strip_non_word_characters(&hymn.title.to_lowercase());
-                                        let tune = strip_non_word_characters(&hymn.tune.to_lowercase());
-                                        let authors = strip_non_word_characters(&hymn.authors.to_lowercase());
-                                        let composers = strip_non_word_characters(&hymn.composers.to_lowercase());
-                                        let text = strip_non_word_characters(&hymn.text.to_lowercase());
-                                        let meter = hymn.meter.clone();
-                                        move |orig_search| {
-                                            let search = strip_non_word_characters(&orig_search.to_lowercase());
-                                            !(search.is_empty()
-                                                || number.contains(&search)
-                                                || title.contains(&search)
-                                                || tune.contains(&search)
-                                                || authors.contains(&search)
-                                                || composers.contains(&search)
-                                                || meter.contains(&orig_search)
-                                                || text.contains(&search)
-                                            )
+                                    .flat_map(|fetch| fetch.state.stream())
+                                    .filter_map({
+                                        let source = hymn.source;
+                                        let number = hymn.number;
+                                        move |status| async move {
+                                            match status {
+                                                // if no search has been sent, show everything
+                                                FetchStatus::Idle => Some(false),
+                                                // if still loading, or if there's an error, make no changes
+                                                FetchStatus::Loading => None,
+                                                FetchStatus::Error(_) => None,
+                                                // if we have results, check if this hymn is in them
+                                                FetchStatus::Success(matches) => {
+                                                    Some(!matches.contains(&(source, number)))
+                                                },
+                                            }
                                         }
                                     })
                                     .boxed_local();
@@ -439,16 +461,6 @@ fn escape_italics(original: &str) -> View {
             })
             .collect()
     )
-}
-
-fn strip_non_word_characters(original: &str) -> String {
-    original.chars().filter(|ch| 
-        // so that date ranges don't get read as numbers, i.e., "111" should not match "1711-1759"
-        ch == &'-'
-        // letters
-        || ('a'..'z').contains(ch)
-        // digits so can search by hymn number
-        || ('0'..'9').contains(ch)).collect()
 }
 
 fn rite_song_link(hymnal: &Hymnals, number: &HymnNumber) -> String {

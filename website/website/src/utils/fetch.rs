@@ -5,6 +5,7 @@ use reqwasm::http::Request;
 use serde::de::DeserializeOwned;
 use thiserror::Error;
 use wasm_bindgen_futures::spawn_local;
+use web_sys::{AbortController, AbortSignal};
 
 #[derive(Clone)]
 pub struct Fetch<T>
@@ -12,6 +13,7 @@ where
     T: Clone + DeserializeOwned + 'static,
 {
     url: String,
+    abort_controller: Option<AbortController>,
     pub state: Behavior<FetchStatus<T>>,
 }
 
@@ -20,8 +22,14 @@ where
     T: Clone + DeserializeOwned + 'static,
 {
     pub fn new(url: impl Display) -> Self {
+        let abort_controller = if is_server!() {
+            None
+        } else {
+            AbortController::new().ok() 
+        };
         Self {
             url: url.to_string(),
+            abort_controller,
             state: Behavior::new(FetchStatus::Idle),
         }
     }
@@ -32,13 +40,20 @@ where
             spawn_local({
                 let state = self.state.clone();
                 let url = self.url.clone();
+                let signal = self.abort_controller.as_ref().map(|ac| ac.signal());
                 async move {
-                    match fetch(&url).await {
+                    match fetch(&url, signal.as_ref()).await {
                         Ok(data) => state.set(FetchStatus::Success(Box::new(data))),
                         Err(e) => state.set(FetchStatus::Error(e)),
                     };
                 }
             });
+        }
+    }
+
+    pub fn abort(&self) {
+        if let Some(controller) = &self.abort_controller {
+            controller.abort();
         }
     }
 }
@@ -61,11 +76,12 @@ pub enum FetchError {
     Json,
 }
 
-async fn fetch<T>(url: &str) -> Result<T, FetchError>
+async fn fetch<T>(url: &str, signal: Option<&AbortSignal>) -> Result<T, FetchError>
 where
     T: DeserializeOwned,
 {
     Request::get(url)
+        .abort_signal(signal)
         .send()
         .await
         .map_err(|e| match e {

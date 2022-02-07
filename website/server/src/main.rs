@@ -1,16 +1,16 @@
-use std::fs::File;
+use std::{fs::File, collections::HashSet};
 
 use actix_files::{Files, NamedFile};
 use actix_web::{
     error, get,
     http::StatusCode,
-    web::{self, Path},
+    web::{self, Path, Query},
     App, FromRequest, HttpRequest, HttpResponse, HttpServer, Result,
 };
 use episcopal_api::{
     api::summary::DailySummary,
     calendar::Date,
-    hymnal::{Hymnal, Hymnals},
+    hymnal::{Hymnal, Hymnals, HymnNumber, HYMNAL_1982, LEVAS, WLP},
     liturgy::Document,
 };
 use lazy_static::lazy_static;
@@ -43,6 +43,7 @@ async fn main() -> std::io::Result<()> {
             )
             .service(canticle_list_api)
             .service(hymnal_api)
+            .service(hymnal_search_api)
             .service(Files::new(
                 "/static",
                 &format!("{}/website/static", *PROJECT_ROOT),
@@ -87,6 +88,45 @@ async fn canticle_list_api() -> Result<web::Json<Vec<Document>>, ()> {
 #[get("/api/hymnal/{hymnal}.json")]
 async fn hymnal_api(path: web::Path<Hymnals>) -> Result<web::Json<Hymnal>, ()> {
     Ok(web::Json(path.into_inner().into()))
+}
+
+// Hymnal Search API
+#[derive(Deserialize)]
+struct HymnalSearchParams {
+    q: String
+}
+
+#[get("/api/hymnal/search")]
+async fn hymnal_search_api(params: Query<HymnalSearchParams>) -> web::Json<HashSet<(Hymnals, HymnNumber)>> {
+    let search = strip_non_word_characters(&params.q.to_lowercase());
+    let matches = HYMNAL_1982.hymns.iter().chain(LEVAS.hymns.iter()).chain(WLP.hymns.iter()).filter(|hymn| {
+        let number = strip_non_word_characters(&hymn.number.to_string().to_lowercase());
+                                        let title = strip_non_word_characters(&hymn.title.to_lowercase());
+                                        let tune = strip_non_word_characters(&hymn.tune.to_lowercase());
+                                        let authors = strip_non_word_characters(&hymn.authors.to_lowercase());
+                                        let composers = strip_non_word_characters(&hymn.composers.to_lowercase());
+                                        let text = strip_non_word_characters(&hymn.text.to_lowercase());
+                                            number.contains(&search)
+                                                || title.contains(&search)
+                                                || tune.contains(&search)
+                                                || authors.contains(&search)
+                                                || composers.contains(&search)
+                                                || hymn.meter.contains(&params.q)
+                                                || text.contains(&search)
+                                            
+                                        
+    }).map(|hymn| (hymn.source, hymn.number)).collect::<HashSet<_>>();
+    web::Json(matches)
+}
+
+fn strip_non_word_characters(original: &str) -> String {
+    original.chars().filter(|ch| 
+        // so that date ranges don't get read as numbers, i.e., "111" should not match "1711-1759"
+        ch == &'-'
+        // letters
+        || ('a'..'z').contains(ch)
+        // digits so can search by hymn number
+        || ('0'..'9').contains(ch)).collect()
 }
 
 #[derive(Deserialize)]
