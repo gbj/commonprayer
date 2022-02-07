@@ -1,6 +1,9 @@
-use std::{rc::Rc, collections::{HashSet, HashMap}};
+use std::collections::{HashMap, HashSet};
 
-use crate::{components::*, utils::fetch::{Fetch, FetchStatus, FetchError}};
+use crate::{
+    components::*,
+    utils::fetch::{Fetch, FetchStatus},
+};
 use episcopal_api::hymnal::*;
 use episcopal_api::liturgy::Text;
 use futures::StreamExt;
@@ -15,7 +18,7 @@ pub struct HymnalPageParams {
 
 #[derive(Clone, Deserialize, Serialize)]
 pub enum HymnalPageHydrationState {
-    Hymnal(Vec<(Hymnals, HymnNumber)>),
+    Hymnal(Vec<(Hymnals, Vec<HymnNumber>)>),
     Hymn(HymnalMetadata, Hymn),
 }
 
@@ -39,9 +42,13 @@ pub fn hymnal() -> Page<HymnalPageHydrationState, HymnalPageParams, HymnalPageRe
         .build_paths_fn(get_static_paths)
 }
 
-pub fn head(_locale: &str, props: &HymnalPageHydrationState, render_state: &HymnalPageRenderState) -> View {
+pub fn head(
+    _locale: &str,
+    props: &HymnalPageHydrationState,
+    render_state: &HymnalPageRenderState,
+) -> View {
     let title = match props {
-        HymnalPageHydrationState::Hymnal(hymnals) => {
+        HymnalPageHydrationState::Hymnal(_hymnals) => {
             if render_state.0.len() == 1 {
                 render_state.0[0].title.clone()
             } else {
@@ -71,18 +78,26 @@ pub fn hydration_state(
     params: &HymnalPageParams,
 ) -> Option<HymnalPageHydrationState> {
     Some(match (params.hymnal, params.number) {
-        (None, None) => {
-            HymnalPageHydrationState::Hymnal(
-                HYMNAL_1982.hymns.iter().map(|hymn| (Hymnals::Hymnal1982, hymn.number)).chain(
-                    LEVAS.hymns.iter().map(|hymn| (Hymnals::LEVAS, hymn.number))
-                ).chain(
-                    WLP.hymns.iter().map(|hymn| (Hymnals::WLP, hymn.number))
-                ).collect()
-            )
-        }
+        (None, None) => HymnalPageHydrationState::Hymnal(vec![
+            (
+                Hymnals::Hymnal1982,
+                HYMNAL_1982.hymns.iter().map(|hymn| hymn.number).collect(),
+            ),
+            (
+                Hymnals::LEVAS,
+                LEVAS.hymns.iter().map(|hymn| hymn.number).collect(),
+            ),
+            (
+                Hymnals::WLP,
+                WLP.hymns.iter().map(|hymn| hymn.number).collect(),
+            ),
+        ]),
         (Some(hymnal_id), None) => {
-            let hymnal : Hymnal = hymnal_id.into();
-            HymnalPageHydrationState::Hymnal(hymnal.hymns.iter().map(|hymn| (hymnal_id, hymn.number)).collect())
+            let hymnal: Hymnal = hymnal_id.into();
+            HymnalPageHydrationState::Hymnal(vec![(
+                hymnal_id,
+                hymnal.hymns.iter().map(|hymn| hymn.number).collect(),
+            )])
         }
         (hymnal, Some(number)) => {
             let hymnal: Hymnal = hymnal.unwrap_or_default().into();
@@ -104,26 +119,33 @@ pub fn render_state(
     params: &HymnalPageParams,
 ) -> Option<HymnalPageRenderState> {
     Some(match (params.hymnal, params.number) {
-        (None, None) => HymnalPageRenderState(vec![HYMNAL_1982.clone(), LEVAS.clone(), WLP.clone()]),
+        (None, None) => {
+            HymnalPageRenderState(vec![HYMNAL_1982.clone(), LEVAS.clone(), WLP.clone()])
+        }
         (Some(hymnal_id), None) => {
-            let hymnal : Hymnal = hymnal_id.into();
+            let hymnal: Hymnal = hymnal_id.into();
             HymnalPageRenderState(vec![hymnal])
-        },
-        (hymnal, Some(_)) => HymnalPageRenderState(Vec::new())
+        }
+        (_hymnal, Some(_)) => HymnalPageRenderState(Vec::new()),
     })
 }
 
-pub fn body(locale: &str, props: &HymnalPageHydrationState, render_state: &HymnalPageRenderState) -> View {
+pub fn body(
+    locale: &str,
+    props: &HymnalPageHydrationState,
+    render_state: &HymnalPageRenderState,
+) -> View {
     match props {
         HymnalPageHydrationState::Hymnal(hymnals) => hymnal_body(locale, hymnals, &render_state.0),
         HymnalPageHydrationState::Hymn(hymnal, hymn) => hymn_body(locale, hymnal, hymn),
     }
 }
 
-pub fn hymnal_body(locale: &str, hymnal_tocs: &[(Hymnals, HymnNumber)], hymnals: &[Hymnal]) -> View {
-    // WARNING: present only in server render process
-    let server_side_render_hymn_data = hymnals.iter().flat_map(|hymnal| hymnal.hymns.iter().map(|hymn| ((hymn.source, hymn.number), hymn.clone()))).collect::<HashMap<_, _>>();
-
+pub fn hymnal_body(
+    locale: &str,
+    hymnal_tocs: &[(Hymnals, Vec<HymnNumber>)],
+    hymnals: &[Hymnal],
+) -> View {
     let search_bar = SearchBar::new();
     let hymnal_choice = SegmentButton::new_with_default_value(
         "search-hymnal",
@@ -142,7 +164,8 @@ pub fn hymnal_body(locale: &str, hymnal_tocs: &[(Hymnals, HymnNumber)], hymnals:
     );
 
     // server-side hymnal API search
-    let search_state : Behavior<Fetch<HashSet<(Hymnals, HymnNumber)>>> = Behavior::new(Fetch::new(""));
+    let search_state: Behavior<Fetch<HashSet<(Hymnals, HymnNumber)>>> =
+        Behavior::new(Fetch::new(""));
     search_bar.value.stream().create_effect({
         let search_state = search_state.clone();
         move |search| {
@@ -165,43 +188,62 @@ pub fn hymnal_body(locale: &str, hymnal_tocs: &[(Hymnals, HymnNumber)], hymnals:
         }
     });
 
+    // TODO
+    // 1) iterate over HYDRATE state, instead of render state
+    // 2) for each item, look up the hymn data in the render state — all these static elements will only be created then anyway
+    // 3) use the hydrate state to manage the search interface
+
     let hymnal_tables = View::Fragment(
-        hymnals
+        hymnal_tocs
             .iter()
+            .enumerate()
             .map({
                 let hymnal_choice = hymnal_choice.value.clone();
-                move |hymnal| {
-                    let title = view! { <h2>{&hymnal.title}</h2> };
-                    let subtitle = if !hymnal.subtitle.is_empty() {
-                        view! { <h3>{&hymnal.subtitle}</h3> }
+                move |(hymnal_idx, (id, hymn_numbers))| {
+                    let hymnal = hymnals.get(hymnal_idx);
+
+                    let hymnal_metadata = if let Some(hymnal) = hymnal {
+                        let title = view! { <h2>{&hymnal.title}</h2> };
+                        let subtitle = if !hymnal.subtitle.is_empty() {
+                            view! { <h3>{&hymnal.subtitle}</h3> }
+                        } else {
+                            View::Empty
+                        };
+                        let copyright = view! { <p class="copyright">{&hymnal.copyright}</p> };
+
+                        view! {
+                            {title}
+                            {subtitle}
+                            {copyright}
+                        }
                     } else {
                         View::Empty
                     };
-                    let copyright = view! { <p class="copyright">{&hymnal.copyright}</p> };
+
+                    let hidden = hymnal_choice
+                        .stream()
+                        .map({
+                            let id = *id;
+                            move |choice| choice.is_some() && choice != Some(id)
+                        })
+                        .boxed_local();
 
                     let hymns = View::Fragment(
-                        hymnal
-                            .hymns
+                        hymn_numbers
                             .iter()
-                            .map(|hymn| {
-                                let number = match hymn.number {
-                                    HymnNumber::S(n) => format!("S{}", n),
-                                    HymnNumber::H(n) => n.to_string(),
-                                };
+                            .map(|number| {
+                                let hymn = hymnal.and_then(|hymnal| {
+                                    hymnal.hymns.iter().find(|s_hymn| s_hymn.number == *number)
+                                });
 
-                                let tune_name = if hymn.tune.starts_with('[') {
-                                    ""
-                                } else {
-                                    &hymn.tune
-                                }
-                                .to_lowercase();
+                                let hymn_id = (*id, *number);
 
                                 let hidden = search_state
                                     .stream()
                                     .flat_map(|fetch| fetch.state.stream())
                                     .filter_map({
-                                        let source = hymn.source;
-                                        let number = hymn.number;
+                                        let source = hymn_id.0;
+                                        let number = hymn_id.1;
                                         move |status| async move {
                                             match status {
                                                 // if no search has been sent, show everything
@@ -219,72 +261,88 @@ pub fn hymnal_body(locale: &str, hymnal_tocs: &[(Hymnals, HymnNumber)], hymnals:
                                     .boxed_local();
 
                                 let link =
-                                    format!("/{}/hymnal/{:#?}/{}", locale, hymnal.id, hymn.number);
+                                    format!("/{}/hymnal/{:#?}/{}", locale, hymn_id.0, hymn_id.1);
+
+                                let hymn_metadata = if let Some(hymn) = hymn {
+                                    let number = match hymn.number {
+                                        HymnNumber::S(n) => format!("S{}", n),
+                                        HymnNumber::H(n) => n.to_string(),
+                                    };
+
+                                    let tune_name = if hymn.tune.starts_with('[') {
+                                        ""
+                                    } else {
+                                        &hymn.tune
+                                    }
+                                    .to_lowercase();
+
+                                    view! {
+                                        <>
+                                            <div class="primary">
+                                                <span class="music-available">
+                                                    {if hymn.copyright_restriction {
+                                                        View::Empty
+                                                    } else {
+                                                        view! { <img src={Icon::Music.to_string()} alt={t!("hymnal.music_available")}/> }
+                                                    }}
+                                                </span>
+                                                <span class="text-available">
+                                                    {if hymn.text.is_empty() {
+                                                        ""
+                                                    } else {
+                                                        "T"
+                                                    }}
+                                                </span>
+                                                <a class="number" href={&link}>{number}</a>
+                                                <a class="title" href={&link}>{&hymn.title}</a>
+                                                <span class="tune">{&tune_name}</span>
+                                            </div>
+                                            <div class="secondary">
+                                                <div>
+                                                    {if hymn.authors.is_empty() {
+                                                        View::Empty
+                                                    } else {
+                                                        view! {
+                                                            <span class="list-field author">
+                                                                <span class="label">{t!("hymnal.text")} ": "</span>
+                                                                {&hymn.authors}
+                                                            </span>
+                                                    }}}
+                                                    {if hymn.composers.is_empty() {
+                                                        View::Empty
+                                                    } else {
+                                                        view! {
+                                                            <span class="list-field composer">
+                                                                <span class="label">{t!("hymnal.music")} ": "</span>
+                                                                {&hymn.composers}
+                                                            </span>
+                                                    }}}
+                                                </div>
+                                                <span class="list-field meter">{&hymn.meter}</span>
+                                            </div>
+                                        </>
+                                    }
+
+
+                                } else {
+                                    View::Empty
+                                };
 
                                 view! {
                                     <dyn:article
                                         class="hymn-listing"
                                         class:hidden={hidden}
                                     >
-                                        <div class="primary">
-                                            <span class="music-available">
-                                                {if hymn.copyright_restriction { 
-                                                    View::Empty 
-                                                } else {
-                                                    view! { <img src={Icon::Music.to_string()} alt={t!("hymnal.music_available")}/> }
-                                                }}
-                                            </span>
-                                            <span class="text-available">
-                                                {if hymn.text.is_empty() { 
-                                                    ""
-                                                } else {
-                                                    "T"
-                                                }}
-                                            </span>
-                                            <a class="number" href={&link}>{number}</a>
-                                            <a class="title" href={&link}>{&hymn.title}</a>
-                                            <span class="tune">{&tune_name}</span>
-                                        </div>
-                                        <div class="secondary">
-                                            <div>
-                                                {if hymn.authors.is_empty() {
-                                                    View::Empty
-                                                } else {
-                                                    view! {
-                                                        <span class="list-field author">
-                                                            <span class="label">{t!("hymnal.text")} ": "</span>
-                                                            {&hymn.authors}
-                                                        </span>
-                                                }}}
-                                                {if hymn.composers.is_empty() {
-                                                    View::Empty
-                                                } else {
-                                                    view! {
-                                                        <span class="list-field composer">
-                                                            <span class="label">{t!("hymnal.music")} ": "</span>
-                                                            {&hymn.composers}
-                                                        </span>
-                                                }}}
-                                            </div>
-                                            <span class="list-field meter">{&hymn.meter}</span>
-                                        </div>
+                                        {hymn_metadata}
                                     </dyn:article>
                                 }
                             })
                             .collect(),
                     );
 
-                    let id = hymnal.id;
-                    let hidden = hymnal_choice
-                        .stream()
-                        .map(move |choice| choice.is_some() && choice != Some(id))
-                        .boxed_local();
-
                     view! {
                         <dyn:section class:hidden={hidden}>
-                            {title}
-                            {subtitle}
-                            {copyright}
+                            {hymnal_metadata}
                             <table>
                                 {hymns}
                             </table>
@@ -325,14 +383,18 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
     let image_expanded = Behavior::new(false);
 
     // page scrolling through hymnal
-    let initial_page : i32 = hymn.page_number.into();
+    let initial_page: i32 = hymn.page_number.into();
     let page_scan_offset = Behavior::new(0);
-    let page_scan_url = page_scan_offset.stream().map(move |offset| { let current_page = initial_page + offset;
-        format!(
-        "https://hymnary.org/page/fetch/{}/{}/high",
-        &hymnary_hymnal_id, current_page
-    )
-    }).boxed_local();
+    let page_scan_url = page_scan_offset
+        .stream()
+        .map(move |offset| {
+            let current_page = initial_page + offset;
+            format!(
+                "https://hymnary.org/page/fetch/{}/{}/high",
+                &hymnary_hymnal_id, current_page
+            )
+        })
+        .boxed_local();
 
     view! {
         <>
@@ -446,10 +508,7 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                                         alt={t!("hymnal.alt_text")}
                                         class="page-scan"
                                         class:expanded={image_expanded.stream().boxed_local()}
-                                        on:click={
-                                            let image_expanded = image_expanded.clone();
-                                            move |_ev: Event| image_expanded.set(!image_expanded.get())
-                                        }
+                                        on:click=move |_ev: Event| image_expanded.set(!image_expanded.get())
                                     />
                                 }
                             }}
@@ -481,16 +540,19 @@ fn possible_field(label: &str, value: &str) -> View {
 
 fn escape_italics(original: &str) -> View {
     View::Fragment(
-        original.split("<i>")
+        original
+            .split("<i>")
             .flat_map(|piece| piece.split("</i>"))
             .enumerate()
-            .map(|(idx, piece)| if idx % 2 == 0 {
-                View::StaticText(piece.to_string())
-            } else {
-                // every odd character piece will be *after* a <i> but before a </i>
-                view! { <i>{piece}</i> }
+            .map(|(idx, piece)| {
+                if idx % 2 == 0 {
+                    View::StaticText(piece.to_string())
+                } else {
+                    // every odd character piece will be *after* a <i> but before a </i>
+                    view! { <i>{piece}</i> }
+                }
             })
-            .collect()
+            .collect(),
     )
 }
 
@@ -505,8 +567,10 @@ fn rite_song_link(hymnal: &Hymnals, number: &HymnNumber) -> String {
     };
 
     let base = match (hymnal, number) {
-        (Hymnals::Hymnal1982, HymnNumber::S(n)) => "https://www.riteseries.org/song/Hymnal1982ServiceMusic/",
-        (Hymnals::Hymnal1982, HymnNumber::H(n)) => "https://www.riteseries.org/song/Hymnal1982/",
+        (Hymnals::Hymnal1982, HymnNumber::S(_n)) => {
+            "https://www.riteseries.org/song/Hymnal1982ServiceMusic/"
+        }
+        (Hymnals::Hymnal1982, HymnNumber::H(_n)) => "https://www.riteseries.org/song/Hymnal1982/",
         (Hymnals::LEVAS, _) => "https://www.riteseries.org/song/levs/",
         (Hymnals::WLP, _) => "https://www.riteseries.org/song/wlp/",
     };
