@@ -29,7 +29,7 @@ lazy_static! {
                   Document::from("Let us confess our sins against God and our neighbor.").version_label("Short")
                 ]).selected(1)).page(79),
             Document::from(Rubric::from("Silence may be kept.\n\nOfficiant and People together, all kneeling")),
-            Document::from(Text::from("Most merciful God,\nwe confxess that we have sinned against you\nin thought, word, and deed,\nby what we have done,\nand by what we have left undone.\nWe have not loved you with our whole heart;\nwe have not loved our neighbors as ourselves.\nWe are truly sorry and we humbly repent.\nFor the sake of your Son Jesus Christ,\nhave mercy on us and forgive us;\nthat we may delight in your will,\nand walk in your ways,\nto the glory of your Name.")
+            Document::from(Text::from("Most merciful God,\nwe confess that we have sinned against you\nin thought, word, and deed,\nby what we have done,\nand by what we have left undone.\nWe have not loved you with our whole heart;\nwe have not loved our neighbors as ourselves.\nWe are truly sorry and we humbly repent.\nFor the sake of your Son Jesus Christ,\nhave mercy on us and forgive us;\nthat we may delight in your will,\nand walk in your ways,\nto the glory of your Name.")
 .response("Amen.").display_format(DisplayFormat::Unison)),
             Document::from(Rubric::from("The Priest alone stands and says")),
             Document::from(Text::from("Almighty God have mercy on you, forgive you all your sins through our Lord Jesus Christ, strengthen you in all goodness, and by the power of the Holy Spirit keep you in eternal life.")
