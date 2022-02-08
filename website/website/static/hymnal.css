@@ -24,8 +24,38 @@ main {
 .hymn-listing .secondary > * {
   display: flex;
   flex-direction: column;
-  padding-left: 2.5rem;
+  padding-left: 2rem;
   justify-content: space-between;
+}
+
+.hymn-listing .tag-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  flex-wrap: wrap;
+  padding: 0.25rem;
+  padding-left: 2rem;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+.hymn-listing .tag-list li {
+  list-style-type: none;
+  margin-left: 0.5rem;
+}
+
+.hymn-listing .tag-list li a::before {
+  content: "#";
+}
+
+.hymn-listing .tag-list li a,
+.hymn-listing .tag-list li a:visited {
+  border-radius: 0.5rem;
+  color: var(--link-color);
+  padding: 0.25rem;
+  font-size: 0.8rem;
+  text-decoration: none;
 }
 
 .hymn-listing.hidden {

@@ -1,8 +1,11 @@
 Website Todos
 =============
 
+- [ ] Insert service music/office hymn links into Office liturgies
+  - [ ] finish tagging service music
+  - [ ] If tag search present in path, give a set of search results at render time
+- [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany
 - [ ] Set preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
-- [ ] Categories for documents/link from office
 - Clean up
   - [ ] Noonday Prayer
   - [ ] Compline

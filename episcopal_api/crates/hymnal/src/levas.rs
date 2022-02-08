@@ -39,7 +39,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Lift ev’ry voice and sing,\nTill earth and heaven ring,\nRing with the harmonies of liberty;\nLet our rejoicing rise\nHigh as the list’ning skies,\nLet it resound loud as the rolling sea.\nSing a song full of the faith that the dark past has taught us;\nSing a song full of the hope that the present has brought us;\nFacing the rising sun\nOf our new day begun,\nLet us march on till victory is won.\n\n2 Stony the road we trod,\nBitter the chast’ning rod,\nFelt in the days when hope unborn had died;\nYet with a steady beat,\nHave not our weary feet\nCome to the place for which our fathers sighed?\nWe have come over away that with tears has been watered;\nWe have come, treading our path through the blood of the slaughtered;\nOut from the gloomy past,\nTill now we stand at last\nWhere the white gleam of our bright star is cast.\n\n3 God of our weary years,\nGod of our silent tears,\nThou who hast brought us thus far on the way;\nThou who hast by thy might,\nLed us into the light,\nKeep us forever in the path, we pray.\nLest our feet stray from the places, our God, where we met thee;\nLest our hearts, drunk with the wine of the world, we forget thee,\nShadowed beneath Thy hand,\nMay we forever stand,\nTrue to our God, true to our native land.".into()
+                text: "1 Lift ev’ry voice and sing,\nTill earth and heaven ring,\nRing with the harmonies of liberty;\nLet our rejoicing rise\nHigh as the list’ning skies,\nLet it resound loud as the rolling sea.\nSing a song full of the faith that the dark past has taught us;\nSing a song full of the hope that the present has brought us;\nFacing the rising sun\nOf our new day begun,\nLet us march on till victory is won.\n\n2 Stony the road we trod,\nBitter the chast’ning rod,\nFelt in the days when hope unborn had died;\nYet with a steady beat,\nHave not our weary feet\nCome to the place for which our fathers sighed?\nWe have come over away that with tears has been watered;\nWe have come, treading our path through the blood of the slaughtered;\nOut from the gloomy past,\nTill now we stand at last\nWhere the white gleam of our bright star is cast.\n\n3 God of our weary years,\nGod of our silent tears,\nThou who hast brought us thus far on the way;\nThou who hast by thy might,\nLed us into the light,\nKeep us forever in the path, we pray.\nLest our feet stray from the places, our God, where we met thee;\nLest our hearts, drunk with the wine of the world, we forget thee,\nShadowed beneath Thy hand,\nMay we forever stand,\nTrue to our God, true to our native land.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -53,7 +54,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Oh thou that tellest good tidings to Zion,\nOh thou that tellest good tidings to Jerusalem:\nLift up your voice with strength,\nLift it up don’t be afraid.\nBehold your God.\nArise, and shine, for the light of the world is come.\nBehold your God!".into()
+                text: "Oh thou that tellest good tidings to Zion,\nOh thou that tellest good tidings to Jerusalem:\nLift up your voice with strength,\nLift it up don’t be afraid.\nBehold your God.\nArise, and shine, for the light of the world is come.\nBehold your God!".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -67,7 +69,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nO bye and bye, bye and bye,\nI’m gonna lay down my heavy load.\n\n1 I know my robe’s gonna fit me well,\nI’m gonna lay down my heavy load.\nI tried it on at the gates of hell.\nI’m gonna lay down my heavy load. [Refrain]\n\n2 O hell is deep and in dark despair,\nI’m gonna lay down my heavy load.\nSo stop, po’ sinner and don’t go there.\nI’m gonna lay down my heavy load. [Refrain]\n\n3 O Christian, can’t you arise and tell,\nI’m gonna lay down my heavy load.\nThat Jesus hath done all things well.\nI’m gonna lay down my heavy load. [Refrain]".into()
+                text: "Refrain:\nO bye and bye, bye and bye,\nI’m gonna lay down my heavy load.\n\n1 I know my robe’s gonna fit me well,\nI’m gonna lay down my heavy load.\nI tried it on at the gates of hell.\nI’m gonna lay down my heavy load. [Refrain]\n\n2 O hell is deep and in dark despair,\nI’m gonna lay down my heavy load.\nSo stop, po’ sinner and don’t go there.\nI’m gonna lay down my heavy load. [Refrain]\n\n3 O Christian, can’t you arise and tell,\nI’m gonna lay down my heavy load.\nThat Jesus hath done all things well.\nI’m gonna lay down my heavy load. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -81,7 +84,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nBetter be ready; Better be ready;\nBetter be ready; Ready to try on your long white robe!\n\n1 Oh! Rise up children, get your crown,\nAnd by your Savior’s side sit down. [Refrain]\n\n2 What a glorious morning that will be,\nOur friends and Jesus we shall see. [Refrain]\n\n3 O shout you Christians, you’re gaining ground,\nWe’ll shout old Satan’s kingdom down! [Refrain]\n\n4 I soon shall reach that golden shore,\nAnd sing the songs we sang before. [Refrain]".into()
+                text: "Refrain:\nBetter be ready; Better be ready;\nBetter be ready; Ready to try on your long white robe!\n\n1 Oh! Rise up children, get your crown,\nAnd by your Savior’s side sit down. [Refrain]\n\n2 What a glorious morning that will be,\nOur friends and Jesus we shall see. [Refrain]\n\n3 O shout you Christians, you’re gaining ground,\nWe’ll shout old Satan’s kingdom down! [Refrain]\n\n4 I soon shall reach that golden shore,\nAnd sing the songs we sang before. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -95,7 +99,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nGreat day! Great day, the righteous marching.\nGreat day. God’s going to build up Zion’s walls.\n\n1 Chariot rode on the mountaintop,\nGod’s going to build up Zion’s walls! \nMy God spoke and the chariot did stop,\nGod’s going to build up Zion’s walls! [Refrain]\n\n2 This is the day of jubilee,\nGod’s going to build up Zion’s walls! \nThe Lord has set His people free,\nGod’s going to build up Zion’s walls! [Refrain]\n\n3 We want no cowards in our band,\nGod’s going to build up Zion’s walls! \nWe call for valiant hearted men,\nGod’s going to build up Zion’s walls! [Refrain]\n\n4 Going to take my breast plate, sword, and shield,\nGod’s going to build up Zion’s walls! \nAnd march out boldly in the field,\nGod’s going to build up Zion’s walls! [Refrain]".into()
+                text: "Refrain:\nGreat day! Great day, the righteous marching.\nGreat day. God’s going to build up Zion’s walls.\n\n1 Chariot rode on the mountaintop,\nGod’s going to build up Zion’s walls! \nMy God spoke and the chariot did stop,\nGod’s going to build up Zion’s walls! [Refrain]\n\n2 This is the day of jubilee,\nGod’s going to build up Zion’s walls! \nThe Lord has set His people free,\nGod’s going to build up Zion’s walls! [Refrain]\n\n3 We want no cowards in our band,\nGod’s going to build up Zion’s walls! \nWe call for valiant hearted men,\nGod’s going to build up Zion’s walls! [Refrain]\n\n4 Going to take my breast plate, sword, and shield,\nGod’s going to build up Zion’s walls! \nAnd march out boldly in the field,\nGod’s going to build up Zion’s walls! [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -109,7 +114,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "<i>Advent Jazz Vespers II</i>".into(),
 				tune_sources: "<i>Advent Jazz Vespers II</i>".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -123,7 +129,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nI want to be ready,\nI want to be ready.\nI want to be ready\nTo walk in Jerusalem just like John.\n\n1 John said that Jerusalem was four-square,\nWalk in Jerusalem just like John.\nI hope, good Lord, I’ll meet you there,\nWalk in Jerusalem just like John. O [Refrain]\n\n2 When Peter was preaching at Pentecost,\nWalk in Jerusalem just like John.\nO he was filled with the Holy Ghost,\nWalk in Jerusalem just like John. O [Refrain]".into()
+                text: "Refrain:\nI want to be ready,\nI want to be ready.\nI want to be ready\nTo walk in Jerusalem just like John.\n\n1 John said that Jerusalem was four-square,\nWalk in Jerusalem just like John.\nI hope, good Lord, I’ll meet you there,\nWalk in Jerusalem just like John. O [Refrain]\n\n2 When Peter was preaching at Pentecost,\nWalk in Jerusalem just like John.\nO he was filled with the Holy Ghost,\nWalk in Jerusalem just like John. O [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -137,7 +144,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "".into(),
-                text: "Deep river, my home is over Jordan,\nDeep river, Lord, I want to cross over into camp ground.\nOh don’t you want to go to that gospel feast,\nThat promised land where all is peace?\nOh Deep river, Lord, I want to cross over into camp ground.".into()
+                text: "Deep river, my home is over Jordan,\nDeep river, Lord, I want to cross over into camp ground.\nOh don’t you want to go to that gospel feast,\nThat promised land where all is peace?\nOh Deep river, Lord, I want to cross over into camp ground.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -151,7 +159,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "American melody".into(),
-                text: "1 On Jordan’s stormy banks I stand,\nAnd cast a wishful eye;\nTo Canaan’s fair and happy land,\nWhere my possessions lie.\n\nRefrain:\nI am bound for the promised land,\nI am bound for the promised land;\nOh, who will come and go with me?\nI am bound for the promised land.\n\n2 All o’er those wide-extended plains,\nShines one eternal day;\nThere God the Son forever reigns,\nAnd scatters night away. [Refrain]\n\n3 No chilling winds or pois’nous breath\nCan reach that healthful shore;\nSickness and sorrow, pain and death,\nAre felt and feared no more. [Refrain]\n\n4 When shall I reach that happy place\nAnd be forever blest?\nWhen shall I see my Father’s face,\nAnd in God’s bosom rest? [Refrain]".into()
+                text: "1 On Jordan’s stormy banks I stand,\nAnd cast a wishful eye;\nTo Canaan’s fair and happy land,\nWhere my possessions lie.\n\nRefrain:\nI am bound for the promised land,\nI am bound for the promised land;\nOh, who will come and go with me?\nI am bound for the promised land.\n\n2 All o’er those wide-extended plains,\nShines one eternal day;\nThere God the Son forever reigns,\nAnd scatters night away. [Refrain]\n\n3 No chilling winds or pois’nous breath\nCan reach that healthful shore;\nSickness and sorrow, pain and death,\nAre felt and feared no more. [Refrain]\n\n4 When shall I reach that happy place\nAnd be forever blest?\nWhen shall I see my Father’s face,\nAnd in God’s bosom rest? [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -165,7 +174,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nOh! what a beautiful city,\nOh! what a beautiful city,\nOh! what a beautiful city,\nTwelve gates-a to the city, Hallelujah!\n\n1 There’s three gates in-a the East,\nthree gates in-a the West;\nThree gates in-a the North,\nand three gates in-a the South,\nmaking it twelve gates-a to the city, a-Hallelujah. [Refrain]\n\n2 O, my Lord built-a that day,\nthat was just a-fore square;\nwanted all-a you sinners\nto meet Him in-a the air,\n’Cause He built twelve gates-a to the city, a-Hallelujah. [Refrain]".into()
+                text: "Refrain:\nOh! what a beautiful city,\nOh! what a beautiful city,\nOh! what a beautiful city,\nTwelve gates-a to the city, Hallelujah!\n\n1 There’s three gates in-a the East,\nthree gates in-a the West;\nThree gates in-a the North,\nand three gates in-a the South,\nmaking it twelve gates-a to the city, a-Hallelujah. [Refrain]\n\n2 O, my Lord built-a that day,\nthat was just a-fore square;\nwanted all-a you sinners\nto meet Him in-a the air,\n’Cause He built twelve gates-a to the city, a-Hallelujah. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -179,7 +189,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Refrain:\nPrepare ye the way of the Lord.\nPrepare ye the way of the Lord.\n\n1 Make straight in the desert a highway for our God. [Refrain]\n\n2 Fill ev’ry valley, bring all mountains low. [Refrain]\n\n3 Go up to a mountain and shout with a loud voice. [Refrain]\n\n4 Say to all people, here is your God. [Refrain]".into()
+                text: "Refrain:\nPrepare ye the way of the Lord.\nPrepare ye the way of the Lord.\n\n1 Make straight in the desert a highway for our God. [Refrain]\n\n2 Fill ev’ry valley, bring all mountains low. [Refrain]\n\n3 Go up to a mountain and shout with a loud voice. [Refrain]\n\n4 Say to all people, here is your God. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -193,7 +204,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Come, we that love the Lord,\nAnd let our joys be known;\nJoin in a song with sweet accord,\nJoin in a song with sweet accord,\nAnd thus surround the throne,\nAnd thus surround the throne.\n\nRefrain:\nWe’re marching to Zion,\nBeautiful, beautiful Zion;\nWe’re marching upward to Zion,\nThe beautiful city of God.\n\n2 Let those refuse to sing\nWho never knew our God;\nBut children of the heav’nly King,\nBut children of the heav’nly King,\nMay speak their joys abroad,\nMay speak their joys abroad. (refrain)\n\n3 The hill of Zion yields\nA thousand sacred sweets\nBefore we reach the heav’nly fields,\nBefore we reach the heav’nly fields,\nOr walk the golden streets,\nOr walk the golden streets. (refrain)\n\n4 Then let our songs abound,\nAnd ev’ry tear be dry;\nWe’re marching through Immanuel’s ground,\nWe’re marching thro’ Immanuel’s ground,\nTo fairer worlds on high,\nTo fairer worlds on high. (refrain)".into()
+                text: "1 Come, we that love the Lord,\nAnd let our joys be known;\nJoin in a song with sweet accord,\nJoin in a song with sweet accord,\nAnd thus surround the throne,\nAnd thus surround the throne.\n\nRefrain:\nWe’re marching to Zion,\nBeautiful, beautiful Zion;\nWe’re marching upward to Zion,\nThe beautiful city of God.\n\n2 Let those refuse to sing\nWho never knew our God;\nBut children of the heav’nly King,\nBut children of the heav’nly King,\nMay speak their joys abroad,\nMay speak their joys abroad. (refrain)\n\n3 The hill of Zion yields\nA thousand sacred sweets\nBefore we reach the heav’nly fields,\nBefore we reach the heav’nly fields,\nOr walk the golden streets,\nOr walk the golden streets. (refrain)\n\n4 Then let our songs abound,\nAnd ev’ry tear be dry;\nWe’re marching through Immanuel’s ground,\nWe’re marching thro’ Immanuel’s ground,\nTo fairer worlds on high,\nTo fairer worlds on high. (refrain)".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -207,7 +219,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nMy Lord, what a morning,\nMy Lord, what a morning,\nO my Lord, what a morning,\nWhen the stars begin to fall.\n\n1 You’ll hear the trumpet sound,\nTo wake the nations underground,\nLooking to my God’s right hand,\nWhen the stars begin to fall. [Refrain]\n\n2 You’ll hear the sinner mourn,\nTo wake the nations underground,\nLooking to my God’s right hand,\nWhen the stars begin to fall. [Refrain]\n\n3 You’ll hear the Christian shout,\nTo wake the nations underground,\nLooking to my God’s right hand,\nWhen the stars begin to fall. [Refrain]".into()
+                text: "Refrain:\nMy Lord, what a morning,\nMy Lord, what a morning,\nO my Lord, what a morning,\nWhen the stars begin to fall.\n\n1 You’ll hear the trumpet sound,\nTo wake the nations underground,\nLooking to my God’s right hand,\nWhen the stars begin to fall. [Refrain]\n\n2 You’ll hear the sinner mourn,\nTo wake the nations underground,\nLooking to my God’s right hand,\nWhen the stars begin to fall. [Refrain]\n\n3 You’ll hear the Christian shout,\nTo wake the nations underground,\nLooking to my God’s right hand,\nWhen the stars begin to fall. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -221,7 +234,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -235,7 +249,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "".into(),
-                text: "Refrain:\nClimbin’ up d’mountain, children.\nDidn’t come here for to stay.\nIf ah nevermore see you again,\ngonna meet you at d’judgment day\n\n1 Hebrew children in de fiery furnace.\nAnd dey begin to pray,\nAnd de good Lawd smote dat fiyah out.\nOh, wasn’t dat a mighty day!\nGood Lawd, wasn’t dat a mighty day! (refrain)\n\n2 Daniel went in de lion’s den,\nAnd he begin to pray,\nAnd de angel of de Lawd locked de lion’s jaw.\nOh, wasn’t dat a mighty day!\nGood Lawd, wasn’t dat a mighty day! (refrain)".into()
+                text: "Refrain:\nClimbin’ up d’mountain, children.\nDidn’t come here for to stay.\nIf ah nevermore see you again,\ngonna meet you at d’judgment day\n\n1 Hebrew children in de fiery furnace.\nAnd dey begin to pray,\nAnd de good Lawd smote dat fiyah out.\nOh, wasn’t dat a mighty day!\nGood Lawd, wasn’t dat a mighty day! (refrain)\n\n2 Daniel went in de lion’s den,\nAnd he begin to pray,\nAnd de angel of de Lawd locked de lion’s jaw.\nOh, wasn’t dat a mighty day!\nGood Lawd, wasn’t dat a mighty day! (refrain)".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -249,7 +264,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -263,7 +279,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nO Mary, O Martha, O Mary, ring dem bells.\nO Mary, O Martha, O Mary, ring dem bells,\nI hear archangels a rockin’ Jerusalem,\nI hear archangels a ringin’ dem bells.\n\n1 Church gettin’ higher! Rockin’ Jerusalem!\nChurch getting’ higher! ringin’ dem bells. [Refrain]\n\n2 New Jerusalem! Rockin’ Jerusalem!\nNew Jerusalem! ringin’ dem bells. [Refrain]".into()
+                text: "Refrain:\nO Mary, O Martha, O Mary, ring dem bells.\nO Mary, O Martha, O Mary, ring dem bells,\nI hear archangels a rockin’ Jerusalem,\nI hear archangels a ringin’ dem bells.\n\n1 Church gettin’ higher! Rockin’ Jerusalem!\nChurch getting’ higher! ringin’ dem bells. [Refrain]\n\n2 New Jerusalem! Rockin’ Jerusalem!\nNew Jerusalem! ringin’ dem bells. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -277,7 +294,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nSwing low, sweet chariot,\nComing for to carry me home.\nSwing low, sweet chariot,\nComing for to carry me home.\n\n1 I looked over Jordan, and what did I see\nComing for to carry me home.\nA band of angels coming after me,\nComing for to carry me home. [Refrain]\n\n2 If you get there before I do,\nComing for to carry me home.\nTell all my friends I’m coming too,\nComing for to carry me home. [Refrain]\n\n3 The brightest day that ever I saw\nComing for to carry me home.\nWhen Jesus wash’d my sins away,\nComing for to carry me home. (refrain)\n\n4 I’m sometimes up and sometimes down,\nComing for to carry me home.\nBut still my soul feels heavenly bound,\nComing for to carry me home. [Refrain]".into()
+                text: "Refrain:\nSwing low, sweet chariot,\nComing for to carry me home.\nSwing low, sweet chariot,\nComing for to carry me home.\n\n1 I looked over Jordan, and what did I see\nComing for to carry me home.\nA band of angels coming after me,\nComing for to carry me home. [Refrain]\n\n2 If you get there before I do,\nComing for to carry me home.\nTell all my friends I’m coming too,\nComing for to carry me home. [Refrain]\n\n3 The brightest day that ever I saw\nComing for to carry me home.\nWhen Jesus wash’d my sins away,\nComing for to carry me home. (refrain)\n\n4 I’m sometimes up and sometimes down,\nComing for to carry me home.\nBut still my soul feels heavenly bound,\nComing for to carry me home. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -291,7 +309,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "American Folk Song".into(),
-                text: "1 I’m just a poor wayfaring stranger,\nI’m trav’ling through this world below;\nThere is no sickness, toil, nor danger,\nIn that bright world to which I go.\nI’m going there to see my father,\nI’m going there no more to roam;\nI’m just a going over Jordan,\nI’m just a going over home.\n\n2 I know dark clouds will gather o’er me,\nI know my pathway’s rough and steep;\nBut golden fields lie out before me,\nWhere weary eyes no more shall weep.\nI’m going there to see my mother,\nShe said she’d meet me when I come;\nI’m just a going over Jordan,\nI’m just a going over home.\n\n3 I want to sing salvations story,\nIn concert with the blood-washed band;\nI want to wear a crown of glory,\nWhen I get home to that good land.\nI’m going there to see my brothers,\nThey passed before me one by one;\nI’m just a going over Jordan,\nI’m just a going over home.\n\n4 I’ll soon be free from every trial,\nThis form will rest beneath the sod;\nI’ll drop the cross of self-denial,\nAnd enter in my home with God.\nI’m going there to see my Saviour,\nWho shed for me His precious blood;\nI’m just a going over Jordan,\nI’m just a going over home.".into()
+                text: "1 I’m just a poor wayfaring stranger,\nI’m trav’ling through this world below;\nThere is no sickness, toil, nor danger,\nIn that bright world to which I go.\nI’m going there to see my father,\nI’m going there no more to roam;\nI’m just a going over Jordan,\nI’m just a going over home.\n\n2 I know dark clouds will gather o’er me,\nI know my pathway’s rough and steep;\nBut golden fields lie out before me,\nWhere weary eyes no more shall weep.\nI’m going there to see my mother,\nShe said she’d meet me when I come;\nI’m just a going over Jordan,\nI’m just a going over home.\n\n3 I want to sing salvations story,\nIn concert with the blood-washed band;\nI want to wear a crown of glory,\nWhen I get home to that good land.\nI’m going there to see my brothers,\nThey passed before me one by one;\nI’m just a going over Jordan,\nI’m just a going over home.\n\n4 I’ll soon be free from every trial,\nThis form will rest beneath the sod;\nI’ll drop the cross of self-denial,\nAnd enter in my home with God.\nI’m going there to see my Saviour,\nWho shed for me His precious blood;\nI’m just a going over Jordan,\nI’m just a going over home.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -305,7 +324,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Sing the wondrous love of Jesus,\nSing His mercy and His grace;\nIn the mansion bright and blessed,\nHe’ll prepare for us a place.\n\nRefrain:\nWhen we all get to heaven,\nWhat a day of rejoicing that will be!\nWhen we all see Jesus,\nWe’ll sing and shout the victory.\n\n2 While we walk the pilgrim pathway,\nClouds will overspread the sky;\nBut when trav’ling days are over,\nNot a shadow, not a sigh. [Refrain]\n\n3 Let us then be true and faithful,\nTrusting, serving ev’ry day;\nJust one glimpse of Him in glory\nWill the toils of life repay; [Refrain]\n\n4 Onward to the prize before us!\nSoon His beauty we’ll behold;\nSoon the pearly gates will open;\nWe shall tread the streets of gold. [Refrain]".into()
+                text: "1 Sing the wondrous love of Jesus,\nSing His mercy and His grace;\nIn the mansion bright and blessed,\nHe’ll prepare for us a place.\n\nRefrain:\nWhen we all get to heaven,\nWhat a day of rejoicing that will be!\nWhen we all see Jesus,\nWe’ll sing and shout the victory.\n\n2 While we walk the pilgrim pathway,\nClouds will overspread the sky;\nBut when trav’ling days are over,\nNot a shadow, not a sigh. [Refrain]\n\n3 Let us then be true and faithful,\nTrusting, serving ev’ry day;\nJust one glimpse of Him in glory\nWill the toils of life repay; [Refrain]\n\n4 Onward to the prize before us!\nSoon His beauty we’ll behold;\nSoon the pearly gates will open;\nWe shall tread the streets of gold. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -319,7 +339,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nGo, tell it on the mountain\nover the hills and everywhere;\ngo, tell it on the mountain,\nthat Jesus Christ is born.\n\n1 While shepherds kept their watching\no’er silent flocks by night,\nBehold throughout the heavens\nthere shown a holy light. [Refrain]\n\n2 The shepherds feared and trembled,\nwhen lo! above the earth,\nRang out the angel chorus\nthat hailed the Savior’s birth. [Refrain]\n\n3 Down in a lowly manger\nthe humble Christ was born,\nAnd God sent us salvation\nthat blessed Christmas morn. [Refrain]".into()
+                text: "Refrain:\nGo, tell it on the mountain\nover the hills and everywhere;\ngo, tell it on the mountain,\nthat Jesus Christ is born.\n\n1 While shepherds kept their watching\no’er silent flocks by night,\nBehold throughout the heavens\nthere shown a holy light. [Refrain]\n\n2 The shepherds feared and trembled,\nwhen lo! above the earth,\nRang out the angel chorus\nthat hailed the Savior’s birth. [Refrain]\n\n3 Down in a lowly manger\nthe humble Christ was born,\nAnd God sent us salvation\nthat blessed Christmas morn. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -333,7 +354,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Mary borned a baby, Mary borned a baby,\nMary borned a baby, praise His name.\n\nWhat shall we call Him, what shall we call Him,\nwhat shall we call Him? Praise His name!\n\nCall Him Emanuel, call Him Emanuel,\ncall Him Emanuel Praise His name, praise His name.".into()
+                text: "Mary borned a baby, Mary borned a baby,\nMary borned a baby, praise His name.\n\nWhat shall we call Him, what shall we call Him,\nwhat shall we call Him? Praise His name!\n\nCall Him Emanuel, call Him Emanuel,\ncall Him Emanuel Praise His name, praise His name.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -347,7 +369,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -361,7 +384,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 There’s a star in the east on Christmas morn,\nRise up shepherd and follow,\nIt will lead to the place where the Christ was born,\nRise up shepherd and follow.\n\nRefrain:\nFollow, follow,\nRise up shepherd and follow,\nFollow the Star of Bethlehem,\nRise up shepherd and follow.\n\n2 If you take good heed to the angel’s words,\nRise up shepherd and follow,\nYou’ll forget your flocks, you’ll forget your herds,\nRise up shepherd and follow. [Refrain]".into()
+                text: "1 There’s a star in the east on Christmas morn,\nRise up shepherd and follow,\nIt will lead to the place where the Christ was born,\nRise up shepherd and follow.\n\nRefrain:\nFollow, follow,\nRise up shepherd and follow,\nFollow the Star of Bethlehem,\nRise up shepherd and follow.\n\n2 If you take good heed to the angel’s words,\nRise up shepherd and follow,\nYou’ll forget your flocks, you’ll forget your herds,\nRise up shepherd and follow. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -375,7 +399,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "Traditional Malawi melody".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -389,7 +414,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Silent night, holy night,\nAll is calm, all is bright\nRound yon virgin mother and child,\nHoly infant so tender and mild;\nSleep in heavenly peace.\n\n2 Silent night, holy night,\nShepherds quake at the sight,\nGlories stream from heaven afar,\nHeav’nly host sing Alleluia;\nChrist the Savior is born.\n\n3 Silent night, holy night,\nSon of God, loves pure light\nRadiant beams from thy Holy face,\nWith the dawn of redeeming grace;\nJesus, Lord, at thy birth.\n\n4 Silent night, holy night,\nAll is dark save the light\nYonder where thy sweet vigils keep.\nO’er the Babe who in silence sleep;\nRest in heavenly peace.".into()
+                text: "1 Silent night, holy night,\nAll is calm, all is bright\nRound yon virgin mother and child,\nHoly infant so tender and mild;\nSleep in heavenly peace.\n\n2 Silent night, holy night,\nShepherds quake at the sight,\nGlories stream from heaven afar,\nHeav’nly host sing Alleluia;\nChrist the Savior is born.\n\n3 Silent night, holy night,\nSon of God, loves pure light\nRadiant beams from thy Holy face,\nWith the dawn of redeeming grace;\nJesus, Lord, at thy birth.\n\n4 Silent night, holy night,\nAll is dark save the light\nYonder where thy sweet vigils keep.\nO’er the Babe who in silence sleep;\nRest in heavenly peace.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -403,7 +429,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Away in a manger, no crib for a bed,\nThe little Lord Jesus laid down His sweet head.\nThe stars in the sky looked down where He lay,\nThe little Lord Jesus asleep on the hay.\n\n2 The cattle are lowing the Baby awakes,\nBut little Lord Jesus, no crying He makes,\nI love thee, Lord Jesus! Look down from the sky,\nAnd stay by my cradle till morning is nigh.\n\n3 Be near me, Lord Jesus, I ask thee to stay\nClose by me forever, and love me, I pray.\nBless all the dear children in thy tender care,\nAnd fit us for heaven to heaven to live with thee there.".into()
+                text: "1 Away in a manger, no crib for a bed,\nThe little Lord Jesus laid down His sweet head.\nThe stars in the sky looked down where He lay,\nThe little Lord Jesus asleep on the hay.\n\n2 The cattle are lowing the Baby awakes,\nBut little Lord Jesus, no crying He makes,\nI love thee, Lord Jesus! Look down from the sky,\nAnd stay by my cradle till morning is nigh.\n\n3 Be near me, Lord Jesus, I ask thee to stay\nClose by me forever, and love me, I pray.\nBless all the dear children in thy tender care,\nAnd fit us for heaven to heaven to live with thee there.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -417,7 +444,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Down at the cross where my Savior died,\nDown where for cleansing from sin I cried;\nThere to my heart was the blood applied;\nGlory to His name.\n\nRefrain:\nGlory to His name. \nGlory to His name!\nThere to my heart was the blood applied; \nGlory to His name.\n\n2 I am so wondrously saved from sin,\nJesus so sweetly abides within;\nThere at the cross where He took me in; \nGlory to His name. [Refrain]\n\n3 O, precious fountain that saves from sin,\nI am so glad I have entered in;\nThere Jesus saves me and keeps me clean; \nGlory to His name. [Refrain]\n\n4 Come to this fountain so rich and sweet;\nCast your poor soul at the Savior’s feet;\nPlunge in today, and be made complete; \nGlory to His name. [Refrain]".into()
+                text: "1 Down at the cross where my Savior died,\nDown where for cleansing from sin I cried;\nThere to my heart was the blood applied;\nGlory to His name.\n\nRefrain:\nGlory to His name. \nGlory to His name!\nThere to my heart was the blood applied; \nGlory to His name.\n\n2 I am so wondrously saved from sin,\nJesus so sweetly abides within;\nThere at the cross where He took me in; \nGlory to His name. [Refrain]\n\n3 O, precious fountain that saves from sin,\nI am so glad I have entered in;\nThere Jesus saves me and keeps me clean; \nGlory to His name. [Refrain]\n\n4 Come to this fountain so rich and sweet;\nCast your poor soul at the Savior’s feet;\nPlunge in today, and be made complete; \nGlory to His name. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -431,7 +459,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Jesus, keep me near the cross,\nThere’s a precious fountain;\nFree to all, a healing stream\nFlows from Calv’ry’s mountain.\n\n2 In the cross, in the cross\nBe my glory ever;\nTill my raptured soul shall find\nRest beyond the river.\n\n3 Near the cross, a trembling soul,\nLove and mercy found me;\nThere the Bright and Morning Star\nSheds its beams around me.\n\n4 Near the cross! O Lamb of God,\nBring its scenes before me;\nHelp me walk from day to day\nWith its shadows o’er me.\n\n5 Near the cross, I’ll watch and wait,\nHoping, trusting ever,\nTill I reach the golden strand\nJust beyond the river.".into()
+                text: "1 Jesus, keep me near the cross,\nThere’s a precious fountain;\nFree to all, a healing stream\nFlows from Calv’ry’s mountain.\n\n2 In the cross, in the cross\nBe my glory ever;\nTill my raptured soul shall find\nRest beyond the river.\n\n3 Near the cross, a trembling soul,\nLove and mercy found me;\nThere the Bright and Morning Star\nSheds its beams around me.\n\n4 Near the cross! O Lamb of God,\nBring its scenes before me;\nHelp me walk from day to day\nWith its shadows o’er me.\n\n5 Near the cross, I’ll watch and wait,\nHoping, trusting ever,\nTill I reach the golden strand\nJust beyond the river.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -445,7 +474,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Alas! and did my Savior bleed,\nand did my Sov’reign die?\nWould He devote that sacred head\nfor sinners such as I?\n\nRefrain:\nAt the cross, at the cross, where I first saw the light,\nand the burden of my heart rolled away;\nit was there by faith I received my sight,\nand now I am happy all the day.\n\n2 Was it for crimes that I have done,\nHe groaned upon the tree?\nAmazing pity! Grace unknown!\nAnd love beyond degree! (refrain)\n\n3 Well might the sun in darkness hide,\nand shut its glories in;\nwhen God, the mighty maker,\ndied for His own creature’s sin. (refrain)\n\n4 Thus might I hide my blushing face\nwhile His dear cross appears;\ndissolve my heart in thankfulness,\nand melt mine eyes to tears. (refrain)\n\n5 But drops of tears can ne’er repay\nthe debt of love I owe;\nHere, Lord, I give myself away;\n’tis all that I can do. (refrain)".into()
+                text: "1 Alas! and did my Savior bleed,\nand did my Sov’reign die?\nWould He devote that sacred head\nfor sinners such as I?\n\nRefrain:\nAt the cross, at the cross, where I first saw the light,\nand the burden of my heart rolled away;\nit was there by faith I received my sight,\nand now I am happy all the day.\n\n2 Was it for crimes that I have done,\nHe groaned upon the tree?\nAmazing pity! Grace unknown!\nAnd love beyond degree! (refrain)\n\n3 Well might the sun in darkness hide,\nand shut its glories in;\nwhen God, the mighty maker,\ndied for His own creature’s sin. (refrain)\n\n4 Thus might I hide my blushing face\nwhile His dear cross appears;\ndissolve my heart in thankfulness,\nand melt mine eyes to tears. (refrain)\n\n5 But drops of tears can ne’er repay\nthe debt of love I owe;\nHere, Lord, I give myself away;\n’tis all that I can do. (refrain)".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -459,7 +489,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "\n	\n		To view this media, please accept the license agreement:\n\n\n				Hope Publishing: one copy\n						In order to use resources from the Hope Publishing Company, you must reside in the United States or Canada. Hope Publishing Company owns or administers the contents in these territories.\nYou may download one copy of this selection for your own personal use. To make any further copies or to perform the work you must get permission from Hope Publishing Company or belong to and report the copying activity to CCLI, LicenSing or OneLicense.net.  By selecting &quot;I Agree&quot; you are verifying that you reside in the U.S. or Canada and will only legally use this selection.\n\n\n				\n				\n				\n				\n			\n\n".into()
+                text: "\n	\n		To view this media, please accept the license agreement:\n\n\n				Hope Publishing: one copy\n						In order to use resources from the Hope Publishing Company, you must reside in the United States or Canada. Hope Publishing Company owns or administers the contents in these territories.\nYou may download one copy of this selection for your own personal use. To make any further copies or to perform the work you must get permission from Hope Publishing Company or belong to and report the copying activity to CCLI, LicenSing or OneLicense.net.  By selecting &quot;I Agree&quot; you are verifying that you reside in the U.S. or Canada and will only legally use this selection.\n\n\n				\n				\n				\n				\n			\n\n".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -473,7 +504,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spritual".into(),
-                text: "Refrain:\nCalvary, Calvary, Calvary,\nCalvary, Calvary, Calvary,\nSurely He died on Calvary.\n\n1 Ev’ry time I think about Jesus,\nEv’ry time I think about Jesus,\nEv’ry time I think about Jesus,\nSurely He died on Calvary. [Refrain]\n\n2 Don’t you hear the hammer ringing,\nDon’t you hear the hammer ringing,\nDon’t you hear the hammer ringing,\nSurely He died on Calvary. [Refrain]\n\n3 Don’t you hear Him calling His Father?\nDon’t you hear Him calling His Father?\nDon’t you hear Him calling His Father?\nSurely He died on Calvary. [Refrain]\n\n4 Don’t you hear Him say, “It is finished.”\nDon’t you hear Him say, “It is finished.”\nDon’t you hear Him say, “It is finished.”\nSurely He died on Calvary. [Refrain]\n\n5 Jesus furnished my salvation.\nJesus furnished my salvation.\nJesus furnished my salvation.\nSurely He died on Calvary. [Refrain]\n\n6 Sinner do you love my Jesus?\nSinner do you love my Jesus?\nSinner do you love my Jesus?\nSurely He died on Calvary. [Refrain]".into()
+                text: "Refrain:\nCalvary, Calvary, Calvary,\nCalvary, Calvary, Calvary,\nSurely He died on Calvary.\n\n1 Ev’ry time I think about Jesus,\nEv’ry time I think about Jesus,\nEv’ry time I think about Jesus,\nSurely He died on Calvary. [Refrain]\n\n2 Don’t you hear the hammer ringing,\nDon’t you hear the hammer ringing,\nDon’t you hear the hammer ringing,\nSurely He died on Calvary. [Refrain]\n\n3 Don’t you hear Him calling His Father?\nDon’t you hear Him calling His Father?\nDon’t you hear Him calling His Father?\nSurely He died on Calvary. [Refrain]\n\n4 Don’t you hear Him say, “It is finished.”\nDon’t you hear Him say, “It is finished.”\nDon’t you hear Him say, “It is finished.”\nSurely He died on Calvary. [Refrain]\n\n5 Jesus furnished my salvation.\nJesus furnished my salvation.\nJesus furnished my salvation.\nSurely He died on Calvary. [Refrain]\n\n6 Sinner do you love my Jesus?\nSinner do you love my Jesus?\nSinner do you love my Jesus?\nSurely He died on Calvary. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -487,7 +519,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "".into(),
-                text: "1 They crucified my Lord, and He never said a mumbalin’ word;\nThey crucified my Lord, and He never said a mumbalin’ word.\nNot a word, not a word, not a word.\n\n2 They nailed Him to a tree, and He never said a mumbalin’ word;\nThey nailed Him to a tree, and He never said a mumbalin’ word;\nNot a word, not a word, not a word.\n\n3 They pierced Him in the side, and He never said a mumbalin’ word;\nThey pierced Him in the side, and He never said a mumbalin’ word;\nNot a word, not a word, not a word.\n\n4 The blood came streamin’ down, and He never said a mumbalin’ word;\nThe blood came streamin’ down, and He never said a mumbalin’ word;\nNot a word, not a word, not a word.\n\n5 He hung His head and died, and He never said a mumbalin’ word;\nHe hung His head and died, and He never said a mumbalin’ word;\nNot a word, not a word, not a word.".into()
+                text: "1 They crucified my Lord, and He never said a mumbalin’ word;\nThey crucified my Lord, and He never said a mumbalin’ word.\nNot a word, not a word, not a word.\n\n2 They nailed Him to a tree, and He never said a mumbalin’ word;\nThey nailed Him to a tree, and He never said a mumbalin’ word;\nNot a word, not a word, not a word.\n\n3 They pierced Him in the side, and He never said a mumbalin’ word;\nThey pierced Him in the side, and He never said a mumbalin’ word;\nNot a word, not a word, not a word.\n\n4 The blood came streamin’ down, and He never said a mumbalin’ word;\nThe blood came streamin’ down, and He never said a mumbalin’ word;\nNot a word, not a word, not a word.\n\n5 He hung His head and died, and He never said a mumbalin’ word;\nHe hung His head and died, and He never said a mumbalin’ word;\nNot a word, not a word, not a word.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -501,7 +534,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 When on the cross of Calv’ry\nThe Lord was crucified;\nThe mob stood ’round about Him\nAnd mocked until He died.\nTwo thieves were nailed beside Him\nTo share the agony,\nBut one of them cried out to Him,\n“O Lord, remember me.”\n\nRefrain:\nWill the Lord remember me,\nWhen I am called to go?\nWhen I have crossed death’s chilly sea,\nWill He His love there show?\nO yes, He heard my feeble cries,\nFrom bondage set me free.\nAnd when I reach the pearly gates\nHe will remember me.\n\n2 O what a shame to kill Him\nThere on that rugged cross;\nBut such a death was needed\nTo rescue all the lost.\nHis blood was made a ransom\nTo set the captives free,\nI know that I’m included,\nand He will remember me. [Refrain]\n\n3 At His dear feet I’m kneeling.\nMy sins I now confess;\nI bow in deep repentance,\nMy soul He’ll surely bless.\nMy blinded eyes He opens\nSo that the light I see,\nAnd when I reach the pearly gates,\nHe will remember me. [Refrain]".into()
+                text: "1 When on the cross of Calv’ry\nThe Lord was crucified;\nThe mob stood ’round about Him\nAnd mocked until He died.\nTwo thieves were nailed beside Him\nTo share the agony,\nBut one of them cried out to Him,\n“O Lord, remember me.”\n\nRefrain:\nWill the Lord remember me,\nWhen I am called to go?\nWhen I have crossed death’s chilly sea,\nWill He His love there show?\nO yes, He heard my feeble cries,\nFrom bondage set me free.\nAnd when I reach the pearly gates\nHe will remember me.\n\n2 O what a shame to kill Him\nThere on that rugged cross;\nBut such a death was needed\nTo rescue all the lost.\nHis blood was made a ransom\nTo set the captives free,\nI know that I’m included,\nand He will remember me. [Refrain]\n\n3 At His dear feet I’m kneeling.\nMy sins I now confess;\nI bow in deep repentance,\nMy soul He’ll surely bless.\nMy blinded eyes He opens\nSo that the light I see,\nAnd when I reach the pearly gates,\nHe will remember me. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -515,7 +549,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -529,7 +564,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -543,7 +579,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Were you there when they crucified my Lord?\nO! Sometimes it causes me to tremble, tremble, tremble.\nWere you there when they crucified my Lord?\n\n2 Were you there when they nailed Him to the tree?\nO! Sometimes it causes me to tremble, tremble, tremble.\nWere you there when they nailed Him to the tree?\n\n3 Were you there when they laid Him in the tomb?\nO! Sometimes it causes me to tremble, tremble, tremble.\nWere you there when they laid Him in the tomb?\n\n4 Were you there when He rose up from the grave?\nO! Sometimes it causes me to tremble, tremble, tremble.\nWere you there when He rose up from the grave?".into()
+                text: "1 Were you there when they crucified my Lord?\nO! Sometimes it causes me to tremble, tremble, tremble.\nWere you there when they crucified my Lord?\n\n2 Were you there when they nailed Him to the tree?\nO! Sometimes it causes me to tremble, tremble, tremble.\nWere you there when they nailed Him to the tree?\n\n3 Were you there when they laid Him in the tomb?\nO! Sometimes it causes me to tremble, tremble, tremble.\nWere you there when they laid Him in the tomb?\n\n4 Were you there when He rose up from the grave?\nO! Sometimes it causes me to tremble, tremble, tremble.\nWere you there when He rose up from the grave?".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -557,7 +594,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 On a hill far away stood an old rugged cross,\nThe emblem of suff’ring and shame;\nAnd I love that old cross where the dearest and best\nFor a world of lost sinners was slain.\n\nRefrain:\nSo I’ll cherish the cross, the old rugged cross,\nTill my trophies at last I lay down;\nI will cling to the old rugged cross,\nAnd exchange it some day for a crown.\n\n2 Oh, that old rugged cross so despised by the world,\nHas a wondrous attraction for me;\nFor the dear Lamb of God left His glory above,\nTo bear it to dark Calvary. [Refrain]\n\n3 In the old rugged cross, stained with blood so divine,\nA wondrous beauty I see;\nFor ’twas on that old cross Jesus suffered and died,\nTo pardon and sanctify me. [Refrain]\n\n4 To the old rugged cross I will ever be true,\nIts shame and reproach gladly bear;\nThen He’ll call me some day to my home far away,\nWhere His glory forever I’ll share. [Refrain]".into()
+                text: "1 On a hill far away stood an old rugged cross,\nThe emblem of suff’ring and shame;\nAnd I love that old cross where the dearest and best\nFor a world of lost sinners was slain.\n\nRefrain:\nSo I’ll cherish the cross, the old rugged cross,\nTill my trophies at last I lay down;\nI will cling to the old rugged cross,\nAnd exchange it some day for a crown.\n\n2 Oh, that old rugged cross so despised by the world,\nHas a wondrous attraction for me;\nFor the dear Lamb of God left His glory above,\nTo bear it to dark Calvary. [Refrain]\n\n3 In the old rugged cross, stained with blood so divine,\nA wondrous beauty I see;\nFor ’twas on that old cross Jesus suffered and died,\nTo pardon and sanctify me. [Refrain]\n\n4 To the old rugged cross I will ever be true,\nIts shame and reproach gladly bear;\nThen He’ll call me some day to my home far away,\nWhere His glory forever I’ll share. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -571,7 +609,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "American melody".into(),
-                text: "1 There is a fountain filled with blood\nDrawn from Immanuel’s veins;\nAnd sinners, plunged beneath that flood,\nLose all their guilty stains:\nLose all their guilty stains,\nLose all their guilty stains;\nAnd sinners, plunged beneath that flood,\nLose all their guilty stains.\n\n2 The dying thief rejoiced to see\nThat fountain in his day;\nAnd there may I, though vile as he,\nWash all my sins away:\nWash all my sins away,\nWash all my sins away;\nAnd there may I, though vile as he,\nWash all my sins away\n\n3 Thou dying Lamb, Thy precious blood\nShall never lose its pow’r;\nTill all the ransomed Church of God\nAre saved, to sin no more:\nAre saved, to sin no more,\nAre saved to sin no more;\nTill all the ransomed Church of God\nAre saved, to sin no more.\n\n4 E’er since by faith I saw the stream\nThy flowing wounds supply;\nRedeeming love has been my theme,\nAnd shall be till I die:\nAnd shall be till I die,\nAnd shall be till I die,\nRedeeming love has been my theme,\nAnd shall be till I die.\n\n5 Then in a nobler, sweeter song,\nI’ll sing Thy pow’r to save;\nWhen this poor, lisping stamm’ring tongue\nLies silent in the grave:\nLies silent in the grave,\nLies silent in the grave;\nWhen this poor lisping, stamm’ring tongue\nLies silent in the grave.".into()
+                text: "1 There is a fountain filled with blood\nDrawn from Immanuel’s veins;\nAnd sinners, plunged beneath that flood,\nLose all their guilty stains:\nLose all their guilty stains,\nLose all their guilty stains;\nAnd sinners, plunged beneath that flood,\nLose all their guilty stains.\n\n2 The dying thief rejoiced to see\nThat fountain in his day;\nAnd there may I, though vile as he,\nWash all my sins away:\nWash all my sins away,\nWash all my sins away;\nAnd there may I, though vile as he,\nWash all my sins away\n\n3 Thou dying Lamb, Thy precious blood\nShall never lose its pow’r;\nTill all the ransomed Church of God\nAre saved, to sin no more:\nAre saved, to sin no more,\nAre saved to sin no more;\nTill all the ransomed Church of God\nAre saved, to sin no more.\n\n4 E’er since by faith I saw the stream\nThy flowing wounds supply;\nRedeeming love has been my theme,\nAnd shall be till I die:\nAnd shall be till I die,\nAnd shall be till I die,\nRedeeming love has been my theme,\nAnd shall be till I die.\n\n5 Then in a nobler, sweeter song,\nI’ll sing Thy pow’r to save;\nWhen this poor, lisping stamm’ring tongue\nLies silent in the grave:\nLies silent in the grave,\nLies silent in the grave;\nWhen this poor lisping, stamm’ring tongue\nLies silent in the grave.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -585,7 +624,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 They crucified my Savior and nailed him to the tree,\nthey crucified my Savior and nailed him to the tree,\nthey crucified my Savior and nailed him to the tree,\nAnd the Lord will bear my spirit home.\n\nRefrain:\nHe ’rose, He ’rose, He ’rose from the dead!\nHe ’rose, He ’rose se, He ’rose from the dead!\nHe ’rose, He ’rose, He ’rose from the dead!\nand the Lord will bear my spirit home.\n\n2 Then Joseph begged his body and laid it in the tomb,\nthen Joseph begged his body and laid it in the tomb,\nthen Joseph begged his body and laid it in the tomb, \nAnd the Lord will bear my spirit home. [Refrain]\n\n3 Sister Mary, she came running, a looking for my Lord,\nSister Mary, she came running, a looking for my Lord,\nSister Mary, she came running, a looking for my Lord, \nAnd the Lord will bear my spirit home. [Refrain]\n\n4 An angel came from heaven and rolled the stone away,\nan angel came from heaven and rolled the stone away,\nan angel came from heaven and rolled the stone away, \nAnd the Lord will bear my spirit home. [Refrain]".into()
+                text: "1 They crucified my Savior and nailed him to the tree,\nthey crucified my Savior and nailed him to the tree,\nthey crucified my Savior and nailed him to the tree,\nAnd the Lord will bear my spirit home.\n\nRefrain:\nHe ’rose, He ’rose, He ’rose from the dead!\nHe ’rose, He ’rose se, He ’rose from the dead!\nHe ’rose, He ’rose, He ’rose from the dead!\nand the Lord will bear my spirit home.\n\n2 Then Joseph begged his body and laid it in the tomb,\nthen Joseph begged his body and laid it in the tomb,\nthen Joseph begged his body and laid it in the tomb, \nAnd the Lord will bear my spirit home. [Refrain]\n\n3 Sister Mary, she came running, a looking for my Lord,\nSister Mary, she came running, a looking for my Lord,\nSister Mary, she came running, a looking for my Lord, \nAnd the Lord will bear my spirit home. [Refrain]\n\n4 An angel came from heaven and rolled the stone away,\nan angel came from heaven and rolled the stone away,\nan angel came from heaven and rolled the stone away, \nAnd the Lord will bear my spirit home. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -599,7 +639,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Swahili Text".into(),
 				tune_sources: "Tumshandilie Mungu</i>, Makumira, Tanzania; Haya Tune".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -613,7 +654,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -627,7 +669,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -641,7 +684,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -655,7 +699,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -669,7 +714,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -683,7 +729,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<cite>Second Supplement to Psalmody in Miniature,</cite>, c. 1780".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -697,7 +744,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -711,7 +759,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<i>Virginia Harmony</i>, 1831".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -725,7 +774,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "Finnish folk melody".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -739,7 +789,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "African Folk Hymn".into(),
 				tune_sources: "African melody".into(),
-                text: "1 Salamu Maria, ee mama, \nSalamu, salamu Maria, Maria;\n(Hail Mary, Oh mother, \nHail, hail Mary, Mary;)\n\n2 Umejaa neema, ee mama. \nSalamu, salamu Maria, Maria.\n(Full of grace oh mother, \nHail, hail Mary, Mary.)".into()
+                text: "1 Salamu Maria, ee mama, \nSalamu, salamu Maria, Maria;\n(Hail Mary, Oh mother, \nHail, hail Mary, Mary;)\n\n2 Umejaa neema, ee mama. \nSalamu, salamu Maria, Maria.\n(Full of grace oh mother, \nHail, hail Mary, Mary.)".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -753,7 +804,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -767,7 +819,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -781,7 +834,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Nearer, my God, to Thee,\nnearer to Thee!\nE’en though it be a cross\nThat raiseth me;\nStill all my song would be\n\nRefrain:\nNearer, my God, to Thee,\nNearer my God, to Thee,\nNearer to Thee.\n\n2 Though like the wanderer,\nThe sun goes down,\nDarkness be over me,\nMy rest a stone;\nYet in my dreams I’d be [Refrain]\n\n3 There let the way appear,\nSteps unto heav’n;\nAll that Thou sendest me,\nIn mercy giv’n;\nAngels to beckon me (refrain)\n\n4 Then, with my waking thoughts,\nBright with Thy praise,\nOut of my stony griefs,\nBethel I’ll raise;\nSo by my woes to be [Refrain]\n\n5 Or if on joyful wing,\nCleaving the sky,\nSun, moon and stars forgot,\nUpwards I fly,\nStill all my song shall be [Refrain]".into()
+                text: "1 Nearer, my God, to Thee,\nnearer to Thee!\nE’en though it be a cross\nThat raiseth me;\nStill all my song would be\n\nRefrain:\nNearer, my God, to Thee,\nNearer my God, to Thee,\nNearer to Thee.\n\n2 Though like the wanderer,\nThe sun goes down,\nDarkness be over me,\nMy rest a stone;\nYet in my dreams I’d be [Refrain]\n\n3 There let the way appear,\nSteps unto heav’n;\nAll that Thou sendest me,\nIn mercy giv’n;\nAngels to beckon me (refrain)\n\n4 Then, with my waking thoughts,\nBright with Thy praise,\nOut of my stony griefs,\nBethel I’ll raise;\nSo by my woes to be [Refrain]\n\n5 Or if on joyful wing,\nCleaving the sky,\nSun, moon and stars forgot,\nUpwards I fly,\nStill all my song shall be [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -795,7 +849,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 In God we trust, with all our heart and soul,\nIn God we trust to reach our righteous goal,\nEnshrined in Thee\nforever may we be,\nCome what may,\nKeep faith and pray,\nin God we trust, in God we trust,\n\n2 In God we trust, wherever we may roam,\nIn God we trust to bless our land and home,\nThrough all our days\nwe’ll always sing His praise,\nCome what may,\nOur hearts will pray,\nin God we trust, in God we trust.".into()
+                text: "1 In God we trust, with all our heart and soul,\nIn God we trust to reach our righteous goal,\nEnshrined in Thee\nforever may we be,\nCome what may,\nKeep faith and pray,\nin God we trust, in God we trust,\n\n2 In God we trust, wherever we may roam,\nIn God we trust to bless our land and home,\nThrough all our days\nwe’ll always sing His praise,\nCome what may,\nOur hearts will pray,\nin God we trust, in God we trust.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -809,7 +864,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Praise God from whom all blessings flow,\nPraise Him all creatures, here below.\nPraise Him above ye heavenly host.\nPraise Father, Son and Holy Ghost.".into()
+                text: "Praise God from whom all blessings flow,\nPraise Him all creatures, here below.\nPraise Him above ye heavenly host.\nPraise Father, Son and Holy Ghost.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -823,7 +879,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Hymn Tune".into(),
 				tune_sources: "".into(),
-                text: "1 Oh Lord, How perfect is your name.\nIn all the earth great thy fame,\nAbove the heavens thou didst set\nThy glory gracious Lord, and yet\nout of the mouths of babes calls Thee,\nThy strength to still the enemy!\n\n2 When I behold thy heav’ns grand\nThe moon and stars at thy command\nLord, What is man that thou shouldst heed\nhis call or visit his seed,\nNear angels then have fixed steadfast\nthe honor and glory crown His head.".into()
+                text: "1 Oh Lord, How perfect is your name.\nIn all the earth great thy fame,\nAbove the heavens thou didst set\nThy glory gracious Lord, and yet\nout of the mouths of babes calls Thee,\nThy strength to still the enemy!\n\n2 When I behold thy heav’ns grand\nThe moon and stars at thy command\nLord, What is man that thou shouldst heed\nhis call or visit his seed,\nNear angels then have fixed steadfast\nthe honor and glory crown His head.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -837,7 +894,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -851,7 +909,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 I trust in God wherever I may be,\nUpon the land or on the rolling sea;\nFor come what may,\nfrom day to day,\n\nRefrain:\nMy heav’nly Father watches over me.\nI trust in God, I know He cares for me,\nOn mountain bleak or on the stormy sea;\nThough billows roll,\nHe keeps my soul,\nMy heavn’ly Father watches over me.\n\n2 He makes the rose an object of His care,\nHe guides the eagle through the pathless air;\nAnd surely He\nremembers me, [Refrain]\n\n3 I trust in God, for, in the lion’s den,\nOn battlefield, or in the prison pen;\nThrough praise or blame,\nthrough flood or flame, [Refrain]\n\n4 The valley may be dark, the shadows deep,\nBut oh, the shepherd guards His lonely sheep;\nAnd through the gloom,\nHe’ll lead me home, [Refrain]".into()
+                text: "1 I trust in God wherever I may be,\nUpon the land or on the rolling sea;\nFor come what may,\nfrom day to day,\n\nRefrain:\nMy heav’nly Father watches over me.\nI trust in God, I know He cares for me,\nOn mountain bleak or on the stormy sea;\nThough billows roll,\nHe keeps my soul,\nMy heavn’ly Father watches over me.\n\n2 He makes the rose an object of His care,\nHe guides the eagle through the pathless air;\nAnd surely He\nremembers me, [Refrain]\n\n3 I trust in God, for, in the lion’s den,\nOn battlefield, or in the prison pen;\nThrough praise or blame,\nthrough flood or flame, [Refrain]\n\n4 The valley may be dark, the shadows deep,\nBut oh, the shepherd guards His lonely sheep;\nAnd through the gloom,\nHe’ll lead me home, [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -865,7 +924,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "Swedish folk melody".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -879,7 +939,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -893,7 +954,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -907,7 +969,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -921,7 +984,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 I love to tell the story\nOf unseen things above,\nOf Jesus and His glory,\nOf Jesus and His love.\nI love to tell the story,\nBecause I know it’s true;\nIt satisfies my longings\nAs nothing else would do.\n\nRefrain:\nI love to tell the story;\nTwill be my theme in glory.\nTo tell the old, old story\nOf Jesus and His love.\n\n2 I love to tell the story,\nFor those who know it best\nSeem hungering and thirsting\nTo hear it, like the rest.\nAnd when, in scenes of glory,\nI sing the new, new song,\n’Twill be the old, old story\nThat I have loved so long. (refrain)".into()
+                text: "1 I love to tell the story\nOf unseen things above,\nOf Jesus and His glory,\nOf Jesus and His love.\nI love to tell the story,\nBecause I know it’s true;\nIt satisfies my longings\nAs nothing else would do.\n\nRefrain:\nI love to tell the story;\nTwill be my theme in glory.\nTo tell the old, old story\nOf Jesus and His love.\n\n2 I love to tell the story,\nFor those who know it best\nSeem hungering and thirsting\nTo hear it, like the rest.\nAnd when, in scenes of glory,\nI sing the new, new song,\n’Twill be the old, old story\nThat I have loved so long. (refrain)".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -935,7 +999,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -949,7 +1014,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 I must tell Jesus all of my trials;\nI cannot bear these burdens alone,\nIn my distress He kindly will help me,\nHe ever loves and cares for His own.\n\nRefrain:\nI must tell Jesus! I must tell Jesus!\nI cannot bear my burdens alone;\nI must tell Jesus! I must tell Jesus!\nJesus can help me, Jesus alone.\n\n2 I must tell Jesus all of my troubles,\nHe is a kind, compassionate friend;\nIf I but ask Him, He will deliver,\nMake of my troubles quickly an end. [Refrain]\n\n3 Tempted and tried I need a great Savior,\nOne who can help my burdens to bear\nI must tell Jesus, I must tell Jesus;\nHe all my cares and sorrows will share. [Refrain]\n\n4 O how the world to evil allures me!\nO how my heart is tempted to sin!\nI must tell Jesus, and He will help me,\nOver the world the vict’ry win. [Refrain]".into()
+                text: "1 I must tell Jesus all of my trials;\nI cannot bear these burdens alone,\nIn my distress He kindly will help me,\nHe ever loves and cares for His own.\n\nRefrain:\nI must tell Jesus! I must tell Jesus!\nI cannot bear my burdens alone;\nI must tell Jesus! I must tell Jesus!\nJesus can help me, Jesus alone.\n\n2 I must tell Jesus all of my troubles,\nHe is a kind, compassionate friend;\nIf I but ask Him, He will deliver,\nMake of my troubles quickly an end. [Refrain]\n\n3 Tempted and tried I need a great Savior,\nOne who can help my burdens to bear\nI must tell Jesus, I must tell Jesus;\nHe all my cares and sorrows will share. [Refrain]\n\n4 O how the world to evil allures me!\nO how my heart is tempted to sin!\nI must tell Jesus, and He will help me,\nOver the world the vict’ry win. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -963,7 +1029,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Traditional".into(),
-                text: "1 I love the Lord, He heard my cry\nand pitied ev’ry groan.\nLong as I live and troubles rise,\nI’ll hasten to His throne.\n\n2 I love the Lord, He heard my cry\nand pitied ev’ry groan.\nO let my heart no more despair\nwhile I have breath to pray.".into()
+                text: "1 I love the Lord, He heard my cry\nand pitied ev’ry groan.\nLong as I live and troubles rise,\nI’ll hasten to His throne.\n\n2 I love the Lord, He heard my cry\nand pitied ev’ry groan.\nO let my heart no more despair\nwhile I have breath to pray.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -977,7 +1044,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Some folk would rather have houses and land.\nSome folk choose silver and gold.\nThese things they treasure and forget about their soul;\n\nRefrain:\nI’ve decided to make Jesus my choice.\nThe road is rough, the going gets tough,\nand the hills are hard to climb,\nI’ve started out a long time ago,\nthere’s no doubt in my mind;\nI’ve decided to make Jesus my choice.\n\n2 These clothes may be ragged that I’m wearing.\nHeavy is the load that I’m bearing\nThese old burdens that I’m carrying [Refrain]".into()
+                text: "1 Some folk would rather have houses and land.\nSome folk choose silver and gold.\nThese things they treasure and forget about their soul;\n\nRefrain:\nI’ve decided to make Jesus my choice.\nThe road is rough, the going gets tough,\nand the hills are hard to climb,\nI’ve started out a long time ago,\nthere’s no doubt in my mind;\nI’ve decided to make Jesus my choice.\n\n2 These clothes may be ragged that I’m wearing.\nHeavy is the load that I’m bearing\nThese old burdens that I’m carrying [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -991,7 +1059,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 I come to the garden alone,\nWhile the dew is still on the roses;\nAnd the voice I hear, falling on my ear,\nThe Son of God discloses.\n\nRefrain:\nAnd He walks with me, and He talks with me,\nAnd He tells me I am His own,\nAnd the joy we share as we tarry there,\nNone other has ever known.\n\n2 He speaks, and the sound of His voice\nIs so sweet the birds hush their singing;\nAnd the melody that He gave to me\nWithin my heart is ringing. [Refrain]\n\n3 I’d stay in the garden with Him\nThough the night around me be falling;\nBut He bids me go through the voice of woe,\nHis voice to me is calling. [Refrain]".into()
+                text: "1 I come to the garden alone,\nWhile the dew is still on the roses;\nAnd the voice I hear, falling on my ear,\nThe Son of God discloses.\n\nRefrain:\nAnd He walks with me, and He talks with me,\nAnd He tells me I am His own,\nAnd the joy we share as we tarry there,\nNone other has ever known.\n\n2 He speaks, and the sound of His voice\nIs so sweet the birds hush their singing;\nAnd the melody that He gave to me\nWithin my heart is ringing. [Refrain]\n\n3 I’d stay in the garden with Him\nThough the night around me be falling;\nBut He bids me go through the voice of woe,\nHis voice to me is calling. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1005,7 +1074,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 I want Jesus to walk with me;\nI want Jesus to walk with me;\nAll along my pilgrim journey, Lord,\nI want Jesus to walk with me.\n\n2 In my trials, Lord, walk with me;\nIn my trials, Lord, walk with me;\nWhen the shades of life are falling, Lord,\nI want Jesus to walk with me.\n\n3 In my sorrows, Lord, walk with me;\nIn my sorrows, Lord, walk with me;\nWhen my heart within is aching, Lord,\nI want Jesus to walk with me.".into()
+                text: "1 I want Jesus to walk with me;\nI want Jesus to walk with me;\nAll along my pilgrim journey, Lord,\nI want Jesus to walk with me.\n\n2 In my trials, Lord, walk with me;\nIn my trials, Lord, walk with me;\nWhen the shades of life are falling, Lord,\nI want Jesus to walk with me.\n\n3 In my sorrows, Lord, walk with me;\nIn my sorrows, Lord, walk with me;\nWhen my heart within is aching, Lord,\nI want Jesus to walk with me.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1019,7 +1089,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1033,7 +1104,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Anonymous".into(),
 				tune_sources: "American Folk Song".into(),
-                text: "1 I am weak but thou art strong;\nJesus, keep me from all wrong;\nI’ll be satisfied as long\nAs I walk, let me walk close to thee.\n\nRefrain:\nJust a closer walk with thee,\nGrant it, Jesus, is my plea,\nDaily walking close to thee,\nLet it be, dear Lord, let it be.\n\n2 Through this world of toil and snares,\nIf I falter, Lord, who cares?\nWho with me my burden shares?\nNone but thee, dear Lord, none but thee. [Refrain]\n\n3 When my feeble life is o’er,\nTime for me will be no more;\nGuide me gently, safely o’er\nTo Thy kingdom shore, to thy shore. (refrain)".into()
+                text: "1 I am weak but thou art strong;\nJesus, keep me from all wrong;\nI’ll be satisfied as long\nAs I walk, let me walk close to thee.\n\nRefrain:\nJust a closer walk with thee,\nGrant it, Jesus, is my plea,\nDaily walking close to thee,\nLet it be, dear Lord, let it be.\n\n2 Through this world of toil and snares,\nIf I falter, Lord, who cares?\nWho with me my burden shares?\nNone but thee, dear Lord, none but thee. [Refrain]\n\n3 When my feeble life is o’er,\nTime for me will be no more;\nGuide me gently, safely o’er\nTo Thy kingdom shore, to thy shore. (refrain)".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1047,7 +1119,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nIs there anybody here who loves my Jesus?\nAnybody here who loves my Lord?\nI want to know if you love my Jesus;\nI want to know if you love my Lord.\n\n1 This world’s a wilderness of woe,\nSo let us all to glory go. [Refrain]\n\n2 Religion is a blooming rose,\nAnd none but them who feel it know. [Refrain]\n\n3 When I was blind and could not see.\nKing Jesus brought the light to me. [Refrain]\n\n4 When ev’ry star refuses to shine,\nI know King Jesus will be mine. [Refrain]".into()
+                text: "Refrain:\nIs there anybody here who loves my Jesus?\nAnybody here who loves my Lord?\nI want to know if you love my Jesus;\nI want to know if you love my Lord.\n\n1 This world’s a wilderness of woe,\nSo let us all to glory go. [Refrain]\n\n2 Religion is a blooming rose,\nAnd none but them who feel it know. [Refrain]\n\n3 When I was blind and could not see.\nKing Jesus brought the light to me. [Refrain]\n\n4 When ev’ry star refuses to shine,\nI know King Jesus will be mine. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1061,7 +1134,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1075,7 +1149,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1089,7 +1164,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Jesus, Jesus, Jesus in the morning\nJesus in the noontime;\nJesus, Jesus,\nJesus when the sun goes down!\n\n2 Praise Him, Praise Him, Praise Him in the morning\nPraise Him in the noontime;\nPraise Him, Praise Him,\nPraise Him when the sun goes down!\n\n3 Love Him, Love Him, Love Him in the morning\nLove Him in the noontime;\nLove Him, Love Him,\nLove Him when the sun goes down!\n\n4 Serve Him, Serve Him, Serve Him, in the morning\nServe Him in the noontime;\nServe Him, Serve Him,\nServe Him when the sun goes down!\n\n5 Jesus, Jesus, Jesus in the morning\nJesus in the noontime;\nJesus, Jesus,\nJesus when the sun goes down!".into()
+                text: "1 Jesus, Jesus, Jesus in the morning\nJesus in the noontime;\nJesus, Jesus,\nJesus when the sun goes down!\n\n2 Praise Him, Praise Him, Praise Him in the morning\nPraise Him in the noontime;\nPraise Him, Praise Him,\nPraise Him when the sun goes down!\n\n3 Love Him, Love Him, Love Him in the morning\nLove Him in the noontime;\nLove Him, Love Him,\nLove Him when the sun goes down!\n\n4 Serve Him, Serve Him, Serve Him, in the morning\nServe Him in the noontime;\nServe Him, Serve Him,\nServe Him when the sun goes down!\n\n5 Jesus, Jesus, Jesus in the morning\nJesus in the noontime;\nJesus, Jesus,\nJesus when the sun goes down!".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1103,7 +1179,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Jesus is all the world to me,\nMy life, my joy, my all;\nHe is my strength from day to day,\nWithout Him I would fall:\nWhen I am sad, to Him I go.\nNo other one can cheer me so;\nWhen I am sad He makes me glad,\nHe’s my friend.\n\n2 Jesus is all the world to me,\nMy friend in trials sore;\nI go to Him for blessings, and\nHe gives them o’er and o’er;\nHe sends the sunshine and the rain.\nHe sends the harvest’s golden grain.\nSunshine and rain, harvest of grain,\nHe’s my friend.\n\n3 Jesus is all the world to me,\nAnd true to Him I’ll be;\nOh, how could I this friend deny,\nWhen He’s so true to me?\nFollowing Him I know I’m right.\nHe watches o’er me day and night;\nFollowing Him by day and night,\nHe’s my friend.\n\n4 Jesus is all the world to me,\nI want no better friend;\nI trust Him now, I’ll trust Him when\nLife’s fleeting days shall end:\nBeautiful life with such a friend.\nBeautiful life that has no end;\nEternal life, eternal joy,\nHe’s my friend.".into()
+                text: "1 Jesus is all the world to me,\nMy life, my joy, my all;\nHe is my strength from day to day,\nWithout Him I would fall:\nWhen I am sad, to Him I go.\nNo other one can cheer me so;\nWhen I am sad He makes me glad,\nHe’s my friend.\n\n2 Jesus is all the world to me,\nMy friend in trials sore;\nI go to Him for blessings, and\nHe gives them o’er and o’er;\nHe sends the sunshine and the rain.\nHe sends the harvest’s golden grain.\nSunshine and rain, harvest of grain,\nHe’s my friend.\n\n3 Jesus is all the world to me,\nAnd true to Him I’ll be;\nOh, how could I this friend deny,\nWhen He’s so true to me?\nFollowing Him I know I’m right.\nHe watches o’er me day and night;\nFollowing Him by day and night,\nHe’s my friend.\n\n4 Jesus is all the world to me,\nI want no better friend;\nI trust Him now, I’ll trust Him when\nLife’s fleeting days shall end:\nBeautiful life with such a friend.\nBeautiful life that has no end;\nEternal life, eternal joy,\nHe’s my friend.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1117,7 +1194,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "Campmeeting melody".into(),
-                text: "1 Blessed be the name! Blessed be the name!\nBlessed be the name of the Lord!\nBlessed be the name! Blessed be the name!\nBlessed be the name of the Lord!\n\n2 Jesus is the name! Jesus is the name!\nJesus is the name of the Lord!\nJesus is the name! Jesus is the name!\nJesus is the name of the Lord!\n\n3 Worthy to be grand! Worthy to be grand!\nWorthy to be grand is the Lord!\nWorthy to be grand! Worthy to be grand!\nWorthy to be grand is the Lord!".into()
+                text: "1 Blessed be the name! Blessed be the name!\nBlessed be the name of the Lord!\nBlessed be the name! Blessed be the name!\nBlessed be the name of the Lord!\n\n2 Jesus is the name! Jesus is the name!\nJesus is the name of the Lord!\nJesus is the name! Jesus is the name!\nJesus is the name of the Lord!\n\n3 Worthy to be grand! Worthy to be grand!\nWorthy to be grand is the Lord!\nWorthy to be grand! Worthy to be grand!\nWorthy to be grand is the Lord!".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1131,7 +1209,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Jesus, lover of my soul,\nLet me to they bosom fly,\nWhile nearer waters roll,\nWhile tempest still is high;\nHide me, O my Savior, hide,\nTill the storm of life be past;\nSafe into the haven guide,\nO receive my soul at last.\n\n2 Other refuge have I none,\nHangs my helpless soul on thee;\nLeave, ah! Leave me not alone,\nStill support and comfort me!\nAll my trust on thee is stayed;\nAll my help from thee I bring;\nCover my defenseless head\nWith the shadow of thy wing.\n\n3 Plenteous grace with thee is found,\nGrace to cleanse from ev’ry sin;\nLet the healing streams abound,\nMake and keep me pure within.\nThou of life the fountain art,\nFreely let me take of thee:\nSpring thou up within my heart,\nRise to all eternity.".into()
+                text: "1 Jesus, lover of my soul,\nLet me to they bosom fly,\nWhile nearer waters roll,\nWhile tempest still is high;\nHide me, O my Savior, hide,\nTill the storm of life be past;\nSafe into the haven guide,\nO receive my soul at last.\n\n2 Other refuge have I none,\nHangs my helpless soul on thee;\nLeave, ah! Leave me not alone,\nStill support and comfort me!\nAll my trust on thee is stayed;\nAll my help from thee I bring;\nCover my defenseless head\nWith the shadow of thy wing.\n\n3 Plenteous grace with thee is found,\nGrace to cleanse from ev’ry sin;\nLet the healing streams abound,\nMake and keep me pure within.\nThou of life the fountain art,\nFreely let me take of thee:\nSpring thou up within my heart,\nRise to all eternity.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1145,7 +1224,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Jesus, Savior, pilot me,\nOver life’s tempestuous sea:\nUnknown waves before me roll,\nHiding rocks and treach’rous shoal;\nChart and compass come from thee,\nJesus, Savior, pilot me!\n\n2 As a mother stills her child,\nThou canst hush the ocean wild;\nBoist’rous waves obey thy will\nWhen thou say’st to them, “Be still!”\nWondrous Sov’reign of the sea,\nJesus, Savior, pilot me!\n\n3 When at last I near the shore,\nAnd the fearful breakers roar\n’Twixt me and the peaceful rest\nThen, while leaning on thy breast,\nMay I hear thee say to me,\n“Fear not I will pilot thee!”".into()
+                text: "1 Jesus, Savior, pilot me,\nOver life’s tempestuous sea:\nUnknown waves before me roll,\nHiding rocks and treach’rous shoal;\nChart and compass come from thee,\nJesus, Savior, pilot me!\n\n2 As a mother stills her child,\nThou canst hush the ocean wild;\nBoist’rous waves obey thy will\nWhen thou say’st to them, “Be still!”\nWondrous Sov’reign of the sea,\nJesus, Savior, pilot me!\n\n3 When at last I near the shore,\nAnd the fearful breakers roar\n’Twixt me and the peaceful rest\nThen, while leaning on thy breast,\nMay I hear thee say to me,\n“Fear not I will pilot thee!”".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1159,7 +1239,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "Nigerian Folk Song; Harm. from <cite>Songs of Praise</cite>".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1173,7 +1254,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Just when I need Him,\nJesus is near,\nJust when I falter,\njust when I fear;\nReady to help me,\nready to cheer,\nJust when I need Him most.\n\nRefrain:\nJust when I need Him most,\nJust when I need Him most;\nJesus is near to comfort and cheer,\nJust when I need Him most.\n\n2 Just when I need Him,\nJesus is true,\nNever forsaking\nall the way through;\nGiving for burdens\npleasures anew,\nJust when I need Him most. [Refrain]\n\n3 Just when I need Him,\nJesus is strong,\nBearing my burdens\nall the day long;\nFor all my sorrow\ngiving a song,\nJust when I need Him most. [Refrain]\n\n4 Just when I need Him,\nHe is my all,\nAnswering when\nupon Him I call;\nTenderly watching\nlest I should fall,\nJust when I need Him most. [Refrain]".into()
+                text: "1 Just when I need Him,\nJesus is near,\nJust when I falter,\njust when I fear;\nReady to help me,\nready to cheer,\nJust when I need Him most.\n\nRefrain:\nJust when I need Him most,\nJust when I need Him most;\nJesus is near to comfort and cheer,\nJust when I need Him most.\n\n2 Just when I need Him,\nJesus is true,\nNever forsaking\nall the way through;\nGiving for burdens\npleasures anew,\nJust when I need Him most. [Refrain]\n\n3 Just when I need Him,\nJesus is strong,\nBearing my burdens\nall the day long;\nFor all my sorrow\ngiving a song,\nJust when I need Him most. [Refrain]\n\n4 Just when I need Him,\nHe is my all,\nAnswering when\nupon Him I call;\nTenderly watching\nlest I should fall,\nJust when I need Him most. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1187,7 +1269,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1201,7 +1284,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nKing Jesus is a-listenin’ all day long,\nTo hear some sinner pray.\n\n1 That Gospel train is comin’,\nA-rumblin through the lan’\nBut I hear them wheels a-hummin’\nGet ready to board that train! [Refrain]\n\n2 I know I been converted,\nI ain’t gon’ make no alarm,\nFor my soul is bound for glory,\nAnd the devil can’t do me no harm. [Refrain]\n\n3 Some say that John the Baptist\nWas nothin’ but a Jew,\nBut the Holy Bible tells us\nThat John was a preacher too. [Refrain]".into()
+                text: "Refrain:\nKing Jesus is a-listenin’ all day long,\nTo hear some sinner pray.\n\n1 That Gospel train is comin’,\nA-rumblin through the lan’\nBut I hear them wheels a-hummin’\nGet ready to board that train! [Refrain]\n\n2 I know I been converted,\nI ain’t gon’ make no alarm,\nFor my soul is bound for glory,\nAnd the devil can’t do me no harm. [Refrain]\n\n3 Some say that John the Baptist\nWas nothin’ but a Jew,\nBut the Holy Bible tells us\nThat John was a preacher too. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1215,7 +1299,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "Anonymous".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1229,7 +1314,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 If your life in days gone by,\nHas not been good and true,\nIn your own way no longer try,\nBut let Him fix it for you.\n\nRefrain:\nLet Jesus fix it for you,\nHe knows just what to do;\nWhenever you pray, let Him have His way,\nAnd He will fix it for you.\n\n2 Perhaps your temper is to blame,\nFor many wrongs you do,\nTake it to God in Jesus’ name,\nAnd He will fix it for you. [Refrain]\n\n3 If in your home the trouble is,\nThe course you should pursue,\nGo talk with God, your hand in His,\nAnd He will fix it for you. [Refrain]\n\n4 And if some sin your soul hath bound\nWith cords you can’t undo,\nAt Jesus’ feet go lay it down,\nAnd He will fix it for you. [Refrain]\n\n5 Maybe to you the world is dark,\nAnd comforts far and few,\nLet Jesus own and rule your heart,\nAnd He will fix it for you. [Refrain]".into()
+                text: "1 If your life in days gone by,\nHas not been good and true,\nIn your own way no longer try,\nBut let Him fix it for you.\n\nRefrain:\nLet Jesus fix it for you,\nHe knows just what to do;\nWhenever you pray, let Him have His way,\nAnd He will fix it for you.\n\n2 Perhaps your temper is to blame,\nFor many wrongs you do,\nTake it to God in Jesus’ name,\nAnd He will fix it for you. [Refrain]\n\n3 If in your home the trouble is,\nThe course you should pursue,\nGo talk with God, your hand in His,\nAnd He will fix it for you. [Refrain]\n\n4 And if some sin your soul hath bound\nWith cords you can’t undo,\nAt Jesus’ feet go lay it down,\nAnd He will fix it for you. [Refrain]\n\n5 Maybe to you the world is dark,\nAnd comforts far and few,\nLet Jesus own and rule your heart,\nAnd He will fix it for you. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1243,7 +1329,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 More love to thee, O Christ,\nMore love to thee!\nHear thou the prayer I make\nOn bended knee;\nThis is my earnest plea;\n\nRefrain:\nMore love, O Christ, to Thee,\nMore love to thee, More love to thee!\n\n2 Once earthly joy I craved,\nSought peace and rest;\nNow thee alone I seek,\nGive what is best;\nThis all my prayer shall be: [Refrain]\n\n3 Then shall my every breath\nSing out your praise;\nThis be the only song\nMy heart shall raise;\nThis still my prayer shall be: [Refrain]".into()
+                text: "1 More love to thee, O Christ,\nMore love to thee!\nHear thou the prayer I make\nOn bended knee;\nThis is my earnest plea;\n\nRefrain:\nMore love, O Christ, to Thee,\nMore love to thee, More love to thee!\n\n2 Once earthly joy I craved,\nSought peace and rest;\nNow thee alone I seek,\nGive what is best;\nThis all my prayer shall be: [Refrain]\n\n3 Then shall my every breath\nSing out your praise;\nThis be the only song\nMy heart shall raise;\nThis still my prayer shall be: [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1257,7 +1344,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 My faith looks up to thee,\n\nThou lamb of Calvary,\n\nSavior divine!\n\nNow hear me while I pray,\n\nTake all my guilt away;\n\nO let me from this day\n\nBe wholly thine.\n\n2 May thy rich grace impart\n\nStrength to my fainting heart,\n\nMy zeal inspire;\n\nAs thou hast died for me,\n\nO may my love to thee\n\nPure, warm, and changeless be\n\nA living fire.\n\n3 While life’s dark maze I tread,\n\nAnd griefs around me spread,\n\nBe thou my guide;\n\nBid darkness turn today,\n\nWipe sorrow’s tears away;\n\nPure, warm, and changeless be\n\nA living fire.\n\n4 When ends life’s transient dream,\n\nWhen death’s cold, sullen stream\n\nShall o’er me roll;\n\nBlest Savior, then in love,\n\nFear and distrust remove,\n\nO bear me safe above,\n\nA ransomed soul.".into()
+                text: "1 My faith looks up to thee,\n\nThou lamb of Calvary,\n\nSavior divine!\n\nNow hear me while I pray,\n\nTake all my guilt away;\n\nO let me from this day\n\nBe wholly thine.\n\n2 May thy rich grace impart\n\nStrength to my fainting heart,\n\nMy zeal inspire;\n\nAs thou hast died for me,\n\nO may my love to thee\n\nPure, warm, and changeless be\n\nA living fire.\n\n3 While life’s dark maze I tread,\n\nAnd griefs around me spread,\n\nBe thou my guide;\n\nBid darkness turn today,\n\nWipe sorrow’s tears away;\n\nPure, warm, and changeless be\n\nA living fire.\n\n4 When ends life’s transient dream,\n\nWhen death’s cold, sullen stream\n\nShall o’er me roll;\n\nBlest Savior, then in love,\n\nFear and distrust remove,\n\nO bear me safe above,\n\nA ransomed soul.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1271,7 +1359,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 My Jesus, I love thee, I know thou art mine,\n\nFor thee all the follies of sin I resign;\n\nMy gracious Redeemer, my Savior are thou:\n\nIf ever I loved thee, my Jesus, ’tis now.\n\n2 I love thee because thou hast first loved me,\n\nAnd purchased my pardon on Calvary’s tree,\n\nI love thee for wearing the thorns on thy brow:\n\nI ever I loved thee, my Jesus, ’tis now.\n\n3 I’ll love thee in life, I will love thee in death,\n\nAnd praise thee as long as thou lendest me breath;\n\nAnd say when the death-dew lies cold on my brow,\n\n“If ever I loved thee, my Jesus, ’tis now.”\n\n4 In mansions of glory and endless delight,\n\nI’ll ever adore thee in heaven so bright;\n\nI’ll sing with the glittering crown on my brow,\n\n“If ever I loved thee, my Jesus, ’tis now.”".into()
+                text: "1 My Jesus, I love thee, I know thou art mine,\n\nFor thee all the follies of sin I resign;\n\nMy gracious Redeemer, my Savior are thou:\n\nIf ever I loved thee, my Jesus, ’tis now.\n\n2 I love thee because thou hast first loved me,\n\nAnd purchased my pardon on Calvary’s tree,\n\nI love thee for wearing the thorns on thy brow:\n\nI ever I loved thee, my Jesus, ’tis now.\n\n3 I’ll love thee in life, I will love thee in death,\n\nAnd praise thee as long as thou lendest me breath;\n\nAnd say when the death-dew lies cold on my brow,\n\n“If ever I loved thee, my Jesus, ’tis now.”\n\n4 In mansions of glory and endless delight,\n\nI’ll ever adore thee in heaven so bright;\n\nI’ll sing with the glittering crown on my brow,\n\n“If ever I loved thee, my Jesus, ’tis now.”".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1285,7 +1374,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 There’s not a friend like the lowly Jesus,\nNo, not one! no, not one!\nNone else could heal all our soul’s diseases,\nNo, not one! no, not one!\n\nRefrain:\nJesus knows all about our struggles,\nHe will guide till the day is done;\nThere’s not a friend like the lowly Jesus,\nNo, not one! no, not one!\n\n2 No friend like Him is so high and holy,\nNo, not one! no, not one!\nAnd yet no friend is so meek and lowly,\nNo, not one! no, not one! [Refrain]\n\n3 There’s not an hour that He is not near us,\nNo, not one! no, not one!\nNo night so dark but His Love can cheer us,\nNo, not one! no, not one! [Refrain]\n\n4 Did ever saint find this Friend forsake Him?\nNo, not one! no, not one!\nOr sinner find that He would not take him?\nNo, not one! no, not one! [Refrain]\n\n5 Was e’er a gift like the Savior given?\nNo, not one! no, not one!\nWill He refuse us a home in heaven?\nNo, not one! no, not one! [Refrain]".into()
+                text: "1 There’s not a friend like the lowly Jesus,\nNo, not one! no, not one!\nNone else could heal all our soul’s diseases,\nNo, not one! no, not one!\n\nRefrain:\nJesus knows all about our struggles,\nHe will guide till the day is done;\nThere’s not a friend like the lowly Jesus,\nNo, not one! no, not one!\n\n2 No friend like Him is so high and holy,\nNo, not one! no, not one!\nAnd yet no friend is so meek and lowly,\nNo, not one! no, not one! [Refrain]\n\n3 There’s not an hour that He is not near us,\nNo, not one! no, not one!\nNo night so dark but His Love can cheer us,\nNo, not one! no, not one! [Refrain]\n\n4 Did ever saint find this Friend forsake Him?\nNo, not one! no, not one!\nOr sinner find that He would not take him?\nNo, not one! no, not one! [Refrain]\n\n5 Was e’er a gift like the Savior given?\nNo, not one! no, not one!\nWill He refuse us a home in heaven?\nNo, not one! no, not one! [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1299,7 +1389,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 In the morning when I rise,\nIn the morning when I rise,\nIn the morning when I rise,\nGive me Jesus.\n\nRefrain:\nGive me Jesus, Give me Jesus,\nYou may have all this world,\nGive me Jesus.\n\n2 Dark midnight was my cry,\nDark midnight was my cry,\nDark midnight was my cry.\nGive me Jesus. [Refrain]\n\n3 O when I come to die,\nO when I come to die,\nO when I come to die,\nGive me Jesus. [Refrain]".into()
+                text: "1 In the morning when I rise,\nIn the morning when I rise,\nIn the morning when I rise,\nGive me Jesus.\n\nRefrain:\nGive me Jesus, Give me Jesus,\nYou may have all this world,\nGive me Jesus.\n\n2 Dark midnight was my cry,\nDark midnight was my cry,\nDark midnight was my cry.\nGive me Jesus. [Refrain]\n\n3 O when I come to die,\nO when I come to die,\nO when I come to die,\nGive me Jesus. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1313,7 +1404,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Nothing between my soul and the Savior,\nNaught of this world’s delusive dreams;\nI have renounced all sinful pleasure,\nJesus is mine, There’s nothing between.\n\nRefrain:\nNothing between my soul and the Savior,\nSo that His blessed face may be seen;\nNothing preventing the least of His favor,\nKeep the way clear! Let nothing between.\n\n2 Nothing between like worldly pleasure,\nHabits of life though harmless they seem,\nMust not my heart from Him ever sever,\nHe is my all! There’s nothing between. [Refrain]\n\n3 Nothing between like pride or station:\nSelf or friends shall not intervene;\nThough it may cost me much tribulation,\nI am resolved! There’s nothing between. [Refrain]\n\n4 Nothing between e’en many hard trials,\nThough the whole world against me convene;\nWatching with prayer and much self denial.\nTriumph at last, with nothing between. (refrain)".into()
+                text: "1 Nothing between my soul and the Savior,\nNaught of this world’s delusive dreams;\nI have renounced all sinful pleasure,\nJesus is mine, There’s nothing between.\n\nRefrain:\nNothing between my soul and the Savior,\nSo that His blessed face may be seen;\nNothing preventing the least of His favor,\nKeep the way clear! Let nothing between.\n\n2 Nothing between like worldly pleasure,\nHabits of life though harmless they seem,\nMust not my heart from Him ever sever,\nHe is my all! There’s nothing between. [Refrain]\n\n3 Nothing between like pride or station:\nSelf or friends shall not intervene;\nThough it may cost me much tribulation,\nI am resolved! There’s nothing between. [Refrain]\n\n4 Nothing between e’en many hard trials,\nThough the whole world against me convene;\nWatching with prayer and much self denial.\nTriumph at last, with nothing between. (refrain)".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1327,7 +1419,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1341,7 +1434,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 O holy Savior! friend unseen,\n\nSince on thine arm thou bid’st me lean,\n\nHelp me, throughout life’s changing scene,\n\nBy faith to cling to thee.\n\n2 What though the world deceitful prove,\n\nAnd earthly friends and joys remove?\n\nWith patient uncomplaining love,\n\nStill I would cling to thee.\n\n3 Though faith and hope a while be tried,\n\nI ask not, need not aught beside:\n\nHow safe, how calm, how satisfied,\n\nThe souls that cling to thee.".into()
+                text: "1 O holy Savior! friend unseen,\n\nSince on thine arm thou bid’st me lean,\n\nHelp me, throughout life’s changing scene,\n\nBy faith to cling to thee.\n\n2 What though the world deceitful prove,\n\nAnd earthly friends and joys remove?\n\nWith patient uncomplaining love,\n\nStill I would cling to thee.\n\n3 Though faith and hope a while be tried,\n\nI ask not, need not aught beside:\n\nHow safe, how calm, how satisfied,\n\nThe souls that cling to thee.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1355,7 +1449,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "American melody".into(),
-                text: "1 There is a name I love to hear,\nI love to sing its worth;\nIt sounds like music in mine ear,\nThe sweetest name on earth.\n\nRefrain:\nO how I love Jesus,\nBecause He first loved me!\n\n2 It tells me of a Savior’s love,\nWho died to set me free;\nIt tells me of His precious blood,\nThe sinner’s perfect plea. [Refrain]\n\n3 It tells me what my Father hath\nIn store for ev’ry day,\nAnd though I tread a darksome path,\nYields sunshine all the way. [Refrain]\n\n4 It tells of one whose loving heart\nCan feel my deepest woe,\nWho in each sorrow bears a part,\nThat none can bear below. [Refrain]".into()
+                text: "1 There is a name I love to hear,\nI love to sing its worth;\nIt sounds like music in mine ear,\nThe sweetest name on earth.\n\nRefrain:\nO how I love Jesus,\nBecause He first loved me!\n\n2 It tells me of a Savior’s love,\nWho died to set me free;\nIt tells me of His precious blood,\nThe sinner’s perfect plea. [Refrain]\n\n3 It tells me what my Father hath\nIn store for ev’ry day,\nAnd though I tread a darksome path,\nYields sunshine all the way. [Refrain]\n\n4 It tells of one whose loving heart\nCan feel my deepest woe,\nWho in each sorrow bears a part,\nThat none can bear below. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1369,7 +1464,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nHe is King of kings,\nHe is Lord of Lords;\nJesus Christ, the first and last\nno man works like Him.\n\n1 He built his throne up in the air\nno man works like Him;\nAnd called the saints from ev’erwhere\nno man works like Him. [Refrain]\n\n2 I was but young when I begun\nno man works like Him;\nBut now my race is almost won\nno man works like Him. [Refrain]".into()
+                text: "Refrain:\nHe is King of kings,\nHe is Lord of Lords;\nJesus Christ, the first and last\nno man works like Him.\n\n1 He built his throne up in the air\nno man works like Him;\nAnd called the saints from ev’erwhere\nno man works like Him. [Refrain]\n\n2 I was but young when I begun\nno man works like Him;\nBut now my race is almost won\nno man works like Him. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1383,7 +1479,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nRide on, King Jesus,\nNo man can-a hinder me.\nRide on King Jesus ride on\nno man can-a hinder me\n\n1 King Jesus rides a milk-white horse,\nNo man works like Him,\nDe river Jord’n He did cross\nno man works like Him. Oh [Refrain]\n\n2 I know that my redeemer lives,\nNo man works like Him,\nAnd of His blessing freely gives,\nno man works like Him. Oh [Refrain]".into()
+                text: "Refrain:\nRide on, King Jesus,\nNo man can-a hinder me.\nRide on King Jesus ride on\nno man can-a hinder me\n\n1 King Jesus rides a milk-white horse,\nNo man works like Him,\nDe river Jord’n He did cross\nno man works like Him. Oh [Refrain]\n\n2 I know that my redeemer lives,\nNo man works like Him,\nAnd of His blessing freely gives,\nno man works like Him. Oh [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1397,7 +1494,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1411,7 +1509,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 My hope is built on nothing less\nThan Jesus’ blood and righteousness;\nI dare not trust the sweetest frame,\nBut wholly lean on Jesus’ name.\n\nRefrain:\nOn Christ, the solid Rock, I stand,\nAll other ground is sinking sand.\n\n2 When darkness veils His lovely face,\nI rest on His unchanging grace;\nIn ev’ry high and stormy gale,\nMy anchor holds within the veil. [Refrain]\n\n3 His oath, His covenant and blood,\nSupport me in the whelming flood;\nWhen all around my soul gives way,\nhe then is all my hope and stay. [Refrain]\n\n4 When He shall come with trumpet sound,\nO may I then in Him be found;\nDressed in His righteousness alone,\nFaultless to stand before the throne. [Refrain]".into()
+                text: "1 My hope is built on nothing less\nThan Jesus’ blood and righteousness;\nI dare not trust the sweetest frame,\nBut wholly lean on Jesus’ name.\n\nRefrain:\nOn Christ, the solid Rock, I stand,\nAll other ground is sinking sand.\n\n2 When darkness veils His lovely face,\nI rest on His unchanging grace;\nIn ev’ry high and stormy gale,\nMy anchor holds within the veil. [Refrain]\n\n3 His oath, His covenant and blood,\nSupport me in the whelming flood;\nWhen all around my soul gives way,\nhe then is all my hope and stay. [Refrain]\n\n4 When He shall come with trumpet sound,\nO may I then in Him be found;\nDressed in His righteousness alone,\nFaultless to stand before the throne. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1425,7 +1524,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nSomebody’s knockin’ at your door\nSomebody’s knockin’ at your door;\nO sinner, why don’t you answer?\nSomebody’s knockin’ at your door.\n\n1 Knocks like Jesus,\nSomebody’s knockin’ at your door;\nKnocks like Jesus.\nSomebody’s knockin’ at your door;\nO sinner why don’t you answer?\nSomebody’s knockin’ at your door. [Refrain]\n\n2 Can’t you hear Him?\nSomebody’s knockin’ at your door;\nCan’t you hear Him?\nSomebody’s knockin’ at your door;\nO sinner why don’t you answer?\nSomebody’s knockin’ at your door [Refrain]\n\n3 Jesus calls you,\nSomebody’s knockin’ at your door;\nJesus calls you,\nSomebody’s knockin’ at your door;\nO sinner why don’t you answer?\nSomebody’s knockin’ at your door [Refrain]\n\n4 Can’t you trust Him?\nSomebody’s knockin’ at your door;\nCan’t you trust Him?\nSomebody’s knockin’ at your door;\nO sinner why don’t you answer?\nSomebody’s knockin’ at your door [Refrain]".into()
+                text: "Refrain:\nSomebody’s knockin’ at your door\nSomebody’s knockin’ at your door;\nO sinner, why don’t you answer?\nSomebody’s knockin’ at your door.\n\n1 Knocks like Jesus,\nSomebody’s knockin’ at your door;\nKnocks like Jesus.\nSomebody’s knockin’ at your door;\nO sinner why don’t you answer?\nSomebody’s knockin’ at your door. [Refrain]\n\n2 Can’t you hear Him?\nSomebody’s knockin’ at your door;\nCan’t you hear Him?\nSomebody’s knockin’ at your door;\nO sinner why don’t you answer?\nSomebody’s knockin’ at your door [Refrain]\n\n3 Jesus calls you,\nSomebody’s knockin’ at your door;\nJesus calls you,\nSomebody’s knockin’ at your door;\nO sinner why don’t you answer?\nSomebody’s knockin’ at your door [Refrain]\n\n4 Can’t you trust Him?\nSomebody’s knockin’ at your door;\nCan’t you trust Him?\nSomebody’s knockin’ at your door;\nO sinner why don’t you answer?\nSomebody’s knockin’ at your door [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1439,7 +1539,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Softly and tenderly Jesus is calling,\nCalling for you and for me;\nSee, on the portals He’s waiting and watching,\nWatching for you and for me.\n\nRefrain:\nCome home,(Come home,) come home, (come home,)\nYe who are weary, come home!\nEarnestly, tenderly, Jesus is calling,\nCalling, O sinner, come home!\n\n2 Why should we tarry when Jesus is pleading,\nPleading for you and for me?\nWhy should we linger and heed not His mercies,\nMercies for you and for me? (refrain)\n\n3 Time is now fleeting, the moments are passing,\nPassing for you and for me;\nShadows are gathering, death beds are coming,\nComing for you and for me. [Refrain]\n\n4 Oh! For the wonderful love He has promised,\nPromised for you and for me;\nThough we have sinned, He has mercy and pardon,\nPardon for you and for me. [Refrain]".into()
+                text: "1 Softly and tenderly Jesus is calling,\nCalling for you and for me;\nSee, on the portals He’s waiting and watching,\nWatching for you and for me.\n\nRefrain:\nCome home,(Come home,) come home, (come home,)\nYe who are weary, come home!\nEarnestly, tenderly, Jesus is calling,\nCalling, O sinner, come home!\n\n2 Why should we tarry when Jesus is pleading,\nPleading for you and for me?\nWhy should we linger and heed not His mercies,\nMercies for you and for me? (refrain)\n\n3 Time is now fleeting, the moments are passing,\nPassing for you and for me;\nShadows are gathering, death beds are coming,\nComing for you and for me. [Refrain]\n\n4 Oh! For the wonderful love He has promised,\nPromised for you and for me;\nThough we have sinned, He has mercy and pardon,\nPardon for you and for me. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1453,7 +1554,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1467,7 +1569,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nSteal away, steal away,\nsteal away to Jesus!\nSteal away, steal away home,\nI ain’t got long to stay here!\n\n1 My Lord calls me,\nHe calls me by the thunder;\nThe trumpet sounds within-a my soul,\nI ain’t got long to stay here. [Refrain]\n\n2 Green trees are bending,\nPoor sinner stands a-trembling;\nThe trumpet sounds within-a my soul,\nI ain’t got long to stay here. [Refrain]\n\n3 Tomb stones are bursting,\nPoor sinner stands a-trembling;\nThe trumpet sounds within-a my soul,\nI ain’t got long to stay here. [Refrain]\n\n4 My Lord calls me,\nHe calls me by the lightning,\nThe trumpet sounds within-a my soul,\nI ain’t got long to stay here. [Refrain]".into()
+                text: "Refrain:\nSteal away, steal away,\nsteal away to Jesus!\nSteal away, steal away home,\nI ain’t got long to stay here!\n\n1 My Lord calls me,\nHe calls me by the thunder;\nThe trumpet sounds within-a my soul,\nI ain’t got long to stay here. [Refrain]\n\n2 Green trees are bending,\nPoor sinner stands a-trembling;\nThe trumpet sounds within-a my soul,\nI ain’t got long to stay here. [Refrain]\n\n3 Tomb stones are bursting,\nPoor sinner stands a-trembling;\nThe trumpet sounds within-a my soul,\nI ain’t got long to stay here. [Refrain]\n\n4 My Lord calls me,\nHe calls me by the lightning,\nThe trumpet sounds within-a my soul,\nI ain’t got long to stay here. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1481,7 +1584,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 The Lord is my Shepherd, no want shall I know;\n\nI feed in green pastures, safe-folded I rest;\n\nHe leadeth my soul where the still waters flow,\n\nRestores me when wand’ring, redeems when oppressed.\n\n2 Through the valley and shadow my death though I stray,\n\nSince thou art my guardian, no evil I fear;\n\nThy rod shall defend me, thy staff be my stay;\n\nNo harm can befall, with my comforter near.\n\n3 In the midst of affliction my table is spread;\n\nWith blessings unmeasured my cup runneth o’er;\n\nWith perfume and oil thou anointest my head;\n\nO what shall I ask of thy providence more?\n\n4 Let goodness and mercy, my bountiful God,\n\nStill follow my steps till I meet Thee above;\n\nI seek by the path which my ancestors trod,\n\nThrough the land of their sojourn, thy kingdom of love.".into()
+                text: "1 The Lord is my Shepherd, no want shall I know;\n\nI feed in green pastures, safe-folded I rest;\n\nHe leadeth my soul where the still waters flow,\n\nRestores me when wand’ring, redeems when oppressed.\n\n2 Through the valley and shadow my death though I stray,\n\nSince thou art my guardian, no evil I fear;\n\nThy rod shall defend me, thy staff be my stay;\n\nNo harm can befall, with my comforter near.\n\n3 In the midst of affliction my table is spread;\n\nWith blessings unmeasured my cup runneth o’er;\n\nWith perfume and oil thou anointest my head;\n\nO what shall I ask of thy providence more?\n\n4 Let goodness and mercy, my bountiful God,\n\nStill follow my steps till I meet Thee above;\n\nI seek by the path which my ancestors trod,\n\nThrough the land of their sojourn, thy kingdom of love.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1495,7 +1599,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 I’m so glad Jesus lifted me\nI'm so glad Jesus lifted me\nI'm so glad Jesus lifted me\nsinging glory Hallelujah Jesus lifted me.\n\n2 Satan had me bound Jesus lifted me\nSatan had me bound Jesus lifted me\nSatan hand me bound Jesus lifted me\nsinging glory Hallelujah Jesus lifted me\n\n3 When I was in sin Jesus lifted me\nWhen I was in sin Jesus lifted me\nWhen I was in sin Jesus lifted me\nsinging glory Hallelujah Jesus lifted me.".into()
+                text: "1 I’m so glad Jesus lifted me\nI'm so glad Jesus lifted me\nI'm so glad Jesus lifted me\nsinging glory Hallelujah Jesus lifted me.\n\n2 Satan had me bound Jesus lifted me\nSatan had me bound Jesus lifted me\nSatan hand me bound Jesus lifted me\nsinging glory Hallelujah Jesus lifted me\n\n3 When I was in sin Jesus lifted me\nWhen I was in sin Jesus lifted me\nWhen I was in sin Jesus lifted me\nsinging glory Hallelujah Jesus lifted me.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1509,7 +1614,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1523,7 +1629,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1537,7 +1644,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 ’Tis so sweet to trust in Jesus,\nJust to take Him at His word.\nJust to rest upon His promise,\nJust to know, “Thus saith the Lord.”\n\nRefrain:\nJesus, Jesus, how I trust Him!\nHow I’ve proved Him o’er and o’er!\nJesus, Jesus, precious Jesus!\nO for grace to trust Him more!\n\n2 O how sweet to trust in Jesus,\nJust to trust His cleansing blood.\nJust in simple faith to plunge me\n’Neath the healing, cleansing flood! [Refrain]\n\n3 Yes, ’tis sweet to trust in Jesus,\nJust from sin and self to cease.\nJust from Jesus simply taking\nLife and rest and joy and peace. [Refrain]\n\n4 I’m so glad I learned to trust thee,\nPrecious Jesus, Savior, Friend;\nAnd I know that thou art with me,\nWilt be with me to the end. [Refrain]".into()
+                text: "1 ’Tis so sweet to trust in Jesus,\nJust to take Him at His word.\nJust to rest upon His promise,\nJust to know, “Thus saith the Lord.”\n\nRefrain:\nJesus, Jesus, how I trust Him!\nHow I’ve proved Him o’er and o’er!\nJesus, Jesus, precious Jesus!\nO for grace to trust Him more!\n\n2 O how sweet to trust in Jesus,\nJust to trust His cleansing blood.\nJust in simple faith to plunge me\n’Neath the healing, cleansing flood! [Refrain]\n\n3 Yes, ’tis sweet to trust in Jesus,\nJust from sin and self to cease.\nJust from Jesus simply taking\nLife and rest and joy and peace. [Refrain]\n\n4 I’m so glad I learned to trust thee,\nPrecious Jesus, Savior, Friend;\nAnd I know that thou art with me,\nWilt be with me to the end. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1551,7 +1659,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 What a friend we have in Jesus,\n\nAll our sins and griefs to bear!\n\nWhat a privilege to carry\n\nEv’rything to God in prayer!\n\nOh, what peace we often forfeit,\n\nOh, what needless pain we bear,\n\nAll because we do not carry\n\nEv’rything to God in prayer!\n\n2 Have we trials and temptations?\n\nIs there trouble anywhere?\n\nWe should never be discouraged,\n\nTake it to the Lord in prayer.\n\nCan we find a friend so faithful\n\nwho will all our sorrows share?\n\nJesus knows our ev’ry weakness,\n\nTake it to the Lord in prayer.\n\n3 Are we weak and heavy laden,\n\nCumbered with a load of care?\n\nPrecious Savior, still our refuge,\n\nTake it to the Lord in Prayer.\n\nDo thy friends despise, forsake thee?\n\nTake it to the Lord in Prayer.\n\nIn his arms He’ll take and shield thee,\n\nThou wilt find a solace there.".into()
+                text: "1 What a friend we have in Jesus,\n\nAll our sins and griefs to bear!\n\nWhat a privilege to carry\n\nEv’rything to God in prayer!\n\nOh, what peace we often forfeit,\n\nOh, what needless pain we bear,\n\nAll because we do not carry\n\nEv’rything to God in prayer!\n\n2 Have we trials and temptations?\n\nIs there trouble anywhere?\n\nWe should never be discouraged,\n\nTake it to the Lord in prayer.\n\nCan we find a friend so faithful\n\nwho will all our sorrows share?\n\nJesus knows our ev’ry weakness,\n\nTake it to the Lord in prayer.\n\n3 Are we weak and heavy laden,\n\nCumbered with a load of care?\n\nPrecious Savior, still our refuge,\n\nTake it to the Lord in Prayer.\n\nDo thy friends despise, forsake thee?\n\nTake it to the Lord in Prayer.\n\nIn his arms He’ll take and shield thee,\n\nThou wilt find a solace there.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1565,7 +1674,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "".into(),
-                text: "Refrain:\nYou hear the lambs a-cryin’,\nhear the lambs a-cryin’,\nhear the lambs a-cryin’\nO Shepherd, feed my sheep.\n\n1 My Savior spoke these words so sweet,\nO Shepherd, feed my sheep.\nsayin’ Peter, if you love me, feed my sheep.”\nO Shepherd, feed my sheep. [Refrain]\n\n2 O Lord, I love thee, thou dost know;\nO Shepherd, feed my sheep.\nO give me grace to love thee more.\nO Shepherd, feed my sheep. [Refrain]\n\n3 O wasn’t that an awful shame?\nO Shepherd, feed my sheep.\nHe hung three hours in mortal pain.\nO Shepherd, feed my sheep. [Refrain]".into()
+                text: "Refrain:\nYou hear the lambs a-cryin’,\nhear the lambs a-cryin’,\nhear the lambs a-cryin’\nO Shepherd, feed my sheep.\n\n1 My Savior spoke these words so sweet,\nO Shepherd, feed my sheep.\nsayin’ Peter, if you love me, feed my sheep.”\nO Shepherd, feed my sheep. [Refrain]\n\n2 O Lord, I love thee, thou dost know;\nO Shepherd, feed my sheep.\nO give me grace to love thee more.\nO Shepherd, feed my sheep. [Refrain]\n\n3 O wasn’t that an awful shame?\nO Shepherd, feed my sheep.\nHe hung three hours in mortal pain.\nO Shepherd, feed my sheep. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1579,7 +1689,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<i>A Repository of Sacred Music, Part II</i>, 1813, melody from; <i>Songs of Praise</i>, harmony from".into(),
-                text: "1 Come, Thou fount of every blessing,\n\nTune my heart to sing thy grace;\n\nStreams of mercy never ceasing,\n\nCall for songs of loudest praise.\n\nTeach me some melodious sonnet,\n\nSung by flaming tongues above.\n\nPraise the mount, O fix me on it.\n\nMount of God’s unchanging love.\n\n2 Here I raise my Ebenezer,\n\nHither by thy help I’m come;\n\nAnd I hope, by thy good pleasure,\n\nSurely to arrive at home.\n\nJesus sought me when a stranger,\n\nWand’ring from the fold of God.\n\nHe, to save my soul from danger,\n\nInterposed His precious blood.\n\n3 O, to grace how great a debtor,\n\nDaily I’m constrained to be;\n\nLet that grace, Lord, like a fetter,\n\nBind my wand’ring heart to Thee.\n\nProne to wander, Lord, I feel it,\n\nProne to leave the God I love.\n\nHere’s my heart, Lord, take and seal it,\n\nSeal it from thy courts above.".into()
+                text: "1 Come, Thou fount of every blessing,\n\nTune my heart to sing thy grace;\n\nStreams of mercy never ceasing,\n\nCall for songs of loudest praise.\n\nTeach me some melodious sonnet,\n\nSung by flaming tongues above.\n\nPraise the mount, O fix me on it.\n\nMount of God’s unchanging love.\n\n2 Here I raise my Ebenezer,\n\nHither by thy help I’m come;\n\nAnd I hope, by thy good pleasure,\n\nSurely to arrive at home.\n\nJesus sought me when a stranger,\n\nWand’ring from the fold of God.\n\nHe, to save my soul from danger,\n\nInterposed His precious blood.\n\n3 O, to grace how great a debtor,\n\nDaily I’m constrained to be;\n\nLet that grace, Lord, like a fetter,\n\nBind my wand’ring heart to Thee.\n\nProne to wander, Lord, I feel it,\n\nProne to leave the God I love.\n\nHere’s my heart, Lord, take and seal it,\n\nSeal it from thy courts above.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1593,7 +1704,8 @@ lazy_static! {
 				meter: "8.8.8.8".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Come, Holy ghost, Creator blest,\nAnd in our hearts take up thy rest;\nCome with thy grace and heav’nly aid\nTo fill the hearts which thou hast made.\n\n2 O Comforter, to thee we cry,\nThou heav’nly gift of God most high;\nThou fount of life, and fire of love,\nAnd sweet anointing from above.\n\n3 O Holy Ghost, through thee alone,\nKnow we the Father and the Son;\nBe this our firm unchanging creed,\nThat thou dost from them both proceed.\n\n4 Praise we the Lord, Father and Son,\nAnd Holy Spirit with them one;\nAnd may the Son on us bestow\nAll gifts that from the Spirit flow.".into()
+                text: "1 Come, Holy ghost, Creator blest,\nAnd in our hearts take up thy rest;\nCome with thy grace and heav’nly aid\nTo fill the hearts which thou hast made.\n\n2 O Comforter, to thee we cry,\nThou heav’nly gift of God most high;\nThou fount of life, and fire of love,\nAnd sweet anointing from above.\n\n3 O Holy Ghost, through thee alone,\nKnow we the Father and the Son;\nBe this our firm unchanging creed,\nThat thou dost from them both proceed.\n\n4 Praise we the Lord, Father and Son,\nAnd Holy Spirit with them one;\nAnd may the Son on us bestow\nAll gifts that from the Spirit flow.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1607,7 +1719,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1621,7 +1734,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nEv’ry time I feel the spirit, moving in my heart, I will pray,\nEv'ry time I feel the spirit, moving in my heart, I will pray.\n\n1 Upon the mountain my Lord spoke,\nout of his mouth came fire and smoke.\nAll around me looked so fine,\nasked my Lord if all was mine. [Refrain]\n\n2 Jordan river chilly and cold,\nchills the body but not the soul.\nThere ain’t but one train runs this track,\nruns to heaven and runs right back. [Refrain]".into()
+                text: "Refrain:\nEv’ry time I feel the spirit, moving in my heart, I will pray,\nEv'ry time I feel the spirit, moving in my heart, I will pray.\n\n1 Upon the mountain my Lord spoke,\nout of his mouth came fire and smoke.\nAll around me looked so fine,\nasked my Lord if all was mine. [Refrain]\n\n2 Jordan river chilly and cold,\nchills the body but not the soul.\nThere ain’t but one train runs this track,\nruns to heaven and runs right back. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1635,7 +1749,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1649,7 +1764,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1663,7 +1779,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "".into(),
-                text: "1 I’m goin’-a sing when the Spirit says sing,\n\nI’m goin’-a sing when the Spirit says sing,\n\nI’m goin’-a sing when the Spirit says sing,\n\nand obey the Spirit of the Lord.\n\n2 I’m goin’-a pray when the Spirit says pray,\n\nI’m goin’-a pray when the Spirit says pray,\n\nI’m goin’-a pray when the Spirit says pray,\n\nand obey the Spirit of the Lord.\n\n3 I’m goin’-a moan when the Spirit says moan,\n\nI’m goin’-a moan when the Spirit says moan,\n\nI’m goin’-a moan when the Spirit says moan,\n\nand obey the Spirit of the Lord.\n\n4 I’m goin’-a shout when the Spirit says shout,\n\nI’m goin’-a shout when the Spirit says shout,\n\nI’m goin’-a shout when the Spirit says shout,\n\nand obey the Spirit of the Lord.".into()
+                text: "1 I’m goin’-a sing when the Spirit says sing,\n\nI’m goin’-a sing when the Spirit says sing,\n\nI’m goin’-a sing when the Spirit says sing,\n\nand obey the Spirit of the Lord.\n\n2 I’m goin’-a pray when the Spirit says pray,\n\nI’m goin’-a pray when the Spirit says pray,\n\nI’m goin’-a pray when the Spirit says pray,\n\nand obey the Spirit of the Lord.\n\n3 I’m goin’-a moan when the Spirit says moan,\n\nI’m goin’-a moan when the Spirit says moan,\n\nI’m goin’-a moan when the Spirit says moan,\n\nand obey the Spirit of the Lord.\n\n4 I’m goin’-a shout when the Spirit says shout,\n\nI’m goin’-a shout when the Spirit says shout,\n\nI’m goin’-a shout when the Spirit says shout,\n\nand obey the Spirit of the Lord.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1677,7 +1794,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1691,7 +1809,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Spirit of God, descend upon my heart;\n\nDraw it from earth; through all its pulses move;\n\nStoop to my weakness, mighty as thou are,\n\nAnd make me love thee as I ought to love.\n\n2 I ask no dream, no prophet ecstasies,\n\nNo sudden rending of the veil of clay,\n\nNo angel visitant, no op’ning skies;\n\nBut take the dimness of my soul away.\n\n3 Teach me to feel that thou art always nigh;\n\nTeach me the struggles of the soul to bear,\n\nTo check the rising doubt, the rebel sigh;\n\nTeach me the patience of unanswered prayer.\n\n4 Teach me to love thee as thine angels love.\n\nOne holy passion filling all my frame;\n\nThe kindling of the heav’n descended dove,\n\nMy heart an altar, and thy love the flame.".into()
+                text: "1 Spirit of God, descend upon my heart;\n\nDraw it from earth; through all its pulses move;\n\nStoop to my weakness, mighty as thou are,\n\nAnd make me love thee as I ought to love.\n\n2 I ask no dream, no prophet ecstasies,\n\nNo sudden rending of the veil of clay,\n\nNo angel visitant, no op’ning skies;\n\nBut take the dimness of my soul away.\n\n3 Teach me to feel that thou art always nigh;\n\nTeach me the struggles of the soul to bear,\n\nTo check the rising doubt, the rebel sigh;\n\nTeach me the patience of unanswered prayer.\n\n4 Teach me to love thee as thine angels love.\n\nOne holy passion filling all my frame;\n\nThe kindling of the heav’n descended dove,\n\nMy heart an altar, and thy love the flame.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1705,7 +1824,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1719,7 +1839,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1733,7 +1854,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Thou my everlasting portion,\nMore than friend or life to me;\nAll along my pilgrim journey,\nSavior let me walk with thee.\nClose to thee, Close to Thee,\nClose to thee, Close to thee;\nAll along my pilgrim journey,\nSavior let me walk with thee. \n\n2 Not for ease or worldly pleasure,\nNor for fame my prayer shall be;\nGladly will I toil and suffer,\nOnly let me walk with thee.\nClose to thee, Close to Thee,\nClose to thee, Close to thee;\nGladly will I toil and suffer,\nOnly let me walk with thee. \n\n3 Lead me through the vale of shadows,\nBear me o’er life’s fitful sea;\nThen the gate of life eternal\nMay I enter, Lord, with thee.\nClose to thee, Close to Thee,\nClose to thee, Close to thee;\nThen the gate of life eternal\nMay I enter, Lord, with thee.".into()
+                text: "1 Thou my everlasting portion,\nMore than friend or life to me;\nAll along my pilgrim journey,\nSavior let me walk with thee.\nClose to thee, Close to Thee,\nClose to thee, Close to thee;\nAll along my pilgrim journey,\nSavior let me walk with thee. \n\n2 Not for ease or worldly pleasure,\nNor for fame my prayer shall be;\nGladly will I toil and suffer,\nOnly let me walk with thee.\nClose to thee, Close to Thee,\nClose to thee, Close to thee;\nGladly will I toil and suffer,\nOnly let me walk with thee. \n\n3 Lead me through the vale of shadows,\nBear me o’er life’s fitful sea;\nThen the gate of life eternal\nMay I enter, Lord, with thee.\nClose to thee, Close to Thee,\nClose to thee, Close to thee;\nThen the gate of life eternal\nMay I enter, Lord, with thee.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1747,7 +1869,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nDone made my vow to the Lord,\nAnd I never will turn back,\nOh I will go, I shall go\nto see what the end will be.\n\n1 Sometimes I’m up, sometimes I’m down;\nSee what the end will be,\nBut still my soul is heav’nly bound,\nSee what the end will be. [Refrain]\n\n2 When I was a mourner just like you;\nSee what the end will be,\nI prayed and prayed ’til I came through,\nSee what the end will be. [Refrain]".into()
+                text: "Refrain:\nDone made my vow to the Lord,\nAnd I never will turn back,\nOh I will go, I shall go\nto see what the end will be.\n\n1 Sometimes I’m up, sometimes I’m down;\nSee what the end will be,\nBut still my soul is heav’nly bound,\nSee what the end will be. [Refrain]\n\n2 When I was a mourner just like you;\nSee what the end will be,\nI prayed and prayed ’til I came through,\nSee what the end will be. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1761,7 +1884,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1775,7 +1899,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nOh, fix me; Oh, fix me;\nOh, fix me; fix me, Jesus, fix me.\n\n1 Fix me for my long white robe.\nFix me, Jesus, fix me.\nFix me for my starry crown.\nFix me, Jesus, fix me. [Refrain]\n\n2 Fix me for my journey home.\nFix me, Jesus, fix me.\nFix me for my dying bed.\nFix me, Jesus, fix me. [Refrain]".into()
+                text: "Refrain:\nOh, fix me; Oh, fix me;\nOh, fix me; fix me, Jesus, fix me.\n\n1 Fix me for my long white robe.\nFix me, Jesus, fix me.\nFix me for my starry crown.\nFix me, Jesus, fix me. [Refrain]\n\n2 Fix me for my journey home.\nFix me, Jesus, fix me.\nFix me for my dying bed.\nFix me, Jesus, fix me. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1789,7 +1914,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Hark! The voice of Jesus calling,\nWho will go and work today?\nFields are ripe the harvest waiting,\nWho will bear the sheaves away?\n\nRefrain:\nLoud and long the Master calleth,\nRich reward He offers free;\nWho will answer, gladly saying,\n“Here am I, send me, send me.”\n\n2 Let none hear you idly saying,\nThere is nothing I can do;\nWhile the souls of some are dying,\nAnd the Master calls for you. [Refrain]\n\n3 Take the task He gives you gladly,\nLet His work your pleasure be;\nAnswer quickly when He calleth,\n“Here am I, send me, send me.” [Refrain]".into()
+                text: "1 Hark! The voice of Jesus calling,\nWho will go and work today?\nFields are ripe the harvest waiting,\nWho will bear the sheaves away?\n\nRefrain:\nLoud and long the Master calleth,\nRich reward He offers free;\nWho will answer, gladly saying,\n“Here am I, send me, send me.”\n\n2 Let none hear you idly saying,\nThere is nothing I can do;\nWhile the souls of some are dying,\nAnd the Master calls for you. [Refrain]\n\n3 Take the task He gives you gladly,\nLet His work your pleasure be;\nAnswer quickly when He calleth,\n“Here am I, send me, send me.” [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1803,7 +1929,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nOh Lord, I jes’ come from de fountain,\nI’m jus’ from de fountain, Lord,\nI jes’ come from de fountain\nHis Name so sweet.\n\n1 Po’ sinner, do you love Jesus?\nYes, yes, I do love my Jesus.\nSinner, do you love Jesus?\nHis name so sweet. [Refrain]\n\n2 Class leader, do you love Jesus?\nYes, yes, I do love my Jesus.\nLeader, do you love Jesus?\nHis name so sweet. [Refrain]\n\n3 Zidh’ Elder, do you love Jesus?\nYes, yes, I do love my Jesus.\nElder, do you love Jesus?\nHis name so sweet. [Refrain]".into()
+                text: "Refrain:\nOh Lord, I jes’ come from de fountain,\nI’m jus’ from de fountain, Lord,\nI jes’ come from de fountain\nHis Name so sweet.\n\n1 Po’ sinner, do you love Jesus?\nYes, yes, I do love my Jesus.\nSinner, do you love Jesus?\nHis name so sweet. [Refrain]\n\n2 Class leader, do you love Jesus?\nYes, yes, I do love my Jesus.\nLeader, do you love Jesus?\nHis name so sweet. [Refrain]\n\n3 Zidh’ Elder, do you love Jesus?\nYes, yes, I do love my Jesus.\nElder, do you love Jesus?\nHis name so sweet. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1817,7 +1944,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Hush, hush, somebody’s callin’ my name,\n\nHush, hush, somebody’s callin’ my name,\n\nHush, hush, somebody’s callin’ my name,\n\nOh my Lord Oh my Lord what shall I do,\n\nWhat shall I do?\n\n2 Sounds like Jesus. Somebody’s callin’ mah name,\n\nSounds like Jesus. Somebody’s callin’ mah name,\n\nSounds like Jesus. Somebody’s callin’ mah name,\n\nOh my Lord Oh my Lord what shall I do,\n\nWhat shall I do?\n\n3 Soon one mornin’, death’ll come creepin’ in mah room,\n\nSoon one mornin’, death’ll come creepin’ in mah room,\n\nSoon one mornin’, death’ll come creepin’ in mah room,\n\nOh my Lord Oh my Lord what shall I do,\n\nWhat shall I do?\n\n4 I’m so glad. Ah got my religion in time,\n\nI’m so glad. Ah got my religion in time,\n\nI’m so glad. Ah got my religion in time,\n\nOh my Lord Oh my Lord what shall I do,\n\nWhat shall I do?\n\n5 I’m so glad. I’m on my journey home,\n\nI’m so glad. I’m on my journey home,\n\nI’m so glad. I’m on my journey home,\n\nOh my Lord Oh my Lord what shall I do,\n\nWhat shall I do?".into()
+                text: "1 Hush, hush, somebody’s callin’ my name,\n\nHush, hush, somebody’s callin’ my name,\n\nHush, hush, somebody’s callin’ my name,\n\nOh my Lord Oh my Lord what shall I do,\n\nWhat shall I do?\n\n2 Sounds like Jesus. Somebody’s callin’ mah name,\n\nSounds like Jesus. Somebody’s callin’ mah name,\n\nSounds like Jesus. Somebody’s callin’ mah name,\n\nOh my Lord Oh my Lord what shall I do,\n\nWhat shall I do?\n\n3 Soon one mornin’, death’ll come creepin’ in mah room,\n\nSoon one mornin’, death’ll come creepin’ in mah room,\n\nSoon one mornin’, death’ll come creepin’ in mah room,\n\nOh my Lord Oh my Lord what shall I do,\n\nWhat shall I do?\n\n4 I’m so glad. Ah got my religion in time,\n\nI’m so glad. Ah got my religion in time,\n\nI’m so glad. Ah got my religion in time,\n\nOh my Lord Oh my Lord what shall I do,\n\nWhat shall I do?\n\n5 I’m so glad. I’m on my journey home,\n\nI’m so glad. I’m on my journey home,\n\nI’m so glad. I’m on my journey home,\n\nOh my Lord Oh my Lord what shall I do,\n\nWhat shall I do?".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1831,7 +1959,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 I am thine, O Lord, I have heard thy voice,\nAnd it told thy love to me;\nBut I long to rise in the arms of faith,\nAnd be closer drawn to thee.\n\nRefrain:\nDraw me nearer, nearer, blessed lord,\nTo the cross where thou has died,\nDraw me nearer, nearer, nearer blessed Lord,\nTo thy precious bleeding side. [Refrain]\n\n2 Consecrate me now to thy service, Lord,\nBy the pow’r of grace divine;\nLet my soul look up with a steadfast hope,\nAnd my will be lost in thine. [Refrain]\n\n3 Oh, the pure delight of a single hour\nThat before thy throne I spend,\nWhen I kneel in prayer, and with thee, my God,\nI commune as friend with friend! (refrain)\n\n4 There are depths of love that I cannot know\nTill I cross the narrow sea;\nThere are heights of joy that I may not reach\nTill I rest in peace with thee. [Refrain]".into()
+                text: "1 I am thine, O Lord, I have heard thy voice,\nAnd it told thy love to me;\nBut I long to rise in the arms of faith,\nAnd be closer drawn to thee.\n\nRefrain:\nDraw me nearer, nearer, blessed lord,\nTo the cross where thou has died,\nDraw me nearer, nearer, nearer blessed Lord,\nTo thy precious bleeding side. [Refrain]\n\n2 Consecrate me now to thy service, Lord,\nBy the pow’r of grace divine;\nLet my soul look up with a steadfast hope,\nAnd my will be lost in thine. [Refrain]\n\n3 Oh, the pure delight of a single hour\nThat before thy throne I spend,\nWhen I kneel in prayer, and with thee, my God,\nI commune as friend with friend! (refrain)\n\n4 There are depths of love that I cannot know\nTill I cross the narrow sea;\nThere are heights of joy that I may not reach\nTill I rest in peace with thee. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1845,7 +1974,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Glory, glory, hallelujah! \nSince I laid my burden down.\nGlory, glory, hallelujah! \nSince I laid my burden down.\n\n2 I feel better, so much better, \nSince I laid my burden down.\nI feel better, so much better, \nSince I laid my burden down.\n\n3 Feel like shouting, “Hallelujah!”  \nSince I laid my burden down.\nFeel like shouting, “Hallelujah!”  \nSince I laid my burden down.\n\n4 I am climbing Jacob’s ladder,  \nSince I laid my burden down.\nI am climbing Jacob’s ladder,  \nSince I laid my burden down.".into()
+                text: "1 Glory, glory, hallelujah! \nSince I laid my burden down.\nGlory, glory, hallelujah! \nSince I laid my burden down.\n\n2 I feel better, so much better, \nSince I laid my burden down.\nI feel better, so much better, \nSince I laid my burden down.\n\n3 Feel like shouting, “Hallelujah!”  \nSince I laid my burden down.\nFeel like shouting, “Hallelujah!”  \nSince I laid my burden down.\n\n4 I am climbing Jacob’s ladder,  \nSince I laid my burden down.\nI am climbing Jacob’s ladder,  \nSince I laid my burden down.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1859,7 +1989,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nO I know the Lord, I know the Lord,\nI know the Lord’s laid His hands on me.\n\n1 Did ever you see the like before\nI know the Lord’s laid His hands on me,\nKing Jesus preaching to the poor?\nI know the Lord’s laid His hands on me. [Refrain]\n\n2 O wasn’t that a happy day\nI know the Lord’s laid His hands on me,\nWhen Jesus washed my sins away?\nI know the Lord’s laid His hands on me. [Refrain]\n\n3 Some seek the Lord and don’t seek Him right.\nI know the Lord’s laid His hands on me,\nThey fool all day and pray at night.\nI know the Lord’s laid His hands on me. [Refrain]\n\n4 My Lord’s done just what He said,\nI know the Lord’s laid His hands on me,\nHe’s healed the sick and raised the dead.\nI know the Lord’s laid His hands on me. [Refrain]".into()
+                text: "Refrain:\nO I know the Lord, I know the Lord,\nI know the Lord’s laid His hands on me.\n\n1 Did ever you see the like before\nI know the Lord’s laid His hands on me,\nKing Jesus preaching to the poor?\nI know the Lord’s laid His hands on me. [Refrain]\n\n2 O wasn’t that a happy day\nI know the Lord’s laid His hands on me,\nWhen Jesus washed my sins away?\nI know the Lord’s laid His hands on me. [Refrain]\n\n3 Some seek the Lord and don’t seek Him right.\nI know the Lord’s laid His hands on me,\nThey fool all day and pray at night.\nI know the Lord’s laid His hands on me. [Refrain]\n\n4 My Lord’s done just what He said,\nI know the Lord’s laid His hands on me,\nHe’s healed the sick and raised the dead.\nI know the Lord’s laid His hands on me. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1873,7 +2004,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Have you got good religion?\n\nCert’nly, Lord!\n\nHave you got good religion?\n\nCert’nly, Lord!\n\nHave you got good religion?\n\nCert’nly, Lord!\n\nCert’nly, cert’nly, cert’nly, Lord!\n\n2 Have you been redeemed?\n\nCert’nly, Lord!\n\nHave you been redeemed?\n\nCert’nly, Lord!\n\nHave you been redeemed?\n\nCert’nly, Lord!\n\nCert’nly, cert’nly, cert’nly, Lord!\n\n3 Have you been to the water?\n\nCert’nly Lord!\n\nHave you been to the water?\n\nCert’nly Lord!\n\nHave you been to the water?\n\nCert’nly Lord!\n\nCert’nly, cert’nly, cert’nly, Lord!\n\n4 Have you been baptized?\n\nCert’nly Lord!\n\nHave you been baptized?\n\nCert’nly Lord!\n\nHave you been baptized?\n\nCert’nly Lord!\n\nCert’nly, cert’nly, cert’nly, Lord!".into()
+                text: "1 Have you got good religion?\n\nCert’nly, Lord!\n\nHave you got good religion?\n\nCert’nly, Lord!\n\nHave you got good religion?\n\nCert’nly, Lord!\n\nCert’nly, cert’nly, cert’nly, Lord!\n\n2 Have you been redeemed?\n\nCert’nly, Lord!\n\nHave you been redeemed?\n\nCert’nly, Lord!\n\nHave you been redeemed?\n\nCert’nly, Lord!\n\nCert’nly, cert’nly, cert’nly, Lord!\n\n3 Have you been to the water?\n\nCert’nly Lord!\n\nHave you been to the water?\n\nCert’nly Lord!\n\nHave you been to the water?\n\nCert’nly Lord!\n\nCert’nly, cert’nly, cert’nly, Lord!\n\n4 Have you been baptized?\n\nCert’nly Lord!\n\nHave you been baptized?\n\nCert’nly Lord!\n\nHave you been baptized?\n\nCert’nly Lord!\n\nCert’nly, cert’nly, cert’nly, Lord!".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1887,7 +2019,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 All to Jesus I surrender,\nall to Him I freely give;\nI will ever love and trust Him,\nIn His presence daily live.\n\nRefrain:\nI surrender all, I surrender all,\nAll to thee, my blessed Savior,\nI surrender all.\n\n2 All to Jesus I surrender\nHumbly at His feet I bow;\nWorldly pleasures all forsaken,\nTake me, Jesus, take me now. [Refrain]\n\n3 All to Jesus I surrender\nMake me, Savior, wholly thine;\nLet me feel the Holy Spirit\nTruly know that thou art mine. [Refrain]\n\n4 All to Jesus I surrender\nLord, I give myself to thee;\nFill me with thy love and power,\nLet thy blessings fall on me. [Refrain]".into()
+                text: "1 All to Jesus I surrender,\nall to Him I freely give;\nI will ever love and trust Him,\nIn His presence daily live.\n\nRefrain:\nI surrender all, I surrender all,\nAll to thee, my blessed Savior,\nI surrender all.\n\n2 All to Jesus I surrender\nHumbly at His feet I bow;\nWorldly pleasures all forsaken,\nTake me, Jesus, take me now. [Refrain]\n\n3 All to Jesus I surrender\nMake me, Savior, wholly thine;\nLet me feel the Holy Spirit\nTruly know that thou art mine. [Refrain]\n\n4 All to Jesus I surrender\nLord, I give myself to thee;\nFill me with thy love and power,\nLet thy blessings fall on me. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1901,7 +2034,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Take me to the water,\ntake me to the water,\ntake me to the water\nto be baptized.\n\n2 None but the righteous,\nnone but the righteous,\nnone but the righteous\nshall see God.\n\n3 I love Jesus,\nI love Jesus,\nI love Jesus,\noh yes, I do.\n\n4 He’s my Savior,\nHe's my Savior,\nHe's my Savior,\noh yes, He is.".into()
+                text: "1 Take me to the water,\ntake me to the water,\ntake me to the water\nto be baptized.\n\n2 None but the righteous,\nnone but the righteous,\nnone but the righteous\nshall see God.\n\n3 I love Jesus,\nI love Jesus,\nI love Jesus,\noh yes, I do.\n\n4 He’s my Savior,\nHe's my Savior,\nHe's my Savior,\noh yes, He is.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1915,7 +2049,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 You have longed for sweet peace\nand for faith to increase,\nAnd have earnestly, fervently prayed;\nBut you cannot have rest or be perfectly blest\nUntil all on the altar is laid.\n\nRefrain:\nIs your all on the altar of sacrifice laid?\nYour heart does the Spirit control?\nYou can only be blest and have peace and sweet rest\nAs you yield Him your body and soul.\n\n2 Would you walk with the Lord\nin the light of His word,\nAnd have peace and contentment alway?\nYou must do His sweet will to be free from all ill,\nOn the altar your all you must lay. [Refrain]\n\n3 O we never can know\nwhat the Lord will bestow\nOf the blessings for which we have prayed\nTill our body and soul He doth fully control,\nAnd our all on the altar is laid. [Refrain]\n\n4 Who can tell all the love\nHe will send from above,\nAnd how happy our hearts will be made;\nOf the charity sweet we shall share at His feet\nWhen our all on the altar is laid. [Refrain]".into()
+                text: "1 You have longed for sweet peace\nand for faith to increase,\nAnd have earnestly, fervently prayed;\nBut you cannot have rest or be perfectly blest\nUntil all on the altar is laid.\n\nRefrain:\nIs your all on the altar of sacrifice laid?\nYour heart does the Spirit control?\nYou can only be blest and have peace and sweet rest\nAs you yield Him your body and soul.\n\n2 Would you walk with the Lord\nin the light of His word,\nAnd have peace and contentment alway?\nYou must do His sweet will to be free from all ill,\nOn the altar your all you must lay. [Refrain]\n\n3 O we never can know\nwhat the Lord will bestow\nOf the blessings for which we have prayed\nTill our body and soul He doth fully control,\nAnd our all on the altar is laid. [Refrain]\n\n4 Who can tell all the love\nHe will send from above,\nAnd how happy our hearts will be made;\nOf the charity sweet we shall share at His feet\nWhen our all on the altar is laid. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1929,7 +2064,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Ascribed to an Indian Prince; as sung in Garo, Assam".into(),
 				tune_sources: "Indian Folk melody".into(),
-                text: "1 I have decided to follow Jesus,\n\nI have decided to follow Jesus,\n\nI have decided to follow Jesus,\n\nNo turning back, no turning back!\n\n2 Though no one join me, still I will follow,\n\nThough no one join me, still I will follow,\n\nThough no one join me, still I will follow,\n\nNo turning back, no turning back!\n\n3 The world behind me, the cross before me,\n\nThe world behind me, the cross before me,\n\nThe world behind me, the cross before me,\n\nNo turning back, no turning back!".into()
+                text: "1 I have decided to follow Jesus,\n\nI have decided to follow Jesus,\n\nI have decided to follow Jesus,\n\nNo turning back, no turning back!\n\n2 Though no one join me, still I will follow,\n\nThough no one join me, still I will follow,\n\nThough no one join me, still I will follow,\n\nNo turning back, no turning back!\n\n3 The world behind me, the cross before me,\n\nThe world behind me, the cross before me,\n\nThe world behind me, the cross before me,\n\nNo turning back, no turning back!".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1943,7 +2079,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Just as I am, without one plea,\n\nBut that thy blood was shed for me,\n\nAnd that thou bidd’st me to thee,\n\nO Lamb of God, I come, I come.\n\n2 Just as I am, though tossed about\n\nWith many a conflict, many a doubt;\n\nFightings and fears within, without,\n\nO Lamb of God, I come, I come.\n\n3 Just as I am, poor, wretched, blind;\n\nSight riches, healing of the mind,\n\nYea, all I need in thee to find,\n\nO Lamb of God, I come, I come.\n\n4 Just as I am, thou wilt receive;\n\nWilt welcome, pardon, cleanse, relieve,\n\nBecause thy promise I believe,\n\nO Lamb of God, I come, I come.\n\n5 Just as I am, thy love unknown\n\nHas broken every barrier down;\n\nNow to be thine, yea, thine alone,\n\nO Lamb of God, I come, I come.\n\n6 Just as I am, of thy great love\n\nThe breadth, length, depth, and height to prove,\n\nHere for a season, then above:\n\nO Lamb of God, I come, I come.".into()
+                text: "1 Just as I am, without one plea,\n\nBut that thy blood was shed for me,\n\nAnd that thou bidd’st me to thee,\n\nO Lamb of God, I come, I come.\n\n2 Just as I am, though tossed about\n\nWith many a conflict, many a doubt;\n\nFightings and fears within, without,\n\nO Lamb of God, I come, I come.\n\n3 Just as I am, poor, wretched, blind;\n\nSight riches, healing of the mind,\n\nYea, all I need in thee to find,\n\nO Lamb of God, I come, I come.\n\n4 Just as I am, thou wilt receive;\n\nWilt welcome, pardon, cleanse, relieve,\n\nBecause thy promise I believe,\n\nO Lamb of God, I come, I come.\n\n5 Just as I am, thy love unknown\n\nHas broken every barrier down;\n\nNow to be thine, yea, thine alone,\n\nO Lamb of God, I come, I come.\n\n6 Just as I am, of thy great love\n\nThe breadth, length, depth, and height to prove,\n\nHere for a season, then above:\n\nO Lamb of God, I come, I come.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1957,7 +2094,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Lord, I want to be a Christian\n\nIn my heart,\n\nIn my heart;\n\nLord, I want to be a Christian\n\nIn my heart,\n\nIn my heart,\n\nIn my heart,\n\nLord, I want to be a Christian\n\nIn my heart.\n\n2 Lord, I want to be more loving\n\nIn my heart,\n\nIn my heart;\n\nLord, I want to be more loving\n\nIn my heart,\n\nIn my heart,\n\nLord, I want to be more loving\n\nIn my heart.\n\n3 Lord, I want to be more holy\n\nIn my heart,\n\nIn my heart;\n\nLord, I want to be more holy\n\nIn my heart,\n\nIn my heart,\n\nLord, I want to be more holy\n\nIn my heart.\n\n4 I don’t want to be like Judas\n\nIn my heart,\n\nIn my heart;\n\nI don’t want to be like Judas\n\nIn my heart,\n\nIn my heart,\n\nI don’t want to be like Judas\n\nIn my heart.\n\n5 Lord, I want to be like Jesus\n\nIn my heart,\n\nIn my heart;\n\nLord, I want to be like Jesus\n\nIn my heart,\n\nIn my heart,\n\nLord, I want to be like Jesus\n\nIn my heart.".into()
+                text: "1 Lord, I want to be a Christian\n\nIn my heart,\n\nIn my heart;\n\nLord, I want to be a Christian\n\nIn my heart,\n\nIn my heart,\n\nIn my heart,\n\nLord, I want to be a Christian\n\nIn my heart.\n\n2 Lord, I want to be more loving\n\nIn my heart,\n\nIn my heart;\n\nLord, I want to be more loving\n\nIn my heart,\n\nIn my heart,\n\nLord, I want to be more loving\n\nIn my heart.\n\n3 Lord, I want to be more holy\n\nIn my heart,\n\nIn my heart;\n\nLord, I want to be more holy\n\nIn my heart,\n\nIn my heart,\n\nLord, I want to be more holy\n\nIn my heart.\n\n4 I don’t want to be like Judas\n\nIn my heart,\n\nIn my heart;\n\nI don’t want to be like Judas\n\nIn my heart,\n\nIn my heart,\n\nI don’t want to be like Judas\n\nIn my heart.\n\n5 Lord, I want to be like Jesus\n\nIn my heart,\n\nIn my heart;\n\nLord, I want to be like Jesus\n\nIn my heart,\n\nIn my heart,\n\nLord, I want to be like Jesus\n\nIn my heart.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1971,7 +2109,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Pass me not, O gentle Savior,\nHear my humble cry;\nWhile on others thou art calling,\nDo not pass me by.\n\nRefrain:\nSavior, Savior,\nHear my humble cry;\nWhile on others thou art calling,\nDo not pass me by.\n\n2 Let me at thy throne of mercy\nFind a sweet relief;\nKneeling there in deep contrition,\nHelp my unbelief. [Refrain]\n\n3 Trusting only in thy merit,\nWould I seek thy face;\nHeal my wounded, broken spirit,\nSave me by thy grace. [Refrain]\n\n4 Thou the spring of all my comfort,\nMore than life to me,\nWhom have I on earth beside thee?\nWhom in heav’n but thee? [Refrain]".into()
+                text: "1 Pass me not, O gentle Savior,\nHear my humble cry;\nWhile on others thou art calling,\nDo not pass me by.\n\nRefrain:\nSavior, Savior,\nHear my humble cry;\nWhile on others thou art calling,\nDo not pass me by.\n\n2 Let me at thy throne of mercy\nFind a sweet relief;\nKneeling there in deep contrition,\nHelp my unbelief. [Refrain]\n\n3 Trusting only in thy merit,\nWould I seek thy face;\nHeal my wounded, broken spirit,\nSave me by thy grace. [Refrain]\n\n4 Thou the spring of all my comfort,\nMore than life to me,\nWhom have I on earth beside thee?\nWhom in heav’n but thee? [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1985,7 +2124,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Refrain:\nLord, I want you to touch me,\nTouch me with Thy holy love.\nLord, come down and touch me.\nCome down from heaven above.\nLord, reach out and touch me,\nReach out and touch me within,\nLord, let the goodness touch me,\nThy touch will cleanse me from sin.\n\n1 Some folks want treasures of silver and gold,\nSome want to reign with powers untold;\nBut in my life, all that I can say,\nLord, be my guide and have thine own way. [Refrain]\n\n2 Teach me to love and teach me to pray,\nGrant me a light to shine day by day;\nJust to abide where joys never cease\nWill be great joy, such comfort and ease. [Refrain]".into()
+                text: "Refrain:\nLord, I want you to touch me,\nTouch me with Thy holy love.\nLord, come down and touch me.\nCome down from heaven above.\nLord, reach out and touch me,\nReach out and touch me within,\nLord, let the goodness touch me,\nThy touch will cleanse me from sin.\n\n1 Some folks want treasures of silver and gold,\nSome want to reign with powers untold;\nBut in my life, all that I can say,\nLord, be my guide and have thine own way. [Refrain]\n\n2 Teach me to love and teach me to pray,\nGrant me a light to shine day by day;\nJust to abide where joys never cease\nWill be great joy, such comfort and ease. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -1999,7 +2139,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Shall we gather at the river,\nWhere bright angel feet have trod;\nWith its crystal tide forever\nFlowing by the throne of God?\n\nRefrain:\nYes, we’ll gather at the river,\nThe beautiful, the beautiful river;\nGather with the saints at the river\nThat flows by the throne of God.\n\n2 On the margin of the river,\nWashing up its silver spray,\nWe will walk and worship ever,\nAll the happy golden day. [Refrain]\n\n3 Ere we reach the shining river,\nLay we ev’ry burden down;\nGrace our spirits will deliver,\nAnd provide a robe and crown. [Refrain]\n\n4 Soon we’ll reach the shining river,\nSoon our pilgrimage will cease,\nSoon our happy hearts will quiver\nWith the melody of peace. [Refrain]".into()
+                text: "1 Shall we gather at the river,\nWhere bright angel feet have trod;\nWith its crystal tide forever\nFlowing by the throne of God?\n\nRefrain:\nYes, we’ll gather at the river,\nThe beautiful, the beautiful river;\nGather with the saints at the river\nThat flows by the throne of God.\n\n2 On the margin of the river,\nWashing up its silver spray,\nWe will walk and worship ever,\nAll the happy golden day. [Refrain]\n\n3 Ere we reach the shining river,\nLay we ev’ry burden down;\nGrace our spirits will deliver,\nAnd provide a robe and crown. [Refrain]\n\n4 Soon we’ll reach the shining river,\nSoon our pilgrimage will cease,\nSoon our happy hearts will quiver\nWith the melody of peace. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2013,7 +2154,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2027,7 +2169,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nWade in the water,\nwade in the water, children,\nWade in the water,\nGod’s a-gonna trouble the water.\n\n1 See that host all dressed in white,\nGod’s a-gonna trouble the water.\nThe leader looks like the Israelite,\nGod’s a-gonna trouble the water. [Refrain]\n\n2 See that band all dressed in red,\nGod’s a-gonna trouble the water.\nLooks like the band that Moses led,\nGod’s a-gonna trouble the water. [Refrain]\n\n3 Look over yonder, what do I see?\nGod’s a-gonna trouble the water.\nThe Holy Ghost a-coming on me,\nGod’s a-gonna trouble the water. [Refrain]\n\n4 If you don’t believe I’ve been redeemed,\nGod’s a-gonna trouble the water.\nJust follow me down to Jordan’s stream,\nGod’s a-gonna trouble the water. [Refrain]".into()
+                text: "Refrain:\nWade in the water,\nwade in the water, children,\nWade in the water,\nGod’s a-gonna trouble the water.\n\n1 See that host all dressed in white,\nGod’s a-gonna trouble the water.\nThe leader looks like the Israelite,\nGod’s a-gonna trouble the water. [Refrain]\n\n2 See that band all dressed in red,\nGod’s a-gonna trouble the water.\nLooks like the band that Moses led,\nGod’s a-gonna trouble the water. [Refrain]\n\n3 Look over yonder, what do I see?\nGod’s a-gonna trouble the water.\nThe Holy Ghost a-coming on me,\nGod’s a-gonna trouble the water. [Refrain]\n\n4 If you don’t believe I’ve been redeemed,\nGod’s a-gonna trouble the water.\nJust follow me down to Jordan’s stream,\nGod’s a-gonna trouble the water. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2041,7 +2184,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 I can hear my Savior calling,\nI can hear my Savior calling,\nI can hear my Savior calling,\n“Take thy cross and follow, follow me.”\n\nRefrain:\nWhere He leads me I will follow,\nWhere He leads me I will follow,\nWhere He leads me I will follow,\nI’ll go with Him, with Him all the way.\n\n2 I’ll go with Him through the garden,\nI’ll go with Him through the garden,\nI’ll go with Him through the garden,\nI’ll go with Him, with Him all the way. [Refrain]\n\n3 I’ll go with Him through the judgement,\nI’ll go with Him through the judgement,\nI’ll go with Him through the judgement,\nI’ll go with Him, with Him all the way. [Refrain]\n\n4 He will give me grace and glory,\nHe will give me grace and glory,\nHe will give me grace and glory,\nAnd go with me, with me all the way. [Refrain]".into()
+                text: "1 I can hear my Savior calling,\nI can hear my Savior calling,\nI can hear my Savior calling,\n“Take thy cross and follow, follow me.”\n\nRefrain:\nWhere He leads me I will follow,\nWhere He leads me I will follow,\nWhere He leads me I will follow,\nI’ll go with Him, with Him all the way.\n\n2 I’ll go with Him through the garden,\nI’ll go with Him through the garden,\nI’ll go with Him through the garden,\nI’ll go with Him, with Him all the way. [Refrain]\n\n3 I’ll go with Him through the judgement,\nI’ll go with Him through the judgement,\nI’ll go with Him through the judgement,\nI’ll go with Him, with Him all the way. [Refrain]\n\n4 He will give me grace and glory,\nHe will give me grace and glory,\nHe will give me grace and glory,\nAnd go with me, with me all the way. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2055,7 +2199,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Have thine own way, Lord!\n\nHave thine own way!\n\nThou art the potter,\n\nI am the clay!\n\nMold me and make me\n\nAfter thy will,\n\nWhile I am waiting,\n\nYielded and still.\n\n2 Have thine own way, Lord!\n\nHave thine own way!\n\nSearch me and try me,\n\nMaster, today!\n\nPurer than snow, Lord,\n\nWash me just now,\n\nAs in thy presence\n\nHumbly I bow.\n\n3 Have thine own way, Lord!\n\nHave thine own way!\n\nWounded and weary,\n\nHelp me, I pray!\n\nPower all power\n\nSurely is thine!\n\nTouch me and heal me,\n\nSavior divine!\n\n4 Have thine own way, Lord!\n\nHave thine own way!\n\nHold o’er my being\n\nAbsolute sway!\n\nFill with thy Spirit\n\n’Til all shall see\n\nChrist only, always,\n\nLiving in me!".into()
+                text: "1 Have thine own way, Lord!\n\nHave thine own way!\n\nThou art the potter,\n\nI am the clay!\n\nMold me and make me\n\nAfter thy will,\n\nWhile I am waiting,\n\nYielded and still.\n\n2 Have thine own way, Lord!\n\nHave thine own way!\n\nSearch me and try me,\n\nMaster, today!\n\nPurer than snow, Lord,\n\nWash me just now,\n\nAs in thy presence\n\nHumbly I bow.\n\n3 Have thine own way, Lord!\n\nHave thine own way!\n\nWounded and weary,\n\nHelp me, I pray!\n\nPower all power\n\nSurely is thine!\n\nTouch me and heal me,\n\nSavior divine!\n\n4 Have thine own way, Lord!\n\nHave thine own way!\n\nHold o’er my being\n\nAbsolute sway!\n\nFill with thy Spirit\n\n’Til all shall see\n\nChrist only, always,\n\nLiving in me!".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2069,7 +2214,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Break thou the bread of life,\nDear Lord, to me,\nAs thou didst break the loaves\nBeside the sea;\nBeyond the sacred page\nI seek thee, Lord;\nMy spirit pants for thee,\nO living word!\n\n2 Bless thou the truth, dear Lord,\nTo me, to me,\nAs thou didst bless the bread\nBy Galilee;\nThen shall all bondage cease,\nAll fetters fall,\nAnd I shall find my peace,\nMy all in all.\n\n3 Teach me to live, dear Lord,\nOnly for thee,\nAs thy disciples lived\nin Galilee;\nThen, all my struggles o’er,\nThen, vict’ry won,\nI shall behold thee, Lord,\nThe living one.".into()
+                text: "1 Break thou the bread of life,\nDear Lord, to me,\nAs thou didst break the loaves\nBeside the sea;\nBeyond the sacred page\nI seek thee, Lord;\nMy spirit pants for thee,\nO living word!\n\n2 Bless thou the truth, dear Lord,\nTo me, to me,\nAs thou didst bless the bread\nBy Galilee;\nThen shall all bondage cease,\nAll fetters fall,\nAnd I shall find my peace,\nMy all in all.\n\n3 Teach me to live, dear Lord,\nOnly for thee,\nAs thy disciples lived\nin Galilee;\nThen, all my struggles o’er,\nThen, vict’ry won,\nI shall behold thee, Lord,\nThe living one.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2083,7 +2229,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Come, ye disconsolate, where’er ye languish,\nCome to the mercy seat, fervently kneel:\nHere bring your wounded hearts, here tell your anguish;\nEarth has no sorrow that heav’n cannot heal.\n\n2 Joy of the desolate, light of the straying,\nHope of the penitent, fadeless and pure!\nHere speaks the comforter, tenderly saying,\n“Earth has no sorrow that heav’n cannot cure.”\n\n3 Here see the bread of life; see waters flowing\nForth from the throne of God, pure from above:\nCome to the feast of love; come, ever knowing\nEarth has no sorrow but heav’n can remove.".into()
+                text: "1 Come, ye disconsolate, where’er ye languish,\nCome to the mercy seat, fervently kneel:\nHere bring your wounded hearts, here tell your anguish;\nEarth has no sorrow that heav’n cannot heal.\n\n2 Joy of the desolate, light of the straying,\nHope of the penitent, fadeless and pure!\nHere speaks the comforter, tenderly saying,\n“Earth has no sorrow that heav’n cannot cure.”\n\n3 Here see the bread of life; see waters flowing\nForth from the throne of God, pure from above:\nCome to the feast of love; come, ever knowing\nEarth has no sorrow but heav’n can remove.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2097,7 +2244,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Arr. <i>36 South Carolina Spirituals</i>".into(),
-                text: "1 I’m a-going to eat at the welcome table,\n\nI’m a-going to eat at the welcome table, some of these days.\n\nI’m a-going to eat at the welcome table,\n\nI’m a-going to eat at the welcome table, some of these days.\n\n2 I’m a-going to feast on milk and honey,\n\nI’m a-going to feast on milk and honey, some of these days.\n\nI’m a-going to feast on milk and honey,\n\nI’m a-going to feast on milk and honey, some of these days.\n\n3 I’m a-going to fly all around in heaven,\n\nI’m a-going to fly all around in heaven, some of these days.\n\nI’m a-going to fly all around in heaven,\n\nI’m a-going to fly all around in heaven, some of these days.\n\n4 I’m a-going to wade cross Jordan’s river,\n\nI’m a-going to wade cross Jordan’s river, some of these days.\n\nI’m a-going to wade cross Jordan’s river,\n\nI’m a-going to wade cross Jordan’s river, some of these days.".into()
+                text: "1 I’m a-going to eat at the welcome table,\n\nI’m a-going to eat at the welcome table, some of these days.\n\nI’m a-going to eat at the welcome table,\n\nI’m a-going to eat at the welcome table, some of these days.\n\n2 I’m a-going to feast on milk and honey,\n\nI’m a-going to feast on milk and honey, some of these days.\n\nI’m a-going to feast on milk and honey,\n\nI’m a-going to feast on milk and honey, some of these days.\n\n3 I’m a-going to fly all around in heaven,\n\nI’m a-going to fly all around in heaven, some of these days.\n\nI’m a-going to fly all around in heaven,\n\nI’m a-going to fly all around in heaven, some of these days.\n\n4 I’m a-going to wade cross Jordan’s river,\n\nI’m a-going to wade cross Jordan’s river, some of these days.\n\nI’m a-going to wade cross Jordan’s river,\n\nI’m a-going to wade cross Jordan’s river, some of these days.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2111,7 +2259,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2125,7 +2274,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2139,7 +2289,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "The Didache 9".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2153,7 +2304,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Let us break bread together on our knees; (on our knees)\nLet us break bread together on our knees. (on our knees)\n\nRefrain:\nWhen I fall on my knees, with my face to the rising sun,\nOh Lord, have mercy on me.\n\n2 Let us drink wine together on our knees; (on our knees)\nLet us drink wine together on our knees. (on our knees) [Refrain]\n\n3 Let us praise God together on our knees; (on our knees)\nLet us praise God together on our knees. (on our knees) [Refrain]".into()
+                text: "1 Let us break bread together on our knees; (on our knees)\nLet us break bread together on our knees. (on our knees)\n\nRefrain:\nWhen I fall on my knees, with my face to the rising sun,\nOh Lord, have mercy on me.\n\n2 Let us drink wine together on our knees; (on our knees)\nLet us drink wine together on our knees. (on our knees) [Refrain]\n\n3 Let us praise God together on our knees; (on our knees)\nLet us praise God together on our knees. (on our knees) [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2167,7 +2319,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2181,7 +2334,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2195,7 +2349,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "<i>Mary, Cause of Our Joy</i>".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2209,7 +2364,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 “Come to me, Ye who are hard oppressed;\nLay your head gently upon my breast;\nCome to me, And I will give you rest;\nweary one, Hither come! God is your home!”\n\n2 “Come to me!” Jehovah gently pleads;\n“Come to me, I can supply all needs;\nAnd my way, Unto green pasture leads;\nFree from sin! Enter in! God is your home!”".into()
+                text: "1 “Come to me, Ye who are hard oppressed;\nLay your head gently upon my breast;\nCome to me, And I will give you rest;\nweary one, Hither come! God is your home!”\n\n2 “Come to me!” Jehovah gently pleads;\n“Come to me, I can supply all needs;\nAnd my way, Unto green pasture leads;\nFree from sin! Enter in! God is your home!”".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2223,7 +2379,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 We praise thee, O God,\nFor the son of thy love,\nFor Jesus who died\nAnd is now gone above.\n\nRefrain:\nHallelujah! Thine the glory,\nHallelujah! Amen,\nHallelujah! Thine the glory,\nRevive us again.\n\n2 We praise thee, O God,\nFor thy spirit of light,\nWho has shown us our Savior,\nAnd scattered our night. [Refrain]\n\n3 All glory and praise\nTo the lamb that was slain,\nWho has borne all our sins\nAnd has cleansed ev’ry stain. [Refrain]\n\n4 Revive us again,\nFill each heart with thy love,\nMay each soul be rekindled\nWith fire from above. [Refrain]".into()
+                text: "1 We praise thee, O God,\nFor the son of thy love,\nFor Jesus who died\nAnd is now gone above.\n\nRefrain:\nHallelujah! Thine the glory,\nHallelujah! Amen,\nHallelujah! Thine the glory,\nRevive us again.\n\n2 We praise thee, O God,\nFor thy spirit of light,\nWho has shown us our Savior,\nAnd scattered our night. [Refrain]\n\n3 All glory and praise\nTo the lamb that was slain,\nWho has borne all our sins\nAnd has cleansed ev’ry stain. [Refrain]\n\n4 Revive us again,\nFill each heart with thy love,\nMay each soul be rekindled\nWith fire from above. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2237,7 +2394,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Out in the highways and byways of life,\nMany are weary and sad;\nCarry the sunshine where darkness is rife,\nMaking the sorrowing glad.\n\nRefrain:\nMake me a blessing,\nMake me a blessing,\nOut of my life\nMay Jesus shine;\nMake me a blessing,\nO Savior, I pray,\nMake me a blessing\nto someone today.\n\n2 Tell the sweet story of Christ and His love,\nTell of His power to forgive;\nOthers will trust Him if only you prove\nTrue, every moment you live, [Refrain]\n\n3 Give as ’twas given to you in your need,\nLove as the Master loved you;\nBe to the helpless a helper indeed,\nUnto your mission be true. [Refrain]".into()
+                text: "1 Out in the highways and byways of life,\nMany are weary and sad;\nCarry the sunshine where darkness is rife,\nMaking the sorrowing glad.\n\nRefrain:\nMake me a blessing,\nMake me a blessing,\nOut of my life\nMay Jesus shine;\nMake me a blessing,\nO Savior, I pray,\nMake me a blessing\nto someone today.\n\n2 Tell the sweet story of Christ and His love,\nTell of His power to forgive;\nOthers will trust Him if only you prove\nTrue, every moment you live, [Refrain]\n\n3 Give as ’twas given to you in your need,\nLove as the Master loved you;\nBe to the helpless a helper indeed,\nUnto your mission be true. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2251,7 +2409,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 How to reach the masses, those of ev’ry birth,\nFor an answer Jesus gave the key;\n“And I, if I be lifted up from the earth,\nWill draw all men unto Me.”\n\nRefrain:\nLift the precious savior up,\nLift the precious savior up,\nStill He speaks from eternity:\n“And I, if I be lifted up from the earth,\nWill draw all men unto Me.”\n\n2 Oh! the world is hungry for the living bread,\nLift the Savior up for them to see;\nTrust Him and do not doubt the words that He said,\n“I’ll draw all men unto Me.” [Refrain]\n\n3 Don’t exalt the preacher, don’t exalt the pew,\nPreach the gospel simple, full and free;\nProve Him and you will find that promise is true,\n“I’ll draw all men unto Me.” [Refrain]\n\n4 Lift Him up by living as a Christian ought,\nLet the world in you the Savior see;\nThen all will gladly follow Him who once taught,\n“I’ll draw all men unto Me.” [Refrain]".into()
+                text: "1 How to reach the masses, those of ev’ry birth,\nFor an answer Jesus gave the key;\n“And I, if I be lifted up from the earth,\nWill draw all men unto Me.”\n\nRefrain:\nLift the precious savior up,\nLift the precious savior up,\nStill He speaks from eternity:\n“And I, if I be lifted up from the earth,\nWill draw all men unto Me.”\n\n2 Oh! the world is hungry for the living bread,\nLift the Savior up for them to see;\nTrust Him and do not doubt the words that He said,\n“I’ll draw all men unto Me.” [Refrain]\n\n3 Don’t exalt the preacher, don’t exalt the pew,\nPreach the gospel simple, full and free;\nProve Him and you will find that promise is true,\n“I’ll draw all men unto Me.” [Refrain]\n\n4 Lift Him up by living as a Christian ought,\nLet the world in you the Savior see;\nThen all will gladly follow Him who once taught,\n“I’ll draw all men unto Me.” [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2265,7 +2424,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 This little light of mine,\n\nI’m goin’-a let it shine,\n\nThis little light of mine,\n\nI’m goin’-a let it shine,\n\nThis little light of mine,\n\nI’m goin’-a let it shine,\n\nLet it shine, let it shine, let it shine.\n\n2 Everywhere I go,\n\nI’m goin’-a let it shine,\n\nEverywhere I go,\n\nI’m goin’-a let it shine,\n\nEverywhere I go,\n\nI’m goin’-a let it shine,\n\nLet it shine, let it shine, let it shine.\n\n3 All through the night,\n\nI’m goin’-a let it shine,\n\nAll through the night,\n\nI’m goin’-a let it shine,\n\nAll through the night,\n\nI’m goin’-a let it shine,\n\nLet it shine, let it shine, let it shine.".into()
+                text: "1 This little light of mine,\n\nI’m goin’-a let it shine,\n\nThis little light of mine,\n\nI’m goin’-a let it shine,\n\nThis little light of mine,\n\nI’m goin’-a let it shine,\n\nLet it shine, let it shine, let it shine.\n\n2 Everywhere I go,\n\nI’m goin’-a let it shine,\n\nEverywhere I go,\n\nI’m goin’-a let it shine,\n\nEverywhere I go,\n\nI’m goin’-a let it shine,\n\nLet it shine, let it shine, let it shine.\n\n3 All through the night,\n\nI’m goin’-a let it shine,\n\nAll through the night,\n\nI’m goin’-a let it shine,\n\nAll through the night,\n\nI’m goin’-a let it shine,\n\nLet it shine, let it shine, let it shine.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2279,7 +2439,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 “Go preach my gospel,” saith the Lord,\n“Bid the whole earth my grace receive,\nExplain to them my sacred word,\nBid them believe, obey, and live.”\n\n2 “I’ll make my great commission known,\nAnd ye shall prove my gospel true\nBy all the works that I have done,\nAnd all the wonders ye shall do.”\n\n3 “Go heal the sick, go raise the dead,\nGo cast out devils in my name.\nNor let my prophets be afraid,\nThough man reproach, and will blaspheme.”\n\n4 “While thus ye follow my commands,\nI’m with you till the world shall end.\nAll pow’r in trusted in my hands;\nI can destroy, and can defend.”\n\n5 He spake and light shone round His head,\nOn a bright cloud to heav’n He rode.\nThey to the farthest nation spread\nThe grace of their ascended God.".into()
+                text: "1 “Go preach my gospel,” saith the Lord,\n“Bid the whole earth my grace receive,\nExplain to them my sacred word,\nBid them believe, obey, and live.”\n\n2 “I’ll make my great commission known,\nAnd ye shall prove my gospel true\nBy all the works that I have done,\nAnd all the wonders ye shall do.”\n\n3 “Go heal the sick, go raise the dead,\nGo cast out devils in my name.\nNor let my prophets be afraid,\nThough man reproach, and will blaspheme.”\n\n4 “While thus ye follow my commands,\nI’m with you till the world shall end.\nAll pow’r in trusted in my hands;\nI can destroy, and can defend.”\n\n5 He spake and light shone round His head,\nOn a bright cloud to heav’n He rode.\nThey to the farthest nation spread\nThe grace of their ascended God.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2293,7 +2454,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Come by here Lord,\ncome by here,\nCome by here Lord,\ncome by here,\nCome by here Lord,\ncome by here,\nO Lord, come by here.\n\n2 Someone needs you Lord,\ncome by here,\nSomeone needs you Lord,\ncome by here,\nSomeone needs you Lord,\ncome by here,\nO Lord, come by here.\n\n3 Send a blessing Lord,\ncome by here,\nSend a blessing Lord,\ncome by here,\nSend a blessing Lord,\ncome by here,\nO Lord, come by here.".into()
+                text: "1 Come by here Lord,\ncome by here,\nCome by here Lord,\ncome by here,\nCome by here Lord,\ncome by here,\nO Lord, come by here.\n\n2 Someone needs you Lord,\ncome by here,\nSomeone needs you Lord,\ncome by here,\nSomeone needs you Lord,\ncome by here,\nO Lord, come by here.\n\n3 Send a blessing Lord,\ncome by here,\nSend a blessing Lord,\ncome by here,\nSend a blessing Lord,\ncome by here,\nO Lord, come by here.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2307,7 +2469,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2321,7 +2484,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Do Lord, do Lord,\n\nDo remember me,\n\nDo Lord, do Lord,\n\nDo remember me,\n\nDo Lord, do Lord,\n\nDo remember me,\n\nO Do Lord remember me.\n\n2 When I’m in trouble,\n\nDo remember me,\n\nWhen I’m in trouble,\n\nDo remember me,\n\nWhen I’m in trouble,\n\nDo remember me,\n\nO Do Lord remember me.\n\n3 When I’m dyin’,\n\nDo remember me,\n\nWhen I’m dyin’,\n\nDo remember me,\n\nWhen I’m dyin’,\n\nDo remember me,\n\nO Do Lord remember me.\n\n4 When this world’s on fire,\n\nDo remember me,\n\nWhen this world’s on fire,\n\nDo remember me,\n\nWhen this world’s on fire,\n\nDo remember me,\n\nO Do Lord remember me.".into()
+                text: "1 Do Lord, do Lord,\n\nDo remember me,\n\nDo Lord, do Lord,\n\nDo remember me,\n\nDo Lord, do Lord,\n\nDo remember me,\n\nO Do Lord remember me.\n\n2 When I’m in trouble,\n\nDo remember me,\n\nWhen I’m in trouble,\n\nDo remember me,\n\nWhen I’m in trouble,\n\nDo remember me,\n\nO Do Lord remember me.\n\n3 When I’m dyin’,\n\nDo remember me,\n\nWhen I’m dyin’,\n\nDo remember me,\n\nWhen I’m dyin’,\n\nDo remember me,\n\nO Do Lord remember me.\n\n4 When this world’s on fire,\n\nDo remember me,\n\nWhen this world’s on fire,\n\nDo remember me,\n\nWhen this world’s on fire,\n\nDo remember me,\n\nO Do Lord remember me.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2335,7 +2499,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 I’m pressing on the upward way,\nNew heights I’m gaining every day;\nStill praying as I onward bound,\n“Lord, plant my feet on higher ground.”\n\nRefrain:\nLord, lift me up, and let me stand\nBy faith, on heaven’s table land;\nA higher plane than I have found,\nLord, plant my feet on higher ground.\n\n2 My heart has no desire to stay\nWhere doubts arise and fears dismay;\nThough some may dwell where these abound,\nMy prayer, my aim is higher ground. [Refrain]\n\n3 I want to live above the world,\nThough satan’s darts at me are hurled;\nFor faith has caught a joyful sound,\nThe song of saints on higher ground. [Refrain]\n\n4 I want to scale the utmost height,\nAnd catch a gleam of glory bright;\nBut still I’ll pray till heav’n I’ve found,\n“Lord, lead me on the higher ground.” [Refrain]".into()
+                text: "1 I’m pressing on the upward way,\nNew heights I’m gaining every day;\nStill praying as I onward bound,\n“Lord, plant my feet on higher ground.”\n\nRefrain:\nLord, lift me up, and let me stand\nBy faith, on heaven’s table land;\nA higher plane than I have found,\nLord, plant my feet on higher ground.\n\n2 My heart has no desire to stay\nWhere doubts arise and fears dismay;\nThough some may dwell where these abound,\nMy prayer, my aim is higher ground. [Refrain]\n\n3 I want to live above the world,\nThough satan’s darts at me are hurled;\nFor faith has caught a joyful sound,\nThe song of saints on higher ground. [Refrain]\n\n4 I want to scale the utmost height,\nAnd catch a gleam of glory bright;\nBut still I’ll pray till heav’n I’ve found,\n“Lord, lead me on the higher ground.” [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2349,7 +2514,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2363,7 +2529,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Lord I hear of show’rs of blessings,\n\nThou are scatt’ring full and free;\n\nShow’rs the thirsty souls refreshing,\n\nLet some drops now fall on me!\n\nEven me, yes! Even me!\n\nEven me, Lord, Even me!\n\nLet some drops now fall on me!\n\n2 Pass me not, O gentle Savior,\n\nSinful though my heart may be;\n\nI am longing for thy favor,\n\nWhilst thou’rt blessing, Oh bless me!\n\nEven me, yes! Even me!\n\nEven me, Lord, Even me!\n\nWhilst thou’rt blessing, Lord, bless me!\n\n3 Bread of heaven, bread of heaven,\n\nEver let me feed on thee;\n\nVine of heaven, vine of heaven,\n\nLet thy blood atone for me!\n\nEven me, yes! Even me!\n\nEven me, Lord, Even me!\n\nLet thy blood atone for me!\n\n4 Love of God, so pure and changeless,\n\nBlood of Christ, so rich, so free;\n\nGrace of God, so strong and boundless,\n\nMagnify them all in me!\n\nEven me, yes! Even me!\n\nEven me, Lord, Even me!\n\nMagnify them all in me!".into()
+                text: "1 Lord I hear of show’rs of blessings,\n\nThou are scatt’ring full and free;\n\nShow’rs the thirsty souls refreshing,\n\nLet some drops now fall on me!\n\nEven me, yes! Even me!\n\nEven me, Lord, Even me!\n\nLet some drops now fall on me!\n\n2 Pass me not, O gentle Savior,\n\nSinful though my heart may be;\n\nI am longing for thy favor,\n\nWhilst thou’rt blessing, Oh bless me!\n\nEven me, yes! Even me!\n\nEven me, Lord, Even me!\n\nWhilst thou’rt blessing, Lord, bless me!\n\n3 Bread of heaven, bread of heaven,\n\nEver let me feed on thee;\n\nVine of heaven, vine of heaven,\n\nLet thy blood atone for me!\n\nEven me, yes! Even me!\n\nEven me, Lord, Even me!\n\nLet thy blood atone for me!\n\n4 Love of God, so pure and changeless,\n\nBlood of Christ, so rich, so free;\n\nGrace of God, so strong and boundless,\n\nMagnify them all in me!\n\nEven me, yes! Even me!\n\nEven me, Lord, Even me!\n\nMagnify them all in me!".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2377,7 +2544,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 I have a Savior, He’s pleading in glory,\nA dear, loving savior, though earth-friends be few;\nAnd now He is watching in tenderness o’er me,\nAnd, oh, that my Savior were your savior, too.\n\nRefrain:\nFor you I am praying,\nFor you I am praying,\nFor you I am praying,\nI’m praying for you.\n\n2 I have a Father, to me He has given\nA hope for eternity, blessed and true;\nAnd soon will He call me to meet Him in heaven,\nBut, oh, that He’d let me bring you with me, too! [Refrain]\n\n3 I have a robe: ’tis resplendent in whiteness,\nAwaiting in glory my wondering view;\nOh, when I receive it all shining in brightness,\nDear friend, could I see you receiving one, too! [Refrain]\n\n4 When Jesus has found you, tell others the story,\nThat my loving savior is your savior, too;\nThen pray that your Savior may bring them to glory,\nAnd prayer will be answered, ’twas answered for you! [Refrain]".into()
+                text: "1 I have a Savior, He’s pleading in glory,\nA dear, loving savior, though earth-friends be few;\nAnd now He is watching in tenderness o’er me,\nAnd, oh, that my Savior were your savior, too.\n\nRefrain:\nFor you I am praying,\nFor you I am praying,\nFor you I am praying,\nI’m praying for you.\n\n2 I have a Father, to me He has given\nA hope for eternity, blessed and true;\nAnd soon will He call me to meet Him in heaven,\nBut, oh, that He’d let me bring you with me, too! [Refrain]\n\n3 I have a robe: ’tis resplendent in whiteness,\nAwaiting in glory my wondering view;\nOh, when I receive it all shining in brightness,\nDear friend, could I see you receiving one, too! [Refrain]\n\n4 When Jesus has found you, tell others the story,\nThat my loving savior is your savior, too;\nThen pray that your Savior may bring them to glory,\nAnd prayer will be answered, ’twas answered for you! [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2391,7 +2559,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Sometimes I feel like a motherless chile,\nSometimes I feel like a motherless chile,\nSometimes I feel like a motherless chile,\n\nRefrain:\nA long ways from home,\nA long ways from home,\nThen I get down on my knees an’ pray,\nGet down on my knees an’ pray.\n\n2 Sometimes I feel like I’m almos’ gone,\nSometimes I feel like I’m almos’ gone,\nSometimes I feel like I’m almos’ gone, [Refrain]".into()
+                text: "1 Sometimes I feel like a motherless chile,\nSometimes I feel like a motherless chile,\nSometimes I feel like a motherless chile,\n\nRefrain:\nA long ways from home,\nA long ways from home,\nThen I get down on my knees an’ pray,\nGet down on my knees an’ pray.\n\n2 Sometimes I feel like I’m almos’ gone,\nSometimes I feel like I’m almos’ gone,\nSometimes I feel like I’m almos’ gone, [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2405,7 +2574,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<i>Songs of Praise</i>".into(),
-                text: "1 Yield not to temptation,\nFor yielding is sin;\nEach vict’ry will help you,\nSome other to win;\nFight, still pressing onward,\nDark passions subdue;\n\nRefrain:\nLook ever to Jesus,\nHe will carry you through.\nAsk the savior to help you,\nComfort, strengthen and keep you;\nHe is willing to aid you,\nHe will carry you through.\n\n2 Shun evil companions,\nBad language disdain;\nGod’s name hold in rev’rence,\nNor take it in vain;\nBe thoughtful and earnest,\nKind-hearted and true; [Refrain]\n\n3 To him that o’ercometh,\nGod giveth a crown;\nThrough faith we will conquer,\nThough often cast down;\nHe who is our savior,\nOur strength will renew; [Refrain]".into()
+                text: "1 Yield not to temptation,\nFor yielding is sin;\nEach vict’ry will help you,\nSome other to win;\nFight, still pressing onward,\nDark passions subdue;\n\nRefrain:\nLook ever to Jesus,\nHe will carry you through.\nAsk the savior to help you,\nComfort, strengthen and keep you;\nHe is willing to aid you,\nHe will carry you through.\n\n2 Shun evil companions,\nBad language disdain;\nGod’s name hold in rev’rence,\nNor take it in vain;\nBe thoughtful and earnest,\nKind-hearted and true; [Refrain]\n\n3 To him that o’ercometh,\nGod giveth a crown;\nThrough faith we will conquer,\nThough often cast down;\nHe who is our savior,\nOur strength will renew; [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2419,7 +2589,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nO, I couldn’t hear nobody pray, (O Lord)\ncouldn’t hear nobody pray.\nO, way down yonder by myself,\nAnd I couldn’t hear nobody pray.\n\n1 In de valley,\nCouldn’t hear nobody pray,\nOn ma knees,\nCouldn’t hear nobody pray,\nWid ma burden,\nCouldn’t hear nobody pray,\nAn’ ma Savior.\nCouldn’t hear nobody pray,\nO ma Lord, [Refrain]\n\n2 Chilly waters,\nCouldn’t hear nobody pray,\nIn de Jerden,\nCouldn’t hear nobody pray,\nCrossin’ over,\nCouldn’t hear nobody pray,\nInto Canaan.\nCouldn’t hear nobody pray, [Refrain]\n\n3 Hallelujah!\nCouldn’t hear nobody pray,\nTroubles over\nCouldn’t hear nobody pray,\nIn de kingdom,\nCouldn’t hear nobody pray,\nWid my Jesus.\nCouldn’t hear nobody pray, [Refrain]".into()
+                text: "Refrain:\nO, I couldn’t hear nobody pray, (O Lord)\ncouldn’t hear nobody pray.\nO, way down yonder by myself,\nAnd I couldn’t hear nobody pray.\n\n1 In de valley,\nCouldn’t hear nobody pray,\nOn ma knees,\nCouldn’t hear nobody pray,\nWid ma burden,\nCouldn’t hear nobody pray,\nAn’ ma Savior.\nCouldn’t hear nobody pray,\nO ma Lord, [Refrain]\n\n2 Chilly waters,\nCouldn’t hear nobody pray,\nIn de Jerden,\nCouldn’t hear nobody pray,\nCrossin’ over,\nCouldn’t hear nobody pray,\nInto Canaan.\nCouldn’t hear nobody pray, [Refrain]\n\n3 Hallelujah!\nCouldn’t hear nobody pray,\nTroubles over\nCouldn’t hear nobody pray,\nIn de kingdom,\nCouldn’t hear nobody pray,\nWid my Jesus.\nCouldn’t hear nobody pray, [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2433,7 +2604,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nNobody knows the trouble I see, Lord,\nNobody knows the trouble I see,\nNobody knows the trouble I see, Lord,\nNobody knows but Jesus.\n\n1 Brother will you pray for me?\nBrother will you pray for me?\nBrother will you pray for me,\nAnd help me to drive old satan away? [Refrain]\n\n2 Sister, will you pray for me?\nSister, will you pray for me?\nSister, will you pray for me,\nAnd help me to drive old satan away? [Refrain]\n\n3 Father, will you pray for me?\nFather, will you pray for me?\nFather, will you pray for me,\nAnd help me to drive old satan away? [Refrain]\n\n4 Mother, will you pray for me?\nMother, will you pray for me?\nMother, will you pray for me,\nAnd help me to drive old satan away? [Refrain]".into()
+                text: "Refrain:\nNobody knows the trouble I see, Lord,\nNobody knows the trouble I see,\nNobody knows the trouble I see, Lord,\nNobody knows but Jesus.\n\n1 Brother will you pray for me?\nBrother will you pray for me?\nBrother will you pray for me,\nAnd help me to drive old satan away? [Refrain]\n\n2 Sister, will you pray for me?\nSister, will you pray for me?\nSister, will you pray for me,\nAnd help me to drive old satan away? [Refrain]\n\n3 Father, will you pray for me?\nFather, will you pray for me?\nFather, will you pray for me,\nAnd help me to drive old satan away? [Refrain]\n\n4 Mother, will you pray for me?\nMother, will you pray for me?\nMother, will you pray for me,\nAnd help me to drive old satan away? [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2447,7 +2619,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Lord, I want to live for thee,\nEv’ry day and hour;\nLet thy spirit be with me,\nIn its saving pow’r!\n\nRefrain:\nKeep my heart, and keep my hand,\nKeep my soul, I pray!\nKeep my tongue to speak thy praise,\nKeep me all the way!\n\n2 In my weakness be my strength;\nIn my trials all,\nBe thou near me all the day,\nHear my ev’ry call! [Refrain]\n\n3 Leave me not to walk alone,\nLest I droop and die;\nLet thy spirit go with me,\nAnd attend my cry! [Refrain]".into()
+                text: "1 Lord, I want to live for thee,\nEv’ry day and hour;\nLet thy spirit be with me,\nIn its saving pow’r!\n\nRefrain:\nKeep my heart, and keep my hand,\nKeep my soul, I pray!\nKeep my tongue to speak thy praise,\nKeep me all the way!\n\n2 In my weakness be my strength;\nIn my trials all,\nBe thou near me all the day,\nHear my ev’ry call! [Refrain]\n\n3 Leave me not to walk alone,\nLest I droop and die;\nLet thy spirit go with me,\nAnd attend my cry! [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2461,7 +2634,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2475,7 +2649,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nNobody knows the trouble I’ve seen,\nNobody knows but Jesus,\nNobody knows the trouble I’ve seen,\nGlory, hallelujah.\n\n1 Sometimes I’m up, sometimes I’m down,\nOh, yes, Lord,\nSometimes I’m almost to the ground,\nOh, yes, Lord. [Refrain]\n\n2 Although you see me going ’long so,\nOh, yes, Lord,\nI have my troubles here below,\nOh, yes, Lord. [Refrain]".into()
+                text: "Refrain:\nNobody knows the trouble I’ve seen,\nNobody knows but Jesus,\nNobody knows the trouble I’ve seen,\nGlory, hallelujah.\n\n1 Sometimes I’m up, sometimes I’m down,\nOh, yes, Lord,\nSometimes I’m almost to the ground,\nOh, yes, Lord. [Refrain]\n\n2 Although you see me going ’long so,\nOh, yes, Lord,\nI have my troubles here below,\nOh, yes, Lord. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2489,7 +2664,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 If I have wounded any soul today,\n\nIf I have caused one foot to go astray,\n\nIf I have walked in my own willful way,\n\nDear Lord, forgive!\n\n2 If I have uttered idle words or vain,\n\nIf I have turned aside from want or pain,\n\nLest I offend some other through the strain,\n\nDear Lord, forgive!\n\n3 If I have been perverse, or hard, or cold,\n\nIf I have longed for shelter in the fold,\n\nWhen thou hast given me some fort to hold,\n\nDear Lord, forgive!\n\n4 Forgive the sins I have confessed to thee;\n\nForgive the secret sins I do not see;\n\nO guide me, love me, and my keeper be.\n\nDear Lord, forgive!\n\nAmen.".into()
+                text: "1 If I have wounded any soul today,\n\nIf I have caused one foot to go astray,\n\nIf I have walked in my own willful way,\n\nDear Lord, forgive!\n\n2 If I have uttered idle words or vain,\n\nIf I have turned aside from want or pain,\n\nLest I offend some other through the strain,\n\nDear Lord, forgive!\n\n3 If I have been perverse, or hard, or cold,\n\nIf I have longed for shelter in the fold,\n\nWhen thou hast given me some fort to hold,\n\nDear Lord, forgive!\n\n4 Forgive the sins I have confessed to thee;\n\nForgive the secret sins I do not see;\n\nO guide me, love me, and my keeper be.\n\nDear Lord, forgive!\n\nAmen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2503,7 +2679,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nIt’s me, it’s me, O Lord,\nStandin’ in the need of prayer;\nIt’s me, it’s me, O Lord,\nStandin’ in the need of prayer.\n\n1 Not my brother, not my sister, but it’s me, O Lord,\nStandin’ in the need of prayer,\nNot my brother, not my sister, but it’s me, O Lord,\nStandin’ in the need of prayer. [Refrain]\n\n2 Not the preacher, not the deacon, but it’s me, O Lord,\nStandin’ in the need of prayer,\nNot the preacher, not the deacon, but it’s me, O Lord,\nStandin’ in the need of prayer. [Refrain]\n\n3 Not my father, not my mother, but it’s me, O Lord,\nStandin’ in the need of prayer,\nNot my father, not my mother, but it’s me, O Lord,\nStandin’ in the need of prayer. [Refrain]\n\n4 Not the stranger, not my neighbor, but it’s me, O Lord,\nStandin’ in the need of prayer,\nNot the stranger, not my neighbor, but it’s me, O Lord,\nStandin’ in the need of prayer. [Refrain]".into()
+                text: "Refrain:\nIt’s me, it’s me, O Lord,\nStandin’ in the need of prayer;\nIt’s me, it’s me, O Lord,\nStandin’ in the need of prayer.\n\n1 Not my brother, not my sister, but it’s me, O Lord,\nStandin’ in the need of prayer,\nNot my brother, not my sister, but it’s me, O Lord,\nStandin’ in the need of prayer. [Refrain]\n\n2 Not the preacher, not the deacon, but it’s me, O Lord,\nStandin’ in the need of prayer,\nNot the preacher, not the deacon, but it’s me, O Lord,\nStandin’ in the need of prayer. [Refrain]\n\n3 Not my father, not my mother, but it’s me, O Lord,\nStandin’ in the need of prayer,\nNot my father, not my mother, but it’s me, O Lord,\nStandin’ in the need of prayer. [Refrain]\n\n4 Not the stranger, not my neighbor, but it’s me, O Lord,\nStandin’ in the need of prayer,\nNot the stranger, not my neighbor, but it’s me, O Lord,\nStandin’ in the need of prayer. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2517,7 +2694,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Sweet hour of prayer, sweet hour of prayer,\n\nThat calls me from a world of care,\n\nAnd bids me at my Father’s throne\n\nMake all my wants and wishes known.\n\nIn seasons of distress and grief\n\nMy soul has often found relief.\n\nAnd oft escaped the tempter’s snare\n\nBy thy return, sweet hour of prayer.\n\n2 Sweet hour of prayer, sweet hour of prayer,\n\nThy wings shall my petition bear\n\nTo Him whose truth and faithfulness\n\nEngage the waiting soul to bless;\n\nAnd since He bids me seek His face,\n\nBelieve His word and trust His grace.\n\nI’ll cast on Him my ev’ry care,\n\nAnd wait for thee, sweet hour of prayer.\n\n3 Sweet hour of prayer, sweet hour of prayer,\n\nMay I thy consolation share,\n\nTill from Mount Pisgah’s lofty height\n\nI view my home and take my flight:\n\nThis robe of flesh I’ll drop, and rise\n\nTo seize the everlasting prize.\n\nAnd shout, while passing through the air,\n\n“Farewell, farewell, sweet hour of prayer!”".into()
+                text: "1 Sweet hour of prayer, sweet hour of prayer,\n\nThat calls me from a world of care,\n\nAnd bids me at my Father’s throne\n\nMake all my wants and wishes known.\n\nIn seasons of distress and grief\n\nMy soul has often found relief.\n\nAnd oft escaped the tempter’s snare\n\nBy thy return, sweet hour of prayer.\n\n2 Sweet hour of prayer, sweet hour of prayer,\n\nThy wings shall my petition bear\n\nTo Him whose truth and faithfulness\n\nEngage the waiting soul to bless;\n\nAnd since He bids me seek His face,\n\nBelieve His word and trust His grace.\n\nI’ll cast on Him my ev’ry care,\n\nAnd wait for thee, sweet hour of prayer.\n\n3 Sweet hour of prayer, sweet hour of prayer,\n\nMay I thy consolation share,\n\nTill from Mount Pisgah’s lofty height\n\nI view my home and take my flight:\n\nThis robe of flesh I’ll drop, and rise\n\nTo seize the everlasting prize.\n\nAnd shout, while passing through the air,\n\n“Farewell, farewell, sweet hour of prayer!”".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2531,7 +2709,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Remember me, Remember me,\n\nO Lord, remember me.".into()
+                text: "Remember me, Remember me,\n\nO Lord, remember me.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2545,7 +2724,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 I got a robe up in-a that kingdom\n\nAin’-a that good news,\n\nAin’-a that good news.\n\nI’m gonna lay down this world\n\ngonna shoulder up-a my cross.\n\nGonna take it home-a to my Jesus\n\nain’-a that good news, ain’-a that good news.\n\n2 I got a crown up in-a that kingdom\n\nAin’-a that good news,\n\nAin’a that good news.\n\nI’m gonna lay down this world\n\ngonna shoulder up-a my cross.\n\nGonna take it home-a to my Jesus\n\nain’-a that good news, ain’-a that good news.\n\n3 I got a savior in-a that kingdom . . .\n\nAin’-a that good news,\n\nAin’a that good news.\n\nI’m gonna lay down this world\n\ngonna shoulder up-a my cross.\n\nGonna take it home-a to my Jesus\n\nain’-a that good news, ain’-a that good news.".into()
+                text: "1 I got a robe up in-a that kingdom\n\nAin’-a that good news,\n\nAin’-a that good news.\n\nI’m gonna lay down this world\n\ngonna shoulder up-a my cross.\n\nGonna take it home-a to my Jesus\n\nain’-a that good news, ain’-a that good news.\n\n2 I got a crown up in-a that kingdom\n\nAin’-a that good news,\n\nAin’a that good news.\n\nI’m gonna lay down this world\n\ngonna shoulder up-a my cross.\n\nGonna take it home-a to my Jesus\n\nain’-a that good news, ain’-a that good news.\n\n3 I got a savior in-a that kingdom . . .\n\nAin’-a that good news,\n\nAin’a that good news.\n\nI’m gonna lay down this world\n\ngonna shoulder up-a my cross.\n\nGonna take it home-a to my Jesus\n\nain’-a that good news, ain’-a that good news.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2559,7 +2739,8 @@ lazy_static! {
 				meter: "8.6.8.6".into(),
 				text_sources: "".into(),
 				tune_sources: "<cite>Virginia Harmony</cite>".into(),
-                text: "1 Amazing grace! how sweet the sound,\nThat saved a wretch like me!\nI once was lost, but now am found,\nWas blind, but now I see.\n\n2 ’Twas grace that taught my heart to fear,\nAnd grace my fears relieved;\nHow precious did that grace appear\nThe hour I first believed!\n\n3 The Lord has promised good to me,\nHis word my hope secures;\nHe will my shield and portion be\nAs long as life endures.\n\n4 Through many dangers, toils, and snares,\nI have already come;\n’Tis grace that brought me safe thus far,\nAnd grace will lead me home.\n\n5 When we’ve been there ten thousand years,\nBright shining as the sun,\nWe’ve no less days to sing God’s praise\nThan when we’d first begun.".into()
+                text: "1 Amazing grace! how sweet the sound,\nThat saved a wretch like me!\nI once was lost, but now am found,\nWas blind, but now I see.\n\n2 ’Twas grace that taught my heart to fear,\nAnd grace my fears relieved;\nHow precious did that grace appear\nThe hour I first believed!\n\n3 The Lord has promised good to me,\nHis word my hope secures;\nHe will my shield and portion be\nAs long as life endures.\n\n4 Through many dangers, toils, and snares,\nI have already come;\n’Tis grace that brought me safe thus far,\nAnd grace will lead me home.\n\n5 When we’ve been there ten thousand years,\nBright shining as the sun,\nWe’ve no less days to sing God’s praise\nThan when we’d first begun.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2573,7 +2754,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nDidn’t my Lord deliver Daniel,\ndeliver Daniel, deliver Daniel,\nDidn’t my Lord deliver Daniel,\nAn’ why not-a every man.\n\n1 He delivered Daniel from the lion’s den,\nan’ Jonah from the belly of the whale;\nAn’ the Hebrew children from the fiery furnace,\nAn’ why not every man. [Refrain]\n\n2 The win’ blows eas’ an’ de win’ blows wes’,\nIt blows like de judgament day;\nAn’ ev’ry po’ soul dat never did pray’ll\nbe glad to pray dat day. [Refrain]\n\n3 I set my foot on de gospel ship,\nan’ de ship begin to sail;\nIt landed me over on Canaan’s shore,\nAn’ I’ll never come back no more. [Refrain]".into()
+                text: "Refrain:\nDidn’t my Lord deliver Daniel,\ndeliver Daniel, deliver Daniel,\nDidn’t my Lord deliver Daniel,\nAn’ why not-a every man.\n\n1 He delivered Daniel from the lion’s den,\nan’ Jonah from the belly of the whale;\nAn’ the Hebrew children from the fiery furnace,\nAn’ why not every man. [Refrain]\n\n2 The win’ blows eas’ an’ de win’ blows wes’,\nIt blows like de judgament day;\nAn’ ev’ry po’ soul dat never did pray’ll\nbe glad to pray dat day. [Refrain]\n\n3 I set my foot on de gospel ship,\nan’ de ship begin to sail;\nIt landed me over on Canaan’s shore,\nAn’ I’ll never come back no more. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2587,7 +2769,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Be not dismayed whate’er betide,\nGod will take care of you;\nBeneath His wings of love abide,\nGod will take care of you.\n\nRefrain:\nGod will take care of you,\nThrough ev’ry day,\nO’er all the way;\nHe will take care of you,\nGod will take care of you.\n\n2 Through days of toil when heart doth fail,\nGod will take care of you;\nWhen dangers fierce you path assail,\nGod will take care of you. [Refrain]\n\n3 All you may need He will provide,\nGod will take care of you;\nNothing you ask will be denied,\nGod will take care of you. [Refrain]\n\n4 No matter what may be the test,\nGod will take care of you;\nLean, weary one, upon His breast,\nGod will take care of you. [Refrain]".into()
+                text: "1 Be not dismayed whate’er betide,\nGod will take care of you;\nBeneath His wings of love abide,\nGod will take care of you.\n\nRefrain:\nGod will take care of you,\nThrough ev’ry day,\nO’er all the way;\nHe will take care of you,\nGod will take care of you.\n\n2 Through days of toil when heart doth fail,\nGod will take care of you;\nWhen dangers fierce you path assail,\nGod will take care of you. [Refrain]\n\n3 All you may need He will provide,\nGod will take care of you;\nNothing you ask will be denied,\nGod will take care of you. [Refrain]\n\n4 No matter what may be the test,\nGod will take care of you;\nLean, weary one, upon His breast,\nGod will take care of you. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2601,7 +2784,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Blessed assurance, Jesus is mine!\nO what a foretaste of glory divine!\nHeir of salvation, purchase of God,\nBorn of His spirit, washed in His blood.\n\nRefrain:\nThis is my story, this is my song,\nPraising my savior all the day long;\nThis is my story, this is my song,\nPraising my savior all the day long.\n\n2 Perfect submission, perfect delight,\nVisions of rapture now burst on my sight;\nAngels descending, bring from above\nEchoes of mercy, whispers of love. [Refrain]\n\n3 Perfect submission, all is at rest,\nI in my savior am happy and blest;\nWatching and waiting, looking above,\nFilled with His goodness, lost in His love. [Refrain]".into()
+                text: "1 Blessed assurance, Jesus is mine!\nO what a foretaste of glory divine!\nHeir of salvation, purchase of God,\nBorn of His spirit, washed in His blood.\n\nRefrain:\nThis is my story, this is my song,\nPraising my savior all the day long;\nThis is my story, this is my song,\nPraising my savior all the day long.\n\n2 Perfect submission, perfect delight,\nVisions of rapture now burst on my sight;\nAngels descending, bring from above\nEchoes of mercy, whispers of love. [Refrain]\n\n3 Perfect submission, all is at rest,\nI in my savior am happy and blest;\nWatching and waiting, looking above,\nFilled with His goodness, lost in His love. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2615,7 +2799,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Joys are flowing like a river,\nSince the comforter has come;\nHe abides with us forever,\nMakes the trusting heart His home.\n\nRefrain:\nBlessed quietness, holy quietness,\nWhat assurance is my soul,\nOn the stormy sea, Jesus speaks to me,\nAnd the billows cease to roll.\n\n2 Bringing life and health and gladness\nAll around this heav’nly guest,\nBanished unbelief and sadness,\nChang’d our weariness to rest. [Refrain]\n\n3 Like the rain that falls from heaven,\nLike the sunlight from the sky,\nSo the Holy Ghost is given,\nComing on us from on high. [Refrain]\n\n4 See, a fruitful field is growing,\nBlessed fruit of righteousness;\nAnd the streams of life are flowing\nIn the lonely wilderness. [Refrain]\n\n5 What a wonderful salvation,\nWhen we always see His face,\nWhat a perfect habitation,\nWhat a quiet resting place. [Refrain]".into()
+                text: "1 Joys are flowing like a river,\nSince the comforter has come;\nHe abides with us forever,\nMakes the trusting heart His home.\n\nRefrain:\nBlessed quietness, holy quietness,\nWhat assurance is my soul,\nOn the stormy sea, Jesus speaks to me,\nAnd the billows cease to roll.\n\n2 Bringing life and health and gladness\nAll around this heav’nly guest,\nBanished unbelief and sadness,\nChang’d our weariness to rest. [Refrain]\n\n3 Like the rain that falls from heaven,\nLike the sunlight from the sky,\nSo the Holy Ghost is given,\nComing on us from on high. [Refrain]\n\n4 See, a fruitful field is growing,\nBlessed fruit of righteousness;\nAnd the streams of life are flowing\nIn the lonely wilderness. [Refrain]\n\n5 What a wonderful salvation,\nWhen we always see His face,\nWhat a perfect habitation,\nWhat a quiet resting place. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2629,7 +2814,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2643,7 +2829,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2657,7 +2844,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 When peace, like a river, attendeth my way,\nWhen sorrows like seabillows roll;\nWhatever my lot, thou hast taught me to say,\nIt is well, it is well with my soul.\n\nRefrain:\nIt is well with my soul,\nIt is well, it is well with my soul.\n\n2 Though satan should buffet, though trials should come,\nLet this blest assurance control,\nThat Christ has regarded my helpless estate,\nAnd has shed His own blood for my soul. [Refrain]\n\n3 My sin oh, the bliss of this glorious thought\nMy sin not in part, but the whole\nIs nailed to the cross and I bear it no more,\nPraise the Lord, praise the Lord, O my soul! [Refrain]\n\n4 And, Lord, hast the day when the faith shall be sight,\nThe clouds be rolled back as a scroll,\nThe trump shall resound and the Lord shall descend,\n“Even so” it is well with my soul. [Refrain]".into()
+                text: "1 When peace, like a river, attendeth my way,\nWhen sorrows like seabillows roll;\nWhatever my lot, thou hast taught me to say,\nIt is well, it is well with my soul.\n\nRefrain:\nIt is well with my soul,\nIt is well, it is well with my soul.\n\n2 Though satan should buffet, though trials should come,\nLet this blest assurance control,\nThat Christ has regarded my helpless estate,\nAnd has shed His own blood for my soul. [Refrain]\n\n3 My sin oh, the bliss of this glorious thought\nMy sin not in part, but the whole\nIs nailed to the cross and I bear it no more,\nPraise the Lord, praise the Lord, O my soul! [Refrain]\n\n4 And, Lord, hast the day when the faith shall be sight,\nThe clouds be rolled back as a scroll,\nThe trump shall resound and the Lord shall descend,\n“Even so” it is well with my soul. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2671,7 +2859,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Great is thy faithfulness, O God my Father,\nThere is no shadow of turning with thee;\nThou changest not, thy compassions, they fail not,\nAs thou hast been thou forever wilt be.\n\nRefrain:\nGreat is thy faithfulness! Great is thy faithfulness!\nMorning by morning new mercies I see;\nAll I have needed thy hand hath provided,\nGreat is Thy faithfulness, Lord unto me!\n\n2 Summer and winter, and springtime and harvest,\nSun, moon and stars in their courses above,\nJoin with all nature in manifold witness,\nTo thy great faithfulness, mercy and love. [Refrain]\n\n3 Pardon for sin and a peace that endureth,\nThine own dear presence to cheer and to guide;\nStrength for today and bright hope for tomorrow,[Refrain]".into()
+                text: "1 Great is thy faithfulness, O God my Father,\nThere is no shadow of turning with thee;\nThou changest not, thy compassions, they fail not,\nAs thou hast been thou forever wilt be.\n\nRefrain:\nGreat is thy faithfulness! Great is thy faithfulness!\nMorning by morning new mercies I see;\nAll I have needed thy hand hath provided,\nGreat is Thy faithfulness, Lord unto me!\n\n2 Summer and winter, and springtime and harvest,\nSun, moon and stars in their courses above,\nJoin with all nature in manifold witness,\nTo thy great faithfulness, mercy and love. [Refrain]\n\n3 Pardon for sin and a peace that endureth,\nThine own dear presence to cheer and to guide;\nStrength for today and bright hope for tomorrow,[Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2685,7 +2874,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 If when you give the best of your service,\nTelling the world that the Savior has come;\nBe not dismayed when friends won’t believe you;\nHe’ll understand, and say “well done.”\n\nRefrain:\nOh, when I come to the end of my Journey,\nweary of life, and the battle is won.\nCarr’ing the staff and the cross of redemption\nHe’ll understand, and say “Well done.”\n\n2 Misunderstood, the savior of sinners,\nHung on the cross; He was God’s only Son;\nOh! hear him call His father in heaven,\n“Not my will, but thine be done.” [Refrain]\n\n3 If when this life of labor is ended,\nAnd the reward of the race you have run;\nOh! the sweet rest prepared for the faithful,\nWill be His blest and final “well done.” [Refrain]\n\n4 But if you try and fail in your trying,\nHands sore and scarred from the work you’ve begun;\nTake up your cross, run quickly to meet Him,\nHe’ll understand, and say “well done.” [Refrain]".into()
+                text: "1 If when you give the best of your service,\nTelling the world that the Savior has come;\nBe not dismayed when friends won’t believe you;\nHe’ll understand, and say “well done.”\n\nRefrain:\nOh, when I come to the end of my Journey,\nweary of life, and the battle is won.\nCarr’ing the staff and the cross of redemption\nHe’ll understand, and say “Well done.”\n\n2 Misunderstood, the savior of sinners,\nHung on the cross; He was God’s only Son;\nOh! hear him call His father in heaven,\n“Not my will, but thine be done.” [Refrain]\n\n3 If when this life of labor is ended,\nAnd the reward of the race you have run;\nOh! the sweet rest prepared for the faithful,\nWill be His blest and final “well done.” [Refrain]\n\n4 But if you try and fail in your trying,\nHands sore and scarred from the work you’ve begun;\nTake up your cross, run quickly to meet Him,\nHe’ll understand, and say “well done.” [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2699,7 +2889,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 Why should I feel discouraged,\nWhy should the shadows come,\nWhy should my heart be lonely,\nAnd long for heav’n and home;\nWhen Jesus is my portion?\nMy constant friend is He:\n\nRefrain:\nHis eye is on the sparrow,\nAnd I know He watches me;\nHis eye is on the sparrow,\nand I know He watches me.\nI sing because I’m happy,\nI sing because I’m free;\nFor His eye is on the sparrow,\nAnd I know He watches me.\n\n2 “Let not your heart be troubled,”\nHis tender word I hear,\nAnd resting on His goodness,\nI lose my doubts and fears;\nThough by the path He leadeth,\nBut one step I may see; [Refrain]\n\n3 When ever I am tempted,\nWhen ever clouds arise,\nWhen songs give place to sighing,\nWhen hope within me dies,\nI draw the closer to Him,\nFrom care He sets me free; [Refrain]".into()
+                text: "1 Why should I feel discouraged,\nWhy should the shadows come,\nWhy should my heart be lonely,\nAnd long for heav’n and home;\nWhen Jesus is my portion?\nMy constant friend is He:\n\nRefrain:\nHis eye is on the sparrow,\nAnd I know He watches me;\nHis eye is on the sparrow,\nand I know He watches me.\nI sing because I’m happy,\nI sing because I’m free;\nFor His eye is on the sparrow,\nAnd I know He watches me.\n\n2 “Let not your heart be troubled,”\nHis tender word I hear,\nAnd resting on His goodness,\nI lose my doubts and fears;\nThough by the path He leadeth,\nBut one step I may see; [Refrain]\n\n3 When ever I am tempted,\nWhen ever clouds arise,\nWhen songs give place to sighing,\nWhen hope within me dies,\nI draw the closer to Him,\nFrom care He sets me free; [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2713,7 +2904,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 I need thee ev’ry hour,\nMost gracious Lord;\nNo tender voice like thine\nCan peace afford.\n\nRefrain:\nI need thee, O I need thee,\nEv’ry hour I need thee;\nO bless me now, my savior,\nI come to thee.\n\n2 I need thee ev’ry hour,\nStay thou near by;\nTemptations lose their power\nWhen thou art nigh. [Refrain]\n\n3 I need thee ev’ry hour,\nIn joy or pain;\nCome quickly and abide,\nOr life is vain. [Refrain]\n\n4 I need thee ev’ry hour,\nTeach me thy will,\nAnd thy rich promises\nIn me fulfill. [Refrain]".into()
+                text: "1 I need thee ev’ry hour,\nMost gracious Lord;\nNo tender voice like thine\nCan peace afford.\n\nRefrain:\nI need thee, O I need thee,\nEv’ry hour I need thee;\nO bless me now, my savior,\nI come to thee.\n\n2 I need thee ev’ry hour,\nStay thou near by;\nTemptations lose their power\nWhen thou art nigh. [Refrain]\n\n3 I need thee ev’ry hour,\nIn joy or pain;\nCome quickly and abide,\nOr life is vain. [Refrain]\n\n4 I need thee ev’ry hour,\nTeach me thy will,\nAnd thy rich promises\nIn me fulfill. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2727,7 +2919,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "I will trust in the Lord,\n\nI will trust in the Lord,\n\nI will trust in the Lord ’til I die;\n\nI will trust in the Lord,\n\nI will trust in the Lord,\n\nI will trust in the Lord ’til I die.\n\nSister will you trust in the Lord,\n\nSister will you trust in the Lord,\n\nSister will you trust in the Lord ’til you die;\n\nSister will you trust in the Lord,\n\nSister will you trust in the Lord,\n\nSister will you trust in the Lord ’til you die.\n\nBrother will you trust in the Lord,\n\nBrother will you trust in the Lord,\n\nBrother will you trust in the Lord ’til you die;\n\nBrother will you trust in the Lord,\n\nBrother will you trust in the Lord,\n\nBrother will you trust in the Lord ’til you die.\n\nI’m gonna treat my neighbor right,\n\nI’m gonna treat my neighbor right,\n\nI’m gonna treat my neighbor right ’til I die;\n\nI’m gonna treat my neighbor right,\n\nI’m gonna treat my neighbor right,\n\nI’m gonna treat my neighbor right 'til I die.\n\nI’m gonna hold my savior’s hand,\n\nI’m gonna hold my savior’s hand,\n\nI’m gonna hold my savior’s hand ’til I die;\n\nI’m gonna hold my savior’s hand,\n\nI’m gonna hold my savior’s hand,\n\nI’m gonna hold my savior’s hand ’til I die.".into()
+                text: "I will trust in the Lord,\n\nI will trust in the Lord,\n\nI will trust in the Lord ’til I die;\n\nI will trust in the Lord,\n\nI will trust in the Lord,\n\nI will trust in the Lord ’til I die.\n\nSister will you trust in the Lord,\n\nSister will you trust in the Lord,\n\nSister will you trust in the Lord ’til you die;\n\nSister will you trust in the Lord,\n\nSister will you trust in the Lord,\n\nSister will you trust in the Lord ’til you die.\n\nBrother will you trust in the Lord,\n\nBrother will you trust in the Lord,\n\nBrother will you trust in the Lord ’til you die;\n\nBrother will you trust in the Lord,\n\nBrother will you trust in the Lord,\n\nBrother will you trust in the Lord ’til you die.\n\nI’m gonna treat my neighbor right,\n\nI’m gonna treat my neighbor right,\n\nI’m gonna treat my neighbor right ’til I die;\n\nI’m gonna treat my neighbor right,\n\nI’m gonna treat my neighbor right,\n\nI’m gonna treat my neighbor right 'til I die.\n\nI’m gonna hold my savior’s hand,\n\nI’m gonna hold my savior’s hand,\n\nI’m gonna hold my savior’s hand ’til I die;\n\nI’m gonna hold my savior’s hand,\n\nI’m gonna hold my savior’s hand,\n\nI’m gonna hold my savior’s hand ’til I die.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2741,7 +2934,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2755,7 +2949,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 I’ve been ’buked an’ I’ve been scorned,\n\nI’ve been ’buked an’ I’ve been scorned, children;\n\nI’ve been ’buked an’ I’ve been scorned,\n\nI’ve been talked about sho’s you’ born.\n\n2 Dere is trouble all over dis worl’,\n\nDere is trouble all over dis worl’, children;\n\nDere is trouble all over dis worl’,\n\nDere is trouble all over dis worl’.\n\n3 Ain’ gwine lay my ’ligion down,\n\nAin’ gwine lay my ’ligion down, children;\n\nAin’ gwine lay my ’ligion down,\n\nAin’ gwine lay my ’ligion down.".into()
+                text: "1 I’ve been ’buked an’ I’ve been scorned,\n\nI’ve been ’buked an’ I’ve been scorned, children;\n\nI’ve been ’buked an’ I’ve been scorned,\n\nI’ve been talked about sho’s you’ born.\n\n2 Dere is trouble all over dis worl’,\n\nDere is trouble all over dis worl’, children;\n\nDere is trouble all over dis worl’,\n\nDere is trouble all over dis worl’.\n\n3 Ain’ gwine lay my ’ligion down,\n\nAin’ gwine lay my ’ligion down, children;\n\nAin’ gwine lay my ’ligion down,\n\nAin’ gwine lay my ’ligion down.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2769,7 +2964,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 What a fellowship, what a joy divine,\nLeaning on the everlasting arms;\nWhat a blessedness, what a peace is mine,\nLeaning on the everlasting arms.\n\nRefrain:\nLeaning, leaning,\nsafe and secure from all alarms;\nLeaning, leaning,\nLeaning on the everlasting arms.\n\n2 O how sweet to walk in this pilgrim way,\nLeaning on the everlasting arms;\nO how bright the path grows from day to day,\nLeaning on the everlasting arms. [Refrain]\n\n3 What have I to dread, what have I to fear,\nLeaning on the everlasting arms;\nI have blessed peace with my Lord so near,[Refrain]".into()
+                text: "1 What a fellowship, what a joy divine,\nLeaning on the everlasting arms;\nWhat a blessedness, what a peace is mine,\nLeaning on the everlasting arms.\n\nRefrain:\nLeaning, leaning,\nsafe and secure from all alarms;\nLeaning, leaning,\nLeaning on the everlasting arms.\n\n2 O how sweet to walk in this pilgrim way,\nLeaning on the everlasting arms;\nO how bright the path grows from day to day,\nLeaning on the everlasting arms. [Refrain]\n\n3 What have I to dread, what have I to fear,\nLeaning on the everlasting arms;\nI have blessed peace with my Lord so near,[Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2783,7 +2979,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 If the world from you withhold\nof its silver and gold,\nAnd you have to get along with meager fare;\nJust remember in His word.\nHow He feeds the little bird.\nTake your burden to the Lord and leave it there.\n\nRefrain:\nLeave it there, leave it there, \nTake your burden to the Lord and leave it there, \nIf you trust and never doubt, He will surely bring you out;\nTake your burden to the Lord and leave it there.\n\n2 If your body suffers pain,\nand your health you can’t regain,\nAnd your soul is almost sinking in despair;\nJesus knows the pain you feel.\nHe can save and He can heal.[Refrain]\n\n3 When your enemies assail,\nand your heart begins to fail,\nDon’t forget that God in heaven answers prayer.\nHe will make a way for you,\nand will lead you safely through.\nTake your burden to the Lord and leave it there. [Refrain]\n\n4 When your youthful days are gone,\nand old age is stealing on.\nAnd your body bends beneath the weight of care;\nHe will never leave you then,\nHe’ll go with you to the end.\nTake your burden to the Lord and leave it there. [Refrain]".into()
+                text: "1 If the world from you withhold\nof its silver and gold,\nAnd you have to get along with meager fare;\nJust remember in His word.\nHow He feeds the little bird.\nTake your burden to the Lord and leave it there.\n\nRefrain:\nLeave it there, leave it there, \nTake your burden to the Lord and leave it there, \nIf you trust and never doubt, He will surely bring you out;\nTake your burden to the Lord and leave it there.\n\n2 If your body suffers pain,\nand your health you can’t regain,\nAnd your soul is almost sinking in despair;\nJesus knows the pain you feel.\nHe can save and He can heal.[Refrain]\n\n3 When your enemies assail,\nand your heart begins to fail,\nDon’t forget that God in heaven answers prayer.\nHe will make a way for you,\nand will lead you safely through.\nTake your burden to the Lord and leave it there. [Refrain]\n\n4 When your youthful days are gone,\nand old age is stealing on.\nAnd your body bends beneath the weight of care;\nHe will never leave you then,\nHe’ll go with you to the end.\nTake your burden to the Lord and leave it there. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2797,7 +2994,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 I was sinking deep in sin,\nFar from the peaceful shore,\nVery deeply stained within,\nSinking to rise no more;\nBut the master of the sea\nHeard my despairing cry,\nFrom the waters lifted me\nNow safe am I.\n\nRefrain:\nLove lifted even me, \nLove lifted even me,\nWhen nothing else could help, \nLove lifted me.\n\n2 All my heart to Him I give,\nEver to Him I’ll cling,\nIn His blessed presence live,\nEver His praises sing.\nLove so mighty and so true\nMerits my soul’s best songs;\nFaithful, loving service, too,\nTo Him belongs. [Refrain]\n\n3 Souls in danger, look above,\nJesus completely saves;\nHe will lift you by His love\nOut of the angry waves.\nHe’s the master of the sea,\nBillows His will obey;\nHe your savior wants to be,\nBe saved today. [Refrain]".into()
+                text: "1 I was sinking deep in sin,\nFar from the peaceful shore,\nVery deeply stained within,\nSinking to rise no more;\nBut the master of the sea\nHeard my despairing cry,\nFrom the waters lifted me\nNow safe am I.\n\nRefrain:\nLove lifted even me, \nLove lifted even me,\nWhen nothing else could help, \nLove lifted me.\n\n2 All my heart to Him I give,\nEver to Him I’ll cling,\nIn His blessed presence live,\nEver His praises sing.\nLove so mighty and so true\nMerits my soul’s best songs;\nFaithful, loving service, too,\nTo Him belongs. [Refrain]\n\n3 Souls in danger, look above,\nJesus completely saves;\nHe will lift you by His love\nOut of the angry waves.\nHe’s the master of the sea,\nBillows His will obey;\nHe your savior wants to be,\nBe saved today. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2811,7 +3009,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2825,7 +3024,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 When the storms of life are raging,\n\nStand by me, stand by me;\n\nWhen the storms of life are raging,\n\nStand by me, stand by me;\n\nWhen the world is tossing me\n\nLike a ship upon the sea;\n\nThou who rules wind and water,\n\nStand by me, stand by me.\n\n2 In the midst of tribulations,\n\nStand by me, stand by me;\n\nIn the midst of tribulation,\n\nStand by me, stand by me;\n\nWhen the hosts of hell assail,\n\nAnd my strength begins to fail,\n\nThou who never lost a battle,\n\nStand by me, stand by me.\n\n3 In the midst of faults and failures,\n\nStand by me, stand by me;\n\nIn the midst of faults and failures,\n\nStand by me, stand by me;\n\nWhen I do the best I can,\n\nAnd my friends misunderstand,\n\nThou who knowest all about me,\n\nStand by me, stand by me.\n\n4 In the midst of persecution,\n\nStand by me, stand by me;\n\nIn the midst of persecution,\n\nStand by me, stand by me;\n\nWhen my foes in battle array\n\nUndertake to stop my way,\n\nThou who saved Paul and Silas,\n\nStand by me, stand by me.\n\n5 When I’m growing old and feeble,\n\nStand by me, stand by me.\n\nWhen I’m growing old and feeble,\n\nStand by me, stand by me;\n\nWhen my life becomes a burden,\n\nAnd I’m nearing chilly Jordan,\n\nO thou “Lily of the Valley,”\n\nStand by me, stand by me.".into()
+                text: "1 When the storms of life are raging,\n\nStand by me, stand by me;\n\nWhen the storms of life are raging,\n\nStand by me, stand by me;\n\nWhen the world is tossing me\n\nLike a ship upon the sea;\n\nThou who rules wind and water,\n\nStand by me, stand by me.\n\n2 In the midst of tribulations,\n\nStand by me, stand by me;\n\nIn the midst of tribulation,\n\nStand by me, stand by me;\n\nWhen the hosts of hell assail,\n\nAnd my strength begins to fail,\n\nThou who never lost a battle,\n\nStand by me, stand by me.\n\n3 In the midst of faults and failures,\n\nStand by me, stand by me;\n\nIn the midst of faults and failures,\n\nStand by me, stand by me;\n\nWhen I do the best I can,\n\nAnd my friends misunderstand,\n\nThou who knowest all about me,\n\nStand by me, stand by me.\n\n4 In the midst of persecution,\n\nStand by me, stand by me;\n\nIn the midst of persecution,\n\nStand by me, stand by me;\n\nWhen my foes in battle array\n\nUndertake to stop my way,\n\nThou who saved Paul and Silas,\n\nStand by me, stand by me.\n\n5 When I’m growing old and feeble,\n\nStand by me, stand by me.\n\nWhen I’m growing old and feeble,\n\nStand by me, stand by me;\n\nWhen my life becomes a burden,\n\nAnd I’m nearing chilly Jordan,\n\nO thou “Lily of the Valley,”\n\nStand by me, stand by me.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2839,7 +3039,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 I’ve got peace like a river,\n\nI’ve got peace like a river,\n\nI’ve got peace like a river in my soul.\n\n2 I’ve got joy like a fountain,\n\nI’ve got joy like a fountain,\n\nI’ve got joy like a fountain in my soul.\n\n3 I’ve got love like an ocean,\n\nI’ve got love like an ocean,\n\nI’ve got love like an ocean in my soul.".into()
+                text: "1 I’ve got peace like a river,\n\nI’ve got peace like a river,\n\nI’ve got peace like a river in my soul.\n\n2 I’ve got joy like a fountain,\n\nI’ve got joy like a fountain,\n\nI’ve got joy like a fountain in my soul.\n\n3 I’ve got love like an ocean,\n\nI’ve got love like an ocean,\n\nI’ve got love like an ocean in my soul.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2853,7 +3054,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2867,7 +3069,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "American melody".into(),
-                text: "Refrain:\nThere is a balm in Gilead\nto make the wounded whole;\nThere is a balm in Gilead\nto heal the sin-sick soul.\n\n1 Sometimes I feel discouraged,\nAnd think my work’s in vain,\nBut then the holy spirit\nRevives my soul again. [Refrain]\n\n2 If you cannot preach like Peter,\nIf you cannot preach like Paul,\nYou can tell the love of Jesus,\nAnd say He died for all. [Refrain]\n\n3 Don’t ever be discouraged\nFor Jesus is your friend,\nAnd if you lack for knowledge,\nHe’ll ne’er refuse to lend. [Refrain]".into()
+                text: "Refrain:\nThere is a balm in Gilead\nto make the wounded whole;\nThere is a balm in Gilead\nto heal the sin-sick soul.\n\n1 Sometimes I feel discouraged,\nAnd think my work’s in vain,\nBut then the holy spirit\nRevives my soul again. [Refrain]\n\n2 If you cannot preach like Peter,\nIf you cannot preach like Paul,\nYou can tell the love of Jesus,\nAnd say He died for all. [Refrain]\n\n3 Don’t ever be discouraged\nFor Jesus is your friend,\nAnd if you lack for knowledge,\nHe’ll ne’er refuse to lend. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2881,7 +3084,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 When waves of affliction sweep over the soul,\nAnd sunlight is hidden from view,\nIf ever you’re tempted to fret or complain,\nJust think of His goodness to you.\n\nRefrain:\nJust think of His goodness to you;\nYes, think of His goodness to you;\nThough storms o’er thee sweep,\nHe is able to keep;\nO think of His goodness to you.\n\n2 The world may forsake you, and those whom you trust\nMay prove to be false and untrue;\nThere’s one you can trust even unto the end;\nJust think of His goodness to you. [Refrain]\n\n3 Misfortune’s dark cloud my hang over the way,\nDespite your best efforts to do;\nThe savior is guarding your treasures up there;\nJust think of His goodness to you. [Refrain]\n\n4 When dear ones are taken away from you here,\nYou loved with affection so true,\nLook unto the savior for strength to endure,\nAnd think of His goodness to you. [Refrain]".into()
+                text: "1 When waves of affliction sweep over the soul,\nAnd sunlight is hidden from view,\nIf ever you’re tempted to fret or complain,\nJust think of His goodness to you.\n\nRefrain:\nJust think of His goodness to you;\nYes, think of His goodness to you;\nThough storms o’er thee sweep,\nHe is able to keep;\nO think of His goodness to you.\n\n2 The world may forsake you, and those whom you trust\nMay prove to be false and untrue;\nThere’s one you can trust even unto the end;\nJust think of His goodness to you. [Refrain]\n\n3 Misfortune’s dark cloud my hang over the way,\nDespite your best efforts to do;\nThe savior is guarding your treasures up there;\nJust think of His goodness to you. [Refrain]\n\n4 When dear ones are taken away from you here,\nYou loved with affection so true,\nLook unto the savior for strength to endure,\nAnd think of His goodness to you. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2895,7 +3099,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 When we walk with the Lord\nIn the light of His word,\nWhat a glory He sheds on our way!\nWhile we do His good will,\nHe abides with us still,\nAnd with all who will trust and obey.\n\nRefrain:\nTrust and obey,\nfor there’s no other way\nTo be happy in Jesus,\nBut to trust and obey.\n\n2 Not a shadow can rise,\nNot a cloud in the skies,\nBut His smile quickly drives it away;\nNot a doubt nor a fear,\nNot a sigh nor a tear,\nCan abide while we trust and obey. [Refrain]\n\n3 Not a burden we bear,\nNot a sorrow we share,\nBut our toil He doth richly repay;\nNot a grief nor a loss,\nNot a frown nor a cross,\nBut is blest if we trust and obey. (refrain)\n\n4 But we never can prove\nThe delights of His love\nUntil all on the altar we lay;\nFor the favor He shows,\nAnd the joy He bestows,\nAre for them who will trust and obey. [Refrain]\n\n5 When in fellowship sweet\nWe will sit at His feet,\nOr we’ll walk by His side in the way;\nWhat He says we will do,\nWhere He sends we will go,\nNever fear, only trust and obey. [Refrain]".into()
+                text: "1 When we walk with the Lord\nIn the light of His word,\nWhat a glory He sheds on our way!\nWhile we do His good will,\nHe abides with us still,\nAnd with all who will trust and obey.\n\nRefrain:\nTrust and obey,\nfor there’s no other way\nTo be happy in Jesus,\nBut to trust and obey.\n\n2 Not a shadow can rise,\nNot a cloud in the skies,\nBut His smile quickly drives it away;\nNot a doubt nor a fear,\nNot a sigh nor a tear,\nCan abide while we trust and obey. [Refrain]\n\n3 Not a burden we bear,\nNot a sorrow we share,\nBut our toil He doth richly repay;\nNot a grief nor a loss,\nNot a frown nor a cross,\nBut is blest if we trust and obey. (refrain)\n\n4 But we never can prove\nThe delights of His love\nUntil all on the altar we lay;\nFor the favor He shows,\nAnd the joy He bestows,\nAre for them who will trust and obey. [Refrain]\n\n5 When in fellowship sweet\nWe will sit at His feet,\nOr we’ll walk by His side in the way;\nWhat He says we will do,\nWhere He sends we will go,\nNever fear, only trust and obey. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2909,7 +3114,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 We walk by faith, and not by sight;\n\nNo gracious words we hear\n\nFrom Him who spoke as none e’er spoke;\n\nBut we believe Him near.\n\n2 We may not touch His hands and side,\n\nNor follow where He trod;\n\nBut in His promise we rejoice,\n\nAnd cry, “My Lord and God!”\n\n3 Help then, O Lord, our unbelief;\n\nAnd may our faith abound,\n\nTo call on you when you are near,\n\nAnd seek where you are found.\n\n4 That, when our life of faith is done;\n\nIn realms of clearer light,\n\nWe may behold you as you are,\n\nWith full and endless sight.".into()
+                text: "1 We walk by faith, and not by sight;\n\nNo gracious words we hear\n\nFrom Him who spoke as none e’er spoke;\n\nBut we believe Him near.\n\n2 We may not touch His hands and side,\n\nNor follow where He trod;\n\nBut in His promise we rejoice,\n\nAnd cry, “My Lord and God!”\n\n3 Help then, O Lord, our unbelief;\n\nAnd may our faith abound,\n\nTo call on you when you are near,\n\nAnd seek where you are found.\n\n4 That, when our life of faith is done;\n\nIn realms of clearer light,\n\nWe may behold you as you are,\n\nWith full and endless sight.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2923,7 +3129,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "1 We are often tossed and driv’n\non the restless sea of time,\nSomber skies and howling tempest\noft succeed a bright sunshine;\nIn that land of perfect day,\nwhen the mists have rolled away,\nWe will understand it better\nby and by, by and by.\n\nRefrain:\nBy and by when the morning comes,\nWhen the saints of God are gathered home,\nWe’ll tell the story how we’re overcome;\nFor we’ll understand it by and by, by and by.\n\n2 We are often destitute\nof the things that life demands,\nWant of food and want of shelter,\nthirsty hills and barren lands;\nWe are trusting in the Lord,\nand according to His word,\nWe will understand it better\nby and by, by and by. [Refrain]\n\n3 Trials dark on ev’ry hand,\nand we cannot understand,\nAll the ways that God would lead us\nto that blessed promised land;\nBut He guides us with His eye\nand we’ll follow till we die.\nFor we’ll understand it better\nby and by, by and by. Refrain\n\n4 Temptations, hidden snares\noften take us unawares,\nAnd our hearts are made to bleed\nfor many a thoughtless word or deed;\nAnd we wonder why the test\nwhen we try to do our best,\nBut we’ll understand it better\nby and by, by and by. [Refrain]".into()
+                text: "1 We are often tossed and driv’n\non the restless sea of time,\nSomber skies and howling tempest\noft succeed a bright sunshine;\nIn that land of perfect day,\nwhen the mists have rolled away,\nWe will understand it better\nby and by, by and by.\n\nRefrain:\nBy and by when the morning comes,\nWhen the saints of God are gathered home,\nWe’ll tell the story how we’re overcome;\nFor we’ll understand it by and by, by and by.\n\n2 We are often destitute\nof the things that life demands,\nWant of food and want of shelter,\nthirsty hills and barren lands;\nWe are trusting in the Lord,\nand according to His word,\nWe will understand it better\nby and by, by and by. [Refrain]\n\n3 Trials dark on ev’ry hand,\nand we cannot understand,\nAll the ways that God would lead us\nto that blessed promised land;\nBut He guides us with His eye\nand we’ll follow till we die.\nFor we’ll understand it better\nby and by, by and by. Refrain\n\n4 Temptations, hidden snares\noften take us unawares,\nAnd our hearts are made to bleed\nfor many a thoughtless word or deed;\nAnd we wonder why the test\nwhen we try to do our best,\nBut we’ll understand it better\nby and by, by and by. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2937,7 +3144,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2951,7 +3159,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2965,7 +3174,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Goin’ to lay down my sword and shield,\nDown by the riverside,\nGoin’ to lay down my sword and shield,\nDown by the riverside,\nTo study war no more.\n\nRefrain:\nI ain’t goin’t study war no more,\nAin’t goin’t study war no more,\nAin’t goin’t study war no more.\n\n2 Goin’ to lay down my war shoes,\nDown by the riverside\nGoin’ to lay down my war shoes,\nDown by the riverside,\nTo study war no more. [Refrain]\n\n3 Goin’ to put on my long white robe,\nDown by the riverside\nGoin’ to put on my long white robe,\nDown by the riverside,\nTo study war no more. [Refrain]\n\n4 Goin’ to meet my loving savior,\nDown by the riverside\nGoin’ to meet my loving savior,\nDown by the riverside,\nTo study war no more. [Refrain]".into()
+                text: "1 Goin’ to lay down my sword and shield,\nDown by the riverside,\nGoin’ to lay down my sword and shield,\nDown by the riverside,\nTo study war no more.\n\nRefrain:\nI ain’t goin’t study war no more,\nAin’t goin’t study war no more,\nAin’t goin’t study war no more.\n\n2 Goin’ to lay down my war shoes,\nDown by the riverside\nGoin’ to lay down my war shoes,\nDown by the riverside,\nTo study war no more. [Refrain]\n\n3 Goin’ to put on my long white robe,\nDown by the riverside\nGoin’ to put on my long white robe,\nDown by the riverside,\nTo study war no more. [Refrain]\n\n4 Goin’ to meet my loving savior,\nDown by the riverside\nGoin’ to meet my loving savior,\nDown by the riverside,\nTo study war no more. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2979,7 +3189,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nLittle David, play on your harp,\nHallelu! Hallelu!\nLittle David, play on your harp, Hallelu!\n\n1 Little David was a shepherd boy,\nHe killed Goliath and shouted for joy. [Refrain]\n\n2 O Joshua was the son of Nun,\nHe never would quit till the work was done. [Refrain]".into()
+                text: "Refrain:\nLittle David, play on your harp,\nHallelu! Hallelu!\nLittle David, play on your harp, Hallelu!\n\n1 Little David was a shepherd boy,\nHe killed Goliath and shouted for joy. [Refrain]\n\n2 O Joshua was the son of Nun,\nHe never would quit till the work was done. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -2993,7 +3204,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional, Jamaica".into(),
 				tune_sources: "Traditional, Jamaica".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3007,7 +3219,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "Swedish folk melody".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3021,7 +3234,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 God is so good,\n\nGod is so good,\n\nGod is so good,\n\nHe’s so good to me.\n\n2 He cares for me,\n\nHe cares for me,\n\nHe cares for me,\n\nHe’s so good to me.\n\n3 He’s all I need,\n\nHe’s all I need,\n\nHe’s all I need,\n\nHe’s so good to me.".into()
+                text: "1 God is so good,\n\nGod is so good,\n\nGod is so good,\n\nHe’s so good to me.\n\n2 He cares for me,\n\nHe cares for me,\n\nHe cares for me,\n\nHe’s so good to me.\n\n3 He’s all I need,\n\nHe’s all I need,\n\nHe’s all I need,\n\nHe’s so good to me.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3035,7 +3249,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3049,7 +3264,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3063,7 +3279,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 He’s got the whole world in His hand. (4x)\n\n2 He’s got you and me sister in His hand. (4x)\n\n3 He’s got you and me brother in His hand. (4x)\n\n4 He’s got the pretty little baby in His hand. (4x)\n\n5 He’s got everybody here in His hand. (4x)".into()
+                text: "1 He’s got the whole world in His hand. (4x)\n\n2 He’s got you and me sister in His hand. (4x)\n\n3 He’s got you and me brother in His hand. (4x)\n\n4 He’s got the pretty little baby in His hand. (4x)\n\n5 He’s got everybody here in His hand. (4x)".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3077,7 +3294,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "".into(),
-                text: "1 Jesus loves me! this I know,\nFor the bible tells me so;\nLittle ones to Him belong;\nThey are weak but He is strong.\n\nRefrain:\nYes, Jesus loves me,\nYes, Jesus loves me,\nYes, Jesus loves me,\nThe bible tells me so.\n\n2 Jesus loves me! He who died,\nHeaven’s gate to open wide;\nHe will wash away my sin,\nLet His little child come in. [Refrain]\n\n3 Jesus take this heart of mine,\nMake it pure and wholly thine;\nOn the cross you died for me,\nI will try to live for thee. [Refrain]".into()
+                text: "1 Jesus loves me! this I know,\nFor the bible tells me so;\nLittle ones to Him belong;\nThey are weak but He is strong.\n\nRefrain:\nYes, Jesus loves me,\nYes, Jesus loves me,\nYes, Jesus loves me,\nThe bible tells me so.\n\n2 Jesus loves me! He who died,\nHeaven’s gate to open wide;\nHe will wash away my sin,\nLet His little child come in. [Refrain]\n\n3 Jesus take this heart of mine,\nMake it pure and wholly thine;\nOn the cross you died for me,\nI will try to live for thee. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3091,7 +3309,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3105,7 +3324,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 We are climbing Jacob’s ladder,\n\nWe are climbing Jacob’s ladder,\n\nWe are climbing Jacob’s ladder,\n\nSoldiers of the cross.\n\n2 Ev’ry round goes higher, higher\n\nEv’ry round goes higher, higher\n\nEv’ry round goes higher, higher\n\nSoldiers of the cross.\n\n3 Sinner do you love your Jesus?\n\nSinner do you love your Jesus?\n\nSinner do you love your Jesus?\n\nSoldiers of the cross.\n\n4 If you love Him why not serve Him,\n\nIf you love Him why not serve Him,\n\nIf you love Him why not serve Him,\n\nSoldiers of the cross.".into()
+                text: "1 We are climbing Jacob’s ladder,\n\nWe are climbing Jacob’s ladder,\n\nWe are climbing Jacob’s ladder,\n\nSoldiers of the cross.\n\n2 Ev’ry round goes higher, higher\n\nEv’ry round goes higher, higher\n\nEv’ry round goes higher, higher\n\nSoldiers of the cross.\n\n3 Sinner do you love your Jesus?\n\nSinner do you love your Jesus?\n\nSinner do you love your Jesus?\n\nSoldiers of the cross.\n\n4 If you love Him why not serve Him,\n\nIf you love Him why not serve Him,\n\nIf you love Him why not serve Him,\n\nSoldiers of the cross.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3119,7 +3339,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 This little light of mine,\n\nI’m goin’-a let it shine,\n\nThis little light of mine,\n\nI’m goin’-a let it shine,\n\nThis little light of mine,\n\nI’m goin’-a let it shine,\n\nLet it shine, let it shine, let it shine.\n\n2 Everywhere I go,\n\nI’m goin’-a let it shine,\n\nEverywhere I go,\n\nI’m goin’-a let it shine,\n\nEverywhere I go,\n\nI’m goin’-a let it shine,\n\nLet it shine, let it shine, let it shine.\n\n3 All through the night,\n\nI’m goin’-a let it shine,\n\nAll through the night,\n\nI’m goin’-a let it shine,\n\nAll through the night,\n\nI’m goin’-a let it shine,\n\nLet it shine, let it shine, let it shine.".into()
+                text: "1 This little light of mine,\n\nI’m goin’-a let it shine,\n\nThis little light of mine,\n\nI’m goin’-a let it shine,\n\nThis little light of mine,\n\nI’m goin’-a let it shine,\n\nLet it shine, let it shine, let it shine.\n\n2 Everywhere I go,\n\nI’m goin’-a let it shine,\n\nEverywhere I go,\n\nI’m goin’-a let it shine,\n\nEverywhere I go,\n\nI’m goin’-a let it shine,\n\nLet it shine, let it shine, let it shine.\n\n3 All through the night,\n\nI’m goin’-a let it shine,\n\nAll through the night,\n\nI’m goin’-a let it shine,\n\nAll through the night,\n\nI’m goin’-a let it shine,\n\nLet it shine, let it shine, let it shine.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3133,7 +3354,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Jesus loves the little children,\nAll the children of the world;\nRed and yellow, black and white,\nThey are precious in His sight,\nJesus loves the little children of the world.".into()
+                text: "Jesus loves the little children,\nAll the children of the world;\nRed and yellow, black and white,\nThey are precious in His sight,\nJesus loves the little children of the world.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3147,7 +3369,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nJoshua fit de battle of Jericho,\nJericho, Jericho;\nJoshua fit de battle of Jericho,\nAn’ de walls come tumblin’ down.\n\n1 You may talk about the man of Gideon,\nYou may talk about the man of Saul;\nDere’s none like the good ole Joshua,\nAn’ de battle of Jericho. [Refrain]\n\n2 Up to the walls of Jericho,\nHe marched with spear in hand;\n“Go blow dem ram horns,” Joshua cried,\n“for the battle am in my hand.” Oh [Refrain]".into()
+                text: "Refrain:\nJoshua fit de battle of Jericho,\nJericho, Jericho;\nJoshua fit de battle of Jericho,\nAn’ de walls come tumblin’ down.\n\n1 You may talk about the man of Gideon,\nYou may talk about the man of Saul;\nDere’s none like the good ole Joshua,\nAn’ de battle of Jericho. [Refrain]\n\n2 Up to the walls of Jericho,\nHe marched with spear in hand;\n“Go blow dem ram horns,” Joshua cried,\n“for the battle am in my hand.” Oh [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3161,7 +3384,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nEzek’el saw de wheel\n’Way up in de middle o’ de air,\nEzek’el saw de wheel\n’Way in de middle o’ de air.\nDe big wheel run by faith,\nDe little wheel run by de Grace o’ God,\nA wheel in a wheel\n’Way in de middle o’ de air.\n\n1 Better min’, my sister,\nhow you walk on de cross,\n’Way in de middle o’ de air.\nYo’ foot might slip an’ yo’ soul be los’,\n’Way in de middle o’ de air. [Refrain]\n\n2 Let me tell you, brother,\nwhat a sinner will do,\n’Way in de middle o’ de air.\nHe’ll step on you an’ he’ll step on me.\n’Way in de middle o’ de air. [Refrain]".into()
+                text: "Refrain:\nEzek’el saw de wheel\n’Way up in de middle o’ de air,\nEzek’el saw de wheel\n’Way in de middle o’ de air.\nDe big wheel run by faith,\nDe little wheel run by de Grace o’ God,\nA wheel in a wheel\n’Way in de middle o’ de air.\n\n1 Better min’, my sister,\nhow you walk on de cross,\n’Way in de middle o’ de air.\nYo’ foot might slip an’ yo’ soul be los’,\n’Way in de middle o’ de air. [Refrain]\n\n2 Let me tell you, brother,\nwhat a sinner will do,\n’Way in de middle o’ de air.\nHe’ll step on you an’ he’ll step on me.\n’Way in de middle o’ de air. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3175,7 +3399,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 Oh, freedom! Oh, freedom,\n\nOh, freedom over me!\n\nAn’ be fo’ I’d be a slave\n\nI’ll be buried in my grave,\n\nAn’ go home to my Lord an’ be free.\n\n2 No mo’ moanin’, no mo’ moanin’,\n\nNo mo’ moanin’ over me!\n\nAn’ be fo’ I’d be a slave\n\nI’ll be buried in my grave,\n\nAn’ go home to my Lord an’ be free.\n\n3 No mo’ weepin’, no mo’ weepin’,\n\nno mo’ weepin’ over me!\n\nAn’ be fo’ I’d be a slave\n\nI’ll be buried in my grave,\n\nAn’ go home to my Lord an’ be free.\n\n4 There’ll be singin’, there’ll be singin’,\n\nthere’ll be singin’ over me!\n\nAn’ be fo’ I’d be a slave\n\nI’ll be buried in my grave,\n\nAn’ go home to my Lord an’ be free.\n\n5 There’ll be shoutin’, there’ll be shoutin’,\n\nthere’ll be shoutin’ over me!\n\nAn’ be fo’ I’d be a slave\n\n’ll be buried in my grave,\n\nAn’ go home to my Lord an’ be free.\n\n6 There’ll be prayin’, there’ll be prayin’,\n\nthere’ll be prayin’ over me!\n\nAn’ be fo’ I’d be a slave\n\nI’ll be buried in my grave,\n\nAn’ go home to my Lord an’ be free.".into()
+                text: "1 Oh, freedom! Oh, freedom,\n\nOh, freedom over me!\n\nAn’ be fo’ I’d be a slave\n\nI’ll be buried in my grave,\n\nAn’ go home to my Lord an’ be free.\n\n2 No mo’ moanin’, no mo’ moanin’,\n\nNo mo’ moanin’ over me!\n\nAn’ be fo’ I’d be a slave\n\nI’ll be buried in my grave,\n\nAn’ go home to my Lord an’ be free.\n\n3 No mo’ weepin’, no mo’ weepin’,\n\nno mo’ weepin’ over me!\n\nAn’ be fo’ I’d be a slave\n\nI’ll be buried in my grave,\n\nAn’ go home to my Lord an’ be free.\n\n4 There’ll be singin’, there’ll be singin’,\n\nthere’ll be singin’ over me!\n\nAn’ be fo’ I’d be a slave\n\nI’ll be buried in my grave,\n\nAn’ go home to my Lord an’ be free.\n\n5 There’ll be shoutin’, there’ll be shoutin’,\n\nthere’ll be shoutin’ over me!\n\nAn’ be fo’ I’d be a slave\n\n’ll be buried in my grave,\n\nAn’ go home to my Lord an’ be free.\n\n6 There’ll be prayin’, there’ll be prayin’,\n\nthere’ll be prayin’ over me!\n\nAn’ be fo’ I’d be a slave\n\nI’ll be buried in my grave,\n\nAn’ go home to my Lord an’ be free.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3189,7 +3414,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "".into(),
-                text: "1 Mine eyes have seen the glory\nof the coming of the Lord;\nHe is trampling out the vintage\nwhere the grapes of wrath are stored;\nHe has loosed the fateful lightning\nof His terrible swift sword,\nHis truth is marching on.\n\nRefrain:\nGlory, glory, hallelujah!\nGlory, glory, hallelujah!\nGlory, glory, hallelujah!\nHis truth is marching on.\n\n2 I have seen Him in the watch-fires\nof a hundred circling camps,\nThey have builded Him an altar\nin the evening dews and damps;\nI can read His righteous sentence\nby the dim and flaring lamps,\nHis day is marching on. [Refrain]\n\n3 He has sounded forth the trumpet\nthat shall never sound retreat,\nHe is sifting out the hearts of men\nbefore His judgement seat;\nO be swift, my soul, to answer Him!\nBe jubilant, my feet!\nOur God is marching on. [Refrain]\n\n4 In the beauty of the lilies,\nChrist was born across the sea,\nWith a glory in His bosom\nthat transfigures you and me;\nAs He died to make men holy,\nlet us live to make all free,\nWhile God is marching on. [Refrain]".into()
+                text: "1 Mine eyes have seen the glory\nof the coming of the Lord;\nHe is trampling out the vintage\nwhere the grapes of wrath are stored;\nHe has loosed the fateful lightning\nof His terrible swift sword,\nHis truth is marching on.\n\nRefrain:\nGlory, glory, hallelujah!\nGlory, glory, hallelujah!\nGlory, glory, hallelujah!\nHis truth is marching on.\n\n2 I have seen Him in the watch-fires\nof a hundred circling camps,\nThey have builded Him an altar\nin the evening dews and damps;\nI can read His righteous sentence\nby the dim and flaring lamps,\nHis day is marching on. [Refrain]\n\n3 He has sounded forth the trumpet\nthat shall never sound retreat,\nHe is sifting out the hearts of men\nbefore His judgement seat;\nO be swift, my soul, to answer Him!\nBe jubilant, my feet!\nOur God is marching on. [Refrain]\n\n4 In the beauty of the lilies,\nChrist was born across the sea,\nWith a glory in His bosom\nthat transfigures you and me;\nAs He died to make men holy,\nlet us live to make all free,\nWhile God is marching on. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3203,7 +3429,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 We shall overcome,\n\nWe shall overcome,\n\nWe shall overcome some day;\n\nOh, deep in my heart, I do believe,\n\nWe shall overcome some day.\n\n2 We’ll walk hand in hand, \n\nWe’ll walk hand in hand, \n\nWe’ll walk hand in hand today;\n\nOh, deep in my heart, I do believe,\n\nWe’ll walk hand in hand today.\n\n3 God is on our side, \n\nGod is on our side, \n\nGod is on our side today;\n\nOh, deep in my heart, I do believe,\n\nGod is on our side today.\n\n4 We are not afraid, \n\nWe are not afraid, \n\nWe are not afraid today;\n\nOh, deep in my heart, I do believe,\n\nWe are not afraid today.\n\n5 We shall live in peace, \n\nWe shall live in peace, \n\nWe shall live in peace someday;\n\nOh, deep in my heart, I do believe,\n\nWe shall live in peace some day.".into()
+                text: "1 We shall overcome,\n\nWe shall overcome,\n\nWe shall overcome some day;\n\nOh, deep in my heart, I do believe,\n\nWe shall overcome some day.\n\n2 We’ll walk hand in hand, \n\nWe’ll walk hand in hand, \n\nWe’ll walk hand in hand today;\n\nOh, deep in my heart, I do believe,\n\nWe’ll walk hand in hand today.\n\n3 God is on our side, \n\nGod is on our side, \n\nGod is on our side today;\n\nOh, deep in my heart, I do believe,\n\nGod is on our side today.\n\n4 We are not afraid, \n\nWe are not afraid, \n\nWe are not afraid today;\n\nOh, deep in my heart, I do believe,\n\nWe are not afraid today.\n\n5 We shall live in peace, \n\nWe shall live in peace, \n\nWe shall live in peace someday;\n\nOh, deep in my heart, I do believe,\n\nWe shall live in peace some day.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3217,7 +3444,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "1 When Israel was in Egypt’s land,\nlet my people go;\nOppressed so hard they could not stand,\nlet my people go.\n\nRefrain:\nGo down, Moses, way down in Egypt’s land;\nTell old Pharaoh to let my people go.\n\n2 The Lord told Moses what to do,\nlet my people go;\nTo lead the children of Israel through,\nlet my people go. [Refrain]\n\n3 They journeyed on at his command,\nlet my people go;\nAnd come at length to Canaan’s land,\nlet my people go. [Refrain]\n\n4 Oh, let us all from bondage flee,\nlet my people go;\nAnd let us all in Christ be free,\nlet my people go. [Refrain]".into()
+                text: "1 When Israel was in Egypt’s land,\nlet my people go;\nOppressed so hard they could not stand,\nlet my people go.\n\nRefrain:\nGo down, Moses, way down in Egypt’s land;\nTell old Pharaoh to let my people go.\n\n2 The Lord told Moses what to do,\nlet my people go;\nTo lead the children of Israel through,\nlet my people go. [Refrain]\n\n3 They journeyed on at his command,\nlet my people go;\nAnd come at length to Canaan’s land,\nlet my people go. [Refrain]\n\n4 Oh, let us all from bondage flee,\nlet my people go;\nAnd let us all in Christ be free,\nlet my people go. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3231,7 +3459,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3245,7 +3474,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nFree at last, free at last,\nI thank God I’m free at last.\nFree at last, free at last,\nI thank God I’m free at last.\n\n1 ’Way down yonder in the graveyard walk,\nI thank God I’m free at last,\nMe and my Jesus goin’ to meet and talk,\nI thank God I’m free at last. O [Refrain]\n\n2 On-a my knees when the light pass’d by,\nI thank God I’m free at last,\nTho’t my soul would rise and fly,\nI thank God I’m free at last, O [Refrain]\n\n3 Some of these mornings, bright and fair,\nI thank God I’m free at last,\nGoin’ to meet King Jesus in the air,\nI thank God I’m free at last. [Refrain]".into()
+                text: "Refrain:\nFree at last, free at last,\nI thank God I’m free at last.\nFree at last, free at last,\nI thank God I’m free at last.\n\n1 ’Way down yonder in the graveyard walk,\nI thank God I’m free at last,\nMe and my Jesus goin’ to meet and talk,\nI thank God I’m free at last. O [Refrain]\n\n2 On-a my knees when the light pass’d by,\nI thank God I’m free at last,\nTho’t my soul would rise and fly,\nI thank God I’m free at last, O [Refrain]\n\n3 Some of these mornings, bright and fair,\nI thank God I’m free at last,\nGoin’ to meet King Jesus in the air,\nI thank God I’m free at last. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3259,7 +3489,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "The Lord bless you and keep you:\n\nThe Lord make his face to shine upon you,\n\nAnd be gracious unto you,\n\nThe Lord lift up His countenance upon you,\n\nAnd give you peace. Amen. Amen. Amen.".into()
+                text: "The Lord bless you and keep you:\n\nThe Lord make his face to shine upon you,\n\nAnd be gracious unto you,\n\nThe Lord lift up His countenance upon you,\n\nAnd give you peace. Amen. Amen. Amen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3273,7 +3504,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Thank you, Lord, \nThank you, Lord;\nThank you, Lord\nI just want to thank you, Lord.".into()
+                text: "Thank you, Lord, \nThank you, Lord;\nThank you, Lord\nI just want to thank you, Lord.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3287,7 +3519,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "Traditional".into(),
 				tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nAmen, Lordy, Amen, good Lordy,\nAmen, Amen, Amen.\n\n1 See the little baby\nLying in a manger\nOn Christmas morning. [Refrain]\n\n2 See Him in the temple,\nTalking to the elders,\nThey marv’ld at His wisdom. [Refrain]\n\n3 See Him in the garden,\nPraying to his father\nAs Judas betrays Him. [Refrain]\n\n4 See Him there at Calv’ry,\nDying for us sinners\nBut He rose on Easter. [Refrain]".into()
+                text: "Refrain:\nAmen, Lordy, Amen, good Lordy,\nAmen, Amen, Amen.\n\n1 See the little baby\nLying in a manger\nOn Christmas morning. [Refrain]\n\n2 See Him in the temple,\nTalking to the elders,\nThey marv’ld at His wisdom. [Refrain]\n\n3 See Him in the garden,\nPraying to his father\nAs Judas betrays Him. [Refrain]\n\n4 See Him there at Calv’ry,\nDying for us sinners\nBut He rose on Easter. [Refrain]".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3301,7 +3534,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3315,7 +3549,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<i>Eucharist of the Soul</i> (GC41), reprinted from".into(),
-                text: "Lord have mercy, Lord have mercy, Lord have mercy.\nChrist have mercy, Christ have mercy, Christ have mercy.\nLord have mercy, Lord have mercy, Lord have mercy.".into()
+                text: "Lord have mercy, Lord have mercy, Lord have mercy.\nChrist have mercy, Christ have mercy, Christ have mercy.\nLord have mercy, Lord have mercy, Lord have mercy.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3329,7 +3564,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<i>Mass of St. Augustine</i>".into(),
-                text: "Lord have mercy, Lord have mercy, Lord have mercy.\nChrist have mercy, Christ have mercy, Christ have mercy.\nLord have mercy, Lord have mercy, Lord have mercy.".into()
+                text: "Lord have mercy, Lord have mercy, Lord have mercy.\nChrist have mercy, Christ have mercy, Christ have mercy.\nLord have mercy, Lord have mercy, Lord have mercy.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3343,7 +3579,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<i>Mass No. 1 in G</i>".into(),
-                text: "Lord have mercy, Lord have mercy, Lord have mercy.\nChrist have mercy, Christ have mercy, Christ have mercy.\nLord have mercy, Lord have mercy, Lord have mercy.".into()
+                text: "Lord have mercy, Lord have mercy, Lord have mercy.\nChrist have mercy, Christ have mercy, Christ have mercy.\nLord have mercy, Lord have mercy, Lord have mercy.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3357,7 +3594,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Lord have mercy, Lord have mercy, Lord have mercy.\nChrist have mercy, Christ have mercy, Christ have mercy.\nLord have mercy, Lord have mercy, Lord have mercy.".into()
+                text: "Lord have mercy, Lord have mercy, Lord have mercy.\nChrist have mercy, Christ have mercy, Christ have mercy.\nLord have mercy, Lord have mercy, Lord have mercy.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3371,7 +3609,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<cite>Freedom Mass</cite>; Based on traditional African melodies".into(),
-                text: "Kyrie eleison.\n\nKyrie eleison.\n\nChriste, eleison.\n\nChriste, eleison.\n\nKyrie eleison.\n\nKyrie eleison.".into()
+                text: "Kyrie eleison.\n\nKyrie eleison.\n\nChriste, eleison.\n\nChriste, eleison.\n\nKyrie eleison.\n\nKyrie eleison.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3385,7 +3624,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Lord have mercy, Lord have mercy, Lord have mercy.\nChrist have mercy, Christ have mercy, Christ have mercy.\nLord have mercy, Lord have mercy, Lord have mercy.".into()
+                text: "Lord have mercy, Lord have mercy, Lord have mercy.\nChrist have mercy, Christ have mercy, Christ have mercy.\nLord have mercy, Lord have mercy, Lord have mercy.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3399,7 +3639,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<i>Intercession Mass</i>".into(),
-                text: "Glory to God in the highest,\n\nAnd peace to His people on earth.\n\nLord God, heavenly King,\n\nalmighty God and Father,\n\nwe worship you, we give you thanks,\n\nwe praise you for your glory.\n\nLord Jesus Christ, only Son of the Father,\n\nLord God, Lamb of God,\n\nyou take away the sin of the world:\n\nhave mercy on us;\n\nyou are seated at the right hand of the Father:\n\nreceive our prayer.\n\nFor you alone are the Holy One,\n\nyou alone are the Lord,\n\nyou alone are the Most High,\n\nJesus Christ\n\nwith the Holy Spirit,\n\nin the glory of God the Father. Amen.".into()
+                text: "Glory to God in the highest,\n\nAnd peace to His people on earth.\n\nLord God, heavenly King,\n\nalmighty God and Father,\n\nwe worship you, we give you thanks,\n\nwe praise you for your glory.\n\nLord Jesus Christ, only Son of the Father,\n\nLord God, Lamb of God,\n\nyou take away the sin of the world:\n\nhave mercy on us;\n\nyou are seated at the right hand of the Father:\n\nreceive our prayer.\n\nFor you alone are the Holy One,\n\nyou alone are the Lord,\n\nyou alone are the Most High,\n\nJesus Christ\n\nwith the Holy Spirit,\n\nin the glory of God the Father. Amen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3413,7 +3654,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Glory to God in the highest,\n\nAnd peace to His people on earth.\n\nLord God, heavenly King,\n\nalmighty God and Father,\n\nwe worship you, we give you thanks,\n\nwe praise you for your glory.\n\nLord Jesus Christ, only Son of the Father,\n\nLord God, Lamb of God,\n\nyou take away the sin of the world:\n\nhave mercy on us;\n\nyou are seated at the right hand of the Father:\n\nreceive our prayer.\n\nFor you alone are the Holy One,\n\nyou alone are the Lord,\n\nyou alone are the Most High,\n\nJesus Christ\n\nwith the Holy Spirit,\n\nin the glory of God the Father. Amen.".into()
+                text: "Glory to God in the highest,\n\nAnd peace to His people on earth.\n\nLord God, heavenly King,\n\nalmighty God and Father,\n\nwe worship you, we give you thanks,\n\nwe praise you for your glory.\n\nLord Jesus Christ, only Son of the Father,\n\nLord God, Lamb of God,\n\nyou take away the sin of the world:\n\nhave mercy on us;\n\nyou are seated at the right hand of the Father:\n\nreceive our prayer.\n\nFor you alone are the Holy One,\n\nyou alone are the Lord,\n\nyou alone are the Most High,\n\nJesus Christ\n\nwith the Holy Spirit,\n\nin the glory of God the Father. Amen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3427,7 +3669,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<i>Mass for Grace</i>".into(),
-                text: "Glory, Glory, hallelujah,\n\nLord we praise your Holy name,\n\nGlory, Glory hallelujah,\n\nLord we praise your Holy name.\n\nGlory to God in the highest,\n\nand peace to His people on earth.\n\nLord God, heavenly King,\n\nalmighty God and Father,\n\nwe worship you, we give you thanks,\n\nwe praise you for your glory.\n\nLord Jesus Christ, only son of the Father,\n\nLord God, Lamb of God,\n\nGlory, Glory, hallelujah,\n\nLord we praise your Holy name,\n\nGlory, Glory hallelujah,\n\nLord we praise your Holy name.\n\nYou take away the sin of the world:\n\nhave mercy on us;\n\nYou are seated at the right hand of the Father:\n\nreceive our prayer.\n\nFor you alone are the Holy One, you alone are the Lord,\n\nYou alone are the Most High, Jesus Christ, with the Holy Spirit,\n\nin the glory of God the Father.\n\nGlory, Glory, hallelujah,\n\nLord we praise your Holy name,\n\nGlory, Glory hallelujah,\n\nLord we praise your Holy name.\n\nAmen.".into()
+                text: "Glory, Glory, hallelujah,\n\nLord we praise your Holy name,\n\nGlory, Glory hallelujah,\n\nLord we praise your Holy name.\n\nGlory to God in the highest,\n\nand peace to His people on earth.\n\nLord God, heavenly King,\n\nalmighty God and Father,\n\nwe worship you, we give you thanks,\n\nwe praise you for your glory.\n\nLord Jesus Christ, only son of the Father,\n\nLord God, Lamb of God,\n\nGlory, Glory, hallelujah,\n\nLord we praise your Holy name,\n\nGlory, Glory hallelujah,\n\nLord we praise your Holy name.\n\nYou take away the sin of the world:\n\nhave mercy on us;\n\nYou are seated at the right hand of the Father:\n\nreceive our prayer.\n\nFor you alone are the Holy One, you alone are the Lord,\n\nYou alone are the Most High, Jesus Christ, with the Holy Spirit,\n\nin the glory of God the Father.\n\nGlory, Glory, hallelujah,\n\nLord we praise your Holy name,\n\nGlory, Glory hallelujah,\n\nLord we praise your Holy name.\n\nAmen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3441,7 +3684,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3455,7 +3699,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3469,7 +3714,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "<i>Chorus and Scripture Songs</i>".into(),
 				tune_sources: "<i>Chorus and Scripture Songs</i>".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3483,7 +3729,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<cite>Mass for Grace</cite>".into(),
-                text: "With all our heart and with all our mind, let us pray to the Lord,\nSaying “Lord, have mercy.”\n\nFor . . . . , let us pray to the Lord.\nLord, have mercy.\n\nIn the communion of [ _______________ and of all the] saints,\nlet us commend ourselves, and one another, and all our life,\nTo Christ our God.\nTo thee (you) O Lord our God. Amen.".into()
+                text: "With all our heart and with all our mind, let us pray to the Lord,\nSaying “Lord, have mercy.”\n\nFor . . . . , let us pray to the Lord.\nLord, have mercy.\n\nIn the communion of [ _______________ and of all the] saints,\nlet us commend ourselves, and one another, and all our life,\nTo Christ our God.\nTo thee (you) O Lord our God. Amen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3497,7 +3744,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<i>Freedom Mass</i>. Based on traditional African melodies.".into(),
-                text: "Let us pray for the Church and for the world.\n\nGrant, Almighty God, that all who confess your Name\n\nmay be united in your truth,\n\nlive together in your love,\n\nand reveal your glory in the world.\n\nLord, in your mercy, Hear our prayer.\n\nGuide the people of this land, and of all the nations,\n\nin the ways of justice and peace;\n\nthat we may honor one another\n\nand serve the common good.\n\nLord, in your mercy, Hear our prayer.\n\nGive us all a reverence for the earth as your own creation,\n\nthat we may use its resources rightly\n\nin the service of others\n\nand to your honor and glory.\n\nLord, in your mercy, Hear our prayer.\n\nBless all whose lives are closely linked with ours,\n\nand grant that we may serve Christ in them,\n\nand love one another as he loves us.\n\nLord, in your mercy, Hear our prayer.\n\nComfort and heal all those who suffer in body, mind, or spirit;\n\ngive them courage and hope in their troubles,\n\nand bring them the joy of your salvation.\n\nLord, in your mercy, Hear our prayer.\n\nWe commend to your mercy all who have died,\n\nthat your will for them may be fulfilled;\n\nand we pray that we may share with all your saints\n\nin your eternal kingdom.\n\nLord, in your mercy, Hear our prayer.".into()
+                text: "Let us pray for the Church and for the world.\n\nGrant, Almighty God, that all who confess your Name\n\nmay be united in your truth,\n\nlive together in your love,\n\nand reveal your glory in the world.\n\nLord, in your mercy, Hear our prayer.\n\nGuide the people of this land, and of all the nations,\n\nin the ways of justice and peace;\n\nthat we may honor one another\n\nand serve the common good.\n\nLord, in your mercy, Hear our prayer.\n\nGive us all a reverence for the earth as your own creation,\n\nthat we may use its resources rightly\n\nin the service of others\n\nand to your honor and glory.\n\nLord, in your mercy, Hear our prayer.\n\nBless all whose lives are closely linked with ours,\n\nand grant that we may serve Christ in them,\n\nand love one another as he loves us.\n\nLord, in your mercy, Hear our prayer.\n\nComfort and heal all those who suffer in body, mind, or spirit;\n\ngive them courage and hope in their troubles,\n\nand bring them the joy of your salvation.\n\nLord, in your mercy, Hear our prayer.\n\nWe commend to your mercy all who have died,\n\nthat your will for them may be fulfilled;\n\nand we pray that we may share with all your saints\n\nin your eternal kingdom.\n\nLord, in your mercy, Hear our prayer.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3511,7 +3759,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Hear our prayer, O Lord, \nhear our prayer, O Lord;\nIncline thine ear to us, \nand grant us thy peace.".into()
+                text: "Hear our prayer, O Lord, \nhear our prayer, O Lord;\nIncline thine ear to us, \nand grant us thy peace.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3525,7 +3774,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3539,7 +3789,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Lead me, Lord, lead me in thy righteousness,\nMake thy way plain before thy face. \n\nAmen.".into()
+                text: "Lead me, Lord, lead me in thy righteousness,\nMake thy way plain before thy face. \n\nAmen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3553,7 +3804,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Holy, holy, holy Lord, God of power and might,\n\nHeaven and earth are full of your glory\n\nHosanna in the highest.\n\nBlessed is he who comes in the name of the Lord.\n\nHosanna in the highest.".into()
+                text: "Holy, holy, holy Lord, God of power and might,\n\nHeaven and earth are full of your glory\n\nHosanna in the highest.\n\nBlessed is he who comes in the name of the Lord.\n\nHosanna in the highest.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3567,7 +3819,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Holy, holy, holy Lord, God of power and might,\n\nHeaven and earth are full of your glory\n\nHosanna in the highest.\n\nBlessed is he who comes in the name of the Lord.\n\nHosanna in the highest.".into()
+                text: "Holy, holy, holy Lord, God of power and might,\n\nHeaven and earth are full of your glory\n\nHosanna in the highest.\n\nBlessed is he who comes in the name of the Lord.\n\nHosanna in the highest.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3581,7 +3834,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "The Saint Mary Mass".into(),
-                text: "Holy, holy, holy Lord, God of power and might,\n\nHeaven and earth are full of your glory\n\nHosanna in the highest.\n\nBlessed is he who comes in the name of the Lord.\n\nHosanna in the highest.".into()
+                text: "Holy, holy, holy Lord, God of power and might,\n\nHeaven and earth are full of your glory\n\nHosanna in the highest.\n\nBlessed is he who comes in the name of the Lord.\n\nHosanna in the highest.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3595,7 +3849,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<i>A Mass for a Soulful People</i>".into(),
-                text: "Holy, holy, holy, holy, holy Lord God of hosts.\n\nHeaven and earth are filled with your glory.\n\nHosanna in the highest.\n\nBlessed is He who comes in the name of the Lord, of the Lord.\n\nHosanna in the highest, hosanna in the highest.".into()
+                text: "Holy, holy, holy, holy, holy Lord God of hosts.\n\nHeaven and earth are filled with your glory.\n\nHosanna in the highest.\n\nBlessed is He who comes in the name of the Lord, of the Lord.\n\nHosanna in the highest, hosanna in the highest.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3609,7 +3864,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Holy, holy, holy Lord, God of power and might,\n\nHeaven and earth are full of your glory\n\nHosanna in the highest.\n\nBlessed is he who comes in the name of the Lord.\n\nHosanna in the highest.".into()
+                text: "Holy, holy, holy Lord, God of power and might,\n\nHeaven and earth are full of your glory\n\nHosanna in the highest.\n\nBlessed is he who comes in the name of the Lord.\n\nHosanna in the highest.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3623,7 +3879,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Therefore we proclaim the mystery of faith;\n\nChrist has died.\n\nChrist is risen.\n\nChrist will come again alleluia!".into()
+                text: "Therefore we proclaim the mystery of faith;\n\nChrist has died.\n\nChrist is risen.\n\nChrist will come again alleluia!".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3637,7 +3894,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Therefore we proclaim the mystery of faith;\n\nChrist has died.\n\nChrist is risen.\n\nChrist will come again alleluia!".into()
+                text: "Therefore we proclaim the mystery of faith;\n\nChrist has died.\n\nChrist is risen.\n\nChrist will come again alleluia!".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3651,7 +3909,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Therefore we proclaim the mystery of faith;\n\nChrist has died.\n\nChrist is risen.\n\nChrist will come again alleluia!".into()
+                text: "Therefore we proclaim the mystery of faith;\n\nChrist has died.\n\nChrist is risen.\n\nChrist will come again alleluia!".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3665,7 +3924,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "We remember His death,\n\nWe proclaim His resurrection,\n\nWe await His coming in glory.".into()
+                text: "We remember His death,\n\nWe proclaim His resurrection,\n\nWe await His coming in glory.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3679,7 +3939,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "The Saint Mary Mass".into(),
-                text: "Amen.".into()
+                text: "Amen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3693,7 +3954,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Amen.".into()
+                text: "Amen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3707,7 +3969,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Our Father, which art in heaven,\n\nHallowed be thy name,\n\nThy kingdom come,\n\nThy will be done\n\nOn earth as it is in heaven.\n\nGive us this day our daily bread.\n\nAnd forgive us our debts\n\nas we forgive our debtors.\n\nAnd lead us not into temptation,\n\nBut deliver us from evil.\n\nFor thine is the kingdom,\n\nand the power, and the glory,\n\nforever. Amen.".into()
+                text: "Our Father, which art in heaven,\n\nHallowed be thy name,\n\nThy kingdom come,\n\nThy will be done\n\nOn earth as it is in heaven.\n\nGive us this day our daily bread.\n\nAnd forgive us our debts\n\nas we forgive our debtors.\n\nAnd lead us not into temptation,\n\nBut deliver us from evil.\n\nFor thine is the kingdom,\n\nand the power, and the glory,\n\nforever. Amen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3721,7 +3984,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Our Father, which art in heaven,\n\nHallowed be thy name,\n\nThy kingdom come,\n\nThy will be done\n\nOn earth as it is in heaven.\n\nGive us this day our daily bread.\n\nAnd forgive us our debts\n\nas we forgive our debtors.\n\nAnd lead us not into temptation,\n\nBut deliver us from evil.\n\nFor thine is the kingdom,\n\nand the power, and the glory,\n\nforever. Amen.".into()
+                text: "Our Father, which art in heaven,\n\nHallowed be thy name,\n\nThy kingdom come,\n\nThy will be done\n\nOn earth as it is in heaven.\n\nGive us this day our daily bread.\n\nAnd forgive us our debts\n\nas we forgive our debtors.\n\nAnd lead us not into temptation,\n\nBut deliver us from evil.\n\nFor thine is the kingdom,\n\nand the power, and the glory,\n\nforever. Amen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3735,7 +3999,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Our Father, which art in heaven,\n\nHallowed be thy name,\n\nThy kingdom come,\n\nThy will be done\n\nOn earth as it is in heaven.\n\nGive us this day our daily bread.\n\nAnd forgive us our debts\n\nas we forgive our debtors.\n\nAnd lead us not into temptation,\n\nBut deliver us from evil.\n\nFor thine is the kingdom,\n\nand the power, and the glory,\n\nforever. Amen.".into()
+                text: "Our Father, which art in heaven,\n\nHallowed be thy name,\n\nThy kingdom come,\n\nThy will be done\n\nOn earth as it is in heaven.\n\nGive us this day our daily bread.\n\nAnd forgive us our debts\n\nas we forgive our debtors.\n\nAnd lead us not into temptation,\n\nBut deliver us from evil.\n\nFor thine is the kingdom,\n\nand the power, and the glory,\n\nforever. Amen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3749,7 +4014,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<cite>Freedom Mass</cite>; Based on traditional African melodies".into(),
-                text: "Our Father, which art in heaven,\n\nHallowed be thy name,\n\nThy kingdom come,\n\nThy will be done\n\nOn earth as it is in heaven.\n\nGive us this day our daily bread.\n\nAnd forgive us our debts\n\nas we forgive our debtors.\n\nAnd lead us not into temptation,\n\nBut deliver us from evil.\n\nFor thine is the kingdom,\n\nand the power, and the glory,\n\nforever. Amen.".into()
+                text: "Our Father, which art in heaven,\n\nHallowed be thy name,\n\nThy kingdom come,\n\nThy will be done\n\nOn earth as it is in heaven.\n\nGive us this day our daily bread.\n\nAnd forgive us our debts\n\nas we forgive our debtors.\n\nAnd lead us not into temptation,\n\nBut deliver us from evil.\n\nFor thine is the kingdom,\n\nand the power, and the glory,\n\nforever. Amen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3763,7 +4029,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Our Father, which art in heaven,\n\nHallowed be thy name,\n\nThy kingdom come,\n\nThy will be done\n\nOn earth as it is in heaven.\n\nGive us this day our daily bread.\n\nAnd forgive us our debts\n\nas we forgive our debtors.\n\nAnd lead us not into temptation,\n\nBut deliver us from evil.\n\nFor thine is the kingdom,\n\nand the power, and the glory,\n\nforever. Amen.".into()
+                text: "Our Father, which art in heaven,\n\nHallowed be thy name,\n\nThy kingdom come,\n\nThy will be done\n\nOn earth as it is in heaven.\n\nGive us this day our daily bread.\n\nAnd forgive us our debts\n\nas we forgive our debtors.\n\nAnd lead us not into temptation,\n\nBut deliver us from evil.\n\nFor thine is the kingdom,\n\nand the power, and the glory,\n\nforever. Amen.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3777,7 +4044,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Alleluia, Alleluia, Alleluia.\nChrist our passover is sacrificed for us;\nTherefore let us keep the feast.\nChrist our passover is sacrificed for us;\nTherefore let us keep the feast.\nChrist our passover is sacrificed for us;\nTherefore let us keep the feast.".into()
+                text: "Alleluia, Alleluia, Alleluia.\nChrist our passover is sacrificed for us;\nTherefore let us keep the feast.\nChrist our passover is sacrificed for us;\nTherefore let us keep the feast.\nChrist our passover is sacrificed for us;\nTherefore let us keep the feast.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3791,7 +4059,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Lamb of God, you take away the sins of the world:\n\nHave mercy on us.\n\nLamb of God, you take away the sins of the world:\n\nHave mercy on us.\n\nLamb of God, you take away the sins of the world:\n\nGrant us peace.".into()
+                text: "Lamb of God, you take away the sins of the world:\n\nHave mercy on us.\n\nLamb of God, you take away the sins of the world:\n\nHave mercy on us.\n\nLamb of God, you take away the sins of the world:\n\nGrant us peace.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3805,7 +4074,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Lamb of God, you take away the sins of the world:\n\nHave mercy on us.\n\nLamb of God, you take away the sins of the world:\n\nHave mercy on us.\n\nLamb of God, you take away the sins of the world:\n\nGrant us peace.".into()
+                text: "Lamb of God, you take away the sins of the world:\n\nHave mercy on us.\n\nLamb of God, you take away the sins of the world:\n\nHave mercy on us.\n\nLamb of God, you take away the sins of the world:\n\nGrant us peace.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3819,7 +4089,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Lamb of God, you take away the sins of the world:\n\nHave mercy on us.\n\nLamb of God, you take away the sins of the world:\n\nHave mercy on us.\n\nLamb of God, you take away the sins of the world:\n\nGrant us peace.".into()
+                text: "Lamb of God, you take away the sins of the world:\n\nHave mercy on us.\n\nLamb of God, you take away the sins of the world:\n\nHave mercy on us.\n\nLamb of God, you take away the sins of the world:\n\nGrant us peace.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3833,7 +4104,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "<i>What is Man?</i> By Nathaniel Burleigh and Glenn Burleigh, from the book".into(),
-                text: "Do this in remembrance of me.\nDo this in remembrance of me.\nI hung out on a tree for thee, for thee,\nDo this in remembrance of me.\n\nEat this in remembrance of me.\nEat this in remembrance of me.\nI hung out on a tree for thee, for thee,\nEat this in remembrance of me.\n\nDrink this in remembrance of me.\nDrink this in remembrance of me.\nI hung out on a tree for thee, for thee,\nDrink this in remembrance of me.".into()
+                text: "Do this in remembrance of me.\nDo this in remembrance of me.\nI hung out on a tree for thee, for thee,\nDo this in remembrance of me.\n\nEat this in remembrance of me.\nEat this in remembrance of me.\nI hung out on a tree for thee, for thee,\nEat this in remembrance of me.\n\nDrink this in remembrance of me.\nDrink this in remembrance of me.\nI hung out on a tree for thee, for thee,\nDrink this in remembrance of me.".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3847,7 +4119,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3861,7 +4134,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3875,7 +4149,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Refrain:\nLord, send out your spirit!\nLord, send out your spirit!\nLord, send out your spirit!\nAnd renew the face of the earth.\n\n".into()
+                text: "Refrain:\nLord, send out your spirit!\nLord, send out your spirit!\nLord, send out your spirit!\nAnd renew the face of the earth.\n\n".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3889,7 +4164,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "Chant from <cite>Mass for Grace</cite>".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3903,7 +4179,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3917,7 +4194,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3931,7 +4209,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3945,7 +4224,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+				tags: vec![]
 			},
 			Hymn {
 				source: Hymnals::LEVAS,
@@ -3959,7 +4239,8 @@ lazy_static! {
 				meter: "".into(),
 				text_sources: "".into(),
 				tune_sources: "".into(),
-                text: "Bless, O Lord, our country, Africa.\nSo that she may waken from her sleep.\nFill her horn with plenty, guide her feet.\nHear us, faithful ones\nSpirit descend, Spirit descend,\nSpirit descend, Spirit divine.\n\nBwana ibariki Afrika,\nIliipate kuamka.\nMaombi ye ta yasikilel.\nUtubariki.\nUje Roho, Uje Roho.\nUje Roho. Utujaze.\n\nNkosi sikelel’ i Afrika,\nMalupakam’ upondolwayo;\nYiva imitandazo yetu.\nUsisikelele,\nYihla Moya, Yihla Moya.\nYihla Moya, Oying cwele.".into()
+                text: "Bless, O Lord, our country, Africa.\nSo that she may waken from her sleep.\nFill her horn with plenty, guide her feet.\nHear us, faithful ones\nSpirit descend, Spirit descend,\nSpirit descend, Spirit divine.\n\nBwana ibariki Afrika,\nIliipate kuamka.\nMaombi ye ta yasikilel.\nUtubariki.\nUje Roho, Uje Roho.\nUje Roho. Utujaze.\n\nNkosi sikelel’ i Afrika,\nMalupakam’ upondolwayo;\nYiva imitandazo yetu.\nUsisikelele,\nYihla Moya, Yihla Moya.\nYihla Moya, Oying cwele.".into(),
+				tags: vec![]
 			},
         ],
     };

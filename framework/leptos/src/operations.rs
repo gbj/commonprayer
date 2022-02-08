@@ -2,6 +2,8 @@ use std::time::Duration;
 
 use wasm_bindgen::{prelude::Closure, JsCast, JsValue, UnwrapThrowExt};
 
+use crate::is_server;
+
 pub fn log(s: &str) {
     unsafe {
         web_sys::console::log_1(&JsValue::from_str(s));
@@ -68,9 +70,13 @@ pub fn location() -> web_sys::Location {
     window().location()
 }
 
-// Current window.location.hash without the beginning #
+/// Current window.location.hash without the beginning #
 pub fn location_hash() -> Option<String> {
-    location().hash().ok().map(|hash| hash.replace('#', ""))
+    if is_server!() {
+        None
+    } else {
+        location().hash().ok().map(|hash| hash.replace('#', ""))
+    }
 }
 
 pub fn location_pathname() -> Option<String> {

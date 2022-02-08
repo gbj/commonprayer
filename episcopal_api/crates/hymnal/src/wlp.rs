@@ -44,7 +44,8 @@ lazy_static! {
                 meter: "8.7.8.7 D".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -58,7 +59,8 @@ lazy_static! {
                 meter: "6.6.8.8".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -72,7 +74,8 @@ lazy_static! {
                 meter: "11.8.11.8 D".into(),
                 text_sources: "".into(),
                 tune_sources: "American folk melody".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -86,7 +89,8 @@ lazy_static! {
                 meter: "8.7.9.8.8.7".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -100,7 +104,8 @@ lazy_static! {
                 meter: "7.8.9.8 with refrain".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -114,7 +119,8 @@ lazy_static! {
                 meter: "8.7.8.7".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 Where is this stupendous stranger?\nGentle shepherd now, advise.\nLead me to my Master's manger,\nshow me where my Savior lies.\nO Most Mighty! O Most Holy!\nFar beyond the seraph's thought,\nart thou then so weak and lowly\nas unheeded prophets taught?\n\n2 O the magnitude of meekness!\nWorth from worth immortal sprung;\nO the strength of infant weakness,\nif eternal is so young!\nGod all bounteous, all creative,\nwhom no ills from good dissuade,\nis incarnate, and a native\nof the very world he made.".into()
+                text: "1 Where is this stupendous stranger?\nGentle shepherd now, advise.\nLead me to my Master's manger,\nshow me where my Savior lies.\nO Most Mighty! O Most Holy!\nFar beyond the seraph's thought,\nart thou then so weak and lowly\nas unheeded prophets taught?\n\n2 O the magnitude of meekness!\nWorth from worth immortal sprung;\nO the strength of infant weakness,\nif eternal is so young!\nGod all bounteous, all creative,\nwhom no ills from good dissuade,\nis incarnate, and a native\nof the very world he made.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -128,7 +134,8 @@ lazy_static! {
                 meter: "10.10.10.10".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -142,7 +149,8 @@ lazy_static! {
                 meter: "10.10.10.10 with refrain".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -156,7 +164,8 @@ lazy_static! {
                 meter: "10.10.10.10".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -170,7 +179,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Tunes for Grace".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -184,7 +194,8 @@ lazy_static! {
                 meter: "8.8.8.8".into(),
                 text_sources: "".into(),
                 tune_sources: "Tunes for Grace".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -198,7 +209,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -212,7 +224,8 @@ lazy_static! {
                 meter: "8.8.8.8".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -226,7 +239,8 @@ lazy_static! {
                 meter: "11.10.11.10".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -240,7 +254,8 @@ lazy_static! {
                 meter: "7.6.7.6 D".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 O sacred head, sore wounded,\ndefiled and put to scorn;\nO kingly head, surrounded\nwith mocking crown of thorn;\nwhat sorrow mars thy grandeur?\nCan death thy bloom deflower?\nO countenance whose splendor\nthe hosts of heav'n adore!\n\n2 Thy beauty, long-desired,\nhath vanished from our sight;\nthy power is all expired,\nand quenched the light of light.\nAh me! for whom thou diest,\nhide not so far thy grace,\nshow me, O Love most highest,\nthe brightness of thy face.\n\n3 In thy most bitter passion\nmy heart to share doth cry,\nwith thee for my salvation\nupon the cross to die.\nAh, keep my heart thus moved\nto stand thy cross beneath,\nto mourn thee, well-beloved,\nyet thank thee for thy death.\n\n4 What language shall I borrow\nto thank thee, dearest friend,\nfor this thy dying sorrow,\nthy pity without end?\nOh, make me thine for ever!\nand should I fainting be,\nLord, let me never, never,\noutlive my love for thee.\n\n5 My days are few, O fail not,\nwith thine immortal power,\nto hold me that I quail not\nin death's most fearful hour;\nthat I may fight befriended,\nand see in my last strife\nto me thine arms extended\nupon the cross of life.".into()
+                text: "1 O sacred head, sore wounded,\ndefiled and put to scorn;\nO kingly head, surrounded\nwith mocking crown of thorn;\nwhat sorrow mars thy grandeur?\nCan death thy bloom deflower?\nO countenance whose splendor\nthe hosts of heav'n adore!\n\n2 Thy beauty, long-desired,\nhath vanished from our sight;\nthy power is all expired,\nand quenched the light of light.\nAh me! for whom thou diest,\nhide not so far thy grace,\nshow me, O Love most highest,\nthe brightness of thy face.\n\n3 In thy most bitter passion\nmy heart to share doth cry,\nwith thee for my salvation\nupon the cross to die.\nAh, keep my heart thus moved\nto stand thy cross beneath,\nto mourn thee, well-beloved,\nyet thank thee for thy death.\n\n4 What language shall I borrow\nto thank thee, dearest friend,\nfor this thy dying sorrow,\nthy pity without end?\nOh, make me thine for ever!\nand should I fainting be,\nLord, let me never, never,\noutlive my love for thee.\n\n5 My days are few, O fail not,\nwith thine immortal power,\nto hold me that I quail not\nin death's most fearful hour;\nthat I may fight befriended,\nand see in my last strife\nto me thine arms extended\nupon the cross of life.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -254,7 +269,8 @@ lazy_static! {
                 meter: "14.14.14.14".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 When Jesus came to Golgotha they hanged him on a tree,\nthey drove great nails through hands and feet, and made a Calvary;\nthey crowned him with a crown of thorns, red were his wounds and deep,\nfor those were crude and cruel days, and human flesh was cheap.\n\n2 When Jesus came to live with us we simply passed him by,\nwe never hurt a hair of him, we only let him die;\nfor we had grown more tender, and we would not give him pain,\nwe only just passed down the street and left him in the rain.\n\n3 Still Jesus cries, “Forgive them for they know not what they do,”\nand still it rains the winter rain that drenches through and through;\nthe crowds go home and leave the streets without a soul to see,\nand Jesus crouches 'gainst a wall and cries for Calvary.".into()
+                text: "1 When Jesus came to Golgotha they hanged him on a tree,\nthey drove great nails through hands and feet, and made a Calvary;\nthey crowned him with a crown of thorns, red were his wounds and deep,\nfor those were crude and cruel days, and human flesh was cheap.\n\n2 When Jesus came to live with us we simply passed him by,\nwe never hurt a hair of him, we only let him die;\nfor we had grown more tender, and we would not give him pain,\nwe only just passed down the street and left him in the rain.\n\n3 Still Jesus cries, “Forgive them for they know not what they do,”\nand still it rains the winter rain that drenches through and through;\nthe crowds go home and leave the streets without a soul to see,\nand Jesus crouches 'gainst a wall and cries for Calvary.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -268,7 +284,8 @@ lazy_static! {
                 meter: "8.7.8.7.8.7".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 Faithful cross, above all other:\none and only noble tree!\nNone in foliage, none in blossom,\nnone in fruit thy peer may be:\nsweetest wood and sweetest iron,\nsweetest weight is hung on thee.\n\n2 Bend thy boughs, O tree of glory!\nThy relaxing sinews bend;\nfor awhile the ancient rigor\nthat thy birth bestowed, suspend;\nand the King of heavenly beauty \ngently on thine arms extend.\n\n3 Praise and honor to the Father,\npraise and nonor to the Son,\npraise and honor to the Spirit,\never Three and ever One:\none in might and one in glory\nwhile eternal ages run.\n\n1 Crux fidelis inter omnes,\narbor una nobilis:\nNulla talem silva, profert,\nfronde, flore, germine;\ndulce lignum, dulces clavos,\ndulce pondus sustinet.".into()
+                text: "1 Faithful cross, above all other:\none and only noble tree!\nNone in foliage, none in blossom,\nnone in fruit thy peer may be:\nsweetest wood and sweetest iron,\nsweetest weight is hung on thee.\n\n2 Bend thy boughs, O tree of glory!\nThy relaxing sinews bend;\nfor awhile the ancient rigor\nthat thy birth bestowed, suspend;\nand the King of heavenly beauty \ngently on thine arms extend.\n\n3 Praise and honor to the Father,\npraise and nonor to the Son,\npraise and honor to the Spirit,\never Three and ever One:\none in might and one in glory\nwhile eternal ages run.\n\n1 Crux fidelis inter omnes,\narbor una nobilis:\nNulla talem silva, profert,\nfronde, flore, germine;\ndulce lignum, dulces clavos,\ndulce pondus sustinet.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -282,7 +299,8 @@ lazy_static! {
                 meter: "10.7.10.7.10.10.9 D".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -296,7 +314,8 @@ lazy_static! {
                 meter: "7.8.7.8 D with refrain".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -310,7 +329,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "Traditional".into(),
                 tune_sources: "Negro Spiritual; The Haywood Collection of Negro Spirituals".into(),
-                text: "Refrain:\nWade in the water, wade in the water, children, \nWade in the water, God’s a-gonna trouble the water. \n\n1 See that host all dressed in white, \nGod’s a-gonna trouble the water. \nThe leader looks like the Israelite, \nGod’s a-gonna trouble the water.  (Refrain)\n\n2 See that band all dressed in red, \nGod’s a-gonna trouble the water. \nLooks like the band that Moses led, \nGod’s a-gonna trouble the water.  (Refrain)\n\n3 Look over yonder, what do I see? \nGod’s a-gonna trouble the water. \nThe Holy Ghost a-coming on me, \nGod’s a-gonna trouble the water.  (Refrain)\n\n4 If you don’t believe I’ve been redeemed, \nGod’s a-gonna trouble the water. \nJust follow me down to Jordan’s stream, \nGod’s a-gonna trouble the water.  (Refrain)".into()
+                text: "Refrain:\nWade in the water, wade in the water, children, \nWade in the water, God’s a-gonna trouble the water. \n\n1 See that host all dressed in white, \nGod’s a-gonna trouble the water. \nThe leader looks like the Israelite, \nGod’s a-gonna trouble the water.  (Refrain)\n\n2 See that band all dressed in red, \nGod’s a-gonna trouble the water. \nLooks like the band that Moses led, \nGod’s a-gonna trouble the water.  (Refrain)\n\n3 Look over yonder, what do I see? \nGod’s a-gonna trouble the water. \nThe Holy Ghost a-coming on me, \nGod’s a-gonna trouble the water.  (Refrain)\n\n4 If you don’t believe I’ve been redeemed, \nGod’s a-gonna trouble the water. \nJust follow me down to Jordan’s stream, \nGod’s a-gonna trouble the water.  (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -324,7 +344,8 @@ lazy_static! {
                 meter: "10.10.10.10".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -338,7 +359,8 @@ lazy_static! {
                 meter: "8.7.8.7".into(),
                 text_sources: "".into(),
                 tune_sources: "Gross Catolisch Gesangbuch</i>, 1631, melody from ".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -352,7 +374,8 @@ lazy_static! {
                 meter: "10.10.10.10".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -366,7 +389,8 @@ lazy_static! {
                 meter: "8.8.8.8".into(),
                 text_sources: "Latin".into(),
                 tune_sources: "".into(),
-                text: "1 O Trinity of blessed light, \nO Unity of royal might, \nthe fiery sun now goes its way; \nshed thou within our hearts thy ray. \n\n2 To thee our morning song of praise, \nto thee our evening prayer we raise; \nO grant us with thy saints on high \nto praise thee through eternity. \n\n3 To God the Father, heav’nly Light, \nto Christ revealed in earthly night, \nto God the Holy Ghost we raise \nour equal and unceasing praise.".into()
+                text: "1 O Trinity of blessed light, \nO Unity of royal might, \nthe fiery sun now goes its way; \nshed thou within our hearts thy ray. \n\n2 To thee our morning song of praise, \nto thee our evening prayer we raise; \nO grant us with thy saints on high \nto praise thee through eternity. \n\n3 To God the Father, heav’nly Light, \nto Christ revealed in earthly night, \nto God the Holy Ghost we raise \nour equal and unceasing praise.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -380,7 +404,8 @@ lazy_static! {
                 meter: "8.7.8.7 with refrain".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -394,7 +419,8 @@ lazy_static! {
                 meter: "8.7.8.7.8.7".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -408,7 +434,8 @@ lazy_static! {
                 meter: "8.7.8.7.8.7".into(),
                 text_sources: "".into(),
                 tune_sources: "Hymnal 1940".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -422,7 +449,8 @@ lazy_static! {
                 meter: "8.7.8.7.8.7".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -436,7 +464,8 @@ lazy_static! {
                 meter: "8.8.8.8".into(),
                 text_sources: "a collection of Joshua Smith, New Hampshire, from".into(),
                 tune_sources: "".into(),
-                text: "1 The tree of life my soul hath seen, \nLaden with fruit, and always green: \nThe trees of nature fruitless be \nCompared with Christ the apple tree. \n\n2 His beauty doth all things excel: \nBy faith I know, but ne’er can tell \nThe glory which I now can see \nIn Jesus Christ the apple tree. \n\n3 For happiness I long have sought, \nAnd pleasure dearly I have bought: \nI missed of all: but now I see \n’Tis found in Christ the apple tree. \n\n4 I’m weary with my former toil, \nHere I will sit and rest awhile: \nUnder the shadow I will be \nOf Jesus Christ the apple tree. \n\n5 This fruit doth make my soul to thrive, \nIt keeps my dying faith alive; \nWhich makes my soul in haste to be \nWith Jesus Christ the apple tree.".into()
+                text: "1 The tree of life my soul hath seen, \nLaden with fruit, and always green: \nThe trees of nature fruitless be \nCompared with Christ the apple tree. \n\n2 His beauty doth all things excel: \nBy faith I know, but ne’er can tell \nThe glory which I now can see \nIn Jesus Christ the apple tree. \n\n3 For happiness I long have sought, \nAnd pleasure dearly I have bought: \nI missed of all: but now I see \n’Tis found in Christ the apple tree. \n\n4 I’m weary with my former toil, \nHere I will sit and rest awhile: \nUnder the shadow I will be \nOf Jesus Christ the apple tree. \n\n5 This fruit doth make my soul to thrive, \nIt keeps my dying faith alive; \nWhich makes my soul in haste to be \nWith Jesus Christ the apple tree.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -450,7 +479,8 @@ lazy_static! {
                 meter: "6.4.6.4".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -464,7 +494,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "Traditional".into(),
                 tune_sources: "Negro Spiritual".into(),
-                text: "Refrain:\nEv’ry time I feel the spirit, \nmoving in my heart, I will pray. \nEvery time I feel the spirit, \nmoving in my heart, I will pray. \n\n1 Up on the mountain my Lord spoke, \nout of his mouth came fire and smoke. \nAll around me looked so fine, \nasked my Lord if all was mine. (Refrain) \n\n2 Jordan river chilly and cold, \nchills the body but not the soul. \nThere ain’t but one train runs this track, \nruns to heaven and runs right back. (Refrain)".into()
+                text: "Refrain:\nEv’ry time I feel the spirit, \nmoving in my heart, I will pray. \nEvery time I feel the spirit, \nmoving in my heart, I will pray. \n\n1 Up on the mountain my Lord spoke, \nout of his mouth came fire and smoke. \nAll around me looked so fine, \nasked my Lord if all was mine. (Refrain) \n\n2 Jordan river chilly and cold, \nchills the body but not the soul. \nThere ain’t but one train runs this track, \nruns to heaven and runs right back. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -478,7 +509,8 @@ lazy_static! {
                 meter: "6.4.6.4".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -492,7 +524,8 @@ lazy_static! {
                 meter: "8.7.8.7 D".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -506,7 +539,8 @@ lazy_static! {
                 meter: "8.7.8.7 D".into(),
                 text_sources: "".into(),
                 tune_sources: "Tunes for Grace".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -520,7 +554,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "A New Zealand Prayer Book".into(),
                 tune_sources: "Tunes for Grace".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -534,7 +569,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -548,7 +584,8 @@ lazy_static! {
                 meter: "13.13.7.7.13".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -562,7 +599,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -576,7 +614,8 @@ lazy_static! {
                 meter: "8.6.8.5".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -590,7 +629,8 @@ lazy_static! {
                 meter: "8.8.8.8".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -604,7 +644,8 @@ lazy_static! {
                 meter: "8.7.8.7 D".into(),
                 text_sources: "".into(),
                 tune_sources: "The Southern Harmony</i>, 1835".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -618,7 +659,8 @@ lazy_static! {
                 meter: "8.7.8.7 D".into(),
                 text_sources: "".into(),
                 tune_sources: "Columbian Harmony</i>, 1825".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -632,7 +674,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -646,7 +689,8 @@ lazy_static! {
                 meter: "8.7.8.7 D".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -660,7 +704,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Refrain:\nTaste and see. Taste and see the goodness of the Lord \nO taste and see. Taste and see the goodness of the Lord, of the Lord. \n\n1 I will bless the Lord at all times. \nHis praise shall always be on my lips; \nmy soul shall glory in the Lord; \nfor he has been so good to me. (Refrain) \n\n2 Glorify the Lord with me. \nTogether let us all praise his name. \nI called the Lord and he answered me; \nfrom all my troubles he set me free. (Refrain) \n\n3 Worship the Lord all you people. \nYou’ll want for nothing if you ask. \nTaste and see that God is good; \nin him we need put all our trust. (Refrain)".into()
+                text: "Refrain:\nTaste and see. Taste and see the goodness of the Lord \nO taste and see. Taste and see the goodness of the Lord, of the Lord. \n\n1 I will bless the Lord at all times. \nHis praise shall always be on my lips; \nmy soul shall glory in the Lord; \nfor he has been so good to me. (Refrain) \n\n2 Glorify the Lord with me. \nTogether let us all praise his name. \nI called the Lord and he answered me; \nfrom all my troubles he set me free. (Refrain) \n\n3 Worship the Lord all you people. \nYou’ll want for nothing if you ask. \nTaste and see that God is good; \nin him we need put all our trust. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -674,7 +719,8 @@ lazy_static! {
                 meter: "8.8.8.8".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -688,7 +734,8 @@ lazy_static! {
                 meter: "8.8.8.8 with refrain".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -702,7 +749,8 @@ lazy_static! {
                 meter: "5.5.8.5.5.8".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -716,7 +764,8 @@ lazy_static! {
                 meter: "8.7.8.7 D".into(),
                 text_sources: "".into(),
                 tune_sources: "Gaelic melody".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -730,7 +779,8 @@ lazy_static! {
                 meter: "8.7.8.7 D".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -744,7 +794,8 @@ lazy_static! {
                 meter: "6.6.8.6".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -758,7 +809,8 @@ lazy_static! {
                 meter: "6.6.8.6".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -772,7 +824,8 @@ lazy_static! {
                 meter: "8.8.8.8".into(),
                 text_sources: "".into(),
                 tune_sources: "The Southern Harmony</i>, 1835 (harmony); Hymnal 1982</i> (adaptation)".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -786,7 +839,8 @@ lazy_static! {
                 meter: "6.6.8.6".into(),
                 text_sources: "".into(),
                 tune_sources: "Tunes for Grace".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -800,7 +854,8 @@ lazy_static! {
                 meter: "8.8.8.8".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 From miles around the sick ones came, \nIn hope that One they heard was Lord \nwould make their souls and bodies well, \nwith healing touch or saving word. \n\n2 And still they come, new preys of plague, \nwhile often in their rooms of prayer \nGod’s people worship, safe and sound, \nunheeding, even unaware. \n\n3 Recall us to our mission, Lord, \nto reach for those cut off, in pain; \nto offer friendship, strength, and peace \nand be a faithful church again.".into()
+                text: "1 From miles around the sick ones came, \nIn hope that One they heard was Lord \nwould make their souls and bodies well, \nwith healing touch or saving word. \n\n2 And still they come, new preys of plague, \nwhile often in their rooms of prayer \nGod’s people worship, safe and sound, \nunheeding, even unaware. \n\n3 Recall us to our mission, Lord, \nto reach for those cut off, in pain; \nto offer friendship, strength, and peace \nand be a faithful church again.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -814,7 +869,8 @@ lazy_static! {
                 meter: "10.10.10 with alleluias".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -828,7 +884,8 @@ lazy_static! {
                 meter: "10.10.10.10.10.10".into(),
                 text_sources: "".into(),
                 tune_sources: "Hymns for Church and School</i>, 1964".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -842,7 +899,8 @@ lazy_static! {
                 meter: "10.10.7".into(),
                 text_sources: "Latin; Hymnal 1940, </i>ver., Tr.".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -856,7 +914,8 @@ lazy_static! {
                 meter: "7.6.7.6 D".into(),
                 text_sources: "".into(),
                 tune_sources: "Finnish folk melody".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -870,7 +929,8 @@ lazy_static! {
                 meter: "8.8.8.8".into(),
                 text_sources: "".into(),
                 tune_sources: "New Catholic Hymnal".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -884,7 +944,8 @@ lazy_static! {
                 meter: "8.7.8.7 D".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -898,7 +959,8 @@ lazy_static! {
                 meter: "8.8.8.8.8.8".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -912,7 +974,8 @@ lazy_static! {
                 meter: "8.7.8.7 D".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -926,7 +989,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Setting: Muscogee (Creek) Indian".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -940,7 +1004,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "South African".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -954,7 +1019,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "Traditional liturgical text, variation on a".into(),
                 tune_sources: "".into(),
-                text: "Santo, santo, santo, \nmi corazon te adora!\nMi corazon te sabe decir: \nsanto eres Señor.\nHoly, holy, holy, \nmy heart, my heart adores you!\nMy heart is glad to say the words:\nyou are holy, Lord.".into()
+                text: "Santo, santo, santo, \nmi corazon te adora!\nMi corazon te sabe decir: \nsanto eres Señor.\nHoly, holy, holy, \nmy heart, my heart adores you!\nMy heart is glad to say the words:\nyou are holy, Lord.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -968,7 +1034,8 @@ lazy_static! {
                 meter: "11.11.11.10".into(),
                 text_sources: "Brazilian".into(),
                 tune_sources: "Brazilian".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -982,7 +1049,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "South African".into(),
                 tune_sources: "South African".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -996,7 +1064,8 @@ lazy_static! {
                 meter: "8.6.8.6 D".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1010,7 +1079,8 @@ lazy_static! {
                 meter: "10.10.9.10".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1024,7 +1094,8 @@ lazy_static! {
                 meter: "8.7.8.7".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1038,7 +1109,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "Navaho prayer, based on a".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1052,7 +1124,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "".into(),
                 tune_sources: "Songs of Praise".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1066,7 +1139,8 @@ lazy_static! {
                 meter: "7.5.7.5 D".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1080,7 +1154,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1094,7 +1169,8 @@ lazy_static! {
                 meter: "6.5.6.5.6".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1108,7 +1184,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1122,7 +1199,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "Traditional".into(),
                 tune_sources: "Negro Spiritual; The Haywood Collection of Negro Spirituals".into(),
-                text: "Refrain:\nIt’s me, it’s me, O Lord, Standin’ in the need of prayer; \nIt’s me, It’s me, O Lord, Standin’ in the need of prayer. \n\n1 Not my brother, not my sister, but it’s me, O Lord, \nstandin’ in the need of prayer, \nnot my brother, not my sister, but it’s me, O Lord, \nstandin’ in the need of prayer. (Refrain) \n\n2 Not the preacher, not the deacon, but it’s me, O Lord, \nstandin’ in the need of prayer, \nnot the preacher, not the deacon, but it’s me, O Lord, \nstandin’ in the need of prayer. (Refrain) \n\n3 Not my father, not my mother, but it’s me, O Lord, \nstandin’ in the need of prayer, \nnot my father, not my mother, but it’s me, O Lord, \nstandin’ in the need of prayer. (Refrain) \n\n4 Not the stranger, not my neighbor, but it’s me, O Lord, \nstandin’ in the need of prayer, \nnot the stranger, not my neighbor, but it’s me, O Lord, \nstandin’ in the need of prayer. (Refrain)".into()
+                text: "Refrain:\nIt’s me, it’s me, O Lord, Standin’ in the need of prayer; \nIt’s me, It’s me, O Lord, Standin’ in the need of prayer. \n\n1 Not my brother, not my sister, but it’s me, O Lord, \nstandin’ in the need of prayer, \nnot my brother, not my sister, but it’s me, O Lord, \nstandin’ in the need of prayer. (Refrain) \n\n2 Not the preacher, not the deacon, but it’s me, O Lord, \nstandin’ in the need of prayer, \nnot the preacher, not the deacon, but it’s me, O Lord, \nstandin’ in the need of prayer. (Refrain) \n\n3 Not my father, not my mother, but it’s me, O Lord, \nstandin’ in the need of prayer, \nnot my father, not my mother, but it’s me, O Lord, \nstandin’ in the need of prayer. (Refrain) \n\n4 Not the stranger, not my neighbor, but it’s me, O Lord, \nstandin’ in the need of prayer, \nnot the stranger, not my neighbor, but it’s me, O Lord, \nstandin’ in the need of prayer. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1136,7 +1214,8 @@ lazy_static! {
                 meter: "6.6.8.6".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 Lord Jesus, think on me, \nand purge away my sin; \nfrom earthborn passions set me free, \nand make me pure within. \n\n2 Lord Jesus, think on me, \nwith care and woe oppressed; \nlet me thy loving servant be, \nand taste thy promised rest. \n\n3 Lord Jesus, think on me, \nnor let me go astray; \nthrough darkness and perplexity \npoint thou the heav’nly way. \n\n4 Lord Jesus, think on me, \nthat, when the flood is past, \nI may the eternal brightness see, \nand share thy joy at last.".into()
+                text: "1 Lord Jesus, think on me, \nand purge away my sin; \nfrom earthborn passions set me free, \nand make me pure within. \n\n2 Lord Jesus, think on me, \nwith care and woe oppressed; \nlet me thy loving servant be, \nand taste thy promised rest. \n\n3 Lord Jesus, think on me, \nnor let me go astray; \nthrough darkness and perplexity \npoint thou the heav’nly way. \n\n4 Lord Jesus, think on me, \nthat, when the flood is past, \nI may the eternal brightness see, \nand share thy joy at last.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1150,7 +1229,8 @@ lazy_static! {
                 meter: "10.10.10.10".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 Abide with me: fast falls the eventide; \nthe darkness deepens; Lord, with me abide: \nwhen other helpers fail and comforts flee, \nhelp of the helpless, O abide with me. \n\n2 I need thy presence ev’ry passing hour; \nwhat but thy grace can foil the tempter’s power? \nWho, like thyself, my guide and stay can be? \nThrough cloud and sunshine, Lord, abide with me. \n\n3 I fear no foe, with thee at hand to bless; \nills have no weight and tears no bitterness. \nWhere is death’s sting? Where, grave, thy victory? \nI triumph still, if thou abide with me. \n\n4 Hold thou thy cross before my closing eyes; \nshine through the gloom, and point me to the skies; \nheaven’s morning breaks, and earth’s vain shadows flee; \nin life, in death, O Lord, abide with me.".into()
+                text: "1 Abide with me: fast falls the eventide; \nthe darkness deepens; Lord, with me abide: \nwhen other helpers fail and comforts flee, \nhelp of the helpless, O abide with me. \n\n2 I need thy presence ev’ry passing hour; \nwhat but thy grace can foil the tempter’s power? \nWho, like thyself, my guide and stay can be? \nThrough cloud and sunshine, Lord, abide with me. \n\n3 I fear no foe, with thee at hand to bless; \nills have no weight and tears no bitterness. \nWhere is death’s sting? Where, grave, thy victory? \nI triumph still, if thou abide with me. \n\n4 Hold thou thy cross before my closing eyes; \nshine through the gloom, and point me to the skies; \nheaven’s morning breaks, and earth’s vain shadows flee; \nin life, in death, O Lord, abide with me.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1164,7 +1244,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1178,7 +1259,8 @@ lazy_static! {
                 meter: "9.8.8.9".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 God be with you till we meet again; \nby wise counsels guide, uphold you, \nwith the sheep securely fold you: \nGod be with you till we meet again. \n\n2 God be with you till we meet again; \n’neath bright wings protecting hide you, \ndaily manna still provide you: \nGod be with you till we meet again. \n\n3 God be with you till we meet again; \nwhen life’s perils thick confound you, \nput strong arms unfailing round you: \nGod be with you till we meet again. \n\n4 God be with you till we meet again; \nkeep love’s banner floating o’er you, \nsmite death’s threat’ning wave before you: \nGod be with you till we meet again.".into()
+                text: "1 God be with you till we meet again; \nby wise counsels guide, uphold you, \nwith the sheep securely fold you: \nGod be with you till we meet again. \n\n2 God be with you till we meet again; \n’neath bright wings protecting hide you, \ndaily manna still provide you: \nGod be with you till we meet again. \n\n3 God be with you till we meet again; \nwhen life’s perils thick confound you, \nput strong arms unfailing round you: \nGod be with you till we meet again. \n\n4 God be with you till we meet again; \nkeep love’s banner floating o’er you, \nsmite death’s threat’ning wave before you: \nGod be with you till we meet again.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1192,7 +1274,8 @@ lazy_static! {
                 meter: "12.11.12.11.11".into(),
                 text_sources: "".into(),
                 tune_sources: "San Pablo Internacional - SSP".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1206,7 +1289,8 @@ lazy_static! {
                 meter: "11.13.11.4".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1220,7 +1304,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "Traditional".into(),
                 tune_sources: "Negro Spiritual; The Haywood Collection of Negro Spirituals".into(),
-                text: "Refrain:\nSteal away, steal away, steal away to Jesus! \nSteal away, steal away home, I ain’t got long to stay here! \n\n1 My Lord he calls me, he calls me by the thunder. \nThe trumpet sounds within a my soul. I ain’t got long to stay here. (Refrain) \n\n2 Green trees are bending, poor sinner stands a-trembling, \nthe trumpet sounds within a my soul. I ain’t got long to stay here. (Refrain) \n\n3 Tombstones are bursting, poor sinner stands a-trembling, \nthe trumpet sounds within a my soul. I ain’t got long to stay here. (Refrain) \n\n4 My Lord he calls me, he calls me by the lightning. \nthe trumpet sounds within a my soul. I ain’t got long to stay here. (Refrain)".into()
+                text: "Refrain:\nSteal away, steal away, steal away to Jesus! \nSteal away, steal away home, I ain’t got long to stay here! \n\n1 My Lord he calls me, he calls me by the thunder. \nThe trumpet sounds within a my soul. I ain’t got long to stay here. (Refrain) \n\n2 Green trees are bending, poor sinner stands a-trembling, \nthe trumpet sounds within a my soul. I ain’t got long to stay here. (Refrain) \n\n3 Tombstones are bursting, poor sinner stands a-trembling, \nthe trumpet sounds within a my soul. I ain’t got long to stay here. (Refrain) \n\n4 My Lord he calls me, he calls me by the lightning. \nthe trumpet sounds within a my soul. I ain’t got long to stay here. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1234,7 +1319,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "Traditional".into(),
                 tune_sources: "Negro Spiritual; The Haywood Collection of Negro Spirituals".into(),
-                text: "1 I want Jesus to walk with me (walk with me); \nI want Jesus to walk with me (walk with me); \nall along my pilgrim journey, Lord, \nI want Jesus to walk with me (walk with me). \n\n2 In my trials, Lord, walk with me (walk with me); \nin my trials, Lord, walk with me (walk with me); \nwhen the shades of life are falling, Lord, \nI want Jesus to walk with me (walk with me). \n\n3 In my sorrows, Lord, walk with me (walk with me); \nin my sorrows, Lord, walk with me (walk with me); \nwhen my heart within is aching, Lord, \nI want Jesus to walk with me (walk with me).".into()
+                text: "1 I want Jesus to walk with me (walk with me); \nI want Jesus to walk with me (walk with me); \nall along my pilgrim journey, Lord, \nI want Jesus to walk with me (walk with me). \n\n2 In my trials, Lord, walk with me (walk with me); \nin my trials, Lord, walk with me (walk with me); \nwhen the shades of life are falling, Lord, \nI want Jesus to walk with me (walk with me). \n\n3 In my sorrows, Lord, walk with me (walk with me); \nin my sorrows, Lord, walk with me (walk with me); \nwhen my heart within is aching, Lord, \nI want Jesus to walk with me (walk with me).".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1248,7 +1334,8 @@ lazy_static! {
                 meter: "8.6.8.6.6.6.8.6".into(),
                 text_sources: "Traditional, Zimbabwe".into(),
                 tune_sources: "Traditional, Zimbabwe".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1262,7 +1349,8 @@ lazy_static! {
                 meter: "8.6.8.6".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1276,7 +1364,8 @@ lazy_static! {
                 meter: "Irregular".into(),
                 text_sources: "South African".into(),
                 tune_sources: "South African".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1290,7 +1379,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1304,7 +1394,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1318,7 +1409,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1332,7 +1424,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1346,7 +1439,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "Traditional Ojibway lullaby from Chippewa Music</i> by Frances Densmore (1867-1957)".into(),
                 tune_sources: "Traditional Ojibway lullaby from Chippewa Music</i> by Frances Densmore (1867-1957)".into(),
-                text: "Way way way way way way way way way way way way way way.\nLord, have mercy. Lord, have mercy. Lord, have mercy.\nAlleluia. Alleluia. Alleluia.\nHoly Spirit, come, Holy Spirit, come, make our hearts your home.\nLet us bless the Lord. Let us bless the Lord. Thanks be to God.".into()
+                text: "Way way way way way way way way way way way way way way.\nLord, have mercy. Lord, have mercy. Lord, have mercy.\nAlleluia. Alleluia. Alleluia.\nHoly Spirit, come, Holy Spirit, come, make our hearts your home.\nLet us bless the Lord. Let us bless the Lord. Thanks be to God.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1360,7 +1454,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1374,7 +1469,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Jesus said: The first commandment is this:\nHear, O Israel, The Lord our God is the only Lord.\nLove the Lord your God with all your heart, with all your soul,\nwith all your mind, and with all your strength.\nThe second is this: Love your neighbor as yourself.\nThere is no other commandment greater than these.”".into()
+                text: "Jesus said: The first commandment is this:\nHear, O Israel, The Lord our God is the only Lord.\nLove the Lord your God with all your heart, with all your soul,\nwith all your mind, and with all your strength.\nThe second is this: Love your neighbor as yourself.\nThere is no other commandment greater than these.”".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1388,7 +1484,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Znamenny Chant".into(),
-                text: "Christ is risen from the dead, trampling down death by death,\nand on those in the tombs bestowing life.".into()
+                text: "Christ is risen from the dead, trampling down death by death,\nand on those in the tombs bestowing life.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1402,7 +1499,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Christ is risen from the dead, trampling down death by death,\nand on those in the tombs bestowing life.".into()
+                text: "Christ is risen from the dead, trampling down death by death,\nand on those in the tombs bestowing life.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1416,7 +1514,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Traditional Hebrew".into(),
-                text: "Sh’ma Yisrael, Adonai Eloheinu, Adonai echod.\nBaruch shem ch’vod, ch’vod malchuto l’olamvaed.\nHear, O Israel: The Lord our God, the Lord is One.\nPraised be his name whose glorious kingdom is forever and ever.".into()
+                text: "Sh’ma Yisrael, Adonai Eloheinu, Adonai echod.\nBaruch shem ch’vod, ch’vod malchuto l’olamvaed.\nHear, O Israel: The Lord our God, the Lord is One.\nPraised be his name whose glorious kingdom is forever and ever.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1430,7 +1529,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "African-American spiritual".into(),
                 tune_sources: "African-American spiritual".into(),
-                text: "1 Guide my feet Lord, while I run this race. \nGuide my feet Lord, while I run this race. \nGuide my feet Lord, while I run this race, \n’cause I don’t want to run this race in vain. \n\n2 Hold my hand Lord, while I run this race. \nHold my hand Lord, while I run this race. \nHold my hand Lord, while I run this race. \n’cause I don’t want to run this race in vain. \n\n3 Stand by me Lord, while I run this race. \nStand by me Lord, while I run this race. \nStand by me Lord, while I run this race. \n’cause I don’t want to run this race in vain.".into()
+                text: "1 Guide my feet Lord, while I run this race. \nGuide my feet Lord, while I run this race. \nGuide my feet Lord, while I run this race, \n’cause I don’t want to run this race in vain. \n\n2 Hold my hand Lord, while I run this race. \nHold my hand Lord, while I run this race. \nHold my hand Lord, while I run this race. \n’cause I don’t want to run this race in vain. \n\n3 Stand by me Lord, while I run this race. \nStand by me Lord, while I run this race. \nStand by me Lord, while I run this race. \n’cause I don’t want to run this race in vain.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1444,7 +1544,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1458,7 +1559,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Come All You People".into(),
-                text: "Glory to God; Praise to the Son;\nLove to the Spirit; Three and yet One.".into()
+                text: "Glory to God; Praise to the Son;\nLove to the Spirit; Three and yet One.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1472,7 +1574,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "Songs of Praise".into(),
                 tune_sources: "Auserlesene Catholische Geistliche Kirchengesent</i>, 1623, melody from".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1486,7 +1589,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 Benedictus benedicat, per Jesum Christum \nDominum nostrum. Amen. \n\n2 Deo gratias, Deo gratias, per Jesum Christum \nDominum nostrum. Amen. \n\n1 May the Blessed One bless, \nthrough Jesus Christ our Lord. Amen. \n\n2 Thanks be to God, \nthrough Jesus Christ our Lord. Amen.".into()
+                text: "1 Benedictus benedicat, per Jesum Christum \nDominum nostrum. Amen. \n\n2 Deo gratias, Deo gratias, per Jesum Christum \nDominum nostrum. Amen. \n\n1 May the Blessed One bless, \nthrough Jesus Christ our Lord. Amen. \n\n2 Thanks be to God, \nthrough Jesus Christ our Lord. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1500,7 +1604,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Setting: Traditional Russian".into(),
-                text: "God grant them many years!\nGod grant them many years!\nGod grant them many years!".into()
+                text: "God grant them many years!\nGod grant them many years!\nGod grant them many years!".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1514,7 +1619,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1528,7 +1634,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1542,7 +1649,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1556,7 +1664,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1570,7 +1679,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1584,7 +1694,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1598,7 +1709,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "Latin, 8th c.".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1612,7 +1724,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "Pentecost Sequence".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1626,7 +1739,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Our Father in heaven, hallow’d be your Name. \nYour kingdom come, your will be done,\nin earth as it is in heaven.\nGive us today our daily bread.\nAnd forgive our sins as we forgive others.\nSave us from the time of trial,\nand deliver us from evil.\nFor yours is the kingdom,\nthe power and the glory are yours forever. Amen.".into()
+                text: "Our Father in heaven, hallow’d be your Name. \nYour kingdom come, your will be done,\nin earth as it is in heaven.\nGive us today our daily bread.\nAnd forgive our sins as we forgive others.\nSave us from the time of trial,\nand deliver us from evil.\nFor yours is the kingdom,\nthe power and the glory are yours forever. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1640,7 +1754,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1654,7 +1769,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Lord, have mercy.\nChrist, have mercy.\nLord, have mercy.".into()
+                text: "Lord, have mercy.\nChrist, have mercy.\nLord, have mercy.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1668,7 +1784,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Lord, have mercy.\nChrist, have mercy.\nLord, have mercy.".into()
+                text: "Lord, have mercy.\nChrist, have mercy.\nLord, have mercy.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1682,7 +1799,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "based on Herzliebster Jesu</i>, Johann Cruger (1598-1662)".into(),
-                text: "Kyrie eleison.\nChriste eleison.\nKyrie eleison.".into()
+                text: "Kyrie eleison.\nChriste eleison.\nKyrie eleison.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1696,7 +1814,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "based on Herzliebster Jesu</i>, Johann Cruger (1598-1662)".into(),
-                text: "Lord, have mercy.\nChrist, have mercy.\nLord, have mercy.".into()
+                text: "Lord, have mercy.\nChrist, have mercy.\nLord, have mercy.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1710,7 +1829,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Lord, have mercy.\nChrist, have mercy.\nLord, have mercy.".into()
+                text: "Lord, have mercy.\nChrist, have mercy.\nLord, have mercy.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1724,7 +1844,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "based on traditional African melodies".into(),
-                text: "Kyrie eleison.\nChriste eleison.\nKyrie eleison.".into()
+                text: "Kyrie eleison.\nChriste eleison.\nKyrie eleison.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1738,7 +1859,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Kyrie eleison.\nChriste eleison.\nKyrie eleison.".into()
+                text: "Kyrie eleison.\nChriste eleison.\nKyrie eleison.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1752,7 +1874,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Missa de Sancta Hildegard</i>, from; melody adapt. From a Kyrie by Hildegard of Bingen".into(),
-                text: "Lord, have mercy.\nChrist, have mercy.\nLord, have mercy.".into()
+                text: "Lord, have mercy.\nChrist, have mercy.\nLord, have mercy.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1766,7 +1889,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1780,7 +1904,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1794,7 +1919,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1808,7 +1934,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1822,7 +1949,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Tibi, Christe, splendor Patris</i>, Moissac MS., 12th cent., refrain from".into(),
-                text: "Alleluia, Alleluia, Alleluia, Alleluia.".into()
+                text: "Alleluia, Alleluia, Alleluia, Alleluia.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1836,7 +1964,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Gelobt sei Gott</i>, Melchior Vulpius (1560?-1616), refrain after".into(),
-                text: "Alleluia, Alleluia, Alleluia, Alleluia.".into()
+                text: "Alleluia, Alleluia, Alleluia, Alleluia.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1850,7 +1979,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "We believe in one God,\nthe Father, the Almighty, \nmaker of heaven and earth, \nof all that is, seen and unseen. \nWe believe in one Lord, Jesus Christ,\nthe only Son of God, \neternally begotten of the Father, \nGod from God, Light from Light, \ntrue God from true God, \nbegotten, not made, \nof one Being with the Father. \nThrough him all things were made. \nFor us and for our salvation \nhe came down from heaven: \nby the power of the Holy Spirit \nhe became incarnate of the Virgin Mary, \nand was made man. \nFor our sake he was crucified under Pontius Pilate; \nhe suffered death and was buried. \nOn the third day he rose again \nin accordance with the Scriptures; \nhe ascended into heaven \nand is seated at the right hand of the Father. \nHe will come again in glory to judge the living and the dead, \nand his kingdom will have no end. \nWe believe in the Holy Spirit, the Lord, the giver of life,\nwho proceeds from the Father [and the Son.]* \nWith the Father and the Son he is worshiped and glorified. \nHe has spoken through the Prophets. \nWe believe in one holy catholic and apostolic Church. \nWe acknowledge one baptism for the forgiveness of sins. \nWe look for the resurrection of the dead, \nand the life of the world to come. Amen.".into()
+                text: "We believe in one God,\nthe Father, the Almighty, \nmaker of heaven and earth, \nof all that is, seen and unseen. \nWe believe in one Lord, Jesus Christ,\nthe only Son of God, \neternally begotten of the Father, \nGod from God, Light from Light, \ntrue God from true God, \nbegotten, not made, \nof one Being with the Father. \nThrough him all things were made. \nFor us and for our salvation \nhe came down from heaven: \nby the power of the Holy Spirit \nhe became incarnate of the Virgin Mary, \nand was made man. \nFor our sake he was crucified under Pontius Pilate; \nhe suffered death and was buried. \nOn the third day he rose again \nin accordance with the Scriptures; \nhe ascended into heaven \nand is seated at the right hand of the Father. \nHe will come again in glory to judge the living and the dead, \nand his kingdom will have no end. \nWe believe in the Holy Spirit, the Lord, the giver of life,\nwho proceeds from the Father [and the Son.]* \nWith the Father and the Son he is worshiped and glorified. \nHe has spoken through the Prophets. \nWe believe in one holy catholic and apostolic Church. \nWe acknowledge one baptism for the forgiveness of sins. \nWe look for the resurrection of the dead, \nand the life of the world to come. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1864,7 +1994,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into()
+                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1878,7 +2009,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into()
+                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1892,7 +2024,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into()
+                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1906,7 +2039,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into()
+                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1920,7 +2054,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into()
+                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1934,7 +2069,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into()
+                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1948,7 +2084,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Eucharist of the Soul</i>, reprinted from (GC41)".into(),
-                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into()
+                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1962,7 +2099,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "based on traditional African melodies".into(),
-                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into()
+                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1976,7 +2114,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Setting: American folk melody".into(),
-                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into()
+                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1990,7 +2129,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "WORSHIP II".into(),
-                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into()
+                text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna, Hosanna, Hosanna in the highest, the highest.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2004,7 +2144,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Christ has died.\nChrist is risen.\nChrist will come again.".into()
+                text: "Christ has died.\nChrist is risen.\nChrist will come again.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2018,7 +2159,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Christ has died.\nChrist is risen.\nChrist will come again.".into()
+                text: "Christ has died.\nChrist is risen.\nChrist will come again.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2032,7 +2174,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Amen. Amen. Amen.".into()
+                text: "Amen. Amen. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2046,7 +2189,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Amen. Amen. Amen.".into()
+                text: "Amen. Amen. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2060,7 +2204,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Our Father in heaven, hallow’d be your Name. \nYour kingdom come, your will be done,\nin earth as it is in heaven.\nGive us today our daily bread.\nAnd forgive our sins as we forgive others.\nSave us from the time of trial,\nand deliver us from evil.\nFor yours is the kingdom,\nthe power and the glory are yours forever. Amen.".into()
+                text: "Our Father in heaven, hallow’d be your Name. \nYour kingdom come, your will be done,\nin earth as it is in heaven.\nGive us today our daily bread.\nAnd forgive our sins as we forgive others.\nSave us from the time of trial,\nand deliver us from evil.\nFor yours is the kingdom,\nthe power and the glory are yours forever. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2074,7 +2219,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Alleluia. Christ our Passover is sacrificed for us;\ntherefore let us keep the feast. Alleluia.".into()
+                text: "Alleluia. Christ our Passover is sacrificed for us;\ntherefore let us keep the feast. Alleluia.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2088,7 +2234,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Alleluia. Christ our Passover is sacrificed for us;\ntherefore let us keep the feast. Alleluia.".into()
+                text: "Alleluia. Christ our Passover is sacrificed for us;\ntherefore let us keep the feast. Alleluia.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2102,7 +2249,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Fraction Anthems, Canticles, and Chants</i>, from".into(),
-                text: "The bread which we break is a sharing in the Body of Christ.\nWe being many are one bread, one body, for we all share in the one bread.".into()
+                text: "The bread which we break is a sharing in the Body of Christ.\nWe being many are one bread, one body, for we all share in the one bread.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2116,7 +2264,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Lamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nGrant us peace.".into()
+                text: "Lamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nGrant us peace.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2130,7 +2279,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Lamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nGrant us peace.".into()
+                text: "Lamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nGrant us peace.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2144,7 +2294,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Lamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nGrant us peace.".into()
+                text: "Lamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nGrant us peace.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2158,7 +2309,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Lamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nGrant us peace.".into()
+                text: "Lamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nhave mercy on us. \nLamb of God, you take away the sins of the world:\nGrant us peace.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2172,7 +2324,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Agnus Dei\nqui tollis peccata mundi,\nMisere nobis.\nDona nobis pacem.".into()
+                text: "Agnus Dei\nqui tollis peccata mundi,\nMisere nobis.\nDona nobis pacem.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2186,7 +2339,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Fraction Anthems, Canticles, and Chants, from".into(),
-                text: "Alleluia, Alleluia.\nThose who eat my flesh and drink my blood abide in me and I in them.\nAlleluia, Alleluia.".into()
+                text: "Alleluia, Alleluia.\nThose who eat my flesh and drink my blood abide in me and I in them.\nAlleluia, Alleluia.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2200,7 +2354,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Christ, You Are In The World</i>, from".into(),
-                text: "Whoever eats this bread will live forever.\nWhoever eats this bread will live forever.\nThis is the true bread which comes down from heaven, and gives life to the world.\nWhoever believes in me shall not hunger or thirst,\nfor the bread which I give for the life of the world is my flesh.".into()
+                text: "Whoever eats this bread will live forever.\nWhoever eats this bread will live forever.\nThis is the true bread which comes down from heaven, and gives life to the world.\nWhoever believes in me shall not hunger or thirst,\nfor the bread which I give for the life of the world is my flesh.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2214,7 +2369,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Refrain:\nBe known to us, Lord Jesus, in the breaking of the bread.\nor \nThe disciples knew the Lord Jesus in the breaking of the bread.\nThe bread which we break, alleluia,\nIs the communion of the body of Christ. (Refrain)\nOne body are we, alleluia,\nFor though many we share one bread. (Refrain)".into()
+                text: "Refrain:\nBe known to us, Lord Jesus, in the breaking of the bread.\nor \nThe disciples knew the Lord Jesus in the breaking of the bread.\nThe bread which we break, alleluia,\nIs the communion of the body of Christ. (Refrain)\nOne body are we, alleluia,\nFor though many we share one bread. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2228,7 +2384,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Refrain:\nThe disciples knew the Lord Jesus in the breaking of the bread.\n\n1 The bread which we break, Alleluia,\nis the communion of the Body of Christ. (Refrain)\n\n2 One body are we, Alleluia,\nfor though many we share one bread. (Refrain)".into()
+                text: "Refrain:\nThe disciples knew the Lord Jesus in the breaking of the bread.\n\n1 The bread which we break, Alleluia,\nis the communion of the Body of Christ. (Refrain)\n\n2 One body are we, Alleluia,\nfor though many we share one bread. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2242,7 +2399,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Refrain:\nThe disciples knew the Lord Jesus in the breaking of the bread.\n\n1 The bread which we break, Alleluia,\nis the communion of the Body of Christ. (Refrain)\n\n2 One body are we, Alleluia,\nfor though many we share one bread. (Refrain)".into()
+                text: "Refrain:\nThe disciples knew the Lord Jesus in the breaking of the bread.\n\n1 The bread which we break, Alleluia,\nis the communion of the Body of Christ. (Refrain)\n\n2 One body are we, Alleluia,\nfor though many we share one bread. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2256,7 +2414,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Fraction Anthems, Canticles, and Chants, from".into(),
-                text: "Whoever comes to me shall not hunger\nand whoever believes in me shall never thirst.".into()
+                text: "Whoever comes to me shall not hunger\nand whoever believes in me shall never thirst.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2270,7 +2429,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Alleluia. Christ our Passover is sacrificed for us;\ntherefore let us keep the feast. Alleluia.".into()
+                text: "Alleluia. Christ our Passover is sacrificed for us;\ntherefore let us keep the feast. Alleluia.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2284,7 +2444,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2298,7 +2459,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Fraction Anthems, Canticles, and Chants, from".into(),
-                text: "Refrain:\nI will trust in the Lord, I will trust in the Lord, \nwho’s my sure defense and my friend. \n\n1 Surely, it is God who saves me; \nI will trust in him and not be afraid \nFor the Lord is my stronghold and my sure defense, \nand he will be my Savior. (Refrain) \n\n2 Therefore you shall draw water with rejoicing \nfrom the springs of salvation. \nAnd on that day you shall say, \nGive thanks to the Lord and call upon his Name; (Refrain) \n\n3 Make his deeds known among the peoples; \nsee that they remember that his Name is exalted. \nSing the praises of the Lord, for he has done great things, \nand this is known in all the world. (Refrain) \n\n4 Cry aloud, inhabitants of Zion, ring out your joy, \nfor the great one in the midst of you is the Holy One of Israel. \nGlory to the Father, and to the Son, and to the Holy Spirit: \nas it was in the beginning, is now, and will be for ever. Amen. (Refrain)".into()
+                text: "Refrain:\nI will trust in the Lord, I will trust in the Lord, \nwho’s my sure defense and my friend. \n\n1 Surely, it is God who saves me; \nI will trust in him and not be afraid \nFor the Lord is my stronghold and my sure defense, \nand he will be my Savior. (Refrain) \n\n2 Therefore you shall draw water with rejoicing \nfrom the springs of salvation. \nAnd on that day you shall say, \nGive thanks to the Lord and call upon his Name; (Refrain) \n\n3 Make his deeds known among the peoples; \nsee that they remember that his Name is exalted. \nSing the praises of the Lord, for he has done great things, \nand this is known in all the world. (Refrain) \n\n4 Cry aloud, inhabitants of Zion, ring out your joy, \nfor the great one in the midst of you is the Holy One of Israel. \nGlory to the Father, and to the Son, and to the Holy Spirit: \nas it was in the beginning, is now, and will be for ever. Amen. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2312,7 +2474,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Refrain:\nI will trust in the Lord, I will trust in the Lord, \nwho’s my sure defense and my friend. \n\n1 Surely, it is God who saves me; \nI will trust in him and not be afraid \nFor the Lord is my stronghold and my sure defense, \nand he will be my Savior. (Refrain) \n\n2 Therefore you shall draw water with rejoicing \nfrom the springs of salvation. \nAnd on that day you shall say, \nGive thanks to the Lord and call upon his Name; (Refrain) \n\n3 Make his deeds known among the peoples; \nsee that they remember that his Name is exalted. \nSing the praises of the Lord, for he has done great things, \nand this is known in all the world. (Refrain) \n\n4 Cry aloud, inhabitants of Zion, ring out your joy, \nfor the great one in the midst of you is the Holy One of Israel. \nGlory to the Father, and to the Son, and to the Holy Spirit: \nas it was in the beginning, is now, and will be for ever. Amen. (Refrain)".into()
+                text: "Refrain:\nI will trust in the Lord, I will trust in the Lord, \nwho’s my sure defense and my friend. \n\n1 Surely, it is God who saves me; \nI will trust in him and not be afraid \nFor the Lord is my stronghold and my sure defense, \nand he will be my Savior. (Refrain) \n\n2 Therefore you shall draw water with rejoicing \nfrom the springs of salvation. \nAnd on that day you shall say, \nGive thanks to the Lord and call upon his Name; (Refrain) \n\n3 Make his deeds known among the peoples; \nsee that they remember that his Name is exalted. \nSing the praises of the Lord, for he has done great things, \nand this is known in all the world. (Refrain) \n\n4 Cry aloud, inhabitants of Zion, ring out your joy, \nfor the great one in the midst of you is the Holy One of Israel. \nGlory to the Father, and to the Son, and to the Holy Spirit: \nas it was in the beginning, is now, and will be for ever. Amen. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2326,7 +2489,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Fraction Anthems, Canticles, and Chants, from".into(),
-                text: "Refrain:\nArise, shine, for your light has come, \nhis glory is upon you. \n\n1 Arise, shine, for your light has come, \nand the glory of the Lord has dawned upon you. \nFor behold, darkness covers the land; \ndeep gloom enshrouds the peoples. (Refrain) \n\n2 But over you the Lord shall rise, \nand his glory will appear upon you. \nNations will stream to your light, \nand kings to the brightness of your dawning. (Refrain) \n\n3 Your gates will always be open; \nby day or night they will never be shut. \nThey will call you, The City of the Lord, \nThe Zion of the Holy One of Israel. (Refrain) \n\n4 Violence will no more be heard in your land, \nruin or destruction within your borders. \nYour will call your walls, Salvation, \nand all your portals, Praise, \n†The sun will no more be your light by day; \nby night you will not need the brightness of the moon. (Refrain)".into()
+                text: "Refrain:\nArise, shine, for your light has come, \nhis glory is upon you. \n\n1 Arise, shine, for your light has come, \nand the glory of the Lord has dawned upon you. \nFor behold, darkness covers the land; \ndeep gloom enshrouds the peoples. (Refrain) \n\n2 But over you the Lord shall rise, \nand his glory will appear upon you. \nNations will stream to your light, \nand kings to the brightness of your dawning. (Refrain) \n\n3 Your gates will always be open; \nby day or night they will never be shut. \nThey will call you, The City of the Lord, \nThe Zion of the Holy One of Israel. (Refrain) \n\n4 Violence will no more be heard in your land, \nruin or destruction within your borders. \nYour will call your walls, Salvation, \nand all your portals, Praise, \n†The sun will no more be your light by day; \nby night you will not need the brightness of the moon. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2340,7 +2504,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2354,7 +2519,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2368,7 +2534,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Fraction Anthems, Canticles, and Chants, from".into(),
-                text: "Refrain:\nGlory to you, O Lord, glory to you, O Lord. \nYou are worthy of praise. \n\n1 Glory to you, Lord God of our fathers; \nyou are worthy of praise; glory to you. \nGlory to you for the radiance of your holy Name; \nwe will praise you and highly exalt you for ever. (Refrain) \n\n2 Glory to you in the splendor of your temple; \non the throne of your majesty, glory to you. \nGlory to you, seated between the Cherubim; \nwe will praise you and highly exalt you for ever. (Refrain) \n\n3 Glory to you, beholding the depths; \nin the high vault of heaven, glory to you. \nGlory to you, Father, Son, and Holy Spirit; \nwe will praise you and highly exalt you for ever. (Refrain)".into()
+                text: "Refrain:\nGlory to you, O Lord, glory to you, O Lord. \nYou are worthy of praise. \n\n1 Glory to you, Lord God of our fathers; \nyou are worthy of praise; glory to you. \nGlory to you for the radiance of your holy Name; \nwe will praise you and highly exalt you for ever. (Refrain) \n\n2 Glory to you in the splendor of your temple; \non the throne of your majesty, glory to you. \nGlory to you, seated between the Cherubim; \nwe will praise you and highly exalt you for ever. (Refrain) \n\n3 Glory to you, beholding the depths; \nin the high vault of heaven, glory to you. \nGlory to you, Father, Son, and Holy Spirit; \nwe will praise you and highly exalt you for ever. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2382,7 +2549,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Refrain:\nGlory to you, O Lord, glory to you, O Lord. \nYou are worthy of praise. \n\n1 Glory to you, Lord God of our fathers; \nyou are worthy of praise; glory to you. \nGlory to you for the radiance of your holy Name; \nwe will praise you and highly exalt you for ever. (Refrain) \n\n2 Glory to you in the splendor of your temple; \non the throne of your majesty, glory to you. \nGlory to you, seated between the Cherubim; \nwe will praise you and highly exalt you for ever. (Refrain) \n\n3 Glory to you, beholding the depths; \nin the high vault of heaven, glory to you. \nGlory to you, Father, Son, and Holy Spirit; \nwe will praise you and highly exalt you for ever. (Refrain)".into()
+                text: "Refrain:\nGlory to you, O Lord, glory to you, O Lord. \nYou are worthy of praise. \n\n1 Glory to you, Lord God of our fathers; \nyou are worthy of praise; glory to you. \nGlory to you for the radiance of your holy Name; \nwe will praise you and highly exalt you for ever. (Refrain) \n\n2 Glory to you in the splendor of your temple; \non the throne of your majesty, glory to you. \nGlory to you, seated between the Cherubim; \nwe will praise you and highly exalt you for ever. (Refrain) \n\n3 Glory to you, beholding the depths; \nin the high vault of heaven, glory to you. \nGlory to you, Father, Son, and Holy Spirit; \nwe will praise you and highly exalt you for ever. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2396,7 +2564,8 @@ lazy_static! {
                 meter: "8.8.8.8.8.8".into(),
                 text_sources: "Prayer of Manasseh</i>, based on the".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2410,7 +2579,8 @@ lazy_static! {
                 meter: "8.6.8.6 D".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2424,7 +2594,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Ecce quomodo moritur</i>, from".into(),
-                text: "1 Blessed are you O Lord our God: \nyou have come to your people and set them free. \n\n2 You have raised up for us a mighty Savior: \nborn of the house of your servant David. \n\n3 Through the voices of your holy prophets, \nyou have promised since the world began: \n\n4 That you would save us from our enemies, \nand from the hand of all who hate us. \n\n5 You promised to show mercy to our forebears: \nand to remember your holy covenant. \n\n6 This was the oath sworn to our father Abraham: \nthat you would give us: \n\n7 To set us free from the hands of our enemies, \nfree to worship you without fear, \n\n8 Holy and righteous in your sight \nall the days of our life. \n\n9 And you, child, shall be called the prophet of the Most High: \nfor you will go before the face of the Lord to prepare the way \n\n10 To give God’s people knowledge of salvation: \nthrough the forgiveness of their sins. \n\n11 In the tender compassion of our God: \nthe dawn from on high shall break upon us, \n\n12 To shine on those who dwell in darkness, and in the shadow of death; \nand to guide our feet into the way of peace. \n\n13 Glory to the Father, and to the Son, and to the Holy Spirit; \nas it was in the beginning, is now, and ever shall be; \nthrough all ages. Amen.".into()
+                text: "1 Blessed are you O Lord our God: \nyou have come to your people and set them free. \n\n2 You have raised up for us a mighty Savior: \nborn of the house of your servant David. \n\n3 Through the voices of your holy prophets, \nyou have promised since the world began: \n\n4 That you would save us from our enemies, \nand from the hand of all who hate us. \n\n5 You promised to show mercy to our forebears: \nand to remember your holy covenant. \n\n6 This was the oath sworn to our father Abraham: \nthat you would give us: \n\n7 To set us free from the hands of our enemies, \nfree to worship you without fear, \n\n8 Holy and righteous in your sight \nall the days of our life. \n\n9 And you, child, shall be called the prophet of the Most High: \nfor you will go before the face of the Lord to prepare the way \n\n10 To give God’s people knowledge of salvation: \nthrough the forgiveness of their sins. \n\n11 In the tender compassion of our God: \nthe dawn from on high shall break upon us, \n\n12 To shine on those who dwell in darkness, and in the shadow of death; \nand to guide our feet into the way of peace. \n\n13 Glory to the Father, and to the Son, and to the Holy Spirit; \nas it was in the beginning, is now, and ever shall be; \nthrough all ages. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2438,7 +2609,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Refrain:\nLord, you have fulfilled your word; \nnow let your servant depart in peace. \n\n1 With my own eyes I have seen the salvation, \nwhich you have prepared in the sight of ev’ry people. (Refrain) \n\n2 A light to reveal you to the nations \nand the glory of your people Israel. (Refrain) \nAntiphon for use at Compline (before and after Canticle):\nGuide us waking, O Lord, and guard us sleeping; \nthat awake we may watch with Christ, and asleep we may rest in peace.".into()
+                text: "Refrain:\nLord, you have fulfilled your word; \nnow let your servant depart in peace. \n\n1 With my own eyes I have seen the salvation, \nwhich you have prepared in the sight of ev’ry people. (Refrain) \n\n2 A light to reveal you to the nations \nand the glory of your people Israel. (Refrain) \nAntiphon for use at Compline (before and after Canticle):\nGuide us waking, O Lord, and guard us sleeping; \nthat awake we may watch with Christ, and asleep we may rest in peace.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2452,7 +2624,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "".into()
+                text: "".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2466,7 +2639,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 Splendor and honor and kingly [royal] power \nare yours by right, O Lord our God. [God Most High] \n\n2 For you created everything that is, \nand by your will they were created and have their being; \n\n3 And yours by right, O Lamb that was slain, \nfor with your blood you have redeemed for God, \n\n4 From every family, language, people, and nation, \na kingdom of priests [royal priesthood] to serve our God. \n\n5 And so, to him [the One] who sits upon the throne, \nand to Christ the Lamb, \n\n6 Be worship and praise, dominion and splendor, \nfor ever and for evermore.".into()
+                text: "1 Splendor and honor and kingly [royal] power \nare yours by right, O Lord our God. [God Most High] \n\n2 For you created everything that is, \nand by your will they were created and have their being; \n\n3 And yours by right, O Lamb that was slain, \nfor with your blood you have redeemed for God, \n\n4 From every family, language, people, and nation, \na kingdom of priests [royal priesthood] to serve our God. \n\n5 And so, to him [the One] who sits upon the throne, \nand to Christ the Lamb, \n\n6 Be worship and praise, dominion and splendor, \nfor ever and for evermore.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2480,7 +2654,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 Splendor and honor and kingly [royal] power \nare yours by right, O Lord our God. [God Most High] \n\n2 For you created everything that is, \nand by your will they were created and have their being; \n\n3 And yours by right, O Lamb that was slain, \nfor with your blood you have redeemed for God, \n\n4 From every family, language, people, and nation, \na kingdom of priests [royal priesthood] to serve our God. \n\n5 And so, to him [the One] who sits upon the throne, \nand to Christ the Lamb, \n\n6 Be worship and praise, dominion and splendor, \nfor ever and for evermore.".into()
+                text: "1 Splendor and honor and kingly [royal] power \nare yours by right, O Lord our God. [God Most High] \n\n2 For you created everything that is, \nand by your will they were created and have their being; \n\n3 And yours by right, O Lamb that was slain, \nfor with your blood you have redeemed for God, \n\n4 From every family, language, people, and nation, \na kingdom of priests [royal priesthood] to serve our God. \n\n5 And so, to him [the One] who sits upon the throne, \nand to Christ the Lamb, \n\n6 Be worship and praise, dominion and splendor, \nfor ever and for evermore.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2494,7 +2669,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Fraction Anthems, Canticles, and Chants, from".into(),
-                text: "Refrain:\nWe sing the praises of your name \nfor you only are the holy one. \n\n1 O ruler of the universe, Lord God \ngreat deeds are they that you have done, \nsurpassing human understanding. \nYour ways are ways of righteousness and truth, \nO king of all the ages. (Refrain) \n\n2 Who can fail to do you homage, Lord, \nand sing the praises of your Name? \nfor you only are the holy One. \nAll nations will draw near and fall down before you, \nbecause your just and holy works have been revealed. (Refrain) \n\n3 Glory to the Father, and to the Son, \nand to the Holy Spirit; \nas it was in the beginning, is now, \nand will be for ever. Amen. (Refrain)".into()
+                text: "Refrain:\nWe sing the praises of your name \nfor you only are the holy one. \n\n1 O ruler of the universe, Lord God \ngreat deeds are they that you have done, \nsurpassing human understanding. \nYour ways are ways of righteousness and truth, \nO king of all the ages. (Refrain) \n\n2 Who can fail to do you homage, Lord, \nand sing the praises of your Name? \nfor you only are the holy One. \nAll nations will draw near and fall down before you, \nbecause your just and holy works have been revealed. (Refrain) \n\n3 Glory to the Father, and to the Son, \nand to the Holy Spirit; \nas it was in the beginning, is now, \nand will be for ever. Amen. (Refrain)".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2508,7 +2684,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Glory to God in the highest, and peace to his people on earth.\nLord God, heav'nly King, almighty God and Father,\nwe worship you, we give you thanks, we praise you for your glory.\nLord Jesus Christ, only Son of the Father, Lord God, Lamb of God,\nyou take away the sin of the world: have mercy on us;\nyou are seated at the right hand of the Father, receive our prayer.\nFor you alone are the Holy One, you alone are the Lord,\nyou alone are the Most High, Jesus Christ, with the Holy Spirit,\nin the glory of God the Father. Amen.".into()
+                text: "Glory to God in the highest, and peace to his people on earth.\nLord God, heav'nly King, almighty God and Father,\nwe worship you, we give you thanks, we praise you for your glory.\nLord Jesus Christ, only Son of the Father, Lord God, Lamb of God,\nyou take away the sin of the world: have mercy on us;\nyou are seated at the right hand of the Father, receive our prayer.\nFor you alone are the Holy One, you alone are the Lord,\nyou alone are the Most High, Jesus Christ, with the Holy Spirit,\nin the glory of God the Father. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2522,7 +2699,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "plainchant Gloria XV from the Graduale Romanum</i>, based on".into(),
-                text: "Glory to God in the highest, and peace to his people on earth.\nLord God, heav'nly King, almighty God and Father,\nwe worship you, we give you thanks, we praise you for your glory.\nLord Jesus Christ, only Son of the Father, Lord God, Lamb of God,\nyou take away the sin of the world: have mercy on us;\nyou are seated at the right hand of the Father, receive our prayer.\nFor you alone are the Holy One, you alone are the Lord,\nyou alone are the Most High, Jesus Christ, with the Holy Spirit,\nin the glory of God the Father. Amen.".into()
+                text: "Glory to God in the highest, and peace to his people on earth.\nLord God, heav'nly King, almighty God and Father,\nwe worship you, we give you thanks, we praise you for your glory.\nLord Jesus Christ, only Son of the Father, Lord God, Lamb of God,\nyou take away the sin of the world: have mercy on us;\nyou are seated at the right hand of the Father, receive our prayer.\nFor you alone are the Holy One, you alone are the Lord,\nyou alone are the Most High, Jesus Christ, with the Holy Spirit,\nin the glory of God the Father. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2536,7 +2714,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "after a melody att. Heinrich Isaac (1450?-1517)".into(),
-                text: "Glory to God in the highest, and peace to his people on earth.\nLord God, heav'nly King, almighty God and Father,\nwe worship you, we give you thanks, we praise you for your glory.\nLord Jesus Christ, only Son of the Father, Lord God, Lamb of God,\nyou take away the sin of the world: have mercy on us;\nyou are seated at the right hand of the Father, receive our prayer.\nFor you alone are the Holy One, you alone are the Lord,\nyou alone are the Most High, Jesus Christ, with the Holy Spirit,\nin the glory of God the Father. Amen.".into()
+                text: "Glory to God in the highest, and peace to his people on earth.\nLord God, heav'nly King, almighty God and Father,\nwe worship you, we give you thanks, we praise you for your glory.\nLord Jesus Christ, only Son of the Father, Lord God, Lamb of God,\nyou take away the sin of the world: have mercy on us;\nyou are seated at the right hand of the Father, receive our prayer.\nFor you alone are the Holy One, you alone are the Lord,\nyou alone are the Most High, Jesus Christ, with the Holy Spirit,\nin the glory of God the Father. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2550,7 +2729,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Glory, Glory, hallelujah, Lord we praise your Holy name,\nGlory, Glory hallelujah, Lord we praise your Holy name.\nGlory to God in the highest, and peace to His people on earth.\nLord God, heavenly King, almighty God and Father,\nwe worship you, we give you thanks, we praise you for your glory.\nLord Jesus Christ, only Son of the Father, Lord God, Lamb of God.\nGlory, Glory, hellelujah, Lord we praise your Holy name,\nGlory, Glory, hellelujah, Lord we praise your Holy name,\nYou take away the sin of the world: have mercy on us;\nyou are seated at the right hand of the Father: receive our prayer.\nFor you alone are the Holy One, You alone are the Lord,\nyou alone are the Most High, Jesus Christ, with the Holy Spirit,\nin the glory of the Father. \nGlory, Glory, hallelujah, Lord we praise your Holy name.\nGlory, Glory, hallelujah, Lord we praise your Holy name. Amen.".into()
+                text: "Glory, Glory, hallelujah, Lord we praise your Holy name,\nGlory, Glory hallelujah, Lord we praise your Holy name.\nGlory to God in the highest, and peace to His people on earth.\nLord God, heavenly King, almighty God and Father,\nwe worship you, we give you thanks, we praise you for your glory.\nLord Jesus Christ, only Son of the Father, Lord God, Lamb of God.\nGlory, Glory, hellelujah, Lord we praise your Holy name,\nGlory, Glory, hellelujah, Lord we praise your Holy name,\nYou take away the sin of the world: have mercy on us;\nyou are seated at the right hand of the Father: receive our prayer.\nFor you alone are the Holy One, You alone are the Lord,\nyou alone are the Most High, Jesus Christ, with the Holy Spirit,\nin the glory of the Father. \nGlory, Glory, hallelujah, Lord we praise your Holy name.\nGlory, Glory, hallelujah, Lord we praise your Holy name. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2564,7 +2744,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Glory to God in the highest, and peace to his people on earth.\nLord God, heav'nly King, almighty God and Father,\nwe worship you, we give you thanks, we praise you for your glory.\nLord Jesus Christ, only Son of the Father, Lord God, Lamb of God,\nyou take away the sin of the world: have mercy on us;\nyou are seated at the right hand of the Father, receive our prayer.\nFor you alone are the Holy One, you alone are the Lord,\nyou alone are the Most High, Jesus Christ, with the Holy Spirit,\nin the glory of God the Father. Amen.".into()
+                text: "Glory to God in the highest, and peace to his people on earth.\nLord God, heav'nly King, almighty God and Father,\nwe worship you, we give you thanks, we praise you for your glory.\nLord Jesus Christ, only Son of the Father, Lord God, Lamb of God,\nyou take away the sin of the world: have mercy on us;\nyou are seated at the right hand of the Father, receive our prayer.\nFor you alone are the Holy One, you alone are the Lord,\nyou alone are the Most High, Jesus Christ, with the Holy Spirit,\nin the glory of God the Father. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2578,7 +2759,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Glory to God in the highest, and peace to his people on earth.\nLord God, heav'nly King, almighty God and Father,\nwe worship you, we give you thanks, we praise you for your glory.\nLord Jesus Christ, only Son of the Father, Lord God, Lamb of God,\nyou take away the sin of the world: have mercy on us;\nyou are seated at the right hand of the Father, receive our prayer.\nFor you alone are the Holy One, you alone are the Lord,\nyou alone are the Most High, Jesus Christ, with the Holy Spirit,\nin the glory of God the Father. Amen.".into()
+                text: "Glory to God in the highest, and peace to his people on earth.\nLord God, heav'nly King, almighty God and Father,\nwe worship you, we give you thanks, we praise you for your glory.\nLord Jesus Christ, only Son of the Father, Lord God, Lamb of God,\nyou take away the sin of the world: have mercy on us;\nyou are seated at the right hand of the Father, receive our prayer.\nFor you alone are the Holy One, you alone are the Lord,\nyou alone are the Most High, Jesus Christ, with the Holy Spirit,\nin the glory of God the Father. Amen.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2592,7 +2774,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 You are God: we praise you; \nYou are the Lord: we acclaim you; \n\n2 You are the eternal Father: \nAll creation worships you. \n\n3 To you all angels, all the pow’rs of heaven, \nCherubim and Seraphim, sing in endless praise: \n\n4 Holy, holy, holy Lord God of pow’r and might, \nheaven and earth are full of your glory. \n\n5 The glorious company of apostles praise you. \nThe noble fellowship of prophets praise you. \n\n6 The white-robed army of martyrs praise you. \nThroughout the world the holy Church acclaims you; \n\n7 Father, of majesty unbounded, \nyour true and only Son, worthy of all worship, \n\n8 and the Holy Spirit \nadvocate and guide. \n\n9 You, Christ, are the king of glory, \nthe eternal Son of the Father. \n\n10 When you became man to set us free \nyou did not shun the Virgin’s womb. \n\n11 You overcame the sting of death \nand opened the kingdom of heaven to all believers. \n\n12 You are seated at God’s right hand in glory. \nWe believe that you will come and be our judge. \n\n13 Come then, Lord, and help your people, \nbought with the price of your own blood, \n\n14 and bring us with your saints \nto glory everlasting.".into()
+                text: "1 You are God: we praise you; \nYou are the Lord: we acclaim you; \n\n2 You are the eternal Father: \nAll creation worships you. \n\n3 To you all angels, all the pow’rs of heaven, \nCherubim and Seraphim, sing in endless praise: \n\n4 Holy, holy, holy Lord God of pow’r and might, \nheaven and earth are full of your glory. \n\n5 The glorious company of apostles praise you. \nThe noble fellowship of prophets praise you. \n\n6 The white-robed army of martyrs praise you. \nThroughout the world the holy Church acclaims you; \n\n7 Father, of majesty unbounded, \nyour true and only Son, worthy of all worship, \n\n8 and the Holy Spirit \nadvocate and guide. \n\n9 You, Christ, are the king of glory, \nthe eternal Son of the Father. \n\n10 When you became man to set us free \nyou did not shun the Virgin’s womb. \n\n11 You overcame the sting of death \nand opened the kingdom of heaven to all believers. \n\n12 You are seated at God’s right hand in glory. \nWe believe that you will come and be our judge. \n\n13 Come then, Lord, and help your people, \nbought with the price of your own blood, \n\n14 and bring us with your saints \nto glory everlasting.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2606,7 +2789,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Crucifer</i> by Sydney Hugo Nicholson (1875-1947), after".into(),
-                text: "1 You are God: we praise you; \nYou are the Lord: we acclaim you; \n\n2 You are the eternal Father: \nAll creation worships you. \n\n3 To you all angels, all the pow’rs of heaven, \nCherubim and Seraphim, sing in endless praise: \n\n4 Holy, holy, holy Lord God of pow’r and might, \nheaven and earth are full of your glory. \n\n5 The glorious company of apostles praise you. \nThe noble fellowship of prophets praise you. \n\n6 The white-robed army of martyrs praise you. \nThroughout the world the holy Church acclaims you; \n\n7 Father, of majesty unbounded, \nyour true and only Son, worthy of all worship, \n\n8 and the Holy Spirit \nadvocate and guide. \n\n9 You, Christ, are the king of glory, \nthe eternal Son of the Father. \n\n10 When you became man to set us free \nyou did not shun the Virgin’s womb. \n\n11 You overcame the sting of death \nand opened the kingdom of heaven to all believers. \n\n12 You are seated at God’s right hand in glory. \nWe believe that you will come and be our judge. \n\n13 Come then, Lord, and help your people, \nbought with the price of your own blood, \n\n14 and bring us with your saints \nto glory everlasting.".into()
+                text: "1 You are God: we praise you; \nYou are the Lord: we acclaim you; \n\n2 You are the eternal Father: \nAll creation worships you. \n\n3 To you all angels, all the pow’rs of heaven, \nCherubim and Seraphim, sing in endless praise: \n\n4 Holy, holy, holy Lord God of pow’r and might, \nheaven and earth are full of your glory. \n\n5 The glorious company of apostles praise you. \nThe noble fellowship of prophets praise you. \n\n6 The white-robed army of martyrs praise you. \nThroughout the world the holy Church acclaims you; \n\n7 Father, of majesty unbounded, \nyour true and only Son, worthy of all worship, \n\n8 and the Holy Spirit \nadvocate and guide. \n\n9 You, Christ, are the king of glory, \nthe eternal Son of the Father. \n\n10 When you became man to set us free \nyou did not shun the Virgin’s womb. \n\n11 You overcame the sting of death \nand opened the kingdom of heaven to all believers. \n\n12 You are seated at God’s right hand in glory. \nWe believe that you will come and be our judge. \n\n13 Come then, Lord, and help your people, \nbought with the price of your own blood, \n\n14 and bring us with your saints \nto glory everlasting.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2620,7 +2804,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 Wisdom freed from a nation of oppressors \na holy people and a blameless race; \n\n2 She entered the soul of a servant of the Lord, \nwithstood dread rulers with wonders and signs. \n\n3 To the saints she gave the reward of their labors, \nand led them by a marvelous way; \n\n4 She was their shelter by day \nand a blaze of stars by night. \n\n5 She brought them across the Red Sea, \nshe led them through mighty waters; \n\n6 But their enemies she swallowed in the waves \nand spewed them out from the depths of the abyss. \n\n7 And then, Lord, the righteous sang hymns to your Name, \nand praised with one voice your protecting hand; \n\n8 For Wisdom opened the mouths of the mute, \nand gave speech to the tongues of a newborn people.".into()
+                text: "1 Wisdom freed from a nation of oppressors \na holy people and a blameless race; \n\n2 She entered the soul of a servant of the Lord, \nwithstood dread rulers with wonders and signs. \n\n3 To the saints she gave the reward of their labors, \nand led them by a marvelous way; \n\n4 She was their shelter by day \nand a blaze of stars by night. \n\n5 She brought them across the Red Sea, \nshe led them through mighty waters; \n\n6 But their enemies she swallowed in the waves \nand spewed them out from the depths of the abyss. \n\n7 And then, Lord, the righteous sang hymns to your Name, \nand praised with one voice your protecting hand; \n\n8 For Wisdom opened the mouths of the mute, \nand gave speech to the tongues of a newborn people.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2634,7 +2819,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 Wisdom freed a holy people, \nblameless from oppressors’ sword, \nand withstood, with signs and wonders, \nrulers dread to serve the Lord. \nGiving them reward of labors, \nled the saints along her way, \nshe was blaze of stars in darkness \nand a shelter through the day. \n\n2 Through the Red Sea safely brought them, \nled along the waters steep, \nbut their enemies she swallowed, \noverwhelmed them in the deep. \nFor salvation, Lord, the righteous praised \nyour name with one accord: \nsong-filled tongues of newborn people uttered \nWisdom’s mighty word.".into()
+                text: "1 Wisdom freed a holy people, \nblameless from oppressors’ sword, \nand withstood, with signs and wonders, \nrulers dread to serve the Lord. \nGiving them reward of labors, \nled the saints along her way, \nshe was blaze of stars in darkness \nand a shelter through the day. \n\n2 Through the Red Sea safely brought them, \nled along the waters steep, \nbut their enemies she swallowed, \noverwhelmed them in the deep. \nFor salvation, Lord, the righteous praised \nyour name with one accord: \nsong-filled tongues of newborn people uttered \nWisdom’s mighty word.".into(),
+                tags: vec![]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -2648,7 +2834,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "1 Even when young, I prayed for wisdom’s grace; \nIn temple courts I sought her day and night, \nAnd I will seek her to the very end; \nshe is my heart’s delight. \n\n2 My foot has firmly walked the path of truth; \nWith diligence, I followed her design. \nMy ear was open to receive her words; \nNow wisdom’s skill is mine. \n\n3 Glory to one who gives me wisdom’s prize; \nI vowed to live according to her way. \nShe gave me courage from the very start; \nShe will not let me stray. \n\n4 Something within my being has been stirred; \nMy seeking brought a gift beyond compare: \nThe gift of language loosed my halting tongue; \nGod’s praise is now my prayer.".into()
+                text: "1 Even when young, I prayed for wisdom’s grace; \nIn temple courts I sought her day and night, \nAnd I will seek her to the very end; \nshe is my heart’s delight. \n\n2 My foot has firmly walked the path of truth; \nWith diligence, I followed her design. \nMy ear was open to receive her words; \nNow wisdom’s skill is mine. \n\n3 Glory to one who gives me wisdom’s prize; \nI vowed to live according to her way. \nShe gave me courage from the very start; \nShe will not let me stray. \n\n4 Something within my being has been stirred; \nMy seeking brought a gift beyond compare: \nThe gift of language loosed my halting tongue; \nGod’s praise is now my prayer.".into(),
+                tags: vec![]
             },
         ],
     };

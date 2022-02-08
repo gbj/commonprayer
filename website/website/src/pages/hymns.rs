@@ -2,7 +2,10 @@ use std::collections::{HashMap, HashSet};
 
 use crate::{
     components::*,
-    utils::fetch::{Fetch, FetchStatus},
+    utils::{
+        decode_uri,
+        fetch::{Fetch, FetchStatus},
+    },
 };
 use episcopal_api::hymnal::*;
 use episcopal_api::liturgy::Text;
@@ -163,7 +166,13 @@ pub fn hymnal_body(
     );
 
     // server-side hymnal API search
-    let search_bar = SearchBar::new();
+    let hash = location_hash().unwrap_or_default();
+    let initial_search_value = if hash.starts_with("q=") {
+        decode_uri(&hash.replace("q=", ""))
+    } else {
+        String::default()
+    };
+    let search_bar = SearchBar::new_with_default_value(initial_search_value);
 
     let search_state: Behavior<Fetch<HashSet<(Hymnals, HymnNumber)>>> =
         Behavior::new(Fetch::new(""));
@@ -196,11 +205,21 @@ pub fn hymnal_body(
         }
     });
 
-    // TODO
-    // 1) iterate over HYDRATE state, instead of render state
-    // 2) for each item, look up the hymn data in the render state — all these static elements will only be created then anyway
-    // 3) use the hydrate state to manage the search interface
+    // listen for window hashchange and set search, e.g., #q=... => sets searchbar to ...
+    // this can be used to link to certain tags or hymns
+    window_event_stream("hashchange").create_effect({
+        let search_value = search_bar.value.clone();
+        move |_| {
+            let hash = location_hash().unwrap_or_default();
+            if hash.is_empty() {
+                search_value.set("".to_string());
+            } else if hash.starts_with("q=") {
+                search_value.set(decode_uri(&hash.replace("q=", "")))
+            }
+        }
+    });
 
+    // render hymnal table
     let hymnal_tables = View::Fragment(
         hymnal_tocs
             .iter()
@@ -329,6 +348,18 @@ pub fn hymnal_body(
                                                 </div>
                                                 <span class="list-field meter">{&hymn.meter}</span>
                                             </div>
+                                            <ul class="tag-list">
+                                                {View::Fragment(
+                                                    hymn.tags
+                                                        .iter()
+                                                        .map(|tag| view! {
+                                                            <li>
+                                                                <a href=&format!("#q=tag:{}", tag)>{tag}</a>
+                                                            </li>
+                                                        })
+                                                        .collect()
+                                                )}
+                                            </ul>
                                         </>
                                     }
 

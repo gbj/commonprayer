@@ -58,6 +58,7 @@ pub struct Hymn {
     pub text_sources: String,
     pub tune_sources: String,
     pub text: String,
+    pub tags: Vec<String>,
 }
 
 #[derive(Copy, Clone, Debug, PartialOrd, Ord, PartialEq, Eq, Hash)]

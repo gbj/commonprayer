@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use futures::StreamExt;
 use leptos::*;
 pub struct SearchBar {
@@ -8,6 +10,12 @@ impl SearchBar {
     pub fn new() -> Self {
         Self {
             value: Behavior::new(String::default()),
+        }
+    }
+
+    pub fn new_with_default_value(value: impl Display) -> Self {
+        Self {
+            value: Behavior::new(value.to_string()),
         }
     }
 

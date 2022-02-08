@@ -116,24 +116,39 @@ struct HymnalSearchParams {
 
 #[get("/api/hymnal/search")]
 async fn hymnal_search_api(params: Query<HymnalSearchParams>) -> web::Json<HashSet<(Hymnals, HymnNumber)>> {
-    let search = strip_non_word_characters(&params.q.to_lowercase());
-    let matches = HYMNAL_1982.hymns.iter().chain(LEVAS.hymns.iter()).chain(WLP.hymns.iter()).filter(|hymn| {
-        let number = strip_non_word_characters(&hymn.number.to_string().to_lowercase());
-                                        let title = strip_non_word_characters(&hymn.title.to_lowercase());
-                                        let tune = strip_non_word_characters(&hymn.tune.to_lowercase());
-                                        let authors = strip_non_word_characters(&hymn.authors.to_lowercase());
-                                        let composers = strip_non_word_characters(&hymn.composers.to_lowercase());
-                                        let text = strip_non_word_characters(&hymn.text.to_lowercase());
-                                            number.contains(&search)
-                                                || title.contains(&search)
-                                                || tune.contains(&search)
-                                                || authors.contains(&search)
-                                                || composers.contains(&search)
-                                                || hymn.meter.contains(&params.q)
-                                                || text.contains(&search)
-                                            
-                                        
-    }).map(|hymn| (hymn.source, hymn.number)).collect::<HashSet<_>>();
+    let search = &params.q;
+    let hymns = HYMNAL_1982.hymns.iter().chain(LEVAS.hymns.iter()).chain(WLP.hymns.iter());
+    // tag search
+    let matches = if search.starts_with("tag:") {
+        let tag = search.replace("tag:", "");
+        hymns
+            .filter(|hymn| hymn.tags.contains(&tag))
+            .map(|hymn| (hymn.source, hymn.number))
+            .collect::<HashSet<_>>()
+    } else {
+        // metadata/text search
+        let search = strip_non_word_characters(&search.to_lowercase());
+        hymns
+            .filter(|hymn| {
+                let number = strip_non_word_characters(&hymn.number.to_string().to_lowercase());
+                let title = strip_non_word_characters(&hymn.title.to_lowercase());
+                let tune = strip_non_word_characters(&hymn.tune.to_lowercase());
+                let authors = strip_non_word_characters(&hymn.authors.to_lowercase());
+                let composers = strip_non_word_characters(&hymn.composers.to_lowercase());
+                let text = strip_non_word_characters(&hymn.text.to_lowercase());
+
+                number.contains(&search)
+                    || title.contains(&search)
+                    || tune.contains(&search)
+                    || authors.contains(&search)
+                    || composers.contains(&search)
+                    || hymn.meter.contains(&params.q)
+                    || text.contains(&search)                            
+            })
+            .map(|hymn| (hymn.source, hymn.number))
+            .collect::<HashSet<_>>()
+    };
+
     web::Json(matches)
 }
 
