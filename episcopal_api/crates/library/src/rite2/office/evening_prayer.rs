@@ -287,7 +287,10 @@ lazy_static! {
         ]).should_rotate()),
 
         // Closing Prayers
-        Document::from(Rubric::from("Here may be sung a hymn or anthem.\n\nAuthorized intercessions and thanksgivings may follow.")),
+        Document::from(Rubric::from("Here may be sung a hymn or anthem.")),
+        Document::from(HymnLink::Tag("Evening".into())),
+
+        Document::from(Rubric::from("Authorized intercessions and thanksgivings may follow.")),
 
         Document::from(Categories::PrayersAndThanksgivings),
 

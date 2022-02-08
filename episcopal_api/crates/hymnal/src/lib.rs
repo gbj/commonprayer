@@ -18,6 +18,20 @@ pub enum Hymnals {
     WLP,
 }
 
+impl std::fmt::Display for Hymnals {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{}",
+            match self {
+                Hymnals::Hymnal1982 => "H82",
+                Hymnals::LEVAS => "LEVAS",
+                Hymnals::WLP => "WLP",
+            }
+        )
+    }
+}
+
 impl From<Hymnals> for Hymnal {
     fn from(h: Hymnals) -> Self {
         match h {

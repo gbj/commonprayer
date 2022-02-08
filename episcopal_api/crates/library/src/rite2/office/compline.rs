@@ -2,8 +2,8 @@ use crate::conditions::{EASTER_SEASON, NOT_INSERT_GLORIA, NOT_LENT};
 use crate::rite2::{CANTICLE_17, GLORIA_PATRI, LORDS_PRAYER_ABBREV};
 use calendar::Weekday;
 use liturgy::{
-    Antiphon, Choice, Condition, DisplayFormat, Document, Heading, HeadingLevel, Liturgy, Preces,
-    PsalmCitation, Reference, Rubric, Sentence, Series, Text, Version,
+    Antiphon, Choice, Condition, DisplayFormat, Document, Heading, HeadingLevel, HymnLink, Liturgy,
+    Preces, PsalmCitation, Reference, Rubric, Sentence, Series, Text, Version,
 };
 
 lazy_static! {
@@ -48,6 +48,8 @@ Document::from(Sentence::from("May the God of peace, who brought again from the 
 Document::from(Sentence::from("Come to me, all who labor and are heavy-laden, and I will give you rest. Take my yoke upon you, and learn from me; for I am gentle and lowly in heart, and you will find rest for your souls. For my yoke is easy, and my burden is light.").citation("Matthew 11:28-30").response(Text::from("Thanks be to God.").display_format(DisplayFormat::Unison)))
     ])),
 Document::from(Rubric::from("A hymn suitable for the evening may be sung. ")),
+Document::from(HymnLink::Tag("Compline".into())),
+
 Document::from(Rubric::from("Then follows")),
 Document::from(Preces::from([
           ("V.", "Into your hands, O Lord, I commend my spirit;"),

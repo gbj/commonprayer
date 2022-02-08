@@ -53,6 +53,7 @@ en:
     music: Music
     text_view: Text
     music_view: Music
+    category_lookup: "%{category} Hymns"
 
   liturgy: Liturgy
   date: Date

@@ -427,7 +427,10 @@ lazy_static! {
           .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::from("after_collects"))),
 
         // Closing Prayers
-        Document::from(Rubric::from("Here may be sung a hymn or anthem.\n\nAuthorized intercessions and thanksgivings may follow.")),
+        Document::from(Rubric::from("Here may be sung a hymn or anthem.")),
+        Document::from(HymnLink::Tag("Morning".into())),
+
+        Document::from(Rubric::from("Authorized intercessions and thanksgivings may follow.")),
 
         Document::from(Categories::PrayersAndThanksgivings),
 

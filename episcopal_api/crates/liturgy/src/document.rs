@@ -273,6 +273,8 @@ pub enum Content {
     GloriaPatri(GloriaPatri),
     /// A title, subtitle, label, or other heading
     Heading(Heading),
+    /// A reference to a [Hymnal](hymnal::Hymnal), [HymnNumber](hymnal::HymnNumber), or [Hymn](hymnal::Hymn) tag.
+    HymnLink(HymnLink),
     /// An invitatory psalm
     Invitatory(Invitatory),
     /// A generic reference to a lectionary reading (i.e., “First Reading” from the Daily Office Lectionary).
@@ -360,6 +362,7 @@ impl Content {
             Content::Rubric(rubric) => rubric.to_string().contains(text),
             Content::Sentence(sentence) => sentence.text.contains(text),
             Content::Text(t) => t.to_string().contains(text),
+            Content::HymnLink(_) => false,
         }
     }
 
@@ -421,6 +424,7 @@ impl Content {
             Content::Rubric(rubric) => rubric.to_string().to_lowercase().contains(text),
             Content::Sentence(sentence) => sentence.text.to_lowercase().contains(text),
             Content::Text(t) => t.to_string().to_lowercase().contains(text),
+            Content::HymnLink(_) => false,
         }
     }
 }
@@ -509,6 +513,12 @@ impl From<GloriaPatri> for Document {
 impl From<Heading> for Document {
     fn from(content: Heading) -> Self {
         Self::from(Content::Heading(content))
+    }
+}
+
+impl From<HymnLink> for Document {
+    fn from(content: HymnLink) -> Self {
+        Self::from(Content::HymnLink(content))
     }
 }
 

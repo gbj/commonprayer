@@ -502,6 +502,11 @@ a.reference {
   color: black;
 }
 
+.lookup.hymnal {
+  background-color: #b8c9f1;
+  color: black;
+}
+
 .lookup.lectionary {
   background-color: #f1e8b8;
   color: black;

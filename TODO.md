@@ -1,16 +1,18 @@
 Website Todos
 =============
 
-- [ ] Insert service music/office hymn links into Office liturgies
+- Hymns
+  - [x] Insert service music/office hymn links into Office liturgies
   - [ ] finish tagging service music
   - [ ] If tag search present in path, give a set of search results at render time
-- [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany
+  - [ ] YouTube video search
+  - [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany
 - [ ] Set preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
-- Clean up
+- Clean up (look in template only mode, proofread/test)
   - [ ] Noonday Prayer
   - [ ] Compline
   - [ ] Morning Prayer
-  - [ ] Proofread Evening Prayer
+  - [ ] Evening Prayer
 - [ ] Better Biblical citation reading parsing (paragraphs)
 - [ ] Exports
   - [ ] docx

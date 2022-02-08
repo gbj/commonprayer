@@ -109,6 +109,7 @@ pub fn document_view(
         Content::CanticleTableEntry(content) => canticle_table_entry(locale, content),
         Content::GloriaPatri(content) => gloria_patri(content),
         Content::Heading(content) => heading(locale, content),
+        Content::HymnLink(content) => hymn_link(locale, content),
         Content::Invitatory(content) => invitatory(content),
         Content::LectionaryReading(content) => lectionary_reading(locale, content),
         Content::Litany(content) => litany(content),
@@ -742,6 +743,33 @@ pub fn heading(locale: &str, heading: &Heading) -> HeaderAndMain {
     };
 
     (None, main)
+}
+
+pub fn hymn_link(locale: &str, content: &HymnLink) -> HeaderAndMain {
+    let href = match content {
+        HymnLink::Hymnal(hymnal_id) => format!("/{}/hymnal/{:#?}", locale, hymnal_id),
+        HymnLink::Hymn(hymnal_id, number) => {
+            format!("/{}/hymnal/{:#?}/{}", locale, hymnal_id, number)
+        }
+        HymnLink::Tag(tag) => format!("/{}/hymnal#q=tag:{}", locale, tag),
+    };
+
+    let label = match content {
+        HymnLink::Hymnal(hymnal_id) => hymnal_id.to_string(),
+        HymnLink::Hymn(hymnal_id, number) => {
+            format!("{} {}", hymnal_id, number)
+        }
+        HymnLink::Tag(tag) => t!("hymnal.category_lookup", category = tag),
+    };
+
+    (
+        None,
+        view! {
+            <main class="lookup hymnal">
+                <a href={href}>{label}</a>
+            </main>
+        },
+    )
 }
 
 pub fn invitatory(psalm: &Invitatory) -> HeaderAndMain {

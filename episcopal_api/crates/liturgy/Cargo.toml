@@ -6,6 +6,7 @@ edition = "2018"
 [dependencies]
 calendar = { path = "../calendar" }
 canticle-table = {path = "../canticle-table" }
+hymnal = { path = "../hymnal" }
 language = { path = "../language" }
 lectionary = { path = "../lectionary" }
 reference-parser = { path = "../reference-parser" }

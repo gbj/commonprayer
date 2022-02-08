@@ -63,6 +63,7 @@ fn add_content(docx: Docx, doc: &Document) -> Docx {
         Content::Rubric(content) => content.add_to_docx(docx),
         Content::Sentence(content) => content.add_to_docx(docx),
         Content::Text(content) => content.add_to_docx(docx),
+        Content::HymnLink(_) => docx,
     }
 }
 
