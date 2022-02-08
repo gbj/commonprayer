@@ -44,6 +44,7 @@ async fn main() -> std::io::Result<()> {
             .service(canticle_list_api)
             .service(hymnal_api)
             .service(hymnal_search_api)
+            .service(hymnal_word_cloud)
             .service(Files::new(
                 "/static",
                 &format!("{}/website/static", *PROJECT_ROOT),
@@ -53,6 +54,23 @@ async fn main() -> std::io::Result<()> {
     .bind(&format!("{}:{}", host, port))?
     .run()
     .await
+}
+
+// Word Cloud API Generator
+#[get("/api/wordlist/hymnal/{hymnal}")]
+async fn hymnal_word_cloud(hymnal : web::Path<String>) -> String {
+    let hymnal = hymnal.into_inner();
+    if hymnal == "all" {
+        HYMNAL_1982.hymns.iter().chain(LEVAS.hymns.iter()).chain(WLP.hymns.iter()).map(|hymn| hymn.text.as_str()).collect()
+    } else {
+        let hymnal = match hymnal.as_str() {
+            "Hymnal1982" => &*HYMNAL_1982,
+            "LEVAS" => &*LEVAS,
+            "WLP" => &*WLP,
+            _ => panic!("hymnal not found")
+        };
+        hymnal.hymns.iter().map(|hymn| hymn.text.as_str()).collect()
+    }
 }
 
 // JSON Daily Summary API
