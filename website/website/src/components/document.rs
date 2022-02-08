@@ -853,6 +853,7 @@ pub fn litany(litany: &Litany) -> HeaderAndMain {
                 view! {
                     <p>
                         <span>{line}</span>
+                        <br/>
                         <strong class="response">{&litany.response}</strong>
                     </p>
                 }
