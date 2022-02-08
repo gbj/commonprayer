@@ -22,15 +22,19 @@ where
     T: Clone + DeserializeOwned + 'static,
 {
     pub fn new(url: impl Display) -> Self {
+        Self::new_with_status(url, FetchStatus::Idle)
+    }
+
+    pub fn new_with_status(url: impl Display, status: FetchStatus<T>) -> Self {
         let abort_controller = if is_server!() {
             None
         } else {
-            AbortController::new().ok() 
+            AbortController::new().ok()
         };
         Self {
             url: url.to_string(),
             abort_controller,
-            state: Behavior::new(FetchStatus::Idle),
+            state: Behavior::new(status),
         }
     }
 

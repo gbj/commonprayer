@@ -21,7 +21,10 @@ pub struct HymnalPageParams {
 
 #[derive(Clone, Deserialize, Serialize)]
 pub enum HymnalPageHydrationState {
-    Hymnal(Vec<(Hymnals, Vec<HymnNumber>)>),
+    Hymnal(
+        Option<(String, HashSet<(Hymnals, HymnNumber)>)>,
+        Vec<(Hymnals, Vec<HymnNumber>)>,
+    ),
     Hymn(HymnalMetadata, Hymn),
 }
 
@@ -51,7 +54,7 @@ pub fn head(
     render_state: &HymnalPageRenderState,
 ) -> View {
     let title = match props {
-        HymnalPageHydrationState::Hymnal(_hymnals) => {
+        HymnalPageHydrationState::Hymnal(_search, _hymnals) => {
             if render_state.0.len() == 1 {
                 render_state.0[0].title.clone()
             } else {
@@ -77,30 +80,57 @@ pub fn get_static_paths() -> Vec<String> {
 
 pub fn hydration_state(
     _locale: &str,
-    _path: &str,
+    path: &str,
     params: &HymnalPageParams,
 ) -> Option<HymnalPageHydrationState> {
+    let mut search_parts = path.split("?q=");
+    search_parts.next();
+
     Some(match (params.hymnal, params.number) {
-        (None, None) => HymnalPageHydrationState::Hymnal(vec![
-            (
-                Hymnals::Hymnal1982,
-                HYMNAL_1982.hymns.iter().map(|hymn| hymn.number).collect(),
-            ),
-            (
-                Hymnals::LEVAS,
-                LEVAS.hymns.iter().map(|hymn| hymn.number).collect(),
-            ),
-            (
-                Hymnals::WLP,
-                WLP.hymns.iter().map(|hymn| hymn.number).collect(),
-            ),
-        ]),
+        (None, None) => HymnalPageHydrationState::Hymnal(
+            search_parts.next().map(|search| {
+                (
+                    search.to_string(),
+                    HYMNAL_1982
+                        .search(search)
+                        .map(|number| (Hymnals::Hymnal1982, number))
+                        .chain(LEVAS.search(search).map(|number| (Hymnals::LEVAS, number)))
+                        .chain(WLP.search(search).map(|number| (Hymnals::WLP, number)))
+                        .collect(),
+                )
+            }),
+            vec![
+                (
+                    Hymnals::Hymnal1982,
+                    HYMNAL_1982.hymns.iter().map(|hymn| hymn.number).collect(),
+                ),
+                (
+                    Hymnals::LEVAS,
+                    LEVAS.hymns.iter().map(|hymn| hymn.number).collect(),
+                ),
+                (
+                    Hymnals::WLP,
+                    WLP.hymns.iter().map(|hymn| hymn.number).collect(),
+                ),
+            ],
+        ),
         (Some(hymnal_id), None) => {
             let hymnal: Hymnal = hymnal_id.into();
-            HymnalPageHydrationState::Hymnal(vec![(
-                hymnal_id,
-                hymnal.hymns.iter().map(|hymn| hymn.number).collect(),
-            )])
+            HymnalPageHydrationState::Hymnal(
+                search_parts.next().map(|search| {
+                    (
+                        search.to_string(),
+                        hymnal
+                            .search(search)
+                            .map(|number| (hymnal_id, number))
+                            .collect(),
+                    )
+                }),
+                vec![(
+                    hymnal_id,
+                    hymnal.hymns.iter().map(|hymn| hymn.number).collect(),
+                )],
+            )
         }
         (hymnal, Some(number)) => {
             let hymnal: Hymnal = hymnal.unwrap_or_default().into();
@@ -139,13 +169,16 @@ pub fn body(
     render_state: &HymnalPageRenderState,
 ) -> View {
     match props {
-        HymnalPageHydrationState::Hymnal(hymnals) => hymnal_body(locale, hymnals, &render_state.0),
+        HymnalPageHydrationState::Hymnal(search, hymnals) => {
+            hymnal_body(locale, search, hymnals, &render_state.0)
+        }
         HymnalPageHydrationState::Hymn(hymnal, hymn) => hymn_body(locale, hymnal, hymn),
     }
 }
 
 pub fn hymnal_body(
     locale: &str,
+    search_results: &Option<(String, HashSet<(Hymnals, HymnNumber)>)>,
     hymnal_tocs: &[(Hymnals, Vec<HymnNumber>)],
     hymnals: &[Hymnal],
 ) -> View {
@@ -167,15 +200,22 @@ pub fn hymnal_body(
 
     // server-side hymnal API search
     let hash = location_hash().unwrap_or_default();
-    let initial_search_value = if hash.starts_with("q=") {
+    let initial_search_value = if let Some((search, _)) = &search_results {
+        search.clone()
+    } else if hash.starts_with("q=") {
         decode_uri(&hash.replace("q=", ""))
     } else {
         String::default()
     };
     let search_bar = SearchBar::new_with_default_value(initial_search_value);
 
-    let search_state: Behavior<Fetch<HashSet<(Hymnals, HymnNumber)>>> =
-        Behavior::new(Fetch::new(""));
+    let search_state: Behavior<Fetch<HashSet<(Hymnals, HymnNumber)>>> = Behavior::new({
+        if let Some(search_results) = search_results {
+            Fetch::new_with_status("", FetchStatus::Success(Box::new(search_results.1.clone())))
+        } else {
+            Fetch::new("")
+        }
+    });
 
     let is_searching = search_state
         .stream()
@@ -183,27 +223,31 @@ pub fn hymnal_body(
         .map(|status| matches!(status, FetchStatus::Loading));
 
     // send fetch when search changes
-    search_bar.value.stream().create_effect({
-        let search_state = search_state.clone();
-        move |search| {
-            // abort in-flight requests
-            let current_request = search_state.get();
-            if current_request.state.get() == FetchStatus::Loading {
-                current_request.abort();
-            }
+    search_bar
+        .value
+        .stream()
+        .skip(if search_results.is_some() { 1 } else { 0 })
+        .create_effect({
+            let search_state = search_state.clone();
+            move |search| {
+                // abort in-flight requests
+                let current_request = search_state.get();
+                if current_request.state.get() == FetchStatus::Loading {
+                    current_request.abort();
+                }
 
-            // send request for new search
-            if !search.is_empty() {
-                let new_request = Fetch::new(&format!("/api/hymnal/search?q={}", search));
-                new_request.send();
-                search_state.set(new_request);
+                // send request for new search
+                if !search.is_empty() {
+                    let new_request = Fetch::new(&format!("/api/hymnal/search?q={}", search));
+                    new_request.send();
+                    search_state.set(new_request);
+                }
+                // if you've cleared the search, reset
+                else {
+                    search_state.set(Fetch::new(""));
+                }
             }
-            // if you've cleared the search, reset
-            else {
-                search_state.set(Fetch::new(""));
-            }
-        }
-    });
+        });
 
     // listen for window hashchange and set search, e.g., #q=... => sets searchbar to ...
     // this can be used to link to certain tags or hymns
@@ -368,9 +412,19 @@ pub fn hymnal_body(
                                     View::Empty
                                 };
 
+                                let class = if let Some(search_results) = search_results {
+                                    if search_results.1.contains(&hymn_id) {
+                                        "hymn-listing"
+                                    } else {
+                                        "hymn-listing hidden"
+                                    }
+                                } else {
+                                    "hymn-listing"
+                                };
+
                                 view! {
                                     <dyn:article
-                                        class="hymn-listing"
+                                        class={class}
                                         class:hidden={hidden}
                                     >
                                         {hymn_metadata}

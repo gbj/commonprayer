@@ -751,7 +751,7 @@ pub fn hymn_link(locale: &str, content: &HymnLink) -> HeaderAndMain {
         HymnLink::Hymn(hymnal_id, number) => {
             format!("/{}/hymnal/{:#?}/{}", locale, hymnal_id, number)
         }
-        HymnLink::Tag(tag) => format!("/{}/hymnal#q=tag:{}", locale, tag),
+        HymnLink::Tag(tag) => format!("/{}/hymnal?q=tag:{}", locale, tag),
     };
 
     let label = match content {
