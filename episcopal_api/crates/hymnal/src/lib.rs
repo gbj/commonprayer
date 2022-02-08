@@ -58,6 +58,55 @@ pub struct Hymnal {
     pub hymns: Vec<Hymn>,
 }
 
+impl Hymnal {
+    pub fn search(&self, search: &str) -> impl Iterator<Item = HymnNumber> + '_ {
+        let orig_search = search.to_string();
+        let search = orig_search.clone();
+
+        let tag = if search.starts_with("tag:") {
+            Some(search.replace("tag:", ""))
+        } else {
+            None
+        };
+
+        self
+            .hymns
+            .iter()
+            .filter(move |hymn| {
+                if let Some(tag) = &tag {
+                    hymn.tags.contains(tag)
+                } else {
+                    let search = strip_non_word_characters(&search.to_lowercase());
+                    let number = strip_non_word_characters(&hymn.number.to_string().to_lowercase());
+                    let title = strip_non_word_characters(&hymn.title.to_lowercase());
+                    let tune = strip_non_word_characters(&hymn.tune.to_lowercase());
+                    let authors = strip_non_word_characters(&hymn.authors.to_lowercase());
+                    let composers = strip_non_word_characters(&hymn.composers.to_lowercase());
+                    let text = strip_non_word_characters(&hymn.text.to_lowercase());
+
+                    number.contains(&search)
+                        || title.contains(&search)
+                        || tune.contains(&search)
+                        || authors.contains(&search)
+                        || composers.contains(&search)
+                        || hymn.meter.contains(&orig_search)
+                        || text.contains(&search)
+                }
+            })
+            .map(|hymn| hymn.number)
+        }
+}
+
+fn strip_non_word_characters(original: &str) -> String {
+    original.chars().filter(|ch| 
+        // so that date ranges don't get read as numbers, i.e., "111" should not match "1711-1759"
+        ch == &'-'
+        // letters
+        || ('a'..'z').contains(ch)
+        // digits so can search by hymn number
+        || ('0'..'9').contains(ch)).collect()
+}
+
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Hymn {
     pub source: Hymnals,

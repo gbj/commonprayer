@@ -1,4 +1,4 @@
-use std::{fs::File, collections::HashSet};
+use std::{collections::HashSet, fs::File};
 
 use actix_files::{Files, NamedFile};
 use actix_web::{
@@ -10,7 +10,7 @@ use actix_web::{
 use episcopal_api::{
     api::summary::DailySummary,
     calendar::Date,
-    hymnal::{Hymnal, Hymnals, HymnNumber, HYMNAL_1982, LEVAS, WLP},
+    hymnal::{HymnNumber, Hymnal, Hymnals, HYMNAL_1982, LEVAS, WLP},
     liturgy::Document,
 };
 use lazy_static::lazy_static;
@@ -58,16 +58,22 @@ async fn main() -> std::io::Result<()> {
 
 // Word Cloud API Generator
 #[get("/api/wordlist/hymnal/{hymnal}")]
-async fn hymnal_word_cloud(hymnal : web::Path<String>) -> String {
+async fn hymnal_word_cloud(hymnal: web::Path<String>) -> String {
     let hymnal = hymnal.into_inner();
     if hymnal == "all" {
-        HYMNAL_1982.hymns.iter().chain(LEVAS.hymns.iter()).chain(WLP.hymns.iter()).map(|hymn| hymn.text.as_str()).collect()
+        HYMNAL_1982
+            .hymns
+            .iter()
+            .chain(LEVAS.hymns.iter())
+            .chain(WLP.hymns.iter())
+            .map(|hymn| hymn.text.as_str())
+            .collect()
     } else {
         let hymnal = match hymnal.as_str() {
             "Hymnal1982" => &*HYMNAL_1982,
             "LEVAS" => &*LEVAS,
             "WLP" => &*WLP,
-            _ => panic!("hymnal not found")
+            _ => panic!("hymnal not found"),
         };
         hymnal.hymns.iter().map(|hymn| hymn.text.as_str()).collect()
     }
@@ -111,55 +117,22 @@ async fn hymnal_api(path: web::Path<Hymnals>) -> Result<web::Json<Hymnal>, ()> {
 // Hymnal Search API
 #[derive(Deserialize)]
 struct HymnalSearchParams {
-    q: String
+    q: String,
 }
 
 #[get("/api/hymnal/search")]
-async fn hymnal_search_api(params: Query<HymnalSearchParams>) -> web::Json<HashSet<(Hymnals, HymnNumber)>> {
+async fn hymnal_search_api(
+    params: Query<HymnalSearchParams>,
+) -> web::Json<HashSet<(Hymnals, HymnNumber)>> {
     let search = &params.q;
-    let hymns = HYMNAL_1982.hymns.iter().chain(LEVAS.hymns.iter()).chain(WLP.hymns.iter());
-    // tag search
-    let matches = if search.starts_with("tag:") {
-        let tag = search.replace("tag:", "");
-        hymns
-            .filter(|hymn| hymn.tags.contains(&tag))
-            .map(|hymn| (hymn.source, hymn.number))
-            .collect::<HashSet<_>>()
-    } else {
-        // metadata/text search
-        let search = strip_non_word_characters(&search.to_lowercase());
-        hymns
-            .filter(|hymn| {
-                let number = strip_non_word_characters(&hymn.number.to_string().to_lowercase());
-                let title = strip_non_word_characters(&hymn.title.to_lowercase());
-                let tune = strip_non_word_characters(&hymn.tune.to_lowercase());
-                let authors = strip_non_word_characters(&hymn.authors.to_lowercase());
-                let composers = strip_non_word_characters(&hymn.composers.to_lowercase());
-                let text = strip_non_word_characters(&hymn.text.to_lowercase());
-
-                number.contains(&search)
-                    || title.contains(&search)
-                    || tune.contains(&search)
-                    || authors.contains(&search)
-                    || composers.contains(&search)
-                    || hymn.meter.contains(&params.q)
-                    || text.contains(&search)                            
-            })
-            .map(|hymn| (hymn.source, hymn.number))
-            .collect::<HashSet<_>>()
-    };
+    let matches = HYMNAL_1982
+        .search(search)
+        .map(|number| (Hymnals::Hymnal1982, number))
+        .chain(LEVAS.search(search).map(|number| (Hymnals::LEVAS, number)))
+        .chain(WLP.search(search).map(|number| (Hymnals::WLP, number)))
+        .collect();
 
     web::Json(matches)
-}
-
-fn strip_non_word_characters(original: &str) -> String {
-    original.chars().filter(|ch| 
-        // so that date ranges don't get read as numbers, i.e., "111" should not match "1711-1759"
-        ch == &'-'
-        // letters
-        || ('a'..'z').contains(ch)
-        // digits so can search by hymn number
-        || ('0'..'9').contains(ch)).collect()
 }
 
 #[derive(Deserialize)]
@@ -222,7 +195,7 @@ fn add_page<T, P, R>(cfg: &mut web::ServiceConfig, locale: &str, page: Page<T, P
 where
     T: Serialize + DeserializeOwned + Clone + 'static,
     P: DeserializeOwned + Clone + 'static,
-    R: Default + Clone + 'static
+    R: Default + Clone + 'static,
 {
     println!("{}", page.name);
     for path in page.get_absolute_paths() {
