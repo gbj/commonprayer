@@ -85,7 +85,7 @@ pub enum Feast {
     AthanasiusOfAlexandria,
     AugustineOfCanterbury,
     AugustineOfHippo,
-    BakhitaJosephineMargaretBakhita,
+    Bakhita,
     BasilOfCaesarea,
     Bede,
     BenedictOfNursia,

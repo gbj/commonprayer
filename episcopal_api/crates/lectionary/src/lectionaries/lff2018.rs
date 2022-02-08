@@ -1428,7 +1428,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 78:1–7",
         ),
         (
-            LiturgicalDayId::Feast(Feast::BakhitaJosephineMargaretBakhita),
+            LiturgicalDayId::Feast(Feast::Bakhita),
             Year::Any,
             ReadingType::Gospel,
             "Luke 18:1–8",
@@ -1782,7 +1782,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "1 Peter 1:3–9",
         ),
         (
-            LiturgicalDayId::Feast(Feast::BakhitaJosephineMargaretBakhita),
+            LiturgicalDayId::Feast(Feast::Bakhita),
             Year::Any,
             ReadingType::FirstReading,
             "Colossians 1:24–29",
@@ -4014,7 +4014,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 2",
         ),
         (
-            LiturgicalDayId::Feast(Feast::BakhitaJosephineMargaretBakhita),
+            LiturgicalDayId::Feast(Feast::Bakhita),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 91",
