@@ -22,7 +22,7 @@ pub struct HymnalPageParams {
 #[derive(Clone, Deserialize, Serialize)]
 pub enum HymnalPageHydrationState {
     Hymnal(
-        Option<(String, HashSet<(Hymnals, HymnNumber)>)>,
+        Option<(HashSet<(Hymnals, HymnNumber)>, String)>,
         Vec<(Hymnals, Vec<HymnNumber>)>,
     ),
     Hymn(HymnalMetadata, Hymn),
@@ -89,14 +89,15 @@ pub fn hydration_state(
     Some(match (params.hymnal, params.number) {
         (None, None) => HymnalPageHydrationState::Hymnal(
             search_parts.next().map(|search| {
+                let search = decode_uri(search);
                 (
-                    search.to_string(),
                     HYMNAL_1982
-                        .search(search)
+                        .search(&search)
                         .map(|number| (Hymnals::Hymnal1982, number))
-                        .chain(LEVAS.search(search).map(|number| (Hymnals::LEVAS, number)))
-                        .chain(WLP.search(search).map(|number| (Hymnals::WLP, number)))
+                        .chain(LEVAS.search(&search).map(|number| (Hymnals::LEVAS, number)))
+                        .chain(WLP.search(&search).map(|number| (Hymnals::WLP, number)))
                         .collect(),
+                    search,
                 )
             }),
             vec![
@@ -118,12 +119,13 @@ pub fn hydration_state(
             let hymnal: Hymnal = hymnal_id.into();
             HymnalPageHydrationState::Hymnal(
                 search_parts.next().map(|search| {
+                    let search = decode_uri(search);
                     (
-                        search.to_string(),
                         hymnal
-                            .search(search)
+                            .search(&search)
                             .map(|number| (hymnal_id, number))
                             .collect(),
+                        search,
                     )
                 }),
                 vec![(
@@ -178,7 +180,7 @@ pub fn body(
 
 pub fn hymnal_body(
     locale: &str,
-    search_results: &Option<(String, HashSet<(Hymnals, HymnNumber)>)>,
+    search_results: &Option<(HashSet<(Hymnals, HymnNumber)>, String)>,
     hymnal_tocs: &[(Hymnals, Vec<HymnNumber>)],
     hymnals: &[Hymnal],
 ) -> View {
@@ -200,7 +202,7 @@ pub fn hymnal_body(
 
     // server-side hymnal API search
     let hash = location_hash().unwrap_or_default();
-    let initial_search_value = if let Some((search, _)) = &search_results {
+    let initial_search_value = if let Some((_, search)) = &search_results {
         search.clone()
     } else if hash.starts_with("q=") {
         decode_uri(&hash.replace("q=", ""))
@@ -211,7 +213,7 @@ pub fn hymnal_body(
 
     let search_state: Behavior<Fetch<HashSet<(Hymnals, HymnNumber)>>> = Behavior::new({
         if let Some(search_results) = search_results {
-            Fetch::new_with_status("", FetchStatus::Success(Box::new(search_results.1.clone())))
+            Fetch::new_with_status("", FetchStatus::Success(Box::new(search_results.0.clone())))
         } else {
             Fetch::new("")
         }
@@ -413,7 +415,7 @@ pub fn hymnal_body(
                                 };
 
                                 let class = if let Some(search_results) = search_results {
-                                    if search_results.1.contains(&hymn_id) {
+                                    if search_results.0.contains(&hymn_id) {
                                         "hymn-listing"
                                     } else {
                                         "hymn-listing hidden"
