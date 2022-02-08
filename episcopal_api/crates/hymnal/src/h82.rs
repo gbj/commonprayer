@@ -51,7 +51,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "O Lord, open thou our lips.\nAnd our mouth shall show forth thy praise.\nGlory to the Father, and to the Son, and to the Holy Spirit:\nas it was in the beginning, is now, and will be for ever. Amen.\nAlelluia!".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "Preces".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Preces".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -66,7 +66,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 7".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Venite".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Venite".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -81,7 +81,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 2".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Venite".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Venite".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -96,7 +96,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Venite".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Venite".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -111,7 +111,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Venite".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Venite".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -126,7 +126,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Venite".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Venite".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -141,7 +141,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Venite".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Venite".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -156,7 +156,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 2".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Psalm 95".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Psalm 95".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -171,7 +171,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Psalm 95".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Psalm 95".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -186,7 +186,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Psalm 95".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Psalm 95".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -201,7 +201,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 7".into(),
                 text: "1. O be joyful in the Lord all ye lands;\nserve the Lord with gladness\nand come before his presence with a song. [Ant.]\n\n2. Be ye sure that the Lord he is God;\nit is he that hath made us and not we ourselves;\nwe are his people and the sheep of his pasture. [Ant.]\n\n3. O go your way into his gates with thanksgiving\nand into his courts with praise;\nbe thankful unto him and speak good of his Name. [Ant.]\n\n4. For the Lord is gracious;\nhis mercy is everlasting;\nand his truth endureth from generation to generation. [Ant.]\n\n5. Glory to the Father, and to the Son, \nand to the Holy Spirit:\nAs it was in the beginning, is now, and \nwill be for ever. Amen. [Ant.]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Jubilate".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Jubilate".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -216,7 +216,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O be joyful in the Lord all ye lands;\nserve the Lord with gladness\nand come before his presence with a song. [Ant.]\n\n2. Be ye sure that the Lord he is God;\nit is he that hath made us and not we ourselves;\nwe are his people and the sheep of his pasture. [Ant.]\n\n3. O go your way into his gates with thanksgiving\nand into his courts with praise;\nbe thankful unto him and speak good of his Name. [Ant.]\n\n4. For the Lord is gracious;\nhis mercy is everlasting;\nand his truth endureth from generation to generation. [Ant.]\n\n5. Glory to the Father, and to the Son, \nand to the Holy Spirit:\nAs it was in the beginning, is now, and \nwill be for ever. Amen. [Ant.]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Jubilate".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Jubilate".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -231,7 +231,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O be joyful in the Lord all ye lands;\nserve the Lord with gladness\nand come before his presence with a song. [Ant.]\n\n2. Be ye sure that the Lord he is God;\nit is he that hath made us and not we ourselves;\nwe are his people and the sheep of his pasture. [Ant.]\n\n3. O go your way into his gates with thanksgiving\nand into his courts with praise;\nbe thankful unto him and speak good of his Name. [Ant.]\n\n4. For the Lord is gracious;\nhis mercy is everlasting;\nand his truth endureth from generation to generation. [Ant.]\n\n5. Glory to the Father, and to the Son, \nand to the Holy Spirit:\nAs it was in the beginning, is now, and \nwill be for ever. Amen. [Ant.]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Jubilate".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Jubilate".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -246,7 +246,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O be joyful in the Lord all ye lands;\nserve the Lord with gladness\nand come before his presence with a song. [Ant.]\n\n2. Be ye sure that the Lord he is God;\nit is he that hath made us and not we ourselves;\nwe are his people and the sheep of his pasture. [Ant.]\n\n3. O go your way into his gates with thanksgiving\nand into his courts with praise;\nbe thankful unto him and speak good of his Name. [Ant.]\n\n4. For the Lord is gracious;\nhis mercy is everlasting;\nand his truth endureth from generation to generation. [Ant.]\n\n5. Glory to the Father, and to the Son, \nand to the Holy Spirit:\nAs it was in the beginning, is now, and \nwill be for ever. Amen. [Ant.]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Jubilate".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Jubilate".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -261,7 +261,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O be joyful in the Lord all ye lands;\nserve the Lord with gladness\nand come before his presence with a song. [Ant.]\n\n2. Be ye sure that the Lord he is God;\nit is he that hath made us and not we ourselves;\nwe are his people and the sheep of his pasture. [Ant.]\n\n3. O go your way into his gates with thanksgiving\nand into his courts with praise;\nbe thankful unto him and speak good of his Name. [Ant.]\n\n4. For the Lord is gracious;\nhis mercy is everlasting;\nand his truth endureth from generation to generation. [Ant.]\n\n5. Glory to the Father, and to the Son, \nand to the Holy Spirit:\nAs it was in the beginning, is now, and \nwill be for ever. Amen. [Ant.]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "The Invitatory: Jubilate".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Invitatory".into(), "Jubilate".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -291,7 +291,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -306,7 +306,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -321,7 +321,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -336,7 +336,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -351,7 +351,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "The Lord be with you.\nAnd with thy spirit.\nLet us pray.\n\nOur Father, who art ... for ever and ever. Amen.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "Salutation and The Lord’s Prayer".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Salutation and The Lord’s Prayer".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -366,7 +366,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "O Lord, show thy mercy upon us;\nAnd grant us thy salvation.\n\nEndue thy ministers with righteousness;\nAnd make thy chosen people joyful.\n\nGive peace, O Lord, in all the world;\nFor only in thee can we live in safety.\n\nLord, keep this nation under thy care;\nAnd guide us in the way of justice and truth.\n\nLet thy way be known upon earth;\nThy saving health among all nations.\n\nLet not the needy, O Lord, be forgotten;\nNor the hope of the poor be taken away.\n\nCreate in us clean hearts, O God;\nAnd sustain us with thy Holy Spirit.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "Suffrages A".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Suffrages A".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -381,7 +381,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "O lord, save thy people, and bless thine heritage;\nGovern them and lift them up forever.\n\nDay by day we magnify thee;\nAnd we worship thy Name ever, world without end.\n\nVouchsafe, O Lord, to keep us this day without sin;\nO Lord, have mercy upon us, have mercy upon us.\n\nO Lord, let thy mercy be upon us;\nAs our trust is in thee.\n\nO Lord, in thee have I trusted;\nLet me never be confounded.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "Suffrages B".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Suffrages B".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -396,7 +396,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Let us bless the Lord.\nThanks be to God.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "Concluding Versicle and Response".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Concluding Versicle and Response".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -411,7 +411,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Let us bless the Lord, alleluia, alleluia.\nThanks be to God, alleluia, alleluia.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer I".into(), "Concluding Versicle and Response in Easter Season".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Concluding Versicle and Response in Easter Season".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -426,7 +426,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "O God, make speed to save us.\nO Lord, make hast to help us.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nas it was in the beginning is now,\nand will be for eve. Amen.\nAlleluia".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer I".into(), "Preces".into()]
+                tags: vec!["Office".into(), "EP I".into(), "Preces".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -441,7 +441,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O gracious Light,\npure brightness of the \neverliving Father in heaven.\nO Jesus, Christ, holy and blessed!\n\n2. Now as we come to the setting of the sun,\nand our eyes behold the vesper light,\nwe sing thy praises, O God:\nFather, Son, and Holy Spirit.\n\n3. Thou art worthy at all times\nto be praised by happy voices,\nO Son of God, O Giver of life,\nand to be glorified through all the worlds.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer I".into(), "O Gracious Light".into(), "Phos hilaron".into()]
+                tags: vec!["Office".into(), "EP I".into(), "O Gracious Light".into(), "Phos hilaron".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -456,7 +456,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "The Lord be with you.\nAnd with thy spirit.\nLet us pray.\n\nOur Father, who art ... for ever and ever. Amen.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer I".into(), "Salutation and The Lord’s Prayer".into()]
+                tags: vec!["Office".into(), "EP I".into(), "Salutation and The Lord’s Prayer".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -471,7 +471,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Response:\nThat this evening may be holy, good and peaceful\nWe entreat thee, O Lord.\n\nThat thy holy angels may lead us in paths\nof peace and goodwill, [Response]\n\nThat we may be pardoned and forgiven\nfor our sins and offenses, [Response]\n\nThat there may be peace to they Church\nand to the whole world, [Response]\n\nThat we may depart this life\nin thy faith and fear,\nand not be condemned\nbefore the great judgment of Christ, [Response]\n\nThat we may be bound together\nby thy Holy Spirit\nin the communion of [_________ and] all thy saints,\nentrusting one another and all our life to Christ, [Response]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer I".into(), "Suffrages B".into(), "Suffrages B, Tone I".into()]
+                tags: vec!["Office".into(), "EP I".into(), "Suffrages B".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -486,7 +486,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Litany of the Saints".into(),
                 text: "Response:\nThat this evening may be holy, good and peaceful\nWe entreat thee, O Lord.\n\nThat thy holy angels may lead us in paths\nof peace and goodwill, [Response]\n\nThat we may be pardoned and forgiven\nfor our sins and offenses, [Response]\n\nThat there may be peace to they Church\nand to the whole world, [Response]\n\nThat we may depart this life\nin thy faith and fear,\nand not be condemned\nbefore the great judgment of Christ, [Response]\n\nThat we may be bound together\nby thy Holy Spirit\nin the communion of [_________ and] all thy saints,\nentrusting one another and all our life to Christ, [Response]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer I".into(), "Suffrages B".into(), "Suffrages B, Tone II".into()]
+                tags: vec!["Office".into(), "EP I".into(), "Suffrages B".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -501,7 +501,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Let us bless the Lord.\nThanks be to God.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer I".into(), "Concluding Versicle and Response".into()]
+                tags: vec!["Office".into(), "EP I".into(), "Concluding Versicle and Response".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -516,7 +516,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Let us bless the Lord, alleluia, alleluia.\nThanks be to God, alleluia, alleluia.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer I".into(), "Concluding Versicle and Response in Easter Season".into()]
+                tags: vec!["Office".into(), "EP I".into(), "Concluding Versicle and Response in Easter Season".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -531,7 +531,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "O Lord, open thou our lips.\nAnd our mouth shall show forth thy praise.\nGlory to the Father, and to the Son, and to the Holy Spirit:\nas it was in the beginning, is now, and will be for ever. Amen.\nAlelluia!".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "Preces".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Preces".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -546,7 +546,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 4".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "The Invitatory: Psalm 95".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Invitatory".into(), "Psalm 95".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -561,7 +561,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Come let us sing to the Lord;\nlet us shout for joy to the Rock of our salvation.\n\n2. Let us come before his presence with thanksgiving, \nand raise a loud shout to him with pslams. \n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are the caverns of the earth,\nand the heights of the hills are his also.\n\n5. The sea is his, for he made it,\nand his hands have molded the dry land.\n\n6. Come, let us bow down, and bend the knee,\nand kneel before the Lord our Maker.\n\n7. For he is our God,\nand we are the people of his pasture and the sheep of his hand.\nOh, that today you would hearken to his voice! \n\n".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "The Invitatory: Venite".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Invitatory".into(), "Venite".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -576,7 +576,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "The Invitatory: Venite".into(), "The Invitatory: Psalm 95".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Invitatory".into(), "Venite".into(), "The Invitatory: Psalm 95".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -591,7 +591,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "The Invitatory: Venite".into(), "The Invitatory: Psalm 95".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Invitatory".into(), "Venite".into(), "The Invitatory: Psalm 95".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -606,7 +606,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "The Invitatory: Venite".into(), "The Invitatory: Psalm 95".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Invitatory".into(), "Venite".into(), "The Invitatory: Psalm 95".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -621,7 +621,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "The Invitatory: Venite".into(), "The Invitatory: Psalm 95".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Invitatory".into(), "Venite".into(), "The Invitatory: Psalm 95".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -636,7 +636,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O come, let us sing unto the Lord;\nlet us heartily rejoice in the strength of our salvation.\n\n2. Let us come before his presence with thanksgiving,\nand show ourselves glad in him with psalms. [Antiphon]\n\n3. For the Lord is a great God,\nand a great King above all gods.\n\n4. In his hand are all the corners of the earth,\nand the strength of the hills is his also.\n\n5. The sea is his and he made it,\nand his hands prepared the dry land. [Antiphon]\n\n6. O come, let us worship and fall down\nand kneel before the Lord our Maker.\n\n7. For he is the Lord our God,\nand we are the people of his pasture\nand the sheep of his hand. [Antiphon]\n\n8. O worship the Lord in the beauty of holiness;\nlet the whole earth stand in awe of him.\n\n9. For he cometh, for he cometh to judge the earth,\nand with righteousness to judge the world\nand the peoples with his truth. [Antiphon]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be forever. Amen. [Antiphon]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "The Invitatory: Venite".into(), "The Invitatory: Psalm 95".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Invitatory".into(), "Venite".into(), "The Invitatory: Psalm 95".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -651,7 +651,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 4".into(),
                 text: "1. O be joyful in the Lord all ye lands;\nserve the Lord with gladness\nand come before his presence with a song. [Ant.]\n\n2. Be ye sure that the Lord he is God;\nit is he that hath made us and not we ourselves;\nwe are his people and the sheep of his pasture. [Ant.]\n\n3. O go your way into his gates with thanksgiving\nand into his courts with praise;\nbe thankful unto him and speak good of his Name. [Ant.]\n\n4. For the Lord is gracious;\nhis mercy is everlasting;\nand his truth endureth from generation to generation. [Ant.]\n\n5. Glory to the Father, and to the Son, \nand to the Holy Spirit:\nAs it was in the beginning, is now, and \nwill be for ever. Amen. [Ant.]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "The Invitatory: Jubilate".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Invitatory".into(), "Jubilate".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -666,7 +666,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O be joyful in the Lord all ye lands;\nserve the Lord with gladness\nand come before his presence with a song. [Ant.]\n\n2. Be ye sure that the Lord he is God;\nit is he that hath made us and not we ourselves;\nwe are his people and the sheep of his pasture. [Ant.]\n\n3. O go your way into his gates with thanksgiving\nand into his courts with praise;\nbe thankful unto him and speak good of his Name. [Ant.]\n\n4. For the Lord is gracious;\nhis mercy is everlasting;\nand his truth endureth from generation to generation. [Ant.]\n\n5. Glory to the Father, and to the Son, \nand to the Holy Spirit:\nAs it was in the beginning, is now, and \nwill be for ever. Amen. [Ant.]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "The Invitatory: Jubilate".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Invitatory".into(), "Jubilate".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -681,7 +681,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O be joyful in the Lord all ye lands;\nserve the Lord with gladness\nand come before his presence with a song. [Ant.]\n\n2. Be ye sure that the Lord he is God;\nit is he that hath made us and not we ourselves;\nwe are his people and the sheep of his pasture. [Ant.]\n\n3. O go your way into his gates with thanksgiving\nand into his courts with praise;\nbe thankful unto him and speak good of his Name. [Ant.]\n\n4. For the Lord is gracious;\nhis mercy is everlasting;\nand his truth endureth from generation to generation. [Ant.]\n\n5. Glory to the Father, and to the Son, \nand to the Holy Spirit:\nAs it was in the beginning, is now, and \nwill be for ever. Amen. [Ant.]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "The Invitatory: Jubilate".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Invitatory".into(), "Jubilate".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -696,7 +696,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O be joyful in the Lord all ye lands;\nserve the Lord with gladness\nand come before his presence with a song. [Ant.]\n\n2. Be ye sure that the Lord he is God;\nit is he that hath made us and not we ourselves;\nwe are his people and the sheep of his pasture. [Ant.]\n\n3. O go your way into his gates with thanksgiving\nand into his courts with praise;\nbe thankful unto him and speak good of his Name. [Ant.]\n\n4. For the Lord is gracious;\nhis mercy is everlasting;\nand his truth endureth from generation to generation. [Ant.]\n\n5. Glory to the Father, and to the Son, \nand to the Holy Spirit:\nAs it was in the beginning, is now, and \nwill be for ever. Amen. [Ant.]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "The Invitatory: Jubilate".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Invitatory".into(), "Jubilate".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -711,7 +711,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O be joyful in the Lord all ye lands;\nserve the Lord with gladness\nand come before his presence with a song. [Ant.]\n\n2. Be ye sure that the Lord he is God;\nit is he that hath made us and not we ourselves;\nwe are his people and the sheep of his pasture. [Ant.]\n\n3. O go your way into his gates with thanksgiving\nand into his courts with praise;\nbe thankful unto him and speak good of his Name. [Ant.]\n\n4. For the Lord is gracious;\nhis mercy is everlasting;\nand his truth endureth from generation to generation. [Ant.]\n\n5. Glory to the Father, and to the Son, \nand to the Holy Spirit:\nAs it was in the beginning, is now, and \nwill be for ever. Amen. [Ant.]".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "The Invitatory: Jubilate".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Invitatory".into(), "Jubilate".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -726,7 +726,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 1, Introit Form".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -741,7 +741,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -756,7 +756,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -771,7 +771,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -786,7 +786,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -801,7 +801,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "The Lord be with you.\nAnd also with you.\nLet us pray.\n\nOur father in heaven ... ever. Amen.\n\n*or*\n\nOur Father, who art in heaven ... ever. Amen.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "Salutation and The Lord’s Prayer".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Salutation and The Lord’s Prayer".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -817,7 +817,7 @@ lazy_static! {
                 tune_sources: "".into(),
                 // TODO replace with Rite II preces
                 text: "Show us your mercy, O Lord;\nAnd grant us your salvation.\nClothe your ministers with righteousness;\nLet your people sing with joy.\nGive peace, O Lord, in all the world;\nFor only in you can we live in safety.\nLord, keep this nation under your care;\nAnd guide us in the way of justice and truth.\nLet your way be known upon earth;\nYour saving health among all nations.\nLet not the needy, O Lord, be forgotten;\nNor the hope of the poor be taken away.\nCreate in us clean hearts, O God;\nAnd sustain us with your Holy Spirit.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "Suffrages A".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Suffrages A".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -832,7 +832,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Save your people, Lord, and bless your inheritance;\nGovern and uphold them, now and always.\nDay by day we bless you;\nWe praise your name for ever.\nLord, keep us from all sin today;\nHave mercy on us, Lord, have mercy.\nLord, show us your love and mercy;\nFor we put our trust in you.\nIn you, Lord, is our hope;\nAnd we shall never hope in vain.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "Suffrages B".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Suffrages B".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -847,7 +847,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Let us bless the Lord.\nThanks be to God.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "Concluding Versicle and Response".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Concluding Versicle and Response".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -862,7 +862,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Let us bless the Lord, alleluia, alleluia.\nThanks be to God, alleluia, alleluia.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Morning Prayer II".into(), "Concluding Versicle and Response in Easter Season".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Concluding Versicle and Response in Easter Season".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -877,7 +877,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Light and peace, in Jesus Christ our Lord.\nThanks be to God.".into(),
-                tags: vec!["The Daily Office".into(), "An Order of Worship for the Evening".into(), "Greeting".into(), "Greeting: Tone I".into()]
+                tags: vec!["Office".into(), "An Order of Worship for the Evening".into(), "Greeting".into(), "Greeting: Tone I".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -892,7 +892,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Light and peace, in Jesus Christ our Lord.\nThanks be to God.".into(),
-                tags: vec!["The Daily Office".into(), "An Order of Worship for the Evening".into(), "Greeting".into(), "Greeting: Tone I".into()]
+                tags: vec!["Office".into(), "An Order of Worship for the Evening".into(), "Greeting".into(), "Greeting: Tone I".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -907,7 +907,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "O God, make speed to save us.\nO Lord, make hast to help us.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nas it was in the beginning is now,\nand will be for eve. Amen.\nAlleluia".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer II".into(), "Preces".into()]
+                tags: vec!["Office".into(), "EP II".into(), "Preces".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -922,7 +922,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Mode 2 melody".into(),
                 text: "1. O gracious Light,\npure brightness of the \neverliving Father in heaven.\nO Jesus, Christ, holy and blessed!\n\n2. Now as we come to the setting of the sun,\nand our eyes behold the vesper light,\nwe sing thy praises, O God:\nFather, Son, and Holy Spirit.\n\n3. Thou art worthy at all times\nto be praised by happy voices,\nO Son of God, O Giver of life,\nand to be glorified through all the worlds.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer II".into(), "O Gracious Light".into(), "Phos hilaron".into()]
+                tags: vec!["Office".into(), "EP II".into(), "O Gracious Light".into(), "Phos hilaron".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -937,7 +937,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O gracious Light,\npure brightness of the \neverliving Father in heaven.\nO Jesus, Christ, holy and blessed!\n\n2. Now as we come to the setting of the sun,\nand our eyes behold the vesper light,\nwe sing thy praises, O God:\nFather, Son, and Holy Spirit.\n\n3. Thou art worthy at all times\nto be praised by happy voices,\nO Son of God, O Giver of life,\nand to be glorified through all the worlds.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer II".into(), "O Gracious Light".into(), "Phos hilaron".into()]
+                tags: vec!["Office".into(), "EP II".into(), "O Gracious Light".into(), "Phos hilaron".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -952,7 +952,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O gracious Light,\npure brightness of the \neverliving Father in heaven.\nO Jesus, Christ, holy and blessed!\n\n2. Now as we come to the setting of the sun,\nand our eyes behold the vesper light,\nwe sing thy praises, O God:\nFather, Son, and Holy Spirit.\n\n3. Thou art worthy at all times\nto be praised by happy voices,\nO Son of God, O Giver of life,\nand to be glorified through all the worlds.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer II".into(), "O Gracious Light".into(), "Phos hilaron".into()]
+                tags: vec!["Office".into(), "EP II".into(), "O Gracious Light".into(), "Phos hilaron".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -967,7 +967,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "The Lord be with you.\nAnd also with you.\nLet us pray.\n\nOur Father in heaven ... ever. Amen.\n*or*\nOur Father, who art in heaven ... ever. Amen.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer II".into(), "Salutation and The Lord’s Prayer".into()]
+                tags: vec!["Office".into(), "EP II".into(), "Salutation and The Lord’s Prayer".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -982,7 +982,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "That this evening may be holy, good, and peaceful,\nWe entreat you, O Lord.\n\nThat you holy angels may lead us in paths of peace and goodwill,\nWe entreat you, O Lord.\n\nThat we may be pardoned and forgiven for our sins and offenses,\nWe entreat you, O Lord.\n\nThat there may be peace to your Church and to the whole world,\nWe entreat you, O Lord.\n\nThat we may depart this life in your faith and fear, and not be condemned before the great judgment seat of Christ,\nWe entreat you, O Lord.\n\nThat we may be bound together by your Holy Spirit in the communion of [___________ and] all your saints, entrusting one another and all our life to Christ,\nWe entreat you, O Lord.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer II".into(), "Suffrages B".into(), "Suffrages B, Tone I".into()]
+                tags: vec!["Office".into(), "EP II".into(), "Suffrages B".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -997,7 +997,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Litany of the Saints".into(),
                 text: "That this evening may be holy, good, and peaceful,\nWe entreat you, O Lord.\n\nThat you holy angels may lead us in paths of peace and goodwill,\nWe entreat you, O Lord.\n\nThat we may be pardoned and forgiven for our sins and offenses,\nWe entreat you, O Lord.\n\nThat there may be peace to your Church and to the whole world,\nWe entreat you, O Lord.\n\nThat we may depart this life in your faith and fear, and not be condemned before the great judgment seat of Christ,\nWe entreat you, O Lord.\n\nThat we may be bound together by your Holy Spirit in the communion of [___________ and] all your saints, entrusting one another and all our life to Christ,\nWe entreat you, O Lord.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer II".into(), "Suffrages B".into(), "Suffrages B, Tone II".into()]
+                tags: vec!["Office".into(), "EP II".into(), "Suffrages B".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1012,7 +1012,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Let us bless the Lord.\nThanks be to God.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer II".into(), "Concluding Versicle and Response".into()]
+                tags: vec!["Office".into(), "EP II".into(), "Concluding Versicle and Response".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1027,7 +1027,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Let us bless the Lord, alleluia, alleluia.\nThanks be to God, alleluia, alleluia.".into(),
-                tags: vec!["The Daily Office".into(), "Daily Evening Prayer II".into(), "Concluding Versicle and Response in Easter Season".into()]
+                tags: vec!["Office".into(), "EP II".into(), "Concluding Versicle and Response in Easter Season".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1057,7 +1057,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "The light of Christ.\nThanks be to God.".into(),
-                tags: vec!["Proper Liturgies for Special Days".into(), "The Great Vigil of Easter".into(), "Versicle and Response: “The Light of Christ”".into()]
+                tags: vec!["Proper Liturgies".into(), "Easter Vigil".into(), "The Light of Christ".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1072,7 +1072,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "... for ever and ever. Amen.\n\nThe Lord be with you.\nAnd also with you.\nLet us give thank to the Lord our God.\nIt is right to give him thanks and praise.\n\n... for ever and ever. Amen.".into(),
-                tags: vec!["Proper Liturgies for Special Days".into(), "The Great Vigil of Easter".into(), "The Exsultet: Responses".into()]
+                tags: vec!["Proper Liturgies".into(), "Easter Vigil".into(), "The Exsultet".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1087,7 +1087,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "".into(),
-                tags: vec!["Proper Liturgies for Special Days".into(), "The Great Vigil of Easter".into(), "Great Alleluia".into()]
+                tags: vec!["Proper Liturgies".into(), "Easter Vigil".into(), "Great Alleluia".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1102,7 +1102,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Blessed be God: Father, Son, and Holy Spirit.\nAnd blessed be his kingdom, now and for ever. Amen.".into(),
-                tags: vec!["Holy Baptism".into(), "Opening Acclamation".into()]
+                tags: vec!["Baptism".into(), "Opening Acclamation".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1117,7 +1117,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Alleluia, Christ is risen.\nThe Lord is risen indeed. Alleluia.".into(),
-                tags: vec!["Holy Baptism".into(), "Opening Acclamation in Easter Season".into()]
+                tags: vec!["Baptism".into(), "Opening Acclamation: Easter".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1132,7 +1132,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Bless the Lord who forgives all our sins.\nHis mercy endures forever.".into(),
-                tags: vec!["Holy Baptism".into(), "Opening Acclamation in Lent".into()]
+                tags: vec!["Baptism".into(), "Opening Acclamation: Lent".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1147,7 +1147,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "There is one Body and one Spirti;\nThere is one hope in God's call to us;\nOne Lord, one Faith, one Baptism;\nOne God and Father of us all.".into(),
-                tags: vec!["Holy Baptism".into(), "Versicles".into()]
+                tags: vec!["Baptism".into(), "Versicles".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1162,7 +1162,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "People’s response: Lord, hear our prayer.\n\nThe Lord be with you.\nAnd also with you.\nLet us give thanks to the Lord our God.\nIt is right to give him thanks and praise.\n\n... Amen.".into(),
-                tags: vec!["Holy Baptism".into(), "Litany and Thanksgiving over the Water".into()]
+                tags: vec!["Baptism".into(), "Litany and Thanksgiving over the Water".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1177,7 +1177,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Blessed be God: Father, Son, and Holy Spirit.\nAnd blessed be his kingdom, now and for ever. Amen.".into(),
-                tags: vec!["The Holy Eucharist".into(), "Opening Acclamation".into()]
+                tags: vec!["Eucharist".into(), "Opening Acclamation".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1192,7 +1192,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Blessed be God: Father, Son, and Holy Spirit.\nAnd blessed be his kingdom, now and for ever. Amen.".into(),
-                tags: vec!["The Holy Eucharist".into(), "Opening Acclamation".into()]
+                tags: vec!["Eucharist".into(), "Opening Acclamation".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1207,7 +1207,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Alleluia, Christ is risen.\nThe Lord is risen indeed. Alleluia.".into(),
-                tags: vec!["The Holy Eucharist".into(), "Opening Acclamation for Easter Day through the Day of Pentecost".into()]
+                tags: vec!["Eucharist".into(), "Opening Acclamation: Easter".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1222,7 +1222,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Missa orbis factor</i> ".into(),
                 text: "Alleluia, Christ is risen.\nThe Lord is risen indeed. Alleluia.".into(),
-                tags: vec!["The Holy Eucharist".into(), "Opening Acclamation for Easter Day through the Day of Pentecost".into()]
+                tags: vec!["Eucharist".into(), "Opening Acclamation: Easter".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1237,7 +1237,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Bless the Lord who forgiveth all our sins.\nHis mercy endureth forever.".into(),
-                tags: vec!["The Holy Eucharist".into(), "The Holy Eucharist I".into(), "Opening Acclamation in Lent".into()]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Opening Acclamation: Lent".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1252,7 +1252,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Missa orbis factor</i> ".into(),
                 text: "Bless the Lord who forgiveth all our sins.\nHis mercy endureth forever.".into(),
-                tags: vec!["The Holy Eucharist".into(), "The Holy Eucharist I".into(), "Opening Acclamation in Lent".into()]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Opening Acclamation: Lent".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1267,7 +1267,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Bless the Lord who forgives all our sins.\nHis mercy endures forever.".into(),
-                tags: vec!["The Holy Eucharist".into(), "The Holy Eucharist II".into(), "Opening Acclamation in Lent".into()]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Opening Acclamation: Lent".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1282,7 +1282,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Bless the Lord who forgives all our sins.\nHis mercy endures forever.".into(),
-                tags: vec!["The Holy Eucharist".into(), "The Holy Eucharist II".into(), "Opening Acclamation in Lent".into()]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Opening Acclamation: Lent".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1297,7 +1297,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Mode 1; <i>Missa orbis factor</i>, Mass 11".into(),
                 text: "Kyrie eleison.\nKyrie eleison.\nKyrie eleison.\nChriste eleison.\nChriste eleison.\nChriste eleison.\nKyrie eleison.\nKyrie eleison.\nKyrie eleison.".into(),
-                tags: vec!["The Holy Eucharist".into(), "Kyrie eleison".into(), "Kyrie".into()]
+                tags: vec!["Eucharist".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1312,7 +1312,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Mode 3; Mass 16".into(),
                 text: "Kyrie eleison.\nKyrie eleison.\nKyrie eleison.\nChriste eleison.\nChriste eleison.\nChriste eleison.\nKyrie eleison.\nKyrie eleison.\nKyrie eleison.".into(),
-                tags: vec!["The Holy Eucharist".into(), "Kyrie eleison".into(), "Kyrie".into()]
+                tags: vec!["Eucharist".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1327,7 +1327,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "From <i>New Plainsong</i> ".into(),
                 text: "Kyrie eleison.\nKyrie eleison.\nKyrie eleison.\nChriste eleison.\nChriste eleison.\nChriste eleison.\nKyrie eleison.\nKyrie eleison.\nKyrie eleison.".into(),
-                tags: vec!["The Holy Eucharist".into(), "Kyrie eleison".into(), "Kyrie".into()]
+                tags: vec!["Eucharist".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1342,7 +1342,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "From <i>Corpus Christi Mass</i> ".into(),
                 text: "Kyrie eleison.\nKyrie eleison.\nKyrie eleison.\nChriste eleison.\nChriste eleison.\nChriste eleison.\nKyrie eleison.\nKyrie eleison.\nKyrie eleison.".into(),
-                tags: vec!["The Holy Eucharist".into(), "Kyrie eleison".into(), "Kyrie".into()]
+                tags: vec!["Eucharist".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1357,7 +1357,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<cite>Music for the Lord's Supper</cite>".into(),
                 text: "Kyrie eleison.\nKyrie eleison.\nKyrie eleison.\nChriste eleison.\nChriste eleison.\nChriste eleison.\nKyrie eleison.\nKyrie eleison.\nKyrie eleison.".into(),
-                tags: vec!["The Holy Eucharist".into(), "Kyrie eleison".into(), "Kyrie".into()]
+                tags: vec!["Eucharist".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1372,7 +1372,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Kyrie eleison.\nKyrie eleison.\nKyrie eleison.\nChriste eleison.\nChriste eleison.\nChriste eleison.\nKyrie eleison.\nKyrie eleison.\nKyrie eleison.".into(),
-                tags: vec!["The Holy Eucharist".into(), "Kyrie eleison".into(), "Kyrie".into()]
+                tags: vec!["Eucharist".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1387,7 +1387,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Hymnal 1982</i> (adapt.)".into(),
                 text: "Lord, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.\nChrist, have mercy upon us.\nChrist, have mercy upon us.\nChrist, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.".into(),
-                tags: vec!["The Holy Eucharist".into(), "The Holy Eucharist I".into(), "Lord, have mercy upon us".into(), "Kyrie".into()]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1402,7 +1402,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Missa de Sancta Maria Magdalena</i> ".into(),
                 text: "Lord, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.\nChrist, have mercy upon us.\nChrist, have mercy upon us.\nChrist, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.".into(),
-                tags: vec!["The Holy Eucharist".into(), "The Holy Eucharist I".into(), "Lord, have mercy upon us".into(), "Kyrie".into()]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1417,7 +1417,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Missa Marialis</i> (from); Plainsong, Mode 1; Mass 9, “Cum jubilo”".into(),
                 text: "Lord, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.\nChrist, have mercy upon us.\nChrist, have mercy upon us.\nChrist, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.".into(),
-                tags: vec!["The Holy Eucharist".into(), "The Holy Eucharist I".into(), "Lord, have mercy upon us".into(), "Kyrie".into()]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1432,7 +1432,7 @@ lazy_static! {
                 text_sources: "Plainsong, Mode 1; Mass 9, “Cum jubilo”".into(),
                 tune_sources: "".into(),
                 text: "Lord, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.\nChrist, have mercy upon us.\nChrist, have mercy upon us.\nChrist, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.".into(),
-                tags: vec!["The Holy Eucharist".into(), "The Holy Eucharist I".into(), "Lord, have mercy upon us".into(), "Kyrie".into()]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Kyrie".into()]
             },
             // TODO pick back up here on service music
             Hymn {
