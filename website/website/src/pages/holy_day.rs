@@ -166,7 +166,8 @@ fn static_props(locale: &str, _path: &str, params: &HolyDayParams) -> Option<Hol
     // deserializing here instead of in the params means that
     // a bad feast ID will be a 404 error (finds path, but branches here to None => 404)
     // not a server error (when it's unable to find path b/c can't deserialize to Feast)
-    serde_json::from_str::<Feast>(&params.feast)
+
+    serde_json::from_str::<Feast>(&format!(r#""{}""#, params.feast))
         .ok()
         .and_then(|feast| {
             let language = locale_to_language(locale);
@@ -197,10 +198,12 @@ fn static_props(locale: &str, _path: &str, params: &HolyDayParams) -> Option<Hol
                 // or, search in BCP calendar if can't find in LFF (i.e., for Eve of ___)
                 .or_else(|| BCP1979_CALENDAR.feast_name(feast, language))?
                 .to_string();
+
             let bio = LFF_BIOS
                 .iter()
                 .find(|(s_feast, _)| *s_feast == feast || Some(*s_feast) == eve_of)
                 .map(|(_, bio)| bio.to_string())?;
+
             // search both RCL and LFF 2018 lectionary for holy day readings
             let lectionary = RCL
                 .readings
