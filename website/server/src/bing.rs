@@ -13,7 +13,7 @@ lazy_static! {
 const BING_ENDPOINT: &str = "https://api.bing.microsoft.com/v7.0/videos/search";
 
 pub async fn search(hymn: &Hymn) -> Result<BingSearchResult> {
-    let query = format!(r#""{}" "{}""#, hymn.title, hymn.tune);
+    let query = format!(r#""{}""#, hymn.title);
     let query = urlencoding::encode(&query);
     let url = format!("{BING_ENDPOINT}?q={query}&count=10");
 

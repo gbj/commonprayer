@@ -503,6 +503,10 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
         hymn.source, hymn.number
     ));
 
+    if hymn.copyright_restriction && hymn.text.is_empty() {
+        video_state.send()
+    }
+
     let video_view = video_state
         .state
         .stream()
@@ -635,22 +639,30 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                     "."
                 </p>
 
-                {if hymn.text.is_empty() || hymn.copyright_restriction {
+                {if hymn.text.is_empty() {
                     View::Empty
                 } else {
                     view! {
                         <>
                             <input class="toggle" type="radio" id="text-view" name="view-mode" checked/>
                             <label class="toggle" for="text-view">{t!("hymnal.text_view")}</label>
-                            <input class="toggle" type="radio" id="image-view" name="view-mode"/>
-                            <label class="toggle" for="image-view">{t!("hymnal.music_view")}</label>
-                            <dyn:input class="toggle" type="radio" id="video-view" name="view-mode"
-                                on:change=move |_ev: Event| video_state.send()
-                            />
-                            <label class="toggle" for="video-view" id="video-view-label">{t!("hymnal.video_view")}</label>
                         </>
                     }
                 }}
+                {if hymn.copyright_restriction {
+                    View::Empty
+                } else {
+                    view! {
+                        <>
+                            <input class="toggle" type="radio" id="image-view" name="view-mode"/>
+                            <label class="toggle" for="image-view">{t!("hymnal.music_view")}</label>
+                        </>
+                    }
+                }}
+                <dyn:input class="toggle" type="radio" id="video-view" name="view-mode"
+                    on:change=move |_ev: Event| video_state.send()
+                />
+                <label class="toggle" for="video-view" id="video-view-label">{t!("hymnal.video_view")}</label>
 
                 // Hymn text
                 {if hymn.text.is_empty() {
@@ -723,7 +735,7 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                     }
                 }}
 
-                <div class="video-view">
+                <div class={if hymn.copyright_restriction && hymn.text.is_empty() { "video-view force" } else { "video-view" }}>
                     {video_view}
                 </div>
 
