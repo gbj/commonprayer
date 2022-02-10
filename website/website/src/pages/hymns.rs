@@ -21,6 +21,7 @@ pub struct HymnalPageParams {
 }
 
 #[derive(Clone, Deserialize, Serialize)]
+#[allow(clippy::large_enum_variant)] // only 1 instance, so memory not a huge issue
 pub enum HymnalPageHydrationState {
     Hymnal(
         Option<(HashSet<(Hymnals, HymnNumber)>, String)>,
