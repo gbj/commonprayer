@@ -53,6 +53,8 @@ en:
     music: Music
     text_view: Text
     music_view: Music
+    video_view: Videos
+    video_error: Oops! Something went wrong when we tried to load videos for this hymn.
     category_lookup: "%{category} Hymns"
 
   liturgy: Liturgy

@@ -17,7 +17,12 @@ use lazy_static::lazy_static;
 use leptos::Page;
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use tempfile::tempdir;
-use website::{pages::*, utils::language::locale_to_language, PageType, TABLE_OF_CONTENTS};
+use website::{
+    api::bing::BingSearchResult, pages::*, utils::language::locale_to_language, PageType,
+    TABLE_OF_CONTENTS,
+};
+
+mod bing;
 
 const LOCALES: [&str; 1] = ["en"];
 
@@ -44,6 +49,7 @@ async fn main() -> std::io::Result<()> {
             .service(canticle_list_api)
             .service(hymnal_api)
             .service(hymnal_search_api)
+            .service(video_search_api)
             .service(hymnal_word_cloud)
             .service(Files::new(
                 "/static",
@@ -133,6 +139,24 @@ async fn hymnal_search_api(
         .collect();
 
     web::Json(matches)
+}
+
+// Hymn Video API
+#[derive(Deserialize)]
+struct HymnVideoParams {
+    hymnal: Hymnals,
+    number: HymnNumber,
+}
+
+#[get("/api/hymnal/videos")]
+async fn video_search_api(params: Query<HymnVideoParams>) -> Option<web::Json<BingSearchResult>> {
+    let hymnal: Hymnal = params.hymnal.into();
+    let hymn = hymnal
+        .hymns
+        .iter()
+        .find(|hymn| hymn.number == params.number)?;
+
+    bing::search(hymn).await.map_err(|_| ()).map(web::Json).ok()
 }
 
 #[derive(Deserialize)]

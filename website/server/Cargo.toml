@@ -14,3 +14,7 @@ serde = "1"
 serde_json = "1"
 episcopal-api = { path = "../../episcopal_api" }
 lazy_static = "1"
+urlencoding = "2"
+reqwest = { version =  "0.10", features = ["json"]}
+oauth2 = "4"
+anyhow = "1"

@@ -1,11 +1,14 @@
 Website Todos
 =============
 
+- Bugs
+  - [ ] Second Sunday in Lent colect
+  - [ ] Ash Wednesday collect repeated
 - Hymns
   - [x] Insert service music/office hymn links into Office liturgies
   - [ ] finish tagging service music
   - [ ] If tag search present in path, give a set of search results at render time
-  - [ ] YouTube video search
+  - [x] YouTube video search
   - [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany
 - [ ] Set preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
 - Clean up (look in template only mode, proofread/test)

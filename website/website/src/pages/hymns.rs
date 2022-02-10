@@ -1,6 +1,7 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 
 use crate::{
+    api::bing::BingSearchResult,
     components::*,
     utils::{
         decode_uri,
@@ -497,6 +498,107 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
         })
         .boxed_local();
 
+    let video_state = Fetch::<BingSearchResult>::new(&format!(
+        "/api/hymnal/videos?hymnal={:#?}&number={}",
+        hymn.source, hymn.number
+    ));
+
+    let video_view = video_state
+        .state
+        .stream()
+        .map(|status| match status {
+            FetchStatus::Idle => View::Empty,
+            FetchStatus::Loading => view! { <p class="loading">{t!("loading")}</p> },
+            FetchStatus::Error(_) => view! { <p class="error">{t!("hymnal.video_errr")}</p> },
+            FetchStatus::Success(result) => match *result {
+                BingSearchResult::ErrorResponse(_) => {
+                    view! { <p class="error">{t!("hymnal.video_errr")}</p> }
+                }
+                BingSearchResult::Videos(videos) => {
+                    let embed : Behavior<Option<String>> = Behavior::new(None);
+                    let player = embed.stream()
+                        .map(move |embed| match embed {
+                            Some(embed_code) => {
+                                web_sys::DomParser::new()
+                                    .and_then(|parser| parser.parse_from_string(&embed_code, web_sys::SupportedType::TextHtml))
+                                    .and_then(|tree| {
+                                        tree.query_selector("iframe")
+                                    })
+                                    .ok()
+                                    .flatten()
+                                    .and_then(|iframe| iframe.get_attribute("src"))
+                                    .map(|src|
+                                        view! {
+                                            <iframe class="player" src={src} allow="fullscreen"></iframe>
+                                        }
+                                    )
+                                    .unwrap_or_else(|| View::Empty)
+                            },
+                            None => View::Empty
+                        })
+                        .boxed_local();
+
+                    let videos = View::Fragment(
+                        videos
+                            .value
+                            .iter()
+                            .map(move |video| {
+                                view! {
+                                    <li>
+                                        <dyn:a on:click={
+                                            let embed_html = video.embed_html.clone();
+                                            let embed = embed.clone();
+                                            move |ev: Event| {
+                                                if let Some(embed_html) = embed_html.as_ref() {
+                                                    if embed_html.contains("iframe") && embed_html.contains("src") {
+                                                        ev.prevent_default();
+                                                        embed.set(Some(embed_html.clone()));
+                                                        let video_view = document().get_element_by_id("video-view-label").unwrap();
+                                                        video_view.scroll_into_view();
+                                                    }
+                                                }
+                                            }
+                                        }>
+                                            <img
+                                                alt=""
+                                                src={video.thumbnail_url.clone().unwrap_or_else(|| "/static/assets/icons/tabler-icon-x.svg".to_string())}
+                                            />
+                                        </dyn:a>
+                                        <div class="metadata">
+                                            <h4>
+                                                <a
+                                                    href={video.content_url.clone().unwrap_or_else(|| String::from("#"))}
+                                                    target="_blank"
+                                                >
+                                                    {video.name.clone().unwrap_or_default()}
+                                                </a>
+                                            </h4>
+                                            <p class="description">{video.description.clone().unwrap_or_default()}</p>
+                                            <p class="creator">
+                                                {video.publisher.clone().unwrap_or_default().iter().map(|publisher| publisher.name.clone()).intersperse(" – ".to_string()).collect::<String>()}
+                                                " – "
+                                                {video.creator.clone().map(|creator| creator.name).unwrap_or_default()}
+                                            </p>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        )
+                        .collect(),
+                    );
+                    view! {
+                        <> 
+                            {player}
+                            <ul>
+                                {videos}
+                            </ul>
+                        </>
+                    }
+                }
+            },
+        })
+        .boxed_local();
+
     view! {
         <>
             {header(locale, &format!("{} {}", hymn.number, hymn.title))}
@@ -542,6 +644,10 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                             <label class="toggle" for="text-view">{t!("hymnal.text_view")}</label>
                             <input class="toggle" type="radio" id="image-view" name="view-mode"/>
                             <label class="toggle" for="image-view">{t!("hymnal.music_view")}</label>
+                            <dyn:input class="toggle" type="radio" id="video-view" name="view-mode"
+                                on:change=move |_ev: Event| video_state.send()
+                            />
+                            <label class="toggle" for="video-view" id="video-view-label">{t!("hymnal.video_view")}</label>
                         </>
                     }
                 }}
@@ -616,6 +722,10 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                         </div>
                     }
                 }}
+
+                <div class="video-view">
+                    {video_view}
+                </div>
 
                 // Copyright notice in footer
                 <footer>
