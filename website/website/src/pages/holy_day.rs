@@ -23,10 +23,10 @@ pub struct HolyDayParams {
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct HolyDayProps {
-    date: String,
+    date: Option<String>,
     locale: String,
     name: String,
-    bio: String,
+    bio: Option<String>,
     collect_traditional: Document,
     collect_contemporary: Document,
     first_lesson: Document,
@@ -56,17 +56,20 @@ fn head(_locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
 }
 
 fn body(locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
-    let bio = View::Fragment(
-        props
-            .bio
+    let bio = if let Some(bio) = &props.bio {
+        let mut bio = bio
             .split("\n\n")
             .map(|para| {
                 view! {
                   <p>{para}</p>
                 }
             })
-            .collect(),
-    );
+            .collect::<Vec<_>>();
+        bio.push(view! { <hr/> });
+        View::Fragment(bio)
+    } else {
+        View::Empty
+    };
 
     let first_lesson_citation = content_to_citation(&props.first_lesson.content);
     let psalm_citation = content_to_citation(&props.psalm.content);
@@ -79,11 +82,12 @@ fn body(locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
     ])))
     .view(locale);
 
-    let header_title = format!(
-        "{}: {}",
-        props.date,
-        props.name.split(',').next().unwrap_or(props.name.as_str())
-    );
+    let name_primary = props.name.split(',').next().unwrap_or(props.name.as_str());
+    let header_title = if let Some(date) = &props.date {
+        format!("{}: {}", date, name_primary)
+    } else {
+        name_primary.to_string()
+    };
 
     let bible_version = preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
         .and_then(|value| match value {
@@ -96,7 +100,7 @@ fn body(locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
         <>
             {header(locale, &header_title)}
             <main>
-                <h1>{format!("{}: {}", props.date, props.name)}</h1>
+                <h1>{format!("{}{}{}", props.date.clone().unwrap_or_default(), if props.date.is_some() { ": " } else { "" }, props.name)}</h1>
 
                 // Collects
                 <dyn:view view={collect_view}/>
@@ -118,7 +122,6 @@ fn body(locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
 
                 // Bio
                 {bio}
-                <hr/>
 
                 // Actual readings
                 <h2>{t!("holy_day.lessons_and_psalm")}</h2>
@@ -192,7 +195,8 @@ fn static_props(locale: &str, _path: &str, params: &HolyDayParams) -> Option<Hol
                         Some(format!("{} {}", language.month_name(*month), day))
                     }
                     _ => None,
-                })?;
+                });
+
             let name = LFF2018_CALENDAR
                 .feast_name(feast, language)
                 // or, search in BCP calendar if can't find in LFF (i.e., for Eve of ___)
@@ -202,7 +206,7 @@ fn static_props(locale: &str, _path: &str, params: &HolyDayParams) -> Option<Hol
             let bio = LFF_BIOS
                 .iter()
                 .find(|(s_feast, _)| *s_feast == feast || Some(*s_feast) == eve_of)
-                .map(|(_, bio)| bio.to_string())?;
+                .map(|(_, bio)| bio.to_string());
 
             // search both RCL and LFF 2018 lectionary for holy day readings
             let lectionary = RCL
