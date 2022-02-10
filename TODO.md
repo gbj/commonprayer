@@ -8,7 +8,8 @@ Website Todos
   - [x] Insert service music/office hymn links into Office liturgies
   - [ ] finish tagging service music
   - [ ] If tag search present in path, give a set of search results at render time
-  - [x] YouTube video search
+  - [x] Bing video search
+    - [ ] Bing search acknowledgement on this page
   - [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany
 - [ ] Set preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
 - Clean up (look in template only mode, proofread/test)
