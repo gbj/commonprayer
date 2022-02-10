@@ -1,9 +1,12 @@
 use crate::{
     components::biblical_reading,
+    preferences,
     utils::fetch::{Fetch, FetchStatus},
 };
 use episcopal_api::{
-    liturgy::{BiblicalCitation, BiblicalReading, Version},
+    liturgy::{
+        BiblicalCitation, BiblicalReading, GlobalPref, PreferenceKey, PreferenceValue, Version,
+    },
     reference_parser::{BibleVerse, BibleVersePart, Book},
 };
 use futures::StreamExt;
@@ -20,8 +23,18 @@ pub fn biblical_citation(
     citation: &BiblicalCitation,
     version: Version,
 ) -> View {
-    // TODO use version preferences
+    let version = if version.is_bible_translation() {
+        version
+    } else {
+        preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
+            .and_then(|value| match value {
+                PreferenceValue::Version(v) => Some(v),
+                _ => None,
+            })
+            .unwrap_or(Version::NRSV)
+    };
     let fetch = Fetch::<BibleReadingFromAPI>::new(reading_url(&citation.citation, version));
+
     fetch.send();
 
     let main = fetch

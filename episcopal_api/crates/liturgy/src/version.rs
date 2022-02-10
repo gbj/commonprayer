@@ -27,6 +27,15 @@ pub enum Version {
     CEB,
 }
 
+impl Version {
+    pub fn is_bible_translation(&self) -> bool {
+        match self {
+            Version::NRSV | Version::NRSVAE | Version::ESV | Version::KJV | Version::CEB => true,
+            _ => false,
+        }
+    }
+}
+
 impl Display for Version {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let label = match self {
