@@ -1,1 +1,1 @@
-web: PORT=$PORT HOST=0.0.0.0 PROJECT_ROOT=~/website ~/website/server/target/release/server
+web: PORT=$PORT HOST=0.0.0.0 PROJECT_ROOT=~/website ~/website/server/target/debug/server
