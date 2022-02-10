@@ -9,6 +9,8 @@ pub enum BingSearchResult {
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Videos {
+    #[serde(alias = "webSearchUrl")]
+    pub web_search_url: String,
     pub value: Vec<VideoResult>,
 }
 

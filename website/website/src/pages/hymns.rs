@@ -513,10 +513,10 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
         .map(|status| match status {
             FetchStatus::Idle => View::Empty,
             FetchStatus::Loading => view! { <p class="loading">{t!("loading")}</p> },
-            FetchStatus::Error(_) => view! { <p class="error">{t!("hymnal.video_errr")}</p> },
+            FetchStatus::Error(_) => view! { <p class="error">{t!("hymnal.video_error")}</p> },
             FetchStatus::Success(result) => match *result {
                 BingSearchResult::ErrorResponse(_) => {
-                    view! { <p class="error">{t!("hymnal.video_errr")}</p> }
+                    view! { <p class="error">{t!("hymnal.video_error")}</p> }
                 }
                 BingSearchResult::Videos(videos) => {
                     let embed : Behavior<Option<String>> = Behavior::new(None);
@@ -542,32 +542,34 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                         })
                         .boxed_local();
 
-                    let videos = View::Fragment(
+                    let videos_view = View::Fragment(
                         videos
                             .value
                             .iter()
                             .map(move |video| {
                                 view! {
                                     <li>
-                                        <dyn:a on:click={
-                                            let embed_html = video.embed_html.clone();
-                                            let embed = embed.clone();
-                                            move |ev: Event| {
-                                                if let Some(embed_html) = embed_html.as_ref() {
-                                                    if embed_html.contains("iframe") && embed_html.contains("src") {
-                                                        ev.prevent_default();
-                                                        embed.set(Some(embed_html.clone()));
-                                                        let video_view = document().get_element_by_id("video-view-label").unwrap();
-                                                        video_view.scroll_into_view();
+                                        <div class="thumbnail">
+                                            <dyn:a on:click={
+                                                let embed_html = video.embed_html.clone();
+                                                let embed = embed.clone();
+                                                move |ev: Event| {
+                                                    if let Some(embed_html) = embed_html.as_ref() {
+                                                        if embed_html.contains("iframe") && embed_html.contains("src") {
+                                                            ev.prevent_default();
+                                                            embed.set(Some(embed_html.clone()));
+                                                            let video_view = document().get_element_by_id("video-view-label").unwrap();
+                                                            video_view.scroll_into_view();
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        }>
-                                            <img
-                                                alt=""
-                                                src={video.thumbnail_url.clone().unwrap_or_else(|| "/static/assets/icons/tabler-icon-x.svg".to_string())}
-                                            />
-                                        </dyn:a>
+                                            }>
+                                                <img
+                                                    alt=""
+                                                    src={video.thumbnail_url.clone().unwrap_or_else(|| "/static/assets/icons/tabler-icon-x.svg".to_string())}
+                                                />
+                                            </dyn:a>
+                                        </div>
                                         <div class="metadata">
                                             <h4>
                                                 <a
@@ -594,8 +596,9 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                         <> 
                             {player}
                             <ul>
-                                {videos}
+                                {videos_view}
                             </ul>
+                            <a class="more" target="_blank" href={&videos.web_search_url}>{t!("hymnal.more_results")}</a>
                         </>
                     }
                 }

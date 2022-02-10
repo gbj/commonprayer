@@ -11,6 +11,7 @@ Website Todos
   - [ ] If tag search present in path, give a set of search results at render time
   - [x] Bing video search
     - [ ] Bing search acknowledgement on this page
+    - [ ] note when no results were found -- (and re-search dropping tune?)
   - [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany
 - [ ] Set preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
 - Clean up (look in template only mode, proofread/test)

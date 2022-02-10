@@ -307,6 +307,7 @@ label.toggle:last-of-type {
   border: none;
   width: 100%;
   height: auto;
+  min-height: 200px;
 }
 
 .video-view li {
@@ -333,6 +334,10 @@ label.toggle:last-of-type {
   margin-right: -1rem;
 }
 
+.video-view .metadata h4 {
+  text-align: left;
+}
+
 .video-view h4 {
   font-weight: normal;
   margin: 0;
@@ -343,11 +348,18 @@ label.toggle:last-of-type {
   -webkit-box-orient: vertical;
 }
 
+.video-view .thumbnail {
+  background-image: url("/static/icons/tabler-icon-player-play.svg");
+  background-repeat: no-repeat;
+  z-index: 30;
+  background-position: center;
+}
+
 .video-view li img {
   width: 100%;
   margin-right: 1rem;
   height: auto;
-  grid-area: thumbnail;
+  opacity: 0.7;
 }
 
 .video-view .description {
@@ -361,4 +373,16 @@ label.toggle:last-of-type {
 
 .video-view p {
   margin: 0.25rem;
+}
+
+.video-view .creator {
+  font-size: 0.8rem;
+  font-variant: small-caps;
+  text-align: right;
+}
+
+.video-view .more {
+  display: block;
+  margin: auto;
+  text-align: center;
 }
