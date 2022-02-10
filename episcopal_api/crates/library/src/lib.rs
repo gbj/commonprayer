@@ -482,6 +482,12 @@ pub trait Library {
                         collects.push(collect);
                     }
 
+                    // deduplicate by content
+                    let collects = collects
+                        .into_iter()
+                        .unique_by(|doc| doc.content.clone())
+                        .collect::<Vec<_>>();
+
                     if *allow_multiple {
                         Document::series_or_document(&mut collects.into_iter())
                     } else {
