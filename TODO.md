@@ -2,7 +2,7 @@ Website Todos
 =============
 
 - Bugs
-  - [ ] Second Sunday in Lent colect
+  - [ ] Second Sunday in Lent collect
   - [ ] Ash Wednesday collect repeated
   - [ ] Small iOS appearance bugs
 - Hymns
