@@ -2,7 +2,6 @@ Website Todos
 =============
 
 - Bugs
-  - [ ] Ash Wednesday collect repeated
   - [ ] Small iOS appearance bugs
 - Hymns
   - [x] Insert service music/office hymn links into Office liturgies
