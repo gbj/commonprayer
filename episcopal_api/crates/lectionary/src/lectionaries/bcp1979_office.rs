@@ -4186,13 +4186,13 @@ pub const BCP1979_DAILY_OFFICE_LECTIONARY: Lectionary = Lectionary {
             LiturgicalDayId::WeekAndDay(LiturgicalWeek::Epiphany7, Weekday::Tue),
             Year::DailyOffice(DailyOfficeYear::Two),
             ReadingType::FirstReading,
-            "Rov. 4:1-27",
+            "Prov. 4:1-27",
         ),
         (
             LiturgicalDayId::WeekAndDay(LiturgicalWeek::Epiphany7, Weekday::Tue),
             Year::DailyOffice(DailyOfficeYear::Two),
             ReadingType::SecondReading,
-            "1 Joh 4:7-21",
+            "1 John 4:7-21",
         ),
         (
             LiturgicalDayId::WeekAndDay(LiturgicalWeek::Epiphany7, Weekday::Tue),
@@ -6598,7 +6598,7 @@ pub const BCP1979_DAILY_OFFICE_LECTIONARY: Lectionary = Lectionary {
             LiturgicalDayId::WeekAndDay(LiturgicalWeek::Easter2, Weekday::Sun),
             Year::DailyOffice(DailyOfficeYear::Two),
             ReadingType::SecondReading,
-            "1 Joh 1:1-7",
+            "1 John 1:1-7",
         ),
         (
             LiturgicalDayId::WeekAndDay(LiturgicalWeek::Easter2, Weekday::Mon),
