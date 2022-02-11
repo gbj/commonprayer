@@ -13,7 +13,7 @@ Website Todos
   - [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany
 - [ ] Set preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
 - Clean up (look in template only mode, proofread/test)
-  - [ ] Noonday Prayer
+  - [x] Noonday Prayer
   - [ ] Compline
   - [ ] Morning Prayer
   - [ ] Evening Prayer

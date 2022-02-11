@@ -15,6 +15,12 @@ pub struct Psalm {
 }
 
 impl Psalm {
+    #[must_use]
+    pub fn citation(mut self, citation: impl std::fmt::Display) -> Self {
+        self.citation = Some(citation.to_string());
+        self
+    }
+
     /// Returns only the verses and sections of a psalm that are included in its citation.
     /// ```
     /// # use psalter::bcp1979::{PSALM_1, PSALM_119};
