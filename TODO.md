@@ -1,7 +1,6 @@
 Website Todos
 =============
 
-- [ ] Condense Psalm 119 citations in Daily Office lectionary
 - Bugs
   - [ ] Small iOS appearance bugs
 - Hymns
