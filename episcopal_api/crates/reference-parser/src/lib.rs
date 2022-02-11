@@ -65,4 +65,19 @@ impl BibleReference {
     pub fn contains(&self, verse: BibleVerse) -> bool {
         self.ranges.iter().any(|range| range.contains(verse))
     }
+
+    /// Returns the first verse listed in any range in the reference, if there are any
+    pub fn first_verse(&self) -> Option<(Book, u16, u16)> {
+        self.ranges.get(0).and_then(|range| {
+            if let Some(book) = range.start.book {
+                Some((
+                    book,
+                    range.start.chapter.unwrap_or(1),
+                    range.start.verse.unwrap_or(1),
+                ))
+            } else {
+                None
+            }
+        })
+    }
 }

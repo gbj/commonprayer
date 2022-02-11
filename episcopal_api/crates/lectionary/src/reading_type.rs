@@ -1,40 +1,42 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug, Serialize, Deserialize)]
+#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug, PartialOrd, Ord, Serialize, Deserialize)]
 pub enum ReadingType {
     Empty,
+    // Special Services
+    PalmsGospel,
+    // Easter Vigil and Pentecost Vigil
+    Vigil1,
+    VigilPsalm1,
+    Vigil2,
+    VigilPsalm2,
+    Vigil3,
+    VigilPsalm3,
+    Vigil4,
+    VigilPsalm4,
+    Vigil5,
+    VigilPsalm5,
+    Vigil6,
+    VigilPsalm6,
+    Vigil7,
+    VigilPsalm7,
+    Vigil8,
+    VigilPsalm8,
+    Vigil9,
+    VigilPsalm9,
+    // Ordinary Office/Eucharistic Readings
+    MorningPsalm,
+    EveningPsalm,
     FirstReadingAlternateYear,
     FirstReading,
     Psalm,
     SecondReading,
     Gospel,
-    MorningPsalm,
-    EveningPsalm,
+    // Holy Day office readings
     Morning1,
     Morning2,
     Evening1,
     Evening2,
-    // Special Services
-    PalmsGospel,
-    // Easter Vigil and Pentecost Vigil
-    Vigil1,
-    Vigil2,
-    Vigil3,
-    Vigil4,
-    Vigil5,
-    Vigil6,
-    Vigil7,
-    Vigil8,
-    Vigil9,
-    VigilPsalm1,
-    VigilPsalm2,
-    VigilPsalm3,
-    VigilPsalm4,
-    VigilPsalm5,
-    VigilPsalm6,
-    VigilPsalm7,
-    VigilPsalm8,
-    VigilPsalm9,
 }
 
 impl ReadingType {

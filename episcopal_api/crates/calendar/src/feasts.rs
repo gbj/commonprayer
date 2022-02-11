@@ -370,8 +370,8 @@ pub enum CommonOfSaints {
 
 #[derive(Copy, Clone, PartialEq, Eq, Hash, Debug, Serialize, Deserialize)]
 pub enum Time {
-    AllDay,
     MorningOnly,
+    AllDay,
     EveningOnly(Option<Feast>),
 }
 
