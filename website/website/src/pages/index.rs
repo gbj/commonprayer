@@ -1,4 +1,4 @@
-use crate::components::header;
+use crate::components::{analytics, header};
 use leptos::*;
 use rust_i18n::t;
 
@@ -14,6 +14,7 @@ fn head(_locale: &str, _props: &(), _render_state: &()) -> View {
         <>
             <title>{t!("common_prayer")}</title>
             <link rel="stylesheet" href="/static/general.css"/>
+            {analytics()}
         </>
     }
 }

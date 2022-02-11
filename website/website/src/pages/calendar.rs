@@ -35,6 +35,7 @@ pub fn head(_locale: &str, _props: &CalendarPageProps, _render_state: &()) -> Vi
             <title>{t!("menu.calendar")} " – " {t!("common_prayer")}</title>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/calendar.css"/>
+            {analytics()}
         </>
     }
 }

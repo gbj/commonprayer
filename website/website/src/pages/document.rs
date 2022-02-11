@@ -66,6 +66,7 @@ pub fn head(_locale: &str, props: &DocumentPageProps, _render_state: &()) -> Vie
             <title>{title}</title>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
+            {analytics()}
         </>
     }
 }

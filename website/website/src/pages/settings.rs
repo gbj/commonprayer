@@ -1,7 +1,7 @@
 use std::{collections::HashMap, time::Duration};
 
 use crate::{
-    components::{header, SegmentButton, Toggle},
+    components::*,
     preferences::{self, StorageError},
     table_of_contents::TOCLiturgy,
 };
@@ -55,6 +55,7 @@ fn head(_locale: &str, _props: &SettingsPageProps, _render_state: &()) -> View {
             <title>{t!("settings.title")} " – " {t!("common_prayer")}</title>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/settings.css"/>
+            {analytics()}
         </>
     }
 }

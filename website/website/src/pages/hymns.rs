@@ -72,6 +72,7 @@ pub fn head(
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/hymnal.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
+            {analytics()}
         </>
     }
 }

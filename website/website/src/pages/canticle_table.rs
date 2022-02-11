@@ -16,6 +16,7 @@ pub fn head(_locale: &str, _props: &(), _render_state: &()) -> View {
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
             <link rel="stylesheet" href="/static/canticle-table.css"/>
+            {analytics()}
         </>
     }
 }
