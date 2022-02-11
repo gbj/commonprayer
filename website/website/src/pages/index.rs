@@ -7,6 +7,7 @@ pub fn index() -> Page<(), (), ()> {
         .head_fn(head)
         .body_fn(body)
         .hydration_state(|_, _, _| Some(()))
+        .static_page()
 }
 
 fn head(_locale: &str, _props: &(), _render_state: &()) -> View {
