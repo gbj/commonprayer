@@ -52,7 +52,6 @@ fn head(locale: &str, props: &DailyReadingsPageProps, _render_state: &()) -> Vie
             <link rel="stylesheet" href="/static/document.css"/>
             <link rel="stylesheet" href="/static/daily-readings.css"/>
             {redirect}
-            {analytics()}
         </>
     }
 }

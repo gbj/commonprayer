@@ -51,7 +51,6 @@ fn head(_locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
             <link rel="stylesheet" href="/static/holy-day.css"/>
-            {analytics()}
         </>
     }
 }
