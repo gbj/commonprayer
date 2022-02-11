@@ -196,18 +196,23 @@ where
                     {self.head.map(|head_fn| (head_fn)(locale, &hydration_state, &render_state)).unwrap_or(View::Empty)}
                 </head>
                 <body>
-                {self.body.map(|body_fn| (body_fn)(locale, &hydration_state, &render_state)).unwrap_or(View::Empty)}
-                {global_body_code.unwrap_or(View::Empty)}
+                    // the page's body
+                    {self.body.map(|body_fn| (body_fn)(locale, &hydration_state, &render_state)).unwrap_or(View::Empty)}
+
+                    // additional code to be injected -- can be specified by server
+                    {global_body_code.unwrap_or(View::Empty)}
+
+                    // hydration code
+                    {if self.static_page {
+                        View::Empty}
+                    else {
+                        view! {
+                            <script type="module">
+                            {hydration_js}
+                            </script>
+                        }
+                    }}
                 </body>
-                {if self.static_page {
-                    View::Empty}
-                else {
-                    view! {
-                        <script type="module">
-                        {hydration_js}
-                        </script>
-                    }
-                }}
             </html>
         })
     }
