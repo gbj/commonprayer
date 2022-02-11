@@ -14,7 +14,7 @@ use episcopal_api::{
     liturgy::Document,
 };
 use lazy_static::lazy_static;
-use leptos::Page;
+use leptos::{view, Page};
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use tempfile::tempdir;
 use website::{
@@ -272,12 +272,21 @@ where
         cfg.service(web::resource(&localized_path).route(web::get().to({
             let locale = locale.to_string();
             let page = page.clone();
+
             move |req: HttpRequest, params: Path<P>| {
                 let path = req.uri().to_string();
-                match page.build(&locale, &path, params.into_inner()) {
+
+                // Plausible.io is an open-source analytics software as a service that uses no cookies and collects/sells no user data
+                // It is an alternative to Google Analytics, etc. with strong privacy protections
+                // Rather than an advertising based model, I pay a subscription fee to support their service
+                let analytics_injection = view! {
+                    <script defer data-domain="commonprayeronline.org" src="https://plausible.io/js/plausible.js"></script>
+                };
+
+                match page.build(&locale, &path, params.into_inner(), Some(analytics_injection)) {
                     Ok(view) => HttpResponse::Ok().body(&view.to_html()),
                     Err(leptos::PageRenderError::NotFound) => {
-                        let not_found = not_found_404().build(&locale, &path, ()).unwrap();
+                        let not_found = not_found_404().build(&locale, &path, (), None).unwrap();
                         HttpResponse::Ok().body(&not_found.to_html())
                     }
                     Err(err) => HttpResponse::InternalServerError().body(err.to_string()),

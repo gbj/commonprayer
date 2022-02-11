@@ -33,8 +33,8 @@ pub enum PageRenderError {
 pub struct Page<T, P, R>
 where
     T: Serialize + DeserializeOwned, // hydration state
-    P: DeserializeOwned, // URL params
-    R: Default // render-only state (known only on server-side, never serialized)
+    P: DeserializeOwned,             // URL params
+    R: Default, // render-only state (known only on server-side, never serialized)
 {
     pub name: &'static str,
     head: Option<HeadFn<T, R>>,
@@ -50,7 +50,7 @@ impl<T, P, R> Page<T, P, R>
 where
     T: Serialize + DeserializeOwned,
     P: DeserializeOwned,
-    R: Default
+    R: Default,
 {
     pub fn new(name: &'static str) -> Self {
         Self {
@@ -137,7 +137,13 @@ where
         self
     }
 
-    pub fn build(&self, locale: &str, path: &str, params: P) -> Result<View, PageRenderError> {
+    pub fn build(
+        &self,
+        locale: &str,
+        path: &str,
+        params: P,
+        global_body_code: Option<View>,
+    ) -> Result<View, PageRenderError> {
         let hydration_state = (self.hydration_state_fn)
             .expect("a Page should have a defined hydrate_fn to before build() is called")(
             locale, path, &params,
@@ -148,12 +154,19 @@ where
             (self.render_state_fn).and_then(|f| (f)(locale, path, &params))
         } else {
             None
-        }.unwrap_or_default();
+        }
+        .unwrap_or_default();
 
-        self.render(locale, hydration_state, render_state)
+        self.render(locale, hydration_state, render_state, global_body_code)
     }
 
-    pub fn render(&self, locale: &str, hydration_state: T, render_state: R) -> Result<View, PageRenderError> {
+    pub fn render(
+        &self,
+        locale: &str,
+        hydration_state: T,
+        render_state: R,
+        global_body_code: Option<View>,
+    ) -> Result<View, PageRenderError> {
         let hydration_function_name = self.name.replace('-', "_");
         let serialized_state = serde_json::to_string(&hydration_state)
             .map_err(|_| PageRenderError::SerializingProps)?
@@ -184,6 +197,7 @@ where
                 </head>
                 <body>
                 {self.body.map(|body_fn| (body_fn)(locale, &hydration_state, &render_state)).unwrap_or(View::Empty)}
+                {global_body_code.unwrap_or(View::Empty)}
                 </body>
                 {if self.static_page {
                     View::Empty}
