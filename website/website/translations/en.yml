@@ -16,6 +16,7 @@ en:
     calendar: Calendar
     canticle_table: Canticle Table
     hymnal: Hymnal
+    about: About
 
   holy_day:
     lessons_and_psalm: Lessons and Psalm
@@ -217,3 +218,8 @@ en:
 
   search: Search
   today: Today
+
+  about:
+    title: Common Prayer Online
+    subtitle: An unofficial source for The Episcopal Church’s authorized liturgies.
+    email: Email Me

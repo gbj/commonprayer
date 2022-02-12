@@ -98,10 +98,16 @@ impl View {
                 }
 
                 // children
-                for child in &element.children {
-                    let (new_key, html) = child.to_html_with_hydration_key(hydration_key);
-                    hydration_key = new_key;
-                    buffer.push_str(&html);
+                if element.inner_html.is_empty() {
+                    // if inner_html not set, add children
+                    for child in &element.children {
+                        let (new_key, html) = child.to_html_with_hydration_key(hydration_key);
+                        hydration_key = new_key;
+                        buffer.push_str(&html);
+                    }
+                } else {
+                    // otherwise, just insert inner_html
+                    buffer.push_str(&element.inner_html);
                 }
 
                 // closing tag name
@@ -209,8 +215,10 @@ impl View {
                 }
             }
             View::StaticElement(element) => {
-                for child in element.children {
-                    child.hydrate_with_hydration_key(parent, hydration_key);
+                if element.inner_html.is_empty() {
+                    for child in element.children {
+                        child.hydrate_with_hydration_key(parent, hydration_key);
+                    }
                 }
             }
             View::Fragment(children) => {
@@ -286,8 +294,12 @@ impl View {
                     }
                 }
 
-                for child in element.children {
-                    append_child(&el, &child.client_side_render());
+                if element.inner_html.is_empty() {
+                    for child in element.children {
+                        append_child(&el, &child.client_side_render());
+                    }
+                } else {
+                    el.set_inner_html(&element.inner_html);
                 }
 
                 el.unchecked_into()

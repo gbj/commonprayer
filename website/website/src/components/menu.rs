@@ -77,6 +77,9 @@ pub fn menu(locale: &str) -> View {
                 <li>
                     <a href={format!("/{}/settings", locale)}>{t!("settings.title")}</a>
                 </li>
+                <li>
+                    <a href={format!("/{}/about", locale)}>{t!("menu.about")}</a>
+                </li>
             </ul>
         },
     )

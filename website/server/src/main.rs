@@ -189,6 +189,7 @@ async fn export_docx(data: web::Form<DocxExportFormData>) -> Result<NamedFile> {
 // Add additional pages, defined programmatically
 fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
     for locale in locales {
+        add_page(cfg, locale, about());
         add_page(cfg, locale, calendar());
         add_page(cfg, locale, canticle_table());
         add_page(cfg, locale, daily_office());

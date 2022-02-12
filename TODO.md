@@ -1,6 +1,8 @@
 Website Todos
 =============
 
+- [x] About page
+- [ ] Fix saints' names => import that to Venite + Fwd
 - Bugs
   - [ ] Small iOS appearance bugs
 - Hymns

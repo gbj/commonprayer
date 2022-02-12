@@ -1,3 +1,4 @@
+mod about;
 mod calendar;
 mod canticle_table;
 mod daily_office;
@@ -9,6 +10,7 @@ mod index;
 mod not_found_404;
 mod settings;
 
+pub use about::*;
 pub use calendar::*;
 pub use canticle_table::*;
 pub use daily_office::*;
