@@ -82,11 +82,16 @@ fn body(locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
     ])))
     .view(locale);
 
-    let name_primary = props.name.split(',').next().unwrap_or(props.name.as_str());
+    let name_primary = props
+        .name
+        .split(',')
+        .next()
+        .unwrap_or(props.name.as_str())
+        .replace('[', "");
     let header_title = if let Some(date) = &props.date {
         format!("{}: {}", date, name_primary)
     } else {
-        name_primary.to_string()
+        name_primary
     };
 
     let bible_version = preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
@@ -200,8 +205,7 @@ fn static_props(locale: &str, _path: &str, params: &HolyDayParams) -> Option<Hol
             let name = LFF2018_CALENDAR
                 .feast_name(feast, language)
                 // or, search in BCP calendar if can't find in LFF (i.e., for Eve of ___)
-                .or_else(|| BCP1979_CALENDAR.feast_name(feast, language))?
-                .to_string();
+                .or_else(|| BCP1979_CALENDAR.feast_name(feast, language))?;
 
             let bio = LFF_BIOS
                 .iter()

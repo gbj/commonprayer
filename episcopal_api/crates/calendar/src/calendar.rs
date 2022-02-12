@@ -1,6 +1,7 @@
 use std::{cmp::Reverse, convert::TryInto};
 
 use language::Language;
+use status::Status;
 
 use crate::{
     easter_in_year, feasts::KalendarEntry, holy_day::HolyDayId, liturgical_day::LiturgicalDayId,
@@ -32,7 +33,7 @@ pub struct Calendar {
     /// Associations between [LiturgicalWeek]s and [Season]s
     pub week_seasons: &'static [(LiturgicalWeek, Season)],
     /// Name for each [Feast](crate::Feast), by language
-    pub feast_names: &'static [(Feast, Language, &'static str)],
+    pub feast_names: &'static [(Feast, Language, &'static str, Status)],
     /// Name for each [LiturgicalWeek](crate::LiturgicalWeek), by language
     pub week_names: &'static [(LiturgicalWeek, Language, &'static str)],
     /// Name for each [Proper](crate::Proper), by language
@@ -212,11 +213,17 @@ impl Calendar {
     }
 
     /// The name of a [Feast](crate::Feast) in a given [Language](language::Language)
-    pub fn feast_name(&self, feast: Feast, language: Language) -> Option<&str> {
+    pub fn feast_name(&self, feast: Feast, language: Language) -> Option<String> {
         self.feast_names
             .iter()
-            .find(|(s_feast, s_language, _)| *s_feast == feast && *s_language == language)
-            .map(|(_, _, name)| *name)
+            .find(|(s_feast, s_language, _, _)| *s_feast == feast && *s_language == language)
+            .map(|(_, _, name, status)| {
+                if status == &Status::TrialUse {
+                    format!("[{name}]")
+                } else {
+                    name.to_string()
+                }
+            })
     }
 
     /// The name of a [LiturgicalWeek](crate::LiturgicalWeek) in a given [Language](language::Language)

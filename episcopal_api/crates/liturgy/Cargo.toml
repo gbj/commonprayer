@@ -11,6 +11,7 @@ language = { path = "../language" }
 lectionary = { path = "../lectionary" }
 reference-parser = { path = "../reference-parser" }
 serde = { version = "1.0", features = ["derive"]}
+status = { path = "../status" }
 itertools = "0.10"
 thiserror = "1"
 

@@ -378,7 +378,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Proverbs 31:10–20",
         ),
         (
-            LiturgicalDayId::Feast(Feast::AgnesTsaoKouYing),
+            LiturgicalDayId::Feast(Feast::AgnesAgathaLucy),
             Year::Any,
             ReadingType::Gospel,
             "Matthew 25:1–13",
@@ -492,7 +492,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Matthew 24:24–27",
         ),
         (
-            LiturgicalDayId::Feast(Feast::MargaretWard),
+            LiturgicalDayId::Feast(Feast::WardClitherowLine),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 116",
@@ -510,7 +510,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Luke 6:27–36",
         ),
         (
-            LiturgicalDayId::Feast(Feast::Sarah),
+            LiturgicalDayId::Feast(Feast::SarahTheodoraSyncletica),
             Year::Any,
             ReadingType::FirstReading,
             "Proverbs 9:1–6",
@@ -834,7 +834,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 114",
         ),
         (
-            LiturgicalDayId::Feast(Feast::AgnesTsaoKouYing),
+            LiturgicalDayId::Feast(Feast::AgnesAgathaLucy),
             Year::Any,
             ReadingType::FirstReading,
             "Exodus 23:1–9",
@@ -984,7 +984,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 15",
         ),
         (
-            LiturgicalDayId::Feast(Feast::CatherineOfAlexandria),
+            LiturgicalDayId::Feast(Feast::CatherineBarbaraMargaret),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 119:97–104",
@@ -1032,7 +1032,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 85",
         ),
         (
-            LiturgicalDayId::Feast(Feast::Joanna),
+            LiturgicalDayId::Feast(Feast::JoannaMarySalome),
             Year::Any,
             ReadingType::Gospel,
             "Mark 16:1–8",
@@ -1122,7 +1122,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Luke 1:46–55",
         ),
         (
-            LiturgicalDayId::Feast(Feast::IndependenceDayUnitedStates),
+            LiturgicalDayId::Feast(Feast::July4),
             Year::Any,
             ReadingType::Gospel,
             "Matthew 5:43–48",
@@ -1146,7 +1146,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Luke 14:15–23",
         ),
         (
-            LiturgicalDayId::Feast(Feast::IndependenceDayUnitedStates),
+            LiturgicalDayId::Feast(Feast::July4),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 145",
@@ -1260,13 +1260,13 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 15",
         ),
         (
-            LiturgicalDayId::Feast(Feast::PaulaAndEustochiumOfRome),
+            LiturgicalDayId::Feast(Feast::PaulaAndEustochium),
             Year::Any,
             ReadingType::Gospel,
             "Luke 8:1–3",
         ),
         (
-            LiturgicalDayId::Feast(Feast::HughLatimerAndNicholasRidley),
+            LiturgicalDayId::Feast(Feast::LatimerRidleyCranmer),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 142",
@@ -1554,7 +1554,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 133",
         ),
         (
-            LiturgicalDayId::Feast(Feast::Sarah),
+            LiturgicalDayId::Feast(Feast::SarahTheodoraSyncletica),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 119:65–72",
@@ -1656,7 +1656,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Matthew 13:44–46",
         ),
         (
-            LiturgicalDayId::Feast(Feast::Zenaida),
+            LiturgicalDayId::Feast(Feast::ZenaidaPhilonellaHermione),
             Year::Any,
             ReadingType::FirstReading,
             "Ecclesiasticus 38:1–15",
@@ -1698,7 +1698,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "1 Peter 1:3–9",
         ),
         (
-            LiturgicalDayId::Feast(Feast::PaulaAndEustochiumOfRome),
+            LiturgicalDayId::Feast(Feast::PaulaAndEustochium),
             Year::Any,
             ReadingType::FirstReading,
             "Judith 8:9–17",
@@ -1788,13 +1788,13 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Colossians 1:24–29",
         ),
         (
-            LiturgicalDayId::Feast(Feast::ElizabethCadyStanton),
+            LiturgicalDayId::Feast(Feast::StantonBloomerTruthTubman),
             Year::Any,
             ReadingType::Gospel,
             "Luke 11:5–10",
         ),
         (
-            LiturgicalDayId::Feast(Feast::ElizabethCadyStanton),
+            LiturgicalDayId::Feast(Feast::StantonBloomerTruthTubman),
             Year::Any,
             ReadingType::FirstReading,
             "Judges 9:50–55",
@@ -2034,7 +2034,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 126",
         ),
         (
-            LiturgicalDayId::Feast(Feast::IndependenceDayUnitedStates),
+            LiturgicalDayId::Feast(Feast::July4),
             Year::Any,
             ReadingType::FirstReading,
             "Deuteronomy 10:17–21",
@@ -2064,7 +2064,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Isaiah 11:1–10",
         ),
         (
-            LiturgicalDayId::Feast(Feast::MechthildeOfHackebornAndGertrudeTheGreat),
+            LiturgicalDayId::Feast(Feast::MechthildeAndGertude),
             Year::Any,
             ReadingType::Gospel,
             "Luke 10:38–42",
@@ -2088,7 +2088,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Luke 7:11–17",
         ),
         (
-            LiturgicalDayId::Feast(Feast::Joanna),
+            LiturgicalDayId::Feast(Feast::JoannaMarySalome),
             Year::Any,
             ReadingType::FirstReading,
             "Acts 2:29–36",
@@ -2130,13 +2130,13 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "2 Corinthians 1:3–5",
         ),
         (
-            LiturgicalDayId::Feast(Feast::AgnesTsaoKouYing),
+            LiturgicalDayId::Feast(Feast::AgnesAgathaLucy),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 27",
         ),
         (
-            LiturgicalDayId::Feast(Feast::MargaretWard),
+            LiturgicalDayId::Feast(Feast::WardClitherowLine),
             Year::Any,
             ReadingType::Gospel,
             "Mark 13:3–13",
@@ -2238,7 +2238,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Matthew 23:1–12",
         ),
         (
-            LiturgicalDayId::Feast(Feast::RichardRolle),
+            LiturgicalDayId::Feast(Feast::RolleHiltonKempe),
             Year::Any,
             ReadingType::Gospel,
             "Mark 4:35–41",
@@ -2280,7 +2280,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 66:1–8",
         ),
         (
-            LiturgicalDayId::Feast(Feast::Joanna),
+            LiturgicalDayId::Feast(Feast::JoannaMarySalome),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 50",
@@ -2424,7 +2424,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Matthew 19:27–29",
         ),
         (
-            LiturgicalDayId::Feast(Feast::MargaretWard),
+            LiturgicalDayId::Feast(Feast::WardClitherowLine),
             Year::Any,
             ReadingType::FirstReading,
             "Ezekiel 37:1–14",
@@ -2520,7 +2520,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "148:7–14",
         ),
         (
-            LiturgicalDayId::Feast(Feast::Damien),
+            LiturgicalDayId::Feast(Feast::DamienAndMarianne),
             Year::Any,
             ReadingType::FirstReading,
             "Isaiah 57:14–19",
@@ -2742,7 +2742,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Luke 15:8–10",
         ),
         (
-            LiturgicalDayId::Feast(Feast::HughLatimerAndNicholasRidley),
+            LiturgicalDayId::Feast(Feast::LatimerRidleyCranmer),
             Year::Any,
             ReadingType::FirstReading,
             "1 Corinthians 3:9–14",
@@ -2868,7 +2868,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Mark 8:34–38",
         ),
         (
-            LiturgicalDayId::Feast(Feast::RichardRolle),
+            LiturgicalDayId::Feast(Feast::RolleHiltonKempe),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 63:1–8",
@@ -3330,7 +3330,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Judges 4:16–24",
         ),
         (
-            LiturgicalDayId::Feast(Feast::ElizabethCadyStanton),
+            LiturgicalDayId::Feast(Feast::StantonBloomerTruthTubman),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 146",
@@ -3564,7 +3564,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Isaiah 55:6–11",
         ),
         (
-            LiturgicalDayId::Feast(Feast::Damien),
+            LiturgicalDayId::Feast(Feast::DamienAndMarianne),
             Year::Any,
             ReadingType::Gospel,
             "Matthew 11:1–6",
@@ -3630,7 +3630,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 119:49–56",
         ),
         (
-            LiturgicalDayId::Feast(Feast::MechthildeOfHackebornAndGertrudeTheGreat),
+            LiturgicalDayId::Feast(Feast::MechthildeAndGertude),
             Year::Any,
             ReadingType::FirstReading,
             "1 Samuel 1:21–28",
@@ -3690,7 +3690,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "1 Samuel 8:1–22",
         ),
         (
-            LiturgicalDayId::Feast(Feast::HughLatimerAndNicholasRidley),
+            LiturgicalDayId::Feast(Feast::LatimerRidleyCranmer),
             Year::Any,
             ReadingType::Gospel,
             "John 15:20–16:1",
@@ -3828,7 +3828,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 78",
         ),
         (
-            LiturgicalDayId::Feast(Feast::Sarah),
+            LiturgicalDayId::Feast(Feast::SarahTheodoraSyncletica),
             Year::Any,
             ReadingType::Gospel,
             "Mark 12:18–27",
@@ -3948,7 +3948,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 121",
         ),
         (
-            LiturgicalDayId::Feast(Feast::RichardRolle),
+            LiturgicalDayId::Feast(Feast::RolleHiltonKempe),
             Year::Any,
             ReadingType::FirstReading,
             "Romans 11:33–36",
@@ -4038,7 +4038,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Ephesians 6:10–17",
         ),
         (
-            LiturgicalDayId::Feast(Feast::Zenaida),
+            LiturgicalDayId::Feast(Feast::ZenaidaPhilonellaHermione),
             Year::Any,
             ReadingType::Gospel,
             "Mark 1:29–34",
@@ -4068,7 +4068,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 119:33–40",
         ),
         (
-            LiturgicalDayId::Feast(Feast::CatherineOfAlexandria),
+            LiturgicalDayId::Feast(Feast::CatherineBarbaraMargaret),
             Year::Any,
             ReadingType::FirstReading,
             "Judith 12:16–13:10",
@@ -4200,7 +4200,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Luke 12:32–34",
         ),
         (
-            LiturgicalDayId::Feast(Feast::Zenaida),
+            LiturgicalDayId::Feast(Feast::ZenaidaPhilonellaHermione),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 147",
@@ -4254,7 +4254,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Psalm 19",
         ),
         (
-            LiturgicalDayId::Feast(Feast::IndependenceDayUnitedStates),
+            LiturgicalDayId::Feast(Feast::July4),
             Year::Any,
             ReadingType::SecondReading,
             "Hebrews 11:8–16",
@@ -4416,7 +4416,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "2 Timothy 3:14–17",
         ),
         (
-            LiturgicalDayId::Feast(Feast::PaulaAndEustochiumOfRome),
+            LiturgicalDayId::Feast(Feast::PaulaAndEustochium),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 34",
@@ -4488,7 +4488,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Matthew 13:31–33",
         ),
         (
-            LiturgicalDayId::Feast(Feast::CatherineOfAlexandria),
+            LiturgicalDayId::Feast(Feast::CatherineBarbaraMargaret),
             Year::Any,
             ReadingType::Gospel,
             "Mark 9:42–50",
@@ -4854,7 +4854,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "Matthew 10:37–42",
         ),
         (
-            LiturgicalDayId::Feast(Feast::MechthildeOfHackebornAndGertrudeTheGreat),
+            LiturgicalDayId::Feast(Feast::MechthildeAndGertude),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 119:41–48",
@@ -4878,7 +4878,7 @@ pub const LFF2018_LECTIONARY: Lectionary = Lectionary {
             "1 Corinthians 3:16–23",
         ),
         (
-            LiturgicalDayId::Feast(Feast::Damien),
+            LiturgicalDayId::Feast(Feast::DamienAndMarianne),
             Year::Any,
             ReadingType::Psalm,
             "Psalm 103:13–22",

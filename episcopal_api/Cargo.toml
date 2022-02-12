@@ -34,5 +34,6 @@ members = [
   "crates/library",
   "crates/liturgy",
   "crates/psalter",
-  "crates/reference-parser"
+  "crates/reference-parser",
+  "crates/status"
 ]

@@ -27,7 +27,6 @@ mod rubric;
 mod sentence;
 mod series;
 mod show;
-mod status;
 mod text;
 mod version;
 
@@ -60,6 +59,5 @@ pub use rubric::*;
 pub use sentence::*;
 pub use series::*;
 pub use show::*;
-pub use status::*;
 pub use text::*;
 pub use version::*;
