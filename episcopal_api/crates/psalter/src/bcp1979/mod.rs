@@ -457,3 +457,24 @@ lazy_static! {
         ]
     };
 }
+
+#[cfg(test)]
+mod tests {
+    use super::BCP1979_PSALTER;
+
+    #[test]
+    fn consecutive_verse_numbers() {
+        for (_, psalm) in &BCP1979_PSALTER.psalms {
+            let mut verse_number = 0;
+            for section in &psalm.sections {
+                for verse in &section.verses {
+                    assert_eq!(
+                        (psalm.number, verse.number),
+                        (psalm.number, verse_number + 1)
+                    );
+                    verse_number = verse.number;
+                }
+            }
+        }
+    }
+}
