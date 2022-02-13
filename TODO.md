@@ -3,7 +3,9 @@ Website Todos
 
 - [x] About page
 - [x] Fix saints' names
-  - [ ] Fix collect labels
+  - [x] Fix collect labels
+- [ ] Spanish liturgy
+  - [ ] Psalms
 - Bugs
   - [ ] Small iOS appearance bugs
 - Hymns

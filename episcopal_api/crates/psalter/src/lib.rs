@@ -1,6 +1,7 @@
 #[macro_use]
 extern crate lazy_static;
 pub mod bcp1979;
+pub mod loc;
 
 use itertools::Itertools;
 use liturgy::Psalm;

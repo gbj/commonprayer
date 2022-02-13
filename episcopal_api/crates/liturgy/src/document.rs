@@ -18,7 +18,8 @@ pub struct Document {
     pub version: Version,
     pub version_label: Option<String>,
     pub content: Content,
-    pub is_compiled: bool
+    pub is_compiled: bool,
+    pub tags: Vec<String>
 }
 
 impl Document {
@@ -33,7 +34,8 @@ impl Document {
             version: Version::RiteII,
             version_label: None,
             content: Content::Empty,
-            is_compiled: false
+            is_compiled: false,
+            tags: Vec::new()
         }
     }
 
@@ -177,6 +179,12 @@ impl Document {
     #[must_use]
     pub fn status(mut self, status: Status) -> Self {
         self.status = status;
+        self
+    }
+
+    #[must_use]
+    pub fn tags<T>(mut self, tags: impl IntoIterator<Item = T>) -> Self where T: std::fmt::Display {
+        self.tags = tags.into_iter().map(|n| n.to_string()).collect();
         self
     }
 
