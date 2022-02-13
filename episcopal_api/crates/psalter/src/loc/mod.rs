@@ -466,7 +466,7 @@ mod tests {
 
     #[test]
     fn check_number_of_verses() {
-        for (_, psalm) in &LOC_PSALTER.psalms {
+        for (number, psalm) in &LOC_PSALTER.psalms {
             let english = BCP1979_PSALTER
                 .psalms
                 .iter()
@@ -478,12 +478,28 @@ mod tests {
                 .iter()
                 .map(|section| section.verses.len())
                 .sum();
-            let spanish_verses: usize = english
+            let spanish_verses: usize = psalm
                 .sections
                 .iter()
                 .map(|section| section.verses.len())
                 .sum();
-            assert_eq!(english_verses, spanish_verses);
+            assert_eq!((english.number, english_verses), (*number, spanish_verses));
+        }
+    }
+
+    #[test]
+    fn consecutive_verse_numbers() {
+        for (_, psalm) in &LOC_PSALTER.psalms {
+            let mut verse_number = 0;
+            for section in &psalm.sections {
+                for verse in &section.verses {
+                    assert_eq!(
+                        (psalm.number, verse.number),
+                        (psalm.number, verse_number + 1)
+                    );
+                    verse_number = verse.number;
+                }
+            }
         }
     }
 }

@@ -996,11 +996,6 @@ lazy_static! {
 						number: 159,
 						a: String::from("¡Mira, oh Señor, cómo amo tus mandamientos! *"),
 						b: String::from("Por tu misericordia, preserva mi vida.")
-					},
-					PsalmVerse {
-						number: 160,
-						a: String::from("La esencia de tu palabra es la verdad; *"),
-						b: String::from("eternos son todos tus justos juicios.\nSalmo 119:153 667")
 					}
 				]
 			},
@@ -1009,13 +1004,83 @@ lazy_static! {
 					source: Source::LibroDeOracionComun,
 					page: 667
 				},
-				local_name: String::from("He"),
-				latin_name: String::from("guardado tus mandamientos y tus decretos, * porque todos mis caminos están delante de ti."),
+				local_name: String::from("Sin"),
+				latin_name: String::from("Principes persecuti sunt"),
 				verses: vec![
 					PsalmVerse {
+						number: 160,
+						a: String::from("La esencia de tu palabra es la verdad; *"),
+						b: String::from("eternos son todos tus justos juicios.\nSalmo 119:153 667")
+					},
+					PsalmVerse {
+						number: 161,
+						a: String::from("Príncipes me han perseguido sin causa, *"),
+						b: String::from("pero mi corazón teme tu palabra.")
+					},
+					PsalmVerse {
+						number: 162,
+						a: String::from("Me regocijo tanto en tu promesa *"),
+						b: String::from("como el que halla muchos despojos.")
+					},
+					PsalmVerse {
+						number: 163,
+						a: String::from("La mentira aborrezco y abomino, *"),
+						b: String::from("pero tu ley yo amo.")
+					},
+					PsalmVerse {
+						number: 164,
+						a: String::from("Siete veces al día te alabo, *"),
+						b: String::from("a causa de tus justos juicios.")
+					},
+					PsalmVerse {
+						number: 165,
+						a: String::from("Mucha paz tienen los que aman tu ley, *"),
+						b: String::from("y no hay para ellos tropiezo.")
+					},
+					PsalmVerse {
+						number: 166,
+						a: String::from("Tu salvación he esperado, oh Señor, *"),
+						b: String::from("y he cumplido tus mandamientos.")
+					},
+					PsalmVerse {
+						number: 167,
+						a: String::from("He guardado tus decretos, *"),
+						b: String::from("y los he amado en gran manera.")
+					}
+				]
+			},
+		 PsalmSection {
+				reference: Reference {
+					source: Source::LibroDeOracionComun,
+					page: 667
+				},
+				local_name: String::from("Tau"),
+				latin_name: String::from("Appropinquet deprecatio"),
+				verses: vec![
+					PsalmVerse {
+						number: 168,
+						a: String::from("He guardado tus mandamientos y tus decretos, *"),
+						b: String::from("porque todos mis caminos están delante de ti.")
+					},
+					PsalmVerse {
+						number: 169,
+						a: String::from("Llegue mi clamor delante de ti, oh Señor; *"),
+						b: String::from("dame entendimiento conforme a tu palabra.")
+					},
+					PsalmVerse {
+						number: 170,
+						a: String::from("Entre mi súplica en tu presencia; *"),
+						b: String::from("líbrame conforme a tu promesa.")
+					},
+					PsalmVerse {
+						number: 171,
+						a: String::from("De mis labios brotará tu alabanza, *"),
+						b: String::from("cuando me enseñes tus estatutos.")
+					},
+					PsalmVerse {
 						number: 172,
-						a: String::from("pero mi corazón teme tu palabra.\nMe regocijo tanto en tu promesa * \nLa mentira aborrezco y abomino, * \nSiete veces al día te alabo, * \nMucha paz tienen los que aman tu ley, * \nTu salvación he esperado, oh Señor, * \nLlegue mi clamor delante de ti, oh Señor; * \nEntre mi súplica en tu presencia; * \nDe mis labios brotará tu alabanza, * \nCantará mi lengua de tu promesa, *"),
-						b: String::from("como el que halla muchos despojos. pero tu ley yo amo.\na causa de tus justos juicios. y no hay para ellos tropiezo. y he cumplido tus mandamientos.\ny los he amado en gran manera.\nAppropinquet deprecatio dame entendimiento conforme a tu palabra. líbrame conforme a tu promesa. cuando me enseñes tus estatutos.\nporque todos tus mandamientos son justos.")
+						a: String::from("Cantará mi lengua de tu promesa, *"),
+						b: String::from("porque todos tus mandamientos son justos.")
 					},
 					PsalmVerse {
 						number: 173,
