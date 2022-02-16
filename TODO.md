@@ -4,6 +4,7 @@ Website Todos
 - [x] About page
 - [x] Fix saints' names
   - [x] Fix collect labels
+- [ ] Wipe out incremental generation cache on rebuild (Heroku)
 - [ ] Spanish liturgy
   - [ ] Psalms
 - Bugs

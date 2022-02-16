@@ -188,6 +188,14 @@ async fn export_docx(data: web::Form<DocxExportFormData>) -> Result<NamedFile> {
 
 // Add additional pages, defined programmatically
 fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
+    // check if static export directory exists
+    let artifacts_path = format!("{}/artifacts", *PROJECT_ROOT);
+    let artifacts_path = std::path::Path::new(&artifacts_path);
+    if !artifacts_path.exists() {
+        std::fs::create_dir(artifacts_path).expect("could not create artifacts directory");
+    }
+
+    // add pages
     for locale in locales {
         add_page(cfg, locale, about());
         add_page(cfg, locale, calendar());
@@ -287,7 +295,7 @@ where
 
                 // if incremental generation, check if page has already been created and serve that file if it has
                 if page.incremental_generation {
-                    let build_artifact_path = format!("./artifacts/{}.html", path.replace('/', "-"));
+                    let build_artifact_path = format!("{}/artifacts/{}.html", *PROJECT_ROOT, path.replace('/', "-"));
                     let build_artifact_path = std::path::Path::new(&build_artifact_path);
                     if build_artifact_path.exists() {
                         match NamedFile::open(build_artifact_path) {
