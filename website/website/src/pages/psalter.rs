@@ -17,6 +17,7 @@ pub fn psalter() -> Page<(), (), PsalterRenderState> {
         .render_state(render_state)
         .hydration_state(|_, _, _| Some(()))
         .static_page()
+        .incremental_generation()
 }
 
 fn render_state(locale: &str, _path: &str, _params: &()) -> Option<PsalterRenderState> {

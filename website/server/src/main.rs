@@ -1,4 +1,4 @@
-use std::{collections::HashSet, fs::File};
+use std::{collections::HashSet, fs::File, io::Write};
 
 use actix_files::{Files, NamedFile};
 use actix_web::{
@@ -285,13 +285,47 @@ where
                     <script defer data-domain="commonprayeronline.org" src="https://plausible.io/js/plausible.js"></script>
                 };
 
-                match page.build(&locale, &path, params.into_inner(), Some(analytics_injection)) {
-                    Ok(view) => HttpResponse::Ok().body(&view.to_html()),
-                    Err(leptos::PageRenderError::NotFound) => {
-                        let not_found = not_found_404().build(&locale, &path, (), None).unwrap();
-                        HttpResponse::Ok().body(&not_found.to_html())
+                // if incremental generation, check if page has already been created and serve that file if it has
+                if page.incremental_generation {
+                    let build_artifact_path = format!("./artifacts/{}.html", path.replace('/', "-"));
+                    let build_artifact_path = std::path::Path::new(&build_artifact_path);
+                    if build_artifact_path.exists() {
+                        match NamedFile::open(build_artifact_path) {
+                            Ok(file) => match file.into_response(&req) {
+                                Ok(resp) => resp,
+                                Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
+                            },
+                            Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
+                        }
+                    } else {
+                        let mut file = File::create(build_artifact_path).expect("could not create static file");
+                        match page.build(&locale, &path, params.into_inner(), Some(analytics_injection)) {
+                            Ok(view) => {
+                                let html= view.to_html();
+                                match file.write(html.as_bytes()) {
+                                    Ok(_) => println!("\t\t\tgenerated static file at {}", path),
+                                    Err(e) => println!("\t\t\terror generating static file for {}\n\t\t\t\t{}", path, e)
+                                };
+                                HttpResponse::Ok().body(&html)
+                            },
+                            Err(leptos::PageRenderError::NotFound) => {
+                                let not_found = not_found_404().build(&locale, &path, (), None).unwrap();
+                                HttpResponse::Ok().body(&not_found.to_html())
+                            }
+                            Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
+                        }
                     }
-                    Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
+                }
+                // otherwise, just render and serve the page
+                else {
+                    match page.build(&locale, &path, params.into_inner(), Some(analytics_injection)) {
+                        Ok(view) => HttpResponse::Ok().body(&view.to_html()),
+                        Err(leptos::PageRenderError::NotFound) => {
+                            let not_found = not_found_404().build(&locale, &path, (), None).unwrap();
+                            HttpResponse::Ok().body(&not_found.to_html())
+                        }
+                        Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
+                    }
                 }
             }
         })));

@@ -27,6 +27,7 @@ pub fn daily_readings() -> Page<DailyReadingsPageProps, DailyReadingsUrlParams, 
         .body_fn(body)
         .hydration_state(static_props)
         .build_paths_fn(build_paths_fn)
+        .incremental_generation()
 }
 
 #[derive(Serialize, Deserialize, Clone)]

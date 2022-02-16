@@ -24,6 +24,7 @@ pub fn settings() -> Page<SettingsPageProps, (), ()> {
         .head_fn(head)
         .body_fn(body)
         .hydration_state(static_props)
+        .incremental_generation()
 }
 
 fn static_props(_locale: &str, _path: &str, _params: &()) -> Option<SettingsPageProps> {

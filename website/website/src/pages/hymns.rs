@@ -48,6 +48,7 @@ pub fn hymnal() -> Page<HymnalPageHydrationState, HymnalPageParams, HymnalPageRe
         .hydration_state(hydration_state)
         .render_state(render_state)
         .build_paths_fn(get_static_paths)
+        .incremental_generation()
 }
 
 pub fn head(

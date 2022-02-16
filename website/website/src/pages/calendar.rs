@@ -27,6 +27,7 @@ pub fn calendar() -> Page<CalendarPageProps, (), ()> {
         .body_fn(body)
         .hydration_state(hydration_state)
         .build_paths_fn(get_static_paths)
+        .incremental_generation()
 }
 
 pub fn head(_locale: &str, _props: &CalendarPageProps, _render_state: &()) -> View {

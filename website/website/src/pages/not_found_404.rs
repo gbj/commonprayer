@@ -12,6 +12,7 @@ pub fn not_found_404() -> Page<NotFoundPageProps, (), ()> {
             })
         })
         .static_page()
+        .incremental_generation()
 }
 
 #[derive(Serialize, Deserialize)]

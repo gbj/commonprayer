@@ -16,6 +16,7 @@ pub fn daily_office() -> Page<(), (), ()> {
         .body_fn(body)
         .hydration_state(|_, _, _| Some(()))
         .build_paths_fn(build_paths_fn)
+        .incremental_generation()
 }
 
 fn build_paths_fn() -> Vec<String> {

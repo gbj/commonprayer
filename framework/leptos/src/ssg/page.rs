@@ -42,7 +42,7 @@ where
     hydration_state_fn: Option<HydrationStateFn<T, P>>,
     render_state_fn: Option<RenderStateFn<R, P>>,
     build_paths: Option<BuildPathsFn>,
-    incremental_generation: bool,
+    pub incremental_generation: bool,
     static_page: bool,
 }
 
@@ -72,6 +72,11 @@ where
 
     pub fn body_fn(mut self, body_fn: BodyFn<T, R>) -> Self {
         self.body = Some(body_fn);
+        self
+    }
+
+    pub fn incremental_generation(mut self) -> Self {
+        self.incremental_generation = true;
         self
     }
 

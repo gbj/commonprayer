@@ -7,6 +7,7 @@ pub fn canticle_table() -> Page<(), (), ()> {
         .body_fn(body)
         .head_fn(head)
         .hydration_state(|_, _, _| Some(()))
+        .incremental_generation()
 }
 
 pub fn head(_locale: &str, _props: &(), _render_state: &()) -> View {

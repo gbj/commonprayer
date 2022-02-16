@@ -41,6 +41,7 @@ pub fn holy_day() -> Page<HolyDayProps, HolyDayParams, ()> {
         .body_fn(body)
         .hydration_state(static_props)
         .build_paths_fn(build_paths_fn)
+        .incremental_generation()
 }
 
 fn head(_locale: &str, props: &HolyDayProps, _render_state: &()) -> View {

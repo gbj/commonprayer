@@ -39,6 +39,7 @@ pub fn document() -> Page<DocumentPageProps, DocumentPageParams, ()> {
         .body_fn(body)
         .hydration_state(hydration_state)
         .build_paths_fn(get_static_paths)
+        .incremental_generation()
 }
 
 pub fn get_static_paths() -> Vec<String> {
