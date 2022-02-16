@@ -72,6 +72,9 @@ pub fn menu(locale: &str) -> View {
                     <a href={format!("/{}/daily-office", locale)}>{t!("toc.daily_office")}</a>
                 </li>
                 <li>
+                    <a href={format!("/{}/psalter", locale)}>{t!("menu.psalter")}</a>
+                </li>
+                <li>
                     <a href={format!("/{}/hymnal", locale)}>{t!("menu.hymnal")}</a>
                 </li>
                 <li>

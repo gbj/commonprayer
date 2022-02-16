@@ -8,6 +8,7 @@ mod holy_day;
 mod hymns;
 mod index;
 mod not_found_404;
+mod psalter;
 mod settings;
 
 pub use about::*;
@@ -20,4 +21,5 @@ pub use holy_day::*;
 pub use hymns::*;
 pub use index::*;
 pub use not_found_404::*;
+pub use psalter::*;
 pub use settings::*;

@@ -2,6 +2,8 @@ en:
   common_prayer: Common Prayer
   loading: Loading...
   or: or
+  search: Search
+  today: Today
 
   page_404:
     title: Page Not Found
@@ -16,6 +18,7 @@ en:
     calendar: Calendar
     canticle_table: Canticle Table
     hymnal: Hymnal
+    psalter: Psalter
     about: About
 
   holy_day:
@@ -216,10 +219,48 @@ en:
   collects_contemporary: "Collects: Contemporary"
   collects_traditional: "Collects: Traditional"
 
-  search: Search
-  today: Today
-
   about:
     title: Common Prayer Online
     subtitle: An unofficial source for The Episcopal Church’s authorized liturgies.
     email: Email Me
+
+  psalter:
+    full_title: The Psalter, or Psalms of David
+    book_one: Book One
+    book_two: Book Two
+    book_three: Book Three
+    book_four: Book Four
+    book_five: Book Five
+    morning: Morning Prayer
+    evening: Evening Prayer
+    day: "%{nth} Day"
+    ord_1: First
+    ord_2: Second
+    ord_3: Third
+    ord_4: Fourth
+    ord_5: Fifth
+    ord_6: Sixth
+    ord_7: Seventh
+    ord_8: Eighth
+    ord_9: Ninth
+    ord_10: Tenth
+    ord_11: Eleventh
+    ord_12: Twelfth
+    ord_13: Thirteenth
+    ord_14: Fourteenth
+    ord_15: Fifteenth
+    ord_16: Sixteenth
+    ord_17: Seventeenth
+    ord_18: Eighteenth
+    ord_19: Nineteenth
+    ord_20: Twentieth
+    ord_21: Twenty-First
+    ord_22: Twenty-Second
+    ord_23: Twenty-Third
+    ord_24: Twenty-Fourth
+    ord_25: Twenty-Fifth
+    ord_26: Twenty-Sixth
+    ord_27: Twenty-Seventh
+    ord_28: Twenty-Eighth
+    ord_29: Twenty-Ninth
+    ord_30: Thirtieth

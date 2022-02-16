@@ -43,7 +43,7 @@ pub enum CollectId {
 }
 
 pub trait Library {
-    fn psalter(psalter: Version) -> &'static Psalter;
+    fn psalter(psalter: Version) -> &'static Psalter<'static>;
 
     fn lectionary(lectionary: Lectionaries) -> &'static Lectionary;
 
@@ -233,9 +233,9 @@ pub trait Library {
                     Heading::InsertDay => {
                         let observed = day.observed;
                         let name = match observed {
-                            LiturgicalDayId::Feast(feast) => calendar
-                                .feast_name(feast, document.language)
-                                .map(|name| name.to_string()),
+                            LiturgicalDayId::Feast(feast) => {
+                                calendar.feast_name(feast, document.language)
+                            }
                             LiturgicalDayId::TransferredFeast(feast) => {
                                 calendar.feast_name(feast, document.language).map(|name| {
                                     format!(
@@ -281,7 +281,7 @@ pub trait Library {
                                     .filter_map(|feast| {
                                         calendar
                                             .feast_name(*feast, document.language)
-                                            .map(|name| (*feast, name.to_string()))
+                                            .map(|name| (*feast, name))
                                     })
                                     .collect::<Vec<_>>(),
                             )
@@ -597,7 +597,7 @@ pub trait Library {
 pub struct CommonPrayer {}
 
 impl Library for CommonPrayer {
-    fn psalter(_psalter: Version) -> &'static Psalter {
+    fn psalter(_psalter: Version) -> &'static Psalter<'static> {
         &BCP1979_PSALTER
     }
 

@@ -9,11 +9,11 @@ use reference_parser::BibleReference;
 use std::{convert::TryInto, iter::once};
 
 /// Defines a version or translation of the psalms, with a single entry per psalm
-pub struct Psalter {
-    psalms: Vec<(u8, &'static Psalm)>,
+pub struct Psalter<'a> {
+    pub psalms: Vec<(u8, &'a Psalm)>,
 }
 
-impl Psalter {
+impl<'a> Psalter<'a> {
     /// Returns a single psalm, if it exists, by its number.
     /// ```
     /// # use crate::psalter::bcp1979::BCP1979_PSALTER;

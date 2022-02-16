@@ -111,7 +111,7 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                         {make_link(locale, "document/episcopal-services", "toc.episcopal_services", true)}
                     </li>
                     <li>
-                        {make_link(locale, "psalter", "psalter_full", true)}
+                        {make_link(locale, "psalter", "psalter.full_title", false)}
                     </li>
                     <li>
                         {make_link(locale, "prayers-and-thanksgivings", "toc.prayers_and_thanksgivings", true)}

@@ -302,7 +302,7 @@ pub use psalm_150::*;
 use crate::Psalter;
 
 lazy_static! {
-    pub static ref LOC_PSALTER: Psalter = Psalter {
+    pub static ref LOC_PSALTER: Psalter<'static> = Psalter {
         psalms: vec![
             (1, &psalm_001::PSALM_1),
             (2, &psalm_002::PSALM_2),
