@@ -1,11 +1,10 @@
-use calendar::{
-    feasts::CommonOfSaints, Calendar, Feast, LiturgicalDay, LiturgicalDayId, LiturgicalWeek,
-    Proper, Rank, Season, Weekday,
-};
+use calendar::{Calendar, LiturgicalDay, LiturgicalDayId, Rank, Weekday};
 use canticle_table::{CanticleId, CanticleTable};
 use itertools::Itertools;
+use language::Language;
 use lectionary::{Lectionary, ReadingType};
 use liturgy::*;
+use loc::collects::COLECTAS;
 use psalter::{bcp1979::BCP1979_PSALTER, Psalter};
 
 use rite1::GLORIA_PATRI_TRADITIONAL;
@@ -20,26 +19,20 @@ use crate::{
 #[macro_use]
 extern crate lazy_static;
 
+pub mod collect;
 pub mod conditions;
 pub mod eow;
 pub mod lff2018;
+pub mod loc;
 pub mod rite1;
 pub mod rite2;
 pub mod summary;
+pub use collect::*;
 
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub enum CommonPrayerLiturgies {
     NoondayPrayer,
     Compline,
-}
-
-#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
-pub enum CollectId {
-    Week(LiturgicalWeek),
-    Proper(Proper),
-    Season(Season),
-    Feast(Feast),
-    CommonOfSaints(CommonOfSaints),
 }
 
 pub trait Library {
@@ -358,6 +351,7 @@ pub trait Library {
                     }
                 }
                 Content::CollectOfTheDay { allow_multiple } => {
+                    let language = document.language;
                     let traditional_language = matches!(document.version, Version::RiteI);
                     let use_black_letter_collects = prefs
                         .value(&PreferenceKey::from(GlobalPref::UseBlackLetterCollects))
@@ -368,33 +362,36 @@ pub trait Library {
                         .unwrap_or(true);
 
                     // create collect list, based on version + calendar + black-letter collect preferences
-                    let collects: Box<dyn Iterator<Item = &(CollectId, Document)>> =
-                        match (traditional_language, use_black_letter_collects) {
-                            (true, true) => Box::new(
+                    let collects: Box<dyn Iterator<Item = &(CollectId, CollectData)>> =
+                        match (language, traditional_language, use_black_letter_collects) {
+                            (Language::Es, _, _) => Box::new(COLECTAS.iter()),
+                            (_, true, true) => Box::new(
                                 COLLECTS_TRADITIONAL
                                     .iter()
                                     .chain(LFF_COLLECTS_TRADITIONAL.iter()),
                             ),
-                            (true, false) => Box::new(COLLECTS_TRADITIONAL.iter()),
-                            (false, true) => Box::new(
+                            (_, true, false) => Box::new(COLLECTS_TRADITIONAL.iter()),
+                            (_, false, true) => Box::new(
                                 COLLECTS_CONTEMPORARY
                                     .iter()
                                     .chain(LFF_COLLECTS_CONTEMPORARY.iter()),
                             ),
-                            (false, false) => Box::new(COLLECTS_CONTEMPORARY.iter()),
+                            (_, false, false) => Box::new(COLLECTS_CONTEMPORARY.iter()),
                         };
                     let collects = collects.collect::<Vec<_>>();
 
                     let day_rank = calendar.rank(day);
                     let holy_day_collect = match observed {
                         LiturgicalDayId::Feast(feast) => {
+                            let id = COLLECT_LINKS.linked_id(&CollectId::Feast(*feast));
+
                             if day_rank >= Rank::HolyDay {
                                 Some(Document::choice_or_document(
                                     &mut collects
                                         .iter()
-                                        .filter_map(move |(id, document)| {
-                                            if *id == CollectId::Feast(*feast) {
-                                                Some(document.clone())
+                                        .filter_map(move |(s_id, data)| {
+                                            if s_id == &id {
+                                                Some(data.document.clone())
                                             } else {
                                                 None
                                             }
@@ -415,10 +412,12 @@ pub trait Library {
                         } else {
                             CollectId::Week(day.week)
                         };
+                        let week_id = COLLECT_LINKS.linked_id(&week_id);
+
                         Document::choice_or_document(&mut collects.iter().filter_map(
-                            move |(id, document)| {
+                            move |(id, data)| {
                                 if *id == week_id {
-                                    Some(document.clone())
+                                    Some(data.document.clone())
                                 } else {
                                     None
                                 }
@@ -436,9 +435,10 @@ pub trait Library {
                     };
 
                     let day_season = calendar.season(day);
+                    let season_id = COLLECT_LINKS.linked_id(&CollectId::Season(day_season));
                     let seasonal_collect = collects
                         .iter()
-                        .find(|(id, _)| id == &CollectId::Season(day_season))
+                        .find(|(id, _)| id == &season_id)
                         .map(|(_, document)| document.clone());
 
                     let black_letter_feast_ids = day
@@ -455,9 +455,9 @@ pub trait Library {
                         Some(
                             collects
                                 .iter()
-                                .filter_map(|(id, document)| {
+                                .filter_map(|(id, data)| {
                                     if black_letter_feast_ids.contains(id) {
-                                        Some(document.clone())
+                                        Some(data.document.clone())
                                     } else {
                                         None
                                     }
@@ -479,7 +479,7 @@ pub trait Library {
                     }
                     // Seasonal collect
                     if let Some(collect) = seasonal_collect {
-                        collects.push(collect);
+                        collects.push(collect.document);
                     }
 
                     // deduplicate by content

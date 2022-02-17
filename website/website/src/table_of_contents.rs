@@ -123,7 +123,7 @@ lazy_static! {
             ("collects".into(), PageType::Category(
                 "Collects: Contemporary".into(),
                 Version::RiteII,
-                library::rite2::collects::COLLECTS_CONTEMPORARY.iter().map(|(_, doc)| doc.clone()).collect()
+                library::rite2::collects::COLLECTS_CONTEMPORARY.iter().map(|(_, data)| data.document.clone()).collect()
             )),
             ("invitatory-antiphons".into(), PageType::Category("Invitatory Antiphons".into(), Version::RiteII, library::rite2::INVITATORY_ANTIPHONS.clone())),
             ("closing-sentences".into(), PageType::Category("Closing Sentences".into(), Version::RiteII, library::rite2::OPENING_SENTENCES.clone())),

@@ -234,7 +234,7 @@ fn static_props(locale: &str, _path: &str, params: &HolyDayParams) -> Option<Hol
                     *id == CollectId::Feast(feast)
                         || Some(id) == eve_of.map(CollectId::Feast).as_ref()
                 })
-                .map(|(_, doc)| doc.clone())
+                .map(|(_, data)| data.document.clone())
                 .unwrap_or_else(|| Document::from(Content::Empty));
 
             let collect_contemporary = LFF_COLLECTS_CONTEMPORARY
@@ -243,7 +243,7 @@ fn static_props(locale: &str, _path: &str, params: &HolyDayParams) -> Option<Hol
                     *id == CollectId::Feast(feast)
                         || Some(id) == eve_of.map(CollectId::Feast).as_ref()
                 })
-                .map(|(_, doc)| doc.clone())
+                .map(|(_, data)| data.document.clone())
                 .unwrap_or_else(|| Document::from(Content::Empty));
 
             Some(HolyDayProps {

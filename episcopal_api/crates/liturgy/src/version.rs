@@ -11,6 +11,8 @@ pub enum Version {
     RiteI,
     /// Rite II (contemporary language in 1979 BCP)
     RiteII,
+    /// Spanish-language translation of 1979 BCP
+    LibroDeOracionComun,
     /// Enriching Our Worship series
     EOW,
     /// Expansive-language Eucharistic texts authorized by General Convention
@@ -43,6 +45,7 @@ impl Display for Version {
             Version::RiteI => "Rite I",
             Version::RiteII => "Rite II",
             Version::EOW => "EOW",
+            Version::LibroDeOracionComun => "LOC",
             Version::Expansive => "Expansive",
             Version::NRSV => "NRSV",
             Version::NRSVAE => "NRSVAE",
@@ -71,6 +74,7 @@ impl TryFrom<&str> for Version {
             "RiteII" => Ok(Self::RiteII),
             "Rite II" => Ok(Self::RiteII),
             "EOW" => Ok(Self::EOW),
+            "LOC" => Ok(Self::LibroDeOracionComun),
             "Expansive" => Ok(Self::Expansive),
             "NRSV" => Ok(Self::NRSV),
             "ESV" => Ok(Self::ESV),

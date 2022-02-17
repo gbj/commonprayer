@@ -170,6 +170,16 @@ impl Document {
         self
     }
 
+        /// Marks the document's source as being a particular page of the 1979 Libro de Oracíon Común.
+    #[must_use]
+    pub fn loc_page(mut self, page: u16) -> Self {
+        self.source = Some(Reference {
+            source: Source::LibroDeOracionComun,
+            page
+        });
+        self
+    }
+
     #[must_use]
     pub fn source(mut self, source: Reference) -> Self {
         self.source = Some(source);
@@ -185,6 +195,12 @@ impl Document {
     #[must_use]
     pub fn tags<T>(mut self, tags: impl IntoIterator<Item = T>) -> Self where T: std::fmt::Display {
         self.tags = tags.into_iter().map(|n| n.to_string()).collect();
+        self
+    }
+
+    #[must_use]
+    pub fn language(mut self, language: Language) -> Self {
+        self.language = language;
         self
     }
 

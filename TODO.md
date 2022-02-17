@@ -6,7 +6,13 @@ Website Todos
   - [x] Fix collect labels
 - [ ] Wipe out incremental generation cache on rebuild (Heroku)
 - [ ] Spanish liturgy
-  - [ ] Psalms
+  - [x] Psalms
+  - [ ] Collects
+    - [x] In all versions: Collect links to avoid repetitions
+    - [x] Transition LFF collects over
+    - [x] Transition collect compilation over
+    - [ ] Test collect page
+    - [ ] Collect links for Eve of ___
 - Bugs
   - [ ] Small iOS appearance bugs
 - Hymns
