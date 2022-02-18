@@ -191,7 +191,12 @@ fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
     // check if static export directory exists
     let artifacts_path = format!("{}/artifacts", *PROJECT_ROOT);
     let artifacts_path = std::path::Path::new(&artifacts_path);
-    if !artifacts_path.exists() {
+    if artifacts_path.exists() {
+        println!("empting artifacts directory");
+        std::fs::remove_dir_all(artifacts_path).expect("couldn't empty artifacts directory");
+        std::fs::create_dir(artifacts_path).expect("couldn't create artifacts directory");
+    } else {
+        println!("creating artifacts directory");
         std::fs::create_dir(artifacts_path).expect("could not create artifacts directory");
     }
 
