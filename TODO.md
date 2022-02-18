@@ -4,14 +4,17 @@ Website Todos
 - [x] About page
 - [x] Fix saints' names
   - [x] Fix collect labels
-- [ ] Wipe out incremental generation cache on rebuild (Heroku)
+- [x] Wipe out incremental generation cache on rebuild (Heroku)
 - [ ] Spanish liturgy
   - [x] Psalms
   - [ ] Collects
     - [x] In all versions: Collect links to avoid repetitions
     - [x] Transition LFF collects over
     - [x] Transition collect compilation over
+    - [x] Handle feast dates in collect names
+    - [x] Handle proper dates in collect names
     - [ ] Test collect page
+      - [ ] "after rubrics" in some places get assigned to "before rubric" of prior page
     - [ ] Collect links for Eve of ___
 - Bugs
   - [ ] Small iOS appearance bugs

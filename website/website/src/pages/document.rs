@@ -145,6 +145,7 @@ fn category_body(
             .into_iter()
             .map(|(label, group)| {
                 let docs = group.cloned().collect::<Vec<_>>();
+                let subtitle = docs.get(0).and_then(|doc| doc.subtitle.clone());
 
                 let docs_view = View::Fragment(
                     docs.iter()
@@ -162,7 +163,8 @@ fn category_body(
                                 .boxed_local();
 
                             let doc = DocumentController::new(Document {
-                                label: None, // don't show the label again for each doc
+                                label: None,    // don't show the label again for each doc
+                                subtitle: None, // don't show subtitle again for every doc
                                 ..doc.clone()
                             })
                             .view(locale);
@@ -190,8 +192,17 @@ fn category_body(
                             }
                         })
                         .boxed_local();
-                    view! {
-                        <dyn:h3 class:hidden={hidden}>{&label}</dyn:h3>
+                    if let Some(subtitle) = subtitle {
+                        view! {
+                            <dyn:div class="label-and-subtitle" class:hidden={hidden}>
+                                <h3>{&label}</h3>
+                                <h4 class="subtitle">{subtitle}</h4>
+                            </dyn:div>
+                        }
+                    } else {
+                        view! {
+                            <dyn:h3 class:hidden={hidden}>{&label}</dyn:h3>
+                        }
                     }
                 } else {
                     View::Empty

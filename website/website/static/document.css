@@ -47,6 +47,32 @@ a.reference {
   font-size: 1rem;
 }
 
+/* Label/Subtitle */
+.label-and-subtitle {
+  display: flex;
+  justify-content: left;
+}
+
+.label-and-subtitle.hidden {
+  display: none;
+}
+
+.label-and-subtitle h3 {
+  display: inline-block;
+}
+
+.label-and-subtitle > * {
+  padding: 0.5rem 0;
+  margin: 0;
+}
+
+h4.subtitle {
+  display: inline-block;
+  font-weight: normal;
+  margin-left: 2rem;
+  font-style: italic;
+}
+
 /** Document Content Types */
 
 /* Margin after each document in a series */

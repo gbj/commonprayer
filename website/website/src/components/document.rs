@@ -78,12 +78,22 @@ pub fn document_view(
 ) -> View {
     let label = if matches!(doc.content, Content::Liturgy(_)) {
         View::Empty
-    } else if let Some(label) = &doc.label {
-        view! {
-            <h3>{label}</h3>
-        }
     } else {
-        View::Empty
+        match (&doc.label, &doc.subtitle) {
+            (None, None) => View::Empty,
+            (Some(label), None) => view! {
+                <h3>{label}</h3>
+            },
+            (None, Some(subtitle)) => view! {
+                <h4 class="subtitle">{subtitle}</h4>
+            },
+            (Some(label), Some(subtitle)) => view! {
+                <header class="label-and-subtitle">
+                    <h3>{label}</h3>
+                    <h4 class="subtitle">{subtitle}</h4>
+                </header>
+            },
+        }
     };
 
     let header_and_main = match &doc.content {

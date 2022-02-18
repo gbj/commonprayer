@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
-use episcopal_api::library;
-use episcopal_api::liturgy::{Document, Version};
+use episcopal_api::library::{self, CollectData, CollectId};
+use episcopal_api::liturgy::{Document, Rubric, Series, Version};
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 
@@ -123,11 +123,38 @@ lazy_static! {
             ("collects".into(), PageType::Category(
                 "Collects: Contemporary".into(),
                 Version::RiteII,
-                library::rite2::collects::COLLECTS_CONTEMPORARY.iter().map(|(_, data)| data.document.clone()).collect()
+                from_collects(library::rite2::collects::COLLECTS_CONTEMPORARY.iter())
             )),
             ("invitatory-antiphons".into(), PageType::Category("Invitatory Antiphons".into(), Version::RiteII, library::rite2::INVITATORY_ANTIPHONS.clone())),
             ("closing-sentences".into(), PageType::Category("Closing Sentences".into(), Version::RiteII, library::rite2::OPENING_SENTENCES.clone())),
             ("service-of-light".into(), PageType::Document(library::rite2::office::AN_ORDER_OF_WORSHIP_FOR_EVENING.clone())),
         ]
     };
+}
+
+fn from_collects<'a>(
+    collects: impl Iterator<Item = &'a (CollectId, CollectData)>,
+) -> Vec<Document> {
+    collects
+        .map(|(_, data)| {
+            let mut pieces = Vec::new();
+            if let Some(text) = &data.rubric_before {
+                pieces.push(Document::from(Rubric::from(text.clone())))
+            }
+            pieces.push(Document {
+                label: None,
+                subtitle: None,
+                ..data.document.clone()
+            });
+            if let Some(text) = &data.rubric_after {
+                pieces.push(Document::from(Rubric::from(text.clone())))
+            }
+            pieces.push(Document::from(Rubric::from(data.preface.clone())));
+
+            let mut series = Document::from(Series::from(pieces));
+            series.label = data.document.label.clone();
+            series.subtitle = data.document.subtitle.clone();
+            series
+        })
+        .collect()
 }

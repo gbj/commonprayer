@@ -11,6 +11,7 @@ use crate::*;
 pub struct Document {
     pub condition: Option<Condition>,
     pub label: Option<String>,
+    pub subtitle: Option<String>,
     pub language: Language,
     pub source: Option<Reference>,
     pub status: Status,
@@ -27,6 +28,7 @@ impl Document {
         Self {
             condition: None,
             label: None,
+            subtitle: None,
             language: Language::default(),
             source: None,
             status: Status::Authorized,
@@ -152,6 +154,12 @@ impl Document {
     }
 
     #[must_use]
+    pub fn subtitle(mut self, subtitle: impl Display) -> Self {
+        self.subtitle = Some(subtitle.to_string());
+        self
+    }
+
+    #[must_use]
     pub fn condition(mut self, condition: Condition) -> Self {
         self.condition = Some(condition);
         self
@@ -223,6 +231,11 @@ impl Document {
             .as_ref()
             .map(|label| label.contains(text))
             .unwrap_or(false);
+        let subtitle_contains = self
+            .subtitle
+            .as_ref()
+            .map(|subtitle| subtitle.contains(text))
+            .unwrap_or(false);
         let version_label_contains = self
             .version_label
             .as_ref()
@@ -233,7 +246,7 @@ impl Document {
             .map(|reference| reference.page.to_string() == text)
             .unwrap_or(false);
         let content_contains = self.content.contains(text);
-        label_contains || version_label_contains || source_contains || content_contains
+        label_contains || subtitle_contains || version_label_contains || source_contains || content_contains
     }
 
     /// Whether any of the document's fields, or its content, contains the given text, ignoring the search string case
@@ -243,6 +256,11 @@ impl Document {
             .label
             .as_ref()
             .map(|label| label.to_lowercase().contains(&text))
+            .unwrap_or(false);
+        let subtitle_contains = self
+            .subtitle
+            .as_ref()
+            .map(|subtitle| subtitle.to_lowercase().contains(&text))
             .unwrap_or(false);
         let version_label_contains = self
             .version_label
@@ -254,7 +272,7 @@ impl Document {
             .map(|reference| reference.page.to_string().to_lowercase() == text)
             .unwrap_or(false);
         let content_contains = self.content.contains_case_insensitive(&text);
-        label_contains || version_label_contains || source_contains || content_contains
+        label_contains || subtitle_contains || version_label_contains || source_contains || content_contains
     }
 }
 
