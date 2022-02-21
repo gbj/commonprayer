@@ -1,5 +1,5 @@
 use calendar::{CommonOfSaints, Feast, LiturgicalWeek, Proper};
-use liturgy::{Document, Text};
+use liturgy::{Document, Heading, HeadingLevel, Series, Text};
 
 use crate::{CollectData, CollectId, VariousOccasions};
 
@@ -47,7 +47,7 @@ lazy_static! {
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of Advent".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("Wednesday, Friday, and Saturday of this week are the traditional winter Ember Days.".into())
             }
         ),
         (
@@ -61,7 +61,7 @@ lazy_static! {
                 .page(212)
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of Advent".into(),
-                rubric_before: Some("Wednesday, Friday, and Saturday of this week are the traditional winter Ember Days.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -69,7 +69,7 @@ lazy_static! {
             CollectId::Feast(Feast::ChristmasDay),
             CollectData {
                 document: Document::from(
-                    Text::from("O God, you make us glad by the yearly festival of the birth of your only Son Jesus Christ: Grant that we, who joyfully receive him as our Redeemer, may with sure confidence behold him when he comes to be our Judge; who lives and reigns with you and the Holy Spirit, one God, now andfor ever.")
+                    Text::from("O God, you make us glad by the yearly festival of the birth of your only Son Jesus Christ: Grant that we, who joyfully receive him as our Redeemer, may with sure confidence behold him when he comes to be our Judge; who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("The Nativity of Our Lord: Christmas Day")
@@ -110,21 +110,21 @@ lazy_static! {
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of the Incarnation".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("The Collect immediately preceding and any of the sets of Proper Lessons for Christmas Day serve for any weekdays between Holy Innocents’ Day and the First Sunday after Christmas Day.".into())
             }
         ),
         (
             CollectId::Week(LiturgicalWeek::Christmas1),
             CollectData {
                 document: Document::from(
-                    Text::from("This Sunday takes precedence over the three Holy Days which follow Christmas Day. As necessary, the observance of one, two, or all three of them, is postponed one day.Almighty God, you have poured upon us the new light of your incarnate Word: Grant that this light, enkindled in our hearts, may shine forth in our lives; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
+                    Text::from("Almighty God, you have poured upon us the new light of your incarnate Word: Grant that this light, enkindled in our hearts, may shine forth in our lives; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("First Sunday after Christmas Day")
                 .page(213)
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of the Incarnation".into(),
-                rubric_before: Some("The Collect immediately preceding and any of the sets of Proper Lessons for Christmas Day serve for any weekdays between Holy Innocents’ Day and the First Sunday after Christmas Day.".into()),
+                rubric_before: Some("This Sunday takes precedence over the three Holy Days which follow Christmas Day. As necessary, the observance of one, two, or all three of them, is postponed one day.".into()),
                 rubric_after: None
             }
         ),
@@ -172,7 +172,7 @@ lazy_static! {
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of the Epiphany".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("The preceding Collect, with the Psalm and Lessons for the Epiphany, or those for the Second Sunday after Christmas, serves for weekdays between the Epiphany and the following Sunday. The Preface of the Epiphany is used.".into())
             }
         ),
         (
@@ -186,7 +186,7 @@ lazy_static! {
                 .page(214)
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of the Epiphany".into(),
-                rubric_before: Some("The preceding Collect, with the Psalm and Lessons for the Epiphany, or those for the Second Sunday after Christmas, serves for weekdays between the Epiphany and the following Sunday. The Preface of the Epiphany is used.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -322,7 +322,7 @@ lazy_static! {
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of Lent".into(),
                 rubric_before: Some("The Proper Liturgy for this day is on page 264.".into()),
-                rubric_after: None
+                rubric_after: Some("This Collect, with the corresponding Psalm and Lessons, also serves for the weekdays which follow, except as otherwise appointed.".into())
             }
         ),
         (
@@ -336,8 +336,8 @@ lazy_static! {
                 .page(218)
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of Lent".into(),
-                rubric_before: Some("This Collect, with the corresponding Psalm and Lessons, also serves for the weekdays which follow, except as otherwise appointed.".into()),
-                rubric_after: None
+                rubric_before: None,
+                rubric_after: Some("Wednesday, Friday, and Saturday of this week are the traditional spring Ember Days.".into()),
             }
         ),
         (
@@ -351,7 +351,7 @@ lazy_static! {
                 .page(218)
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of Lent".into(),
-                rubric_before: Some("Wednesday, Friday, and Saturday of this week are the traditional spring Ember Days.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -712,7 +712,7 @@ lazy_static! {
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of Easter".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("Monday, Tuesday, and Wednesday of this week are the traditional Rogation Days.".into())
             }
         ),
         (
@@ -726,7 +726,7 @@ lazy_static! {
                 .page(226)
                 .tags(["Seasons of the Year"]),
                 preface: "".into(),
-                rubric_before: Some("Monday, Tuesday, and Wednesday of this week are the traditional Rogation Days.".into()),
+                rubric_before: None,
                 rubric_after: Some("or this".into())
             }
         ),
@@ -742,7 +742,7 @@ lazy_static! {
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of the Ascension".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("Either of the preceding Collects, with the proper Psalm and Lessons for Ascension Day, serves for the following weekdays, except as otherwise appointed .".into())
             }
         ),
         (
@@ -756,7 +756,7 @@ lazy_static! {
                 .page(226)
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of the Ascension".into(),
-                rubric_before: Some("Either of the preceding Collects, with the proper Psalm and Lessons for Ascension Day, serves for the following weekdays, except as otherwise appointed .".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -770,7 +770,7 @@ lazy_static! {
                 .label("The Day of Pentecost: Whitsunday")
                 .page(227)
                 .tags(["Seasons of the Year"]),
-                preface: "".into(),
+                preface: "Preface of Pentecost".into(),
                 rubric_before: Some("When a Vigil of Pentecost is observed, it begins with the Service of Light, page 109 (substituting, if desired, the Gloria in excelsis for the Phos hilaron), and continues with the Salutation and Collect of the Day. Three or more of the appointed Lessons are read before the Gospel, each followed by a Psalm, Canticle, or hymn. Holy Baptism or Confirmation (beginning with the Presentation of the Candidates), or the Renewal of Baptismal Vows, page 292, follows the Sermon.".into()),
                 rubric_after: Some("or this".into())
             }
@@ -787,36 +787,37 @@ lazy_static! {
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of Pentecost".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("On the weekdays which follow, the numbered Proper which corresponds most closely to the date of Pentecost in that year is used. See page 158.\n\nWednesday, Friday, and Saturday of this week are the traditional summer Ember Days.".into())
             }
         ),
         (
             CollectId::Feast(Feast::TrinitySunday),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty and everlasting God, you have given to usyour servants grace, by the confession of a true faith, to acknowledge the glory of the eternal Trinity, and in the power of your divine Majesty to worship the Unity: Keepus steadfast in this faith and worship, and bring us at last to see you in your one and eternal glory, O Father; who with the Son and the Holy Spirit live and reign, one God, for ever and ever.")
+                    Text::from("Almighty and everlasting God, you have given to us your servants grace, by the confession of a true faith, to acknowledge the glory of the eternal Trinity, and in the power of your divine Majesty to worship the Unity: Keepus steadfast in this faith and worship, and bring us at last to see you in your one and eternal glory, O Father; who with the Son and the Holy Spirit live and reign, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("First Sunday after Pentecost: Trinity Sunday")
                 .page(228)
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of Trinity Sunday".into(),
-                rubric_before: Some("On the weekdays which follow, the numbered Proper which corresponds most closely to the date of Pentecost in that year is used. See page 158.Wednesday, Friday, and Saturday of this week are the traditional summer Ember Days.".into()),
-                rubric_after: None
+                rubric_before: None,
+                rubric_after: Some("On the weekdays which follow, the numbered Proper which corresponds most closely to the date of Trinity Sunday in that year is used.".into())
             }
         ),
         (
             CollectId::Proper(Proper::Proper1),
             CollectData {
                 document: Document::from(
-                    Text::from("No Proper Preface is used.")
+                    Text::from("Remember, O Lord, what you have wrought in us and not what we deserve; and, as you have called us to your service, make us worthy of our calling; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
-                .label("Remember, O Lord, what you have wrought in us and not what we deserve; and, as you have called us to your service, make us worthy of our calling; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever. Amen.")
+                .label("Proper 1")
+                .subtitle("Week of the Sunday closest to May 11")
                 .page(228)
-                .tags(["Seasons of the Year"]),
-                preface: "".into(),
-                rubric_before: Some("On the weekdays which follow, the numbered Proper which corresponds most closely to the date of Trinity Sunday in that year is used.Directions for the use of the Propers which follow are on page 158. Proper 1 Week of the Sunday closest to May 11".into()),
+                .tags(["Seasons of the Year", "The Season after Pentecost"]),
+                preface: "No Proper Preface is used.".into(),
+                rubric_before: Some("Directions for the use of the Propers which follow are on page 158.".into()),
                 rubric_after: None
             }
         ),
@@ -828,10 +829,10 @@ lazy_static! {
                         .response("Amen.")
                 )
                 .label("Proper 2")
-                    .subtitle("Week of the Sunday closest to May 18")
+                .subtitle("Week of the Sunday closest to May 18")
                 .page(229)
                 .tags(["Seasons of the Year"]),
-                preface: "".into(),
+                preface: "No Proper Preface is used.".into(),
                 rubric_before: None,
                 rubric_after: None
             }
@@ -1105,7 +1106,7 @@ lazy_static! {
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of the Lord’s Day".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("The Wednesday, Friday, and Saturday after September 14 are the traditional autumnal Ember Days.".into())
             }
         ),
         (
@@ -1120,7 +1121,7 @@ lazy_static! {
                 .page(234)
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of the Lord’s Day".into(),
-                rubric_before: Some("The Wednesday, Friday, and Saturday after September 14 are the traditional autumnal Ember Days.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -1688,10 +1689,11 @@ lazy_static! {
             CollectId::Feast(Feast::Luke),
             CollectData {
                 document: Document::from(
-                    Text::from("to heal, to the praise and glory of your Name; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
+                    Text::from("Almighty God, who inspired your servant Luke the physician to set forth in the Gospel the love and healing power of your Son: Graciously continue in your Church this love and power to heal, to the praise and glory of your Name; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
-                .label("Almighty God, who inspired your servant Luke the physician to set forth in the Gospel the love and healing power of your Son: Graciously continue in your Church this love and power")
+                .label("Saint Luke")
+                .subtitle("October 18")
                 .page(245)
                 .tags(["Holy Days"]),
                 preface: "Preface of All Saints".into(),
@@ -2201,14 +2203,18 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::EmberDays),
             CollectData {
                 document: Document::from(
-                    Text::from("For use on the traditional days or at other timesI. For those to be ordainedAlmighty God, the giver of all good gifts, in your divine providence you have appointed various orders in your Church: Give your grace, we humbly pray, to all who are [now] called to any office and ministry for your people; and so fill them with the truth of your doctrine and clothe them with holiness of life, that they may faithfully serve before you, to the glory of your great Name and for the benefit of your holy Church; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
-                        .response("Amen.")
+                    Series::from(vec![
+                        Document::from(Heading::from((HeadingLevel::Heading4, "I. For those to be ordained"))),
+                        Document::from(Text::from("Almighty God, the giver of all good gifts, in your divine providence you have appointed various orders in your Church: Give your grace, we humbly pray, to all who are [now] called to any office and ministry for your people; and so fill them with the truth of your doctrine and clothe them with holiness of life, that they may faithfully serve before you, to the glory of your great Name and for the benefit of your holy Church; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
+                            .response("Amen.")
+                        )
+                    ])
                 )
                 .label("15. For the Ministry (Ember Days)")
                 .page(256)
                 .tags(["Various Occasions"]),
                 preface: "Preface of Apostles".into(),
-                rubric_before: None,
+                rubric_before: Some("For use on the traditional days or at other times".into()),
                 rubric_after: None
             }
         ),
@@ -2216,10 +2222,14 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::EmberDays),
             CollectData {
                 document: Document::from(
-                    Text::from("O God, you led your holy apostles to ordain ministers in every place: Grant that your Church, under the guidance of the Holy Spirit, may choose suitable persons for the ministry of Word and Sacrament, and may uphold them in their work for the extension of your kingdom; through him who is the Shepherd and Bishop of our souls, Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
-                        .response("Amen.")
+                    Series::from(vec![
+                        Document::from(Heading::from((HeadingLevel::Heading4, "II. For the choice of fit persons for the ministry"))),
+                        Document::from(Text::from("O God, you led your holy apostles to ordain ministers in every place: Grant that your Church, under the guidance of the Holy Spirit, may choose suitable persons for the ministry of Word and Sacrament, and may uphold them in their work for the extension of your kingdom; through him who is the Shepherd and Bishop of our souls, Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                            .response("Amen.")
+                        )
+                    ])
                 )
-                .label("II. For the choice of fit persons for the ministry")
+                .label("15. For the Ministry (Ember Days)")
                 .page(256)
                 .tags(["Various Occasions"]),
                 preface: "Preface of the Season".into(),
@@ -2231,10 +2241,14 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::EmberDays),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty and everlasting God, by whose Spirit the whole body of your faithful people is governed and sanctified: Receive our supplications and prayers, which we offer beforeyou for all members of your holy Church, that in their vocation and ministry they may truly and devoutly serve you; through our Lord and Savior Jesus Christ, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
-                        .response("Amen.")
+                    Series::from(vec![
+                        Document::from(Heading::from((HeadingLevel::Heading4, "III. For all Christians in their vocation"))),
+                        Document::from(Text::from("Almighty and everlasting God, by whose Spirit the whole body of your faithful people is governed and sanctified: Receive our supplications and prayers, which we offer beforeyou for all members of your holy Church, that in their vocation and ministry they may truly and devoutly serve you; through our Lord and Savior Jesus Christ, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
+                            .response("Amen.")
+                        )
+                    ])
                 )
-                .label("III. For all Christians in their vocation")
+                .label("15. For the Ministry (Ember Days)")
                 .page(257)
                 .tags(["Various Occasions"]),
                 preface: "Preface of Baptism, or of the Season".into(),
@@ -2306,8 +2320,34 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::RogationDays),
             CollectData {
                 document: Document::from(
-                    Text::from("For use on the traditional days or at other timesI. For fruitful seasonsAlmighty God, Lord of heaven and earth: We humbly pray that your gracious providence may give and preserve to our use the harvests of the land and of the seas, and may prosper all who labor to gather them, that we, who are constantly receiving good things from your hand, may always give youthanks; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
-                        .response("Amen.")
+                    Series::from(vec![
+                        Document::from(Heading::from((HeadingLevel::Heading4, "I. For fruitful seasons"))),
+                        Document::from(
+                            Text::from("Almighty God, Lord of heaven and earth: We humbly pray that your gracious providence may give and preserve to our use the harvests of the land and of the seas, and may prosper all who labor to gather them, that we, who are constantly receiving good things from your hand, may always give youthanks; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                                .response("Amen.")
+                        )
+                    ])
+                )
+                .label("19. For Rogation Days")
+                .page(259)
+                .tags(["Various Occasions"]),
+                preface: "Preface of the Season".into(),
+                rubric_before: Some("For use on the traditional days or at other times".into()),
+                rubric_after: None
+            }
+        ),
+        (
+            CollectId::VariousOccasions(VariousOccasions::RogationDays),
+            CollectData {
+                document: Document::from(
+                    Series::from(vec![
+                        Document::from(Heading::from((HeadingLevel::Heading4, "II. For commerce and industry"))),
+                        Document::from(
+                            Text::from("Almighty God, whose Son Jesus Christ in his earthly lifeshared our toil and hallowed our labor: Be present with your people where they work; make those who carry on the industries and commerce of this land responsive to your will; and giveto us all a pride in what we do, and a just return for our labor; through Jesus Christ our Lord, who lives and reigns withyou, in the unity of the Holy Spirit, one God, now and forever.")
+                                .response("Amen.")
+                        )
+                    ])
+
                 )
                 .label("19. For Rogation Days")
                 .page(259)
@@ -2321,25 +2361,15 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::RogationDays),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty God, whose Son Jesus Christ in his earthly lifeshared our toil and hallowed our labor: Be present with your people where they work; make those who carry on the industries and commerce of this land responsive to your will; and giveto us all a pride in what we do, and a just return for our labor; through Jesus Christ our Lord, who lives and reigns withyou, in the unity of the Holy Spirit, one God, now and forever.")
-                        .response("Amen.")
+                    Series::from(vec![
+                        Document::from(Heading::from((HeadingLevel::Heading4, "III. For stewardship of creation"))),
+                        Document::from(
+                            Text::from("O merciful Creator, your hand is open wide to satisfy the needs of every living creature: Make us always thankful for your loving providence; and grant that we, remembering the account that we must one day give, may be faithful stewards of your good gifts; through Jesus Christ our Lord, who with you and the Holy Spirit lives and reigns, one God, for ever and ever.")
+                                .response("Amen.")
+                        )
+                    ])
                 )
-                .label("II. For commerce and industry")
-                .page(259)
-                .tags(["Various Occasions"]),
-                preface: "Preface of the Season".into(),
-                rubric_before: None,
-                rubric_after: None
-            }
-        ),
-        (
-            CollectId::VariousOccasions(VariousOccasions::RogationDays),
-            CollectData {
-                document: Document::from(
-                    Text::from("O merciful Creator, your hand is open wide to satisfy the needs of every living creature: Make us always thankful for your loving providence; and grant that we, remembering the account that we must one day give, may be faithful stewards of your good gifts; through Jesus Christ our Lord, who with you and the Holy Spirit lives and reigns, one God, for ever and ever.")
-                        .response("Amen.")
-                )
-                .label("III. For stewardship of creation")
+                .label("19. For Rogation Days")
                 .page(259)
                 .tags(["Various Occasions"]),
                 preface: "Preface of the Season".into(),
@@ -2359,7 +2389,7 @@ lazy_static! {
                 .tags(["Various Occasions"]),
                 preface: "Preface of the Season".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("The postcommunion prayer on page 457 may be used.".into())
             }
         ),
         (
@@ -2373,7 +2403,7 @@ lazy_static! {
                 .page(260)
                 .tags(["Various Occasions"]),
                 preface: "Preface of the Season".into(),
-                rubric_before: Some("The postcommunion prayer on page 457 may be used.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),

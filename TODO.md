@@ -8,17 +8,16 @@ Website Todos
 - [ ] Spanish liturgy
   - [x] Psalms
   - [ ] Collects
-    - [x] In all versions: Collect links to avoid repetitions
-    - [x] Transition LFF collects over
-    - [x] Transition collect compilation over
-    - [x] Handle feast dates in collect names
-    - [x] Handle proper dates in collect names
-    - [ ] Test collect page
-      - [ ] "after rubrics" in some places get assigned to "before rubric" of prior page
+    - [x] Test collect page
+      - [ ] Clean up Spanish-language collect page
+        - [ ] Ember/Rogation days => Series
+        - [ ] "or this" etc.
+        - [ ] general appearance/any obvious errors
     - [x] Collect links for Eve of ___
 - Bugs
   - [ ] Small iOS appearance bugs
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
+  - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)
 - Hymns
   - [x] Insert service music/office hymn links into Office liturgies
   - [ ] finish tagging service music

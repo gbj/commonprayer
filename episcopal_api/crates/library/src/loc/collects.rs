@@ -14,7 +14,9 @@ lazy_static! {
                 )
                 .label("Primer Domingo de Adviento")
                 .page(125)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Adviento".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -29,7 +31,9 @@ lazy_static! {
                 )
                 .label("Segundo Domingo de Adviento")
                 .page(125)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Adviento".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -44,10 +48,12 @@ lazy_static! {
                 )
                 .label("Tercer Domingo de Adviento")
                 .page(126)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Adviento".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("El miércoles, viernes y sábado de esta semana son los tradicionales Días de Témporas de invierno.".into())
             }
         ),
         (
@@ -59,9 +65,11 @@ lazy_static! {
                 )
                 .label("Cuarto Domingo de Adviento")
                 .page(126)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Adviento".into(),
-                rubric_before: Some("El miércoles, viernes y sábado de esta semana son los tradicionales Días de Témporas de invierno.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -75,7 +83,9 @@ lazy_static! {
                 .label("Natividad de Nuestro Señor: Día de Navidad")
                     .subtitle("Diciembre 25")
                 .page(126)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -91,7 +101,9 @@ lazy_static! {
                 .label("Natividad de Nuestro Señor: Día de Navidad")
                     .subtitle("Diciembre 25")
                 .page(127)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -107,10 +119,12 @@ lazy_static! {
                 .label("Natividad de Nuestro Señor: Día de Navidad")
                     .subtitle("Diciembre 25")
                 .page(127)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Encarnación".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("La Colecta que precede, y cualquiera de las tres series de Lecciones Propias del Día de Navidad, sirven para cualquier otro día de entre semana desde el Día de los Santos Inocentes hasta el Primer Domingo después del Día de Navidad.".into())
             }
         ),
         (
@@ -122,9 +136,11 @@ lazy_static! {
                 )
                 .label("Primer Domingo después del Día de Navidad")
                 .page(127)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Encarnación".into(),
-                rubric_before: Some("La Colecta que precede, y cualquiera de las tres series de Lecciones Propias del Día de Navidad, sirven para cualquier otro día de entre semana desde el Día de los Santos Inocentes hasta el Primer Domingo después del Día de Navidad.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -138,7 +154,9 @@ lazy_static! {
                 .label("El Santo Nombre de Jesús")
                     .subtitle("Enero 1")
                 .page(128)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Encarnación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -153,7 +171,9 @@ lazy_static! {
                 )
                 .label("Segundo Domingo después del Día de Navidad")
                 .page(128)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Encarnación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -169,10 +189,12 @@ lazy_static! {
                 .label("La Epifanía")
                     .subtitle("Enero 6")
                 .page(128)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Epifanía".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("La Colecta que precede, ¡unto con el Salmo y las Lecciones de la Epifanía, o aquéllos señalados para el Segundo Domingo después del Día de Navidad, sirven para los días de entre semana desde la Epifanía hasta el domingo siguiente. Se usa el Prefacio de Epifanía.".into())
             }
         ),
         (
@@ -184,9 +206,11 @@ lazy_static! {
                 )
                 .label("Primer Domingo después de la Epifanía: Bautismo de Nuestro Señor")
                 .page(129)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Epifanía".into(),
-                rubric_before: Some("La Colecta que precede, ¡unto con el Salmo y las Lecciones de la Epifanía, o aquéllos señalados para el Segundo Domingo después del Día de Navidad, sirven para los días de entre semana desde la Epifanía hasta el domingo siguiente. Se usa el Prefacio de Epifanía.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -199,7 +223,9 @@ lazy_static! {
                 )
                 .label("Segundo Domingo después de la Epifanía")
                 .page(129)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Epifanía o del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -214,7 +240,9 @@ lazy_static! {
                 )
                 .label("Tercer Domingo después de la Epifanía")
                 .page(129)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Epifanía o del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -229,7 +257,9 @@ lazy_static! {
                 )
                 .label("Cuarto Domingo después de la Epifanía")
                 .page(130)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Epifanía o del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -244,7 +274,9 @@ lazy_static! {
                 )
                 .label("Quinto Domingo después de la Epifanía")
                 .page(130)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Epifanía o del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -259,7 +291,9 @@ lazy_static! {
                 )
                 .label("Sexto Domingo después de la Epifanía")
                 .page(130)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Epifanía o del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -274,7 +308,9 @@ lazy_static! {
                 )
                 .label("Séptimo Domingo después de la Epifanía")
                 .page(131)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Epifanía o del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -289,7 +325,9 @@ lazy_static! {
                 )
                 .label("Octavo Domingo después de la Epifanía")
                 .page(131)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Epifanía o del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -304,7 +342,9 @@ lazy_static! {
                 )
                 .label("Ultimo Domingo después de la Epifanía")
                 .page(131)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Epifanía".into(),
                 rubric_before: Some("Este Propio siempre se usa el domingo antes del Miércoles de Ceniza.".into()),
                 rubric_after: None
@@ -319,10 +359,12 @@ lazy_static! {
                 )
                 .label("Miércoles de Ceniza")
                 .page(132)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Cuaresma".into(),
                 rubric_before: Some("La Liturgia Propia de este día se encuentra en la página 182.".into()),
-                rubric_after: None
+                rubric_after: Some("Esta Colecta, junto con el Salmo y las Lecciones correspondientes, también sirven para los siguientes días hasta el domingo próximo, a no ser que se señale de otro modo.".into())
             }
         ),
         (
@@ -334,10 +376,12 @@ lazy_static! {
                 )
                 .label("Primer Domingo en Cuaresma")
                 .page(132)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Cuaresma".into(),
-                rubric_before: Some("Esta Colecta, junto con el Salmo y las Lecciones correspondientes, también sirven para los siguientes días hasta el domingo próximo, a no ser que se señale de otro modo.".into()),
-                rubric_after: None
+                rubric_before: None,
+                rubric_after: Some("El miércoles, viernes y sábado de esta semana son los tradicionales Días de Témporas de primavera.".into())
             }
         ),
         (
@@ -349,9 +393,11 @@ lazy_static! {
                 )
                 .label("Segundo Domingo en Cuaresma")
                 .page(133)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Cuaresma".into(),
-                rubric_before: Some("El miércoles, viernes y sábado de esta semana son los tradicionales Días de Témporas de primavera.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -364,7 +410,9 @@ lazy_static! {
                 )
                 .label("Tercer Domingo en Cuaresma")
                 .page(133)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Cuaresma".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -379,7 +427,9 @@ lazy_static! {
                 )
                 .label("Cuarto Domingo en Cuaresma")
                 .page(133)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Cuaresma".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -394,7 +444,9 @@ lazy_static! {
                 )
                 .label("Quinto Domingo en Cuaresma")
                 .page(134)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Cuaresma".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -409,7 +461,9 @@ lazy_static! {
                 )
                 .label("Domingo de Pasión: Domingo de Ramos")
                 .page(134)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Semana Santa".into(),
                 rubric_before: Some("La Liturgia Propia de este día se encuentra en la página 189.".into()),
                 rubric_after: None
@@ -424,7 +478,9 @@ lazy_static! {
                 )
                 .label("Lunes Santo")
                 .page(135)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Semana Santa".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -439,7 +495,9 @@ lazy_static! {
                 )
                 .label("Martes Santo")
                 .page(135)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Semana Santa".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -454,7 +512,9 @@ lazy_static! {
                 )
                 .label("Miércoles Santo")
                 .page(135)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Semana Santa".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -469,7 +529,9 @@ lazy_static! {
                 )
                 .label("Jueves Santo")
                 .page(136)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Semana Santa".into(),
                 rubric_before: Some("La Liturgia Propia de este día se encuentra en la página 193.".into()),
                 rubric_after: None
@@ -484,7 +546,9 @@ lazy_static! {
                 )
                 .label("Viernes Santo")
                 .page(136)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Semana Santa".into(),
                 rubric_before: Some("La Liturgia Propia de este día se encuentra en la página 195.".into()),
                 rubric_after: None
@@ -499,7 +563,9 @@ lazy_static! {
                 )
                 .label("Sábado Santo")
                 .page(136)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Semana Santa".into(),
                 rubric_before: Some("La Liturgia Propia de este día se encuentra en la página 20;.".into()),
                 rubric_after: None
@@ -514,7 +580,9 @@ lazy_static! {
                 )
                 .label("Día de Pascua")
                 .page(137)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: Some("La Liturgia de la Vigilia Pascual se encuentra en la página 205.".into()),
                 rubric_after: None
@@ -529,7 +597,9 @@ lazy_static! {
                 )
                 .label("Día de Pascua")
                 .page(137)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -544,7 +614,9 @@ lazy_static! {
                 )
                 .label("Día de Pascua")
                 .page(137)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pascua".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -559,7 +631,9 @@ lazy_static! {
                 )
                 .label("Lunes de Pascua")
                 .page(138)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pascua".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -574,7 +648,9 @@ lazy_static! {
                 )
                 .label("Martes de Pascua")
                 .page(138)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pascua".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -589,7 +665,9 @@ lazy_static! {
                 )
                 .label("Miércoles de Pascua")
                 .page(138)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pascua".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -604,7 +682,9 @@ lazy_static! {
                 )
                 .label("Jueves de Pascua")
                 .page(139)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pascua".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -619,7 +699,9 @@ lazy_static! {
                 )
                 .label("Viernes de Pascua")
                 .page(139)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pascua".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -634,7 +716,9 @@ lazy_static! {
                 )
                 .label("Sábado de Pascua")
                 .page(139)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pascua".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -649,7 +733,9 @@ lazy_static! {
                 )
                 .label("Segundo Domingo de Pascua")
                 .page(140)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pascua".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -664,7 +750,9 @@ lazy_static! {
                 )
                 .label("Tercer Domingo de Pascua")
                 .page(140)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pascua".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -679,7 +767,9 @@ lazy_static! {
                 )
                 .label("Cuarto Domingo de Pascua")
                 .page(140)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pascua".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -694,7 +784,9 @@ lazy_static! {
                 )
                 .label("Quinto Domingo de Pascua")
                 .page(141)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pascua".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -709,10 +801,12 @@ lazy_static! {
                 )
                 .label("Sexto Domingo de Pascua")
                 .page(141)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pascua".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("El lunes, martes y miércoles de esta semana son los tradicionalesDías de Rogativa.".into())
             }
         ),
         (
@@ -724,9 +818,11 @@ lazy_static! {
                 )
                 .label("Día de la Ascensión")
                 .page(141)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
-                rubric_before: Some("El lunes, martes y miércoles de esta semana son los tradicionalesDías de Rogativa.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -739,10 +835,12 @@ lazy_static! {
                 )
                 .label("Día de la Ascensión")
                 .page(142)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Ascensión".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after:  Some("Cualquiera de las dos Colectas anteriores, junto con el Salmo y las Lecciones para el Día de la Ascensión, pueden usarse los siguientes días de esta semana, a no ser que se señale de otro modo.".into())
             }
         ),
         (
@@ -754,9 +852,11 @@ lazy_static! {
                 )
                 .label("Séptimo Domingo de Pascua: Domingo después de la Ascensión")
                 .page(142)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Ascensión".into(),
-                rubric_before: Some("Cualquiera de las dos Colectas anteriores, junto con el Salmo y las Lecciones para el Día de la Ascensión, pueden usarse los siguientes días de esta semana, a no ser que se señale de otro modo.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -764,15 +864,17 @@ lazy_static! {
             CollectId::Feast(Feast::Pentecost),
             CollectData {
                 document: Document::from(
-                    Text::from("Lecciones señaladas, cada una de ellas seguida por un Salmo, Cántico o himno. Después del Sermón, sigue el Santo Bautismo, la Confirmación (comenzando con la Presentación de los Candidatos) o laRenovación de Votos Bautismales, página 213.Dios omnipotente, en este día abriste el camino de la vida eterna a toda raza y nación por el don prometido de tu Espíritu Santo: Esparce este don sobre todo el mundo por la predicación del Evangelio, para que llegue a los confines de la tierra; por Jesucristo nuestro Señor, que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, por los siglos de los siglos. Amén.o bien:")
+                    Text::from("Dios omnipotente, en este día abriste el camino de la vida eterna a toda raza y nación por el don prometido de tu Espíritu Santo: Esparce este don sobre todo el mundo por la predicación del Evangelio, para que llegue a los confines de la tierra; por Jesucristo nuestro Señor, que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Día de Pentecostés")
                 .page(143)
-                .tags(["Estaciones del Año"]),
-                preface: "".into(),
-                rubric_before: Some("Cuando se celebra la Vigilia de Pentecostés, ésta comienza con el Rito de la Luz, página 73 (usando, si se desea, el “Gloria in excelsis” en lugar del “Phos hilaron”, página 76) y continúa con la Salutación y la colecta del Día. Antes del Evangelio se leen tres o más de las".into()),
-                rubric_after: None
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
+                preface: "Prefacio de Pentecostés".into(),
+                rubric_before: Some("Cuando se celebra la Vigilia de Pentecostés, ésta comienza con el Rito de la Luz, página 73 (usando, si se desea, el “Gloria in excelsis” en lugar del “Phos hilaron”, página 76) y continúa con la Salutación y la colecta del Día. Antes del Evangelio se leen tres o más de las Lecciones señaladas, cada una de ellas seguida por un Salmo, Cántico o himno. Después del Sermón, sigue el Santo Bautismo, la Confirmación (comenzando con la Presentación de los Candidatos) o la Renovación de Votos Bautismales, página 213.".into()),
+                rubric_after: Some("o bien:".into())
             }
         ),
         (
@@ -784,10 +886,12 @@ lazy_static! {
                 )
                 .label("Día de Pentecostés")
                 .page(143)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pentecostés".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("De lunes a sábado de esta semana se usa el Propio numerado que corresponda a la fecha más cercana del Día de Pentecostés en este año. Véase la página 124.\n\nEl miércoles, viernes y sábado de esta semana son los tradicionales Días de Témporas de verano.".into())
             }
         ),
         (
@@ -799,10 +903,12 @@ lazy_static! {
                 )
                 .label("Primer Domingo después de Pentecostés: Domingo de Trinidad")
                 .page(143)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Domingo de la Trinidad".into(),
-                rubric_before: Some("De lunes a sábado de esta semana se usa el Propio numerado que corresponda a la fecha más cercana del Día de Pentecostés en este año. Véase la página 124.El miércoles, viernes y sábado de esta semana son los tradicionales Días de Témporas de verano.".into()),
-                rubric_after: None
+                rubric_before: None,
+                rubric_after: Some("De lunes a sábado de esta semana se usa el Propio numerado que corresponda a la fecha más cercana del Domingo de Trinidad en este año.".into())
             }
         ),
         (
@@ -815,9 +921,11 @@ lazy_static! {
                 .label("Propio 1")
                     .subtitle("Semana del domingo más cercano a Mayo 11")
                 .page(144)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año", "La Estación después de Pentecostés"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "No se usa Prefacio Propio.".into(),
-                rubric_before: Some("De lunes a sábado de esta semana se usa el Propio numerado que corresponda a la fecha más cercana del Domingo de Trinidad en este año.".into()),
+                rubric_before: Some("Las reglas para el uso de los Propios que siguen se encuentran en la página 124.".into()),
                 rubric_after: None
             }
         ),
@@ -831,7 +939,9 @@ lazy_static! {
                 .label("Propio 2")
                     .subtitle("Semana del domingo más cercano a Mayo 18")
                 .page(144)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "No se usa Prefacio Propio.".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -847,7 +957,9 @@ lazy_static! {
                 .label("Propio 3")
                     .subtitle("El domingo más cercano a Mayo 25")
                 .page(145)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -863,7 +975,9 @@ lazy_static! {
                 .label("Propio 4")
                     .subtitle("El domingo más cercano a Junio 1")
                 .page(145)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -879,7 +993,9 @@ lazy_static! {
                 .label("Propio 5")
                     .subtitle("El domingo más cercano a Junio 8")
                 .page(145)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -895,7 +1011,9 @@ lazy_static! {
                 .label("Propio 6")
                     .subtitle("El domingo más cercano a Junio 15")
                 .page(145)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -911,7 +1029,9 @@ lazy_static! {
                 .label("Propio 7")
                     .subtitle("El domingo más cercano a Junio 22")
                 .page(146)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -927,7 +1047,9 @@ lazy_static! {
                 .label("Propio 8")
                     .subtitle("El domingo más cercano a Junio 29")
                 .page(146)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -943,7 +1065,9 @@ lazy_static! {
                 .label("Propio 9")
                     .subtitle("El domingo más cercano a Julio 6")
                 .page(146)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -959,7 +1083,9 @@ lazy_static! {
                 .label("Propio 10")
                     .subtitle("El domingo más cercano a Julio 13")
                 .page(147)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -975,7 +1101,9 @@ lazy_static! {
                 .label("Propio 11")
                     .subtitle("El domingo más cercano a Julio 20")
                 .page(147)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -991,7 +1119,9 @@ lazy_static! {
                 .label("Propio 12")
                     .subtitle("El domingo más cercano a Julio 27")
                 .page(147)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1007,7 +1137,9 @@ lazy_static! {
                 .label("Propio 13")
                     .subtitle("El domingo más cercano a Agosto 3")
                 .page(148)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1023,7 +1155,9 @@ lazy_static! {
                 .label("Propio 14")
                     .subtitle("El domingo más cercano a Agosto 10")
                 .page(148)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1039,7 +1173,9 @@ lazy_static! {
                 .label("Propio 15")
                     .subtitle("El domingo más cercano a Agosto 17")
                 .page(148)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1055,7 +1191,9 @@ lazy_static! {
                 .label("Propio 16")
                     .subtitle("El domingo más cercano a Agosto 24")
                 .page(149)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1071,7 +1209,9 @@ lazy_static! {
                 .label("Propio 17")
                     .subtitle("El domingo más cercano a Agosto 31")
                 .page(149)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1087,7 +1227,9 @@ lazy_static! {
                 .label("Propio 18")
                     .subtitle("El domingo más cercano a Septiembre 7")
                 .page(149)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1103,10 +1245,12 @@ lazy_static! {
                 .label("Propio 19")
                     .subtitle("El domingo más cercano a Septiembre 14")
                 .page(149)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("El miércoles, viernes y sábado después del 14 de septiembre son los tradicionales Días de Témporas de otoño.".into())
             }
         ),
         (
@@ -1119,9 +1263,11 @@ lazy_static! {
                 .label("Propio 20")
                     .subtitle("El domingo más cercano a Septiembre 21")
                 .page(150)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
-                rubric_before: Some("El miércoles, viernes y sábado después del 14 de septiembre son los tradicionales Días de Témporas de otoño.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -1135,7 +1281,9 @@ lazy_static! {
                 .label("Propio 21")
                     .subtitle("El domingo más cercano a Septiembre 28")
                 .page(150)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1151,7 +1299,9 @@ lazy_static! {
                 .label("Propio 22")
                     .subtitle("El domingo más cercano a Octubre 5")
                 .page(151)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1167,7 +1317,9 @@ lazy_static! {
                 .label("Propio 23")
                     .subtitle("El domingo más cercano a Octubre 12")
                 .page(151)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1183,7 +1335,9 @@ lazy_static! {
                 .label("Propio 24")
                     .subtitle("El domingo más cercano a Octubre 19")
                 .page(151)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1199,7 +1353,9 @@ lazy_static! {
                 .label("Propio 25")
                     .subtitle("El domingo más cercano a Octubre 26")
                 .page(151)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1215,7 +1371,9 @@ lazy_static! {
                 .label("Propio 26")
                     .subtitle("El domingo más cercano a Noviembre 2")
                 .page(152)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1231,7 +1389,9 @@ lazy_static! {
                 .label("Propio 27")
                     .subtitle("El domingo más cercano a Noviembre 9")
                 .page(152)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1247,7 +1407,9 @@ lazy_static! {
                 .label("Propio 28")
                     .subtitle("El domingo más cercano a Noviembre 16")
                 .page(152)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1263,7 +1425,9 @@ lazy_static! {
                 .label("Propio 29")
                     .subtitle("El domingo más cercano a Noviembre 23")
                 .page(153)
-                .tags(["Estaciones del Año"]),
+                .tags(["Estaciones del Año"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Día del Señor, o del Bautismo".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1279,7 +1443,9 @@ lazy_static! {
                 .label("San Andrés")
                     .subtitle("Noviembre 30")
                 .page(153)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1295,7 +1461,9 @@ lazy_static! {
                 .label("Santo Tomás")
                     .subtitle("Diciembre 21")
                 .page(153)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1311,7 +1479,9 @@ lazy_static! {
                 .label("San Esteban")
                     .subtitle("Diciembre 26")
                 .page(154)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Encarnación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1327,7 +1497,9 @@ lazy_static! {
                 .label("San Juan")
                     .subtitle("Diciembre 27")
                 .page(154)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Encarnación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1343,7 +1515,9 @@ lazy_static! {
                 .label("Los Santos Inocentes")
                     .subtitle("Diciembre 28")
                 .page(154)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Encarnación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1359,7 +1533,9 @@ lazy_static! {
                 .label("Confesión de San Pedro")
                     .subtitle("Enero 18")
                 .page(155)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1375,7 +1551,9 @@ lazy_static! {
                 .label("Conversión de San Pablo")
                     .subtitle("Enero 25")
                 .page(155)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1391,7 +1569,9 @@ lazy_static! {
                 .label("La Presentación")
                     .subtitle("Febrero 2")
                 .page(155)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Epifanía".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1407,7 +1587,9 @@ lazy_static! {
                 .label("San Matías")
                     .subtitle("Febrero 24")
                 .page(156)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1423,7 +1605,9 @@ lazy_static! {
                 .label("San José")
                     .subtitle("Marzo 19")
                 .page(156)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Epifanía".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1439,7 +1623,9 @@ lazy_static! {
                 .label("La Anunciación")
                     .subtitle("Marzo 25")
                 .page(156)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Epifanía".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1455,7 +1641,9 @@ lazy_static! {
                 .label("San Marcos")
                     .subtitle("Abril 25")
                 .page(157)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Todos los Santos".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1471,7 +1659,9 @@ lazy_static! {
                 .label("San Felipe y Santiago")
                     .subtitle("Mayo 1")
                 .page(157)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1487,7 +1677,9 @@ lazy_static! {
                 .label("La Visitación")
                     .subtitle("Mayo 31")
                 .page(157)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Epifanía".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1503,7 +1695,9 @@ lazy_static! {
                 .label("San Bernabé")
                     .subtitle("Junio 11")
                 .page(158)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1519,7 +1713,9 @@ lazy_static! {
                 .label("Natividad de San Juan Bautista")
                     .subtitle("Junio 24")
                 .page(158)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Adviento".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1535,7 +1731,9 @@ lazy_static! {
                 .label("San Pedro y San Pablo")
                     .subtitle("Junio 29")
                 .page(158)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1551,7 +1749,9 @@ lazy_static! {
                 .label("Santa María Magdalena")
                     .subtitle("Julio 22")
                 .page(159)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Todos los Santos".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1567,7 +1767,9 @@ lazy_static! {
                 .label("Santiago")
                     .subtitle("Julio 25")
                 .page(159)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1583,7 +1785,9 @@ lazy_static! {
                 .label("La Transfiguración")
                     .subtitle("Agosto 6")
                 .page(159)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Epifanía".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1599,7 +1803,9 @@ lazy_static! {
                 .label("Santa María Virgen")
                     .subtitle("Agosto 15")
                 .page(160)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Encarnación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1615,7 +1821,9 @@ lazy_static! {
                 .label("San Bartolomé")
                     .subtitle("Agosto 24")
                 .page(160)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1631,7 +1839,9 @@ lazy_static! {
                 .label("Día de la Santa Cruz")
                     .subtitle("Septiembre 14")
                 .page(160)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Semana Santa".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1647,7 +1857,9 @@ lazy_static! {
                 .label("San Mateo")
                     .subtitle("Septiembre 21")
                 .page(161)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1663,7 +1875,9 @@ lazy_static! {
                 .label("San Miguel y Todos Los Angeles")
                     .subtitle("Septiembre 29")
                 .page(161)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Domingo de Trinidad".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1679,7 +1893,9 @@ lazy_static! {
                 .label("San Lucas")
                     .subtitle("Octubre 18")
                 .page(161)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Todos los Santos".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1695,7 +1911,9 @@ lazy_static! {
                 .label("Santiago de Jerusalén")
                     .subtitle("Octubre 23")
                 .page(162)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Todos los Santos".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1711,7 +1929,9 @@ lazy_static! {
                 .label("San Simón y San Judas")
                     .subtitle("Octubre 28")
                 .page(162)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1727,7 +1947,9 @@ lazy_static! {
                 .label("Día de Todos Los Santos")
                     .subtitle("Noviembre 1")
                 .page(162)
-                .tags(["Días Santos"]),
+                .tags(["Días Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Todos los Santos".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1742,7 +1964,9 @@ lazy_static! {
                 )
                 .label("Día de la Independencia")
                 .page(163)
-                .tags(["Otras Conmemoraciones"]),
+                .tags(["Otras Conmemoraciones"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Domingo de Trinidad".into(),
                 rubric_before: None,
                 rubric_after: Some("Puede usarse la Colecta “Por la Nación,” en la página 176, en vez de la anterior".into())
@@ -1757,7 +1981,9 @@ lazy_static! {
                 )
                 .label("Día de Acción de Gracias")
                 .page(163)
-                .tags(["Otras Conmemoraciones"]),
+                .tags(["Otras Conmemoraciones"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Domingo de Trinidad".into(),
                 rubric_before: None,
                 rubric_after: Some("Para la Oración de los Fieles puede usarse la Letanía de Acción de Gracias, en la página 728.".into())
@@ -1772,7 +1998,9 @@ lazy_static! {
                 )
                 .label("De un Mártir")
                 .page(164)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1787,7 +2015,9 @@ lazy_static! {
                 )
                 .label("De un Mártir")
                 .page(164)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1802,7 +2032,9 @@ lazy_static! {
                 )
                 .label("De un Mártir")
                 .page(165)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de un Santo".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1817,7 +2049,9 @@ lazy_static! {
                 )
                 .label("De un Misionero")
                 .page(165)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1832,7 +2066,9 @@ lazy_static! {
                 )
                 .label("De un Misionero")
                 .page(165)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pentecostés".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1847,7 +2083,9 @@ lazy_static! {
                 )
                 .label("De un Pastor")
                 .page(166)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1862,7 +2100,9 @@ lazy_static! {
                 )
                 .label("De un Pastor")
                 .page(166)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de un Santo".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1877,7 +2117,9 @@ lazy_static! {
                 )
                 .label("De un Teólogo y Maestro")
                 .page(166)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1892,7 +2134,9 @@ lazy_static! {
                 )
                 .label("De un Teólogo y Maestro")
                 .page(167)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de un Santo, o del Domingo de Trinidad".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1907,7 +2151,9 @@ lazy_static! {
                 )
                 .label("De un Religioso")
                 .page(167)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1922,7 +2168,9 @@ lazy_static! {
                 )
                 .label("De un Religioso")
                 .page(167)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de un Santo".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1937,7 +2185,9 @@ lazy_static! {
                 )
                 .label("De un Santo")
                 .page(168)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1952,7 +2202,9 @@ lazy_static! {
                 )
                 .label("De un Santo")
                 .page(168)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1967,7 +2219,9 @@ lazy_static! {
                 )
                 .label("De un Santo")
                 .page(168)
-                .tags(["Común de los Santos"]),
+                .tags(["Común de los Santos"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de un Santo".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1982,7 +2236,9 @@ lazy_static! {
                 )
                 .label("1. De la Santísima Trinidad")
                 .page(169)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Domingo de Trinidad".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -1997,7 +2253,9 @@ lazy_static! {
                 )
                 .label("2. Del Espíritu Santo")
                 .page(169)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pentecostés".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2012,7 +2270,9 @@ lazy_static! {
                 )
                 .label("3. De los Santos Angeles")
                 .page(169)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Domingo de Trinidad".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2027,7 +2287,9 @@ lazy_static! {
                 )
                 .label("4. De la Encarnación")
                 .page(170)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Epifanía".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2042,7 +2304,9 @@ lazy_static! {
                 )
                 .label("5. De la Santa Eucaristía")
                 .page(170)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Epifanía".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2057,7 +2321,9 @@ lazy_static! {
                 )
                 .label("6. De la Santa Cruz")
                 .page(170)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Semana Santa".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2072,7 +2338,9 @@ lazy_static! {
                 )
                 .label("7. Por todos los Bautizados")
                 .page(171)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Bautismo".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2087,7 +2355,9 @@ lazy_static! {
                 )
                 .label("8. Por los Difuntos")
                 .page(171)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2102,10 +2372,12 @@ lazy_static! {
                 )
                 .label("8. Por los Difuntos")
                 .page(172)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Conmemoración de los Fieles Difuntos".into(),
                 rubric_before: None,
-                rubric_after: Some("Puede usarse cualquiera de las Colectas del Rito de Entierro en vez de las anteriores.Puede usarse una de las fórmulas señaladas en el Rito de Entierro para la Oración de los Fieles.".into())
+                rubric_after: Some("Puede usarse cualquiera de las Colectas del Rito de Entierro en vez de las anteriores.\n\nPuede usarse una de las fórmulas señaladas en el Rito de Entierro para la Oración de los Fieles.\n\nPuede usarse la oración de poscomunión de la página 400.".into())
             }
         ),
         (
@@ -2117,9 +2389,11 @@ lazy_static! {
                 )
                 .label("9. Del Reinado de Cristo")
                 .page(172)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Ascensión, o del Bautismo".into(),
-                rubric_before: Some("Puede usarse la oración de poscomunión de la página 400.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -2132,7 +2406,9 @@ lazy_static! {
                 )
                 .label("10. En un Bautismo")
                 .page(172)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Bautismo".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2147,7 +2423,9 @@ lazy_static! {
                 )
                 .label("11. En una Confirmación")
                 .page(173)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Bautismo, o de Pentecostés".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2162,7 +2440,9 @@ lazy_static! {
                 )
                 .label("12. En el Aniversario de la Dedicación de una Iglesia")
                 .page(173)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Dedicación de una Iglesia".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2177,7 +2457,9 @@ lazy_static! {
                 )
                 .label("13. Por una Convención de la Iglesia")
                 .page(173)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Pentecostés, o de la Estación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2192,7 +2474,9 @@ lazy_static! {
                 )
                 .label("14. Por la Unidad de la Iglesia")
                 .page(174)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Bautismo, o del Domingo de Trinidad".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2207,7 +2491,9 @@ lazy_static! {
                 )
                 .label("15. Por el Ministerio (Días de Témporas)")
                 .page(174)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de Apóstoles".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2222,7 +2508,9 @@ lazy_static! {
                 )
                 .label("II. Por la selección de personas idóneas para el ministerio")
                 .page(175)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Estación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2237,7 +2525,9 @@ lazy_static! {
                 )
                 .label("III. Por todo cristiano en su vocación")
                 .page(175)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Bautismo, o de la Estación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2252,7 +2542,9 @@ lazy_static! {
                 )
                 .label("16. Por la Misión de la Iglesia")
                 .page(175)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2267,7 +2559,9 @@ lazy_static! {
                 )
                 .label("16. Por la Misión de la Iglesia")
                 .page(176)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Estación, o de Pentecostés".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2282,7 +2576,9 @@ lazy_static! {
                 )
                 .label("17. Por la Nación")
                 .page(176)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio del Domingo de Trinidad".into(),
                 rubric_before: None,
                 rubric_after: Some("En vez de esta Colecta puede usarse la del Día de la Independencia en la página 163.".into())
@@ -2297,7 +2593,9 @@ lazy_static! {
                 )
                 .label("18. Por la Paz")
                 .page(176)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Estación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2312,7 +2610,9 @@ lazy_static! {
                 )
                 .label("19. Para los Días de Rogativa")
                 .page(177)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Estación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2327,7 +2627,9 @@ lazy_static! {
                 )
                 .label("II. Por el comercio y la industria")
                 .page(177)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Estación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2342,7 +2644,9 @@ lazy_static! {
                 )
                 .label("III. Por la mayordomía de la creación")
                 .page(178)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Estación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2357,10 +2661,12 @@ lazy_static! {
                 )
                 .label("20. Por los Enfermos")
                 .page(178)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Estación".into(),
                 rubric_before: None,
-                rubric_after: None
+                rubric_after: Some("Puede usarse la oración de poscomunión en la página 378.".into())
             }
         ),
         (
@@ -2372,9 +2678,11 @@ lazy_static! {
                 )
                 .label("21. Por la Justicia Social")
                 .page(179)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Estación".into(),
-                rubric_before: Some("Puede usarse la oración de poscomunión en la página 378.".into()),
+                rubric_before: None,
                 rubric_after: None
             }
         ),
@@ -2387,7 +2695,9 @@ lazy_static! {
                 )
                 .label("22. Por el Servicio Social")
                 .page(179)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Estación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2402,7 +2712,9 @@ lazy_static! {
                 )
                 .label("23. Por la Educación")
                 .page(179)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Estación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2417,7 +2729,9 @@ lazy_static! {
                 )
                 .label("24. Por la Vocación en el Trabajo Diario")
                 .page(180)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Estación".into(),
                 rubric_before: None,
                 rubric_after: None
@@ -2432,7 +2746,9 @@ lazy_static! {
                 )
                 .label("25. Para el Día del Trabajo")
                 .page(180)
-                .tags(["Ocasiones Varias"]),
+                .tags(["Ocasiones Varias"])
+                .version(Version::LibroDeOracionComun)
+                .language(Language::Es),
                 preface: "Prefacio de la Estación".into(),
                 rubric_before: None,
                 rubric_after: None

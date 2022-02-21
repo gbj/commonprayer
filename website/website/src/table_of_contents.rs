@@ -1,7 +1,8 @@
 use std::collections::HashMap;
 
 use episcopal_api::library::{self, CollectData, CollectId};
-use episcopal_api::liturgy::{Document, Rubric, Series, Version};
+use episcopal_api::liturgy::{Document, Heading, HeadingLevel, Rubric, Series, Version};
+use itertools::Itertools;
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 
@@ -125,6 +126,11 @@ lazy_static! {
                 Version::RiteII,
                 from_collects(library::rite2::collects::COLLECTS_CONTEMPORARY.iter())
             )),
+            ("collects".into(), PageType::Category(
+                "Collects: Traditional".into(),
+                Version::RiteI,
+                from_collects(library::rite1::collects::COLLECTS_TRADITIONAL.iter())
+            )),
             ("invitatory-antiphons".into(), PageType::Category("Invitatory Antiphons".into(), Version::RiteII, library::rite2::INVITATORY_ANTIPHONS.clone())),
             ("closing-sentences".into(), PageType::Category("Closing Sentences".into(), Version::RiteII, library::rite2::OPENING_SENTENCES.clone())),
             ("service-of-light".into(), PageType::Document(library::rite2::office::AN_ORDER_OF_WORSHIP_FOR_EVENING.clone())),
@@ -135,26 +141,37 @@ lazy_static! {
 fn from_collects<'a>(
     collects: impl Iterator<Item = &'a (CollectId, CollectData)>,
 ) -> Vec<Document> {
-    collects
-        .map(|(_, data)| {
-            let mut pieces = Vec::new();
-            if let Some(text) = &data.rubric_before {
-                pieces.push(Document::from(Rubric::from(text.clone())))
-            }
-            pieces.push(Document {
-                label: None,
-                subtitle: None,
-                ..data.document.clone()
-            });
-            if let Some(text) = &data.rubric_after {
-                pieces.push(Document::from(Rubric::from(text.clone())))
-            }
-            pieces.push(Document::from(Rubric::from(data.preface.clone())));
+    let grouped_by_category = collects.group_by(|(_, data)| data.document.tags.get(0));
+    grouped_by_category
+        .into_iter()
+        .flat_map(|(category, data)| {
+            std::iter::once(Document::from(Heading::from((
+                HeadingLevel::Heading2,
+                category.cloned().unwrap_or_default(),
+            ))))
+            .chain(data.map(|(_, data)| {
+                let mut pieces = Vec::new();
 
-            let mut series = Document::from(Series::from(pieces));
-            series.label = data.document.label.clone();
-            series.subtitle = data.document.subtitle.clone();
-            series
+                if let Some(text) = &data.rubric_before {
+                    pieces.push(Document::from(Rubric::from(text.clone())))
+                }
+                pieces.push(Document {
+                    label: None,
+                    subtitle: None,
+                    ..data.document.clone()
+                });
+                if !data.preface.is_empty() {
+                    pieces.push(Document::from(Rubric::from(data.preface.clone())));
+                }
+                if let Some(text) = &data.rubric_after {
+                    pieces.push(Document::from(Rubric::from(text.clone())))
+                }
+
+                let mut series = Document::from(Series::from(pieces));
+                series.label = data.document.label.clone();
+                series.subtitle = data.document.subtitle.clone();
+                series
+            }))
         })
         .collect()
 }
