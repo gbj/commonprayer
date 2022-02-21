@@ -15,9 +15,10 @@ Website Todos
     - [x] Handle proper dates in collect names
     - [ ] Test collect page
       - [ ] "after rubrics" in some places get assigned to "before rubric" of prior page
-    - [ ] Collect links for Eve of ___
+    - [x] Collect links for Eve of ___
 - Bugs
   - [ ] Small iOS appearance bugs
+  - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
 - Hymns
   - [x] Insert service music/office hymn links into Office liturgies
   - [ ] finish tagging service music

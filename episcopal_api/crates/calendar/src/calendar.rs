@@ -281,6 +281,18 @@ impl Calendar {
             .unwrap_or(false)
     }
 
+    /// If the feast is the Eve of ___, returns Some(___); otherwise, None
+    pub fn feast_eve_following_day(&self, feast: &Feast) -> Option<Feast> {
+        self.holy_days
+            .iter()
+            .find(|(_, search_feast, _, _)| search_feast == feast)
+            .and_then(|(_, _, time, _)| match time {
+                Time::EveningOnly(next_day) => next_day.as_ref(),
+                _ => None,
+            })
+            .copied()
+    }
+
     pub(crate) fn holy_days(
         &self,
         date: Date,
