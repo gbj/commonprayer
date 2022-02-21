@@ -118,10 +118,10 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                         {make_link(locale, "prayers-and-thanksgivings", "toc.prayers_and_thanksgivings", true)}
                     </li>
                     <li>
-                        {make_link(locale, "catechism", "catechism_full", true)}
+                        {make_link(locale, "catechism", "toc.catechism_full", true)}
                     </li>
                     <li>
-                        {make_link(locale, "historical-documents", "historical_documents", true)}
+                        {make_link(locale, "historical-documents", "toc.historical_documents", true)}
                     </li>
                 </ul>
             </main>
