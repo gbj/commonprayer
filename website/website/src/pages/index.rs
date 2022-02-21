@@ -84,10 +84,10 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                         {make_link(locale, "collects", "collects", true)}
                         <ul>
                             <li>
-                                {make_link(locale, "collects/RiteI", "traditional", false)}
+                                {make_link(locale, "document/category/collects/RiteI", "traditional", false)}
                             </li>
                             <li>
-                                {make_link(locale, "collects/RiteII", "contemporary", false)}
+                                {make_link(locale, "document/category/collects/RiteII", "contemporary", false)}
                             </li>
                         </ul>
                     </li>
