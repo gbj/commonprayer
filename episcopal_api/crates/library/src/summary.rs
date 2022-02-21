@@ -153,10 +153,7 @@ fn black_letter_days(
             .map(|feast| {
                 (
                     *feast,
-                    calendar
-                        .feast_name(*feast, language)
-                        .unwrap_or_default()
-                        .to_string(),
+                    calendar.feast_name(*feast, language).unwrap_or_default(),
                 )
             })
             .collect()

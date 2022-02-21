@@ -26,9 +26,12 @@ pub struct Calendar {
     pub weeks: &'static [(Cycle, u8, LiturgicalWeek)],
     /// All holy days in the calendar
     pub holy_days: &'static [KalendarEntry],
+    /// A fallback set of holy days that will be used if looking for a feast that's not found in this calendar
+    /// (used for e.g., days that appear in the BCP calendar but don't have separate LFF entries)
+    pub holy_days_fallback: Option<&'static [KalendarEntry]>,
     /// Ranks of holy days in this calendar
     pub holy_day_ranks: &'static [(Feast, Rank)],
-    /// Associations between [Feast]s and [Seasons]s
+    /// Associations between [Feast]s and [Season]s
     pub feast_seasons: &'static [(Feast, Season)],
     /// Associations between [LiturgicalWeek]s and [Season]s
     pub week_seasons: &'static [(LiturgicalWeek, Season)],
@@ -274,23 +277,46 @@ impl Calendar {
 
     /// Whether the given feast is the "Eve of ___"
     pub fn feast_is_eve(&self, feast: &Feast) -> bool {
-        self.holy_days
+        let in_own_calendar = self
+            .holy_days
             .iter()
             .find(|(_, search_feast, _, _)| search_feast == feast)
-            .map(|(_, _, time, _)| matches!(*time, Time::EveningOnly(_)))
-            .unwrap_or(false)
+            .map(|(_, _, time, _)| matches!(*time, Time::EveningOnly(_)));
+        let in_fallback = self
+            .holy_days_fallback
+            .and_then(|fallback| {
+                fallback
+                    .iter()
+                    .find(|(_, search_feast, _, _)| search_feast == feast)
+            })
+            .map(|(_, _, time, _)| matches!(*time, Time::EveningOnly(_)));
+        in_own_calendar.unwrap_or_else(|| in_fallback.unwrap_or(false))
     }
 
     /// If the feast is the Eve of ___, returns Some(___); otherwise, None
     pub fn feast_eve_following_day(&self, feast: &Feast) -> Option<Feast> {
-        self.holy_days
+        let in_own_calendar = self
+            .holy_days
             .iter()
             .find(|(_, search_feast, _, _)| search_feast == feast)
             .and_then(|(_, _, time, _)| match time {
                 Time::EveningOnly(next_day) => next_day.as_ref(),
                 _ => None,
-            })
-            .copied()
+            });
+        let in_fallback = self.holy_days_fallback.and_then(|fallback| {
+            fallback
+                .iter()
+                .find(|(_, search_feast, _, _)| search_feast == feast)
+                .and_then(|(_, _, time, _)| match time {
+                    Time::EveningOnly(next_day) => next_day.as_ref(),
+                    _ => None,
+                })
+        });
+        match (in_own_calendar, in_fallback) {
+            (Some(f), _) => Some(*f),
+            (None, Some(f)) => Some(*f),
+            (None, None) => None,
+        }
     }
 
     pub(crate) fn holy_days(

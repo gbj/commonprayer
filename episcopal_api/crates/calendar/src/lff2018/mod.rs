@@ -7,7 +7,7 @@ use crate::{
     },
     feasts::KalendarEntry,
     holy_day::HolyDayId,
-    Calendar, Feast, Time,
+    Calendar, Feast, Time, BCP1979_FEASTS,
 };
 use status::Status;
 
@@ -19,6 +19,7 @@ pub const LFF2018_CALENDAR: Calendar = Calendar {
     has_propers: true,
     weeks: &BCP1979_WEEKS,
     holy_days: &LFF2018_FEASTS,
+    holy_days_fallback: Some(&BCP1979_FEASTS),
     holy_day_ranks: &BCP1979_HOLY_DAY_RANKS,
     feast_seasons: &BCP1979_HOLY_DAY_SEASONS,
     week_seasons: &BCP1979_WEEK_SEASONS,

@@ -14,6 +14,7 @@ pub const BCP1979_CALENDAR: Calendar = Calendar {
     has_propers: true,
     weeks: &BCP1979_WEEKS,
     holy_days: &BCP1979_FEASTS,
+    holy_days_fallback: None,
     holy_day_ranks: &BCP1979_HOLY_DAY_RANKS,
     feast_seasons: &BCP1979_HOLY_DAY_SEASONS,
     week_seasons: &BCP1979_WEEK_SEASONS,
