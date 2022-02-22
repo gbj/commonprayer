@@ -131,6 +131,11 @@ lazy_static! {
                 Version::RiteI,
                 from_collects(library::rite1::collects::COLLECTS_TRADITIONAL.iter())
             )),
+            ("collects".into(), PageType::Category(
+                "Colectas".into(),
+                Version::LibroDeOracionComun,
+                from_collects(library::loc::collects::COLECTAS.iter())
+            )),
             ("invitatory-antiphons".into(), PageType::Category("Invitatory Antiphons".into(), Version::RiteII, library::rite2::INVITATORY_ANTIPHONS.clone())),
             ("closing-sentences".into(), PageType::Category("Closing Sentences".into(), Version::RiteII, library::rite2::OPENING_SENTENCES.clone())),
             ("service-of-light".into(), PageType::Document(library::rite2::office::AN_ORDER_OF_WORSHIP_FOR_EVENING.clone())),

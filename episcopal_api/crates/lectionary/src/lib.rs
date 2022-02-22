@@ -7,11 +7,13 @@ pub use reading::Reading;
 pub use reading_type::ReadingType;
 
 use calendar::{DailyOfficeYear, LiturgicalDay, LiturgicalDayId, Year, YearType};
+use serde::Serialize;
 
 /// Represents a given lectionary cycle of readings, e.g., the Revised Common Lectionary
 /// or the 1979 Book of Common Prayer Daily Office Lectionary.
 /// Given a [LiturgicalDay](crate::calendar::LiturgicalDay), it can give either all of the readings,
 /// or a specific reading.
+#[derive(Serialize)]
 pub struct Lectionary {
     pub year_type: YearType,
     pub readings: &'static [(LiturgicalDayId, Year, ReadingType, &'static str)],
