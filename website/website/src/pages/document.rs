@@ -14,11 +14,11 @@ use serde::Serialize;
 use serde_derive::Deserialize;
 use wasm_bindgen::UnwrapThrowExt;
 
-#[derive(Deserialize, Clone)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct DocumentPageParams {
     pub category: String,
-    pub slug: String,
-    pub version: Version,
+    pub slug: Option<String>,
+    pub version: Option<Version>,
     pub date: Option<Date>,
     pub calendar: Option<String>,
     pub prefs: Option<String>, // a JSON-serialized HashMap<PreferenceKey, PreferenceValue>
@@ -26,10 +26,17 @@ pub struct DocumentPageParams {
 }
 
 #[derive(Serialize, Deserialize, Clone)]
+pub enum DocumentPageType {
+    Document(Box<Document>),
+    Category(String, Version, Vec<Document>),
+    CategorySummary(String, String, Vec<(Version, String)>),
+}
+
+#[derive(Serialize, Deserialize, Clone)]
 pub struct DocumentPageProps {
-    pub page_type: PageType,
+    pub page_type: DocumentPageType,
     base_path: String,
-    slug: String,
+    slug: Option<String>,
     date: String,
 }
 
@@ -44,6 +51,8 @@ pub fn document() -> Page<DocumentPageProps, DocumentPageParams, ()> {
 
 pub fn get_static_paths() -> Vec<String> {
     vec![
+        "{category}".into(),
+        "{category}/{version}".into(),
         "{category}/{slug}/{version}".into(),
         "{category}/{slug}/{version}/{date}".into(),
         "{category}/{slug}/{version}/{date}/{calendar}".into(),
@@ -54,8 +63,9 @@ pub fn get_static_paths() -> Vec<String> {
 
 pub fn head(_locale: &str, props: &DocumentPageProps, _render_state: &()) -> View {
     let label = match &props.page_type {
-        PageType::Document(doc) => doc.label.as_ref(),
-        PageType::Category(label, _, _) => Some(label),
+        DocumentPageType::Document(doc) => doc.label.as_ref(),
+        DocumentPageType::Category(label, _, _) => Some(label),
+        DocumentPageType::CategorySummary(label, _, _) => Some(label),
     };
     let title = match label {
         Some(label) => format!("{} – {}", label, t!("common_prayer")),
@@ -73,16 +83,50 @@ pub fn head(_locale: &str, props: &DocumentPageProps, _render_state: &()) -> Vie
 
 pub fn body(locale: &str, props: &DocumentPageProps, _render_state: &()) -> View {
     let title = match &props.page_type {
-        PageType::Document(doc) => match &doc.label {
+        DocumentPageType::Document(doc) => match &doc.label {
             Some(label) => label.clone(),
             None => t!("common_prayer"),
         },
-        PageType::Category(label, _, _) => label.clone(),
+        DocumentPageType::Category(label, _, _) => label.clone(),
+        DocumentPageType::CategorySummary(label, _, _) => label.clone(),
     };
 
     match &props.page_type {
-        PageType::Document(doc) => document_body(locale, props, title, doc),
-        PageType::Category(_, _, docs) => category_body(locale, props, title, docs),
+        DocumentPageType::Document(doc) => document_body(locale, props, title, doc),
+        DocumentPageType::Category(_, _, docs) => category_body(locale, props, title, docs),
+        DocumentPageType::CategorySummary(label, slug, pages) => {
+            category_summary_body(locale, label, slug, pages)
+        }
+    }
+}
+
+fn category_summary_body(
+    locale: &str,
+    label: &str,
+    category: &str,
+    pages: &[(Version, String)],
+) -> View {
+    let title = label;
+    let pages = View::Fragment(
+        pages
+            .iter()
+            .map(|(version, label)| {
+                // TODO link
+                view! {
+                    <li><a href={format!("/{}/document/{}/{:?}", locale, category, version)}>{label}</a></li>
+                }
+            })
+            .collect(),
+    );
+    view! {
+        <>
+            {header(locale, title)}
+            <main>
+                <ul class="category-summary">
+                    {pages}
+                </ul>
+            </main>
+        </>
     }
 }
 
@@ -229,24 +273,71 @@ fn category_body(
     }
 }
 
-fn find_page(category: &str, slug: &str, version: Option<Version>) -> Option<PageType> {
-    TABLE_OF_CONTENTS
+fn find_page(
+    category: &str,
+    slug: &Option<String>,
+    version: Option<Version>,
+) -> Option<DocumentPageType> {
+    let pages = TABLE_OF_CONTENTS.get(&(category, version));
+    let mut pages = if let Some(pages) = pages {
+        pages.clone()
+    } else {
+        Vec::new()
+    };
+
+    if version.is_some() {
+        if let Some(pages_without_version) = TABLE_OF_CONTENTS.get(&(category, None)) {
+            let mut pages_without_version = pages_without_version.clone();
+            pages.append(&mut pages_without_version);
+        }
+    }
+
+    let filtered_pages = pages
         .iter()
-        .flat_map(|(category, docs)| {
-            docs.iter().map(move |(slug, page_type)| {
-                let version = match &page_type {
-                    PageType::Document(doc) => doc.version,
-                    PageType::Category(_, version, _) => *version,
-                };
-                (category.clone(), slug.clone(), version, page_type)
-            })
+        .filter(|page| {
+            if let Some(slug) = slug {
+                match page {
+                    PageType::Document(s_slug, doc) => {
+                        s_slug == slug && (version.is_none() || version == Some(doc.version))
+                    }
+                    PageType::Category(_, s_version, _) => {
+                        version.is_none() || version.as_ref() == Some(s_version)
+                    }
+                }
+            } else if let Some(version) = version {
+                match page {
+                    PageType::Document(_, doc) => version == doc.version,
+                    PageType::Category(_, s_version, _) => &version == s_version,
+                }
+            } else {
+                true
+            }
         })
-        .find(|(s_category, s_slug, s_version, _)| {
-            s_category == category
-                && s_slug == slug
-                && (version.is_none() || version == Some(*s_version))
+        .collect::<Vec<_>>();
+
+    if filtered_pages.len() > 1 {
+        Some(DocumentPageType::CategorySummary(
+            t!(&format!("category.{}", category)),
+            category.to_string(),
+            filtered_pages
+                .iter()
+                .map(|page| match page {
+                    PageType::Document(slug, doc) => (
+                        doc.version,
+                        doc.label.clone().unwrap_or_else(|| slug.to_string()),
+                    ),
+                    PageType::Category(label, version, _) => (*version, label.to_string()),
+                })
+                .collect(),
+        ))
+    } else {
+        filtered_pages.get(0).map(|page| match page {
+            PageType::Document(_, doc) => DocumentPageType::Document(Box::new((*doc).clone())),
+            PageType::Category(label, version, docs) => {
+                DocumentPageType::Category(label.to_string(), *version, docs.clone())
+            }
         })
-        .map(|(_, _, _, page_type)| page_type.clone())
+    }
 }
 
 pub fn hydration_state(
@@ -254,16 +345,18 @@ pub fn hydration_state(
     _path: &str,
     params: &DocumentPageParams,
 ) -> Option<DocumentPageProps> {
+    println!("\nparams = {:#?}", params);
     // find page in TOC, either with the given version or in any version
-    find_page(&params.category, &params.slug, Some(params.version))
-        .or_else(|| find_page(&params.category, &params.slug, None))
+    find_page(&params.category, &params.slug, params.version)
+        .or_else(|| find_page(&params.category, &params.slug, params.version))
         // if document is not found, with return None => 404
         .map(|page_type| {
             // if it's a PageType::Document and we're given a date, compile it
             let page_type = match (&page_type, &params.date) {
-                (PageType::Category(_, _, _), _) => page_type,
-                (PageType::Document(_), None) => page_type,
-                (PageType::Document(doc), Some(date)) => {
+                (DocumentPageType::CategorySummary(_, _, _), _) => page_type,
+                (DocumentPageType::Category(_, _, _), _) => page_type,
+                (DocumentPageType::Document(_), None) => page_type,
+                (DocumentPageType::Document(doc), Some(date)) => {
                     let calendar = params
                         .calendar
                         .as_ref()
@@ -304,7 +397,7 @@ pub fn hydration_state(
 
                     let doc = if let Content::Liturgy(liturgy) = &doc.content {
                         CommonPrayer::compile(
-                            doc.clone(),
+                            *doc.clone(),
                             &calendar,
                             &day,
                             &observed,
@@ -313,19 +406,28 @@ pub fn hydration_state(
                         )
                         .unwrap()
                     } else {
-                        doc.clone()
+                        *doc.clone()
                     };
 
-                    PageType::Document(doc)
+                    DocumentPageType::Document(Box::new(doc))
                 }
+            };
+
+            let base_path = match (&params.slug, &params.version) {
+                (None, None) => format!("/{}/document/{}", locale, params.category),
+                (None, Some(version)) => {
+                    format!("/{}/document/{}/{:?}", locale, params.category, version)
+                }
+                (Some(slug), None) => format!("/{}/document/{}/{}", locale, params.category, slug),
+                (Some(slug), Some(version)) => format!(
+                    "/{}/document/{}/{}/{:?}",
+                    locale, params.category, slug, version
+                ),
             };
 
             DocumentPageProps {
                 page_type,
-                base_path: format!(
-                    "/{}/document/{}/{}/{:#?}",
-                    locale, params.category, params.slug, params.version
-                ),
+                base_path,
                 slug: params.slug.clone(),
                 date: params.date.map(|date| date.to_string()).unwrap_or_default(),
             }

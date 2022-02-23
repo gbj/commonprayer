@@ -81,13 +81,13 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                         {make_link(locale, "document/litany", "toc.great_litany", true)}
                     </li>
                     <li>
-                        {make_link(locale, "collects", "collects", true)}
+                        {make_link(locale, "document/collects", "collects", false)}
                         <ul>
                             <li>
-                                {make_link(locale, "document/category/collects/RiteI", "traditional", false)}
+                                {make_link(locale, "document/collects/RiteI", "traditional", false)}
                             </li>
                             <li>
-                                {make_link(locale, "document/category/collects/RiteII", "contemporary", false)}
+                                {make_link(locale, "document/collects/RiteII", "contemporary", false)}
                             </li>
                         </ul>
                     </li>

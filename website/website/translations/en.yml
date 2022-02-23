@@ -137,11 +137,20 @@ en:
 
   category:
     OpeningSentences: Opening Sentences
-    ClosingSentences: Closing Sentence
+    ClosingSentences: Closing Sentences
     OffertorySentences: Offertory Sentences
     InvitatoryAntiphons: Invitatory Antiphons
     PrayersAndThanksgivings: Prayers and Thanksgivings
     ServiceOfLight: Service of Light
+    office: Daily Office
+    canticle: Canticles
+    collects: Collects
+    opening-sentences: Opening Sentences
+    closing-sentences: Closing Sentences
+    offertory-sentences: Offertory Sentences
+    invitatory-antiphons: Invitatory Antiphons
+    prayers-and-thanksgivings: Prayers and Thanksgivings
+
 
   lookup:
     canticle_table: Table of Suggested Canticles

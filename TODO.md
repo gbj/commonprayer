@@ -1,19 +1,6 @@
 Website Todos
 =============
-
-- [x] About page
-- [x] Fix saints' names
-  - [x] Fix collect labels
-- [x] Wipe out incremental generation cache on rebuild (Heroku)
-- [ ] Spanish liturgy
-  - [x] Psalms
-  - [ ] Collects
-    - [x] Test collect page
-      - [ ] Clean up Spanish-language collect page
-        - [ ] Ember/Rogation days => Series
-        - [ ] "or this" etc.
-        - [ ] general appearance/any obvious errors
-    - [x] Collect links for Eve of ___
+- [ ] Lectionary Page
 - Bugs
   - [ ] Small iOS appearance bugs
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio

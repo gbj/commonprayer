@@ -100,12 +100,12 @@ async fn daily_summary(
 #[get("/api/canticles.json")]
 async fn canticle_list_api() -> Result<web::Json<Vec<Document>>, ()> {
     let canticles = TABLE_OF_CONTENTS
-        .get("canticle")
+        .get(&("canticle", None))
         .unwrap()
         .iter()
-        .filter_map(|(_, page_type)| {
-            if let PageType::Document(doc) = page_type {
-                Some(doc.clone())
+        .filter_map(|page_type| {
+            if let PageType::Document(_, doc) = page_type {
+                Some((*doc).clone())
             } else {
                 None
             }

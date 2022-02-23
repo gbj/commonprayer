@@ -9,23 +9,18 @@ pub enum LookupType {
     Lectionary(LectionaryTableChoice),
 }
 
-pub fn lookup_links(locale: &str, lookup_type: &LookupType) -> String {
-    fn slugify(s: &str) -> String {
-        s.to_lowercase().replace([' '], "-")
-    }
+pub fn slugify(s: &str) -> String {
+    s.to_lowercase().replace([' '], "-")
+}
 
+pub fn lookup_links(locale: &str, lookup_type: &LookupType) -> String {
     match lookup_type {
         LookupType::Category(version, name) => {
-            format!(
-                "/{}/document/category/{}/{:#?}",
-                locale,
-                slugify(name),
-                version
-            )
+            format!("/{}/document/{}/{:#?}", locale, slugify(name), version)
         }
         LookupType::Canticle(_) => format!("/{}/canticle-table", locale),
         LookupType::Collect(version) => {
-            format!("/{}/document/category/collects/{:#?}", locale, version)
+            format!("/{}/document/collects/{:#?}", locale, version)
         }
         LookupType::Lectionary(lectionary) => match lectionary {
             LectionaryTableChoice::Preference(_) => format!("/{}/daily-readings", locale),
