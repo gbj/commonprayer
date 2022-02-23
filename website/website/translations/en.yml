@@ -16,6 +16,7 @@ en:
     open_menu: Open Menu
     home: Home
     calendar: Calendar
+    lectionary: Lectionary
     canticle_table: Canticle Table
     hymnal: Hymnal
     psalter: Psalter
@@ -273,3 +274,17 @@ en:
     ord_28: Twenty-Eighth
     ord_29: Twenty-Ninth
     ord_30: Thirtieth
+
+  lectionary:
+    month_1: January
+    month_2: February
+    month_3: March
+    month_4: April
+    month_5: May
+    month_6: June
+    month_7: July
+    month_8: August
+    month_9: September
+    month_10: October
+    month_11: November
+    month_12: December

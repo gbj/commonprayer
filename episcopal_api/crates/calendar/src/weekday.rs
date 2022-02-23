@@ -45,3 +45,17 @@ impl std::fmt::Display for Weekday {
         })
     }
 }
+
+impl Weekday {
+    pub fn num_days_from_sunday(&self) -> u8 {
+        match self {
+            Weekday::Mon => 1,
+            Weekday::Tue => 2,
+            Weekday::Wed => 3,
+            Weekday::Thu => 4,
+            Weekday::Fri => 5,
+            Weekday::Sat => 6,
+            Weekday::Sun => 0,
+        }
+    }
+}

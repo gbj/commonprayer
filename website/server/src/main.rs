@@ -211,6 +211,7 @@ fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
         add_page(cfg, locale, holy_day());
         add_page(cfg, locale, hymnal());
         add_page(cfg, locale, index());
+        add_page(cfg, locale, lectionary());
         add_page(cfg, locale, psalter());
         add_page(cfg, locale, settings());
     }

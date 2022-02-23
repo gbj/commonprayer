@@ -160,7 +160,7 @@ fn black_letter_days(
     }
 }
 
-fn localize_day_name(
+pub fn localize_day_name(
     day: &LiturgicalDay,
     id: &LiturgicalDayId,
     calendar: &Calendar,
