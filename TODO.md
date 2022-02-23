@@ -2,6 +2,7 @@ Website Todos
 =============
 - [ ] Lectionary Page
 - Bugs
+  - [ ] Spell-check collects
   - [ ] Small iOS appearance bugs
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)
