@@ -1,6 +1,7 @@
 Website Todos
 =============
 - [ ] Lectionary Page
+  - [ ] move RCL day summary into Daily Readings page with an RCL option
 - Bugs
   - [ ] Spell-check collects
   - [ ] Small iOS appearance bugs

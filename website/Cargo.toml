@@ -8,6 +8,7 @@ members = [
   "client/holy_day",
   "client/hymnal",
   "client/index",
+  "client/lectionary",
   "client/settings",
   "server",
   "website"

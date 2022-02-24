@@ -1,8 +1,21 @@
-use crate::{components::header, utils::language::locale_to_language};
+use std::collections::HashMap;
+
+use crate::{
+    components::{biblical_citation, document_view, header, DocumentController},
+    utils::language::locale_to_language,
+};
 use chrono::{Datelike, Local};
 use episcopal_api::{
-    calendar::{Date, LiturgicalDay, LiturgicalDayId, Rank, BCP1979_CALENDAR},
-    library::summary,
+    calendar::{Date, LiturgicalDay, LiturgicalDayId, Rank, Weekday, BCP1979_CALENDAR},
+    lectionary::{rcl_readings, RCLTrack, Reading, ReadingType},
+    library::{
+        summary::{self, localize_day_name},
+        CommonPrayer, Library,
+    },
+    liturgy::{
+        BiblicalCitation, Content, Document, DocumentError, Lectionaries, LectionaryReading,
+        LectionaryTableChoice, LiturgyPreferences, ReadingTypeTable, Series, Version,
+    },
 };
 use itertools::Itertools;
 use leptos::*;
@@ -15,25 +28,60 @@ pub fn lectionary() -> Page<(), LectionaryPageParams, LectionaryPageRenderState>
         .build_paths_fn(build_paths)
         .hydration_state(|_, _, _| Some(()))
         .render_state(render_state)
-        .static_page()
         .incremental_generation()
 }
 
 #[derive(Deserialize, Clone)]
 pub struct LectionaryPageParams {
     year: Option<u16>,
+    month: Option<u8>,
+    day: Option<u8>,
 }
 
 type DaySummary = (u8, u8, Option<(String, LiturgicalDay)>);
 
+#[derive(Serialize, Clone)]
+pub enum LectionaryPageRenderState {
+    Calendar {
+        year: u16,
+        starting_month: Option<u8>,
+        days: Vec<LectionaryDayEntry>,
+    },
+    Day(DayDetails),
+}
+
+impl Default for LectionaryPageRenderState {
+    fn default() -> Self {
+        Self::Calendar {
+            year: 0,
+            starting_month: None,
+            days: Vec::new(),
+        }
+    }
+}
+
 #[derive(Serialize, Clone, Default)]
-pub struct LectionaryPageRenderState {
-    year: u16,
-    days: Vec<DaySummary>,
+pub struct LectionaryDayEntry {
+    month: u8,
+    day: u8,
+    listing: Option<(String, LiturgicalDay)>,
+}
+
+#[derive(Serialize, Clone)]
+pub struct DayDetails {
+    day: LiturgicalDay,
+    name: String,
+    collect: Document,
+    readings: Vec<Reading>,
 }
 
 pub fn build_paths() -> Vec<String> {
-    vec!["".into(), "{year}".into()]
+    vec![
+        "".into(),
+        "{year}".into(),
+        "{year}/{month}".into(),
+        "{year}/{month}/{day}".into(),
+    ]
 }
 
 pub fn render_state(
@@ -41,34 +89,80 @@ pub fn render_state(
     _path: &str,
     params: &LectionaryPageParams,
 ) -> Option<LectionaryPageRenderState> {
-    let year = params
-        .year
-        .unwrap_or_else(|| Local::now().date().year().try_into().unwrap());
-    let january_1 = Date::from_ymd(year, 1, 1);
-    let days = (0..=366)
-        .filter_map(|offset| {
-            let current_date = january_1.add_days(offset);
-            if current_date.year() == year {
-                let liturgical_day = BCP1979_CALENDAR.liturgical_day(current_date, false);
-                let rank = BCP1979_CALENDAR.rank(&liturgical_day);
-                let marked_on_calendar = if rank >= Rank::HolyDay {
-                    let localized_day_name = summary::localize_day_name(
-                        &liturgical_day,
-                        &liturgical_day.observed,
-                        &BCP1979_CALENDAR,
-                        locale_to_language(locale),
-                    );
-                    Some((localized_day_name, liturgical_day))
-                } else {
-                    None
-                };
-                Some((current_date.month(), current_date.day(), marked_on_calendar))
-            } else {
-                None
-            }
-        })
-        .collect();
-    Some(LectionaryPageRenderState { year, days })
+    match (params.year, params.month, params.day) {
+        (Some(year), Some(month), Some(day)) => {
+            let date = Date::from_ymd(year, month, day);
+            let day = BCP1979_CALENDAR.liturgical_day(date, false);
+            let name = localize_day_name(
+                &day,
+                &day.observed,
+                &BCP1979_CALENDAR,
+                locale_to_language(locale),
+            );
+            let prefs = HashMap::new();
+            let liturgy_prefs = LiturgyPreferences::default();
+            let collect = CommonPrayer::compile(
+                Document::from(Content::CollectOfTheDay {
+                    allow_multiple: false,
+                }),
+                &BCP1979_CALENDAR,
+                &day,
+                &day.observed,
+                &prefs,
+                &liturgy_prefs,
+            )
+            .unwrap_or_else(|| {
+                Document::from(DocumentError::from(t!("lectionary.collect_not_found")))
+            });
+
+            // TODO choice of track
+            let readings = rcl_readings(&day.observed, &day, RCLTrack::Two).collect();
+
+            Some(LectionaryPageRenderState::Day(DayDetails {
+                day,
+                name,
+                collect,
+                readings,
+            }))
+        }
+        (year, starting_month, None) => {
+            let year = year.unwrap_or_else(|| Local::now().date().year().try_into().unwrap());
+            let january_1 = Date::from_ymd(year, 1, 1);
+            let days = (0..=366)
+                .filter_map(|offset| {
+                    let current_date = january_1.add_days(offset);
+                    if current_date.year() == year {
+                        let liturgical_day = BCP1979_CALENDAR.liturgical_day(current_date, false);
+                        let rank = BCP1979_CALENDAR.rank(&liturgical_day);
+                        let marked_on_calendar = if rank >= Rank::HolyDay {
+                            let localized_day_name = summary::localize_day_name(
+                                &liturgical_day,
+                                &liturgical_day.observed,
+                                &BCP1979_CALENDAR,
+                                locale_to_language(locale),
+                            );
+                            Some((localized_day_name, liturgical_day))
+                        } else {
+                            None
+                        };
+                        Some(LectionaryDayEntry {
+                            month: current_date.month(),
+                            day: current_date.day(),
+                            listing: marked_on_calendar,
+                        })
+                    } else {
+                        None
+                    }
+                })
+                .collect();
+            Some(LectionaryPageRenderState::Calendar {
+                year,
+                starting_month,
+                days,
+            })
+        }
+        _ => None,
+    }
 }
 
 pub fn head(_locale: &str, _props: &(), _render_state: &LectionaryPageRenderState) -> View {
@@ -77,12 +171,31 @@ pub fn head(_locale: &str, _props: &(), _render_state: &LectionaryPageRenderStat
             <title>{t!("menu.lectionary")} " – " {t!("common_prayer")}</title>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/lectionary.css"/>
+            <link rel="stylesheet" href="/static/document.css"/>
         </>
     }
 }
 
 pub fn body(locale: &str, _props: &(), render_state: &LectionaryPageRenderState) -> View {
-    let grouped_by_month = render_state.days.iter().group_by(|(month, _, _)| month);
+    match render_state {
+        LectionaryPageRenderState::Calendar {
+            year,
+            starting_month,
+            days,
+        } => calendar_body(locale, *year, starting_month, days),
+        LectionaryPageRenderState::Day(details) => day_body(locale, details),
+    }
+}
+
+fn calendar_body(
+    locale: &str,
+    year: u16,
+    starting_month: &Option<u8>,
+    days: &[LectionaryDayEntry],
+) -> View {
+    let grouped_by_month = days
+        .iter()
+        .group_by(|LectionaryDayEntry { month, .. }| month);
     let months = View::Fragment(
         grouped_by_month
             .into_iter()
@@ -91,8 +204,8 @@ pub fn body(locale: &str, _props: &(), render_state: &LectionaryPageRenderState)
                 let days = View::Fragment(
                     group
                         .into_iter()
-                        .map(|(_, day, data)| {
-                            let listing = if let Some((day_name, liturgical_day)) = data {
+                        .map(|LectionaryDayEntry { day, listing, .. }| {
+                            let listing = if let Some((day_name, liturgical_day)) = listing {
                                 let transferred = if matches!(
                                     liturgical_day.observed,
                                     LiturgicalDayId::TransferredFeast(_)
@@ -104,7 +217,7 @@ pub fn body(locale: &str, _props: &(), render_state: &LectionaryPageRenderState)
 
                                 view! {
                                     <>
-                                        <a href="#">{day_name}</a>
+                                        <a href={format!("/{}/lectionary/{}/{}/{}", locale, year, month, day)}>{day_name}</a>
                                         {transferred}
                                     </>
                                 }
@@ -112,8 +225,15 @@ pub fn body(locale: &str, _props: &(), render_state: &LectionaryPageRenderState)
                                 View::Empty
                             };
 
+                            let date = Date::from_ymd(year, *month, *day);
+                            let class = if date.weekday() == Weekday::Sun {
+                                "day sunday"
+                            } else {
+                                "day"
+                            };
+
                             view! {
-                                <div class="day">
+                                <div class={class}>
                                     <div class="month-number">{day.to_string()}</div>
                                     {listing}
                                 </div>
@@ -123,7 +243,7 @@ pub fn body(locale: &str, _props: &(), render_state: &LectionaryPageRenderState)
                 );
 
                 // padding so that day #1 falls on the correct column for its day of week
-                let padding_days = Date::from_ymd(render_state.year, *month, 1)
+                let padding_days = Date::from_ymd(year, *month, 1)
                     .weekday()
                     .num_days_from_sunday();
                 let padding = View::Fragment(
@@ -155,8 +275,43 @@ pub fn body(locale: &str, _props: &(), render_state: &LectionaryPageRenderState)
     view! {
         <>
             {header(locale, &t!("menu.lectionary"))}
-            <main>
+            <main class="lectionary calendar">
                 {months}
+            </main>
+        </>
+    }
+}
+
+fn day_body(locale: &str, details: &DayDetails) -> View {
+    let collect = DocumentController::new(details.collect.clone());
+    // TODO version
+    let readings = View::Fragment(
+        details
+            .readings
+            .iter()
+            .group_by(|reading| reading.reading_type)
+            .into_iter()
+            .map(|(_, readings)| {
+                DocumentController::new(
+                    Document::series_or_document(&mut readings.into_iter().map(|reading| {
+                        Document::from(BiblicalCitation::from(reading.citation.clone()))
+                            .version(Version::NRSV)
+                    }))
+                    .unwrap_or_else(|| {
+                        Document::from(DocumentError::from(t!("lectionary.reading_not_found")))
+                    }),
+                )
+                .view(locale)
+            })
+            .collect(),
+    );
+    view! {
+        <>
+            {header(locale, &t!("menu.lectionary"))}
+            <main class="lectionary day-details">
+                <h2>{&details.name}</h2>
+                {collect.view(locale)}
+                {readings}
             </main>
         </>
     }

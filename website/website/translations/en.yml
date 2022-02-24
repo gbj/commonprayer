@@ -288,3 +288,5 @@ en:
     month_10: October
     month_11: November
     month_12: December
+    collect_not_found: Collect not found for this day.
+    reading_not_found: Reading not found.
