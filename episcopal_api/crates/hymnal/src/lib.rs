@@ -102,9 +102,9 @@ fn strip_non_word_characters(original: &str) -> String {
         // so that date ranges don't get read as numbers, i.e., "111" should not match "1711-1759"
         ch == &'-'
         // letters
-        || ('a'..'z').contains(ch)
+        || ('a'..='z').contains(ch)
         // digits so can search by hymn number
-        || ('0'..'9').contains(ch)).collect()
+        || ('0'..='9').contains(ch)).collect()
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
