@@ -1,7 +1,6 @@
 Website Todos
 =============
-- [ ] Lectionary Page
-  - [ ] move RCL day summary into Daily Readings page with an RCL option
+
 - Bugs
   - [ ] Spell-check collects
   - [ ] Small iOS appearance bugs
@@ -10,13 +9,11 @@ Website Todos
 - [ ] Display settings
   - [ ] Daily Readings page
 - Hymns
-  - [x] Insert service music/office hymn links into Office liturgies
-  - [ ] finish tagging service music
   - [x] Bing video search
     - [ ] Bing search acknowledgement on this page
     - [ ] note when no results were found -- (and re-search dropping tune?)
     - [ ] update play button CSS for mobile
-  - [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany
+  - [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany, especially in Service Music
 - [ ] Set preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
 - Clean up (look in template only mode, proofread/test)
   - [x] Noonday Prayer

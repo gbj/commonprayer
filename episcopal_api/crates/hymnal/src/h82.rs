@@ -276,7 +276,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec![]
+                tags: vec!["Office".into(), "MP I".into(), "Christ our Passover".into(), "Pascha nostrum".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -351,7 +351,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "The Lord be with you.\nAnd with thy spirit.\nLet us pray.\n\nOur Father, who art ... for ever and ever. Amen.".into(),
-                tags: vec!["Office".into(), "MP I".into(), "Salutation and The Lord’s Prayer".into()]
+                tags: vec!["Office".into(), "MP I".into(), "Lord’s Prayer".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -456,7 +456,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "The Lord be with you.\nAnd with thy spirit.\nLet us pray.\n\nOur Father, who art ... for ever and ever. Amen.".into(),
-                tags: vec!["Office".into(), "EP I".into(), "Salutation and The Lord’s Prayer".into()]
+                tags: vec!["Office".into(), "EP I".into(), "Lord’s Prayer".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -801,7 +801,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "The Lord be with you.\nAnd also with you.\nLet us pray.\n\nOur father in heaven ... ever. Amen.\n\n*or*\n\nOur Father, who art in heaven ... ever. Amen.".into(),
-                tags: vec!["Office".into(), "MP II".into(), "Salutation and The Lord’s Prayer".into()]
+                tags: vec!["Office".into(), "MP II".into(), "Lord’s Prayer".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -967,7 +967,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "The Lord be with you.\nAnd also with you.\nLet us pray.\n\nOur Father in heaven ... ever. Amen.\n*or*\nOur Father, who art in heaven ... ever. Amen.".into(),
-                tags: vec!["Office".into(), "EP II".into(), "Salutation and The Lord’s Prayer".into()]
+                tags: vec!["Office".into(), "EP II".into(), "Lord’s Prayer".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1448,7 +1448,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Mode 4: Mass 18".into(),
                 text: "Lord, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.\nChrist, have mercy upon us.\nChrist, have mercy upon us.\nChrist, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.\nLord, have mercy upon us.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1463,7 +1463,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Litany of the Saints".into(),
                 text: "Lord, have mercy.\nLord, have mercy.\nChrist, have mercy.\nChrist, have mercy.\nLord, have mercy.\nLord, have mercy.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1478,7 +1478,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Lord, have mercy.\nLord, have mercy.\nChrist, have mercy.\nChrist, have mercy.\nLord, have mercy.\nLord, have mercy.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1493,7 +1493,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Lord, have mercy.\nLord, have mercy.\nChrist, have mercy.\nChrist, have mercy.\nLord, have mercy.\nLord, have mercy.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1508,7 +1508,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Lord, have mercy.\nLord, have mercy.\nChrist, have mercy.\nChrist, have mercy.\nLord, have mercy.\nLord, have mercy.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Kyrie".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1523,7 +1523,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong Mode 1".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Trisagion".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1538,7 +1538,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Trisagion".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1553,7 +1553,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Trisagion".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1568,7 +1568,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Hymnal 1982</i> ".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Trisagion".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1583,7 +1583,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Mode 4; Credo 1".into(),
                 text: "I believe in one God, the Father Almighty,\nmaker of heaven and earth,\nand of all things visible and invisible;\nAnd in one Lord Jesus Christ,\nthe only begotten Son of God,\nbegotten of his Father before all worlds,\nGod of God, Light of Light,\nvery God of very God,\nbegotten, not made,\nbeing of one substance with the Father;\nby whom all things were made;\nwho for us men and for our salvation \ncame down from heaven,\nand was incarnate by the Holy Ghost\nof the Virgin Mary, and was made man;\nand was crucified also for us under Pontius Pilate;\nhe suffered and was buried;\nand the third day he rose again according to the Scriptures,\nand ascended into heaven,\nand sitteth on the right hand of the Father;\nand he shall come again, with glory,\nto judge the quick and the dead;\nwhose kingdom shall have no end.\nAnd I believe in the Holy Ghost\nthe Lord, and giver of Life,\nwho proceedeth from the Father and the Son;\nwho with the Father and the Son together \nis worshiped and glorified;\nwho spake by the Prophets.\nAnd I believe one holy Catholic and Apostolic Church;\nI acknowledge one Baptism for the remission of sins;\nand I look for the resurrection of the dead,\nand the life of the world to come. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Nicene Creed".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1597,8 +1597,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Mode 4; Credo 1".into(),
-                text: "I believe in one God, the Father Almighty,\nmaker of heaven and earth,\nand of all things visible and invisible;\nAnd in one Lord Jesus Christ,\nthe only begotten Son of God,\nbegotten of his Father before all worlds,\nGod of God, Light of Light,\nvery God of very God,\nbegotten, not made,\nbeing of one substance with the Father;\nby whom all things were made;\nwho for us men and for our salvation \ncame down from heaven,\nand was incarnate by the Holy Ghost\nof the Virgin Mary, and was made man;\nand was crucified also for us under Pontius Pilate;\nhe suffered and was buried;\nand the third day he rose again according to the Scriptures,\nand ascended into heaven,\nand sitteth on the right hand of the Father;\nand he shall come again, with glory,\nto judge the quick and the dead;\nwhose kingdom shall have no end.\nAnd I believe in the Holy Ghost\nthe Lord, and giver of Life,\nwho proceedeth from the Father and the Son;\nwho with the Father and the Son together \nis worshiped and glorified;\nwho spake by the Prophets.\nAnd I believe one holy Catholic and Apostolic Church;\nI acknowledge one Baptism for the remission of sins;\nand I look for the resurrection of the dead,\nand the life of the world to come. Amen.".into(),
-                tags: vec![]
+                text: "We believe in one God,\n the Father, the Almighty,\n maker of heaven and earth,\n of all that is, seen and unseen.\n\nWe believe in one Lord, Jesus Christ,\n the only Son of God,\n eternally begotten of the Father,\n God from God, Light from Light,\n true God from true God,\n begotten, not made,\n of one Being with the Father.\n Through him all things were made.\n For us and for our salvation\n he came down from heaven:\n by the power of the Holy Spirit\n he became incarnate from the Virgin Mary,\n and was made man.\n For our sake he was crucified under Pontius Pilate;\n he suffered death and was buried.\n On the third day he rose again\n in accordance with the Scriptures;\n he ascended into heaven\n and is seated at the right hand of the Father.\n He will come again in glory to judge the living and the dead,\n and his kingdom will have no end.\n\nWe believe in the Holy Spirit, the Lord, the giver of life,\n who proceeds from the Father and the Son.\n With the Father and the Son he is worshiped and glorified.\n He has spoken through the Prophets.\n We believe in one holy catholic and apostolic Church.\n We acknowledge one baptism for the forgiveness of sins.\n We look for the resurrection of the dead,\n and the life of the world to come. Amen.".into(),
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Nicene Creed".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1612,8 +1612,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "I believe in one God, the Father Almighty,\nmaker of heaven and earth,\nand of all things visible and invisible;\nAnd in one Lord Jesus Christ,\nthe only begotten Son of God,\nbegotten of his Father before all worlds,\nGod of God, Light of Light,\nvery God of very God,\nbegotten, not made,\nbeing of one substance with the Father;\nby whom all things were made;\nwho for us men and for our salvation \ncame down from heaven,\nand was incarnate by the Holy Ghost\nof the Virgin Mary, and was made man;\nand was crucified also for us under Pontius Pilate;\nhe suffered and was buried;\nand the third day he rose again according to the Scriptures,\nand ascended into heaven,\nand sitteth on the right hand of the Father;\nand he shall come again, with glory,\nto judge the quick and the dead;\nwhose kingdom shall have no end.\nAnd I believe in the Holy Ghost\nthe Lord, and giver of Life,\nwho proceedeth from the Father and the Son;\nwho with the Father and the Son together \nis worshiped and glorified;\nwho spake by the Prophets.\nAnd I believe one holy Catholic and Apostolic Church;\nI acknowledge one Baptism for the remission of sins;\nand I look for the resurrection of the dead,\nand the life of the world to come. Amen.".into(),
-                tags: vec![]
+                text: "We believe in one God,\n the Father, the Almighty,\n maker of heaven and earth,\n of all that is, seen and unseen.\n\nWe believe in one Lord, Jesus Christ,\n the only Son of God,\n eternally begotten of the Father,\n God from God, Light from Light,\n true God from true God,\n begotten, not made,\n of one Being with the Father.\n Through him all things were made.\n For us and for our salvation\n he came down from heaven:\n by the power of the Holy Spirit\n he became incarnate from the Virgin Mary,\n and was made man.\n For our sake he was crucified under Pontius Pilate;\n he suffered death and was buried.\n On the third day he rose again\n in accordance with the Scriptures;\n he ascended into heaven\n and is seated at the right hand of the Father.\n He will come again in glory to judge the living and the dead,\n and his kingdom will have no end.\n\nWe believe in the Holy Spirit, the Lord, the giver of life,\n who proceeds from the Father and the Son.\n With the Father and the Son he is worshiped and glorified.\n He has spoken through the Prophets.\n We believe in one holy catholic and apostolic Church.\n We acknowledge one baptism for the forgiveness of sins.\n We look for the resurrection of the dead,\n and the life of the world to come. Amen.".into(),
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Nicene Creed".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1628,7 +1628,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "With all our heart and with all our mind,\nlet us pray to the Lord,\nsaying “Lord, have mercy”\n\nFor. . .let us pray to the Lord.\nLord, have mercy.\n\nIn the communion of [_____ and of all the] saints,\nlet us commend ourselves, and one another,\nall of our life, to Christ our God\nTo thee, (you,) O Lord our god.\n\nLord, have mercy.\nto thee, (you,) O Lord our God. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Prayers of the People".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1643,7 +1643,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Anaphoral chant".into(),
                 text: "Father, we pray for your holy Catholic Church;\nThat we all may be one.\n\nGrant that every member of the Church\nmay truly and humbly serve you;\nThat your Name may be glorified by all people.\n\nWe pray for all bishops, priests, and deacons;\nThat they may be faithful ministers\nof your word and sacraments.\n\nWe pray for all who govern and hold authority\nin the nations of the world;\nThat there may be justice and peace on earth.\n\nGive us grace to do your will\nin all that we undertake;\nThat our works may find favor in your sight.\n\nHave compassion on those who suffer \nfrom any grief or trouble;\nThat they may be delivered from their distress.\n\nGive to the departed eternal rest;\nLet light perpetual shine upon them\n\nWe praise you for your saints\nwho have entered into joy;\nMay we also come to share in \nyour heavenly kingdom.\n\nLet us pray for our own needs,\nand the needs of others.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Prayers of the People".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1658,7 +1658,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Let us pray for the church and for the world.\n\nGrant Almighty God, that all who confess\nyour Name may be united in your truth,\nlive together in your love,\nand reveal your glory in the world.\n\nLord in your mercy\nHear our prayer.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Prayers of the People".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1673,7 +1673,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "In peace, let us pray to the Lord,\nsaying, “Lord, have mercy.”\n(or “Kyrie eleison”)\n\nFor. . . we pray to you, O Lord.\nLord, have mercy.\n(or “Kyrie eleison”)\n\nRejoicing in the fellowship of\n[the ever-blessed Virgin Mary,\n(blessed N.)and] all the saints,\nlet us commend ourselves,\nand one another,\nand all our life \nto Christ our God.\nTo you, O Lord our God.\n\nFor yours is the majesty,\nO Father, Son, and Holy Spirit;\nyours is the kingdom and the power\nand the glory, now and for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Prayers of the People".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1688,7 +1688,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "The peace of the Lord be always with you.\nAnd with thy spirit.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "The Peace".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1702,8 +1702,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
-                text: "The peace of the Lord be always with you.\nAnd with thy spirit.".into(),
-                tags: vec![]
+                text: "The peace of the Lord be always with you.\nAnd also with you.".into(),
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "The Peace".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1718,7 +1718,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "The Lord be with you.\nAnd with thy spirit.\nLift up your hearts.\nWe lift them up unto the Lord.\nLet us give thanks unto our Lord God.\nIt is meet and right so to do.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Sursum Corda".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1733,7 +1733,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Adapt. <i>Hymnal 1982</i>".into(),
                 text: "Holy, holy holy, Lord God of Hosts;\nHeaven and earth are full of thy glory.\nGlory be to thee, O Lord Most High.\nBlessed is he that cometh in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1748,7 +1748,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Holy, holy holy, Lord God of Hosts;\nHeaven and earth are full of thy glory.\nGlory be to thee, O Lord Most High.\nBlessed is he that cometh in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1763,7 +1763,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Missa Marialis;</i> Plainsong, Mode 5; Mass 9".into(),
                 text: "Holy, holy holy, Lord God of Hosts;\nHeaven and earth are full of thy glory.\nGlory be to thee, O Lord Most High.\nBlessed is he that cometh in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1778,7 +1778,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Missa de Angelis;</i> Mode 5, Mass 8".into(),
                 text: "Holy, holy holy, Lord God of Hosts;\nHeaven and earth are full of thy glory.\nGlory be to thee, O Lord Most High.\nBlessed is he that cometh in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1793,7 +1793,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Verbum caro factum est </i>(after)".into(),
                 text: "Holy, holy holy, Lord God of Hosts;\nHeaven and earth are full of thy glory.\nGlory be to thee, O Lord Most High.\nBlessed is he that cometh in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1808,7 +1808,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Amen".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1823,7 +1823,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Our Father, who art in heaven,\nhallowed by thy Name,\nthy kingdom come, thy will be done,\non earth as it is in heaven.\nGive us this day our daily bread.\nAnd forgive us our trespasses,\nas we forgive those who trespass against us.\nand lead us not into temptation,\nbut deliver us from evil.\nFor thine is the kingdom, and the power,\nand the glory, for ever and ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Lord’s Prayer".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1838,7 +1838,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "The Lord be with you.\nAnd also with you.\nLift up your hearts.\nWe lift them to the Lord.\nLet us give thanks to the Lord our God.\nIt is right to give him thanks and praise.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Sursum Corda".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1853,7 +1853,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Te Deum Tone".into(),
                 text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1868,7 +1868,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong; Mass 18".into(),
                 text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1883,7 +1883,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Mozarbic chant, ca. 8th cent.".into(),
                 text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1898,7 +1898,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1913,7 +1913,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1928,7 +1928,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1943,7 +1943,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1958,7 +1958,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1973,7 +1973,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -1988,7 +1988,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2003,7 +2003,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Holy, holy, holy Lord,\nGod of power and might,\nheaven and earth are full of your glory.\nHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\nHosanna in the highest.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Sanctus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2018,7 +2018,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Antiphon tone".into(),
                 text: "Christ has died.\nChrist is risen.\nChrist will come again.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Memorial Acclamation".into(), "A".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2033,7 +2033,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Christ has died.\nChrist is risen.\nChrist will come again.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Memorial Acclamation".into(), "A".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2048,7 +2048,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Te Deum Tone".into(),
                 text: "Christ has died.\nChrist is risen.\nChrist will come again.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Memorial Acclamation".into(), "A".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2063,7 +2063,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Christ has died.\nChrist is risen.\nChrist will come again.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Memorial Acclamation".into(), "A".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2078,7 +2078,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian anaphora chant".into(),
                 text: "Therefore, according to his command, O Father,\nwe remember his death,\nWe proclaim his resurrection,\nWe await his coming in glory.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Memorial Acclamation".into(), "B".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2093,7 +2093,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Te Deum Tone".into(),
                 text: "Therefore, according to his command, O Father,\nwe remember his death,\nWe proclaim his resurrection,\nWe await his coming in glory.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Memorial Acclamation".into(), "B".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2108,7 +2108,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Therefore, according to his command, O Father,\nwe remember his death,\nWe proclaim his resurrection,\nWe await his coming in glory.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Memorial Acclamation".into(), "B".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2123,7 +2123,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Te Deum Tone".into(),
                 text: "...we praise you and we bless you.\nWe praise you,\nwe bless you,\nwe give thanks to you,\nand we pray to you,\nLord our God.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Memorial Acclamation".into(), "D".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2138,7 +2138,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "...we praise you and we bless you.\nWe praise you,\nwe bless you,\nwe give thanks to you,\nand we pray to you,\nLord our God.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Memorial Acclamation".into(), "D".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2153,7 +2153,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "...we praise you and we bless you.\nWe praise you,\nwe bless you,\nwe give thanks to you,\nand we pray to you,\nLord our God.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Memorial Acclamation".into(), "D".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2168,7 +2168,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Amen".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2183,7 +2183,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Missa de Angelis:</i> Plainsong, Mode 6".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Amen".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2198,7 +2198,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Amen".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2213,7 +2213,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Amen".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2228,7 +2228,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Amen".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2243,7 +2243,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Amen".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2258,7 +2258,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Our Father, who art in heaven,\nhallowed by thy Name,\nthy kingdom come, thy will be done,\non earth as it is in heaven.\nGive us this day our daily bread.\nAnd forgive us our trespasses,\nas we forgive those who trespass against us.\nand lead us not into temptation,\nbut deliver us from evil.\nFor thine is the kingdom, and the power,\nand the glory, for ever and ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Lord’s Prayer".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2273,7 +2273,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Our Father, who art in heaven,\nhallowed by thy Name,\nthy kingdom come, thy will be done,\non earth as it is in heaven.\nGive us this day our daily bread.\nAnd forgive us our trespasses,\nas we forgive those who trespass against us.\nand lead us not into temptation,\nbut deliver us from evil.\nFor thine is the kingdom, and the power,\nand the glory, for ever and ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Lord’s Prayer".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2288,7 +2288,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Intercession Mass".into(),
                 text: "Our Father, who art in heaven,\nhallowed by thy Name,\nthy kingdom come, thy will be done,\non earth as it is in heaven.\nGive us this day our daily bread.\nAnd forgive us our trespasses,\nas we forgive those who trespass against us.\nand lead us not into temptation,\nbut deliver us from evil.\nFor thine is the kingdom, and the power,\nand the glory, for ever and ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Lord’s Prayer".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2303,7 +2303,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tonus Peregrinus".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2318,7 +2318,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2333,7 +2333,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2348,7 +2348,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2363,7 +2363,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2378,7 +2378,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Alleluia, alleluia, alleluia,\nAlleluia, alleluia, alleluia.\nChrist our passover is sacrificed for us;\ntherefore let us keep the feast.\nAlleluia, alleluia, alleluia".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2393,7 +2393,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Hymnal 1982</i> (adapt.)".into(),
                 text: "O Lamb of God, that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God, that takest away the sins of the world,\ngrant us thy peace.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2408,7 +2408,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "O Lamb of God, that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God, that takest away the sins of the world,\ngrant us thy peace.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2423,7 +2423,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Missa Marialis</i>; Plainsong, Mode 5".into(),
                 text: "O Lamb of God, that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God, that takest away the sins of the world,\ngrant us thy peace.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist I".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2437,8 +2437,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Anaphora chant; Mass 18".into(),
-                text: "O Lamb of God, that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God, that takest away the sins of the world,\ngrant us thy peace.".into(),
-                tags: vec![]
+                text: "Lamb of God, you take away the sins of the world: have mercy on us.\nLamb of God, you take away the sins of the world: have mercy on us.\nLamb of God, you take away the sins of the world: grant us peace.".into(),
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2452,8 +2452,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "O Lamb of God, that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God, that takest away the sins of the world,\ngrant us thy peace.".into(),
-                tags: vec![]
+                text: "Lamb of God, you take away the sins of the world: have mercy on us.\nLamb of God, you take away the sins of the world: have mercy on us.\nLamb of God, you take away the sins of the world: grant us peace.".into(),
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2467,8 +2467,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "O Lamb of God, that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God, that takest away the sins of the world,\ngrant us thy peace.".into(),
-                tags: vec![]
+                text: "Lamb of God, you take away the sins of the world: have mercy on us.\nLamb of God, you take away the sins of the world: have mercy on us.\nLamb of God, you take away the sins of the world: grant us peace.".into(),
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2482,8 +2482,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "O Lamb of God, that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God that takest away the sins of the world,\nhave mercy upon us.\nO Lamb of God, that takest away the sins of the world,\ngrant us thy peace.".into(),
-                tags: vec![]
+                text: "Lamb of God, you take away the sins of the world: have mercy on us.\nLamb of God, you take away the sins of the world: have mercy on us.\nLamb of God, you take away the sins of the world: grant us peace.".into(),
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2498,7 +2498,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Jesus, Lamb of God:\nhave mercy on us.\nJesus, bearer of our sins:\nhave mercy on us.\nJesus, redeemer, redeemer of the world:\ngive us your peace,\ngive us your peace.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2513,7 +2513,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Jesus, Lamb of God:\nhave mercy on us.\nJesus, bearer of our sins:\nhave mercy on us.\nJesus, redeemer, redeemer of the world:\ngive us your peace,\ngive us your peace.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2528,7 +2528,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Jesus, Lamb of God:\nhave mercy on us.\nJesus, bearer of our sins:\nhave mercy on us.\nJesus, redeemer, redeemer of the world:\ngive us your peace,\ngive us your peace.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Eucharist II".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2543,7 +2543,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Mode 6 melody".into(),
                 text: "Antiphon:\nThe disciples knew the Lord Jesus\nin the breaking of the bread.\n\n1. The bread which we break, alleluia,\nis the communion of the body of Christ. [Ant.]\n\n2. One body are we, alleluia,\nfor though many we share one bread. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2558,7 +2558,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Antiphon:\nMy flesh is food indeed, \nand my blood is drink indeed,\nsays the Lord.\n\nThose who eat my flesh and drink my blood\ndwell in me, and I in them. [Ant.]\n\n".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2573,7 +2573,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nMy flesh is food indeed, \nand my blood is drink indeed,\nsays the Lord.\n\nThose who eat my flesh and drink my blood\ndwell in me, and I in them. [Ant.]\n\n".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2588,7 +2588,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Mode 1 melody".into(),
                 text: "Antiphon:\nWhoever eats this bred will live for ever.\n\n1. This is the true bread\nwhich comes down from heaven\nand gives life to the world. [Ant.]\n\n2. Whoever believes in me\nshall not hunger or thirst,\nfor the bread which I give \nfor the life of the world is my flesh [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2603,7 +2603,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Mode 6 melody".into(),
                 text: "Antiphon:\nBe known to us, Lord Jesus,\nin the breaking of the bread\n\n1. The bread which we break, alleluia,\nis the communion of the body of Christ. [Ant.]\n\n2. One body are we, alleluia,\nfor though many we share one bread. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2618,7 +2618,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Ambrosian chant".into(),
                 text: "Antiphon:\nBlessed are those who are called\nto the Super of the Lamb.\n\nPraise the Lord, all you nations;\nlaud him, all you peoples.\nFor his lovingkindness toward us is great,\nand the faithfulness of the Lord\nendures for ever. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Fraction".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2633,7 +2633,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Our help is in the Name of the Lord;\nThe maker of heaven and earth.\nBlessed be the Name of the Lord;\nFrom this time forth for evermore.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Episcopal Blessing".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2648,7 +2648,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Let us go forth in the name of Christ,\nThanks be to God.\n\nor \n\nGo in peace to love and serve the Lord.\nThanks be to God.\n\nor\n\nLet us go forth into the world,\nrejoicing in the power of the Spirit.\nThanks be to God.\n\nor\n\nLet us bless the Lord.\nthanks be to God.".into(),
-                tags: vec![]
+                tags: vec!["Eucharist".into(), "Dismissal".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2662,8 +2662,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "".into(),
-                text: "Let us go forth in the name of Christ,\nThanks be to God.\n\nor \n\nGo in peace to love and serve the Lord.\nThanks be to God.\n\nor\n\nLet us go forth into the world,\nrejoicing in the power of the Spirit.\nThanks be to God.\n\nor\n\nLet us bless the Lord.\nthanks be to God.".into(),
-                tags: vec![]
+                text: "Let us go forth in the name of Christ, alleluia, alleluia. \nThanks be to God, alleluia, alleluia.\n\nor \n\nGo in peace to love and serve the Lord, alleluia, alleluia.\nThanks be to God, alleluia, alleluia.\n\nor\n\nLet us go forth into the world,\nrejoicing in the power of the Spirit, alleluia, alleluia.\nThanks be to God, alleluia, alleluia.\n\nor\n\nLet us bless the Lord, alleluia, alleluia.\nThanks be to God, alleluia, alleluia.".into(),
+                tags: vec!["Eucharist".into(), "Dismissal".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2677,8 +2677,8 @@ lazy_static! {
                 meter: "".into(),
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tonus Peregrinus".into(),
-                text: "Let us go forth in the name of Christ,\nThanks be to God.\n\nor \n\nGo in peace to love and serve the Lord.\nThanks be to God.\n\nor\n\nLet us go forth into the world,\nrejoicing in the power of the Spirit.\nThanks be to God.\n\nor\n\nLet us bless the Lord.\nthanks be to God.".into(),
-                tags: vec![]
+                text: "Let us go forth in the name of Christ, alleluia, alleluia. \nThanks be to God, alleluia, alleluia.\n\nor \n\nGo in peace to love and serve the Lord, alleluia, alleluia.\nThanks be to God, alleluia, alleluia.\n\nor\n\nLet us go forth into the world,\nrejoicing in the power of the Spirit, alleluia, alleluia.\nThanks be to God, alleluia, alleluia.\n\nor\n\nLet us bless the Lord, alleluia, alleluia.\nThanks be to God, alleluia, alleluia.".into(),
+                tags: vec!["Eucharist".into(), "Dismissal".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2693,7 +2693,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tonus Peregrinus (verses 1-2, 19-22); ; Plainsong, tone 1, verses 3-18".into(),
                 text: "1. O all ye works of the Lord,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n2. O ye angels of the Lord,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n3. O ye heavens, bless ye the Lord;\nO ye waters that be above the firmament\nbless ye the Lord;\n\n4. O all ye powers of the Lord,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n5. O ye sun and moon, \nbless ye the Lord;\nO ye stars of heaven,\nbless ye the Lord;\n\n6. O ye showers and dew,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n7. O ye winds of God,\nbless ye the Lord;\nO ye fire and heat,\nbless ye the Lord;\n\n8. O ye winter and summer,\nbless ye the Lord,\npraise him and magnify him for ever.\n\n9. O ye dews and frosts, \nbless ye the Lord;\nO ye frost and cold, \nbless ye the Lord;\n\n10. O ye ice and snow,\nbless he the Lord;\npraise him and magnify him for ever.\n\n11. O ye nights and days,\nbless ye the Lord;\nO ye light and darkness,\nbless ye the Lord;\n\n12. O ye lightnings and clouds,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n13. O let the earth \nbless the Lord;\nO ye mountains and hills,\nbless ye the Lord;\n\n14. O all ye green things upon the earth,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n15. O ye wells, \nbless ye the Lord;\nO ye seas and floods,\nbless ye the Lord;\n\n16. O ye whales and all that\nmove in the waters,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n17. O all ye fowls of the air,\nbless ye the Lord;\nO all ye beast and cattle,\nbless ye the Lord;\n\n18. O ye children of men,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n19. O ye people of God,\nbless ye the Lord;\nO ye priests of the Lord,\nbless ye the Lord;\n\n20. O ye servants of the Lord,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n21. O ye spirits and souls of the righteous,\nbless ye the Lord;\nO ye holy and humble men of heart,\nbless ye the Lord.\n\n22 Let us bless the Father,\nthe Son, and the Holy Spirit;\npraise him and magnify him for ever.\nO ye seas and floods,".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 1".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2708,7 +2708,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O all ye works of the Lord,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n2. O ye angels of the Lord,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n3. O ye heavens, bless ye the Lord;\nO ye waters that be above the firmament\nbless ye the Lord;\n\n4. O all ye powers of the Lord,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n5. O ye sun and moon, \nbless ye the Lord;\nO ye stars of heaven,\nbless ye the Lord;\n\n6. O ye showers and dew,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n7. O ye winds of God,\nbless ye the Lord;\nO ye fire and heat,\nbless ye the Lord;\n\n8. O ye winter and summer,\nbless ye the Lord,\npraise him and magnify him for ever.\n\n9. O ye dews and frosts, \nbless ye the Lord;\nO ye frost and cold, \nbless ye the Lord;\n\n10. O ye ice and snow,\nbless he the Lord;\npraise him and magnify him for ever.\n\n11. O ye nights and days,\nbless ye the Lord;\nO ye light and darkness,\nbless ye the Lord;\n\n12. O ye lightnings and clouds,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n13. O let the earth \nbless the Lord;\nO ye mountains and hills,\nbless ye the Lord;\n\n14. O all ye green things upon the earth,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n15. O ye wells, \nbless ye the Lord;\nO ye seas and floods,\nbless ye the Lord;\n\n16. O ye whales and all that\nmove in the waters,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n17. O all ye fowls of the air,\nbless ye the Lord;\nO all ye beast and cattle,\nbless ye the Lord;\n\n18. O ye children of men,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n19. O ye people of God,\nbless ye the Lord;\nO ye priests of the Lord,\nbless ye the Lord;\n\n20. O ye servants of the Lord,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n21. O ye spirits and souls of the righteous,\nbless ye the Lord;\nO ye holy and humble men of heart,\nbless ye the Lord.\n\n22 Let us bless the Father,\nthe Son, and the Holy Spirit;\npraise him and magnify him for ever.\nO ye seas and floods,".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 1".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2723,7 +2723,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. O all ye works of the Lord,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n2. O ye angels of the Lord,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n3. O ye heavens, bless ye the Lord;\nO ye waters that be above the firmament\nbless ye the Lord;\n\n4. O all ye powers of the Lord,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n5. O ye sun and moon, \nbless ye the Lord;\nO ye stars of heaven,\nbless ye the Lord;\n\n6. O ye showers and dew,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n7. O ye winds of God,\nbless ye the Lord;\nO ye fire and heat,\nbless ye the Lord;\n\n8. O ye winter and summer,\nbless ye the Lord,\npraise him and magnify him for ever.\n\n9. O ye dews and frosts, \nbless ye the Lord;\nO ye frost and cold, \nbless ye the Lord;\n\n10. O ye ice and snow,\nbless he the Lord;\npraise him and magnify him for ever.\n\n11. O ye nights and days,\nbless ye the Lord;\nO ye light and darkness,\nbless ye the Lord;\n\n12. O ye lightnings and clouds,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n13. O let the earth \nbless the Lord;\nO ye mountains and hills,\nbless ye the Lord;\n\n14. O all ye green things upon the earth,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n15. O ye wells, \nbless ye the Lord;\nO ye seas and floods,\nbless ye the Lord;\n\n16. O ye whales and all that\nmove in the waters,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n17. O all ye fowls of the air,\nbless ye the Lord;\nO all ye beast and cattle,\nbless ye the Lord;\n\n18. O ye children of men,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n19. O ye people of God,\nbless ye the Lord;\nO ye priests of the Lord,\nbless ye the Lord;\n\n20. O ye servants of the Lord,\nbless ye the Lord;\npraise him and magnify him for ever.\n\n21. O ye spirits and souls of the righteous,\nbless ye the Lord;\nO ye holy and humble men of heart,\nbless ye the Lord.\n\n22 Let us bless the Father,\nthe Son, and the Holy Spirit;\npraise him and magnify him for ever.\nO ye seas and floods,".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 1".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2738,7 +2738,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 8".into(),
                 text: "Antiphon:\nProclaim the greatness of the Lord our God:\nhe is the Holy One.\n\n1. Blessed art thou, O Lord god of our fathers;\npraised and exalted above all for ever.\n\n2. Blessed art thou for the Name of thy Majesty;\npraised and exalted above all for ever.\n\n3. Blessed art thou in the temple of thy holiness;\npraised and exalted above all for ever.\n\n4. Blessed art thou that beholdest the depths,\nand dwellest between the Cherubim;\npraised and exalted above all for ever.\n\n5. Blessed art thou on the \nglorious throne of thy kingdom;\npraised and exalted above all for ever.\n\n6. Blessed art thou in the firmament of heaven,\npraised and exalted above all for ever.\n\n7. Blessed art thou, O Father,\nSon and Holy Spirit;\npraised and exalted above all for ever. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 2".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2753,7 +2753,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nProclaim the greatness of the Lord our God:\nhe is the Holy One.\n\n1. Blessed art thou, O Lord god of our fathers;\npraised and exalted above all for ever.\n\n2. Blessed art thou for the Name of thy Majesty;\npraised and exalted above all for ever.\n\n3. Blessed art thou in the temple of thy holiness;\npraised and exalted above all for ever.\n\n4. Blessed art thou that beholdest the depths,\nand dwellest between the Cherubim;\npraised and exalted above all for ever.\n\n5. Blessed art thou on the \nglorious throne of thy kingdom;\npraised and exalted above all for ever.\n\n6. Blessed art thou in the firmament of heaven,\npraised and exalted above all for ever.\n\n7. Blessed art thou, O Father,\nSon and Holy Spirit;\npraised and exalted above all for ever. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 2".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2768,7 +2768,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nProclaim the greatness of the Lord our God:\nhe is the Holy One.\n\n1. Blessed art thou, O Lord god of our fathers;\npraised and exalted above all for ever.\n\n2. Blessed art thou for the Name of thy Majesty;\npraised and exalted above all for ever.\n\n3. Blessed art thou in the temple of thy holiness;\npraised and exalted above all for ever.\n\n4. Blessed art thou that beholdest the depths,\nand dwellest between the Cherubim;\npraised and exalted above all for ever.\n\n5. Blessed art thou on the \nglorious throne of thy kingdom;\npraised and exalted above all for ever.\n\n6. Blessed art thou in the firmament of heaven,\npraised and exalted above all for ever.\n\n7. Blessed art thou, O Father,\nSon and Holy Spirit;\npraised and exalted above all for ever. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 2".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2783,7 +2783,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nProclaim the greatness of the Lord our God:\nhe is the Holy One.\n\n1. Blessed art thou, O Lord god of our fathers;\npraised and exalted above all for ever.\n\n2. Blessed art thou for the Name of thy Majesty;\npraised and exalted above all for ever.\n\n3. Blessed art thou in the temple of thy holiness;\npraised and exalted above all for ever.\n\n4. Blessed art thou that beholdest the depths,\nand dwellest between the Cherubim;\npraised and exalted above all for ever.\n\n5. Blessed art thou on the \nglorious throne of thy kingdom;\npraised and exalted above all for ever.\n\n6. Blessed art thou in the firmament of heaven,\npraised and exalted above all for ever.\n\n7. Blessed art thou, O Father,\nSon and Holy Spirit;\npraised and exalted above all for ever. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 2".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2798,7 +2798,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nProclaim the greatness of the Lord our God:\nhe is the Holy One.\n\n1. Blessed art thou, O Lord god of our fathers;\npraised and exalted above all for ever.\n\n2. Blessed art thou for the Name of thy Majesty;\npraised and exalted above all for ever.\n\n3. Blessed art thou in the temple of thy holiness;\npraised and exalted above all for ever.\n\n4. Blessed art thou that beholdest the depths,\nand dwellest between the Cherubim;\npraised and exalted above all for ever.\n\n5. Blessed art thou on the \nglorious throne of thy kingdom;\npraised and exalted above all for ever.\n\n6. Blessed art thou in the firmament of heaven,\npraised and exalted above all for ever.\n\n7. Blessed art thou, O Father,\nSon and Holy Spirit;\npraised and exalted above all for ever. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 2".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2813,7 +2813,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Mode 8 antiphon; Plainsong, Tone 8 (Solemn)".into(),
                 text: "Antiphon:\nHe that is mighty hath magnified me:\nand holy is his Name.\n\n1. My soul doth magnify the Lord,\nand my spirit hath rejoiced in God my Savior.\n\n2. For he hath regarded the \nlowliness of his handmaiden.\n\n3. For behold from henceforth\nall generations shall call me blessed.\n\n4. For he that is mighty \nhath magnified me,\nand holy is his Name.\n\n5. And his mercy is on them \nthat fear him throughout all generations.\n\n6. He hath showed strength with his arm;\nhe hath scattered the proud\nin the imagination of their hearts.\n\n7. He hath put down the mighty from their seat,\nand hath exalted the humble and meek.\n\n8. He hath filled the hungry with good things,\nand the rich he hath sent empty away.\n\n9. He remembering his mercy \nhath holpen his servant Israel,\nas he promised to our forefathers,\nAbraham and his seed for ever. [Ant.]\n\nGlory to the Father and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, \nis now, and will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 3".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2828,7 +2828,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nHe that is mighty hath magnified me:\nand holy is his Name.\n\n1. My soul doth magnify the Lord,\nand my spirit hath rejoiced in God my Savior.\n\n2. For he hath regarded the \nlowliness of his handmaiden.\n\n3. For behold from henceforth\nall generations shall call me blessed.\n\n4. For he that is mighty \nhath magnified me,\nand holy is his Name.\n\n5. And his mercy is on them \nthat fear him throughout all generations.\n\n6. He hath showed strength with his arm;\nhe hath scattered the proud\nin the imagination of their hearts.\n\n7. He hath put down the mighty from their seat,\nand hath exalted the humble and meek.\n\n8. He hath filled the hungry with good things,\nand the rich he hath sent empty away.\n\n9. He remembering his mercy \nhath holpen his servant Israel,\nas he promised to our forefathers,\nAbraham and his seed for ever. [Ant.]\n\nGlory to the Father and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, \nis now, and will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 3".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2843,7 +2843,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nHe that is mighty hath magnified me:\nand holy is his Name.\n\n1. My soul doth magnify the Lord,\nand my spirit hath rejoiced in God my Savior.\n\n2. For he hath regarded the \nlowliness of his handmaiden.\n\n3. For behold from henceforth\nall generations shall call me blessed.\n\n4. For he that is mighty \nhath magnified me,\nand holy is his Name.\n\n5. And his mercy is on them \nthat fear him throughout all generations.\n\n6. He hath showed strength with his arm;\nhe hath scattered the proud\nin the imagination of their hearts.\n\n7. He hath put down the mighty from their seat,\nand hath exalted the humble and meek.\n\n8. He hath filled the hungry with good things,\nand the rich he hath sent empty away.\n\n9. He remembering his mercy \nhath holpen his servant Israel,\nas he promised to our forefathers,\nAbraham and his seed for ever. [Ant.]\n\nGlory to the Father and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, \nis now, and will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 3".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2858,7 +2858,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nHe that is mighty hath magnified me:\nand holy is his Name.\n\n1. My soul doth magnify the Lord,\nand my spirit hath rejoiced in God my Savior.\n\n2. For he hath regarded the \nlowliness of his handmaiden.\n\n3. For behold from henceforth\nall generations shall call me blessed.\n\n4. For he that is mighty \nhath magnified me,\nand holy is his Name.\n\n5. And his mercy is on them \nthat fear him throughout all generations.\n\n6. He hath showed strength with his arm;\nhe hath scattered the proud\nin the imagination of their hearts.\n\n7. He hath put down the mighty from their seat,\nand hath exalted the humble and meek.\n\n8. He hath filled the hungry with good things,\nand the rich he hath sent empty away.\n\n9. He remembering his mercy \nhath holpen his servant Israel,\nas he promised to our forefathers,\nAbraham and his seed for ever. [Ant.]\n\nGlory to the Father and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, \nis now, and will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 3".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2873,7 +2873,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nHe that is mighty hath magnified me:\nand holy is his Name.\n\n1. My soul doth magnify the Lord,\nand my spirit hath rejoiced in God my Savior.\n\n2. For he hath regarded the \nlowliness of his handmaiden.\n\n3. For behold from henceforth\nall generations shall call me blessed.\n\n4. For he that is mighty \nhath magnified me,\nand holy is his Name.\n\n5. And his mercy is on them \nthat fear him throughout all generations.\n\n6. He hath showed strength with his arm;\nhe hath scattered the proud\nin the imagination of their hearts.\n\n7. He hath put down the mighty from their seat,\nand hath exalted the humble and meek.\n\n8. He hath filled the hungry with good things,\nand the rich he hath sent empty away.\n\n9. He remembering his mercy \nhath holpen his servant Israel,\nas he promised to our forefathers,\nAbraham and his seed for ever. [Ant.]\n\nGlory to the Father and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, \nis now, and will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 3".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2888,7 +2888,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tonus Peregrinus".into(),
                 text: "Antiphon:\nThrough the tender mercy of our God,\nthe dayspring from on high hath visited us.\n\n1. Blessed be the Lord god of Israel,\nfor he hath visited and redeemed his people;\n\n2. And hath raised up a might salvation\nfor us in the house of his servant David,\n\n3. As he spake by the mouth of his holy prophets,\nwhich have been since the world began:\n\n4. That we should be saved from our enemies,\nand from the hand of all that hate us;\n\n5. To perform the mercy promised to our forefathers,\nand to remember his holy covenant;\n\n6. to perform the oath which he sware \nto our forefather Abraham,\nthat he would give us,\n\n7. That we being delivered out of the hand\nof our enemies might serve him without fear,\n\n8. In holiness and righteousness before him,\nall the days of our life.\n\n9. And thou, child, shalt be called\nthe prophet of the Highest,\nfor thou shalt go before the face of the Lord\nto prepare his ways;\n\n10. To give knowledge of salvation unto his people\nfor the remission of their sins,\n\n11. Through the tender mercy of our God,\nwhereby the dayspring from on high\nhath visited us;\n\n12. To give light to them that sit in darkness\nand in the shadow of death,\nand to guide our feet into the way of peace. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 4".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2903,7 +2903,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Blessed be the Lord god of Israel,\nfor he hath visited and redeemed his people;\n\n2. And hath raised up a might salvation\nfor us in the house of his servant David,\n\n3. As he spake by the mouth of his holy prophets,\nwhich have been since the world began:\n\n4. That we should be saved from our enemies,\nand from the hand of all that hate us;\n\n5. To perform the mercy promised to our forefathers,\nand to remember his holy covenant;\n\n6. to perform the oath which he sware \nto our forefather Abraham,\nthat he would give us,\n\n7. That we being delivered out of the hand\nof our enemies might serve him without fear,\n\n8. In holiness and righteousness before him,\nall the days of our life.\n\n9. And thou, child, shalt be called\nthe prophet of the Highest,\nfor thou shalt go before the face of the Lord\nto prepare his ways;\n\n10. To give knowledge of salvation unto his people\nfor the remission of their sins,\n\n11. Through the tender mercy of our God,\nwhereby the dayspring from on high\nhath visited us;\n\n12. To give light to them that sit in darkness\nand in the shadow of death,\nand to guide our feet into the way of peace.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 4".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2918,7 +2918,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Blessed be the Lord god of Israel,\nfor he hath visited and redeemed his people;\n\n2. And hath raised up a might salvation\nfor us in the house of his servant David,\n\n3. As he spake by the mouth of his holy prophets,\nwhich have been since the world began:\n\n4. That we should be saved from our enemies,\nand from the hand of all that hate us;\n\n5. To perform the mercy promised to our forefathers,\nand to remember his holy covenant;\n\n6. to perform the oath which he sware \nto our forefather Abraham,\nthat he would give us,\n\n7. That we being delivered out of the hand\nof our enemies might serve him without fear,\n\n8. In holiness and righteousness before him,\nall the days of our life.\n\n9. And thou, child, shalt be called\nthe prophet of the Highest,\nfor thou shalt go before the face of the Lord\nto prepare his ways;\n\n10. To give knowledge of salvation unto his people\nfor the remission of their sins,\n\n11. Through the tender mercy of our God,\nwhereby the dayspring from on high\nhath visited us;\n\n12. To give light to them that sit in darkness\nand in the shadow of death,\nand to guide our feet into the way of peace.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 4".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2933,7 +2933,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Blessed be the Lord god of Israel,\nfor he hath visited and redeemed his people;\n\n2. And hath raised up a might salvation\nfor us in the house of his servant David,\n\n3. As he spake by the mouth of his holy prophets,\nwhich have been since the world began:\n\n4. That we should be saved from our enemies,\nand from the hand of all that hate us;\n\n5. To perform the mercy promised to our forefathers,\nand to remember his holy covenant;\n\n6. to perform the oath which he sware \nto our forefather Abraham,\nthat he would give us,\n\n7. That we being delivered out of the hand\nof our enemies might serve him without fear,\n\n8. In holiness and righteousness before him,\nall the days of our life.\n\n9. And thou, child, shalt be called\nthe prophet of the Highest,\nfor thou shalt go before the face of the Lord\nto prepare his ways;\n\n10. To give knowledge of salvation unto his people\nfor the remission of their sins,\n\n11. Through the tender mercy of our God,\nwhereby the dayspring from on high\nhath visited us;\n\n12. To give light to them that sit in darkness\nand in the shadow of death,\nand to guide our feet into the way of peace.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 4".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2948,7 +2948,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Blessed be the Lord god of Israel,\nfor he hath visited and redeemed his people;\n\n2. And hath raised up a might salvation\nfor us in the house of his servant David,\n\n3. As he spake by the mouth of his holy prophets,\nwhich have been since the world began:\n\n4. That we should be saved from our enemies,\nand from the hand of all that hate us;\n\n5. To perform the mercy promised to our forefathers,\nand to remember his holy covenant;\n\n6. to perform the oath which he sware \nto our forefather Abraham,\nthat he would give us,\n\n7. That we being delivered out of the hand\nof our enemies might serve him without fear,\n\n8. In holiness and righteousness before him,\nall the days of our life.\n\n9. And thou, child, shalt be called\nthe prophet of the Highest,\nfor thou shalt go before the face of the Lord\nto prepare his ways;\n\n10. To give knowledge of salvation unto his people\nfor the remission of their sins,\n\n11. Through the tender mercy of our God,\nwhereby the dayspring from on high\nhath visited us;\n\n12. To give light to them that sit in darkness\nand in the shadow of death,\nand to guide our feet into the way of peace.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 4".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2963,7 +2963,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Blessed be the Lord god of Israel,\nfor he hath visited and redeemed his people;\n\n2. And hath raised up a might salvation\nfor us in the house of his servant David,\n\n3. As he spake by the mouth of his holy prophets,\nwhich have been since the world began:\n\n4. That we should be saved from our enemies,\nand from the hand of all that hate us;\n\n5. To perform the mercy promised to our forefathers,\nand to remember his holy covenant;\n\n6. to perform the oath which he sware \nto our forefather Abraham,\nthat he would give us,\n\n7. That we being delivered out of the hand\nof our enemies might serve him without fear,\n\n8. In holiness and righteousness before him,\nall the days of our life.\n\n9. And thou, child, shalt be called\nthe prophet of the Highest,\nfor thou shalt go before the face of the Lord\nto prepare his ways;\n\n10. To give knowledge of salvation unto his people\nfor the remission of their sins,\n\n11. Through the tender mercy of our God,\nwhereby the dayspring from on high\nhath visited us;\n\n12. To give light to them that sit in darkness\nand in the shadow of death,\nand to guide our feet into the way of peace.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 4".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2978,7 +2978,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Mode 7 antiphon; Plainsong Tone 7; Standing Commission on Church Music (adapter), 1979".into(),
                 text: "Antiphon:\nMine eyes have seen thy salvation,\nwhich thou hast prepared before \nthe face of all people.\n\n1. Lord, now lettest thou thy servant\ndepart in peace, according to thy word;\n\n2. For mine eyes have seen thy salvation,\nwhich thou hast prepared before\nthe face of all people,\n\n3. To be a light to lighten the Gentiles,\nand to be the glory\nof thy people Israel. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 5".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -2993,7 +2993,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Lord, now lettest thou thy servant\ndepart in peace, according to thy word;\n\n2. For mine eyes have seen thy salvation,\nwhich thou hast prepared before\nthe face of all people,\n\n3. To be a light to lighten the Gentiles,\nand to be the glory\nof thy people Israel. \n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 5".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3008,7 +3008,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Lord, now lettest thou thy servant\ndepart in peace, according to thy word;\n\n2. For mine eyes have seen thy salvation,\nwhich thou hast prepared before\nthe face of all people,\n\n3. To be a light to lighten the Gentiles,\nand to be the glory\nof thy people Israel. \n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 5".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3023,7 +3023,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Lord, now lettest thou thy servant\ndepart in peace, according to thy word;\n\n2. For mine eyes have seen thy salvation,\nwhich thou hast prepared before\nthe face of all people,\n\n3. To be a light to lighten the Gentiles,\nand to be the glory\nof thy people Israel. \n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 5".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3038,7 +3038,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Lord, now lettest thou thy servant\ndepart in peace, according to thy word;\n\n2. For mine eyes have seen thy salvation,\nwhich thou hast prepared before\nthe face of all people,\n\n3. To be a light to lighten the Gentiles,\nand to be the glory\nof thy people Israel. \n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 5".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3053,7 +3053,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Hymnal 1982, </i>adapt.".into(),
                 text: "1. Glory be to God on high,\nand on earth peace,\ngood will towards men.\n\n2. We praise thee, we bless thee,\nwe worship thee, we glorify thee,\nWe give thanks to thee\nfor thy great glory,\n\n3. O Lord God, heavenly King,\nGod the Father almighty.\n\n4. O Lord, the only begotten Son,\nJesus Christ;\n\n5. O Lord God, Lamb of God,\nSon of the Father,\nthat takest away the sins of the world,\nhave mercy upon us.\n\n6. Thou that takest away \nthe sins of the world,\nreceive our prayer.\n\n7. Thou that sittest at the\nright hand of God the Father,\nhave mercy upon us.\n\n8. For thou only art holy;\nThou only art the Lord;\n\n9. thou only, O Christ,\nwith the Holy Ghost,\nart most high in the glory\nof God the Father. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 6".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3068,7 +3068,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glory be to God on high,\nand on earth peace,\ngood will towards men.\n\n2. We praise thee, we bless thee,\nwe worship thee, we glorify thee,\nWe give thanks to thee\nfor thy great glory,\n\n3. O Lord God, heavenly King,\nGod the Father almighty.\n\n4. O Lord, the only begotten Son,\nJesus Christ;\n\n5. O Lord God, Lamb of God,\nSon of the Father,\nthat takest away the sins of the world,\nhave mercy upon us.\n\n6. Thou that takest away \nthe sins of the world,\nreceive our prayer.\n\n7. Thou that sittest at the\nright hand of God the Father,\nhave mercy upon us.\n\n8. For thou only art holy;\nThou only art the Lord;\n\n9. thou only, O Christ,\nwith the Holy Ghost,\nart most high in the glory\nof God the Father. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 6".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3083,7 +3083,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Missa Marialis;</i> ; Plainsong, Mode 8; Mass 9".into(),
                 text: "1. Glory be to God on high,\nand on earth peace,\ngood will towards men.\n\n2. We praise thee, we bless thee,\nwe worship thee, we glorify thee,\nWe give thanks to thee\nfor thy great glory,\n\n3. O Lord God, heavenly King,\nGod the Father almighty.\n\n4. O Lord, the only begotten Son,\nJesus Christ;\n\n5. O Lord God, Lamb of God,\nSon of the Father,\nthat takest away the sins of the world,\nhave mercy upon us.\n\n6. Thou that takest away \nthe sins of the world,\nreceive our prayer.\n\n7. Thou that sittest at the\nright hand of God the Father,\nhave mercy upon us.\n\n8. For thou only art holy;\nThou only art the Lord;\n\n9. thou only, O Christ,\nwith the Holy Ghost,\nart most high in the glory\nof God the Father. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 6".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3098,7 +3098,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Old Scottish Chant, </i>from <i>Chants or Tunes for Particular Hymns,</i>1763?, alt.".into(),
                 text: "1. Glory be to God on high,\nand on earth peace,\ngood will towards men.\n\n2. We praise thee, we bless thee,\nwe worship thee, we glorify thee,\nWe give thanks to thee\nfor thy great glory,\n\n3. O Lord God, heavenly King,\nGod the Father almighty.\n\n4. O Lord, the only begotten Son,\nJesus Christ;\n\n5. O Lord God, Lamb of God,\nSon of the Father,\nthat takest away the sins of the world,\nhave mercy upon us.\n\n6. Thou that takest away \nthe sins of the world,\nreceive our prayer.\n\n7. Thou that sittest at the\nright hand of God the Father,\nhave mercy upon us.\n\n8. For thou only art holy;\nThou only art the Lord;\n\n9. thou only, O Christ,\nwith the Holy Ghost,\nart most high in the glory\nof God the Father. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 6".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3113,7 +3113,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 8".into(),
                 text: "1. We praise thee, O God;\nwe acknowledge thee to be the Lord.\nAll the earth doth worship thee,\nthe Father everlasting.\n\n2. To thee all Angels cry aloud,\nthe Heavens and all the Powers therein.\nTo thee Cherubim and Seraphim\ncontinually do cry:\n\n3. Holy, holy holy,\nLord God of Sabaoth;\nHeaven and earth are full\nof the majesty of thy glory.\n\n4. The glorious company \nof the apostles praise thee.\nThe goodly fellowship \nof the prophets praise thee.\n\n5. The noble army of\nmartyrs praise thee.\nThe holy Church throughout all the world\ndoth acknowledge thee,\n\n6. the Father, of an infinite majesty,\nthine adorable, true, and only Son,\nalso the Holy Ghost the Comforter.\n\n7. Thou art the King of glory, O Christ.\nThou art the everlasting Son of the Father.\n\n8. When thou tookest upon thee\nto deliver man,\nthou didst humble thyself\nto be born of a Virgin.\n\n9. When thou hadst overcome\nthe sharpness of death,\nthou didst open the \nkingdom of heaven to all believers.\n\n10. Thou sittest at the right hand of God,\nin the glory of the Father.\nWe believe that thou shalt\ncome to be our judge.\n\n11. We therefore pray thee,\nhelp thy servants,\nwhom thou hast redeemed\nwith thy precious blood.\n\n12. Make them to be \nnumbered with thy saints,\nin glory everlasting.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 7".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3128,7 +3128,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. We praise thee, O God;\nwe acknowledge thee to be the Lord.\nAll the earth doth worship thee,\nthe Father everlasting.\n\n2. To thee all Angels cry aloud,\nthe Heavens and all the Powers therein.\nTo thee Cherubim and Seraphim\ncontinually do cry:\n\n3. Holy, holy holy,\nLord God of Sabaoth;\nHeaven and earth are full\nof the majesty of thy glory.\n\n4. The glorious company \nof the apostles praise thee.\nThe goodly fellowship \nof the prophets praise thee.\n\n5. The noble army of\nmartyrs praise thee.\nThe holy Church throughout all the world\ndoth acknowledge thee,\n\n6. the Father, of an infinite majesty,\nthine adorable, true, and only Son,\nalso the Holy Ghost the Comforter.\n\n7. Thou art the King of glory, O Christ.\nThou art the everlasting Son of the Father.\n\n8. When thou tookest upon thee\nto deliver man,\nthou didst humble thyself\nto be born of a Virgin.\n\n9. When thou hadst overcome\nthe sharpness of death,\nthou didst open the \nkingdom of heaven to all believers.\n\n10. Thou sittest at the right hand of God,\nin the glory of the Father.\nWe believe that thou shalt\ncome to be our judge.\n\n11. We therefore pray thee,\nhelp thy servants,\nwhom thou hast redeemed\nwith thy precious blood.\n\n12. Make them to be \nnumbered with thy saints,\nin glory everlasting.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 7".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3143,7 +3143,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. We praise thee, O God;\nwe acknowledge thee to be the Lord.\nAll the earth doth worship thee,\nthe Father everlasting.\n\n2. To thee all Angels cry aloud,\nthe Heavens and all the Powers therein.\nTo thee Cherubim and Seraphim\ncontinually do cry:\n\n3. Holy, holy holy,\nLord God of Sabaoth;\nHeaven and earth are full\nof the majesty of thy glory.\n\n4. The glorious company \nof the apostles praise thee.\nThe goodly fellowship \nof the prophets praise thee.\n\n5. The noble army of\nmartyrs praise thee.\nThe holy Church throughout all the world\ndoth acknowledge thee,\n\n6. the Father, of an infinite majesty,\nthine adorable, true, and only Son,\nalso the Holy Ghost the Comforter.\n\n7. Thou art the King of glory, O Christ.\nThou art the everlasting Son of the Father.\n\n8. When thou tookest upon thee\nto deliver man,\nthou didst humble thyself\nto be born of a Virgin.\n\n9. When thou hadst overcome\nthe sharpness of death,\nthou didst open the \nkingdom of heaven to all believers.\n\n10. Thou sittest at the right hand of God,\nin the glory of the Father.\nWe believe that thou shalt\ncome to be our judge.\n\n11. We therefore pray thee,\nhelp thy servants,\nwhom thou hast redeemed\nwith thy precious blood.\n\n12. Make them to be \nnumbered with thy saints,\nin glory everlasting.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 7".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3158,7 +3158,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Mode 1; Plainsong, Tone 1, verses 1-3, 10-15; ; Plainsong, Tonus Peregrinus, verses 4-9".into(),
                 text: "Antiphon:\nAlleluia, alleluia, alleuia.\n\nAntiphon in Lent and at the Easter Vigil:\nI will sing to the Lord\nfor he has risen up in might\n\nAntiphon in Easter Season:\nI will sing to the Lord\nfor he has risen up in might, alleuia.\n\n1. I will sing to the Lord,\nfor he is lofty and uplifted;\nthe horse and its rider has he\nhurled into the sea.\n\n2. the Lord is my strength and my refuge;\nthe Lord has become my Savior.\n\n3. This is my God and I will praise him,\nthe God of my people and I will exalt him.\n\n4. The Lord is a mighty warrior;\nYahweh is his Name.\n\n5. The chariots of Pharaoh and his army\nhas he hurled into the sea;\nthe finest of those who bear armor\nhave been droned in the Red Sea.\n\n6. The fathomless deep has overwhelmed them;\nthey sank into the depths like a stone.\n\n7. Your right hand, O Lord, is glorious in might;\nyour right hand, O Lord, has overthrown the enemy.\n\n8. Who can be compared with you, \nO Lord, among the gods?\nwho is like you, glorious in holiness,\nawesome in renown, and worker of wonders?\n\n9. You stretched your right hand;\nthe earth swallowed them up.\n\n10. with your constant love\nyou led the people you redeemed;\nwith your might you brought them\nin safety to your holy dwelling.\n\n11. You will bring them in\nand plant them on the mount \nof your possession,\n\n12. The resting-place you have made \nfor yourself, O Lord,\nthe sanctuary, O Lord,\nthat your hand has established.\n\n13. The Lord shall reign\nfor ever and for ever. [Ant.]\n\nGlory to the Father and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 8".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3173,7 +3173,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nAlleluia, alleluia, alleuia.\n\nAntiphon in Lent and at the Easter Vigil:\nI will sing to the Lord\nfor he has risen up in might\n\nAntiphon in Easter Season:\nI will sing to the Lord\nfor he has risen up in might, alleuia.\n\n1. I will sing to the Lord,\nfor he is lofty and uplifted;\nthe horse and its rider has he\nhurled into the sea.\n\n2. the Lord is my strength and my refuge;\nthe Lord has become my Savior.\n\n3. This is my God and I will praise him,\nthe God of my people and I will exalt him.\n\n4. The Lord is a mighty warrior;\nYahweh is his Name.\n\n5. The chariots of Pharaoh and his army\nhas he hurled into the sea;\nthe finest of those who bear armor\nhave been droned in the Red Sea.\n\n6. The fathomless deep has overwhelmed them;\nthey sank into the depths like a stone.\n\n7. Your right hand, O Lord, is glorious in might;\nyour right hand, O Lord, has overthrown the enemy.\n\n8. Who can be compared with you, \nO Lord, among the gods?\nwho is like you, glorious in holiness,\nawesome in renown, and worker of wonders?\n\n9. You stretched your right hand;\nthe earth swallowed them up.\n\n10. with your constant love\nyou led the people you redeemed;\nwith your might you brought them\nin safety to your holy dwelling.\n\n11. You will bring them in\nand plant them on the mount \nof your possession,\n\n12. The resting-place you have made \nfor yourself, O Lord,\nthe sanctuary, O Lord,\nthat your hand has established.\n\n13. The Lord shall reign\nfor ever and for ever. [Ant.]\n\nGlory to the Father and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 8".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3188,7 +3188,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nAlleluia, alleluia, alleuia.\n\nAntiphon in Lent and at the Easter Vigil:\nI will sing to the Lord\nfor he has risen up in might\n\nAntiphon in Easter Season:\nI will sing to the Lord\nfor he has risen up in might, alleuia.\n\n1. I will sing to the Lord,\nfor he is lofty and uplifted;\nthe horse and its rider has he\nhurled into the sea.\n\n2. the Lord is my strength and my refuge;\nthe Lord has become my Savior.\n\n3. This is my God and I will praise him,\nthe God of my people and I will exalt him.\n\n4. The Lord is a mighty warrior;\nYahweh is his Name.\n\n5. The chariots of Pharaoh and his army\nhas he hurled into the sea;\nthe finest of those who bear armor\nhave been droned in the Red Sea.\n\n6. The fathomless deep has overwhelmed them;\nthey sank into the depths like a stone.\n\n7. Your right hand, O Lord, is glorious in might;\nyour right hand, O Lord, has overthrown the enemy.\n\n8. Who can be compared with you, \nO Lord, among the gods?\nwho is like you, glorious in holiness,\nawesome in renown, and worker of wonders?\n\n9. You stretched your right hand;\nthe earth swallowed them up.\n\n10. with your constant love\nyou led the people you redeemed;\nwith your might you brought them\nin safety to your holy dwelling.\n\n11. You will bring them in\nand plant them on the mount \nof your possession,\n\n12. The resting-place you have made \nfor yourself, O Lord,\nthe sanctuary, O Lord,\nthat your hand has established.\n\n13. The Lord shall reign\nfor ever and for ever. [Ant.]\n\nGlory to the Father and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 8".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3203,7 +3203,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nAlleluia, alleluia, alleuia.\n\nAntiphon in Lent and at the Easter Vigil:\nI will sing to the Lord\nfor he has risen up in might\n\nAntiphon in Easter Season:\nI will sing to the Lord\nfor he has risen up in might, alleuia.\n\n1. I will sing to the Lord,\nfor he is lofty and uplifted;\nthe horse and its rider has he\nhurled into the sea.\n\n2. the Lord is my strength and my refuge;\nthe Lord has become my Savior.\n\n3. This is my God and I will praise him,\nthe God of my people and I will exalt him.\n\n4. The Lord is a mighty warrior;\nYahweh is his Name.\n\n5. The chariots of Pharaoh and his army\nhas he hurled into the sea;\nthe finest of those who bear armor\nhave been droned in the Red Sea.\n\n6. The fathomless deep has overwhelmed them;\nthey sank into the depths like a stone.\n\n7. Your right hand, O Lord, is glorious in might;\nyour right hand, O Lord, has overthrown the enemy.\n\n8. Who can be compared with you, \nO Lord, among the gods?\nwho is like you, glorious in holiness,\nawesome in renown, and worker of wonders?\n\n9. You stretched your right hand;\nthe earth swallowed them up.\n\n10. with your constant love\nyou led the people you redeemed;\nwith your might you brought them\nin safety to your holy dwelling.\n\n11. You will bring them in\nand plant them on the mount \nof your possession,\n\n12. The resting-place you have made \nfor yourself, O Lord,\nthe sanctuary, O Lord,\nthat your hand has established.\n\n13. The Lord shall reign\nfor ever and for ever. [Ant.]\n\nGlory to the Father and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 8".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3218,14 +3218,14 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nAlleluia, alleluia, alleuia.\n\nAntiphon in Lent and at the Easter Vigil:\nI will sing to the Lord\nfor he has risen up in might\n\nAntiphon in Easter Season:\nI will sing to the Lord\nfor he has risen up in might, alleuia.\n\n1. I will sing to the Lord,\nfor he is lofty and uplifted;\nthe horse and its rider has he\nhurled into the sea.\n\n2. the Lord is my strength and my refuge;\nthe Lord has become my Savior.\n\n3. This is my God and I will praise him,\nthe God of my people and I will exalt him.\n\n4. The Lord is a mighty warrior;\nYahweh is his Name.\n\n5. The chariots of Pharaoh and his army\nhas he hurled into the sea;\nthe finest of those who bear armor\nhave been droned in the Red Sea.\n\n6. The fathomless deep has overwhelmed them;\nthey sank into the depths like a stone.\n\n7. Your right hand, O Lord, is glorious in might;\nyour right hand, O Lord, has overthrown the enemy.\n\n8. Who can be compared with you, \nO Lord, among the gods?\nwho is like you, glorious in holiness,\nawesome in renown, and worker of wonders?\n\n9. You stretched your right hand;\nthe earth swallowed them up.\n\n10. with your constant love\nyou led the people you redeemed;\nwith your might you brought them\nin safety to your holy dwelling.\n\n11. You will bring them in\nand plant them on the mount \nof your possession,\n\n12. The resting-place you have made \nfor yourself, O Lord,\nthe sanctuary, O Lord,\nthat your hand has established.\n\n13. The Lord shall reign\nfor ever and for ever. [Ant.]\n\nGlory to the Father and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 8".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
                 page_number: 164,
                 copyright_restriction: true,
                 number: HymnNumber::S(213),
-                title: "The First song of Isaiah".into(),
+                title: "The First Song of Isaiah".into(),
                 tune: "[Surely it is God who saves me]".into(),
                 authors: "".into(),
                 composers: "Bruce E. Ford, b. 1947".into(),
@@ -3233,7 +3233,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 3".into(),
                 text: "Antiphon:\nSing the praises of the Lord,\nfor he has done great things.\n\n1. Surely, it is God who saves me;\nI will trust in him and not be afraid.\n\n2. For the Lord is my stronghold\nand my sure defense,\nand he will be my Savior.\n\n3. Therefore you shall draw water \nwith rejoicing\nfrom the springs of salvation.\n\n4. And on that day you shall say,\nGive thanks to the Lord and\ncall upon his Name;\n\n5. Make his deeds known \namong the peoples;\nsee that they remember \nthat his Name is exalted.\n\n6. Sing the praises of the Lord,\nfor he has done great things,\nand this is known in all the world.\n\n7. Cry aloud, inhabitants of Zion,\nring out your joy,\nfor the great one in the midst of you\nis the Holy One of Israel. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 9".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3255,7 +3255,7 @@ lazy_static! {
                 page_number: 166,
                 copyright_restriction: true,
                 number: HymnNumber::S(215),
-                title: "The First song of Isaiah".into(),
+                title: "The First Song of Isaiah".into(),
                 tune: "[Surely it is God who saves me]".into(),
                 authors: "".into(),
                 composers: "Robert Bremner, 1720-1789".into(),
@@ -3263,14 +3263,14 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nSing the praises of the Lord,\nfor he has done great things.\n\n1. Surely, it is God who saves me;\nI will trust in him and not be afraid.\n\n2. For the Lord is my stronghold\nand my sure defense,\nand he will be my Savior.\n\n3. Therefore you shall draw water \nwith rejoicing\nfrom the springs of salvation.\n\n4. And on that day you shall say,\nGive thanks to the Lord and\ncall upon his Name;\n\n5. Make his deeds known \namong the peoples;\nsee that they remember \nthat his Name is exalted.\n\n6. Sing the praises of the Lord,\nfor he has done great things,\nand this is known in all the world.\n\n7. Cry aloud, inhabitants of Zion,\nring out your joy,\nfor the great one in the midst of you\nis the Holy One of Israel. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 9".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
                 page_number: 166,
                 copyright_restriction: true,
                 number: HymnNumber::S(216),
-                title: "The First song of Isaiah".into(),
+                title: "The First Song of Isaiah".into(),
                 tune: "[Surely it is God who saves me]".into(),
                 authors: "".into(),
                 composers: "David Hurd, b. 1950".into(),
@@ -3278,14 +3278,14 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nSing the praises of the Lord,\nfor he has done great things.\n\n1. Surely, it is God who saves me;\nI will trust in him and not be afraid.\n\n2. For the Lord is my stronghold\nand my sure defense,\nand he will be my Savior.\n\n3. Therefore you shall draw water \nwith rejoicing\nfrom the springs of salvation.\n\n4. And on that day you shall say,\nGive thanks to the Lord and\ncall upon his Name;\n\n5. Make his deeds known \namong the peoples;\nsee that they remember \nthat his Name is exalted.\n\n6. Sing the praises of the Lord,\nfor he has done great things,\nand this is known in all the world.\n\n7. Cry aloud, inhabitants of Zion,\nring out your joy,\nfor the great one in the midst of you\nis the Holy One of Israel. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 9".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
                 page_number: 167,
                 copyright_restriction: true,
                 number: HymnNumber::S(217),
-                title: "Seek the Lord while he wills to be found".into(),
+                title: "The Second Song of Isaiah".into(),
                 tune: "[Seek the Lord while he wills to be found]".into(),
                 authors: "".into(),
                 composers: "".into(),
@@ -3293,7 +3293,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 2".into(),
                 text: "1. Seek the Lord while he wills to be found;\ncall upon him when he draws near.\n\n2. Let the wicked forsake their ways\nand the evil ones their thoughts;\n\n3. And let them turn to the Lord,\nand he will have compassion,\nand to our God, for he will richly pardon.\n\n4. For my thoughts are not our thoughts,\nnor your ways my ways, says the Lord.\n\n5. For as the heavens are higher than the earth,\nso are my ways higher than your ways,\nand my thoughts than your thoughts.\n\n6. For as rain and snow fall from the heavens\nand return not again, but water the earth,\n\n7. Bringing forth life and giving growth,\nseed for sowing and bread for eating,\n\n8. So it is my word that goes forth\nfrom my mouth;\nit will not return to me empty;\n\n9. But it will accomplish that \nwhich I have purposed,\nand prosper in that for which I sent it.\n\nGlory be to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 10".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3308,7 +3308,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Seek the Lord while he wills to be found;\ncall upon him when he draws near.\n\n2. Let the wicked forsake their ways\nand the evil ones their thoughts;\n\n3. And let them turn to the Lord,\nand he will have compassion,\nand to our God, for he will richly pardon.\n\n4. For my thoughts are not our thoughts,\nnor your ways my ways, says the Lord.\n\n5. For as the heavens are higher than the earth,\nso are my ways higher than your ways,\nand my thoughts than your thoughts.\n\n6. For as rain and snow fall from the heavens\nand return not again, but water the earth,\n\n7. Bringing forth life and giving growth,\nseed for sowing and bread for eating,\n\n8. So it is my word that goes forth\nfrom my mouth;\nit will not return to me empty;\n\n9. But it will accomplish that \nwhich I have purposed,\nand prosper in that for which I sent it.\n\nGlory be to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 10".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3323,7 +3323,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Seek the Lord while he wills to be found;\ncall upon him when he draws near.\n\n2. Let the wicked forsake their ways\nand the evil ones their thoughts;\n\n3. And let them turn to the Lord,\nand he will have compassion,\nand to our God, for he will richly pardon.\n\n4. For my thoughts are not our thoughts,\nnor your ways my ways, says the Lord.\n\n5. For as the heavens are higher than the earth,\nso are my ways higher than your ways,\nand my thoughts than your thoughts.\n\n6. For as rain and snow fall from the heavens\nand return not again, but water the earth,\n\n7. Bringing forth life and giving growth,\nseed for sowing and bread for eating,\n\n8. So it is my word that goes forth\nfrom my mouth;\nit will not return to me empty;\n\n9. But it will accomplish that \nwhich I have purposed,\nand prosper in that for which I sent it.\n\nGlory be to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 10".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3338,7 +3338,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Seek the Lord while he wills to be found;\ncall upon him when he draws near.\n\n2. Let the wicked forsake their ways\nand the evil ones their thoughts;\n\n3. And let them turn to the Lord,\nand he will have compassion,\nand to our God, for he will richly pardon.\n\n4. For my thoughts are not our thoughts,\nnor your ways my ways, says the Lord.\n\n5. For as the heavens are higher than the earth,\nso are my ways higher than your ways,\nand my thoughts than your thoughts.\n\n6. For as rain and snow fall from the heavens\nand return not again, but water the earth,\n\n7. Bringing forth life and giving growth,\nseed for sowing and bread for eating,\n\n8. So it is my word that goes forth\nfrom my mouth;\nit will not return to me empty;\n\n9. But it will accomplish that \nwhich I have purposed,\nand prosper in that for which I sent it.\n\nGlory be to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 10".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3353,7 +3353,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Seek the Lord while he wills to be found;\ncall upon him when he draws near.\n\n2. Let the wicked forsake their ways\nand the evil ones their thoughts;\n\n3. And let them turn to the Lord,\nand he will have compassion,\nand to our God, for he will richly pardon.\n\n4. For my thoughts are not our thoughts,\nnor your ways my ways, says the Lord.\n\n5. For as the heavens are higher than the earth,\nso are my ways higher than your ways,\nand my thoughts than your thoughts.\n\n6. For as rain and snow fall from the heavens\nand return not again, but water the earth,\n\n7. Bringing forth life and giving growth,\nseed for sowing and bread for eating,\n\n8. So it is my word that goes forth\nfrom my mouth;\nit will not return to me empty;\n\n9. But it will accomplish that \nwhich I have purposed,\nand prosper in that for which I sent it.\n\nGlory be to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 10".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3368,14 +3368,14 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Seek the Lord while he wills to be found;\ncall upon him when he draws near.\n\n2. Let the wicked forsake their ways\nand the evil ones their thoughts;\n\n3. And let them turn to the Lord,\nand he will have compassion,\nand to our God, for he will richly pardon.\n\n4. For my thoughts are not our thoughts,\nnor your ways my ways, says the Lord.\n\n5. For as the heavens are higher than the earth,\nso are my ways higher than your ways,\nand my thoughts than your thoughts.\n\n6. For as rain and snow fall from the heavens\nand return not again, but water the earth,\n\n7. Bringing forth life and giving growth,\nseed for sowing and bread for eating,\n\n8. So it is my word that goes forth\nfrom my mouth;\nit will not return to me empty;\n\n9. But it will accomplish that \nwhich I have purposed,\nand prosper in that for which I sent it.\n\nGlory be to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 10".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
                 page_number: 170,
                 copyright_restriction: true,
                 number: HymnNumber::S(223),
-                title: "Arise, shine, for your light has come".into(),
+                title: "The Third Song of Isaiah".into(),
                 tune: "[Arise, shine, for your light has come]".into(),
                 authors: "".into(),
                 composers: "".into(),
@@ -3383,14 +3383,14 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 5".into(),
                 text: "1. Arise, shine, for your light has come,\nand the glory of the Lord has dawned upon you.\n\n2. For behold, darkness covers the land;\ndeep gloom enshrouds the peoples.\n\n3. But over you the Lord will rise,\nand his glory will appear upon you.\n\n4. Nations will stream to your light,\nand kings to the brightness of you dawning.\n\n5. Your gates will always be open;\nby day or night they will never be shut.\n\n6. They will call you, The City of the Lord,\nThe Zion of the Holy One of Israel.\n\n7. Violence will no more be heard in your land,\nruin or destructions will within your borders.\n\n8. You will call your walls, Salvation,\nand all your portals, Praise.\n\n9. The sun will no more be your light by day;\nby night you will not need the brightness of the moon.\n\n10. The Lord will be your everlasting light,\nand your God will be your glory.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 11".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
                 page_number: 172,
                 copyright_restriction: true,
                 number: HymnNumber::S(224),
-                title: "Arise, shine, for your light has come".into(),
+                title: "The Third Song of Isaiah".into(),
                 tune: "[Arise, shine, for your light has come]".into(),
                 authors: "".into(),
                 composers: "".into(),
@@ -3398,7 +3398,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Cambridge Chant".into(),
                 text: "1. Arise, shine, for your light has come,\nand the glory of the Lord has dawned upon you.\n\n2. For behold, darkness covers the land;\ndeep gloom enshrouds the peoples.\n\n3. But over you the Lord will rise,\nand his glory will appear upon you.\n\n4. Nations will stream to your light,\nand kings to the brightness of you dawning.\n\n5. Your gates will always be open;\nby day or night they will never be shut.\n\n6. They will call you, The City of the Lord,\nThe Zion of the Holy One of Israel.\n\n7. Violence will no more be heard in your land,\nruin or destructions will within your borders.\n\n8. You will call your walls, Salvation,\nand all your portals, Praise.\n\n9. The sun will no more be your light by day;\nby night you will not need the brightness of the moon.\n\n10. The Lord will be your everlasting light,\nand your God will be your glory.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 11".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3413,7 +3413,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Arise, shine, for your light has come,\nand the glory of the Lord has dawned upon you.\n\n2. For behold, darkness covers the land;\ndeep gloom enshrouds the peoples.\n\n3. But over you the Lord will rise,\nand his glory will appear upon you.\n\n4. Nations will stream to your light,\nand kings to the brightness of you dawning.\n\n5. Your gates will always be open;\nby day or night they will never be shut.\n\n6. They will call you, The City of the Lord,\nThe Zion of the Holy One of Israel.\n\n7. Violence will no more be heard in your land,\nruin or destructions will within your borders.\n\n8. You will call your walls, Salvation,\nand all your portals, Praise.\n\n9. The sun will no more be your light by day;\nby night you will not need the brightness of the moon.\n\n10. The Lord will be your everlasting light,\nand your God will be your glory.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 11".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3428,7 +3428,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Arise, shine, for your light has come,\nand the glory of the Lord has dawned upon you.\n\n2. For behold, darkness covers the land;\ndeep gloom enshrouds the peoples.\n\n3. But over you the Lord will rise,\nand his glory will appear upon you.\n\n4. Nations will stream to your light,\nand kings to the brightness of you dawning.\n\n5. Your gates will always be open;\nby day or night they will never be shut.\n\n6. They will call you, The City of the Lord,\nThe Zion of the Holy One of Israel.\n\n7. Violence will no more be heard in your land,\nruin or destructions will within your borders.\n\n8. You will call your walls, Salvation,\nand all your portals, Praise.\n\n9. The sun will no more be your light by day;\nby night you will not need the brightness of the moon.\n\n10. The Lord will be your everlasting light,\nand your God will be your glory.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 11".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3443,14 +3443,14 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Arise, shine, for your light has come,\nand the glory of the Lord has dawned upon you.\n\n2. For behold, darkness covers the land;\ndeep gloom enshrouds the peoples.\n\n3. But over you the Lord will rise,\nand his glory will appear upon you.\n\n4. Nations will stream to your light,\nand kings to the brightness of you dawning.\n\n5. Your gates will always be open;\nby day or night they will never be shut.\n\n6. They will call you, The City of the Lord,\nThe Zion of the Holy One of Israel.\n\n7. Violence will no more be heard in your land,\nruin or destructions will within your borders.\n\n8. You will call your walls, Salvation,\nand all your portals, Praise.\n\n9. The sun will no more be your light by day;\nby night you will not need the brightness of the moon.\n\n10. The Lord will be your everlasting light,\nand your God will be your glory.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 11".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
                 page_number: 174,
                 copyright_restriction: true,
                 number: HymnNumber::S(228),
-                title: "Glorify the Lord, all you works of the Lord".into(),
+                title: "A Song of Creation".into(),
                 tune: "[Glorify the Lord, all you works of the Lord]".into(),
                 authors: "".into(),
                 composers: "".into(),
@@ -3458,7 +3458,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tonus Peregrinus, verses 1-2, 21-22; Plainsong, Tone 1, verses 3-10; Plainsong, Tone 4, verses 11-16 ; Plainsong, Tone 7, verses 17-20; adapt. The Standing Committee on Church Music, 1979, alt.".into(),
                 text: "1. Glorify the Lord, all you works of the Lord,\npraise him and highly exalt him for ever.\n\n2. In the firmament of his power, glorify the Lord,\npraise him and highly exalt him for ever.\n\n3. Glorify the Lord, you angels\nand all powers of the Lord,\nO heavens and all waters above the heavens.\n\n4. Sun and moon and stars of the sky,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n5. Glorify the Lord,\nevery shower of rain and fall of dew,\nall winds and fire and heat.\n\n6. Winter and summer, glorify the Lord,\npraise him and highly exalt him for ever.\n\n7. Glorify the Lord, O chill and cold,\ndrops of dew and flakes of snow.\n\n8. Frost and cold, ice and sleet,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n9. Glorify the Lord, O nights and days, \nO shining light and enfolding dark.\n\n10. Storm clouds and thunderbolts,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n11. Let the earth glorify the Lord,\npraise him and highly exalt him for ever.\n\n12. Glorify the Lord, O mountains and hills,\nand all that grows upon the earth,\npraise him and highly exalt him for ever.\n\n13. Glorify the Lord, O springs of water\nseas and streams,\nO whales and all that move in the waters.\n\n14. All birds of the air, glorify the Lord,\npraise him and highly exalt him for ever.\n\n15. Glorify the Lord, O beast of the wild,\nand all you flocks and herds.\n\n16. O men and women everywhere, \nglorify the Lord,\npraise him and highly exalt him for ever.\n\n17. Let the people of God glorify the Lord,\npraise him and highly exalt him for ever.\n\n18. Glorify the Lord, \nO priest and servants of the Lord,\npraise him and highly exalt him for ever.\n\n19. Glorify the Lord, \nO spirits and souls of the righteous,\npraise him and highly exalt him for ever.\n\n20. You that are holy and humble of heart,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n21. Let us glorify the Lord:\nFather, Son, and Holy Spirit; \npraise him and highly exalt him for ever.\n\n22. In the firmament of his power,\nglorify the Lord,\npraise him and highly exalt him for ever.\n".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 12".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3473,7 +3473,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glorify the Lord, all you works of the Lord,\npraise him and highly exalt him for ever.\n\n2. In the firmament of his power, glorify the Lord,\npraise him and highly exalt him for ever.\n\n3. Glorify the Lord, you angels\nand all powers of the Lord,\nO heavens and all waters above the heavens.\n\n4. Sun and moon and stars of the sky,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n5. Glorify the Lord,\nevery shower of rain and fall of dew,\nall winds and fire and heat.\n\n6. Winter and summer, glorify the Lord,\npraise him and highly exalt him for ever.\n\n7. Glorify the Lord, O chill and cold,\ndrops of dew and flakes of snow.\n\n8. Frost and cold, ice and sleet,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n9. Glorify the Lord, O nights and days, \nO shining light and enfolding dark.\n\n10. Storm clouds and thunderbolts,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n11. Let the earth glorify the Lord,\npraise him and highly exalt him for ever.\n\n12. Glorify the Lord, O mountains and hills,\nand all that grows upon the earth,\npraise him and highly exalt him for ever.\n\n13. Glorify the Lord, O springs of water\nseas and streams,\nO whales and all that move in the waters.\n\n14. All birds of the air, glorify the Lord,\npraise him and highly exalt him for ever.\n\n15. Glorify the Lord, O beast of the wild,\nand all you flocks and herds.\n\n16. O men and women everywhere, \nglorify the Lord,\npraise him and highly exalt him for ever.\n\n17. Let the people of God glorify the Lord,\npraise him and highly exalt him for ever.\n\n18. Glorify the Lord, \nO priest and servants of the Lord,\npraise him and highly exalt him for ever.\n\n19. Glorify the Lord, \nO spirits and souls of the righteous,\npraise him and highly exalt him for ever.\n\n20. You that are holy and humble of heart,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n21. Let us glorify the Lord:\nFather, Son, and Holy Spirit; \npraise him and highly exalt him for ever.\n\n22. In the firmament of his power,\nglorify the Lord,\npraise him and highly exalt him for ever.\n".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 12".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3488,7 +3488,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glorify the Lord, all you works of the Lord,\npraise him and highly exalt him for ever.\n\n2. In the firmament of his power, glorify the Lord,\npraise him and highly exalt him for ever.\n\n3. Glorify the Lord, you angels\nand all powers of the Lord,\nO heavens and all waters above the heavens.\n\n4. Sun and moon and stars of the sky,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n5. Glorify the Lord,\nevery shower of rain and fall of dew,\nall winds and fire and heat.\n\n6. Winter and summer, glorify the Lord,\npraise him and highly exalt him for ever.\n\n7. Glorify the Lord, O chill and cold,\ndrops of dew and flakes of snow.\n\n8. Frost and cold, ice and sleet,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n9. Glorify the Lord, O nights and days, \nO shining light and enfolding dark.\n\n10. Storm clouds and thunderbolts,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n11. Let the earth glorify the Lord,\npraise him and highly exalt him for ever.\n\n12. Glorify the Lord, O mountains and hills,\nand all that grows upon the earth,\npraise him and highly exalt him for ever.\n\n13. Glorify the Lord, O springs of water\nseas and streams,\nO whales and all that move in the waters.\n\n14. All birds of the air, glorify the Lord,\npraise him and highly exalt him for ever.\n\n15. Glorify the Lord, O beast of the wild,\nand all you flocks and herds.\n\n16. O men and women everywhere, \nglorify the Lord,\npraise him and highly exalt him for ever.\n\n17. Let the people of God glorify the Lord,\npraise him and highly exalt him for ever.\n\n18. Glorify the Lord, \nO priest and servants of the Lord,\npraise him and highly exalt him for ever.\n\n19. Glorify the Lord, \nO spirits and souls of the righteous,\npraise him and highly exalt him for ever.\n\n20. You that are holy and humble of heart,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n21. Let us glorify the Lord:\nFather, Son, and Holy Spirit; \npraise him and highly exalt him for ever.\n\n22. In the firmament of his power,\nglorify the Lord,\npraise him and highly exalt him for ever.\n".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 12".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3503,7 +3503,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glorify the Lord, all you works of the Lord,\npraise him and highly exalt him for ever.\n\n2. In the firmament of his power, glorify the Lord,\npraise him and highly exalt him for ever.\n\n3. Glorify the Lord, you angels\nand all powers of the Lord,\nO heavens and all waters above the heavens.\n\n4. Sun and moon and stars of the sky,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n5. Glorify the Lord,\nevery shower of rain and fall of dew,\nall winds and fire and heat.\n\n6. Winter and summer, glorify the Lord,\npraise him and highly exalt him for ever.\n\n7. Glorify the Lord, O chill and cold,\ndrops of dew and flakes of snow.\n\n8. Frost and cold, ice and sleet,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n9. Glorify the Lord, O nights and days, \nO shining light and enfolding dark.\n\n10. Storm clouds and thunderbolts,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n11. Let the earth glorify the Lord,\npraise him and highly exalt him for ever.\n\n12. Glorify the Lord, O mountains and hills,\nand all that grows upon the earth,\npraise him and highly exalt him for ever.\n\n13. Glorify the Lord, O springs of water\nseas and streams,\nO whales and all that move in the waters.\n\n14. All birds of the air, glorify the Lord,\npraise him and highly exalt him for ever.\n\n15. Glorify the Lord, O beast of the wild,\nand all you flocks and herds.\n\n16. O men and women everywhere, \nglorify the Lord,\npraise him and highly exalt him for ever.\n\n17. Let the people of God glorify the Lord,\npraise him and highly exalt him for ever.\n\n18. Glorify the Lord, \nO priest and servants of the Lord,\npraise him and highly exalt him for ever.\n\n19. Glorify the Lord, \nO spirits and souls of the righteous,\npraise him and highly exalt him for ever.\n\n20. You that are holy and humble of heart,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n21. Let us glorify the Lord:\nFather, Son, and Holy Spirit; \npraise him and highly exalt him for ever.\n\n22. In the firmament of his power,\nglorify the Lord,\npraise him and highly exalt him for ever.\n".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 12".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3518,7 +3518,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glorify the Lord, all you works of the Lord,\npraise him and highly exalt him for ever.\n\n2. In the firmament of his power, glorify the Lord,\npraise him and highly exalt him for ever.\n\n3. Glorify the Lord, you angels\nand all powers of the Lord,\nO heavens and all waters above the heavens.\n\n4. Sun and moon and stars of the sky,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n5. Glorify the Lord,\nevery shower of rain and fall of dew,\nall winds and fire and heat.\n\n6. Winter and summer, glorify the Lord,\npraise him and highly exalt him for ever.\n\n7. Glorify the Lord, O chill and cold,\ndrops of dew and flakes of snow.\n\n8. Frost and cold, ice and sleet,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n9. Glorify the Lord, O nights and days, \nO shining light and enfolding dark.\n\n10. Storm clouds and thunderbolts,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n11. Let the earth glorify the Lord,\npraise him and highly exalt him for ever.\n\n12. Glorify the Lord, O mountains and hills,\nand all that grows upon the earth,\npraise him and highly exalt him for ever.\n\n13. Glorify the Lord, O springs of water\nseas and streams,\nO whales and all that move in the waters.\n\n14. All birds of the air, glorify the Lord,\npraise him and highly exalt him for ever.\n\n15. Glorify the Lord, O beast of the wild,\nand all you flocks and herds.\n\n16. O men and women everywhere, \nglorify the Lord,\npraise him and highly exalt him for ever.\n\n17. Let the people of God glorify the Lord,\npraise him and highly exalt him for ever.\n\n18. Glorify the Lord, \nO priest and servants of the Lord,\npraise him and highly exalt him for ever.\n\n19. Glorify the Lord, \nO spirits and souls of the righteous,\npraise him and highly exalt him for ever.\n\n20. You that are holy and humble of heart,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n21. Let us glorify the Lord:\nFather, Son, and Holy Spirit; \npraise him and highly exalt him for ever.\n\n22. In the firmament of his power,\nglorify the Lord,\npraise him and highly exalt him for ever.\n".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 12".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3533,7 +3533,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glorify the Lord, all you works of the Lord,\npraise him and highly exalt him for ever.\n\n2. In the firmament of his power, glorify the Lord,\npraise him and highly exalt him for ever.\n\n3. Glorify the Lord, you angels\nand all powers of the Lord,\nO heavens and all waters above the heavens.\n\n4. Sun and moon and stars of the sky,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n5. Glorify the Lord,\nevery shower of rain and fall of dew,\nall winds and fire and heat.\n\n6. Winter and summer, glorify the Lord,\npraise him and highly exalt him for ever.\n\n7. Glorify the Lord, O chill and cold,\ndrops of dew and flakes of snow.\n\n8. Frost and cold, ice and sleet,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n9. Glorify the Lord, O nights and days, \nO shining light and enfolding dark.\n\n10. Storm clouds and thunderbolts,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n11. Let the earth glorify the Lord,\npraise him and highly exalt him for ever.\n\n12. Glorify the Lord, O mountains and hills,\nand all that grows upon the earth,\npraise him and highly exalt him for ever.\n\n13. Glorify the Lord, O springs of water\nseas and streams,\nO whales and all that move in the waters.\n\n14. All birds of the air, glorify the Lord,\npraise him and highly exalt him for ever.\n\n15. Glorify the Lord, O beast of the wild,\nand all you flocks and herds.\n\n16. O men and women everywhere, \nglorify the Lord,\npraise him and highly exalt him for ever.\n\n17. Let the people of God glorify the Lord,\npraise him and highly exalt him for ever.\n\n18. Glorify the Lord, \nO priest and servants of the Lord,\npraise him and highly exalt him for ever.\n\n19. Glorify the Lord, \nO spirits and souls of the righteous,\npraise him and highly exalt him for ever.\n\n20. You that are holy and humble of heart,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n21. Let us glorify the Lord:\nFather, Son, and Holy Spirit; \npraise him and highly exalt him for ever.\n\n22. In the firmament of his power,\nglorify the Lord,\npraise him and highly exalt him for ever.\n".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 12".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3548,7 +3548,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glorify the Lord, all you works of the Lord,\npraise him and highly exalt him for ever.\n\n2. In the firmament of his power, glorify the Lord,\npraise him and highly exalt him for ever.\n\n3. Glorify the Lord, you angels\nand all powers of the Lord,\nO heavens and all waters above the heavens.\n\n4. Sun and moon and stars of the sky,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n5. Glorify the Lord,\nevery shower of rain and fall of dew,\nall winds and fire and heat.\n\n6. Winter and summer, glorify the Lord,\npraise him and highly exalt him for ever.\n\n7. Glorify the Lord, O chill and cold,\ndrops of dew and flakes of snow.\n\n8. Frost and cold, ice and sleet,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n9. Glorify the Lord, O nights and days, \nO shining light and enfolding dark.\n\n10. Storm clouds and thunderbolts,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n11. Let the earth glorify the Lord,\npraise him and highly exalt him for ever.\n\n12. Glorify the Lord, O mountains and hills,\nand all that grows upon the earth,\npraise him and highly exalt him for ever.\n\n13. Glorify the Lord, O springs of water\nseas and streams,\nO whales and all that move in the waters.\n\n14. All birds of the air, glorify the Lord,\npraise him and highly exalt him for ever.\n\n15. Glorify the Lord, O beast of the wild,\nand all you flocks and herds.\n\n16. O men and women everywhere, \nglorify the Lord,\npraise him and highly exalt him for ever.\n\n17. Let the people of God glorify the Lord,\npraise him and highly exalt him for ever.\n\n18. Glorify the Lord, \nO priest and servants of the Lord,\npraise him and highly exalt him for ever.\n\n19. Glorify the Lord, \nO spirits and souls of the righteous,\npraise him and highly exalt him for ever.\n\n20. You that are holy and humble of heart,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n21. Let us glorify the Lord:\nFather, Son, and Holy Spirit; \npraise him and highly exalt him for ever.\n\n22. In the firmament of his power,\nglorify the Lord,\npraise him and highly exalt him for ever.\n".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 12".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3563,7 +3563,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glorify the Lord, all you works of the Lord,\npraise him and highly exalt him for ever.\n\n2. In the firmament of his power, glorify the Lord,\npraise him and highly exalt him for ever.\n\n3. Glorify the Lord, you angels\nand all powers of the Lord,\nO heavens and all waters above the heavens.\n\n4. Sun and moon and stars of the sky,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n5. Glorify the Lord,\nevery shower of rain and fall of dew,\nall winds and fire and heat.\n\n6. Winter and summer, glorify the Lord,\npraise him and highly exalt him for ever.\n\n7. Glorify the Lord, O chill and cold,\ndrops of dew and flakes of snow.\n\n8. Frost and cold, ice and sleet,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n9. Glorify the Lord, O nights and days, \nO shining light and enfolding dark.\n\n10. Storm clouds and thunderbolts,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n11. Let the earth glorify the Lord,\npraise him and highly exalt him for ever.\n\n12. Glorify the Lord, O mountains and hills,\nand all that grows upon the earth,\npraise him and highly exalt him for ever.\n\n13. Glorify the Lord, O springs of water\nseas and streams,\nO whales and all that move in the waters.\n\n14. All birds of the air, glorify the Lord,\npraise him and highly exalt him for ever.\n\n15. Glorify the Lord, O beast of the wild,\nand all you flocks and herds.\n\n16. O men and women everywhere, \nglorify the Lord,\npraise him and highly exalt him for ever.\n\n17. Let the people of God glorify the Lord,\npraise him and highly exalt him for ever.\n\n18. Glorify the Lord, \nO priest and servants of the Lord,\npraise him and highly exalt him for ever.\n\n19. Glorify the Lord, \nO spirits and souls of the righteous,\npraise him and highly exalt him for ever.\n\n20. You that are holy and humble of heart,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n21. Let us glorify the Lord:\nFather, Son, and Holy Spirit; \npraise him and highly exalt him for ever.\n\n22. In the firmament of his power,\nglorify the Lord,\npraise him and highly exalt him for ever.\n".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 12".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3578,14 +3578,14 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glorify the Lord, all you works of the Lord,\npraise him and highly exalt him for ever.\n\n2. In the firmament of his power, glorify the Lord,\npraise him and highly exalt him for ever.\n\n3. Glorify the Lord, you angels\nand all powers of the Lord,\nO heavens and all waters above the heavens.\n\n4. Sun and moon and stars of the sky,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n5. Glorify the Lord,\nevery shower of rain and fall of dew,\nall winds and fire and heat.\n\n6. Winter and summer, glorify the Lord,\npraise him and highly exalt him for ever.\n\n7. Glorify the Lord, O chill and cold,\ndrops of dew and flakes of snow.\n\n8. Frost and cold, ice and sleet,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n9. Glorify the Lord, O nights and days, \nO shining light and enfolding dark.\n\n10. Storm clouds and thunderbolts,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n11. Let the earth glorify the Lord,\npraise him and highly exalt him for ever.\n\n12. Glorify the Lord, O mountains and hills,\nand all that grows upon the earth,\npraise him and highly exalt him for ever.\n\n13. Glorify the Lord, O springs of water\nseas and streams,\nO whales and all that move in the waters.\n\n14. All birds of the air, glorify the Lord,\npraise him and highly exalt him for ever.\n\n15. Glorify the Lord, O beast of the wild,\nand all you flocks and herds.\n\n16. O men and women everywhere, \nglorify the Lord,\npraise him and highly exalt him for ever.\n\n17. Let the people of God glorify the Lord,\npraise him and highly exalt him for ever.\n\n18. Glorify the Lord, \nO priest and servants of the Lord,\npraise him and highly exalt him for ever.\n\n19. Glorify the Lord, \nO spirits and souls of the righteous,\npraise him and highly exalt him for ever.\n\n20. You that are holy and humble of heart,\nglorify the Lord,\npraise him and highly exalt him for ever.\n\n21. Let us glorify the Lord:\nFather, Son, and Holy Spirit; \npraise him and highly exalt him for ever.\n\n22. In the firmament of his power,\nglorify the Lord,\npraise him and highly exalt him for ever.\n".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 12".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
                 page_number: 181,
                 copyright_restriction: true,
                 number: HymnNumber::S(231),
-                title: "Glory to you, Lord God of our fathers".into(),
+                title: "A Song of Praise".into(),
                 tune: "[Glory to you, Lord God of our fathers]".into(),
                 authors: "".into(),
                 composers: "".into(),
@@ -3593,7 +3593,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 8; Adapt. The Standing Committee on Chruch Music, 1979, alt.".into(),
                 text: "1. Glory to you, Lord God of our fathers;\nyou are worthy of praise; glory to you.\n\n2. Glory to you for the \nradiance of your holy Name;\nwe will praise you and \nhighly exalt you for ever.\n\n3. Glory to you in the splendor of your temple;\non the throne of you majesty, glory to you.\n\n4. Glory to you, seated between the cherubim;\nwe will praise you and \nhighly exalt you for ever.\n\n5. Glory to you, beholding the depths;\nin the high vault of heaven,\nglory to you.\n\n6. Glory to you, Father, Son, and Holy Spirit;\nwe will praise you and \nhighly exalt you for ever.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 13".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3608,14 +3608,14 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glory to you, Lord God of our fathers;\nyou are worthy of praise; glory to you.\n\n2. Glory to you for the \nradiance of your holy Name;\nwe will praise you and \nhighly exalt you for ever.\n\n3. Glory to you in the splendor of your temple;\non the throne of you majesty, glory to you.\n\n4. Glory to you, seated between the cherubim;\nwe will praise you and \nhighly exalt you for ever.\n\n5. Glory to you, beholding the depths;\nin the high vault of heaven,\nglory to you.\n\n6. Glory to you, Father, Son, and Holy Spirit;\nwe will praise you and \nhighly exalt you for ever.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 13".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
                 page_number: 182,
                 copyright_restriction: true,
                 number: HymnNumber::S(233),
-                title: "Glory to you, Lord God of our fathers".into(),
+                title: "A Song of Praise".into(),
                 tune: "[Glory to you, Lord God of our fathers]".into(),
                 authors: "".into(),
                 composers: "".into(),
@@ -3623,7 +3623,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Imperial Tune (ca. 1930)".into(),
                 text: "1. Glory to you, Lord God of our fathers;\nyou are worthy of praise; glory to you.\n\n2. Glory to you for the \nradiance of your holy Name;\nwe will praise you and \nhighly exalt you for ever.\n\n3. Glory to you in the splendor of your temple;\non the throne of you majesty, glory to you.\n\n4. Glory to you, seated between the cherubim;\nwe will praise you and \nhighly exalt you for ever.\n\n5. Glory to you, beholding the depths;\nin the high vault of heaven,\nglory to you.\n\n6. Glory to you, Father, Son, and Holy Spirit;\nwe will praise you and \nhighly exalt you for ever.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 13".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3638,7 +3638,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glory to you, Lord God of our fathers;\nyou are worthy of praise; glory to you.\n\n2. Glory to you for the \nradiance of your holy Name;\nwe will praise you and \nhighly exalt you for ever.\n\n3. Glory to you in the splendor of your temple;\non the throne of you majesty, glory to you.\n\n4. Glory to you, seated between the cherubim;\nwe will praise you and \nhighly exalt you for ever.\n\n5. Glory to you, beholding the depths;\nin the high vault of heaven,\nglory to you.\n\n6. Glory to you, Father, Son, and Holy Spirit;\nwe will praise you and \nhighly exalt you for ever.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 13".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3653,7 +3653,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glory to you, Lord God of our fathers;\nyou are worthy of praise; glory to you.\n\n2. Glory to you for the \nradiance of your holy Name;\nwe will praise you and \nhighly exalt you for ever.\n\n3. Glory to you in the splendor of your temple;\non the throne of you majesty, glory to you.\n\n4. Glory to you, seated between the cherubim;\nwe will praise you and \nhighly exalt you for ever.\n\n5. Glory to you, beholding the depths;\nin the high vault of heaven,\nglory to you.\n\n6. Glory to you, Father, Son, and Holy Spirit;\nwe will praise you and \nhighly exalt you for ever.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 13".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3668,7 +3668,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glory to you, Lord God of our fathers;\nyou are worthy of praise; glory to you.\n\n2. Glory to you for the \nradiance of your holy Name;\nwe will praise you and \nhighly exalt you for ever.\n\n3. Glory to you in the splendor of your temple;\non the throne of you majesty, glory to you.\n\n4. Glory to you, seated between the cherubim;\nwe will praise you and \nhighly exalt you for ever.\n\n5. Glory to you, beholding the depths;\nin the high vault of heaven,\nglory to you.\n\n6. Glory to you, Father, Son, and Holy Spirit;\nwe will praise you and \nhighly exalt you for ever.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 13".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3683,7 +3683,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Mode 3 antiphon; Plainsong, Tone 3, verses 1-4, 12-14; Plainsong, Irregular Tone, verses 5-11".into(),
                 text: "Antiphon:\nYour merciful promise is beyond all measure;\nit surpasses all that our minds can fathom.\n\n1. O Lord and Ruler of the hosts of heaven,\nGod of Abraham, Isaac, and Jacob,\nand of all their righteous offspring:\n\n2. You made the heavens and the earth,\nwith all their vast array.\n\n3. All things quake with fear at your presence;\nthey tremble because of your power.\n\n4. But your merciful promise is beyond all measure;\nit surpasses all that our minds can fathom.\n\n5. O Lord, you are full of compassion,\nlong-suffering, and abounding in mercy.\n\n6. You hold back your hand;\nyou do not punish as we deserve.\n\n7. In your great goodness, Lord,\nyou have promised forgiveness to sinners,\nthat they may repent of their sin and be saved.\n\n8. And now, O Lord, I bend the knee of my heart,\nand make my appeal, sure of your gracious goodness.\n\n9. I have sinned, O Lord, I have sinned,\nand I know my wickedness only too well.\n\n10. Therefore I make this prayer to you:\nForgive me, Lord, forgive me.\n\n11. Do not let me perish in my sin,\nnor condemn me to the depths of the earth.\n\n12. For you, O Lord, are the God of those who repent,\nand in me you will show forth your goodness.\n\n13. Unworthy as I am, you will save me, \nin accordance with your great mercy,\nand I will praise you without ceasing \nall the days of my life.\n\n14. For all the powers of heaven sing your praises,\nand yours is the glory to ages of ages. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 14".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3698,7 +3698,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nYour merciful promise is beyond all measure;\nit surpasses all that our minds can fathom.\n\n1. O Lord and Ruler of the hosts of heaven,\nGod of Abraham, Isaac, and Jacob,\nand of all their righteous offspring:\n\n2. You made the heavens and the earth,\nwith all their vast array.\n\n3. All things quake with fear at your presence;\nthey tremble because of your power.\n\n4. But your merciful promise is beyond all measure;\nit surpasses all that our minds can fathom.\n\n5. O Lord, you are full of compassion,\nlong-suffering, and abounding in mercy.\n\n6. You hold back your hand;\nyou do not punish as we deserve.\n\n7. In your great goodness, Lord,\nyou have promised forgiveness to sinners,\nthat they may repent of their sin and be saved.\n\n8. And now, O Lord, I bend the knee of my heart,\nand make my appeal, sure of your gracious goodness.\n\n9. I have sinned, O Lord, I have sinned,\nand I know my wickedness only too well.\n\n10. Therefore I make this prayer to you:\nForgive me, Lord, forgive me.\n\n11. Do not let me perish in my sin,\nnor condemn me to the depths of the earth.\n\n12. For you, O Lord, are the God of those who repent,\nand in me you will show forth your goodness.\n\n13. Unworthy as I am, you will save me, \nin accordance with your great mercy,\nand I will praise you without ceasing \nall the days of my life.\n\n14. For all the powers of heaven sing your praises,\nand yours is the glory to ages of ages. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 14".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3713,7 +3713,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "<i>Allison's Psalms, </i>1599".into(),
                 text: "Antiphon:\nYour merciful promise is beyond all measure;\nit surpasses all that our minds can fathom.\n\n1. O Lord and Ruler of the hosts of heaven,\nGod of Abraham, Isaac, and Jacob,\nand of all their righteous offspring:\n\n2. You made the heavens and the earth,\nwith all their vast array.\n\n3. All things quake with fear at your presence;\nthey tremble because of your power.\n\n4. But your merciful promise is beyond all measure;\nit surpasses all that our minds can fathom.\n\n5. O Lord, you are full of compassion,\nlong-suffering, and abounding in mercy.\n\n6. You hold back your hand;\nyou do not punish as we deserve.\n\n7. In your great goodness, Lord,\nyou have promised forgiveness to sinners,\nthat they may repent of their sin and be saved.\n\n8. And now, O Lord, I bend the knee of my heart,\nand make my appeal, sure of your gracious goodness.\n\n9. I have sinned, O Lord, I have sinned,\nand I know my wickedness only too well.\n\n10. Therefore I make this prayer to you:\nForgive me, Lord, forgive me.\n\n11. Do not let me perish in my sin,\nnor condemn me to the depths of the earth.\n\n12. For you, O Lord, are the God of those who repent,\nand in me you will show forth your goodness.\n\n13. Unworthy as I am, you will save me, \nin accordance with your great mercy,\nand I will praise you without ceasing \nall the days of my life.\n\n14. For all the powers of heaven sing your praises,\nand yours is the glory to ages of ages. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 14".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3728,7 +3728,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nYour merciful promise is beyond all measure;\nit surpasses all that our minds can fathom.\n\n1. O Lord and Ruler of the hosts of heaven,\nGod of Abraham, Isaac, and Jacob,\nand of all their righteous offspring:\n\n2. You made the heavens and the earth,\nwith all their vast array.\n\n3. All things quake with fear at your presence;\nthey tremble because of your power.\n\n4. But your merciful promise is beyond all measure;\nit surpasses all that our minds can fathom.\n\n5. O Lord, you are full of compassion,\nlong-suffering, and abounding in mercy.\n\n6. You hold back your hand;\nyou do not punish as we deserve.\n\n7. In your great goodness, Lord,\nyou have promised forgiveness to sinners,\nthat they may repent of their sin and be saved.\n\n8. And now, O Lord, I bend the knee of my heart,\nand make my appeal, sure of your gracious goodness.\n\n9. I have sinned, O Lord, I have sinned,\nand I know my wickedness only too well.\n\n10. Therefore I make this prayer to you:\nForgive me, Lord, forgive me.\n\n11. Do not let me perish in my sin,\nnor condemn me to the depths of the earth.\n\n12. For you, O Lord, are the God of those who repent,\nand in me you will show forth your goodness.\n\n13. Unworthy as I am, you will save me, \nin accordance with your great mercy,\nand I will praise you without ceasing \nall the days of my life.\n\n14. For all the powers of heaven sing your praises,\nand yours is the glory to ages of ages. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 14".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3743,7 +3743,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nYour merciful promise is beyond all measure;\nit surpasses all that our minds can fathom.\n\n1. O Lord and Ruler of the hosts of heaven,\nGod of Abraham, Isaac, and Jacob,\nand of all their righteous offspring:\n\n2. You made the heavens and the earth,\nwith all their vast array.\n\n3. All things quake with fear at your presence;\nthey tremble because of your power.\n\n4. But your merciful promise is beyond all measure;\nit surpasses all that our minds can fathom.\n\n5. O Lord, you are full of compassion,\nlong-suffering, and abounding in mercy.\n\n6. You hold back your hand;\nyou do not punish as we deserve.\n\n7. In your great goodness, Lord,\nyou have promised forgiveness to sinners,\nthat they may repent of their sin and be saved.\n\n8. And now, O Lord, I bend the knee of my heart,\nand make my appeal, sure of your gracious goodness.\n\n9. I have sinned, O Lord, I have sinned,\nand I know my wickedness only too well.\n\n10. Therefore I make this prayer to you:\nForgive me, Lord, forgive me.\n\n11. Do not let me perish in my sin,\nnor condemn me to the depths of the earth.\n\n12. For you, O Lord, are the God of those who repent,\nand in me you will show forth your goodness.\n\n13. Unworthy as I am, you will save me, \nin accordance with your great mercy,\nand I will praise you without ceasing \nall the days of my life.\n\n14. For all the powers of heaven sing your praises,\nand yours is the glory to ages of ages. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 14".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3758,7 +3758,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tonus Peregrinus".into(),
                 text: "Antiphon:\nThe Almighty has done great things for me,\nand holy is his Name.\n\n1. My soul proclaims the greatness of the Lord,\nmy spirit rejoices in God my Savior;\nfor he has looked with favor on his lowly servant.\n\n2. From this day all generations will call me blessed:\nthe Almighty has done great things for me,\nand holy is his Name.\n\n3. He has mercy on those who fear him\nin every generation.\n\n4. He has shown the strength of his arm,\nhe has scattered the proud in their conceit.\n\n5. He has cast down the mighty from their thrones,\nand has lifted up the lowly.\n\n6. He has filled the hungry with good things,\nand the rich he has sent away empty.\n\n7. He has come to the help of his servant Israel,\nfor he has remembered his promise of mercy.\n\n8. The promise he made to our fathers,\nto Abraham and his children for ever. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 15".into(), "Magnificat".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3773,7 +3773,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nThe Almighty has done great things for me,\nand holy is his Name.\n\n1. My soul proclaims the greatness of the Lord,\nmy spirit rejoices in God my Savior;\nfor he has looked with favor on his lowly servant.\n\n2. From this day all generations will call me blessed:\nthe Almighty has done great things for me,\nand holy is his Name.\n\n3. He has mercy on those who fear him\nin every generation.\n\n4. He has shown the strength of his arm,\nhe has scattered the proud in their conceit.\n\n5. He has cast down the mighty from their thrones,\nand has lifted up the lowly.\n\n6. He has filled the hungry with good things,\nand the rich he has sent away empty.\n\n7. He has come to the help of his servant Israel,\nfor he has remembered his promise of mercy.\n\n8. The promise he made to our fathers,\nto Abraham and his children for ever. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 15".into(), "Magnificat".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3788,7 +3788,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nThe Almighty has done great things for me,\nand holy is his Name.\n\n1. My soul proclaims the greatness of the Lord,\nmy spirit rejoices in God my Savior;\nfor he has looked with favor on his lowly servant.\n\n2. From this day all generations will call me blessed:\nthe Almighty has done great things for me,\nand holy is his Name.\n\n3. He has mercy on those who fear him\nin every generation.\n\n4. He has shown the strength of his arm,\nhe has scattered the proud in their conceit.\n\n5. He has cast down the mighty from their thrones,\nand has lifted up the lowly.\n\n6. He has filled the hungry with good things,\nand the rich he has sent away empty.\n\n7. He has come to the help of his servant Israel,\nfor he has remembered his promise of mercy.\n\n8. The promise he made to our fathers,\nto Abraham and his children for ever. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 15".into(), "Magnificat".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3803,7 +3803,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nThe Almighty has done great things for me,\nand holy is his Name.\n\n1. My soul proclaims the greatness of the Lord,\nmy spirit rejoices in God my Savior;\nfor he has looked with favor on his lowly servant.\n\n2. From this day all generations will call me blessed:\nthe Almighty has done great things for me,\nand holy is his Name.\n\n3. He has mercy on those who fear him\nin every generation.\n\n4. He has shown the strength of his arm,\nhe has scattered the proud in their conceit.\n\n5. He has cast down the mighty from their thrones,\nand has lifted up the lowly.\n\n6. He has filled the hungry with good things,\nand the rich he has sent away empty.\n\n7. He has come to the help of his servant Israel,\nfor he has remembered his promise of mercy.\n\n8. The promise he made to our fathers,\nto Abraham and his children for ever. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 15".into(), "Magnificat".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3818,7 +3818,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nThe Almighty has done great things for me,\nand holy is his Name.\n\n1. My soul proclaims the greatness of the Lord,\nmy spirit rejoices in God my Savior;\nfor he has looked with favor on his lowly servant.\n\n2. From this day all generations will call me blessed:\nthe Almighty has done great things for me,\nand holy is his Name.\n\n3. He has mercy on those who fear him\nin every generation.\n\n4. He has shown the strength of his arm,\nhe has scattered the proud in their conceit.\n\n5. He has cast down the mighty from their thrones,\nand has lifted up the lowly.\n\n6. He has filled the hungry with good things,\nand the rich he has sent away empty.\n\n7. He has come to the help of his servant Israel,\nfor he has remembered his promise of mercy.\n\n8. The promise he made to our fathers,\nto Abraham and his children for ever. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 15".into(), "Magnificat".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3833,7 +3833,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Cathedral of the Isles".into(),
                 text: "Antiphon:\nThe Almighty has done great things for me,\nand holy is his Name.\n\n1. My soul proclaims the greatness of the Lord,\nmy spirit rejoices in God my Savior;\nfor he has looked with favor on his lowly servant.\n\n2. From this day all generations will call me blessed:\nthe Almighty has done great things for me,\nand holy is his Name.\n\n3. He has mercy on those who fear him\nin every generation.\n\n4. He has shown the strength of his arm,\nhe has scattered the proud in their conceit.\n\n5. He has cast down the mighty from their thrones,\nand has lifted up the lowly.\n\n6. He has filled the hungry with good things,\nand the rich he has sent away empty.\n\n7. He has come to the help of his servant Israel,\nfor he has remembered his promise of mercy.\n\n8. The promise he made to our fathers,\nto Abraham and his children for ever. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 15".into(), "Magnificat".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3848,7 +3848,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 8".into(),
                 text: "Antiphon:\nThrough the tender mercy of our God,\nthe dayspring from on high hath visited us.\n\n1. Blessed be the Lord god of Israel,\nfor he hath visited and redeemed his people;\n\n2. And hath raised up a might salvation\nfor us in the house of his servant David,\n\n3. As he spake by the mouth of his holy prophets,\nwhich have been since the world began:\n\n4. That we should be saved from our enemies,\nand from the hand of all that hate us;\n\n5. To perform the mercy promised to our forefathers,\nand to remember his holy covenant;\n\n6. to perform the oath which he sware \nto our forefather Abraham,\nthat he would give us,\n\n7. That we being delivered out of the hand\nof our enemies might serve him without fear,\n\n8. In holiness and righteousness before him,\nall the days of our life.\n\n9. And thou, child, shalt be called\nthe prophet of the Highest,\nfor thou shalt go before the face of the Lord\nto prepare his ways;\n\n10. To give knowledge of salvation unto his people\nfor the remission of their sins,\n\n11. Through the tender mercy of our God,\nwhereby the dayspring from on high\nhath visited us;\n\n12. To give light to them that sit in darkness\nand in the shadow of death,\nand to guide our feet into the way of peace. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 16".into(), "Benedictus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3863,7 +3863,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Blessed be the Lord god of Israel,\nfor he hath visited and redeemed his people;\n\n2. And hath raised up a might salvation\nfor us in the house of his servant David,\n\n3. As he spake by the mouth of his holy prophets,\nwhich have been since the world began:\n\n4. That we should be saved from our enemies,\nand from the hand of all that hate us;\n\n5. To perform the mercy promised to our forefathers,\nand to remember his holy covenant;\n\n6. to perform the oath which he sware \nto our forefather Abraham,\nthat he would give us,\n\n7. That we being delivered out of the hand\nof our enemies might serve him without fear,\n\n8. In holiness and righteousness before him,\nall the days of our life.\n\n9. And thou, child, shalt be called\nthe prophet of the Highest,\nfor thou shalt go before the face of the Lord\nto prepare his ways;\n\n10. To give knowledge of salvation unto his people\nfor the remission of their sins,\n\n11. Through the tender mercy of our God,\nwhereby the dayspring from on high\nhath visited us;\n\n12. To give light to them that sit in darkness\nand in the shadow of death,\nand to guide our feet into the way of peace.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 16".into(), "Benedictus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3878,7 +3878,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Blessed be the Lord god of Israel,\nfor he hath visited and redeemed his people;\n\n2. And hath raised up a might salvation\nfor us in the house of his servant David,\n\n3. As he spake by the mouth of his holy prophets,\nwhich have been since the world began:\n\n4. That we should be saved from our enemies,\nand from the hand of all that hate us;\n\n5. To perform the mercy promised to our forefathers,\nand to remember his holy covenant;\n\n6. to perform the oath which he sware \nto our forefather Abraham,\nthat he would give us,\n\n7. That we being delivered out of the hand\nof our enemies might serve him without fear,\n\n8. In holiness and righteousness before him,\nall the days of our life.\n\n9. And thou, child, shalt be called\nthe prophet of the Highest,\nfor thou shalt go before the face of the Lord\nto prepare his ways;\n\n10. To give knowledge of salvation unto his people\nfor the remission of their sins,\n\n11. Through the tender mercy of our God,\nwhereby the dayspring from on high\nhath visited us;\n\n12. To give light to them that sit in darkness\nand in the shadow of death,\nand to guide our feet into the way of peace.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 16".into(), "Benedictus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3893,7 +3893,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Blessed be the Lord god of Israel,\nfor he hath visited and redeemed his people;\n\n2. And hath raised up a might salvation\nfor us in the house of his servant David,\n\n3. As he spake by the mouth of his holy prophets,\nwhich have been since the world began:\n\n4. That we should be saved from our enemies,\nand from the hand of all that hate us;\n\n5. To perform the mercy promised to our forefathers,\nand to remember his holy covenant;\n\n6. to perform the oath which he sware \nto our forefather Abraham,\nthat he would give us,\n\n7. That we being delivered out of the hand\nof our enemies might serve him without fear,\n\n8. In holiness and righteousness before him,\nall the days of our life.\n\n9. And thou, child, shalt be called\nthe prophet of the Highest,\nfor thou shalt go before the face of the Lord\nto prepare his ways;\n\n10. To give knowledge of salvation unto his people\nfor the remission of their sins,\n\n11. Through the tender mercy of our God,\nwhereby the dayspring from on high\nhath visited us;\n\n12. To give light to them that sit in darkness\nand in the shadow of death,\nand to guide our feet into the way of peace.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 16".into(), "Benedictus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3908,14 +3908,14 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Blessed be the Lord god of Israel,\nfor he hath visited and redeemed his people;\n\n2. And hath raised up a might salvation\nfor us in the house of his servant David,\n\n3. As he spake by the mouth of his holy prophets,\nwhich have been since the world began:\n\n4. That we should be saved from our enemies,\nand from the hand of all that hate us;\n\n5. To perform the mercy promised to our forefathers,\nand to remember his holy covenant;\n\n6. to perform the oath which he sware \nto our forefather Abraham,\nthat he would give us,\n\n7. That we being delivered out of the hand\nof our enemies might serve him without fear,\n\n8. In holiness and righteousness before him,\nall the days of our life.\n\n9. And thou, child, shalt be called\nthe prophet of the Highest,\nfor thou shalt go before the face of the Lord\nto prepare his ways;\n\n10. To give knowledge of salvation unto his people\nfor the remission of their sins,\n\n11. Through the tender mercy of our God,\nwhereby the dayspring from on high\nhath visited us;\n\n12. To give light to them that sit in darkness\nand in the shadow of death,\nand to guide our feet into the way of peace.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen. ".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 16".into(), "Benedictus".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
                 page_number: 200,
                 copyright_restriction: true,
                 number: HymnNumber::S(253),
-                title: "Lord, you now have set your servant free".into(),
+                title: "The Song of Simeon".into(),
                 tune: "[Lord, you now have set your servant free]".into(),
                 authors: "".into(),
                 composers: "".into(),
@@ -3923,7 +3923,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Irregular Tone; Adapt. The Standing Committee on Chruch Music, 1979".into(),
                 text: "1. Lord, you now have set your servant free \nto go in peace as you have promised;\n\n2. For these eyes of mine have seen the Savior,\nwhom you have prepared for all the world to see;\n\n3. A Light to enlighten the nations,\nand the glory of your people Israel.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 17".into(), "Nunc Dimittis".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3938,7 +3938,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 4".into(),
                 text: "1. Lord, you now have set your servant free \nto go in peace as you have promised;\n\n2. For these eyes of mine have seen the Savior,\nwhom you have prepared for all the world to see;\n\n3. A Light to enlighten the nations,\nand the glory of your people Israel.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 17".into(), "Nunc Dimittis".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3953,7 +3953,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Lord, you now have set your servant free \nto go in peace as you have promised;\n\n2. For these eyes of mine have seen the Savior,\nwhom you have prepared for all the world to see;\n\n3. A Light to enlighten the nations,\nand the glory of your people Israel.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 17".into(), "Nunc Dimittis".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3968,7 +3968,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Lord, you now have set your servant free \nto go in peace as you have promised;\n\n2. For these eyes of mine have seen the Savior,\nwhom you have prepared for all the world to see;\n\n3. A Light to enlighten the nations,\nand the glory of your people Israel.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 17".into(), "Nunc Dimittis".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3983,7 +3983,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Lord, you now have set your servant free \nto go in peace as you have promised;\n\n2. For these eyes of mine have seen the Savior,\nwhom you have prepared for all the world to see;\n\n3. A Light to enlighten the nations,\nand the glory of your people Israel.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 17".into(), "Nunc Dimittis".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -3998,7 +3998,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Lord, you now have set your servant free \nto go in peace as you have promised;\n\n2. For these eyes of mine have seen the Savior,\nwhom you have prepared for all the world to see;\n\n3. A Light to enlighten the nations,\nand the glory of your people Israel.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 17".into(), "Nunc Dimittis".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4013,7 +4013,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Lord, you now have set your servant free \nto go in peace as you have promised;\n\n2. For these eyes of mine have seen the Savior,\nwhom you have prepared for all the world to see;\n\n3. A Light to enlighten the nations,\nand the glory of your people Israel.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 17".into(), "Nunc Dimittis".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4028,7 +4028,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Lord, you now have set your servant free \nto go in peace as you have promised;\n\n2. For these eyes of mine have seen the Savior,\nwhom you have prepared for all the world to see;\n\n3. A Light to enlighten the nations,\nand the glory of your people Israel.\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now,\nand will be for ever. Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 17".into(), "Nunc Dimittis".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4043,7 +4043,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 8".into(),
                 text: "Antiphon:\n1. Splendor and honor and kingly power\nare yours by right, O Lord our God.\n\n2. For you created everything that is,\nand by your will they were created\nand have their being;\n\n3. And yours by right, O Lamb that was slain,\nfor with your blood you have redeemed for God,\n\n4. From every family, language, people, and nation,\na kingdom of priests to serve our God.\n\n5. And so, to him who sits upon the throne,\nand to Christ the Lamb,\n\n6. Be worship and praise, dominion and splendor,\nfor ever and for evermore. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 18".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4058,7 +4058,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\n1. Splendor and honor and kingly power\nare yours by right, O Lord our God.\n\n2. For you created everything that is,\nand by your will they were created\nand have their being;\n\n3. And yours by right, O Lamb that was slain,\nfor with your blood you have redeemed for God,\n\n4. From every family, language, people, and nation,\na kingdom of priests to serve our God.\n\n5. And so, to him who sits upon the throne,\nand to Christ the Lamb,\n\n6. Be worship and praise, dominion and splendor,\nfor ever and for evermore. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 18".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4073,7 +4073,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\n1. Splendor and honor and kingly power\nare yours by right, O Lord our God.\n\n2. For you created everything that is,\nand by your will they were created\nand have their being;\n\n3. And yours by right, O Lamb that was slain,\nfor with your blood you have redeemed for God,\n\n4. From every family, language, people, and nation,\na kingdom of priests to serve our God.\n\n5. And so, to him who sits upon the throne,\nand to Christ the Lamb,\n\n6. Be worship and praise, dominion and splendor,\nfor ever and for evermore. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 18".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4088,7 +4088,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\n1. Splendor and honor and kingly power\nare yours by right, O Lord our God.\n\n2. For you created everything that is,\nand by your will they were created\nand have their being;\n\n3. And yours by right, O Lamb that was slain,\nfor with your blood you have redeemed for God,\n\n4. From every family, language, people, and nation,\na kingdom of priests to serve our God.\n\n5. And so, to him who sits upon the throne,\nand to Christ the Lamb,\n\n6. Be worship and praise, dominion and splendor,\nfor ever and for evermore. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 18".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4103,7 +4103,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\n1. Splendor and honor and kingly power\nare yours by right, O Lord our God.\n\n2. For you created everything that is,\nand by your will they were created\nand have their being;\n\n3. And yours by right, O Lamb that was slain,\nfor with your blood you have redeemed for God,\n\n4. From every family, language, people, and nation,\na kingdom of priests to serve our God.\n\n5. And so, to him who sits upon the throne,\nand to Christ the Lamb,\n\n6. Be worship and praise, dominion and splendor,\nfor ever and for evermore. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 18".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4118,7 +4118,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\n1. Splendor and honor and kingly power\nare yours by right, O Lord our God.\n\n2. For you created everything that is,\nand by your will they were created\nand have their being;\n\n3. And yours by right, O Lamb that was slain,\nfor with your blood you have redeemed for God,\n\n4. From every family, language, people, and nation,\na kingdom of priests to serve our God.\n\n5. And so, to him who sits upon the throne,\nand to Christ the Lamb,\n\n6. Be worship and praise, dominion and splendor,\nfor ever and for evermore. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 18".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4133,7 +4133,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Tone 1".into(),
                 text: "Antiphon:\nAll nations will draw near\nand fall down before you,\nbecause your just and holy works\nhave been revealed.\n\n1. O ruler of the universe, \nLord God, great deeds are they\nthat you have done,\nsurpassing human understanding.\n\n2. Your ways are ways \nof righteousness and truth,\nO King of all the ages.\n\n3. Who can fail to do you homage, Lord,\nand sing the praises of your Name?\nfor you only are the Holy One.\n\n4. All nations will draw near \nand fall down before you,\nbecause your just and holy works\nhave been revealed. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now, \nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 19".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4148,7 +4148,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nAll nations will draw near\nand fall down before you,\nbecause your just and holy works\nhave been revealed.\n\n1. O ruler of the universe, \nLord God, great deeds are they\nthat you have done,\nsurpassing human understanding.\n\n2. Your ways are ways \nof righteousness and truth,\nO King of all the ages.\n\n3. Who can fail to do you homage, Lord,\nand sing the praises of your Name?\nfor you only are the Holy One.\n\n4. All nations will draw near \nand fall down before you,\nbecause your just and holy works\nhave been revealed. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now, \nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 19".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4163,7 +4163,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nAll nations will draw near\nand fall down before you,\nbecause your just and holy works\nhave been revealed.\n\n1. O ruler of the universe, \nLord God, great deeds are they\nthat you have done,\nsurpassing human understanding.\n\n2. Your ways are ways \nof righteousness and truth,\nO King of all the ages.\n\n3. Who can fail to do you homage, Lord,\nand sing the praises of your Name?\nfor you only are the Holy One.\n\n4. All nations will draw near \nand fall down before you,\nbecause your just and holy works\nhave been revealed. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now, \nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 19".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4178,7 +4178,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nAll nations will draw near\nand fall down before you,\nbecause your just and holy works\nhave been revealed.\n\n1. O ruler of the universe, \nLord God, great deeds are they\nthat you have done,\nsurpassing human understanding.\n\n2. Your ways are ways \nof righteousness and truth,\nO King of all the ages.\n\n3. Who can fail to do you homage, Lord,\nand sing the praises of your Name?\nfor you only are the Holy One.\n\n4. All nations will draw near \nand fall down before you,\nbecause your just and holy works\nhave been revealed. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now, \nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 19".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4193,7 +4193,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "Antiphon:\nAll nations will draw near\nand fall down before you,\nbecause your just and holy works\nhave been revealed.\n\n1. O ruler of the universe, \nLord God, great deeds are they\nthat you have done,\nsurpassing human understanding.\n\n2. Your ways are ways \nof righteousness and truth,\nO King of all the ages.\n\n3. Who can fail to do you homage, Lord,\nand sing the praises of your Name?\nfor you only are the Holy One.\n\n4. All nations will draw near \nand fall down before you,\nbecause your just and holy works\nhave been revealed. [Ant.]\n\nGlory to the Father, and to the Son,\nand to the Holy Spirit:\nAs it was in the beginning, is now, \nand will be for ever. Amen. [Ant.]".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 19".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4208,7 +4208,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Mozarbic chant ( 15th cent.)".into(),
                 text: "1. Glory to god in the highest,\nand peace to his people on earth.\n\n2. Lord God, heavenly King,\nalmighty God and Father,\nwe worship you, we give you thanks,\nwe praise you for your glory.\n\n3. Lord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\n\n4. you take away the sin of the world: \nhave mercy on us;\n\n5. you are seated at the right hand\nof the Father:\nreceive our prayer.\n\n6. For you alone are the Holy One,\nyou alone are the Lord,\n\n7. you alone are the Most High, \nJesus Christ, with the Holy Spirit,\nin the glory of God the Father, Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 20".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4223,7 +4223,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Mode 7; Mass 13 (12th cent.)".into(),
                 text: "1. Glory to god in the highest,\nand peace to his people on earth.\n\n2. Lord God, heavenly King,\nalmighty God and Father,\nwe worship you, we give you thanks,\nwe praise you for your glory.\n\n3. Lord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\n\n4. you take away the sin of the world: \nhave mercy on us;\n\n5. you are seated at the right hand\nof the Father:\nreceive our prayer.\n\n6. For you alone are the Holy One,\nyou alone are the Lord,\n\n7. you alone are the Most High, \nJesus Christ, with the Holy Spirit,\nin the glory of God the Father, Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 20".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4238,7 +4238,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Mode 4; Mass 15".into(),
                 text: "1. Glory to god in the highest,\nand peace to his people on earth.\n\n2. Lord God, heavenly King,\nalmighty God and Father,\nwe worship you, we give you thanks,\nwe praise you for your glory.\n\n3. Lord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\n\n4. you take away the sin of the world: \nhave mercy on us;\n\n5. you are seated at the right hand\nof the Father:\nreceive our prayer.\n\n6. For you alone are the Holy One,\nyou alone are the Lord,\n\n7. you alone are the Most High, \nJesus Christ, with the Holy Spirit,\nin the glory of God the Father, Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 20".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4253,7 +4253,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glory to god in the highest,\nand peace to his people on earth.\n\n2. Lord God, heavenly King,\nalmighty God and Father,\nwe worship you, we give you thanks,\nwe praise you for your glory.\n\n3. Lord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\n\n4. you take away the sin of the world: \nhave mercy on us;\n\n5. you are seated at the right hand\nof the Father:\nreceive our prayer.\n\n6. For you alone are the Holy One,\nyou alone are the Lord,\n\n7. you alone are the Most High, \nJesus Christ, with the Holy Spirit,\nin the glory of God the Father, Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 20".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4268,7 +4268,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glory to god in the highest,\nand peace to his people on earth.\n\n2. Lord God, heavenly King,\nalmighty God and Father,\nwe worship you, we give you thanks,\nwe praise you for your glory.\n\n3. Lord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\n\n4. you take away the sin of the world: \nhave mercy on us;\n\n5. you are seated at the right hand\nof the Father:\nreceive our prayer.\n\n6. For you alone are the Holy One,\nyou alone are the Lord,\n\n7. you alone are the Most High, \nJesus Christ, with the Holy Spirit,\nin the glory of God the Father, Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 20".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4283,7 +4283,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glory to god in the highest,\nand peace to his people on earth.\n\n2. Lord God, heavenly King,\nalmighty God and Father,\nwe worship you, we give you thanks,\nwe praise you for your glory.\n\n3. Lord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\n\n4. you take away the sin of the world: \nhave mercy on us;\n\n5. you are seated at the right hand\nof the Father:\nreceive our prayer.\n\n6. For you alone are the Holy One,\nyou alone are the Lord,\n\n7. you alone are the Most High, \nJesus Christ, with the Holy Spirit,\nin the glory of God the Father, Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 20".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4298,7 +4298,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glory to god in the highest,\nand peace to his people on earth.\n\n2. Lord God, heavenly King,\nalmighty God and Father,\nwe worship you, we give you thanks,\nwe praise you for your glory.\n\n3. Lord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\n\n4. you take away the sin of the world: \nhave mercy on us;\n\n5. you are seated at the right hand\nof the Father:\nreceive our prayer.\n\n6. For you alone are the Holy One,\nyou alone are the Lord,\n\n7. you alone are the Most High, \nJesus Christ, with the Holy Spirit,\nin the glory of God the Father, Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 20".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4313,7 +4313,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glory to god in the highest,\nand peace to his people on earth.\n\n2. Lord God, heavenly King,\nalmighty God and Father,\nwe worship you, we give you thanks,\nwe praise you for your glory.\n\n3. Lord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\n\n4. you take away the sin of the world: \nhave mercy on us;\n\n5. you are seated at the right hand\nof the Father:\nreceive our prayer.\n\n6. For you alone are the Holy One,\nyou alone are the Lord,\n\n7. you alone are the Most High, \nJesus Christ, with the Holy Spirit,\nin the glory of God the Father, Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 20".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4328,7 +4328,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glory to god in the highest,\nand peace to his people on earth.\n\n2. Lord God, heavenly King,\nalmighty God and Father,\nwe worship you, we give you thanks,\nwe praise you for your glory.\n\n3. Lord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\n\n4. you take away the sin of the world: \nhave mercy on us;\n\n5. you are seated at the right hand\nof the Father:\nreceive our prayer.\n\n6. For you alone are the Holy One,\nyou alone are the Lord,\n\n7. you alone are the Most High, \nJesus Christ, with the Holy Spirit,\nin the glory of God the Father, Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 20".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4343,7 +4343,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. Glory to god in the highest,\nand peace to his people on earth.\n\n2. Lord God, heavenly King,\nalmighty God and Father,\nwe worship you, we give you thanks,\nwe praise you for your glory.\n\n3. Lord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\n\n4. you take away the sin of the world: \nhave mercy on us;\n\n5. you are seated at the right hand\nof the Father:\nreceive our prayer.\n\n6. For you alone are the Holy One,\nyou alone are the Lord,\n\n7. you alone are the Most High, \nJesus Christ, with the Holy Spirit,\nin the glory of God the Father, Amen.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 20".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4358,7 +4358,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Plainsong, Te Deum Tone (Solemn)".into(),
                 text: "1. You are God: we praise you;\nYou are the Lord: we acclaim you;\n\n2. You are the eternal Father:\nAll creation worships you.\n\n3. To you all angels, \nall the powers of heaven,\nCherubim and Seraphim\nsing in endless praise:\n\n4. Holy, holy, holy Lord,\nGod of poser and might,\nheaven and earth \nare full of you glory.\n\n5. The glorious company\nof apostles praise you.\nThe noble fellowship\nof prophets praise you.\nThe white-robed army\nof martyrs praise you.\n\n6. Throughout the world\nthe holy Church acclaims you;\nFather, of majesty unbounded,\nyour true and only Son, \nworthy of all worship,\nand the Holy Spirit,\nadvocate and guide.\n\n7. You, Christ, are the king of glory,\nthe eternal Son of the Father.\n\n8. When you became man to set us free\nyou did not shun the Virgin's womb.\n\n9. You overcame the sting of death\nand opened the kingdom of heaven\nto all believers.\n\n10. You are seated at God's \nright hand in glory.\nWe believe that you will come and be our judge.\n\n11. Come then, Lord, and help you people,\nbought with the price of your own blood.\n\n12. and bring us with your saints\nto glory everlasting.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 21".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4373,7 +4373,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. You are God: we praise you;\nYou are the Lord: we acclaim you;\n\n2. You are the eternal Father:\nAll creation worships you.\n\n3. To you all angels, \nall the powers of heaven,\nCherubim and Seraphim\nsing in endless praise:\n\n4. Holy, holy, holy Lord,\nGod of poser and might,\nheaven and earth \nare full of you glory.\n\n5. The glorious company\nof apostles praise you.\nThe noble fellowship\nof prophets praise you.\nThe white-robed army\nof martyrs praise you.\n\n6. Throughout the world\nthe holy Church acclaims you;\nFather, of majesty unbounded,\nyour true and only Son, \nworthy of all worship,\nand the Holy Spirit,\nadvocate and guide.\n\n7. You, Christ, are the king of glory,\nthe eternal Son of the Father.\n\n8. When you became man to set us free\nyou did not shun the Virgin's womb.\n\n9. You overcame the sting of death\nand opened the kingdom of heaven\nto all believers.\n\n10. You are seated at God's \nright hand in glory.\nWe believe that you will come and be our judge.\n\n11. Come then, Lord, and help you people,\nbought with the price of your own blood.\n\n12. and bring us with your saints\nto glory everlasting.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 21".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4388,7 +4388,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. You are God: we praise you;\nYou are the Lord: we acclaim you;\n\n2. You are the eternal Father:\nAll creation worships you.\n\n3. To you all angels, \nall the powers of heaven,\nCherubim and Seraphim\nsing in endless praise:\n\n4. Holy, holy, holy Lord,\nGod of poser and might,\nheaven and earth \nare full of you glory.\n\n5. The glorious company\nof apostles praise you.\nThe noble fellowship\nof prophets praise you.\nThe white-robed army\nof martyrs praise you.\n\n6. Throughout the world\nthe holy Church acclaims you;\nFather, of majesty unbounded,\nyour true and only Son, \nworthy of all worship,\nand the Holy Spirit,\nadvocate and guide.\n\n7. You, Christ, are the king of glory,\nthe eternal Son of the Father.\n\n8. When you became man to set us free\nyou did not shun the Virgin's womb.\n\n9. You overcame the sting of death\nand opened the kingdom of heaven\nto all believers.\n\n10. You are seated at God's \nright hand in glory.\nWe believe that you will come and be our judge.\n\n11. Come then, Lord, and help you people,\nbought with the price of your own blood.\n\n12. and bring us with your saints\nto glory everlasting.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 21".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4403,7 +4403,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. You are God: we praise you;\nYou are the Lord: we acclaim you;\n\n2. You are the eternal Father:\nAll creation worships you.\n\n3. To you all angels, \nall the powers of heaven,\nCherubim and Seraphim\nsing in endless praise:\n\n4. Holy, holy, holy Lord,\nGod of poser and might,\nheaven and earth \nare full of you glory.\n\n5. The glorious company\nof apostles praise you.\nThe noble fellowship\nof prophets praise you.\nThe white-robed army\nof martyrs praise you.\n\n6. Throughout the world\nthe holy Church acclaims you;\nFather, of majesty unbounded,\nyour true and only Son, \nworthy of all worship,\nand the Holy Spirit,\nadvocate and guide.\n\n7. You, Christ, are the king of glory,\nthe eternal Son of the Father.\n\n8. When you became man to set us free\nyou did not shun the Virgin's womb.\n\n9. You overcame the sting of death\nand opened the kingdom of heaven\nto all believers.\n\n10. You are seated at God's \nright hand in glory.\nWe believe that you will come and be our judge.\n\n11. Come then, Lord, and help you people,\nbought with the price of your own blood.\n\n12. and bring us with your saints\nto glory everlasting.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 21".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4418,7 +4418,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. You are God: we praise you;\nYou are the Lord: we acclaim you;\n\n2. You are the eternal Father:\nAll creation worships you.\n\n3. To you all angels, \nall the powers of heaven,\nCherubim and Seraphim\nsing in endless praise:\n\n4. Holy, holy, holy Lord,\nGod of poser and might,\nheaven and earth \nare full of you glory.\n\n5. The glorious company\nof apostles praise you.\nThe noble fellowship\nof prophets praise you.\nThe white-robed army\nof martyrs praise you.\n\n6. Throughout the world\nthe holy Church acclaims you;\nFather, of majesty unbounded,\nyour true and only Son, \nworthy of all worship,\nand the Holy Spirit,\nadvocate and guide.\n\n7. You, Christ, are the king of glory,\nthe eternal Son of the Father.\n\n8. When you became man to set us free\nyou did not shun the Virgin's womb.\n\n9. You overcame the sting of death\nand opened the kingdom of heaven\nto all believers.\n\n10. You are seated at God's \nright hand in glory.\nWe believe that you will come and be our judge.\n\n11. Come then, Lord, and help you people,\nbought with the price of your own blood.\n\n12. and bring us with your saints\nto glory everlasting.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 21".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4433,7 +4433,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1. You are God: we praise you;\nYou are the Lord: we acclaim you;\n\n2. You are the eternal Father:\nAll creation worships you.\n\n3. To you all angels, \nall the powers of heaven,\nCherubim and Seraphim\nsing in endless praise:\n\n4. Holy, holy, holy Lord,\nGod of poser and might,\nheaven and earth \nare full of you glory.\n\n5. The glorious company\nof apostles praise you.\nThe noble fellowship\nof prophets praise you.\nThe white-robed army\nof martyrs praise you.\n\n6. Throughout the world\nthe holy Church acclaims you;\nFather, of majesty unbounded,\nyour true and only Son, \nworthy of all worship,\nand the Holy Spirit,\nadvocate and guide.\n\n7. You, Christ, are the king of glory,\nthe eternal Son of the Father.\n\n8. When you became man to set us free\nyou did not shun the Virgin's womb.\n\n9. You overcame the sting of death\nand opened the kingdom of heaven\nto all believers.\n\n10. You are seated at God's \nright hand in glory.\nWe believe that you will come and be our judge.\n\n11. Come then, Lord, and help you people,\nbought with the price of your own blood.\n\n12. and bring us with your saints\nto glory everlasting.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 21".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -4448,7 +4448,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Slavonic chant".into(),
                 text: "1. You are God: we praise you;\nYou are the Lord: we acclaim you;\n\n2. You are the eternal Father:\nAll creation worships you.\n\n3. To you all angels, \nall the powers of heaven,\nCherubim and Seraphim\nsing in endless praise:\n\n4. Holy, holy, holy Lord,\nGod of poser and might,\nheaven and earth \nare full of you glory.\n\n5. The glorious company\nof apostles praise you.\nThe noble fellowship\nof prophets praise you.\nThe white-robed army\nof martyrs praise you.\n\n6. Throughout the world\nthe holy Church acclaims you;\nFather, of majesty unbounded,\nyour true and only Son, \nworthy of all worship,\nand the Holy Spirit,\nadvocate and guide.\n\n7. You, Christ, are the king of glory,\nthe eternal Son of the Father.\n\n8. When you became man to set us free\nyou did not shun the Virgin's womb.\n\n9. You overcame the sting of death\nand opened the kingdom of heaven\nto all believers.\n\n10. You are seated at God's \nright hand in glory.\nWe believe that you will come and be our judge.\n\n11. Come then, Lord, and help you people,\nbought with the price of your own blood.\n\n12. and bring us with your saints\nto glory everlasting.".into(),
-                tags: vec![]
+                tags: vec!["Canticle".into(), "Canticle 21".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
