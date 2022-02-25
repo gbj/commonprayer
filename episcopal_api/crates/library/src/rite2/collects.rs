@@ -299,14 +299,14 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::LastEpiphany),
             CollectData {
                 document: Document::from(
-                    Text::from("This Proper is always used on the Sunday before Ash WednesdayO God, who before the passion of your only-begotten Son revealed his glory upon the holy mountain: Grant to us that we, beholding by faith the light of his countenance, may be strengthened to bear our cross, and be changed into his likeness from glory to glory; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                    Text::from("O God, who before the passion of your only-begotten Son revealed his glory upon the holy mountain: Grant to us that we, beholding by faith the light of his countenance, may be strengthened to bear our cross, and be changed into his likeness from glory to glory; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("Last Sunday after the Epiphany")
                 .page(217)
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of the Epiphany".into(),
-                rubric_before: None,
+                rubric_before: Some("This Proper is always used on the Sunday before Ash Wednesday".into()),
                 rubric_after: None
             }
         ),

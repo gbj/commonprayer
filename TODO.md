@@ -7,6 +7,8 @@ Website Todos
   - [ ] Small iOS appearance bugs
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)
+- [ ] Display settings
+  - [ ] Daily Readings page
 - Hymns
   - [x] Insert service music/office hymn links into Office liturgies
   - [ ] finish tagging service music
@@ -78,6 +80,7 @@ Website Todos
     - [x] Category pages (as distinct from document pages) with labels etc.
     - [ ] Group documents by label
   - [ ] Summary pages for each category of document
+  - [ ] Lectionary/Readings page: handle special things like Vigils, multiple Christmas services, etc.
   - [ ] Calendar
     - [ ] LFF propers for holy days
       - [x] Convert lectionary

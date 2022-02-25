@@ -3,12 +3,12 @@ members = [
   "client/calendar",
   "client/canticle_table",
   "client/daily_office",
-  "client/daily_readings",
   "client/document",
   "client/holy_day",
   "client/hymnal",
   "client/index",
   "client/lectionary",
+  "client/readings",
   "client/settings",
   "server",
   "website"

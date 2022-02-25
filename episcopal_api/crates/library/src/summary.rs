@@ -1,23 +1,26 @@
 use std::collections::HashMap;
 
-use api::summary::{DailySummary, ObservanceSummary, PartialDailySummary};
+use api::summary::{
+    DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary, FirstLessonAndPsalm,
+    ObservanceSummary, PartialDailySummary, TrackedReadings,
+};
 use calendar::{
     Calendar, Date, Feast, LiturgicalDay, LiturgicalDayId, Weekday, BCP1979_CALENDAR,
     LFF2018_CALENDAR,
 };
-use liturgy::{Content, Document, LiturgyPreferences, Psalm};
+use liturgy::{BiblicalCitation, Content, Document, LiturgyPreferences, Psalm};
 use psalter::{bcp1979::BCP1979_PSALTER, Psalter};
 
 use language::Language;
 use lectionary::{
     Lectionary, ReadingType, BCP1979_30_DAY_PSALTER, BCP1979_DAILY_OFFICE_LECTIONARY,
-    BCP1979_DAILY_OFFICE_PSALTER,
+    BCP1979_DAILY_OFFICE_PSALTER, RCL, RCL_TRACK_1, RCL_TRACK_2,
 };
 
 use crate::{CommonPrayer, Library};
 
 impl CommonPrayer {
-    pub fn summarize_date(date: &Date, language: Language) -> DailySummary {
+    pub fn daily_office_summary(date: &Date, language: Language) -> DailySummary {
         let psalter = &BCP1979_PSALTER;
 
         let morning = summarize_time(date, false, psalter, language);
@@ -28,6 +31,103 @@ impl CommonPrayer {
             morning,
             evening,
         }
+    }
+
+    pub fn eucharistic_lectionary_summary(
+        date: &Date,
+        language: Language,
+    ) -> EucharisticLectionarySummary {
+        let psalter = &BCP1979_PSALTER;
+        let day = BCP1979_CALENDAR.liturgical_day(*date, false);
+        let observed = summarize_eucharistic_observance(&day, &day.observed, language, psalter);
+        let alternate = day
+            .alternate
+            .as_ref()
+            .map(|alternate| summarize_eucharistic_observance(&day, alternate, language, psalter));
+        EucharisticLectionarySummary {
+            day,
+            observed,
+            alternate,
+        }
+    }
+}
+
+fn summarize_eucharistic_observance(
+    day: &LiturgicalDay,
+    observance: &LiturgicalDayId,
+    language: Language,
+    psalter: &Psalter,
+) -> EucharisticObservanceSummary {
+    let localized_name = localize_day_name(day, observance, &BCP1979_CALENDAR, language);
+    let collects = CommonPrayer::compile(
+        Document::from(Content::CollectOfTheDay {
+            allow_multiple: false,
+        }),
+        &BCP1979_CALENDAR,
+        day,
+        observance,
+        &HashMap::new(),
+        &LiturgyPreferences::default(),
+    );
+
+    let tracked_readings = if let LiturgicalDayId::ProperAndDay(..) = observance {
+        let track_one = Box::new(tracked_readings(observance, day, &RCL_TRACK_1, psalter));
+        let track_two = Box::new(tracked_readings(observance, day, &RCL_TRACK_2, psalter));
+        TrackedReadings::Tracked {
+            track_one,
+            track_two,
+        }
+    } else {
+        TrackedReadings::Any(Box::new(tracked_readings(observance, day, &RCL, psalter)))
+    };
+
+    let epistle = Document::choice_or_document(
+        &mut RCL
+            .reading_by_type(observance, day, ReadingType::SecondReading)
+            .map(|reading| Document::from(BiblicalCitation::from(reading.citation))),
+    );
+
+    let gospel = Document::choice_or_document(
+        &mut RCL
+            .reading_by_type(observance, day, ReadingType::Gospel)
+            .map(|reading| Document::from(BiblicalCitation::from(reading.citation))),
+    );
+
+    EucharisticObservanceSummary {
+        observance: *observance,
+        localized_name,
+        collects,
+        tracked_readings,
+        epistle,
+        gospel,
+    }
+}
+
+fn tracked_readings(
+    observance: &LiturgicalDayId,
+    day: &LiturgicalDay,
+    lectionary: &'static Lectionary,
+    psalter: &Psalter,
+) -> FirstLessonAndPsalm {
+    let first_lesson = Document::choice_or_document(
+        &mut lectionary
+            .reading_by_type(observance, day, ReadingType::FirstReading)
+            .map(|reading| Document::from(BiblicalCitation::from(reading.citation))),
+    );
+    let mut psalms = lectionary
+        .reading_by_type(observance, day, ReadingType::Psalm)
+        .flat_map(|reading| {
+            psalter
+                .psalms_by_citation(&reading.citation)
+                .iter()
+                .cloned()
+                .map(Document::from)
+                .collect::<Vec<_>>()
+        });
+    let psalm = Document::choice_or_document(&mut psalms);
+    FirstLessonAndPsalm {
+        first_lesson,
+        psalm,
     }
 }
 

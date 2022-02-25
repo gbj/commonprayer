@@ -1,5 +1,5 @@
 [package]
-name = "daily_readings_page"
+name = "readings_page"
 version = "0.1.0"
 edition = "2021"
 

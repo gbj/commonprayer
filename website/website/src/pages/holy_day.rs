@@ -130,18 +130,18 @@ fn body(locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
                 {bio}
 
                 // Actual readings
-                <h2>{t!("holy_day.lessons_and_psalm")}</h2>
+                <h2>{t!("lectionary.lessons_and_psalm")}</h2>
 
                 // First Lesson
                 <a id="first-lesson"></a>
-                <h3>{t!("holy_day.first_lesson")}</h3>
+                <h3>{t!("lectionary.first_lesson")}</h3>
                 <article class="document">
                     <dyn:view view={DocumentController::new(props.first_lesson.clone().version(bible_version)).view(locale)}/>
                 </article>
 
                 // Psalm
                 <a id="psalm"></a>
-                <h3>{t!("holy_day.psalm")}</h3>
+                <h3>{t!("lectionary.psalm")}</h3>
                 <article class="document">
                     <dyn:view view={DocumentController::new(props.psalm.clone()).view(locale)}/>
                 </article>
@@ -150,7 +150,7 @@ fn body(locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
                 {if props.epistle.content != Content::Empty {
                     view! {
                         <a id="epistle"></a>
-                        <h3>{t!("holy_day.epistle")}</h3>
+                        <h3>{t!("lectionary.epistle")}</h3>
                         <article class="document">
                             <dyn:view view={DocumentController::new(props.epistle.clone().version(bible_version)).view(locale)}/>
                         </article>
@@ -161,7 +161,7 @@ fn body(locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
 
                 // Gospel
                 <a id="gospel"></a>
-                <h3>{t!("holy_day.gospel")}</h3>
+                <h3>{t!("lectionary.gospel")}</h3>
                 <article class="document">
                     <dyn:view view={DocumentController::new(props.gospel.clone().version(bible_version)).view(locale)}/>
                 </article>

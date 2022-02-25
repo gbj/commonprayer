@@ -92,7 +92,7 @@ async fn daily_summary(
 ) -> Result<web::Json<DailySummary>, ()> {
     let date = Date::parse_from_str(&date, "%Y-%m-%d").map_err(|_| ())?;
     let language = locale_to_language(&locale);
-    let summary = episcopal_api::library::CommonPrayer::summarize_date(&date, language);
+    let summary = episcopal_api::library::CommonPrayer::daily_office_summary(&date, language);
     Ok(web::Json(summary))
 }
 
@@ -206,7 +206,7 @@ fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
         add_page(cfg, locale, calendar());
         add_page(cfg, locale, canticle_table());
         add_page(cfg, locale, daily_office());
-        add_page(cfg, locale, daily_readings());
+        add_page(cfg, locale, readings());
         add_page(cfg, locale, document());
         add_page(cfg, locale, holy_day());
         add_page(cfg, locale, hymnal());

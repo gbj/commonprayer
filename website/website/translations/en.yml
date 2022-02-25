@@ -22,13 +22,6 @@ en:
     psalter: Psalter
     about: About
 
-  holy_day:
-    lessons_and_psalm: Lessons and Psalm
-    first_lesson: First Lesson
-    psalm: Psalm
-    epistle: Epistle
-    gospel: Gospel
-
   hymnal:
     any: —
     h82: The Hymnal 1982
@@ -290,3 +283,10 @@ en:
     month_12: December
     collect_not_found: Collect not found for this day.
     reading_not_found: Reading not found.
+    track_one: Track One
+    track_two: Track Two
+    lessons_and_psalm: Lessons and Psalm
+    first_lesson: First Lesson
+    psalm: Psalm
+    epistle: Epistle
+    gospel: Gospel
