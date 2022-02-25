@@ -59,3 +59,9 @@ h2.day-name {
   list-style-type: none;
   padding: 0;
 }
+
+.redirect-links {
+  margin-top: 2rem;
+  text-align: center;
+  font-style: italic;
+}

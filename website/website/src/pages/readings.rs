@@ -233,7 +233,7 @@ fn office_body(locale: &str, summary: &DailySummary) -> View {
             {header(&locale, &t!("toc.daily_readings"))}
             <main>
                 <label class="stacked">
-                    {leptos::View::StaticText(t!("date"))}
+                    {View::StaticText(t!("date"))}
                     <dyn:input type="date" class="centered"
                         value={summary.date.to_padded_string()}
                         on:change={
@@ -271,14 +271,14 @@ fn office_body(locale: &str, summary: &DailySummary) -> View {
 }
 
 fn eucharist_body(locale: &str, summary: &EucharisticLectionarySummary) -> View {
-    let observed = eucharistic_observance_view(locale, &summary.observed);
+    let observed = eucharistic_observance_view(locale, &summary.day.date, &summary.observed);
 
     view! {
         <>
             {header(locale, &t!("menu.lectionary"))}
             <main>
                 <label class="stacked">
-                    {leptos::View::StaticText(t!("date"))}
+                    {View::StaticText(t!("date"))}
                     <dyn:input type="date" class="centered"
                         value={summary.day.date.to_padded_string()}
                         on:change={
@@ -294,7 +294,11 @@ fn eucharist_body(locale: &str, summary: &EucharisticLectionarySummary) -> View 
     }
 }
 
-fn eucharistic_observance_view(locale: &str, summary: &EucharisticObservanceSummary) -> View {
+fn eucharistic_observance_view(
+    locale: &str,
+    date: &Date,
+    summary: &EucharisticObservanceSummary,
+) -> View {
     let bible_version = preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
         .and_then(|value| match value {
             PreferenceValue::Version(version) => Some(version),
@@ -365,6 +369,29 @@ fn eucharistic_observance_view(locale: &str, summary: &EucharisticObservanceSumm
         View::Empty
     };
 
+    // not every day has readings assigned in The Lectionary: offer a choice to redirect
+    // either to the Daily Office Lectionary or to The Lectionary
+    let no_readings_link = if summary.epistle.is_none() && summary.gospel.is_none() {
+        view! {
+            <p class="redirect-links">
+                {t!("lectionary.no_readings")}
+                " "
+                <a href={format!("/{}/readings/{}/{}", locale, RedirectMode::DailyOffice, date)}>
+                    {t!("daily_readings.daily_office_readings")}
+                </a>
+                " "
+                {t!("or")}
+                " "
+                <a href={format!("/{}/lectionary/{}#{}", locale, date.year(), date.month())}>
+                    {t!("lectionary.the_lectionary")}
+                </a>
+                {t!("lectionary.no_readings_end")}
+            </p>
+        }
+    } else {
+        View::Empty
+    };
+
     view! {
         <>
             {title}
@@ -373,6 +400,7 @@ fn eucharistic_observance_view(locale: &str, summary: &EucharisticObservanceSumm
             {tracked_readings_view}
             {epistle}
             {gospel}
+            {no_readings_link}
         </>
     }
 }

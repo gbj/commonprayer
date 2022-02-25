@@ -47,9 +47,13 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
-    justify-content: top;
     padding: 0.5rem;
     width: calc((var(--main-width) / 7) - 2px - 2rem);
+  }
+
+
+  .day.sunday > *, .day > .month-number {
+    padding: 0;
   }
 
   .weekday-label {

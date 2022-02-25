@@ -269,6 +269,7 @@ en:
     ord_30: Thirtieth
 
   lectionary:
+    the_lectionary: The Lectionary
     month_1: January
     month_2: February
     month_3: March
@@ -290,3 +291,5 @@ en:
     psalm: Psalm
     epistle: Epistle
     gospel: Gospel
+    no_readings: There were no readings found for this date in the Revised Common Lectionary. Would you like to look at the 
+    no_readings_end: "?"

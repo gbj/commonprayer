@@ -27,13 +27,11 @@ pub fn lectionary() -> Page<(), LectionaryPageParams, LectionaryPageRenderState>
 #[derive(Deserialize, Clone)]
 pub struct LectionaryPageParams {
     year: Option<u16>,
-    month: Option<u8>,
 }
 
 #[derive(Serialize, Clone, Default)]
 pub struct LectionaryPageRenderState {
     year: u16,
-    starting_month: Option<u8>,
     days: Vec<LectionaryDayEntry>,
 }
 
@@ -53,7 +51,7 @@ pub struct DayDetails {
 }
 
 pub fn build_paths() -> Vec<String> {
-    vec!["".into(), "{year}".into(), "{year}/{month}".into()]
+    vec!["".into(), "{year}".into(), "{year}".into()]
 }
 
 pub fn render_state(
@@ -92,11 +90,7 @@ pub fn render_state(
             }
         })
         .collect();
-    Some(LectionaryPageRenderState {
-        year,
-        starting_month: params.month,
-        days,
-    })
+    Some(LectionaryPageRenderState { year, days })
 }
 
 pub fn head(_locale: &str, _props: &(), _render_state: &LectionaryPageRenderState) -> View {
@@ -111,20 +105,10 @@ pub fn head(_locale: &str, _props: &(), _render_state: &LectionaryPageRenderStat
 }
 
 pub fn body(locale: &str, _props: &(), render_state: &LectionaryPageRenderState) -> View {
-    calendar_body(
-        locale,
-        render_state.year,
-        &render_state.starting_month,
-        &render_state.days,
-    )
+    calendar_body(locale, render_state.year, &render_state.days)
 }
 
-fn calendar_body(
-    locale: &str,
-    year: u16,
-    starting_month: &Option<u8>,
-    days: &[LectionaryDayEntry],
-) -> View {
+fn calendar_body(locale: &str, year: u16, days: &[LectionaryDayEntry]) -> View {
     let grouped_by_month = days
         .iter()
         .group_by(|LectionaryDayEntry { month, .. }| month);
@@ -166,6 +150,7 @@ fn calendar_body(
 
                             view! {
                                 <div class={class}>
+                                    <a id={month.to_string()}></a>
                                     <div class="month-number">{day.to_string()}</div>
                                     {listing}
                                 </div>
