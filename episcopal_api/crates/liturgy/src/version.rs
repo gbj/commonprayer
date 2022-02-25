@@ -31,10 +31,10 @@ pub enum Version {
 
 impl Version {
     pub fn is_bible_translation(&self) -> bool {
-        match self {
-            Version::NRSV | Version::NRSVAE | Version::ESV | Version::KJV | Version::CEB => true,
-            _ => false,
-        }
+        matches!(
+            self,
+            Version::NRSV | Version::NRSVAE | Version::ESV | Version::KJV | Version::CEB
+        )
     }
 }
 

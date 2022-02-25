@@ -64,6 +64,8 @@ impl LiturgyPreferences {
         self.0.iter()
     }
 
+    // allow this because if we try to actually implement IntoIter, it causes a conflict with the `From` implementation
+    #[allow(clippy::should_implement_trait)]
     pub fn into_iter(self) -> impl Iterator<Item = LiturgyPreference> {
         self.0.into_iter()
     }

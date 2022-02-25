@@ -1,9 +1,8 @@
 use crate::conditions::{NOT_INSERT_GLORIA, NOT_LENT};
 use crate::rite2::{GLORIA_PATRI, LORDS_PRAYER_ABBREV};
 use liturgy::{
-    Choice, Condition, Content, DisplayFormat, Document, Heading, HeadingLevel, HymnLink, Liturgy,
-    Preces, PreferenceKey, PreferenceValue, Psalm, PsalmCitation, Reference, ResponsivePrayer,
-    Rubric, Sentence, Series, Show, Source, Text,
+    Choice, Content, DisplayFormat, Document, Heading, HeadingLevel, HymnLink, Liturgy, Preces,
+    Reference, ResponsivePrayer, Rubric, Sentence, Series, Show, Source, Text,
 };
 use psalter::bcp1979::{PSALM_119, PSALM_121, PSALM_126};
 
