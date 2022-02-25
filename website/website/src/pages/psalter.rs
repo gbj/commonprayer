@@ -71,7 +71,6 @@ pub fn head(_locale: &str, _props: &(), _render_state: &PsalterRenderState) -> V
 }
 
 pub fn body(locale: &str, _props: &(), render_state: &PsalterRenderState) -> View {
-    let psalms = render_state.psalms.clone();
     let render_psalter = Psalter {
         psalms: render_state
             .psalms

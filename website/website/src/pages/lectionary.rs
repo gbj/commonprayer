@@ -1,21 +1,13 @@
-use std::collections::HashMap;
-
 use crate::{
-    components::{biblical_citation, document_view, header, DocumentController},
+    components::{header, DocumentController},
     utils::language::locale_to_language,
 };
 use chrono::{Datelike, Local};
 use episcopal_api::{
     calendar::{Date, LiturgicalDay, LiturgicalDayId, Rank, Weekday, BCP1979_CALENDAR},
-    lectionary::{rcl_readings, RCLTrack, Reading, ReadingType},
-    library::{
-        summary::{self, localize_day_name},
-        CommonPrayer, Library,
-    },
-    liturgy::{
-        BiblicalCitation, Content, Document, DocumentError, Lectionaries, LectionaryReading,
-        LectionaryTableChoice, LiturgyPreferences, ReadingTypeTable, Series, Version,
-    },
+    lectionary::Reading,
+    library::summary,
+    liturgy::{BiblicalCitation, Document, DocumentError, Version},
 };
 use itertools::Itertools;
 use leptos::*;
@@ -36,7 +28,6 @@ pub fn lectionary() -> Page<(), LectionaryPageParams, LectionaryPageRenderState>
 pub struct LectionaryPageParams {
     year: Option<u16>,
     month: Option<u8>,
-    day: Option<u8>,
 }
 
 #[derive(Serialize, Clone, Default)]
@@ -218,41 +209,6 @@ fn calendar_body(
             {header(locale, &t!("menu.lectionary"))}
             <main class="lectionary calendar">
                 {months}
-            </main>
-        </>
-    }
-}
-
-fn day_body(locale: &str, details: &DayDetails) -> View {
-    let collect = DocumentController::new(details.collect.clone());
-    // TODO version
-    let readings = View::Fragment(
-        details
-            .readings
-            .iter()
-            .group_by(|reading| reading.reading_type)
-            .into_iter()
-            .map(|(_, readings)| {
-                DocumentController::new(
-                    Document::series_or_document(&mut readings.into_iter().map(|reading| {
-                        Document::from(BiblicalCitation::from(reading.citation.clone()))
-                            .version(Version::NRSV)
-                    }))
-                    .unwrap_or_else(|| {
-                        Document::from(DocumentError::from(t!("lectionary.reading_not_found")))
-                    }),
-                )
-                .view(locale)
-            })
-            .collect(),
-    );
-    view! {
-        <>
-            {header(locale, &t!("menu.lectionary"))}
-            <main class="lectionary day-details">
-                <h2>{&details.name}</h2>
-                {collect.view(locale)}
-                {readings}
             </main>
         </>
     }
