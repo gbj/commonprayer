@@ -1,13 +1,10 @@
-use crate::{
-    components::{header, DocumentController},
-    utils::language::locale_to_language,
-};
+use crate::{components::header, utils::language::locale_to_language};
 use chrono::{Datelike, Local};
 use episcopal_api::{
     calendar::{Date, LiturgicalDay, LiturgicalDayId, Rank, Weekday, BCP1979_CALENDAR},
     lectionary::Reading,
     library::summary,
-    liturgy::{BiblicalCitation, Document, DocumentError, Version},
+    liturgy::Document,
 };
 use itertools::Itertools;
 use leptos::*;
