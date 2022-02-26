@@ -141,6 +141,60 @@ impl Document {
         has_own_date_condition || has_child_date_condition
     }
 
+    /// Returns a document stripped of all sub-documents that are [Show::CompiledOnly]
+    pub fn into_template(self) -> Option<Self> {
+        if self.display == Show::CompiledOnly {
+            None
+        } else {
+			// move out all the subfields, to reconstruct later
+            // this prevents us from having to clone all the content, because it's now locally owned
+
+			let Self {
+				condition, 
+				label, 
+				subtitle, 
+				language, 
+				source, 
+				status, 
+				display, 
+				version, 
+				version_label, 
+				content, 
+				is_compiled, 
+				tags
+			} = self;
+
+            let content = match content {
+                Content::Series(content) => Content::Series(Series::from(content.into_vec().into_iter().filter_map(|child| child.into_template()))),
+                Content::Parallel(content) => Content::Parallel(Parallel::from(content.into_vec().into_iter().filter_map(|child| child.into_template()))),
+                Content::Choice(choice) => Content::Choice(Choice {
+                    options: choice.options.into_iter().filter_map(|child| child.into_template()).collect(),
+                    ..choice
+                }),
+                Content::Liturgy(liturgy) => Content::Liturgy(Liturgy {
+                    body: Series::from(liturgy.body.into_vec().into_iter().filter_map(|child| child.into_template())),
+                    ..liturgy
+                }),
+                _ => content
+            };
+
+			Some(Self {
+				condition,
+				label,
+				subtitle,
+				language,
+				source,
+				status,
+				display,
+				version,
+				version_label,
+				content,
+				is_compiled,
+				tags,
+			})
+        }
+    }
+
     #[must_use]
     pub fn content(mut self, content: Content) -> Self {
         self.content = content;

@@ -1,7 +1,9 @@
 Website Todos
 =============
 
+- [ ] Prayers and Thanksgivings
 - Bugs
+  - [x] Remove "Show::CompiledOnly" on template pages
   - [ ] Spell-check collects
   - [ ] Small iOS appearance bugs
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
@@ -31,8 +33,6 @@ Website Todos
     - [ ] Word
     - [ ] Venite
     - [x] JSON
-- [ ] Category pages
-  - [ ] Headings in Collects page
 - [ ] Fix LFF collects with empty labels
 - [ ] Rite II collects need Version::RiteII, not default (Version::BCP1979)
 - [ ] Systematic distinction between server date/current time (when rendering, either SSR or even more so SSG) and client current time/date — replaces instances where the prerendered UI accidentally assumes server time (e.g., Morning/Evening in daily readings page)

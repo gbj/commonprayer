@@ -345,17 +345,20 @@ pub fn hydration_state(
     _path: &str,
     params: &DocumentPageParams,
 ) -> Option<DocumentPageProps> {
-    println!("\nparams = {:#?}", params);
     // find page in TOC, either with the given version or in any version
     find_page(&params.category, &params.slug, params.version)
         .or_else(|| find_page(&params.category, &params.slug, params.version))
         // if document is not found, with return None => 404
-        .map(|page_type| {
+        .and_then(|page_type| {
             // if it's a PageType::Document and we're given a date, compile it
             let page_type = match (&page_type, &params.date) {
-                (DocumentPageType::CategorySummary(_, _, _), _) => page_type,
-                (DocumentPageType::Category(_, _, _), _) => page_type,
-                (DocumentPageType::Document(_), None) => page_type,
+                (DocumentPageType::CategorySummary(_, _, _), _) => Some(page_type),
+                (DocumentPageType::Category(_, _, _), _) => Some(page_type),
+                (DocumentPageType::Document(doc), None) => {
+                    let doc = *doc.clone();
+                    let doc = doc.into_template();
+                    doc.map(|doc| DocumentPageType::Document(Box::new(doc)))
+                }
                 (DocumentPageType::Document(doc), Some(date)) => {
                     let calendar = params
                         .calendar
@@ -404,12 +407,11 @@ pub fn hydration_state(
                             &prefs,
                             &liturgy.preferences,
                         )
-                        .unwrap()
                     } else {
-                        *doc.clone()
+                        doc.clone().into_template()
                     };
 
-                    DocumentPageType::Document(Box::new(doc))
+                    doc.map(|doc| DocumentPageType::Document(Box::new(doc)))
                 }
             };
 
@@ -425,11 +427,11 @@ pub fn hydration_state(
                 ),
             };
 
-            DocumentPageProps {
+            page_type.map(|page_type| DocumentPageProps {
                 page_type,
                 base_path,
                 slug: params.slug.clone(),
                 date: params.date.map(|date| date.to_string()).unwrap_or_default(),
-            }
+            })
         })
 }

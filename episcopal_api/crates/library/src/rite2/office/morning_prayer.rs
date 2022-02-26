@@ -316,7 +316,8 @@ lazy_static! {
 
         // Possible location #1 for sermon
         Document::from(Heading::from((HeadingLevel::Heading3, "The Sermon")))
-          .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::from("after_readings"))),
+          .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::from("after_readings")))
+          .display(Show::CompiledOnly),
 
         // Creed
         Document::from(Heading::from((HeadingLevel::Heading3, "The Apostles’ Creed"))),
@@ -346,7 +347,7 @@ lazy_static! {
             ("R.", "For we put our trust in you."),
             ("V.", "In you, Lord, is our hope;"),
             ("R.", "And we shall never hope in vain.")
-          ])).label("B").condition(Condition::RankGte(Rank::HolyDay)),
+          ])).label("B").condition(Condition::RankGte(Rank::HolyDay)).display(Show::CompiledOnly),
           Document::from(Preces::from([
             ("V.", "Show us your mercy, O Lord;"),
             ("R.", "And grant us your salvation."),
@@ -424,7 +425,8 @@ lazy_static! {
 
         // Possible location #2 for sermon
         Document::from(Heading::from((HeadingLevel::Heading3, "The Sermon")))
-          .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::from("after_collects"))),
+          .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::from("after_collects")))
+          .display(Show::CompiledOnly),
 
         // Closing Prayers
         Document::from(Rubric::from("Here may be sung a hymn or anthem.")),
@@ -465,7 +467,8 @@ lazy_static! {
 
         // Possible location #3 for sermon
         Document::from(Heading::from((HeadingLevel::Heading3, "The Sermon")))
-          .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::from("after_office"))),
+          .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::from("after_office")))
+          .display(Show::CompiledOnly),
         ]))
       .preferences([
         // Liturgy
