@@ -471,6 +471,8 @@ a.reference {
 .choice nav select {
   display: block;
   margin-left: auto;
+  max-width: calc(75vw - 2rem);
+  text-overflow: ellipsis;
 }
 .choice li.hidden {
   display: none;
