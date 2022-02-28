@@ -1226,11 +1226,11 @@ pub fn text(text: &Text) -> HeaderAndMain {
 
                 if idx == length - 1 {
                     view! {
-                        <p>{text} " " {response}</p>
+                        <p>{minimal_markdown(&text)} " " {response}</p>
                     }
                 } else {
                     view! {
-                        <p>{text}</p>
+                        <p>{minimal_markdown(&text)}</p>
                     }
                 }
             })
@@ -1254,6 +1254,23 @@ fn display_format_as_class(display_format: DisplayFormat) -> &'static str {
         DisplayFormat::Omit => "omit",
         DisplayFormat::Unison => "unison",
     }
+}
+
+fn minimal_markdown(s: &str) -> View {
+    View::Fragment(
+        s.split('*')
+            .enumerate()
+            .map(|(idx, text)| {
+                if idx % 2 == 1 {
+                    view! {
+                        <em>{text}</em>
+                    }
+                } else {
+                    View::StaticText(text.to_string())
+                }
+            })
+            .collect(),
+    )
 }
 
 pub fn small_capify(s: &str) -> View {
