@@ -64,10 +64,10 @@ lazy_static! {
     pub static ref TABLE_OF_CONTENTS: HashMap<(&'static str, Option<Version>), Vec<PageType<'static>>> = hash_map! {
         ("office", None) => vec![
            PageType::Document("morning-prayer", &*library::rite2::office::MORNING_PRAYER_II),
-           PageType::Document("noonday-prayer", &*library::rite2::office::NOONDAY_PRAYER),
+           PageType::Document("noonday-prayer", &*library::bcp1979::office::NOONDAY_PRAYER),
            PageType::Document("evening-prayer", &*library::rite2::office::EVENING_PRAYER_II),
-           PageType::Document("service-of-light", &*library::rite2::office::AN_ORDER_OF_WORSHIP_FOR_EVENING),
-           PageType::Document("compline", &*library::rite2::office::COMPLINE),
+           PageType::Document("service-of-light", &*library::bcp1979::office::AN_ORDER_OF_WORSHIP_FOR_EVENING),
+           PageType::Document("compline", &*library::bcp1979::office::COMPLINE),
         ],
         ("canticle", None) => vec![
             PageType::Document("1", &*library::rite1::canticles::CANTICLE_1),

@@ -7,7 +7,8 @@ use crate::{
 };
 use episcopal_api::{
     language::Language,
-    library::rite2::{COMPLINE, MORNING_PRAYER_II, NOONDAY_PRAYER, EVENING_PRAYER_II},
+    library::bcp1979::{COMPLINE, NOONDAY_PRAYER},
+    library::rite2::{MORNING_PRAYER_II, EVENING_PRAYER_II},
     liturgy::{
         Content, Document, GlobalPref, Lectionaries, LiturgyPreferences, PreferenceKey,
         PreferenceValue, Version,

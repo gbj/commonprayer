@@ -1,3 +1,4 @@
+use crate::bcp1979::AN_ORDER_OF_WORSHIP_FOR_EVENING;
 use crate::conditions::{EASTER_SEASON, NOT_INSERT_GLORIA, NOT_LENT};
 use crate::rite2::{
     APOSTLES_CREED, GLORIA_PATRI, LORDS_PRAYER_CONTEMPORARY_AND_TRADITIONAL, WORD_OF_THE_LORD,
@@ -6,8 +7,6 @@ use calendar::Weekday;
 use canticle_table::CanticleNumber;
 use lectionary::ReadingType;
 use liturgy::*;
-
-use super::order_of_worship_for_evening::AN_ORDER_OF_WORSHIP_FOR_EVENING;
 
 lazy_static! {
     pub static ref PHOS_HILARON : Document = Document::from(Invitatory {
