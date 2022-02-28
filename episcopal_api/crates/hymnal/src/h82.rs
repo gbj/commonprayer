@@ -13710,7 +13710,7 @@ lazy_static! {
                 page_number: 835,
                 copyright_restriction: true,
                 number: HymnNumber::H(618),
-                title: "Alleluia, alleluia".into(),
+                title: "Ye watchers and ye holy ones".into(),
                 tune: "LASST UNS ERFREUEN".into(),
                 authors: "John Athelstan Lurie Riley, 1858-1945".into(),
                 composers: "Ralph Vaughan Williams, 1872-1958".into(),
