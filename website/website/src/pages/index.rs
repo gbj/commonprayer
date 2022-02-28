@@ -37,7 +37,7 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                                 {make_link(locale, "calendar/lff2018", "lff_2018", false)}
                             </li>
                             <li>
-                                {make_link(locale, "daily-readings", "toc.daily_readings", false)}
+                                {make_link(locale, "readings", "toc.daily_readings", false)}
                             </li>
                         </ul>
                     </li>
