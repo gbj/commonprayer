@@ -2,7 +2,7 @@ use crate::conditions::{NOT_INSERT_GLORIA, NOT_LENT};
 use crate::rite2::{GLORIA_PATRI, LORDS_PRAYER_ABBREV};
 use liturgy::{
     Choice, Content, DisplayFormat, Document, Heading, HeadingLevel, HymnLink, Liturgy, Preces,
-    Reference, ResponsivePrayer, Rubric, Sentence, Series, Show, Source, Text,
+    Reference, ResponsivePrayer, Rubric, Sentence, Series, Show, Source, Text, Categories,
 };
 use psalter::bcp1979::{PSALM_119, PSALM_121, PSALM_126};
 
@@ -46,15 +46,15 @@ lazy_static! {
                 Document::from(Choice::from(vec![
                     Document::from(Sentence::from("The love of God has been poured into our hearts through the Holy Spirit that has been given to us.")
                         .citation("Romans 5:5")
-                        .response(Preces::from([("People", "Thanks be to God.")]))
+                        .response(Preces::from([("", ""), ("People", "Thanks be to God.")]))
                     ),
                     Document::from(Sentence::from("If anyone is in Christ he is a new creation; the old has passed away, behold the new has come. All this is from God, who through Christ reconciled us to himself and gave us the ministry of reconciliation.")
                         .citation("2 Corinthians 5:17-18")
-                        .response(Preces::from([("People", "Thanks be to God.")]))
+                        .response(Preces::from([("", ""), ("People", "Thanks be to God.")]))
                     ),
                     Document::from(Sentence::from("From the rising of the sun to its setting my Name shall be great among the nations, and in every place incense shall be offered to my Name, and a pure offering; for my Name shall be great among the nations, says the Lord of Hosts.")
                         .citation("Malachi 1:11")
-                        .response(Preces::from([("People", "Thanks be to God.")]))
+                        .response(Preces::from([("", ""), ("People", "Thanks be to God.")]))
                     ),
                 ])),
 
@@ -98,6 +98,9 @@ lazy_static! {
 
                 // Closing
                 Document::from(Rubric::from("Free intercessions may be offered.")),
+
+                Document::from(Categories::PrayersAndThanksgivings),
+
                 Document::from(Rubric::from("The service concludes as follows")),
                 Document::from(Preces::from([
                     ("Officiant", "Let us bless the Lord."),

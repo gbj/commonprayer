@@ -22,11 +22,11 @@ lazy_static! {
       Document::from(
         Text::from("Our Father, who art in heaven,\n\thallowed be thy Name,\n\tthy kingdom come,\n\tthy will be done,\n\ton earth as it is in heaven.\nGive us this day our daily bread.\nAnd forgive us our trespasses,\n\tas we forgive those\n\twho trespass against us.\nAnd lead us not into temptation,\n\tbut deliver us from evil.")
           .display_format(DisplayFormat::Unison)
-      ).label("Traditional"),
+      ).version_label("Traditional"),
       Document::from(
         Text::from("Our Father in heaven,\n\thallowed be your Name,\n\tyour kingdom come,\n\tyour will be done,\n\ton earth as in heaven.\nGive us today our daily bread.\nForgive us our sins,\n\tas we forgive those\n\twho sin against us.\nSave us from the time of trial,\n\tand deliver us from evil.")
           .display_format(DisplayFormat::Unison)
-      ).label("Contemporary")
+      ).version_label("Contemporary")
     ]);
 
     pub static ref APOSTLES_CREED: Text = Text::from("I believe in God, the Father almighty,\n	creator of heaven and earth.\nI believe in Jesus Christ, his only Son, our Lord.\n	He was conceived by the power of the Holy Spirit\n	and born of the Virgin Mary.\n	He suffered under Pontius Pilate,\n	was crucified, died, and was buried. \n	He descended to the dead.\n	On the third day he rose again.\n	He ascended into heaven,\n	and is seated at the right hand of the Father.\n	He will come again to judge the living and the dead.\nI believe in the Holy Spirit,\n	the holy catholic Church,\n	the communion of saints,\n	the forgiveness of sins,\n	the resurrection of the body,\n	and the life everlasting.")
