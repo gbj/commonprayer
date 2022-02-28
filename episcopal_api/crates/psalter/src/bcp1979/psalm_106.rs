@@ -210,7 +210,7 @@ lazy_static! {
           PsalmVerse {
                 number: 38,
                 a: String::from("They shed innocent blood,\nthe blood of their sons and daughters, *"),
-                b: String::from("which they offered to the idols of Canaan,\n and the land was defiled with blood.")
+                b: String::from("which they offered to the idols of Canaan,\nand the land was defiled with blood.")
             },
           PsalmVerse {
                 number: 39,
@@ -255,12 +255,12 @@ lazy_static! {
           PsalmVerse {
                 number: 47,
                 a: String::from("Save us, O LORD our God,\nand gather us from among the nations, *"),
-                b: String::from("that we may give thanks to your holy Name\n and glory in your praise.")
+                b: String::from("that we may give thanks to your holy Name\nand glory in your praise.")
             },
           PsalmVerse {
                 number: 48,
                 a: String::from("Blessed be the LORD, the God of Israel,\nfrom everlasting to everlasting; *"),
-                b: String::from("and let all the people say, “Amen!”\n Hallelujah!")
+                b: String::from("and let all the people say, “Amen!”\nHallelujah!")
             },
         ]
       }

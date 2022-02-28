@@ -35,17 +35,17 @@ lazy_static! {
                 PsalmVerse {
                       number: 5,
                       a: String::from("I cry out to you, O LORD; *"),
-                      b: String::from("I say, “You are my refuge,\n my portion in the land of the living.”")
+                      b: String::from("I say, “You are my refuge,\nmy portion in the land of the living.”")
                   },
                 PsalmVerse {
                       number: 6,
                       a: String::from("Listen to my cry for help, for I have been brought very low; *"),
-                      b: String::from("save me from those who pursue me,\n for they are too strong for me.")
+                      b: String::from("save me from those who pursue me,\nfor they are too strong for me.")
                   },
                 PsalmVerse {
                       number: 7,
                       a: String::from("Bring me out of prison, that I may give thanks to your Name; *"),
-                      b: String::from("when you have dealt bountifully with me,\n the righteous will gather around me.")
+                      b: String::from("when you have dealt bountifully with me,\nthe righteous will gather around me.")
                   },
               ]
             }

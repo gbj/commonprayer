@@ -16,7 +16,7 @@ lazy_static! {
                           PsalmVerse {
                     number: 1,
                     a: String::from("LORD, you have searched me out and known me; *"),
-                    b: String::from("you know my sitting down and my rising up;\n you discern my thoughts from afar.")
+                    b: String::from("you know my sitting down and my rising up;\nyou discern my thoughts from afar.")
                 },
               PsalmVerse {
                     number: 2,
@@ -81,12 +81,12 @@ lazy_static! {
               PsalmVerse {
                     number: 14,
                     a: String::from("My body was not hidden from you, *"),
-                    b: String::from("while I was being made in secret\n and woven in the depths of the earth.")
+                    b: String::from("while I was being made in secret\nand woven in the depths of the earth.")
                 },
               PsalmVerse {
                     number: 15,
                     a: String::from("Your eyes beheld my limbs, yet unfinished in the womb;\nall of them were written in your book; *"),
-                    b: String::from("they were fashioned day by day,\n when as yet there was none of them.")
+                    b: String::from("they were fashioned day by day,\nwhen as yet there was none of them.")
                 },
               PsalmVerse {
                     number: 16,

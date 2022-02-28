@@ -20,7 +20,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 2,
                       a: String::from("The hills stand about Jerusalem; *"),
-                      b: String::from("so does the LORD stand round about his people,\n from this time forth for evermore.")
+                      b: String::from("so does the LORD stand round about his people,\nfrom this time forth for evermore.")
                   },
                 PsalmVerse {
                       number: 3,

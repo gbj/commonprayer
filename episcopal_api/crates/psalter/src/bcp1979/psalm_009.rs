@@ -74,7 +74,7 @@ lazy_static! {
   PsalmVerse {
         number: 13,
         a: String::from("Have pity on me, O LORD; *"),
-        b: String::from("see the misery I suffer from those who hate me,\n O you who lift me up from the gate of death;")
+        b: String::from("see the misery I suffer from those who hate me,\nO you who lift me up from the gate of death;")
     },
   PsalmVerse {
         number: 14,

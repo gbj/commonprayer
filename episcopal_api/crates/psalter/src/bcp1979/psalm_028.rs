@@ -15,7 +15,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 1,
                       a: String::from("O LORD, I call to you;\nmy Rock, do not be deaf to my cry; *"),
-                      b: String::from("lest, if you do not hear me,\n I become like those who go down to the Pit.")
+                      b: String::from("lest, if you do not hear me,\nI become like those who go down to the Pit.")
                   },
                 PsalmVerse {
                       number: 2,
@@ -25,7 +25,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 3,
                       a: String::from("Do not snatch me away with the wicked or with the evildoers, *"),
-                      b: String::from("who speak peaceably with their neighbors,\n while strife is in their hearts.")
+                      b: String::from("who speak peaceably with their neighbors,\nwhile strife is in their hearts.")
                   },
                 PsalmVerse {
                       number: 4,

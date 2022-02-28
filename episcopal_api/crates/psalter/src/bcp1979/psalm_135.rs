@@ -45,7 +45,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 7,
                       a: String::from("He brings up rain clouds from the ends of the earth; *"),
-                      b: String::from("he sends out lightning with the rain,\n and brings the winds out of his storehouse.")
+                      b: String::from("he sends out lightning with the rain,\nand brings the winds out of his storehouse.")
                   },
                 PsalmVerse {
                       number: 8,
@@ -115,7 +115,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 21,
                       a: String::from("Blessed be the LORD out of Zion, *"),
-                      b: String::from("who dwells in Jerusalem.\n Hallelujah!")
+                      b: String::from("who dwells in Jerusalem.\nHallelujah!")
                   },
               ]
             }

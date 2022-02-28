@@ -25,7 +25,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 3,
                       a: String::from("It is in vain that you rise so early and go to bed so late; *"),
-                      b: String::from("vain, too, to eat the bread of toil,\n for he gives to his beloved sleep.")
+                      b: String::from("vain, too, to eat the bread of toil,\nfor he gives to his beloved sleep.")
                   },
                 PsalmVerse {
                       number: 4,
@@ -40,7 +40,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 6,
                       a: String::from("Happy is the man who has his quiver full of them! *"),
-                      b: String::from("he shall not be put to shame\n when he contends with his enemies in the gate.")
+                      b: String::from("he shall not be put to shame\nwhen he contends with his enemies in the gate.")
                   },
               ]
             }

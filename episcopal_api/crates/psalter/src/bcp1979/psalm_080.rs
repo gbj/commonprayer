@@ -30,7 +30,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 4,
                       a: String::from("O LORD God of hosts, *"),
-                      b: String::from("how long will you be angered\n despite the prayers of your people?")
+                      b: String::from("how long will you be angered\ndespite the prayers of your people?")
                   },
                 PsalmVerse {
                       number: 5,

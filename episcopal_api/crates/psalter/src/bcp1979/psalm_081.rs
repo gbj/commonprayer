@@ -40,12 +40,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 6,
                       a: String::from("I heard an unfamiliar voice saying, *"),
-                      b: String::from("“I eased his shoulder from the burden;\n his hands were set free from bearing the load.”")
+                      b: String::from("“I eased his shoulder from the burden;\nhis hands were set free from bearing the load.”")
                   },
                 PsalmVerse {
                       number: 7,
                       a: String::from("You called on me in trouble, and I saved you; *"),
-                      b: String::from("I answered you from the secret place of thunder\n and tested you at the waters of Meribah.")
+                      b: String::from("I answered you from the secret place of thunder\nand tested you at the waters of Meribah.")
                   },
                 PsalmVerse {
                       number: 8,

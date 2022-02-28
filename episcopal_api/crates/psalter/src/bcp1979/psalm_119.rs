@@ -1117,7 +1117,7 @@ lazy_static! {
                         number: 176,
                         a: String::from("I have gone astray like a sheep that is lost; *"),
                         b: String::from(
-                            "search for your servant,\n for I do not forget your commandments."
+                            "search for your servant,\nfor I do not forget your commandments."
                         )
                     },
                 ]

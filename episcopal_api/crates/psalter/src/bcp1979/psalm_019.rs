@@ -35,7 +35,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 5,
                       a: String::from("In the deep has he set a pavilion for the sun; *"),
-                      b: String::from("it comes forth like a bridegroom out of his chamber;\n it rejoices like a champion to run its course.")
+                      b: String::from("it comes forth like a bridegroom out of his chamber;\nit rejoices like a champion to run its course.")
                   },
                 PsalmVerse {
                       number: 6,
@@ -75,7 +75,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 13,
                       a: String::from("Above all, keep your servant from presumptuous sins;\nlet them not get dominion over me; *"),
-                      b: String::from("then shall I be whole and sound,\n and innocent of a great offense.")
+                      b: String::from("then shall I be whole and sound,\nand innocent of a great offense.")
                   },
                 PsalmVerse {
                       number: 14,

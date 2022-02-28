@@ -45,7 +45,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 7,
                       a: String::from("They will not be afraid of any evil rumors; *"),
-                      b: String::from("their heart is right;\n they put their trust in the Lord.")
+                      b: String::from("their heart is right;\nthey put their trust in the Lord.")
                   },
                 PsalmVerse {
                       number: 8,
@@ -55,7 +55,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 9,
                       a: String::from("They have given freely to the poor, *"),
-                      b: String::from("and their righteousness stands fast for ever;\n they will hold up their head with honor.")
+                      b: String::from("and their righteousness stands fast for ever;\nthey will hold up their head with honor.")
                   },
                 PsalmVerse {
                       number: 10,

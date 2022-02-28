@@ -60,7 +60,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 10,
                       a: String::from("Why should the heathen say, “Where is their God?” *"),
-                      b: String::from("Let it be known among the heathen and in our sight\n that you avenge the shedding of your servants’ blood.")
+                      b: String::from("Let it be known among the heathen and in our sight\nthat you avenge the shedding of your servants’ blood.")
                   },
                 PsalmVerse {
                       number: 11,
@@ -75,7 +75,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 13,
                       a: String::from("For we are your people and the sheep of your pasture; *"),
-                      b: String::from("we will give you thanks for ever\n and show forth your praise from age to age.")
+                      b: String::from("we will give you thanks for ever\nand show forth your praise from age to age.")
                   },
               ]
             }

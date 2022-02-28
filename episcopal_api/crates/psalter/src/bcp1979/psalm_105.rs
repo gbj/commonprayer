@@ -245,7 +245,7 @@ lazy_static! {
                     PsalmVerse {
                         number: 45,
                         a: String::from("That they might keep his statutes *"),
-                        b: String::from("and observe his laws.\n Hallelujah!")
+                        b: String::from("and observe his laws.\nHallelujah!")
                     },
                 ]
             }

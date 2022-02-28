@@ -15,7 +15,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 1,
                       a: String::from("My God, my God, why have you forsaken me? *"),
-                      b: String::from("and are so far from my cry\n and from the words of my distress?")
+                      b: String::from("and are so far from my cry\nand from the words of my distress?")
                   },
                 PsalmVerse {
                       number: 2,
@@ -90,12 +90,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 16,
                       a: String::from("Packs of dogs close me in,\nand gangs of evildoers circle around me; *"),
-                      b: String::from("they pierce my hands and my feet;\n I can count all my bones.")
+                      b: String::from("they pierce my hands and my feet;\nI can count all my bones.")
                   },
                 PsalmVerse {
                       number: 17,
                       a: String::from("They stare and gloat over me; *"),
-                      b: String::from("they divide my garments among them;\n they cast lots for my clothing.")
+                      b: String::from("they divide my garments among them;\nthey cast lots for my clothing.")
                   },
                 PsalmVerse {
                       number: 18,
@@ -120,7 +120,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 22,
                       a: String::from("Praise the LORD, you that fear him; *"),
-                      b: String::from("stand in awe of him, O offspring of Israel;\n all you of Jacob’s line, give glory.")
+                      b: String::from("stand in awe of him, O offspring of Israel;\nall you of Jacob’s line, give glory.")
                   },
                 PsalmVerse {
                       number: 23,

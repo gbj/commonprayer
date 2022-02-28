@@ -45,7 +45,7 @@ lazy_static! {
               PsalmVerse {
                     number: 7,
                     a: String::from("God spoke from his holy place and said, *"),
-                    b: String::from("“I will exult and parcel out Shechem;\n I will divide the valley of Succoth.")
+                    b: String::from("“I will exult and parcel out Shechem;\nI will divide the valley of Succoth.")
                 },
               PsalmVerse {
                     number: 8,

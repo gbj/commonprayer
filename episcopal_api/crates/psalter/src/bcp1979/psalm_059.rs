@@ -70,7 +70,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 12,
                       a: String::from("Slay them, O God, lest my people forget; *"),
-                      b: String::from("send them reeling by your might\n and put them down, O Lord our shield.")
+                      b: String::from("send them reeling by your might\nand put them down, O Lord our shield.")
                   },
                 PsalmVerse {
                       number: 13,

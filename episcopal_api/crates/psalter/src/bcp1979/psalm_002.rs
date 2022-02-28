@@ -44,7 +44,7 @@ lazy_static! {
   PsalmVerse {
         number: 7,
         a: String::from("Let me announce the decree of the LORD: *"),
-        b: String::from("he said to me, “You are my Son;\n this day have I begotten you.")
+        b: String::from("he said to me, “You are my Son;\nthis day have I begotten you.")
     },
   PsalmVerse {
         number: 8,

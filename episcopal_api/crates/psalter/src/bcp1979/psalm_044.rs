@@ -15,7 +15,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 1,
                       a: String::from("We have heard with our ears, O God,\nour forefathers have told us, *"),
-                      b: String::from("the deeds you did in their days,\n in the days of old.")
+                      b: String::from("the deeds you did in their days,\nin the days of old.")
                   },
                 PsalmVerse {
                       number: 2,
@@ -25,7 +25,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 3,
                       a: String::from("For they did not take the land by their sword,\nnor did their arm win the victory for them; *"),
-                      b: String::from("but your right hand, your arm, and the light of your countenance,\n because you favored them.")
+                      b: String::from("but your right hand, your arm, and the light of your countenance,\nbecause you favored them.")
                   },
                 PsalmVerse {
                       number: 4,
@@ -95,7 +95,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 17,
                       a: String::from("All this has come upon us; *"),
-                      b: String::from("yet we have not forgotten you,\n nor have we betrayed your covenant.")
+                      b: String::from("yet we have not forgotten you,\nnor have we betrayed your covenant.")
                   },
                 PsalmVerse {
                       number: 18,

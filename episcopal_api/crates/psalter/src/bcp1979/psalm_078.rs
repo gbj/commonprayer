@@ -45,12 +45,12 @@ lazy_static! {
               PsalmVerse {
                     number: 7,
                     a: String::from("So that they might put their trust in God, *"),
-                    b: String::from("and not forget the deeds of God,\n but keep his commandments;")
+                    b: String::from("and not forget the deeds of God,\nbut keep his commandments;")
                 },
               PsalmVerse {
                     number: 8,
                     a: String::from("And not be like their forefathers,\na stubborn and rebellious generation, *"),
-                    b: String::from("a generation whose heart was not steadfast,\n and whose spirit was not faithful to God.")
+                    b: String::from("a generation whose heart was not steadfast,\nand whose spirit was not faithful to God.")
                 },
               PsalmVerse {
                     number: 9,
@@ -110,12 +110,12 @@ lazy_static! {
               PsalmVerse {
                     number: 20,
                     a: String::from("True, he struck the rock, the waters gushed out, and the gullies overflowed; *"),
-                    b: String::from("but is he able to give bread\n or to provide meat for his people?”")
+                    b: String::from("but is he able to give bread\nor to provide meat for his people?”")
                 },
               PsalmVerse {
                     number: 21,
                     a: String::from("When the LORD heard this, he was full of wrath; *"),
-                    b: String::from("a fire was kindled against Jacob,\n and his anger mounted against Israel;")
+                    b: String::from("a fire was kindled against Jacob,\nand his anger mounted against Israel;")
                 },
               PsalmVerse {
                     number: 22,
@@ -165,7 +165,7 @@ lazy_static! {
               PsalmVerse {
                     number: 31,
                     a: String::from("So God’s anger mounted against them; *"),
-                    b: String::from("he slew their strongest men\n and laid low the youth of Israel.")
+                    b: String::from("he slew their strongest men\nand laid low the youth of Israel.")
                 },
               PsalmVerse {
                     number: 32,
@@ -200,7 +200,7 @@ lazy_static! {
               PsalmVerse {
                     number: 38,
                     a: String::from("But he was so merciful that he forgave their sins\nand did not destroy them; *"),
-                    b: String::from("many times he held back his anger\n and did not permit his wrath to be roused.")
+                    b: String::from("many times he held back his anger\nand did not permit his wrath to be roused.")
                 },
               PsalmVerse {
                     number: 39,
@@ -265,7 +265,7 @@ lazy_static! {
                   PsalmVerse {
                         number: 49,
                         a: String::from("He poured out upon them his blazing anger: *"),
-                        b: String::from("fury, indignation, and distress,\n a troop of destroying angels.")
+                        b: String::from("fury, indignation, and distress,\na troop of destroying angels.")
                     },
                   PsalmVerse {
                         number: 50,
@@ -375,7 +375,7 @@ lazy_static! {
                   PsalmVerse {
                         number: 71,
                         a: String::from("He brought him from following the ewes, *"),
-                        b: String::from("to be a shepherd over Jacob his people\n and over Israel his inheritance.")
+                        b: String::from("to be a shepherd over Jacob his people\nand over Israel his inheritance.")
                     },
                   PsalmVerse {
                         number: 72,

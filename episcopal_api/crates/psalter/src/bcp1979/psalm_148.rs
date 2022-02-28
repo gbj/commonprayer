@@ -76,12 +76,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 13,
                       a: String::from("Let them praise the Name of the LORD, *"),
-                      b: String::from("for his Name only is exalted,\n his splendor is over earth and heaven.")
+                      b: String::from("for his Name only is exalted,\nhis splendor is over earth and heaven.")
                   },
                 PsalmVerse {
                       number: 14,
                       a: String::from("He has raised up strength for his people\nand praise for all his loyal servants, *"),
-                      b: String::from("the children of Israel, a people who are near him.\n Hallelujah!")
+                      b: String::from("the children of Israel, a people who are near him.\nHallelujah!")
                   },
               ]
             }

@@ -30,7 +30,7 @@ lazy_static! {
                     number: 4,
                     a: String::from("Keep me, O LORD, from the hands of the wicked; *"),
                     b: String::from(
-                        "protect me from the violent,\n who are determined to trip me up."
+                        "protect me from the violent,\nwho are determined to trip me up."
                     )
                 },
                 PsalmVerse {

@@ -60,7 +60,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 10,
                       a: String::from("My sight has failed me because of trouble; *"),
-                      b: String::from("LORD, I have called upon you daily;\n I have stretched out my hands to you.")
+                      b: String::from("LORD, I have called upon you daily;\nI have stretched out my hands to you.")
                   },
                 PsalmVerse {
                       number: 11,

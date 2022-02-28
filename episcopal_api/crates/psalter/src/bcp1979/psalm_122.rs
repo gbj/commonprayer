@@ -29,7 +29,7 @@ lazy_static! {
                 PsalmVerse {
                     number: 4,
                     a: String::from("To which the tribes go up,\nthe tribes of the LORD, *"),
-                    b: String::from("the assembly of Israel,\n to praise the Name of the LORD.")
+                    b: String::from("the assembly of Israel,\nto praise the Name of the LORD.")
                 },
                 PsalmVerse {
                     number: 5,

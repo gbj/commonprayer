@@ -114,7 +114,7 @@ lazy_static! {
                 PsalmVerse {
                     number: 21,
                     a: String::from("He has not done so to any other nation; *"),
-                    b: String::from("to them he has not revealed his judgments.\n Hallelujah!")
+                    b: String::from("to them he has not revealed his judgments.\nHallelujah!")
                 },
             ]
         }]

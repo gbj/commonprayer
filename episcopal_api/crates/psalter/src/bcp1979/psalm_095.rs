@@ -50,7 +50,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 8,
                       a: String::from("Harden not your hearts,\nas your forebears did in the wilderness, *"),
-                      b: String::from("at Meribah, and on that day at Massah,\n when they tempted me.")
+                      b: String::from("at Meribah, and on that day at Massah,\nwhen they tempted me.")
                   },
                 PsalmVerse {
                       number: 9,
@@ -60,7 +60,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 10,
                       a: String::from("Forty years long I detested that generation and said, *"),
-                      b: String::from("“This people are wayward in their hearts;\n they do not know my ways.”")
+                      b: String::from("“This people are wayward in their hearts;\nthey do not know my ways.”")
                   },
                 PsalmVerse {
                       number: 11,

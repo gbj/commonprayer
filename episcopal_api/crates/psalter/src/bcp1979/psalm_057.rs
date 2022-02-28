@@ -15,7 +15,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 1,
                       a: String::from("Be merciful to me, O God, be merciful,\nfor I have taken refuge in you; *"),
-                      b: String::from("in the shadow of your wings will I take refuge\n until this time of trouble has gone by.")
+                      b: String::from("in the shadow of your wings will I take refuge\nuntil this time of trouble has gone by.")
                   },
                 PsalmVerse {
                       number: 2,
@@ -30,12 +30,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 4,
                       a: String::from("I lie in the midst of lions that devour the people; *"),
-                      b: String::from("their teeth are spears and arrows,\n their tongue a sharp sword.")
+                      b: String::from("their teeth are spears and arrows,\ntheir tongue a sharp sword.")
                   },
                 PsalmVerse {
                       number: 5,
                       a: String::from("They have laid a net for my feet,\nand I am bowed low; *"),
-                      b: String::from("they have dug a pit before me,\n but have fallen into it themselves.")
+                      b: String::from("they have dug a pit before me,\nbut have fallen into it themselves.")
                   },
                 PsalmVerse {
                       number: 6,

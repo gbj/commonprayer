@@ -80,7 +80,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 14,
                       a: String::from("O LORD, I am your servant; *"),
-                      b: String::from("I am your servant and the child of your handmaid;\n you have freed me from my bonds.")
+                      b: String::from("I am your servant and the child of your handmaid;\nyou have freed me from my bonds.")
                   },
                 PsalmVerse {
                       number: 15,
@@ -95,7 +95,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 17,
                       a: String::from("In the courts of the LORD’s house, *"),
-                      b: String::from("in the midst of you, O Jerusalem.\n Hallelujah!")
+                      b: String::from("in the midst of you, O Jerusalem.\nHallelujah!")
                   },
               ]
             }

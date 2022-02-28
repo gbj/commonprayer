@@ -15,7 +15,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 1,
                       a: String::from("To you, O LORD, I lift up my soul;\nmy God, I put my trust in you; *"),
-                      b: String::from("let me not be humiliated,\n nor let my enemies triumph over me.")
+                      b: String::from("let me not be humiliated,\nnor let my enemies triumph over me.")
                   },
                 PsalmVerse {
                       number: 2,
@@ -30,7 +30,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 4,
                       a: String::from("Lead me in your truth and teach me, *"),
-                      b: String::from("for you are the God of my salvation;\n in you have I trusted all the day long.")
+                      b: String::from("for you are the God of my salvation;\nin you have I trusted all the day long.")
                   },
                 PsalmVerse {
                       number: 5,
@@ -40,7 +40,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 6,
                       a: String::from("Remember not the sins of my youth and my transgressions; *"),
-                      b: String::from("remember me according to your love\n and for the sake of your goodness, O LORD.")
+                      b: String::from("remember me according to your love\nand for the sake of your goodness, O LORD.")
                   },
                 PsalmVerse {
                       number: 7,

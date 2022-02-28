@@ -35,7 +35,7 @@ lazy_static! {
               PsalmVerse {
                     number: 5,
                     a: String::from("Into your hands I commend my spirit, *"),
-                    b: String::from("for you have redeemed me,\n O LORD, O God of truth.")
+                    b: String::from("for you have redeemed me,\nO LORD, O God of truth.")
                 },
               PsalmVerse {
                     number: 6,
@@ -45,7 +45,7 @@ lazy_static! {
               PsalmVerse {
                     number: 7,
                     a: String::from("I will rejoice and be glad because of your mercy; *"),
-                    b: String::from("for you have seen my affliction;\n you know my distress.")
+                    b: String::from("for you have seen my affliction;\nyou know my distress.")
                 },
               PsalmVerse {
                     number: 8,
@@ -55,12 +55,12 @@ lazy_static! {
               PsalmVerse {
                     number: 9,
                     a: String::from("Have mercy on me, O LORD, for I am in trouble; *"),
-                    b: String::from("my eye is consumed with sorrow,\n and also my throat and my belly.")
+                    b: String::from("my eye is consumed with sorrow,\nand also my throat and my belly.")
                 },
               PsalmVerse {
                     number: 10,
                     a: String::from("For my life is wasted with grief,\nand my years with sighing; *"),
-                    b: String::from("my strength fails me because of affliction,\n and my bones are consumed.")
+                    b: String::from("my strength fails me because of affliction,\nand my bones are consumed.")
                 },
               PsalmVerse {
                     number: 11,
@@ -75,7 +75,7 @@ lazy_static! {
               PsalmVerse {
                     number: 13,
                     a: String::from("For I have heard the whispering of the crowd;\nfear is all around; *"),
-                    b: String::from("they put their heads together against me;\n they plot to take my life.")
+                    b: String::from("they put their heads together against me;\nthey plot to take my life.")
                 },
               PsalmVerse {
                     number: 14,
@@ -85,7 +85,7 @@ lazy_static! {
               PsalmVerse {
                     number: 15,
                     a: String::from("My times are in your hand; *"),
-                    b: String::from("rescue me from the hand of my enemies,\n and from those who persecute me.")
+                    b: String::from("rescue me from the hand of my enemies,\nand from those who persecute me.")
                 },
               PsalmVerse {
                     number: 16,
@@ -95,7 +95,7 @@ lazy_static! {
               PsalmVerse {
                     number: 17,
                     a: String::from("LORD, let me not be ashamed for having called upon you; *"),
-                    b: String::from("rather, let the wicked be put to shame;\n let them be silent in the grave.")
+                    b: String::from("rather, let the wicked be put to shame;\nlet them be silent in the grave.")
                 },
               PsalmVerse {
                     number: 18,
@@ -105,7 +105,7 @@ lazy_static! {
               PsalmVerse {
                     number: 19,
                     a: String::from("How great is your goodness, O LORD!\nwhich you have laid up for those who fear you; *"),
-                    b: String::from("which you have done in the sight of all\n for those who put their trust in you.")
+                    b: String::from("which you have done in the sight of all\nfor those who put their trust in you.")
                 },
               PsalmVerse {
                     number: 20,
@@ -120,12 +120,12 @@ lazy_static! {
               PsalmVerse {
                     number: 22,
                     a: String::from("Yet I said in my alarm,\n“I have been cut off from the sight of your eyes.” *"),
-                    b: String::from("Nevertheless, you heard the sound of my entreaty\n when I cried out to you.")
+                    b: String::from("Nevertheless, you heard the sound of my entreaty\nwhen I cried out to you.")
                 },
               PsalmVerse {
                     number: 23,
                     a: String::from("Love the LORD, all you who worship him; *"),
-                    b: String::from("the LORD protects the faithful,\n but repays to the full those who act haughtily.")
+                    b: String::from("the LORD protects the faithful,\nbut repays to the full those who act haughtily.")
                 },
               PsalmVerse {
                     number: 24,

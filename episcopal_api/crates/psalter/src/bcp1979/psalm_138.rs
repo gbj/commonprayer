@@ -50,12 +50,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 8,
                       a: String::from("Though I walk in the midst of trouble, you keep me safe; *"),
-                      b: String::from("you stretch forth your hand against the fury of my enemies;\n your right hand shall save me.")
+                      b: String::from("you stretch forth your hand against the fury of my enemies;\nyour right hand shall save me.")
                   },
                 PsalmVerse {
                       number: 9,
                       a: String::from("The LORD will make good his purpose for me; *"),
-                      b: String::from("O LORD, your love endures for ever;\n do not abandon the works of your hands.")
+                      b: String::from("O LORD, your love endures for ever;\ndo not abandon the works of your hands.")
                   },
               ]
             }

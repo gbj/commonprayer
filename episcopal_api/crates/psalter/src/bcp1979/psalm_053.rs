@@ -15,12 +15,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 1,
                       a: String::from("The fool has said in his heart, “There is no God.” *"),
-                      b: String::from("All are corrupt and commit abominable acts;\n there is none who does any good.")
+                      b: String::from("All are corrupt and commit abominable acts;\nthere is none who does any good.")
                   },
                 PsalmVerse {
                       number: 2,
                       a: String::from("God looks down from heaven upon us all, *"),
-                      b: String::from("to see if there is any who is wise,\n if there is one who seeks after God.")
+                      b: String::from("to see if there is any who is wise,\nif there is one who seeks after God.")
                   },
                 PsalmVerse {
                       number: 3,
@@ -30,17 +30,17 @@ lazy_static! {
                 PsalmVerse {
                       number: 4,
                       a: String::from("Have they no knowledge, those evildoers *"),
-                      b: String::from("who eat up my people like bread\n and do not call upon God?")
+                      b: String::from("who eat up my people like bread\nand do not call upon God?")
                   },
                 PsalmVerse {
                       number: 5,
                       a: String::from("See how greatly they tremble,\nsuch trembling as never was; *"),
-                      b: String::from("for God has scattered the bones of the enemy;\n they are put to shame, because God has rejected them.")
+                      b: String::from("for God has scattered the bones of the enemy;\nthey are put to shame, because God has rejected them.")
                   },
                 PsalmVerse {
                       number: 6,
                       a: String::from("Oh, that Israel’s deliverance would come out of Zion! *"),
-                      b: String::from("when God restores the fortunes of his people\n Jacob will rejoice and Israel be glad.")
+                      b: String::from("when God restores the fortunes of his people\nJacob will rejoice and Israel be glad.")
                   },
               ]
             }

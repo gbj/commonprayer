@@ -39,7 +39,7 @@ lazy_static! {
                 PsalmVerse {
                     number: 6,
                     a: String::from("I grow weary because of my groaning; *"),
-                    b: String::from("every night I drench my bed\n and flood my couch with tears.")
+                    b: String::from("every night I drench my bed\nand flood my couch with tears.")
                 },
                 PsalmVerse {
                     number: 7,

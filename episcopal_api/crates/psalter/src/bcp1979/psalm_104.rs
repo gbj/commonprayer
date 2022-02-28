@@ -15,7 +15,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 1,
                       a: String::from("Bless the LORD, O my soul; *"),
-                      b: String::from("O LORD my God, how excellent is your greatness!\n you are clothed with majesty and splendor.")
+                      b: String::from("O LORD my God, how excellent is your greatness!\nyou are clothed with majesty and splendor.")
                   },
                 PsalmVerse {
                       number: 2,
@@ -25,7 +25,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 3,
                       a: String::from("You lay the beams of your chambers in the waters above; *"),
-                      b: String::from("you make the clouds your chariot;\n you ride on the wings of the wind.")
+                      b: String::from("you make the clouds your chariot;\nyou ride on the wings of the wind.")
                   },
                 PsalmVerse {
                       number: 4,
@@ -135,7 +135,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 25,
                       a: String::from("O LORD, how manifold are your works! *"),
-                      b: String::from("in wisdom you have made them all;\n the earth is full of your creatures.")
+                      b: String::from("in wisdom you have made them all;\nthe earth is full of your creatures.")
                   },
                 PsalmVerse {
                       number: 26,
@@ -160,7 +160,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 30,
                       a: String::from("You hide your face, and they are terrified; *"),
-                      b: String::from("you take away their breath,\n and they die and return to their dust.")
+                      b: String::from("you take away their breath,\nand they die and return to their dust.")
                   },
                 PsalmVerse {
                       number: 31,

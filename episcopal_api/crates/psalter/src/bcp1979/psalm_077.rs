@@ -20,7 +20,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 2,
                       a: String::from("In the day of my trouble I sought the Lord; *"),
-                      b: String::from("my hands were stretched out by night and did not tire;\n I refused to be comforted.")
+                      b: String::from("my hands were stretched out by night and did not tire;\nI refused to be comforted.")
                   },
                 PsalmVerse {
                       number: 3,

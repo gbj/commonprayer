@@ -85,7 +85,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 15,
                       a: String::from("He shall call upon me, and I will answer him; *"),
-                      b: String::from("I am with him in trouble;\n I will rescue him and bring him to honor.")
+                      b: String::from("I am with him in trouble;\nI will rescue him and bring him to honor.")
                   },
                 PsalmVerse {
                       number: 16,

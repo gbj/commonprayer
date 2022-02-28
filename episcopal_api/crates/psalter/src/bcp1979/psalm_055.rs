@@ -75,7 +75,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 13,
                       a: String::from("For had it been an adversary who taunted me,\nthen I could have borne it; *"),
-                      b: String::from("or had it been an enemy who vaunted himself against me,\n then I could have hidden from him.")
+                      b: String::from("or had it been an enemy who vaunted himself against me,\nthen I could have hidden from him.")
                   },
                 PsalmVerse {
                       number: 14,

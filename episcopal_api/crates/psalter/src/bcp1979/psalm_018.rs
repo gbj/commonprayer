@@ -19,7 +19,7 @@ lazy_static! {
               PsalmVerse {
                     number: 2,
                     a: String::from("My God, my rock in whom I put my trust, *"),
-                    b: String::from("my shield, the horn of my salvation, and my refuge;\n you are worthy of praise.")
+                    b: String::from("my shield, the horn of my salvation, and my refuge;\nyou are worthy of praise.")
                 },
               PsalmVerse {
                     number: 3,
@@ -49,7 +49,7 @@ lazy_static! {
               PsalmVerse {
                     number: 8,
                     a: String::from("The earth reeled and rocked; *"),
-                    b: String::from("the roots of the mountains shook;\n they reeled because of his anger.")
+                    b: String::from("the roots of the mountains shook;\nthey reeled because of his anger.")
                 },
               PsalmVerse {
                     number: 9,
@@ -89,7 +89,7 @@ lazy_static! {
               PsalmVerse {
                     number: 16,
                     a: String::from("The beds of the seas were uncovered,\nand the foundations of the world laid bare, *"),
-                    b: String::from("at your battle cry, O LORD,\n at the blast of the breath of your nostrils.")
+                    b: String::from("at your battle cry, O LORD,\nat the blast of the breath of your nostrils.")
                 },
               PsalmVerse {
                     number: 17,
@@ -199,7 +199,7 @@ lazy_static! {
             PsalmVerse {
                   number: 36,
                   a: String::from("You have given me your shield of victory; *"),
-                  b: String::from("your right hand also sustains me;\n your loving care makes me great.")
+                  b: String::from("your right hand also sustains me;\nyour loving care makes me great.")
               },
             PsalmVerse {
                   number: 37,
@@ -219,7 +219,7 @@ lazy_static! {
             PsalmVerse {
                   number: 40,
                   a: String::from("You have girded me with strength for the battle; *"),
-                  b: String::from("you have cast down my adversaries beneath me;\n you have put my enemies to flight.")
+                  b: String::from("you have cast down my adversaries beneath me;\nyou have put my enemies to flight.")
               },
             PsalmVerse {
                   number: 41,
@@ -269,7 +269,7 @@ lazy_static! {
             PsalmVerse {
                   number: 50,
                   a: String::from("He multiplies the victories of his king; *"),
-                  b: String::from("he shows loving-kindness to his anointed,\n to David and his descendants for ever.")
+                  b: String::from("he shows loving-kindness to his anointed,\nto David and his descendants for ever.")
               },
           ]
         }]

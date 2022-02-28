@@ -25,7 +25,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 3,
                       a: String::from("I will set no worthless thing before my eyes; *"),
-                      b: String::from("I hate the doers of evil deeds;\n they shall not remain with me.")
+                      b: String::from("I hate the doers of evil deeds;\nthey shall not remain with me.")
                   },
                 PsalmVerse {
                       number: 4,

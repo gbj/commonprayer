@@ -16,12 +16,12 @@ lazy_static! {
                           PsalmVerse {
                     number: 1,
                     a: String::from("Hold not your tongue, O God of my praise; *"),
-                    b: String::from("for the mouth of the wicked,\n the mouth of the deceitful, is opened against me.")
+                    b: String::from("for the mouth of the wicked,\nthe mouth of the deceitful, is opened against me.")
                 },
               PsalmVerse {
                     number: 2,
                     a: String::from("They speak to me with a lying tongue; *"),
-                    b: String::from("they encompass me with hateful words\n and fight against me without a cause.")
+                    b: String::from("they encompass me with hateful words\nand fight against me without a cause.")
                 },
               PsalmVerse {
                     number: 3,
@@ -86,17 +86,17 @@ lazy_static! {
               PsalmVerse {
                     number: 15,
                     a: String::from("Because he did not remember to show mercy, *"),
-                    b: String::from("but persecuted the poor and needy\n and sought to kill the brokenhearted.")
+                    b: String::from("but persecuted the poor and needy\nand sought to kill the brokenhearted.")
                 },
               PsalmVerse {
                     number: 16,
                     a: String::from("He loved cursing,\nlet it come upon him; *"),
-                    b: String::from("he took no delight in blessing,\n let it depart from him.")
+                    b: String::from("he took no delight in blessing,\nlet it depart from him.")
                 },
               PsalmVerse {
                     number: 17,
                     a: String::from("He put on cursing like a garment, *"),
-                    b: String::from("let it soak into his body like water\n and into his bones like oil;")
+                    b: String::from("let it soak into his body like water\nand into his bones like oil;")
                 },
               PsalmVerse {
                     number: 18,
@@ -146,7 +146,7 @@ lazy_static! {
               PsalmVerse {
                     number: 27,
                     a: String::from("They may curse, but you will bless; *"),
-                    b: String::from("let those who rise up against me be put to shame,\n and your servant will rejoice.")
+                    b: String::from("let those who rise up against me be put to shame,\nand your servant will rejoice.")
                 },
               PsalmVerse {
                     number: 28,

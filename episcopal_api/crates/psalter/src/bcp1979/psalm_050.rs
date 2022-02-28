@@ -26,7 +26,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 3,
                       a: String::from("Our God will come and will not keep silence; *"),
-                      b: String::from("before him there is a consuming flame,\n and round about him a raging storm.")
+                      b: String::from("before him there is a consuming flame,\nand round about him a raging storm.")
                   },
                 PsalmVerse {
                       number: 4,
@@ -36,7 +36,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 5,
                       a: String::from("“Gather before me my loyal followers, *"),
-                      b: String::from("those who have made a covenant with me\n and sealed it with sacrifice.”")
+                      b: String::from("those who have made a covenant with me\nand sealed it with sacrifice.”")
                   },
                 PsalmVerse {
                       number: 6,
@@ -91,7 +91,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 16,
                       a: String::from("But to the wicked God says: *"),
-                      b: String::from("“Why do you recite my statutes,\n and take my covenant upon your lips;")
+                      b: String::from("“Why do you recite my statutes,\nand take my covenant upon your lips;")
                   },
                 PsalmVerse {
                       number: 17,

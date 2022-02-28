@@ -30,12 +30,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 4,
                       a: String::from("Happy are they whom you choose\nand draw to your courts to dwell there! *"),
-                      b: String::from("they will be satisfied by the beauty of your house,\n by the holiness of your temple.")
+                      b: String::from("they will be satisfied by the beauty of your house,\nby the holiness of your temple.")
                   },
                 PsalmVerse {
                       number: 5,
                       a: String::from("Awesome things will you show us in your righteousness,\nO God of our salvation, *"),
-                      b: String::from("O Hope of all the ends of the earth\n and of the seas that are far away.")
+                      b: String::from("O Hope of all the ends of the earth\nand of the seas that are far away.")
                   },
                 PsalmVerse {
                       number: 6,
@@ -45,7 +45,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 7,
                       a: String::from("You still the roaring of the seas, *"),
-                      b: String::from("the roaring of their waves,\n and the clamor of the peoples.")
+                      b: String::from("the roaring of their waves,\nand the clamor of the peoples.")
                   },
                 PsalmVerse {
                       number: 8,

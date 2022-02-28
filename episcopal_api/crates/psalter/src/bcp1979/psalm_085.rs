@@ -50,7 +50,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 8,
                       a: String::from("I will listen to what the LORD God is saying, *"),
-                      b: String::from("for he is speaking peace to his faithful people\n and to those who turn their hearts to him.")
+                      b: String::from("for he is speaking peace to his faithful people\nand to those who turn their hearts to him.")
                   },
                 PsalmVerse {
                       number: 9,

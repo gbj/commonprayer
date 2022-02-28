@@ -40,7 +40,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 6,
                       a: String::from("The dullard does not know,\nnor does the fool understand, *"),
-                      b: String::from("that though the wicked grow like weeds,\n and all the workers of iniquity flourish,")
+                      b: String::from("that though the wicked grow like weeds,\nand all the workers of iniquity flourish,")
                   },
                 PsalmVerse {
                       number: 7,

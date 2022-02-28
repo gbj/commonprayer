@@ -25,7 +25,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 3,
                       a: String::from("Send out your light and your truth, that they may lead me, *"),
-                      b: String::from("and bring me to your holy hill\n and to your dwelling;")
+                      b: String::from("and bring me to your holy hill\nand to your dwelling;")
                   },
                 PsalmVerse {
                       number: 4,
@@ -40,7 +40,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 6,
                       a: String::from("Put your trust in God; *"),
-                      b: String::from("for I will yet give thanks to him,\n who is the help of my countenance, and my God.")
+                      b: String::from("for I will yet give thanks to him,\nwho is the help of my countenance, and my God.")
                   },
               ]
             }

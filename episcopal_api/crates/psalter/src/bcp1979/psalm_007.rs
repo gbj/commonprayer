@@ -34,7 +34,7 @@ lazy_static! {
   PsalmVerse {
         number: 5,
         a: String::from("Then let my enemy pursue and overtake me, *"),
-        b: String::from("trample my life into the ground,\n and lay my honor in the dust.")
+        b: String::from("trample my life into the ground,\nand lay my honor in the dust.")
     },
   PsalmVerse {
         number: 6,

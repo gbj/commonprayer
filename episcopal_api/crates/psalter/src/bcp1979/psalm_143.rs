@@ -45,12 +45,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 7,
                       a: String::from("O LORD, make haste to answer me; my spirit fails me; *"),
-                      b: String::from("do not hide your face from me\n or I shall be like those who go down to the Pit.")
+                      b: String::from("do not hide your face from me\nor I shall be like those who go down to the Pit.")
                   },
                 PsalmVerse {
                       number: 8,
                       a: String::from("Let me hear of your loving-kindness in the morning,\nfor I put my trust in you; *"),
-                      b: String::from("show me the road that I must walk,\n for I lift up my soul to you.")
+                      b: String::from("show me the road that I must walk,\nfor I lift up my soul to you.")
                   },
                 PsalmVerse {
                       number: 9,

@@ -15,7 +15,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 1,
                       a: String::from("Hallelujah!\nPraise the LORD, O my soul! *"),
-                      b: String::from("I will praise the LORD as long as I live;\n I will sing praises to my God while I have my being.")
+                      b: String::from("I will praise the LORD as long as I live;\nI will sing praises to my God while I have my being.")
                   },
                 PsalmVerse {
                       number: 2,
@@ -50,12 +50,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 8,
                       a: String::from("The LORD loves the righteous;\nthe LORD cares for the stranger; *"),
-                      b: String::from("he sustains the orphan and widow,\n but frustrates the way of the wicked.")
+                      b: String::from("he sustains the orphan and widow,\nbut frustrates the way of the wicked.")
                   },
                 PsalmVerse {
                       number: 9,
                       a: String::from("The LORD shall reign for ever, *"),
-                      b: String::from("your God, O Zion, throughout all generations.\n Hallelujah!")
+                      b: String::from("your God, O Zion, throughout all generations.\nHallelujah!")
                   },
               ]
             }

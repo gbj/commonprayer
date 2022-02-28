@@ -39,7 +39,7 @@ lazy_static! {
                 PsalmVerse {
                     number: 6,
                     a: String::from("Let everything that has breath *"),
-                    b: String::from("praise the Lord.\n Hallelujah!")
+                    b: String::from("praise the Lord.\nHallelujah!")
                 },
             ]
         }]

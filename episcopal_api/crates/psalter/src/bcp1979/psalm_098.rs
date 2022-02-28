@@ -56,7 +56,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 9,
                       a: String::from("Let the rivers clap their hands, *"),
-                      b: String::from("and let the hills ring out with joy before the LORD,\n when he comes to judge the earth.")
+                      b: String::from("and let the hills ring out with joy before the LORD,\nwhen he comes to judge the earth.")
                   },
                 PsalmVerse {
                       number: 10,

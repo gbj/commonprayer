@@ -26,7 +26,7 @@ lazy_static! {
                         number: 3,
                         a: String::from("He gathered them out of the lands; *"),
                         b: String::from(
-                            "from the east and from the west,\n from the north and from the south."
+                            "from the east and from the west,\nfrom the north and from the south."
                         )
                     },
                     PsalmVerse {

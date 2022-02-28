@@ -20,7 +20,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 2,
                       a: String::from("Remember your congregation that you purchased long ago, *"),
-                      b: String::from("the tribe you redeemed to be your inheritance,\n and Mount Zion where you dwell.")
+                      b: String::from("the tribe you redeemed to be your inheritance,\nand Mount Zion where you dwell.")
                   },
                 PsalmVerse {
                       number: 3,
@@ -40,7 +40,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 6,
                       a: String::from("They set fire to your holy place; *"),
-                      b: String::from("they defiled the dwelling-place of your Name\n and razed it to the ground.")
+                      b: String::from("they defiled the dwelling-place of your Name\nand razed it to the ground.")
                   },
                 PsalmVerse {
                       number: 7,

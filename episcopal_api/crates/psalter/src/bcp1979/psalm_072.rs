@@ -85,12 +85,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 15,
                       a: String::from("Long may he live!\nand may there be given to him gold from Arabia; *"),
-                      b: String::from("may prayer be made for him always,\n and may they bless him all the day long.")
+                      b: String::from("may prayer be made for him always,\nand may they bless him all the day long.")
                   },
                 PsalmVerse {
                       number: 16,
                       a: String::from("May there be abundance of grain on the earth,\ngrowing thick even on the hilltops; *"),
-                      b: String::from("may its fruit flourish like Lebanon,\n and its grain like grass upon the earth.")
+                      b: String::from("may its fruit flourish like Lebanon,\nand its grain like grass upon the earth.")
                   },
                 PsalmVerse {
                       number: 17,

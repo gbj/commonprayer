@@ -30,7 +30,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 4,
                       a: String::from("“Those who have clean hands and a pure heart, *"),
-                      b: String::from("who have not pledged themselves to falsehood,\n nor sworn by what is a fraud.")
+                      b: String::from("who have not pledged themselves to falsehood,\nnor sworn by what is a fraud.")
                   },
                 PsalmVerse {
                       number: 5,
@@ -50,7 +50,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 8,
                       a: String::from("“Who is this King of glory?” *"),
-                      b: String::from("“The LORD, strong and mighty,\n the LORD, mighty in battle.”")
+                      b: String::from("“The LORD, strong and mighty,\nthe LORD, mighty in battle.”")
                   },
                 PsalmVerse {
                       number: 9,
@@ -60,7 +60,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 10,
                       a: String::from("“Who is he, this King of glory?” *"),
-                      b: String::from("“The LORD of hosts,\n he is the King of glory.”")
+                      b: String::from("“The LORD of hosts,\nhe is the King of glory.”")
                   },
               ]
             }

@@ -20,7 +20,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 2,
                       a: String::from("You are the fairest of men; *"),
-                      b: String::from("grace flows from your lips,\n because God has blessed you for ever.")
+                      b: String::from("grace flows from your lips,\nbecause God has blessed you for ever.")
                   },
                 PsalmVerse {
                       number: 3,
@@ -45,7 +45,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 7,
                       a: String::from("Your throne, O God, endures for ever and ever, *"),
-                      b: String::from("a scepter of righteousness is the scepter of your kingdom;\n you love righteousness and hate iniquity.")
+                      b: String::from("a scepter of righteousness is the scepter of your kingdom;\nyou love righteousness and hate iniquity.")
                   },
                 PsalmVerse {
                       number: 8,
@@ -60,7 +60,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 10,
                       a: String::from("Kings’ daughters stand among the ladies of the court; *"),
-                      b: String::from("on your right hand is the queen,\n adorned with the gold of Ophir.")
+                      b: String::from("on your right hand is the queen,\nadorned with the gold of Ophir.")
                   },
                 PsalmVerse {
                       number: 11,

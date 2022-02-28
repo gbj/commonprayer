@@ -15,7 +15,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 1,
                       a: String::from("O God, you have cast us off and broken us; *"),
-                      b: String::from("you have been angry;\n oh, take us back to you again.")
+                      b: String::from("you have been angry;\noh, take us back to you again.")
                   },
                 PsalmVerse {
                       number: 2,
@@ -40,7 +40,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 6,
                       a: String::from("God spoke from his holy place and said: *"),
-                      b: String::from("“I will exult and parcel out Shechem;\n  I will divide the valley of Succoth.")
+                      b: String::from("“I will exult and parcel out Shechem;\n I will divide the valley of Succoth.")
                   },
                 PsalmVerse {
                       number: 7,

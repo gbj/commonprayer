@@ -140,7 +140,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 26,
                       a: String::from("They shall perish, but you will endure;\nthey all shall wear out like a garment; *"),
-                      b: String::from("as clothing you will change them,\n and they shall be changed;")
+                      b: String::from("as clothing you will change them,\nand they shall be changed;")
                   },
                 PsalmVerse {
                       number: 27,

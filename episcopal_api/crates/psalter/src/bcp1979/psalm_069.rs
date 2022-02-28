@@ -89,7 +89,7 @@ lazy_static! {
           PsalmVerse {
                 number: 16,
                 a: String::from("Save me from the mire; do not let me sink; *"),
-                b: String::from("let me be rescued from those who hate me\n and out of the deep waters.")
+                b: String::from("let me be rescued from those who hate me\nand out of the deep waters.")
             },
           PsalmVerse {
                 number: 17,
@@ -119,7 +119,7 @@ lazy_static! {
           PsalmVerse {
                 number: 22,
                 a: String::from("Reproach has broken my heart, and it cannot be healed; *"),
-                b: String::from("I looked for sympathy, but there was none,\n for comforters, but I could find no one.")
+                b: String::from("I looked for sympathy, but there was none,\nfor comforters, but I could find no one.")
             },
           PsalmVerse {
                 number: 23,

@@ -25,7 +25,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 3,
                       a: String::from("So I held my tongue and said nothing; *"),
-                      b: String::from("I refrained from rash words;\n but my pain became unbearable.")
+                      b: String::from("I refrained from rash words;\nbut my pain became unbearable.")
                   },
                 PsalmVerse {
                       number: 4,

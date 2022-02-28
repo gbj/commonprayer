@@ -30,12 +30,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 4,
                       a: String::from("Though I walk through the valley of the shadow of death,\nI shall fear no evil; *"),
-                      b: String::from("for you are with me;\n your rod and your staff, they comfort me.")
+                      b: String::from("for you are with me;\nyour rod and your staff, they comfort me.")
                   },
                 PsalmVerse {
                       number: 5,
                       a: String::from("You spread a table before me in the presence of those who trouble me; *"),
-                      b: String::from("you have anointed my head with oil,\n and my cup is running over.")
+                      b: String::from("you have anointed my head with oil,\nand my cup is running over.")
                   },
                 PsalmVerse {
                       number: 6,

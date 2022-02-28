@@ -40,7 +40,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 6,
                       a: String::from("Now I know that the LORD gives victory to his anointed; *"),
-                      b: String::from("he will answer him out of his holy heaven,\n with the victorious strength of his right hand.")
+                      b: String::from("he will answer him out of his holy heaven,\nwith the victorious strength of his right hand.")
                   },
                 PsalmVerse {
                       number: 7,

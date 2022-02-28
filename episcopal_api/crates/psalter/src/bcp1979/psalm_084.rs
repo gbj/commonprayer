@@ -15,12 +15,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 1,
                       a: String::from("How dear to me is your dwelling, O LORD of hosts! *"),
-                      b: String::from("My soul has a desire and longing for the courts of the LORD;\n my heart and my flesh rejoice in the living God.")
+                      b: String::from("My soul has a desire and longing for the courts of the LORD;\nmy heart and my flesh rejoice in the living God.")
                   },
                 PsalmVerse {
                       number: 2,
                       a: String::from("The sparrow has found her a house\nand the swallow a nest where she may lay her young; *"),
-                      b: String::from("by the side of your altars, O LORD of hosts,\n my King and my God.")
+                      b: String::from("by the side of your altars, O LORD of hosts,\nmy King and my God.")
                   },
                 PsalmVerse {
                       number: 3,
@@ -55,7 +55,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 9,
                       a: String::from("For one day in your courts is better than a thousand in my own room, *"),
-                      b: String::from("and to stand at the threshold of the house of my God\n than to dwell in the tents of the wicked.")
+                      b: String::from("and to stand at the threshold of the house of my God\nthan to dwell in the tents of the wicked.")
                   },
                 PsalmVerse {
                       number: 10,

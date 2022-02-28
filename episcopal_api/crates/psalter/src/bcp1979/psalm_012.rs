@@ -37,14 +37,14 @@ lazy_static! {
                         "“Because the needy are oppressed,\nand the poor cry out in misery, *"
                     ),
                     b: String::from(
-                        "I will rise up,” says the LORD,\n “and give them the help they long for.”"
+                        "I will rise up,” says the LORD,\n“and give them the help they long for.”"
                     )
                 },
                 PsalmVerse {
                     number: 6,
                     a: String::from("The words of the LORD are pure words, *"),
                     b: String::from(
-                        "like silver refined from ore\n and purified seven times in the fire."
+                        "like silver refined from ore\nand purified seven times in the fire."
                     )
                 },
                 PsalmVerse {

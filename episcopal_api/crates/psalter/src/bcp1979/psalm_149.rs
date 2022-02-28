@@ -54,7 +54,7 @@ lazy_static! {
                 PsalmVerse {
                     number: 9,
                     a: String::from("To inflict on them the judgment decreed; *"),
-                    b: String::from("this is glory for all his faithful people.\n Hallelujah!")
+                    b: String::from("this is glory for all his faithful people.\nHallelujah!")
                 },
             ]
         }]

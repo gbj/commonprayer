@@ -40,7 +40,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 6,
                       a: String::from("They band together; they lie in wait; *"),
-                      b: String::from("they spy upon my footsteps;\n because they seek my life.")
+                      b: String::from("they spy upon my footsteps;\nbecause they seek my life.")
                   },
                 PsalmVerse {
                       number: 7,

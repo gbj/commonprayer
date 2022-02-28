@@ -50,7 +50,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 8,
                       a: String::from("Let ruin come upon them unawares; *"),
-                      b: String::from("let them be caught in the net they hid;\n let them fall into the pit they dug.")
+                      b: String::from("let them be caught in the net they hid;\nlet them fall into the pit they dug.")
                   },
                 PsalmVerse {
                       number: 9,
@@ -60,7 +60,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 10,
                       a: String::from("My very bones will say, “LORD, who is like you? *"),
-                      b: String::from("You deliver the poor from those who are too strong for them,\n the poor and needy from those who rob them.”")
+                      b: String::from("You deliver the poor from those who are too strong for them,\nthe poor and needy from those who rob them.”")
                   },
                 PsalmVerse {
                       number: 11,
@@ -80,7 +80,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 14,
                       a: String::from("I prayed with my whole heart,\nas one would for a friend or a brother; *"),
-                      b: String::from("I behaved like one who mourns for his mother,\n bowed down and grieving.")
+                      b: String::from("I behaved like one who mourns for his mother,\nbowed down and grieving.")
                   },
                 PsalmVerse {
                       number: 15,
@@ -95,7 +95,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 17,
                       a: String::from("O Lord, how long will you look on? *"),
-                      b: String::from("rescue me from the roaring beasts,\n and my life from the young lions.")
+                      b: String::from("rescue me from the roaring beasts,\nand my life from the young lions.")
                   },
                 PsalmVerse {
                       number: 18,
@@ -145,7 +145,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 27,
                       a: String::from("Let those who favor my cause sing out with joy and be glad; *"),
-                      b: String::from("let them say always, “Great is the LORD,\n who desires the prosperity of his servant.”")
+                      b: String::from("let them say always, “Great is the LORD,\nwho desires the prosperity of his servant.”")
                   },
                 PsalmVerse {
                       number: 28,

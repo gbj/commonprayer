@@ -60,7 +60,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 10,
                       a: String::from("The fear of the LORD is the beginning of wisdom; *"),
-                      b: String::from("those who act accordingly have a good understanding;\n his praise endures for ever.")
+                      b: String::from("those who act accordingly have a good understanding;\nhis praise endures for ever.")
                   },
               ]
             }

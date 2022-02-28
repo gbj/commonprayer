@@ -15,7 +15,7 @@ lazy_static! {
                           PsalmVerse {
                     number: 1,
                     a: String::from("O God, you are my God; eagerly I seek you; *"),
-                    b: String::from("my soul thirsts for you, my flesh faints for you,\n as in a barren and dry land where there is no water.")
+                    b: String::from("my soul thirsts for you, my flesh faints for you,\nas in a barren and dry land where there is no water.")
                 },
               PsalmVerse {
                     number: 2,

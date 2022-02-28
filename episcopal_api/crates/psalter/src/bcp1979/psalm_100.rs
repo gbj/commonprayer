@@ -15,12 +15,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 1,
                       a: String::from("Be joyful in the LORD, all you lands; *"),
-                      b: String::from("serve the LORD with gladness\n and come before his presence with a song.")
+                      b: String::from("serve the LORD with gladness\nand come before his presence with a song.")
                   },
                 PsalmVerse {
                       number: 2,
                       a: String::from("Know this: The LORD himself is God; *"),
-                      b: String::from("he himself has made us, and we are his;\n we are his people and the sheep of his pasture.")
+                      b: String::from("he himself has made us, and we are his;\nwe are his people and the sheep of his pasture.")
                   },
                 PsalmVerse {
                       number: 3,

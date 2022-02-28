@@ -75,7 +75,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 13,
                       a: String::from("Though you lingered among the sheepfolds, *"),
-                      b: String::from("you shall be like a dove whose wings are covered with silver,\n whose feathers are like green gold.")
+                      b: String::from("you shall be like a dove whose wings are covered with silver,\nwhose feathers are like green gold.")
                   },
                 PsalmVerse {
                       number: 14,
@@ -185,12 +185,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 35,
                       a: String::from("Ascribe power to God; *"),
-                      b: String::from("his majesty is over Israel;\n his strength is in the skies.")
+                      b: String::from("his majesty is over Israel;\nhis strength is in the skies.")
                   },
                 PsalmVerse {
                       number: 36,
                       a: String::from("How wonderful is God in his holy places! *"),
-                      b: String::from("the God of Israel giving strength and power to his people!\n Blessed be God!")
+                      b: String::from("the God of Israel giving strength and power to his people!\nBlessed be God!")
                   },
               ]
             }

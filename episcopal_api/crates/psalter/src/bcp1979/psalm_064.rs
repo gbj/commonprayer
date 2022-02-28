@@ -45,7 +45,7 @@ lazy_static! {
                     number: 7,
                     a: String::from("The human mind and heart are a mystery; *"),
                     b: String::from(
-                        "but God will loose an arrow at them,\n and suddenly they will be wounded."
+                        "but God will loose an arrow at them,\nand suddenly they will be wounded."
                     )
                 },
                 PsalmVerse {

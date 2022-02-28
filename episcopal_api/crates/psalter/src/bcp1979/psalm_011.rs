@@ -14,7 +14,7 @@ lazy_static! {
               PsalmVerse {
         number: 1,
         a: String::from("In the LORD have I taken refuge; *"),
-        b: String::from("how then can you say to me,\n “Fly away like a bird to the hilltop;")
+        b: String::from("how then can you say to me,\n“Fly away like a bird to the hilltop;")
     },
   PsalmVerse {
         number: 2,

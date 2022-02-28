@@ -25,7 +25,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 3,
                       a: String::from("My tears have been my food day and night, *"),
-                      b: String::from("while all day long they say to me,\n “Where now is your God?”")
+                      b: String::from("while all day long they say to me,\n“Where now is your God?”")
                   },
                 PsalmVerse {
                       number: 4,
@@ -45,12 +45,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 7,
                       a: String::from("Put your trust in God; *"),
-                      b: String::from("for I will yet give thanks to him,\n who is the help of my countenance, and my God.")
+                      b: String::from("for I will yet give thanks to him,\nwho is the help of my countenance, and my God.")
                   },
                 PsalmVerse {
                       number: 8,
                       a: String::from("My soul is heavy within me; *"),
-                      b: String::from("therefore I will remember you from the land of Jordan,\n and from the peak of Mizar among the heights of Hermon.")
+                      b: String::from("therefore I will remember you from the land of Jordan,\nand from the peak of Mizar among the heights of Hermon.")
                   },
                 PsalmVerse {
                       number: 9,
@@ -60,7 +60,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 10,
                       a: String::from("The LORD grants his loving-kindness in the daytime; *"),
-                      b: String::from("in the night season his song is with me,\n a prayer to the God of my life.")
+                      b: String::from("in the night season his song is with me,\na prayer to the God of my life.")
                   },
                 PsalmVerse {
                       number: 11,
@@ -85,7 +85,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 15,
                       a: String::from("Put your trust in God; *"),
-                      b: String::from("for I will yet give thanks to him,\n who is the help of my countenance, and my God.")
+                      b: String::from("for I will yet give thanks to him,\nwho is the help of my countenance, and my God.")
                   },
               ]
             }

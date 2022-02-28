@@ -85,7 +85,7 @@ lazy_static! {
               PsalmVerse {
                     number: 15,
                     a: String::from("Deliver me from death, O God, *"),
-                    b: String::from("and my tongue shall sing of your righteousness,\n O God of my salvation.")
+                    b: String::from("and my tongue shall sing of your righteousness,\nO God of my salvation.")
                 },
               PsalmVerse {
                     number: 16,

@@ -45,12 +45,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 7,
                       a: String::from("Remember the day of Jerusalem, O LORD,\nagainst the people of Edom, *"),
-                      b: String::from("who said, “Down with it! down with it!\n even to the ground!”")
+                      b: String::from("who said, “Down with it! down with it!\neven to the ground!”")
                   },
                 PsalmVerse {
                       number: 8,
                       a: String::from("O Daughter of Babylon, doomed to destruction, *"),
-                      b: String::from("happy the one who pays you back\n for what you have done to us!")
+                      b: String::from("happy the one who pays you back\nfor what you have done to us!")
                   },
                 PsalmVerse {
                       number: 9,

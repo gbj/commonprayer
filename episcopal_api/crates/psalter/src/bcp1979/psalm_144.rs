@@ -20,7 +20,7 @@ lazy_static! {
               PsalmVerse {
                     number: 2,
                     a: String::from("My help and my fortress, my stronghold and my deliverer, *"),
-                    b: String::from("my shield in whom I trust,\n who subdues the peoples under me.")
+                    b: String::from("my shield in whom I trust,\nwho subdues the peoples under me.")
                 },
               PsalmVerse {
                     number: 3,
@@ -45,7 +45,7 @@ lazy_static! {
               PsalmVerse {
                     number: 7,
                     a: String::from("Stretch out your hand from on high; *"),
-                    b: String::from("rescue me and deliver me from the great waters,\n from the hand of foreign peoples,")
+                    b: String::from("rescue me and deliver me from the great waters,\nfrom the hand of foreign peoples,")
                 },
               PsalmVerse {
                     number: 8,
@@ -80,7 +80,7 @@ lazy_static! {
               PsalmVerse {
                     number: 14,
                     a: String::from("May our barns be filled to overflowing with all manner of crops; *"),
-                    b: String::from("may the flocks in our pastures increase by thousands and tens of thousands;\n may our cattle be fat and sleek.")
+                    b: String::from("may the flocks in our pastures increase by thousands and tens of thousands;\nmay our cattle be fat and sleek.")
                 },
               PsalmVerse {
                     number: 15,

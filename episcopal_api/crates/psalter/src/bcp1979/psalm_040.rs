@@ -25,7 +25,7 @@ lazy_static! {
           PsalmVerse {
                 number: 3,
                 a: String::from("He put a new song in my mouth,\na song of praise to our God; *"),
-                b: String::from("many shall see, and stand in awe,\n and put their trust in the LORD.")
+                b: String::from("many shall see, and stand in awe,\nand put their trust in the LORD.")
             },
           PsalmVerse {
                 number: 4,
@@ -55,12 +55,12 @@ lazy_static! {
           PsalmVerse {
                 number: 9,
                 a: String::from("In the roll of the book it is written concerning me: *"),
-                b: String::from("‘I love to do your will, O my God;\n your law is deep in my heart.’”")
+                b: String::from("‘I love to do your will, O my God;\nyour law is deep in my heart.’”")
             },
           PsalmVerse {
                 number: 10,
                 a: String::from("I proclaimed righteousness in the great congregation; *"),
-                b: String::from("behold, I did not restrain my lips;\n and that, O LORD, you know.")
+                b: String::from("behold, I did not restrain my lips;\nand that, O LORD, you know.")
             },
           PsalmVerse {
                 number: 11,
@@ -75,7 +75,7 @@ lazy_static! {
           PsalmVerse {
                 number: 13,
                 a: String::from("For innumerable troubles have crowded upon me;\nmy sins have overtaken me, and I cannot see; *"),
-                b: String::from("they are more in number than the hairs of my head,\n and my heart fails me.")
+                b: String::from("they are more in number than the hairs of my head,\nand my heart fails me.")
             },
           PsalmVerse {
                 number: 14,
@@ -95,7 +95,7 @@ lazy_static! {
           PsalmVerse {
                 number: 17,
                 a: String::from("Let all who seek you rejoice in you and be glad; *"),
-                b: String::from("let those who love your salvation continually say,\n “Great is the LORD!”")
+                b: String::from("let those who love your salvation continually say,\n“Great is the LORD!”")
             },
           PsalmVerse {
                 number: 18,

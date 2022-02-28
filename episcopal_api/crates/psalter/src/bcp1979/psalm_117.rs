@@ -20,7 +20,7 @@ lazy_static! {
                     number: 2,
                     a: String::from("For his loving-kindness toward us is great, *"),
                     b: String::from(
-                        "and the faithfulness of the LORD endures for ever.\n Hallelujah!"
+                        "and the faithfulness of the LORD endures for ever.\nHallelujah!"
                     )
                 },
             ]

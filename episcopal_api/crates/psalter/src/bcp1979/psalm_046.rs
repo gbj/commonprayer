@@ -60,12 +60,12 @@ lazy_static! {
                 PsalmVerse {
                       number: 10,
                       a: String::from("It is he who makes war to cease in all the world; *"),
-                      b: String::from("he breaks the bow, and shatters the spear,\n and burns the shields with fire.")
+                      b: String::from("he breaks the bow, and shatters the spear,\nand burns the shields with fire.")
                   },
                 PsalmVerse {
                       number: 11,
                       a: String::from("“Be still, then, and know that I am God; *"),
-                      b: String::from("I will be exalted among the nations;\n I will be exalted in the earth.”")
+                      b: String::from("I will be exalted among the nations;\nI will be exalted in the earth.”")
                   },
                 PsalmVerse {
                       number: 12,

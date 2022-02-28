@@ -116,7 +116,7 @@ lazy_static! {
                         PsalmVerse {
                   number: 19,
                   a: String::from("You spoke once in vision and said to your faithful people: *"),
-                  b: String::from("“I have set the crown upon a warrior\n and have exalted one chosen out of the people.")
+                  b: String::from("“I have set the crown upon a warrior\nand have exalted one chosen out of the people.")
               },
             PsalmVerse {
                   number: 20,

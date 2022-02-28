@@ -15,7 +15,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 1,
                       a: String::from("Protect me, O God, for I take refuge in you; *"),
-                      b: String::from("I have said to the LORD, “You are my Lord,\n my good above all other.”")
+                      b: String::from("I have said to the LORD, “You are my Lord,\nmy good above all other.”")
                   },
                 PsalmVerse {
                       number: 2,
@@ -65,7 +65,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 11,
                       a: String::from("You will show me the path of life; *"),
-                      b: String::from("in your presence there is fullness of joy,\n and in your right hand are pleasures for evermore.")
+                      b: String::from("in your presence there is fullness of joy,\nand in your right hand are pleasures for evermore.")
                   },
               ]
             }

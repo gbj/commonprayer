@@ -60,7 +60,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 10,
                       a: String::from("The span of our life is seventy years,\nperhaps in strength even eighty; *"),
-                      b: String::from("yet the sum of them is but labor and sorrow,\n for they pass away quickly and we are gone.")
+                      b: String::from("yet the sum of them is but labor and sorrow,\nfor they pass away quickly and we are gone.")
                   },
                 PsalmVerse {
                       number: 11,
@@ -95,7 +95,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 17,
                       a: String::from("May the graciousness of the LORD our God be upon us; *"),
-                      b: String::from("prosper the work of our hands;\n prosper our handiwork.")
+                      b: String::from("prosper the work of our hands;\nprosper our handiwork.")
                   },
               ]
             }

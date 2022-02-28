@@ -90,7 +90,7 @@ lazy_static! {
                 PsalmVerse {
                       number: 16,
                       a: String::from("Turn to me and have mercy upon me; *"),
-                      b: String::from("give your strength to your servant;\n and save the child of your handmaid.")
+                      b: String::from("give your strength to your servant;\nand save the child of your handmaid.")
                   },
                 PsalmVerse {
                       number: 17,
