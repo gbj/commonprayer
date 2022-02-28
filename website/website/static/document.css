@@ -51,6 +51,7 @@ a.reference {
 .label-and-subtitle {
   display: flex;
   justify-content: left;
+  align-items: center;
 }
 
 .label-and-subtitle.hidden {
@@ -64,9 +65,10 @@ a.reference {
 .label-and-subtitle > * {
   padding: 0.5rem 0;
   margin: 0;
+  font-size: 1rem;
 }
 
-h4.subtitle {
+.subtitle {
   display: inline-block;
   font-weight: normal;
   margin-left: 2rem;

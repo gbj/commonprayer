@@ -141,6 +141,9 @@ lazy_static! {
         ],
         ("closing-sentences", None) => vec![
             PageType::Category("Closing Sentences", Version::RiteII, library::rite2::CLOSING_SENTENCES.clone())
+        ],
+        ("prayers-and-thanksgivings", None) => vec![
+            PageType::Category("Prayers and Thanksgivings", Version::BCP1979, library::bcp1979::PRAYERS_AND_THANKSGIVINGS.clone())
         ]
     };
 }

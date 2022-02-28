@@ -19,6 +19,7 @@ use crate::{
 #[macro_use]
 extern crate lazy_static;
 
+pub mod bcp1979;
 pub mod collect;
 pub mod conditions;
 pub mod eow;

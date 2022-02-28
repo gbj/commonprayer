@@ -36,6 +36,13 @@ impl Version {
             Version::NRSV | Version::NRSVAE | Version::ESV | Version::KJV | Version::CEB
         )
     }
+
+    pub fn is_subset_of(&self, other: &Version) -> bool {
+        matches!(
+            (self, other),
+            (Version::RiteI, Version::BCP1979) | (Version::RiteII, Version::BCP1979)
+        )
+    }
 }
 
 impl Display for Version {

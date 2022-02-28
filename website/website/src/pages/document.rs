@@ -111,7 +111,6 @@ fn category_summary_body(
         pages
             .iter()
             .map(|(version, label)| {
-                // TODO link
                 view! {
                     <li><a href={format!("/{}/document/{}/{:?}", locale, category, version)}>{label}</a></li>
                 }
@@ -183,83 +182,212 @@ fn category_body(
 ) -> View {
     let search = SearchBar::new();
 
-    let categories = View::Fragment(
-        docs.iter()
-            .group_by(|doc| doc.label.clone())
-            .into_iter()
-            .map(|(label, group)| {
-                let docs = group.cloned().collect::<Vec<_>>();
-                let subtitle = docs.get(0).and_then(|doc| doc.subtitle.clone());
+    // grouped by category (tags[0]), subcategory (tags[1]), then label
+    let tree = docs
+        .iter()
+        .group_by(|doc| doc.tags.get(0))
+        .into_iter()
+        .map(|(category, docs_with_category)| {
+            (
+                category,
+                docs_with_category
+                    .into_iter()
+                    .group_by(|doc| doc.tags.get(1))
+                    .into_iter()
+                    .map(|(subcategory, docs_with_subcategory)| {
+                        (
+                            subcategory,
+                            docs_with_subcategory
+                                .into_iter()
+                                .group_by(|doc| doc.label.as_ref())
+                                .into_iter()
+                                .map(|(label, docs_with_label)| {
+                                    (label, docs_with_label.into_iter().collect::<Vec<_>>())
+                                })
+                                .collect::<Vec<_>>(),
+                        )
+                    })
+                    .collect::<Vec<_>>(),
+            )
+        })
+        .collect::<Vec<_>>();
 
-                let docs_view = View::Fragment(
-                    docs.iter()
-                        .map(|doc| {
-                            let hidden = search
-                                .value
-                                .stream()
-                                .map({
-                                    let doc = doc.clone();
-                                    move |search| {
-                                        !search.is_empty()
-                                            && !doc.contains_case_insensitive(&search)
+    let links = if tree.len() > 1 {
+        let categories = View::Fragment(
+            tree.iter()
+                .map(|(category, docs_with_category)| {
+                    let subcategories = if docs_with_category.len() > 1 {
+                        View::Fragment(
+                            docs_with_category
+                                .iter()
+                                .map(|(subcategory, docs_with_subcategory)| {
+                                    let labels = if docs_with_subcategory.len() > 1 {
+                                        View::Fragment(docs_with_subcategory
+                                            .iter()
+                                            .map(|(label, _)| view! {
+                                                <li> <a href={format!("#{}", label.cloned().unwrap_or_default())}>{label.cloned().unwrap_or_default()}</a></li>
+                                            })
+                                            .collect()
+                                        )
+                                    } else {
+                                        View::Empty
+                                    };
+
+                                    view! {
+                                        <li>
+                                             <a href={format!("#{}", subcategory.cloned().unwrap_or_default())}>{subcategory.cloned().unwrap_or_default()}</a>
+                                            <ul>{labels}</ul>
+                                        </li>
                                     }
                                 })
-                                .boxed_local();
+                                .collect(),
+                            )
+                    } else {
+                        View::Empty
+                    };
 
-                            let doc = DocumentController::new(Document {
-                                label: None,    // don't show the label again for each doc
-                                subtitle: None, // don't show subtitle again for every doc
-                                ..doc.clone()
-                            })
-                            .view(locale);
+                    view! {
+                        <li>
+                            <a href={format!("#{}", category.cloned().unwrap_or_default())}>{category.cloned().unwrap_or_default()}</a>
+                            <ul>{subcategories}</ul>
+                        </li>
+                    }
+                })
+                .collect(),
+        );
+
+        view! {
+            <ul>
+                {categories}
+            </ul>
+        }
+    } else {
+        View::Empty
+    };
+
+    // grouped by category (tags[0]), subcategory (tags[1]), then label
+    let categories = View::Fragment(
+        tree.iter()
+            .map(|(category, subcategories)| {
+                let subcategories = View::Fragment(
+                    subcategories
+                        .iter()
+                        .map(|(subcategory, docs_with_subcategory)| {
+                            let labels = View::Fragment(docs_with_subcategory.iter().map(|(label, docs_with_label)| {
+                                        let docs = docs_with_label.iter().cloned().cloned().collect::<Vec<_>>();
+                                        let subtitle =
+                                            docs.get(0).and_then(|doc| doc.subtitle.clone());
+
+                                            let docs_view = View::Fragment(
+                                                docs.iter()
+                                                    .map(|doc| {
+                                                        let hidden = search
+                                                            .value
+                                                            .stream()
+                                                            .map({
+                                                                let doc = (*doc).clone();
+                                                                move |search| {
+                                                                    !search.is_empty()
+                                                                        && !doc.contains_case_insensitive(&search)
+                                                                }
+                                                            })
+                                                            .boxed_local();
+
+                                                        let doc = DocumentController::new(Document {
+                                                            label: None,    // don't show the label again for each doc
+                                                            subtitle: None, // don't show subtitle again for every doc
+                                                            ..(*doc).clone()
+                                                        })
+                                                        .view(locale);
+
+                                                        view! {
+                                                            <dyn:article class="document" class:hidden={hidden}>
+                                                                {doc}
+                                                            </dyn:article>
+                                                        }
+                                                    })
+                                                    .collect(),
+                                            );
+
+                                            let label = if let Some(label) = label {
+                                            let hidden = search
+                                                .value
+                                                .stream()
+                                                .map({
+                                                    let label = label.to_lowercase();
+                                                    move |search| {
+                                                        !label.contains(&search.to_lowercase())
+                                                            && !docs
+                                                                .iter()
+                                                                .any(|doc| doc.contains_case_insensitive(&search))
+                                                    }
+                                                })
+                                                .boxed_local();
+                                            if let Some(subtitle) = subtitle {
+                                                view! {
+                                                    <dyn:div class="label-and-subtitle" class:hidden={hidden}>
+                                                        <a id={label.to_string()}></a>
+                                                        <h4>{label.to_string()}</h4>
+                                                        <h5 class="subtitle">{subtitle}</h5>
+                                                    </dyn:div>
+                                                }
+                                            } else {
+                                                view! {
+                                                    <>
+                                                        <a id={label.to_string()}></a>
+                                                        <dyn:h4 class:hidden={hidden}>{label.to_string()}</dyn:h4>
+                                                    </>
+                                                }
+                                            }
+                                        } else {
+                                            View::Empty
+                                        };
+
+                                        view! {
+                                            <>
+                                                {label}
+                                                {docs_view}
+                                            </>
+                                        }
+                                    })
+                                    .collect());
 
                             view! {
-                                <dyn:article class="document" class:hidden={hidden}>
-                                    {doc}
-                                </dyn:article>
+                                <>
+                                    {if let Some(subcategory) = subcategory {
+                                        view! {
+                                            <>
+                                                <a id={subcategory.to_string()}></a>
+                                                <h3>{subcategory.to_string()}</h3>
+                                            </>
+                                        }
+                                    } else {
+                                        View::Empty
+                                    }}
+                                    {labels}
+                                </>
                             }
                         })
                         .collect(),
                 );
 
-                let label = if let Some(label) = label {
-                    let hidden = search
-                        .value
-                        .stream()
-                        .map({
-                            let label = label.to_lowercase();
-                            move |search| {
-                                !label.contains(&search.to_lowercase())
-                                    && !docs
-                                        .iter()
-                                        .any(|doc| doc.contains_case_insensitive(&search))
-                            }
-                        })
-                        .boxed_local();
-                    if let Some(subtitle) = subtitle {
-                        view! {
-                            <dyn:div class="label-and-subtitle" class:hidden={hidden}>
-                                <h3>{&label}</h3>
-                                <h4 class="subtitle">{subtitle}</h4>
-                            </dyn:div>
-                        }
-                    } else {
-                        view! {
-                            <dyn:h3 class:hidden={hidden}>{&label}</dyn:h3>
-                        }
-                    }
-                } else {
-                    View::Empty
-                };
-
                 view! {
                     <>
-                        {label}
-                        {docs_view}
+                        {if let Some(category) = category {
+                            view! {
+                                <>
+                                    <a id={category.to_string()}></a>
+                                    <h2>{category.to_string()}</h2>
+                                </>
+                            }
+                        } else {
+                            View::Empty
+                        }}
+                        {subcategories}
                     </>
                 }
             })
-            .collect::<Vec<_>>(),
+            .collect(),
     );
 
     view! {
@@ -267,6 +395,7 @@ fn category_body(
             {header(locale, &title)}
             <main>
                 <dyn:view view={search.view()} />
+                {links}
                 <dyn:view view={categories} />
             </main>
         </>
@@ -307,7 +436,9 @@ fn find_page(
             } else if let Some(version) = version {
                 match page {
                     PageType::Document(_, doc) => version == doc.version,
-                    PageType::Category(_, s_version, _) => &version == s_version,
+                    PageType::Category(_, s_version, _) => {
+                        &version == s_version || version.is_subset_of(s_version)
+                    }
                 }
             } else {
                 true

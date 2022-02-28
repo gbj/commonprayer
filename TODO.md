@@ -2,6 +2,8 @@ Website Todos
 =============
 
 - [ ] Prayers and Thanksgivings
+  - [ ] Proofread Prayers & Thanksgivings
+    - [ ] create alternate document forms for several types
 - Bugs
   - [x] Remove "Show::CompiledOnly" on template pages
   - [ ] Spell-check collects

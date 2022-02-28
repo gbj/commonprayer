@@ -299,8 +299,9 @@ impl Document {
             .source
             .map(|reference| reference.page.to_string() == text)
             .unwrap_or(false);
+        let tags_contain = self.tags.iter().any(|tag| tag.contains(text));
         let content_contains = self.content.contains(text);
-        label_contains || subtitle_contains || version_label_contains || source_contains || content_contains
+        label_contains || subtitle_contains || version_label_contains || source_contains || tags_contain || content_contains
     }
 
     /// Whether any of the document's fields, or its content, contains the given text, ignoring the search string case
@@ -325,8 +326,9 @@ impl Document {
             .source
             .map(|reference| reference.page.to_string().to_lowercase() == text)
             .unwrap_or(false);
+        let tags_contain = self.tags.iter().any(|tag| tag.to_lowercase().contains(&text));
         let content_contains = self.content.contains_case_insensitive(&text);
-        label_contains || subtitle_contains || version_label_contains || source_contains || content_contains
+        label_contains || subtitle_contains || version_label_contains || source_contains || tags_contain || content_contains
     }
 }
 
