@@ -9,7 +9,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Advent1),
             CollectData {
                 document: Document::from(
-                    Text::from("Dios todopoderoso, danos gracia para despojarnos de las obras de las tinieblas y revestirnos con las armas de la luz, ahora en esta vida mortal, en la cual Jesucristo tu Hijo, con gran humildad, vino a visitarnos; a fin de queen el día postrero, cuando vuelva con majestad gloriosa a juzgar a vivos y muertos, resucitemos a la vida inmortal; mediante él, quien vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Dios todopoderoso, danos gracia para despojarnos de las obras de las tinieblas y revestirnos con las armas de la luz, ahora en esta vida mortal, en la cual Jesucristo tu Hijo, con gran humildad, vino a visitarnos; a fin de que en el día postrero, cuando vuelva con majestad gloriosa a juzgar a vivos y muertos, resucitemos a la vida inmortal; mediante él, quien vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("Primer Domingo de Adviento")
@@ -77,7 +77,7 @@ lazy_static! {
             CollectId::Feast(Feast::ChristmasDay),
             CollectData {
                 document: Document::from(
-                    Text::from("Oh Dios, tú nos alegras anualmente con la festividaddel nacimiento de tu único Hijo Jesucristo: Concédenos que, así como le recibimos con júbilo como Redentor, de la misma manera le contemplemos con segura confianza cuando venga a ser nuestro Juez; quien vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Oh Dios, tú nos alegras anualmente con la festividad del nacimiento de tu único Hijo Jesucristo: Concédenos que, así como le recibimos con júbilo como Redentor, de la misma manera le contemplemos con segura confianza cuando venga a ser nuestro Juez; quien vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("Natividad de Nuestro Señor: Día de Navidad")
@@ -131,7 +131,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Christmas1),
             CollectData {
                 document: Document::from(
-                    Text::from("Este domingo tiene preferencia sobre las tres conmemoraciones que siguen al Día de Navidad. Si fuera necesario, la observancia de una, dos o todas ellas ha de ser pospuesta un día.Dios todopoderoso, tú has derramado sobre nosotros la nueva luz de tu Verbo encarnado: Concede que esta luz, que arde en nuestro corazón, resplandezca en nuestra vida; mediante nuestro Señor Jesucristo, que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Dios todopoderoso, tú has derramado sobre nosotros la nueva luz de tu Verbo encarnado: Concede que esta luz, que arde en nuestro corazón, resplandezca en nuestra vida; mediante nuestro Señor Jesucristo, que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("Primer Domingo después del Día de Navidad")
@@ -140,7 +140,7 @@ lazy_static! {
                 .version(Version::LibroDeOracionComun)
                 .language(Language::Es),
                 preface: "Prefacio de la Encarnación".into(),
-                rubric_before: None,
+                rubric_before: Some("Este domingo tiene preferencia sobre las tres conmemoraciones que siguen al Día de Navidad. Si fuera necesario, la observancia de una, dos o todas ellas ha de ser pospuesta un día.".into()),
                 rubric_after: None
             }
         ),
@@ -148,7 +148,7 @@ lazy_static! {
             CollectId::Feast(Feast::HolyName),
             CollectData {
                 document: Document::from(
-                    Text::from("Padre eterno, tú diste a tu Hijo encarnado el santonombre de Jesús para ser el signo de nuestra salvación: Te suplicamos que siembres en cada corazón el amor de quien es el Salvador del mundo, nuestro Señor Jesucristo; que vive y reina contigo y el Espíritu Santo, un solo Dios, en gloria eterna.")
+                    Text::from("Padre eterno, tú diste a tu Hijo encarnado el santo nombre de Jesús para ser el signo de nuestra salvación: Te suplicamos que siembres en cada corazón el amor de quien es el Salvador del mundo, nuestro Señor Jesucristo; que vive y reina contigo y el Espíritu Santo, un solo Dios, en gloria eterna.")
                         .response("Amén.")
                 )
                 .label("El Santo Nombre de Jesús")
@@ -286,7 +286,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Epiphany6),
             CollectData {
                 document: Document::from(
-                    Text::from("Oh Dios, fortaleza de los que ponen su confianza en ti: Acepta con misericordia nuestras súplicas, y puesto que, por nuestra flaqueza, no podemos hacer nada bueno sinti, danos el auxilio de tu gracia; para que, al guardar tus mandamientos, te agrademos, tanto de voluntad como de hecho; por nuestro Señor Jesucristo, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Oh Dios, fortaleza de los que ponen su confianza en ti: Acepta con misericordia nuestras súplicas, y puesto que, por nuestra flaqueza, no podemos hacer nada bueno sin ti, danos el auxilio de tu gracia; para que, al guardar tus mandamientos, te agrademos, tanto de voluntad como de hecho; por nuestro Señor Jesucristo, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Sexto Domingo después de la Epifanía")
@@ -303,7 +303,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Epiphany7),
             CollectData {
                 document: Document::from(
-                    Text::from("Oh Señor, tú nos has enseñado que todo lo que hacemos sin amor es de ningún valor: Envía tu Espíritu Santo, yderrama en nuestros corazones tu excelentísimo don, que es el amor, el vínculo verdadero de la paz y de todas las virtudes, sin el cual todos aquéllos que viven son considerados como muertos ante ti. Concédenos esto, por amor de tu único Hijo Jesucristo, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Oh Señor, tú nos has enseñado que todo lo que hacemos sin amor es de ningún valor: Envía tu Espíritu Santo, y derrama en nuestros corazones tu excelentísimo don, que es el amor, el vínculo verdadero de la paz y de todas las virtudes, sin el cual todos aquéllos que viven son considerados como muertos ante ti. Concédenos esto, por amor de tu único Hijo Jesucristo, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("Séptimo Domingo después de la Epifanía")
@@ -320,7 +320,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Epiphany8),
             CollectData {
                 document: Document::from(
-                    Text::from("Amantísimo Padre, cuya voluntad es que te demos gracias por todas las cosas, que no temamos nada sino el perderte a ti, y que te confiemos todas nuestras preocupaciones, pues cuidas de nosotros: Presérvanos de temores infieles y de ansiedades mundanas, para que ninguna nube de esta vida mortal oculte de nosotros laluz de ese amor inmortal que tú nos has manifestado entu Hijo Jesucristo nuestro Señor; que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Amantísimo Padre, cuya voluntad es que te demos gracias por todas las cosas, que no temamos nada sino el perderte a ti, y que te confiemos todas nuestras preocupaciones, pues cuidas de nosotros: Presérvanos de temores infieles y de ansiedades mundanas, para que ninguna nube de esta vida mortal oculte de nosotros la luz de ese amor inmortal que tú nos has manifestado en tu Hijo Jesucristo nuestro Señor; que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("Octavo Domingo después de la Epifanía")
@@ -490,7 +490,7 @@ lazy_static! {
             CollectId::Feast(Feast::TuesdayInHolyWeek),
             CollectData {
                 document: Document::from(
-                    Text::from("Oh Dios, que por la pasión de tu bendito Hijoconvertiste a un instrumento de muerte vergonzosa en un medio de vida para nosotros: Concede que de t ;l modo nos gloriemos en la cruz de Cristo que suframos con alegría la vergüenza y privación por causa de tu Hijo nuestro Salvador Jesucristo; que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Oh Dios, que por la pasión de tu bendito Hijo convertiste a un instrumento de muerte vergonzosa en un medio de vida para nosotros: Concede que de t ;l modo nos gloriemos en la cruz de Cristo que suframos con alegría la vergüenza y privación por causa de tu Hijo nuestro Salvador Jesucristo; que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Martes Santo")
@@ -507,7 +507,7 @@ lazy_static! {
             CollectId::Feast(Feast::WednesdayInHolyWeek),
             CollectData {
                 document: Document::from(
-                    Text::from("Señor Dios, cuyo bendito Hijo nuestro Salvador entregó su cuerpo a los azotes y su rostro al esputo:Otórganos tu gracia para soportar gozosamente los sufrimientos de esta vida temporal, confiados en la gloria que ha de ser revelada; por Jesucristo tu Hijo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Señor Dios, cuyo bendito Hijo nuestro Salvador entregó su cuerpo a los azotes y su rostro al esputo: Otórganos tu gracia para soportar gozosamente los sufrimientos de esta vida temporal, confiados en la gloria que ha de ser revelada; por Jesucristo tu Hijo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Miércoles Santo")
@@ -524,7 +524,7 @@ lazy_static! {
             CollectId::Feast(Feast::MaundyThursday),
             CollectData {
                 document: Document::from(
-                    Text::from("Padre todopoderoso, cuyo amado Hijo, en la víspera de su padecimiento, instituyó el Sacramento de su Cuerpo y Sangre: Concédenos, en tu misericordia, que lo recibamos con gratitud como memorial de Jesucristo nuestro Señor, que en estos santos misterios nos da una prenda de la vida eterna; quien vive ahora y reinacontigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Padre todopoderoso, cuyo amado Hijo, en la víspera de su padecimiento, instituyó el Sacramento de su Cuerpo y Sangre: Concédenos, en tu misericordia, que lo recibamos con gratitud como memorial de Jesucristo nuestro Señor, que en estos santos misterios nos da una prenda de la vida eterna; quien vive ahora y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Jueves Santo")
@@ -558,7 +558,7 @@ lazy_static! {
             CollectId::Feast(Feast::HolySaturday),
             CollectData {
                 document: Document::from(
-                    Text::from("Oh Dios, Creador de cielo y tierra: Concede que, así como el cuerpo crucificado de tu amado Hijo fue puesto en el sepulcro y descansó en este Sábado santo, de la misma manera aguardemos con él la venida del tercer día, y resucitemos con él a la vida nueva; quien viveahora y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Oh Dios, Creador de cielo y tierra: Concede que, así como el cuerpo crucificado de tu amado Hijo fue puesto en el sepulcro y descansó en este Sábado santo, de la misma manera aguardemos con él la venida del tercer día, y resucitemos con él a la vida nueva; quien vive ahora y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Sábado Santo")
@@ -575,7 +575,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Easter),
             CollectData {
                 document: Document::from(
-                    Text::from("Dios todopoderoso, que por nuestra redención entregaste a tu unigénito Hijo a muerte de cruz, y por su resurrección gloriosa nos libraste del poder de nuestro enemigo: Concédenos morir diariamente al pecado, detal manera que, en el gozo de su resurrección, vivamos siempre con Jesucristo tu Hijo nuestro Señor; que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Dios todopoderoso, que por nuestra redención entregaste a tu unigénito Hijo a muerte de cruz, y por su resurrección gloriosa nos libraste del poder de nuestro enemigo: Concédenos morir diariamente al pecado, de tal manera que, en el gozo de su resurrección, vivamos siempre con Jesucristo tu Hijo nuestro Señor; que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("Día de Pascua")
@@ -609,7 +609,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Easter),
             CollectData {
                 document: Document::from(
-                    Text::from("Dios omnipotente, que por medio de tu Hijo unigénito Jesucristo has vencido la muerte y nos abriste la puertade la vida eterna: Concede a los que celebramos con gozo el día de la resurrección del Señor, que seamos resucitados de la muerte del pecado por tu Espíritu vivificador; mediante Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Dios omnipotente, que por medio de tu Hijo unigénito Jesucristo has vencido la muerte y nos abriste la puerta de la vida eterna: Concede a los que celebramos con gozo el día de la resurrección del Señor, que seamos resucitados de la muerte del pecado por tu Espíritu vivificador; mediante Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("Día de Pascua")
@@ -796,7 +796,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Easter6),
             CollectData {
                 document: Document::from(
-                    Text::from("Oh Dios, tú has preparado para los que te aman cosas tan buenas que sobrepasan nuestro entendimiento: Infundeen nuestros corazones tal amor hacia ti, que, amándoteen todo y sobre todas las cosas, obtengamos tus promesas, que exceden todo lo que podamos anhelar; por Jesucristo tu Hijo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Oh Dios, tú has preparado para los que te aman cosas tan buenas que sobrepasan nuestro entendimiento: Infunde en nuestros corazones tal amor hacia ti, que, amándote en todo y sobre todas las cosas, obtengamos tus promesas, que exceden todo lo que podamos anhelar; por Jesucristo tu Hijo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Sexto Domingo de Pascua")
@@ -847,7 +847,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Easter7),
             CollectData {
                 document: Document::from(
-                    Text::from("Oh Dios, Rey de la gloria, que con gran triunfo exaltastea tu único Hijo Jesucristo a tu reino celestial: No nos dejes desconsolados, mas envíanos tu Espíritu Santo para fortalecernos y exaltarnos al mismo lugar, adondenuestro Salvador Cristo nos ha precedido; quien vive y reina contigo y el Espíritu Santo, un solo Dios, en gloria eterna.")
+                    Text::from("Oh Dios, Rey de la gloria, que con gran triunfo exaltaste a tu único Hijo Jesucristo a tu reino celestial: No nos dejes desconsolados, mas envíanos tu Espíritu Santo para fortalecernos y exaltarnos al mismo lugar, adonde nuestro Salvador Cristo nos ha precedido; quien vive y reina contigo y el Espíritu Santo, un solo Dios, en gloria eterna.")
                         .response("Amén.")
                 )
                 .label("Séptimo Domingo de Pascua: Domingo después de la Ascensión")
@@ -898,7 +898,7 @@ lazy_static! {
             CollectId::Feast(Feast::TrinitySunday),
             CollectData {
                 document: Document::from(
-                    Text::from("Dios omnipotente y eterno, que por la confesión de una fe verdadera nos diste a tus siervos la gracia de reconocer la gloria de la Trinidad eterna, y de adorar la Unidad enel poder de tu divina Majestad: Consérvanos firmes en esta fe y adoración, y llévanos al fin a contemplarte en tu sola y eterna gloria; tú que vives y reinas, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Dios omnipotente y eterno, que por la confesión de una fe verdadera nos diste a tus siervos la gracia de reconocer la gloria de la Trinidad eterna, y de adorar la Unidad en el poder de tu divina Majestad: Consérvanos firmes en esta fe y adoración, y llévanos al fin a contemplarte en tu sola y eterna gloria; tú que vives y reinas, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Primer Domingo después de Pentecostés: Domingo de Trinidad")
@@ -951,7 +951,7 @@ lazy_static! {
             CollectId::Proper(Proper::Proper3),
             CollectData {
                 document: Document::from(
-                    Text::from("Concede, oh Señor, que el curso de este mundo seagobernado pacíficamente por tu providencia, y que tuIglesia pueda servirte con gozo, confianza y serenidad;por Jesucristo nuestro Señor, que vive y reinacontigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Concede, oh Señor, que el curso de este mundo sea gobernado pacíficamente por tu providencia, y que tuIglesia pueda servirte con gozo, confianza y serenidad;por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Propio 3")
@@ -1023,7 +1023,7 @@ lazy_static! {
             CollectId::Proper(Proper::Proper7),
             CollectData {
                 document: Document::from(
-                    Text::from("Oh Señor, haz que tengamos perpetuo amor y reverenciaa tu santo Nombre, pues nunca privas de tu auxilio yguía a los que has establecido sobre la base firme de tu bondad; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Oh Señor, haz que tengamos perpetuo amor y reverencia a tu santo Nombre, pues nunca privas de tu auxilio y guía a los que has establecido sobre la base firme de tu bondad; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Propio 7")
@@ -1131,7 +1131,7 @@ lazy_static! {
             CollectId::Proper(Proper::Proper13),
             CollectData {
                 document: Document::from(
-                    Text::from("Que tu constante misericordia purifique y defienda a tu Iglesia, oh Señor; y, puesto que no puede continuar en seguridad sin tu auxilio, protégela y dirígela siempre portu bondad; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Que tu constante misericordia purifique y defienda a tu Iglesia, oh Señor; y, puesto que no puede continuar en seguridad sin tu auxilio, protégela y dirígela siempre por tu bondad; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Propio 13")
@@ -1167,7 +1167,7 @@ lazy_static! {
             CollectId::Proper(Proper::Proper15),
             CollectData {
                 document: Document::from(
-                    Text::from("Dios omnipotente, por nosotros entregaste a tu Hijoúnico como sacrificio por los pecados y como ejemplo de vida piadosa: Danos gracia para recibir con gratitud los frutos de su obra redentora, y seguir de día en día las huellas benditas de su santísima vida; por Jesucristo tu Hijo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Dios omnipotente, por nosotros entregaste a tu Hijo único como sacrificio por los pecados y como ejemplo de vida piadosa: Danos gracia para recibir con gratitud los frutos de su obra redentora, y seguir de día en día las huellas benditas de su santísima vida; por Jesucristo tu Hijo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("Propio 15")
@@ -1185,7 +1185,7 @@ lazy_static! {
             CollectId::Proper(Proper::Proper16),
             CollectData {
                 document: Document::from(
-                    Text::from("Concede, oh Dios de misericordia, que tu Iglesia,congregada en unidad por tu Espíritu Santo, manifiestetu poder entre todos los pueblos, para gloria de tu Nombre; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Concede, oh Dios de misericordia, que tu Iglesia,congregada en unidad por tu Espíritu Santo, manifieste tu poder entre todos los pueblos, para gloria de tu Nombre; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Propio 16")
@@ -1257,7 +1257,7 @@ lazy_static! {
             CollectId::Proper(Proper::Proper20),
             CollectData {
                 document: Document::from(
-                    Text::from("Concede, oh Señor, que no nos afanemos por las cosas terrenales, sino que amemos las celestiales, y aunahora que estamos inmersos en cosas transitorias, haz que anhelemos lo que permanece para siempre; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Concede, oh Señor, que no nos afanemos por las cosas terrenales, sino que amemos las celestiales, y aun ahora que estamos inmersos en cosas transitorias, haz que anhelemos lo que permanece para siempre; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Propio 20")
@@ -1293,7 +1293,7 @@ lazy_static! {
             CollectId::Proper(Proper::Proper22),
             CollectData {
                 document: Document::from(
-                    Text::from("Omnipotente y sempiterno Dios, tú estás siempre más presto a escuchar que nosotros a orar, y a ofrecer másde lo que deseamos o merecemos: Derrama sobre nosotros la abundancia de tu misericordia, perdonándonos todo aquello que perturba nuestra conciencia, y otorgándonos aquello que no somos dignos de pedirte, sino por los méritos y mediación de Jesucristonuestro Salvador; que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Omnipotente y sempiterno Dios, tú estás siempre más presto a escuchar que nosotros a orar, y a ofrecer más de lo que deseamos o merecemos: Derrama sobre nosotros la abundancia de tu misericordia, perdonándonos todo aquello que perturba nuestra conciencia, y otorgándonos aquello que no somos dignos de pedirte, sino por los méritos y mediación de Jesucristo nuestro Salvador; que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Propio 22")
@@ -1545,7 +1545,7 @@ lazy_static! {
             CollectId::Feast(Feast::ConversionOfStPaul),
             CollectData {
                 document: Document::from(
-                    Text::from("Oh Dios, que por la predicación de tu apóstol Pablohiciste que la luz del Evangelio resplandeciera por todo el mundo: Concede, te suplicamos, que nosotros, recordando su portentosa conversión, manifestemos nuestra gratitud siguiendo su santa enseñanza; por Jesucristo nuestro Señor, que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Oh Dios, que por la predicación de tu apóstol Pablo hiciste que la luz del Evangelio resplandeciera por todo el mundo: Concede, te suplicamos, que nosotros, recordando su portentosa conversión, manifestemos nuestra gratitud siguiendo su santa enseñanza; por Jesucristo nuestro Señor, que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("Conversión de San Pablo")
@@ -1599,7 +1599,7 @@ lazy_static! {
             CollectId::Feast(Feast::Joseph),
             CollectData {
                 document: Document::from(
-                    Text::from("Oh Dios, que de la familia de tu siervo David levantaste a José para ser el guardián de tu Hijo encarnado, y esposo de su virgen madre: Danos gracia para imitar su rectitudde vida y su obediencia a tus mandatos; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Oh Dios, que de la familia de tu siervo David levantaste a José para ser el guardián de tu Hijo encarnado, y esposo de su virgen madre: Danos gracia para imitar su rectitud de vida y su obediencia a tus mandatos; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("San José")
@@ -1635,7 +1635,7 @@ lazy_static! {
             CollectId::Feast(Feast::Mark),
             CollectData {
                 document: Document::from(
-                    Text::from("Dios omnipotente, que por la mano del evangelistaMarcos has entregado a tu Iglesia el Evangelio de Jesucristo el Hijo de Dios: Te damos gracias por este testimonio, y te rogamos nos mantengas firmes en su verdad; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Dios omnipotente, que por la mano del evangelista Marcos has entregado a tu Iglesia el Evangelio de Jesucristo el Hijo de Dios: Te damos gracias por este testimonio, y te rogamos nos mantengas firmes en su verdad; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("San Marcos")
@@ -1671,7 +1671,7 @@ lazy_static! {
             CollectId::Feast(Feast::TheVisitation),
             CollectData {
                 document: Document::from(
-                    Text::from("Padre celestial, por tu gracia la virgen madre de tu Hijo encarnado fue bendita al llevarlo en su seno, y aún más bendita al guardar tu palabra: Concede a los quehonramos la exaltación de su humildad que sigamos el ejemplo de su devoción a tu voluntad; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Padre celestial, por tu gracia la virgen madre de tu Hijo encarnado fue bendita al llevarlo en su seno, y aún más bendita al guardar tu palabra: Concede a los que honramos la exaltación de su humildad que sigamos el ejemplo de su devoción a tu voluntad; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("La Visitación")
@@ -1707,7 +1707,7 @@ lazy_static! {
             CollectId::Feast(Feast::NativityOfStJohnTheBaptist),
             CollectData {
                 document: Document::from(
-                    Text::from("Dios todopoderoso, por cuya providencia nació maravillosamente tu siervo Juan el Bautista, y fue enviado a preparar el camino de tu Hijo nuestro Salvador, predicando el arrepentimiento: Haz que sigamos de tal manera su enseñanza y santa vida que verdaderamente nos arrepintamos según su predicación, y que, a ejemplo suyo, constantemente hablemos la verdad, audazmente reprochemos el vicio y pacientemente suframos porcausa de la verdad; por Jesucristo tu Hijo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Dios todopoderoso, por cuya providencia nació maravillosamente tu siervo Juan el Bautista, y fue enviado a preparar el camino de tu Hijo nuestro Salvador, predicando el arrepentimiento: Haz que sigamos de tal manera su enseñanza y santa vida que verdaderamente nos arrepintamos según su predicación, y que, a ejemplo suyo, constantemente hablemos la verdad, audazmente reprochemos el vicio y pacientemente suframos por causa de la verdad; por Jesucristo tu Hijo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("Natividad de San Juan Bautista")
@@ -1905,7 +1905,7 @@ lazy_static! {
             CollectId::Feast(Feast::Luke),
             CollectData {
                 document: Document::from(
-                    Text::from("Concede, oh Dios, que tu Iglesia, siguiendo el ejemplo de tu siervo Santiago el Justo, hermano de nuestro Señor, se dedique continuamente a la oración y la reconciliaciónde todos los que están en desacuerdo y enemistad; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Concede, oh Dios, que tu Iglesia, siguiendo el ejemplo de tu siervo Santiago el Justo, hermano de nuestro Señor, se dedique continuamente a la oración y la reconciliación de todos los que están en desacuerdo y enemistad; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("Santiago de Jerusalén")
@@ -1993,7 +1993,7 @@ lazy_static! {
             CollectId::CommonOfSaints(CommonOfSaints::Martyr),
             CollectData {
                 document: Document::from(
-                    Text::from("Dios todopoderoso, que diste firmeza a tu siervo N. para confesar ante los gobernantes de este mundo el Nombre de nuestro Salvador Jesucristo, y valor para morir poresta fe: Concede que siempre estemos prestos a dar razón de la esperanza que hay en nosotros, y dispuestos a sufrir por causa de nuestro Señor Jesucristo; que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Dios todopoderoso, que diste firmeza a tu siervo N. para confesar ante los gobernantes de este mundo el Nombre de nuestro Salvador Jesucristo, y valor para morir por esta fe: Concede que siempre estemos prestos a dar razón de la esperanza que hay en nosotros, y dispuestos a sufrir por causa de nuestro Señor Jesucristo; que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("De un Mártir")
@@ -2044,7 +2044,7 @@ lazy_static! {
             CollectId::CommonOfSaints(CommonOfSaints::Missionary),
             CollectData {
                 document: Document::from(
-                    Text::from("Dios todopoderoso y eterno, te damos gracias por tu siervo N., a quien llamaste para predicar el Evangelio al pueblo de ___________________________ (o al pueblo _____________________ ): Levantaen éste y en todos los países evangelistas y heraldos de tu reino; para que tu Iglesia proclame las insondables riquezas de nuestro Salvador Jesucristo; que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Dios todopoderoso y eterno, te damos gracias por tu siervo N., a quien llamaste para predicar el Evangelio al pueblo de ___________________________ (o al pueblo _____________________ ): Levanta en éste y en todos los países evangelistas y heraldos de tu reino; para que tu Iglesia proclame las insondables riquezas de nuestro Salvador Jesucristo; que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("De un Misionero")
@@ -2197,7 +2197,7 @@ lazy_static! {
             CollectId::CommonOfSaints(CommonOfSaints::Saint),
             CollectData {
                 document: Document::from(
-                    Text::from("Oh Dios, que nos has acercado a la compañía innumerable de los ángeles y de los espíritus de los justos hechos perfectos: Concede que moremos en su comunión durante nuestra peregrinación terrenal, y en nuestrapatria celestial lleguemos a ser partícipes de su gozo; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Oh Dios, que nos has acercado a la compañía innumerable de los ángeles y de los espíritus de los justos hechos perfectos: Concede que moremos en su comunión durante nuestra peregrinación terrenal, y en nuestra patria celestial lleguemos a ser partícipes de su gozo; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("De un Santo")
@@ -2231,7 +2231,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::HolyTrinity),
             CollectData {
                 document: Document::from(
-                    Text::from("Dios todopoderoso, que has revelado a tu Iglesia tu ser eterno de gloriosa majestad y amor perfecto como un solo Dios en Trinidad de Personas: Danos gracia para continuar firmes en la confesión de esta fe, y constantes en nuestra adoración a ti, Padre, Hijo y Espíritu Santo; tú que vivesy reinas, un solo Dios, ahora y por siempre.")
+                    Text::from("Dios todopoderoso, que has revelado a tu Iglesia tu ser eterno de gloriosa majestad y amor perfecto como un solo Dios en Trinidad de Personas: Danos gracia para continuar firmes en la confesión de esta fe, y constantes en nuestra adoración a ti, Padre, Hijo y Espíritu Santo; tú que vives y reinas, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("1. De la Santísima Trinidad")
@@ -2299,7 +2299,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::HolyEucharist),
             CollectData {
                 document: Document::from(
-                    Text::from("Especialmente adecuada para los juevesDios y Padre nuestro, cuyo Hijo nuestro Señor Jesucristo nos dejó en un Sacramento maravilloso el memorial de su pasión: Concede que de tal modo veneremos los sagrados misterios de su Cuerpo y Sangre, que podamos discernir constantemente en nosotros el fruto de su redención; quien vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                    Text::from("Dios y Padre nuestro, cuyo Hijo nuestro Señor Jesucristo nos dejó en un Sacramento maravilloso el memorial de su pasión: Concede que de tal modo veneremos los sagrados misterios de su Cuerpo y Sangre, que podamos discernir constantemente en nosotros el fruto de su redención; quien vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                         .response("Amén.")
                 )
                 .label("5. De la Santa Eucaristía")
@@ -2308,7 +2308,7 @@ lazy_static! {
                 .version(Version::LibroDeOracionComun)
                 .language(Language::Es),
                 preface: "Prefacio de la Epifanía".into(),
-                rubric_before: None,
+                rubric_before: Some("Especialmente adecuada para los jueves".into()),
                 rubric_after: None
             }
         ),
@@ -2316,7 +2316,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::HolyCross),
             CollectData {
                 document: Document::from(
-                    Text::from("Especialmente adecuada para los viernesDios omnipotente, cuyo amado Hijo sufrió voluntariamente la agonía e ignominia de la cruz por nuestra redención: Danos valor para tomar nuestra cruz y seguirle; quien vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Dios omnipotente, cuyo amado Hijo sufrió voluntariamente la agonía e ignominia de la cruz por nuestra redención: Danos valor para tomar nuestra cruz y seguirle; quien vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("6. De la Santa Cruz")
@@ -2325,7 +2325,7 @@ lazy_static! {
                 .version(Version::LibroDeOracionComun)
                 .language(Language::Es),
                 preface: "Prefacio de Semana Santa".into(),
-                rubric_before: None,
+                rubric_before: Some("Especialmente adecuada para los viernes".into()),
                 rubric_after: None
             }
         ),
@@ -2333,7 +2333,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::AllBaptizedChristians),
             CollectData {
                 document: Document::from(
-                    Text::from("Especialmente adecuada para los sábadosConcede, oh Señor Dios, a los que hemos sido bautizados en la muerte y resurrección de tu Hijo Jesucristo, que, así como hemos desechado la vieja vida de pecado, seamos también renovados en el espíritu de nuestras mentes, y vivamos en justicia y verdadera santidad; por Jesucristo nuestro Señor, que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Concede, oh Señor Dios, a los que hemos sido bautizados en la muerte y resurrección de tu Hijo Jesucristo, que, así como hemos desechado la vieja vida de pecado, seamos también renovados en el espíritu de nuestras mentes, y vivamos en justicia y verdadera santidad; por Jesucristo nuestro Señor, que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("7. Por todos los Bautizados")
@@ -2342,7 +2342,7 @@ lazy_static! {
                 .version(Version::LibroDeOracionComun)
                 .language(Language::Es),
                 preface: "Prefacio del Bautismo".into(),
-                rubric_before: None,
+                rubric_before: Some("Especialmente adecuada para los sábados".into()),
                 rubric_after: None
             }
         ),
@@ -2418,7 +2418,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::Confirmation),
             CollectData {
                 document: Document::from(
-                    Text::from("Concede, oh Dios todopoderoso, a quienes hemos sido redimidos de la vieja vida de pecado por nuestro bautismo en la muerte y resurrección de tu Hijo Jesucristo, que seamos renovados en tu Espíritu Santo, yvivamos en justicia y verdadera santidad; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Concede, oh Dios todopoderoso, a quienes hemos sido redimidos de la vieja vida de pecado por nuestro bautismo en la muerte y resurrección de tu Hijo Jesucristo, que seamos renovados en tu Espíritu Santo, y vivamos en justicia y verdadera santidad; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("11. En una Confirmación")
@@ -2452,7 +2452,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::ChurchConvention),
             CollectData {
                 document: Document::from(
-                    Text::from("Padre todopoderoso y eterno, tú nos has dado el Espíritu Santo para morar con nosotros por siempre: Bendice, te rogamos, con su gracia y presencia, a los obispos, los otros clérigos y los laicos aquí (o ahora, o que estarán) reunidos en tu Nombre, a fin de que tu Iglesia,preservada en la verdadera fe y santa disciplina, lleve a cabo todo lo que tuvo en mente aquél que la amó y se entregó por ella, tu Hijo Jesucristo nuestro Salvador; que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Padre todopoderoso y eterno, tú nos has dado el Espíritu Santo para morar con nosotros por siempre: Bendice, te rogamos, con su gracia y presencia, a los obispos, los otros clérigos y los laicos aquí (o ahora, o que estarán) reunidos en tu Nombre, a fin de que tu Iglesia, preservada en la verdadera fe y santa disciplina, lleve a cabo todo lo que tuvo en mente aquél que la amó y se entregó por ella, tu Hijo Jesucristo nuestro Salvador; que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("13. Por una Convención de la Iglesia")
@@ -2469,7 +2469,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::UnityOfTheChurch),
             CollectData {
                 document: Document::from(
-                    Text::from("Padre omnipotente, cuyo bendito Hijo, antes de su pasión, oró por sus discípulos, para que fueran uno, como tú y él son uno: Concede que tu Iglesia, congregada en amor y obediencia a ti, sea unida en un solo cuerpopor un solo Espíritu, a fin de que el mundo crea en quien tú has enviado, tu Hijo Jesucristo nuestro Señor; que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Padre omnipotente, cuyo bendito Hijo, antes de su pasión, oró por sus discípulos, para que fueran uno, como tú y él son uno: Concede que tu Iglesia, congregada en amor y obediencia a ti, sea unida en un solo cuerpo por un solo Espíritu, a fin de que el mundo crea en quien tú has enviado, tu Hijo Jesucristo nuestro Señor; que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("14. Por la Unidad de la Iglesia")
@@ -2489,7 +2489,7 @@ lazy_static! {
                     Series::from(vec![
                         Document::from(Heading::from((HeadingLevel::Heading4, "I. Por los que van a ser ordenados"))),
                         Document::from(
-                            Text::from("Dios omnipotente, dador de toda buena dádiva, por tu divina providencia has establecido diversas órdenes en tu Iglesia: Otorga tu gracia, humildemente te suplicamos, a todos los que son llamados [ahora] a cualquier oficio y ministerio para tu pueblo; llénalos con la verdad de tu doctrina, y revístelos de santidad de vida, de tal modo que te sirvan fielmente, para gloria de tu excelsoNombre y para beneficio de tu santa Iglesia; por Jesucristo nuestro Señor, que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, ahora y por siempre.")
+                            Text::from("Dios omnipotente, dador de toda buena dádiva, por tu divina providencia has establecido diversas órdenes en tu Iglesia: Otorga tu gracia, humildemente te suplicamos, a todos los que son llamados [ahora] a cualquier oficio y ministerio para tu pueblo; llénalos con la verdad de tu doctrina, y revístelos de santidad de vida, de tal modo que te sirvan fielmente, para gloria de tu excelso Nombre y para beneficio de tu santa Iglesia; por Jesucristo nuestro Señor, que vive y reina contigo, en la unidad del Espíritu Santo, un solo Dios, ahora y por siempre.")
                                 .response("Amén.")
                         ),
                     ])
@@ -2511,7 +2511,7 @@ lazy_static! {
                     Series::from(vec![
                         Document::from(Heading::from((HeadingLevel::Heading4, "II. Por la selección de personas idóneas para el ministerio"))),
                         Document::from(
-                            Text::from("Oh Dios, que inspiraste a tus santos apóstoles a ordenar ministros en todo lugar: Concede que tu Iglesia, bajo la dirección del Espíritu Santo, escoja personas idóneaspara el ministerio de la Palabra y de los Sacramentos, y susténtalas en su obra para la extensión de tu reino; por él que es el Pastor y Obispo de nuestras almas, Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
+                            Text::from("Oh Dios, que inspiraste a tus santos apóstoles a ordenar ministros en todo lugar: Concede que tu Iglesia, bajo la dirección del Espíritu Santo, escoja personas idóneas para el ministerio de la Palabra y de los Sacramentos, y susténtalas en su obra para la extensión de tu reino; por él que es el Pastor y Obispo de nuestras almas, Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, por los siglos de los siglos.")
                                 .response("Amén.")
                         )
                     ])
@@ -2552,7 +2552,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::MissionOfTheChurch),
             CollectData {
                 document: Document::from(
-                    Text::from("Oh Dios, que has hecho de una sola sangre a todos los pueblos de la tierra, y enviaste a tu bendito Hijo a predicar la paz, tanto a los que están lejos como a los que están cerca: Concede que la gente en todo lugar te busque y te encuentre; trae a las naciones a tu redil; derrama tu Espíritu sobre toda carne; y apresura lavenida de tu reino; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Oh Dios, que has hecho de una sola sangre a todos los pueblos de la tierra, y enviaste a tu bendito Hijo a predicar la paz, tanto a los que están lejos como a los que están cerca: Concede que la gente en todo lugar te busque y te encuentre; trae a las naciones a tu redil; derrama tu Espíritu sobre toda carne; y apresura la venida de tu reino; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("16. Por la Misión de la Iglesia")
@@ -2703,7 +2703,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::SocialJustice),
             CollectData {
                 document: Document::from(
-                    Text::from("Dios omnipotente, que nos has creado a tu propia imagen: Concédenos gracia para luchar valerosamente contra el mal, y nunca transigir con la opresión; y, para que hagamos reverente uso de nuestra libertad, ayúdanosa emplearla en el sostenimiento de la justicia en nuestras comunidades y entre las naciones, para gloria de tu santo Nombre; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
+                    Text::from("Dios omnipotente, que nos has creado a tu propia imagen: Concédenos gracia para luchar valerosamente contra el mal, y nunca transigir con la opresión; y, para que hagamos reverente uso de nuestra libertad, ayúdanos a emplearla en el sostenimiento de la justicia en nuestras comunidades y entre las naciones, para gloria de tu santo Nombre; por Jesucristo nuestro Señor, que vive y reina contigo y el Espíritu Santo, un solo Dios, ahora y por siempre.")
                         .response("Amén.")
                 )
                 .label("21. Por la Justicia Social")

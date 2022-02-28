@@ -284,7 +284,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Epiphany8),
             CollectData {
                 document: Document::from(
-                    Text::from("Most loving Father, whose will it is for us to give thanks for all things, to fear nothing but the loss of you, and to cast allour care on you who care for us: Preserve us from faithless fears and worldly anxieties, that no clouds of this mortal life may hide from us the light of that love which is immortal, and which you have manifested to us in your Son Jesus Christ our Lord; who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
+                    Text::from("Most loving Father, whose will it is for us to give thanks for all things, to fear nothing but the loss of you, and to cast all our care on you who care for us: Preserve us from faithless fears and worldly anxieties, that no clouds of this mortal life may hide from us the light of that love which is immortal, and which you have manifested to us in your Son Jesus Christ our Lord; who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("Eighth Sunday after the Epiphany")
@@ -404,7 +404,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::HolyWeek),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty and everliving God, in your tender love for the human race you sent your Son our Savior Jesus Christ totake upon him our nature, and to suffer death upon the cross, giving us the example of his great humility: Mercifully grant that we may walk in the way of his suffering, and also share in his resurrection; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                    Text::from("Almighty and everliving God, in your tender love for the human race you sent your Son our Savior Jesus Christ to take upon him our nature, and to suffer death upon the cross, giving us the example of his great humility: Mercifully grant that we may walk in the way of his suffering, and also share in his resurrection; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("Sunday of the Passion: Palm Sunday")
@@ -554,7 +554,7 @@ lazy_static! {
             CollectId::Feast(Feast::MondayInEasterWeek),
             CollectData {
                 document: Document::from(
-                    Text::from("Grant, we pray, Almighty God, that we who celebrate with awe the Paschal feast may be found worthy to attain toeverlasting joys; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
+                    Text::from("Grant, we pray, Almighty God, that we who celebrate with awe the Paschal feast may be found worthy to attain to everlasting joys; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("Monday in Easter Week")
@@ -659,7 +659,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Easter3),
             CollectData {
                 document: Document::from(
-                    Text::from("O God, whose blessed Son made himself known to his disciples in the breaking of bread: Open the eyes of our faith, that we may behold him in all his redeeming work; who livesand reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
+                    Text::from("O God, whose blessed Son made himself known to his disciples in the breaking of bread: Open the eyes of our faith, that we may behold him in all his redeeming work; who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("Third Sunday of Easter")
@@ -689,7 +689,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Easter5),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty God, whom truly to know is everlasting life: Grant us so perfectly to know your Son Jesus Christ to be the way, the truth, and the life, that we may steadfastly follow hissteps in the way that leads to eternal life; through Jesus Christ your Son our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever.")
+                    Text::from("Almighty God, whom truly to know is everlasting life: Grant us so perfectly to know your Son Jesus Christ to be the way, the truth, and the life, that we may steadfastly follow his steps in the way that leads to eternal life; through Jesus Christ your Son our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("Fifth Sunday of Easter")
@@ -704,7 +704,7 @@ lazy_static! {
             CollectId::Week(LiturgicalWeek::Easter6),
             CollectData {
                 document: Document::from(
-                    Text::from("O God, you have prepared for those who love you such good things as surpass our understanding: Pour into our hearts such love towards you, that we, loving you in all things and aboveall things, may obtain your promises, which exceed all that we can desire; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                    Text::from("O God, you have prepared for those who love you such good things as surpass our understanding: Pour into our hearts such love towards you, that we, loving you in all things and above all things, may obtain your promises, which exceed all that we can desire; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("Sixth Sunday of Easter")
@@ -771,7 +771,7 @@ lazy_static! {
                 .page(227)
                 .tags(["Seasons of the Year"]),
                 preface: "Preface of Pentecost".into(),
-                rubric_before: Some("When a Vigil of Pentecost is observed, it begins with the Service of Light, page 109 (substituting, if desired, the Gloria in excelsis for the Phos hilaron), and continues with the Salutation and Collect of the Day. Three or more of the appointed Lessons are read before the Gospel, each followed by a Psalm, Canticle, or hymn. Holy Baptism or Confirmation (beginning with the Presentation of the Candidates), or the Renewal of Baptismal Vows, page 292, follows the Sermon.".into()),
+                rubric_before: Some("When a Vigil of Pentecost is observed, it begins with the Service of Light, page 109 (substituting, if desired, the *Gloria in excelsis* for the *Phos hilaron*), and continues with the Salutation and Collect of the Day. Three or more of the appointed Lessons are read before the Gospel, each followed by a Psalm, Canticle, or hymn. Holy Baptism or Confirmation (beginning with the Presentation of the Candidates), or the Renewal of Baptismal Vows, page 292, follows the Sermon.".into()),
                 rubric_after: Some("or this".into())
             }
         ),
@@ -794,7 +794,7 @@ lazy_static! {
             CollectId::Feast(Feast::TrinitySunday),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty and everlasting God, you have given to us your servants grace, by the confession of a true faith, to acknowledge the glory of the eternal Trinity, and in the power of your divine Majesty to worship the Unity: Keepus steadfast in this faith and worship, and bring us at last to see you in your one and eternal glory, O Father; who with the Son and the Holy Spirit live and reign, one God, for ever and ever.")
+                    Text::from("Almighty and everlasting God, you have given to us your servants grace, by the confession of a true faith, to acknowledge the glory of the eternal Trinity, and in the power of your divine Majesty to worship the Unity: Keep us steadfast in this faith and worship, and bring us at last to see you in your one and eternal glory, O Father; who with the Son and the Holy Spirit live and reign, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("First Sunday after Pentecost: Trinity Sunday")
@@ -825,7 +825,7 @@ lazy_static! {
             CollectId::Proper(Proper::Proper2),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty and merciful God, in your goodness keep us, we pray, from all things that may hurt us, that we, being readyboth in mind and body, may accomplish with free hearts those things which belong to your purpose; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever; Amen.No Proper Preface is used.")
+                    Text::from("Almighty and merciful God, in your goodness keep us, we pray, from all things that may hurt us, that we, being ready both in mind and body, may accomplish with free hearts those things which belong to your purpose; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever; Amen.No Proper Preface is used.")
                         .response("Amen.")
                 )
                 .label("Proper 2")
@@ -937,7 +937,7 @@ lazy_static! {
             CollectId::Proper(Proper::Proper9),
             CollectData {
                 document: Document::from(
-                    Text::from("O God, you have taught us to keep all your commandments by loving you and our neighbor: Grant us the grace of your Holy Spirit, that we may be devoted to you with our wholeheart, and united to one another with pure affection; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                    Text::from("O God, you have taught us to keep all your commandments by loving you and our neighbor: Grant us the grace of your Holy Spirit, that we may be devoted to you with our whole heart, and united to one another with pure affection; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("Proper 9")
@@ -985,7 +985,7 @@ lazy_static! {
             CollectId::Proper(Proper::Proper12),
             CollectData {
                 document: Document::from(
-                    Text::from("O God, the protector of all who trust in you, without whom nothing is strong, nothing is holy: Increase and multiply uponus your mercy; that, with you as our ruler and guide, we may so pass through things temporal, that we lose not the things eternal; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                    Text::from("O God, the protector of all who trust in you, without whom nothing is strong, nothing is holy: Increase and multiply upon us your mercy; that, with you as our ruler and guide, we may so pass through things temporal, that we lose not the things eternal; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("Proper 12")
@@ -1225,7 +1225,7 @@ lazy_static! {
             CollectId::Proper(Proper::Proper27),
             CollectData {
                 document: Document::from(
-                    Text::from("O God, whose blessed Son came into the world that he might destroy the works of the devil and make us children of God and heirs of eternal life: Grant that, having this hope, we may purify ourselves as he is pure; that, when he comes againwith power and great glory, we may be made like him in his eternal and glorious kingdom; where he lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                    Text::from("O God, whose blessed Son came into the world that he might destroy the works of the devil and make us children of God and heirs of eternal life: Grant that, having this hope, we may purify ourselves as he is pure; that, when he comes again with power and great glory, we may be made like him in his eternal and glorious kingdom; where he lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("Proper 27")
@@ -1257,7 +1257,7 @@ lazy_static! {
             CollectId::Proper(Proper::Proper29),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty and everlasting God, whose will it is to restore all things in your well-beloved Son, the King of kings and Lord of lords: Mercifully grant that the peoples of the earth, divided and enslaved by sin, may be freed and brought togetherunder his most gracious rule; who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
+                    Text::from("Almighty and everlasting God, whose will it is to restore all things in your well-beloved Son, the King of kings and Lord of lords: Mercifully grant that the peoples of the earth, divided and enslaved by sin, may be freed and brought together under his most gracious rule; who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("Proper 29")
@@ -1337,7 +1337,7 @@ lazy_static! {
             CollectId::Feast(Feast::HolyInnocents),
             CollectData {
                 document: Document::from(
-                    Text::from("We remember today, O God, the slaughter of the holy innocents of Bethlehem by King Herod. Receive, we pray, into the arms of your mercy all innocent victims; and by your great might frustrate the designs of evil tyrants and establish your rule of justice, love, and peace; through Jesus Christour Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever.")
+                    Text::from("We remember today, O God, the slaughter of the holy innocents of Bethlehem by King Herod. Receive, we pray, into the arms of your mercy all innocent victims; and by your great might frustrate the designs of evil tyrants and establish your rule of justice, love, and peace; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("The Holy Innocents")
@@ -1369,7 +1369,7 @@ lazy_static! {
             CollectId::Feast(Feast::ConversionOfStPaul),
             CollectData {
                 document: Document::from(
-                    Text::from("O God, by the preaching of your apostle Paul you have caused the light of the Gospel to shine throughout the world:Grant, we pray, that we, having his wonderful conversion in remembrance, may show ourselves thankful to you by following his holy teaching; through Jesus Christ our Lord, who livesand reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
+                    Text::from("O God, by the preaching of your apostle Paul you have caused the light of the Gospel to shine throughout the world:Grant, we pray, that we, having his wonderful conversion in remembrance, may show ourselves thankful to you by following his holy teaching; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("Conversion of Saint Paul")
@@ -1481,7 +1481,7 @@ lazy_static! {
             CollectId::Feast(Feast::TheVisitation),
             CollectData {
                 document: Document::from(
-                    Text::from("Father in heaven, by your grace the virgin mother of your incarnate Son was blessed in bearing him, but still more blessed in keeping your word: Grant us who honor the exaltation of her lowliness to follow the example of her devotion to your will; through Jesus Christ our Lord, wholives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                    Text::from("Father in heaven, by your grace the virgin mother of your incarnate Son was blessed in bearing him, but still more blessed in keeping your word: Grant us who honor the exaltation of her lowliness to follow the example of her devotion to your will; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("The Visitation")
@@ -1497,7 +1497,7 @@ lazy_static! {
             CollectId::Feast(Feast::Barnabas),
             CollectData {
                 document: Document::from(
-                    Text::from("Grant, O God, that we may follow the example of your faithful servant Barnabas, who, seeking not his own renown but the well-being of your Church, gave generously of his life and substance for the relief of the poor and the spread of the Gospel; through Jesus Christ our Lord, who livesand reigns with you and the Holy Spirit, one God, for ever and ever.")
+                    Text::from("Grant, O God, that we may follow the example of your faithful servant Barnabas, who, seeking not his own renown but the well-being of your Church, gave generously of his life and substance for the relief of the poor and the spread of the Gospel; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("Saint Barnabas")
@@ -1529,7 +1529,7 @@ lazy_static! {
             CollectId::Feast(Feast::PeterAndPaul),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty God, whose blessed apostles Peter and Paul glorified you by their martyrdom: Grant that your Church, instructed by their teaching and example, and knit together in unity by your Spirit, may ever stand firm upon the one foundation, whichis Jesus Christ our Lord; who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
+                    Text::from("Almighty God, whose blessed apostles Peter and Paul glorified you by their martyrdom: Grant that your Church, instructed by their teaching and example, and knit together in unity by your Spirit, may ever stand firm upon the one foundation, which is Jesus Christ our Lord; who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("Saint Peter and Saint Paul")
@@ -1768,7 +1768,7 @@ lazy_static! {
             CollectId::CommonOfSaints(CommonOfSaints::Martyr),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty God, who gave to your servant N. boldness to confess the Name of our Savior Jesus Christ before the rulersof this world, and courage to die for this faith: Grant that we may always be ready to give a reason for the hope that is in us, and to suffer gladly for the sake of our Lord Jesus Christ; who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                    Text::from("Almighty God, who gave to your servant N. boldness to confess the Name of our Savior Jesus Christ before the rulers of this world, and courage to die for this faith: Grant that we may always be ready to give a reason for the hope that is in us, and to suffer gladly for the sake of our Lord Jesus Christ; who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("Of a Martyr")
@@ -1813,7 +1813,7 @@ lazy_static! {
             CollectId::CommonOfSaints(CommonOfSaints::Missionary),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty and everlasting God, we thank you for your servant N., whom you called to preach the Gospel to the people of__________ (or to the_________ people). Raiseup in this and every land evangelists and heralds of your kingdom, that your Church may proclaim the unsearchable riches of our Savior Jesus Christ; who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
+                    Text::from("Almighty and everlasting God, we thank you for your servant N., whom you called to preach the Gospel to the people of__________ (or to the_________ people). Raise up in this and every land evangelists and heralds of your kingdom, that your Church may proclaim the unsearchable riches of our Savior Jesus Christ; who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("Of a Missionary")
@@ -1873,7 +1873,7 @@ lazy_static! {
             CollectId::CommonOfSaints(CommonOfSaints::Theologian),
             CollectData {
                 document: Document::from(
-                    Text::from("O God, by your Holy Spirit you give to some the word of wisdom, to others the word of knowledge, and to others the word of faith: We praise your Name for the gifts of gracemanifested in your servant N., and we pray that your Church may never be destitute of such gifts; through Jesus Christ our Lord, who with you and the Holy Spirit lives and reigns, one God, for ever and ever.")
+                    Text::from("O God, by your Holy Spirit you give to some the word of wisdom, to others the word of knowledge, and to others the word of faith: We praise your Name for the gifts of grace manifested in your servant N., and we pray that your Church may never be destitute of such gifts; through Jesus Christ our Lord, who with you and the Holy Spirit lives and reigns, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("Of a Theologian and Teacher")
@@ -2023,7 +2023,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::Incarnation),
             CollectData {
                 document: Document::from(
-                    Text::from("O God, who wonderfully created, and yet more wonderfully restored, the dignity of human nature: Grant that we mayshare the divine life of him who humbled himself to share our humanity, your Son Jesus Christ; who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever.")
+                    Text::from("O God, who wonderfully created, and yet more wonderfully restored, the dignity of human nature: Grant that we may share the divine life of him who humbled himself to share our humanity, your Son Jesus Christ; who lives and reigns with you, in the unity of the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("4. Of the Incarnation")
@@ -2038,14 +2038,14 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::HolyEucharist),
             CollectData {
                 document: Document::from(
-                    Text::from("Especially suitable for ThursdaysGod our Father, whose Son our Lord Jesus Christ in a wonderful Sacrament has left us a memorial of his passion: Grant us so to venerate the sacred mysteries of his Body and Blood, that we may ever perceive within ourselves the fruit of his redemption; who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                    Text::from("God our Father, whose Son our Lord Jesus Christ in a wonderful Sacrament has left us a memorial of his passion: Grant us so to venerate the sacred mysteries of his Body and Blood, that we may ever perceive within ourselves the fruit of his redemption; who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("5. Of the Holy Eucharist")
                 .page(252)
                 .tags(["Various Occasions"]),
                 preface: "Preface of the Epiphany".into(),
-                rubric_before: None,
+                rubric_before: Some("Especially suitable for Thursdays".into()),
                 rubric_after: None
             }
         ),
@@ -2053,14 +2053,14 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::HolyCross),
             CollectData {
                 document: Document::from(
-                    Text::from("Especially suitable for FridaysAlmighty God, whose beloved Son willingly endured the agony and shame of the cross for our redemption: Give us courage to take up our cross and follow him; who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
+                    Text::from("Almighty God, whose beloved Son willingly endured the agony and shame of the cross for our redemption: Give us courage to take up our cross and follow him; who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("6. Of the Holy Cross")
                 .page(252)
                 .tags(["Various Occasions"]),
                 preface: "Preface of Holy Week".into(),
-                rubric_before: None,
+                rubric_before: Some("Especially suitable for Fridays".into()),
                 rubric_after: None
             }
         ),
@@ -2068,14 +2068,14 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::AllBaptizedChristians),
             CollectData {
                 document: Document::from(
-                    Text::from("Especially suitable for SaturdaysGrant, Lord God, to all who have been baptized into thedeath and resurrection of your Son Jesus Christ, that, as we have put away the old life of sin, so we may be renewed in the spirit of our minds, and live in righteousness and true holiness; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
+                    Text::from("Grant, Lord God, to all who have been baptized into the death and resurrection of your Son Jesus Christ, that, as we have put away the old life of sin, so we may be renewed in the spirit of our minds, and live in righteousness and true holiness; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("7. For all Baptized Christians")
                 .page(253)
                 .tags(["Various Occasions"]),
                 preface: "Preface of Baptism".into(),
-                rubric_before: None,
+                rubric_before: Some("Especially suitable for Saturdays".into()),
                 rubric_after: None
             }
         ),
@@ -2104,16 +2104,16 @@ lazy_static! {
                 .label("8. For the Departed")
                 .page(253)
                 .tags(["Various Occasions"]),
-                preface: "".into(),
+                preface: "Preface of the Commemoration of the Dead".into(),
                 rubric_before: None,
-                rubric_after: Some("Preface of the Commemoration of the Dead The postcommunion prayer on page 498 may be used.".into())
+                rubric_after: Some("The postcommunion prayer on page 498 may be used.".into())
             }
         ),
         (
             CollectId::VariousOccasions(VariousOccasions::ReignOfChrist),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty and everlasting God, whose will it is to restore all things in your well-beloved Son, the King of kings and Lordof lords: Mercifully grant that the peoples of the earth,divided and enslaved by sin, may be freed and brought together under his most gracious rule; who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
+                    Text::from("Almighty and everlasting God, whose will it is to restore all things in your well-beloved Son, the King of kings and Lord of lords: Mercifully grant that the peoples of the earth,divided and enslaved by sin, may be freed and brought together under his most gracious rule; who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("9. Of the Reign of Christ")
@@ -2158,7 +2158,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::Dedication),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty God, to whose glory we celebrate the dedication of this house of prayer: We give you thanks for the fellowshipof those who have worshiped in this place, and we pray that all who seek you here may find you, and be filled with your joy and peace; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.The Litany of Thanksgiving for a Church, page 578, may be used for the Prayers of the People.")
+                    Text::from("Almighty God, to whose glory we celebrate the dedication of this house of prayer: We give you thanks for the fellowship of those who have worshiped in this place, and we pray that all who seek you here may find you, and be filled with your joy and peace; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.The Litany of Thanksgiving for a Church, page 578, may be used for the Prayers of the People.")
                         .response("Amen.")
                 )
                 .label("12. On the Anniversary of the Dedication of a Church")
@@ -2243,7 +2243,7 @@ lazy_static! {
                 document: Document::from(
                     Series::from(vec![
                         Document::from(Heading::from((HeadingLevel::Heading4, "III. For all Christians in their vocation"))),
-                        Document::from(Text::from("Almighty and everlasting God, by whose Spirit the whole body of your faithful people is governed and sanctified: Receive our supplications and prayers, which we offer beforeyou for all members of your holy Church, that in their vocation and ministry they may truly and devoutly serve you; through our Lord and Savior Jesus Christ, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
+                        Document::from(Text::from("Almighty and everlasting God, by whose Spirit the whole body of your faithful people is governed and sanctified: Receive our supplications and prayers, which we offer before you for all members of your holy Church, that in their vocation and ministry they may truly and devoutly serve you; through our Lord and Savior Jesus Christ, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.")
                             .response("Amen.")
                         )
                     ])
@@ -2260,7 +2260,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::MissionOfTheChurch),
             CollectData {
                 document: Document::from(
-                    Text::from("O God, you have made of one blood all the peoples of the earth, and sent your blessed Son to preach peace to thosewho are far off and to those who are near: Grant that people everywhere may seek after you and find you, bring the nations into your fold, pour out your Spirit upon all flesh, and hasten the coming of your kingdom; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
+                    Text::from("O God, you have made of one blood all the peoples of the earth, and sent your blessed Son to preach peace to those who are far off and to those who are near: Grant that people everywhere may seek after you and find you, bring the nations into your fold, pour out your Spirit upon all flesh, and hasten the coming of your kingdom; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
                         .response("Amen.")
                 )
                 .label("16. For the Mission of the Church")
@@ -2305,7 +2305,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::Peace),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty God, kindle, we pray, in every heart the true love of peace, and guide with your wisdom those who take counselfor the nations of the earth, that in tranquillity your dominion may increase until the earth is filled with the knowledge of your love; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and forever.")
+                    Text::from("Almighty God, kindle, we pray, in every heart the true love of peace, and guide with your wisdom those who take counsel for the nations of the earth, that in tranquillity your dominion may increase until the earth is filled with the knowledge of your love; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and forever.")
                         .response("Amen.")
                 )
                 .label("18. For Peace")
@@ -2323,7 +2323,7 @@ lazy_static! {
                     Series::from(vec![
                         Document::from(Heading::from((HeadingLevel::Heading4, "I. For fruitful seasons"))),
                         Document::from(
-                            Text::from("Almighty God, Lord of heaven and earth: We humbly pray that your gracious providence may give and preserve to our use the harvests of the land and of the seas, and may prosper all who labor to gather them, that we, who are constantly receiving good things from your hand, may always give youthanks; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                            Text::from("Almighty God, Lord of heaven and earth: We humbly pray that your gracious providence may give and preserve to our use the harvests of the land and of the seas, and may prosper all who labor to gather them, that we, who are constantly receiving good things from your hand, may always give you thanks; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                                 .response("Amen.")
                         )
                     ])
@@ -2343,7 +2343,7 @@ lazy_static! {
                     Series::from(vec![
                         Document::from(Heading::from((HeadingLevel::Heading4, "II. For commerce and industry"))),
                         Document::from(
-                            Text::from("Almighty God, whose Son Jesus Christ in his earthly lifeshared our toil and hallowed our labor: Be present with your people where they work; make those who carry on the industries and commerce of this land responsive to your will; and giveto us all a pride in what we do, and a just return for our labor; through Jesus Christ our Lord, who lives and reigns withyou, in the unity of the Holy Spirit, one God, now and forever.")
+                            Text::from("Almighty God, whose Son Jesus Christ in his earthly life shared our toil and hallowed our labor: Be present with your people where they work; make those who carry on the industries and commerce of this land responsive to your will; and give to us all a pride in what we do, and a just return for our labor; through Jesus Christ our Lord, who lives and reigns with you, in the unity of the Holy Spirit, one God, now and forever.")
                                 .response("Amen.")
                         )
                     ])
@@ -2456,7 +2456,7 @@ lazy_static! {
             CollectId::VariousOccasions(VariousOccasions::LaborDay),
             CollectData {
                 document: Document::from(
-                    Text::from("Almighty God, you have so linked our lives one with another that all we do affects, for good or ill, all other lives: So guide us in the work we do, that we may do it not for self alone, but for the common good; and, as we seek a proper return forour own labor, make us mindful of the rightful aspirations of other workers, and arouse our concern for those who are out of work; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                    Text::from("Almighty God, you have so linked our lives one with another that all we do affects, for good or ill, all other lives: So guide us in the work we do, that we may do it not for self alone, but for the common good; and, as we seek a proper return for our own labor, make us mindful of the rightful aspirations of other workers, and arouse our concern for those who are out of work; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                         .response("Amen.")
                 )
                 .label("25. For Labor Day")

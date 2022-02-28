@@ -1,12 +1,9 @@
 Website Todos
 =============
 
-- [ ] Prayers and Thanksgivings
-  - [ ] Proofread Prayers & Thanksgivings
-    - [ ] create alternate document forms for several types
 - Bugs
   - [x] Remove "Show::CompiledOnly" on template pages
-  - [ ] Spell-check collects
+  - [x] Spell-check collects
   - [ ] Small iOS appearance bugs
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)

@@ -847,7 +847,7 @@ lazy_static! {
         CollectId::Feast(Feast::WilliamAugustusMuhlenberg),
         CollectData::from(
             Document::from(
-                Text::from("Open the eyes of your church, O Lord, to the plight of the poor and neglectted, the homeless and destitute,the old and the sick, the lonely and those who have none to care for them. Give to us the vision and compassion with which you so richly endowed your servant William Augustus Muhlenberg, that we may labor tirelessly to heal those who are broken in body or spirit, and to turn their sorrow into joy; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                Text::from("Open the eyes of your church, O Lord, to the plight of the poor and neglected, the homeless and destitute,the old and the sick, the lonely and those who have none to care for them. Give to us the vision and compassion with which you so richly endowed your servant William Augustus Muhlenberg, that we may labor tirelessly to heal those who are broken in body or spirit, and to turn their sorrow into joy; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                     .response("Amen.")
                 )
                 .label("William Augustus Muhlenberg")
