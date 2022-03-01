@@ -427,7 +427,10 @@ fn find_page(
             if let Some(slug) = slug {
                 match page {
                     PageType::Document(s_slug, doc) => {
-                        s_slug == slug && (version.is_none() || version == Some(doc.version))
+                        s_slug == slug
+                            && (version.is_none()
+                                || version == Some(doc.version)
+                                || version.unwrap().is_subset_of(&doc.version))
                     }
                     PageType::Category(_, s_version, _) => {
                         version.is_none() || version.as_ref() == Some(s_version)
