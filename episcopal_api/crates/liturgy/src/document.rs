@@ -459,7 +459,7 @@ impl Content {
             Content::PsalmCitation(_) => false,
             Content::ResponsivePrayer(lines) => lines.iter().any(|line| line.contains(text)),
             Content::Rubric(rubric) => rubric.to_string().contains(text),
-            Content::Sentence(sentence) => sentence.text.contains(text),
+            Content::Sentence(sentence) => sentence.text.contains(text) || sentence.citation.as_ref().map(|citation| citation.contains(text)).unwrap_or(false),
             Content::Text(t) => t.to_string().contains(text),
             Content::HymnLink(_) => false,
         }
@@ -521,7 +521,7 @@ impl Content {
             Content::PsalmCitation(_) => false,
             Content::ResponsivePrayer(lines) => lines.iter().any(|line| line.to_lowercase().contains(text)),
             Content::Rubric(rubric) => rubric.to_string().to_lowercase().contains(text),
-            Content::Sentence(sentence) => sentence.text.to_lowercase().contains(text),
+            Content::Sentence(sentence) => sentence.text.to_lowercase().contains(text) || sentence.citation.as_ref().map(|citation| citation.to_lowercase().contains(text)).unwrap_or(false),
             Content::Text(t) => t.to_string().to_lowercase().contains(text),
             Content::HymnLink(_) => false,
         }
