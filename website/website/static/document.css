@@ -474,6 +474,11 @@ a.reference {
   max-width: calc(75vw - 2rem);
   text-overflow: ellipsis;
 }
+/* prevents these from flowing through the header */
+.choice li {
+  position: relative;
+  z-index: -1;
+}
 .choice li.hidden {
   display: none;
 }
