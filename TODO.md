@@ -2,9 +2,6 @@ Website Todos
 =============
 
 - Bugs
-  - [x] Remove "Show::CompiledOnly" on template pages
-  - [x] Spell-check collects
-  - [x] Small iOS appearance bugs
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)
 - [ ] Display settings
@@ -18,7 +15,7 @@ Website Todos
 - [ ] Set preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
 - Clean up (look in template only mode, proofread/test)
   - [x] Noonday Prayer
-  - [ ] Compline
+  - [x] Compline
   - [ ] Morning Prayer
   - [ ] Evening Prayer
 - [ ] Better Biblical citation reading parsing (paragraphs)
