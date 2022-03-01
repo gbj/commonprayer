@@ -311,8 +311,12 @@ a.reference {
 }
 
 .document header.psalm-header {
-  grid-template-areas: "number latin reference" "number blank blank";
+  grid-template-areas: "number blank blank" "number latin reference";
   grid-template-columns: 5rem 0.5fr 0.5fr;
+}
+
+.document header.psalm-header .latin-name {
+  padding-bottom: 0.25rem;
 }
 
 .document header.psalm-header.with-local-name {
@@ -327,6 +331,12 @@ a.reference {
 
 .document header.psalm-header .local-name {
   grid-area: local;
+  font-size: 1rem;
+}
+
+.document header.with-local-name .local-name,
+.document header.with-local-name .latin-name {
+  padding: 0;
 }
 
 .document header.psalm-header .latin-name {
@@ -348,7 +358,7 @@ a.reference {
 }
 
 .psalm-header {
-  line-height: 2rem;
+  vertical-align: bottom;
 }
 
 /* Canticle */
