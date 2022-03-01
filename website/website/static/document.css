@@ -395,6 +395,8 @@ a.reference {
   border: 0;
   color: var(--link-color);
   background: var(--background);
+  margin-left: auto; /* only for Safari's benefit... */
+  font-size: 1rem;
 }
 
 .document .canticle-swap-menu button img {
