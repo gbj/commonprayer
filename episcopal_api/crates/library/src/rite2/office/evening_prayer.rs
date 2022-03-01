@@ -231,7 +231,7 @@ lazy_static! {
               "We entreat you, O Lord.",
               [
                 "That this evening may be holy, good, and peaceful,",
-                "That you holy angels may lead us in paths of peace and goodwill,",
+                "That your holy angels may lead us in paths of peace and goodwill,",
                 "That we may be pardoned and forgiven for our sins and offenses,",
                 "That there may be peace to your Church and to the whole world,",
                 "That we may depart this life in your faith and fear, and not be condemned before the great judgment seat of Christ,",
