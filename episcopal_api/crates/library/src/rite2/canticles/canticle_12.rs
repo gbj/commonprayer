@@ -90,7 +90,7 @@ and all that grows upon the earth, *",
                 ]
             },
             CanticleSection {
-                title: Some(String::from("II\tThe People of God")),
+                title: Some(String::from("III\tThe People of God")),
                 verses: vec![
                     CanticleVerse::from((
                         "Let the people of God glorify the Lord, *",
