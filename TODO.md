@@ -1,21 +1,17 @@
 Website Todos
 =============
 
+- [ ] Set liturgy preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
 - Bugs
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)
   - [ ] Probably different canticles for Ash Wednesday than the app gives
-- [x] Display settings
-  - [ ] Show in Document page
-  - [ ] Change in Document page settings
-  - [ ] Show in Daily Readings page
 - Hymns
   - [x] Bing video search
     - [ ] Bing search acknowledgement on this page
     - [ ] note when no results were found -- (and re-search dropping tune?)
     - [ ] update play button CSS for mobile
   - [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany, especially in Service Music
-- [ ] Set preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
 - Clean up (look in template only mode, proofread/test)
   - [x] Noonday Prayer
   - [x] Compline
