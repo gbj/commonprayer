@@ -1,7 +1,7 @@
 use std::{collections::HashMap, time::Duration};
 
 use crate::{
-    components::{header, SegmentButton, Toggle},
+    components::*,
     preferences::{self, StorageError},
     table_of_contents::TOCLiturgy,
 };
@@ -57,6 +57,7 @@ fn head(_locale: &str, _props: &SettingsPageProps, _render_state: &()) -> View {
             <title>{t!("settings.title")} " – " {t!("common_prayer")}</title>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/settings.css"/>
+            <link rel="stylesheet" href="/static/display-settings.css"/>
         </>
     }
 }
@@ -82,6 +83,9 @@ enum Status {
 
 fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
     let status = Behavior::new(Status::Idle);
+
+    let display_settings = DisplaySettingsComponent::new();
+    display_settings.current_settings.stream().create_effect({let status = status.clone(); move |display_settings| preference_effect(&status, || preferences::set_display_settings(&display_settings))});
 
     let dark_mode_setting = SegmentButton::new_with_default_value(
         "dark_mode",
@@ -261,8 +265,12 @@ fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
         <>
             {header(locale, &t!("settings.title"))}
             <main>
-                <h2>{t!("settings.general")}</h2>
+                <h2>{t!("settings.display_settings.title")}</h2>
                 <dyn:view view={dark_mode_setting.view()} />
+                <h3>{t!("settings.display_settings.liturgy")}</h3>
+                <dyn:view view={display_settings.view()} />
+
+                <h2>{t!("settings.general")}</h2>
                 <dyn:view view={version_setting.view()} />
                 <dyn:view view={calendar_setting.view()} />
                 <dyn:view view={psalm_cycle_setting.view()} />

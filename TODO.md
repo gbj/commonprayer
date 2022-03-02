@@ -4,8 +4,11 @@ Website Todos
 - Bugs
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)
-- [ ] Display settings
-  - [ ] Daily Readings page
+  - [ ] Probably different canticles for Ash Wednesday than the app gives
+- [x] Display settings
+  - [ ] Show in Document page
+  - [ ] Change in Document page settings
+  - [ ] Show in Daily Readings page
 - Hymns
   - [x] Bing video search
     - [ ] Bing search acknowledgement on this page

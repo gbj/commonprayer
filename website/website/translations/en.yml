@@ -105,6 +105,11 @@ en:
     success: "Your settings have been updated."
     error: "Something went wrong while updating your preferences. Try again later."
     not_available: "We were unable to save your settings in your browser’s local storage. Is it possible your privacy settings have this disabled?"
+    display_settings:
+      title: Display Settings
+      liturgy: Liturgy Display Settings
+      bible_verses: Show Bible verse numbers
+      psalm_verses: Show Psalm verse numbers
 
   toc:
     table_of_contents: Table of Contents

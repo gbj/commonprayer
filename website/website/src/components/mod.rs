@@ -1,5 +1,6 @@
 mod biblical_citation;
 mod date_picker;
+mod display_settings;
 mod document;
 mod export_links;
 mod header;
@@ -14,6 +15,7 @@ mod toggle;
 
 pub use biblical_citation::*;
 pub use date_picker::*;
+pub use display_settings::*;
 pub use document::*;
 pub use export_links::*;
 pub use header::*;

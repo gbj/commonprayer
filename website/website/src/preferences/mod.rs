@@ -5,9 +5,17 @@ use episcopal_api::{
     liturgy::{GlobalPref, PreferenceKey, PreferenceValue, Version},
 };
 use leptos::{is_server, log, window};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use crate::table_of_contents::TOCLiturgy;
+
+#[derive(Default, Copy, Clone, PartialEq, Eq, Debug, Deserialize, Serialize)]
+pub struct DisplaySettings {
+    pub psalm_verses: bool,
+    pub bible_verses: bool,
+}
+
+const DISPLAY_SETTINGS_KEY: &str = "display_settings";
 
 pub enum StorageError {
     StorageNotAvailable,
@@ -79,6 +87,18 @@ pub fn set(key: &PreferenceKey, value: &PreferenceValue) -> Result<(), StorageEr
 pub fn clear(key: &PreferenceKey) -> Result<(), StorageError> {
     let key = serde_json::to_string(&key).map_err(|_| StorageError::SerializeKey)?;
     clear_raw(&key)
+}
+
+pub fn get_display_settings() -> Option<DisplaySettings> {
+    get_raw(DISPLAY_SETTINGS_KEY).and_then(|value| serde_json::from_str(&value).ok())
+}
+
+pub fn set_display_settings(value: &DisplaySettings) -> Result<(), StorageError> {
+    set_localstorage(DISPLAY_SETTINGS_KEY, value)
+}
+
+pub fn clear_display_settings() -> Result<(), StorageError> {
+    clear_raw(DISPLAY_SETTINGS_KEY)
 }
 
 fn liturgy_key(liturgy: TOCLiturgy, language: Language, version: Version) -> String {
