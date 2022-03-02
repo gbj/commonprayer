@@ -15,6 +15,24 @@ pub struct DisplaySettings {
     pub bible_verses: bool,
 }
 
+impl DisplaySettings {
+    pub fn to_class(&self) -> String {
+        format!(
+            "{} {}",
+            if self.psalm_verses {
+                ""
+            } else {
+                "psalm-verses-hidden"
+            },
+            if self.bible_verses {
+                ""
+            } else {
+                "bible-verses-hidden"
+            }
+        )
+    }
+}
+
 const DISPLAY_SETTINGS_KEY: &str = "display_settings";
 
 pub enum StorageError {

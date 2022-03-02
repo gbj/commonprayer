@@ -1,7 +1,9 @@
 /* Styles for Episcopal API documents that have been rendered into HTML */
-.psalmverses-hidden {
+.psalm-verses-hidden {
   --psalm-number-display: none;
   --psalm-grid-display: block;
+  --psalm-verse-grid: "a a" "spacing b";
+  --psalm-verse-grid-template-columns: 1.5rem 1fr;
 }
 
 /* Utility Classes */
@@ -274,7 +276,10 @@ a.reference {
 }
 
 .psalm > section > main > .verse {
-  grid-template-columns: 1.5rem 1.5rem 1fr;
+  grid-template-columns: var(
+    --psalm-verse-grid-template-columns,
+    1.5rem 1.5rem 1fr
+  );
   grid-template-areas: var(
     --psalm-verse-grid,
     "number a a" "spacing spacing b"
@@ -515,6 +520,10 @@ a.reference {
 .biblical-reading sup.verse-number {
   margin-right: 0.25rem;
   font-size: 0.6rem;
+}
+
+.bible-verses-hidden sup.verse-number {
+  display: none;
 }
 
 /* Lookups */

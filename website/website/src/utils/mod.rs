@@ -2,6 +2,7 @@ use leptos::is_server;
 
 pub mod fetch;
 pub mod language;
+pub mod preferences;
 pub mod time;
 
 pub fn decode_uri(encoded: &str) -> String {

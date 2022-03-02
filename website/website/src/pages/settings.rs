@@ -1,8 +1,9 @@
-use std::{collections::HashMap, time::Duration};
+use std::{collections::HashMap};
 
 use crate::{
     components::*,
     preferences::{self, StorageError},
+    utils::preferences::*,
     table_of_contents::TOCLiturgy,
 };
 use episcopal_api::{
@@ -73,20 +74,19 @@ pub struct SettingsPageProps {
     eucharist_prefs: Option<(String, LiturgyPreferences)>,
 }
 
-#[derive(Copy, Clone, PartialEq, Eq)]
-enum Status {
-    Idle,
-    Success,
-    Error,
-    NotAvailable,
-}
-
 fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
     let status = Behavior::new(Status::Idle);
 
     let display_settings = DisplaySettingsComponent::new();
-    display_settings.current_settings.stream().create_effect({let status = status.clone(); move |display_settings| preference_effect(&status, || preferences::set_display_settings(&display_settings))});
-
+    display_settings.current_settings.stream().create_effect({
+        let status = status.clone();
+        move |display_settings| {
+            preference_effect(&status, || {
+                preferences::set_display_settings(&display_settings)
+            })
+        }
+    });
+    
     let dark_mode_setting = SegmentButton::new_with_default_value(
         "dark_mode",
         Some(t!("settings.dark_mode.label")),
@@ -267,7 +267,6 @@ fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
             <main>
                 <h2>{t!("settings.display_settings.title")}</h2>
                 <dyn:view view={dark_mode_setting.view()} />
-                <h3>{t!("settings.display_settings.liturgy")}</h3>
                 <dyn:view view={display_settings.view()} />
 
                 <h2>{t!("settings.general")}</h2>
@@ -313,17 +312,7 @@ fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
                 <dyn:view view={gloria_patri_setting.view()} />
                 <dyn:view view={black_letter_collect_setting.view()} />
             </main>
-            <footer>
-                <dyn:p class="success hidden" class:hidden={status.stream().map(|status| status != Status::Success).boxed_local()}>
-                    {t!("settings.success")}
-                </dyn:p>
-                <dyn:p class="error hidden" class:hidden={status.stream().map(|status| status != Status::Error).boxed_local()}>
-                    {t!("settings.error")}
-                </dyn:p>
-                <dyn:p class="error hidden" class:hidden={status.stream().map(|status| status != Status::NotAvailable).boxed_local()}>
-                    {t!("settings.not_available")}
-                </dyn:p>
-            </footer>
+            {preference_status_footer(&status)}
         </>
     }
 }
@@ -472,32 +461,4 @@ fn setting_toggle(
     });
 
     toggle
-}
-
-fn set_preference(status: &Behavior<Status>, key: &PreferenceKey, value: &PreferenceValue) {
-    preference_effect(status, || preferences::set(key, value));
-}
-
-fn clear_preference(status: &Behavior<Status>, key: &PreferenceKey) {
-    preference_effect(status, || preferences::clear(key));
-}
-
-fn preference_effect(status: &Behavior<Status>, effect: impl FnOnce() -> Result<(), StorageError>) {
-    if !is_server!() {
-        let (new_status, delay_before_clearing) = match (effect)() {
-            Ok(_) => (Status::Success, Duration::from_secs(3)),
-            Err(StorageError::StorageNotAvailable) => {
-                (Status::NotAvailable, Duration::from_secs(8))
-            }
-            Err(_) => (Status::Error, Duration::from_secs(8)),
-        };
-        status.set(new_status);
-        set_timeout(
-            {
-                let status = status.clone();
-                move || status.set(Status::Idle)
-            },
-            delay_before_clearing,
-        );
-    }
 }

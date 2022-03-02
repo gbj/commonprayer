@@ -1,7 +1,45 @@
-use crate::preferences::{self, DisplaySettings};
+use crate::{
+    preferences::{self, DisplaySettings},
+    utils::preferences::*,
+};
 use futures::StreamExt;
 use leptos::*;
 use wasm_bindgen::JsCast;
+
+use super::{side_menu, Icon};
+
+pub struct DisplaySettingsSideMenu {
+    component: DisplaySettingsComponent,
+    pub status: Behavior<Status>,
+}
+
+impl DisplaySettingsSideMenu {
+    pub fn new() -> Self {
+        let component = DisplaySettingsComponent::new();
+        let status = Behavior::new(Status::Idle);
+        Self { component, status }
+    }
+
+    pub fn view(&self) -> View {
+        self.component
+            .current_settings
+            .stream()
+            .skip(1)
+            .create_effect({
+                let status = self.status.clone();
+                move |display_settings| {
+                    preference_effect(&status, || {
+                        preferences::set_display_settings(&display_settings)
+                    })
+                }
+            });
+        side_menu(Icon::Settings, self.component.view())
+    }
+
+    pub fn current_settings(&self) -> Behavior<DisplaySettings> {
+        self.component.current_settings.clone()
+    }
+}
 
 pub struct DisplaySettingsComponent {
     pub current_settings: Behavior<DisplaySettings>,
@@ -22,6 +60,7 @@ impl DisplaySettingsComponent {
 
         (bible_verses.stream(), psalm_verses.stream())
             .lift()
+            .skip(2)
             .create_effect({
                 let current_settings = self.current_settings.clone();
                 move |(bible_verses, psalm_verses)| {
@@ -29,13 +68,13 @@ impl DisplaySettingsComponent {
                         bible_verses: bible_verses.unwrap_or_default(),
                         psalm_verses: psalm_verses.unwrap_or_default(),
                     };
-                    preferences::set_display_settings(&new_settings);
                     current_settings.set(new_settings);
                 }
             });
 
         view! {
             <section class="display-settings">
+                <h3>{t!("settings.display_settings.liturgy")}</h3>
                 <label>
                     {t!("settings.display_settings.bible_verses")}
                     <dyn:input type="checkbox"

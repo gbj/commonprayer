@@ -1,5 +1,6 @@
 use std::rc::Rc;
 
+use crate::utils::preferences::*;
 use episcopal_api::{
     api::summary::{
         DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary,
@@ -65,6 +66,8 @@ fn head(locale: &str, props: &DailyReadingsPageProps, _render_state: &()) -> Vie
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
             <link rel="stylesheet" href="/static/daily-readings.css"/>
+            <link rel="stylesheet" href="/static/display-settings.css"/>
+            <link rel="stylesheet" href="/static/settings.css"/>
             {redirect}
         </>
     }
@@ -228,10 +231,14 @@ fn office_body(locale: &str, summary: &DailySummary) -> View {
         &summary.evening.thirty_day_psalms,
     );
 
+    let display_settings_menu = DisplaySettingsSideMenu::new();
+
     view! {
         <>
-            {header(&locale, &t!("toc.daily_readings"))}
-            <main>
+            {header_with_side_menu(&locale, &t!("toc.daily_readings"), display_settings_menu.view())}
+            <dyn:main
+                class={display_settings_menu.current_settings().stream().map(|settings| settings.to_class()).boxed_local()}
+            >
                 <label class="stacked">
                     {View::StaticText(t!("date"))}
                     <dyn:input type="date" class="centered"
@@ -265,31 +272,38 @@ fn office_body(locale: &str, summary: &DailySummary) -> View {
                 <dyn:view view={primary_evening}/>
                 <dyn:view view={alt_morning}/>
                 <dyn:view view={alt_evening}/>
-            </main>
+            </dyn:main>
+            {preference_status_footer(&display_settings_menu.status)}
         </>
     }
 }
 
 fn eucharist_body(locale: &str, summary: &EucharisticLectionarySummary) -> View {
+    // TODO choose observance
     let observed = eucharistic_observance_view(locale, &summary.day.date, &summary.observed);
+
+    let display_settings_menu = DisplaySettingsSideMenu::new();
 
     view! {
         <>
-            {header(locale, &t!("menu.lectionary"))}
-            <main>
-                <label class="stacked">
-                    {View::StaticText(t!("date"))}
-                    <dyn:input type="date" class="centered"
-                        value={summary.day.date.to_padded_string()}
-                        on:change={
-                            let locale = locale.to_string();
-                            move |ev: Event| redirect_to_date(&locale, event_target_value(ev), RedirectMode::Eucharist)
-                        }
-                    />
-                </label>
+            {header_with_side_menu(locale, &t!("menu.lectionary"), display_settings_menu.view())}
+            <dyn:main
+                class={display_settings_menu.current_settings().stream().map(|settings| settings.to_class()).boxed_local()}
+            >
+            <label class="stacked">
+                {View::StaticText(t!("date"))}
+                <dyn:input type="date" class="centered"
+                    value={summary.day.date.to_padded_string()}
+                    on:change={
+                        let locale = locale.to_string();
+                        move |ev: Event| redirect_to_date(&locale, event_target_value(ev), RedirectMode::Eucharist)
+                    }
+                />
+            </label>
 
                 {observed}
-            </main>
+            </dyn:main>
+            {preference_status_footer(&display_settings_menu.status)}
         </>
     }
 }
