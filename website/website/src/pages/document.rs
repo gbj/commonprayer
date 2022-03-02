@@ -77,6 +77,7 @@ pub fn head(_locale: &str, props: &DocumentPageProps, _render_state: &()) -> Vie
             <title>{title}</title>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
+            <link rel="stylesheet" href="/static/display-settings.css"/>
         </>
     }
 }
@@ -148,28 +149,37 @@ fn document_body(locale: &str, props: &DocumentPageProps, title: String, doc: &D
             }
         });
 
-    let side_menu = if doc.has_date_condition() {
-        side_menu(
-            Icon::Calendar,
-            view! {
-                <section class="preview-menu">
-                    <dyn:view view={date_picker.view()}/>
-                </section>
-            },
-        )
+    let display_settings_menu = DisplaySettingsSideMenu::new();
+    let date_menu = if doc.has_date_condition() {
+        view! {
+            <section class="preview-menu">
+                <dyn:view view={date_picker.view()}/>
+            </section>
+        }
     } else {
         View::Empty
     };
+
+    let side_menu = side_menu(
+        Icon::Settings,
+        view! {
+            <>
+                {date_menu}
+                {display_settings_menu.component.view()}
+            </>
+        },
+    );
 
     let document_controller = DocumentController::new(doc.clone());
 
     view! {
         <>
             {header_with_side_menu(locale, &title, side_menu)}
-            <main>
-                //<dyn:view view={export_links(&props.slug, &props.date, &document_controller)} />
+            <dyn:main
+                class={display_settings_menu.current_settings().stream().map(|settings| settings.to_class()).boxed_local()}
+            >                //<dyn:view view={export_links(&props.slug, &props.date, &document_controller)} />
                 <dyn:view view={document_controller.view(locale)}/>
-            </main>
+            </dyn:main>
         </>
     }
 }

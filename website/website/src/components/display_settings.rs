@@ -9,7 +9,7 @@ use wasm_bindgen::JsCast;
 use super::{side_menu, Icon};
 
 pub struct DisplaySettingsSideMenu {
-    component: DisplaySettingsComponent,
+    pub component: DisplaySettingsComponent,
     pub status: Behavior<Status>,
 }
 
