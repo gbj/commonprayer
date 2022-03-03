@@ -237,7 +237,7 @@ pub(crate) const BCP1979_HOLY_DAY_RANKS: [(Feast, Rank); 86] = [
         Feast::ThursdayAfterAshWednesday,
         Rank::PrecedenceOverWeekday,
     ),
-    (Feast::AshWednesday, Rank::HolyDay),
+    (Feast::AshWednesday, Rank::PrecedenceOverHolyDay),
     (Feast::December24, Rank::PrecedenceOverWeekday),
     (Feast::December29, Rank::PrecedenceOverWeekday),
     (Feast::December30, Rank::PrecedenceOverWeekday),

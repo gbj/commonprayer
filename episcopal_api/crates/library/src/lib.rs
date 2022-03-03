@@ -388,7 +388,7 @@ pub trait Library {
 
                             let id = COLLECT_LINKS.linked_id(&CollectId::Feast(feast));
 
-                            if day_rank >= Rank::HolyDay {
+                            if day_rank >= Rank::PrecedenceOverWeekday {
                                 Some(Document::choice_or_document(
                                     &mut collects
                                         .iter()
