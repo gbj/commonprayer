@@ -1,10 +1,11 @@
-use std::time::Duration;
+use std::{time::Duration, collections::HashMap};
 
-use episcopal_api::liturgy::{PreferenceKey, PreferenceValue};
+use episcopal_api::{liturgy::{PreferenceKey, PreferenceValue, Version, LiturgyPreferences, Content, Document}, language::Language};
 use futures::StreamExt;
 use leptos::*;
+use itertools::Itertools;
 
-use crate::preferences::{self, StorageError};
+use crate::{preferences::{self, StorageError}, TOCLiturgy};
 
 #[derive(Copy, Clone, PartialEq, Eq)]
 pub enum Status {
@@ -58,5 +59,128 @@ pub fn preference_effect(
             },
             delay_before_clearing,
         );
+    }
+}
+
+pub fn liturgy_to_preferences(document: &Document) -> Option<(String, LiturgyPreferences)> {
+    if let Content::Liturgy(liturgy) = &document.content {
+        Some((
+            document.label.clone().unwrap_or_default(),
+            liturgy.preferences.clone(),
+        ))
+    } else {
+        None
+    }
+}
+
+pub fn liturgy_preferences_view(
+    status: &Behavior<Status>,
+    liturgy: TOCLiturgy,
+    language: Language,
+    version: Version,
+    prefs: &Option<(String, LiturgyPreferences)>,
+) -> View {
+    let client_prefs = if is_server!() {
+        HashMap::new()
+    } else {
+        preferences::get_prefs_for_liturgy(liturgy, language, version)
+    };
+
+    if let Some((label, prefs)) = prefs.as_ref() {
+        let categories = prefs
+                .iter()
+                .group_by(|pref| pref.category.as_ref())
+                .into_iter()
+                .map(|(label, group)| {
+                    let prefs = View::Fragment(
+                        group
+                            .filter_map(|pref| {
+                                if pref.only_one_choice() {
+                                    None
+                                } else {
+                                    let choices = View::Fragment(
+                                        pref.choices()
+                                            .enumerate()
+                                            .map(|(choice_idx, choice)| {
+                                                view! {
+                                                    <option value={choice_idx.to_string()}>{&choice.label}</option>
+                                                }
+                                            })
+                                            .collect()
+                                    );
+
+                                    let on_change = {
+                                        let pref = pref.clone();
+                                        let status = status.clone();
+                                        move |ev: Event| {
+                                            let value = event_target_value(ev);
+                                            log(&format!("on_change called for {:#?}", pref.key));
+                                            if let Ok(selected_idx) = value.parse::<usize>() {
+                                                if let Some(option) =
+                                                    pref.choices().nth(selected_idx)
+                                                {
+                                                    let mut current_prefs = preferences::get_prefs_for_liturgy(liturgy, language, version);
+                                                    current_prefs.insert(pref.key.clone(), option.value.clone());
+                                                    preference_effect(&status, move || 
+                                                        preferences::set_prefs_for_liturgy(liturgy, language, version, current_prefs)
+                                                    );
+                                                }
+                                            }
+                                        }
+                                    };
+
+                                    // load the initial value from client preferences set in localStorage
+                                    // because this is not known on the server side, needs to be a Behavior => Stream, not a static value
+                                    let initial_value = Behavior::new(0);
+                                    if let Some(idx) = client_prefs.get(&pref.key).and_then(|value| pref.choices().enumerate().find(|(_, choice)| &choice.value == value).map(|(idx, _)| idx)) {
+                                        // if the selected pref is idx 0, we don't need to do anything anyway
+                                        if idx != 0 {
+                                            initial_value.set(idx);
+                                        }
+                                    }
+
+                                    Some(view! {
+                                        <label class="preference">
+                                            {&pref.label}
+                                            <dyn:select
+                                                prop:value={initial_value.stream().map(|n| Some(n.to_string())).boxed_local()}
+                                                on:change=on_change
+                                            >
+                                                {choices}
+                                            </dyn:select>
+                                        </label>
+                                    })
+                                }
+                            })
+                            .collect(),
+                    );
+
+                    let label = if let Some(label) = label {
+                        view! { <h4>{label}</h4> }
+                    } else {
+                        View::Empty
+                    };
+
+                    view! {
+                        <>
+                            {label}
+                            {prefs}
+                        </>
+                    }
+                })
+                .collect::<Vec<_>>();
+
+        if categories.is_empty() {
+            View::Empty
+        } else {
+            view! {
+                <>
+                    <h3>{label}</h3>
+                    {View::Fragment(categories)}
+                </>
+            }
+        }
+    } else {
+        View::Empty
     }
 }

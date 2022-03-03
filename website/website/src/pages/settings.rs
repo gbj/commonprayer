@@ -1,22 +1,19 @@
-use std::{collections::HashMap};
-
 use crate::{
     components::*,
     preferences::{self, StorageError},
-    utils::preferences::*,
     table_of_contents::TOCLiturgy,
+    utils::preferences::*,
 };
 use episcopal_api::{
     language::Language,
     library::bcp1979::{COMPLINE, NOONDAY_PRAYER},
-    library::rite2::{MORNING_PRAYER_II, EVENING_PRAYER_II},
+    library::rite2::{EVENING_PRAYER_II, MORNING_PRAYER_II},
     liturgy::{
         Content, Document, GlobalPref, Lectionaries, LiturgyPreferences, PreferenceKey,
         PreferenceValue, Version,
     },
 };
 use futures::StreamExt;
-use itertools::Itertools;
 use leptos::*;
 use rust_i18n::t;
 use serde::{Deserialize, Serialize};
@@ -39,17 +36,6 @@ fn static_props(_locale: &str, _path: &str, _params: &()) -> Option<SettingsPage
         cp_prefs: liturgy_to_preferences(&COMPLINE),
         eucharist_prefs: None, // TODO
     })
-}
-
-fn liturgy_to_preferences(document: &Document) -> Option<(String, LiturgyPreferences)> {
-    if let Content::Liturgy(liturgy) = &document.content {
-        Some((
-            document.label.clone().unwrap_or_default(),
-            liturgy.preferences.clone(),
-        ))
-    } else {
-        None
-    }
 }
 
 fn head(_locale: &str, _props: &SettingsPageProps, _render_state: &()) -> View {
@@ -86,40 +72,62 @@ fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
             })
         }
     });
-    
+
     let dark_mode_setting = SegmentButton::new_with_default_value(
         "dark_mode",
         Some(t!("settings.dark_mode.label")),
         [
-            (None, t!("settings.dark_mode.auto"), Some(t!("settings.dark_mode.auto_explanation"))),
-            (Some("light".to_string()), t!("settings.dark_mode.light"), Some(t!("settings.dark_mode.light_explanation"))),
-            (Some("dark".to_string()), t!("settings.dark_mode.dark"), Some(t!("settings.dark_mode.dark_explanation")))
+            (
+                None,
+                t!("settings.dark_mode.auto"),
+                Some(t!("settings.dark_mode.auto_explanation")),
+            ),
+            (
+                Some("light".to_string()),
+                t!("settings.dark_mode.light"),
+                Some(t!("settings.dark_mode.light_explanation")),
+            ),
+            (
+                Some("dark".to_string()),
+                t!("settings.dark_mode.dark"),
+                Some(t!("settings.dark_mode.dark_explanation")),
+            ),
         ],
-        preferences::get_raw(DARK_MODE_KEY)
+        preferences::get_raw(DARK_MODE_KEY),
     );
     dark_mode_setting.value.stream().skip(1).create_effect({
         let status = status.clone();
-        
+
         move |new_value| {
             let body_class_list = leptos::body().unwrap().class_list();
             match new_value {
                 Some(value) => {
                     preference_effect(&status, || {
                         preferences::set_raw(DARK_MODE_KEY, &value)?;
-                        body_class_list.remove_1("dark-mode-light").map_err(|_| StorageError::SettingStorage)?;
-                        body_class_list.remove_1("dark-mode-dark").map_err(|_| StorageError::SettingStorage)?;
-                        body_class_list.add_1(&format!("dark-mode-{}", value)).map_err(|_| StorageError::SettingStorage)?;
+                        body_class_list
+                            .remove_1("dark-mode-light")
+                            .map_err(|_| StorageError::SettingStorage)?;
+                        body_class_list
+                            .remove_1("dark-mode-dark")
+                            .map_err(|_| StorageError::SettingStorage)?;
+                        body_class_list
+                            .add_1(&format!("dark-mode-{}", value))
+                            .map_err(|_| StorageError::SettingStorage)?;
                         Ok(())
                     });
-                },
+                }
                 None => {
                     preference_effect(&status, || {
                         preferences::clear_raw(DARK_MODE_KEY)?;
-                        body_class_list.remove_1("dark-mode-light").map_err(|_| StorageError::SettingStorage)?;
-                        body_class_list.remove_1("dark-mode-dark").map_err(|_| StorageError::SettingStorage)?;
+                        body_class_list
+                            .remove_1("dark-mode-light")
+                            .map_err(|_| StorageError::SettingStorage)?;
+                        body_class_list
+                            .remove_1("dark-mode-dark")
+                            .map_err(|_| StorageError::SettingStorage)?;
                         Ok(())
                     });
-                },
+                }
             }
         }
     });
@@ -183,7 +191,6 @@ fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
         false,
     );
 
-
     let bible_version_setting = SegmentButton::new_with_default_value(
         "bible_version",
         Some(t!("settings.bible_version")),
@@ -210,13 +217,12 @@ fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
                 Some(t!("bible_version.KJV_full")),
             ),
         ],
-        
-            preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion)).and_then(|value| {
-                match value {
-                    PreferenceValue::Version(version) => Some(version),
-                    _ => None,
-                }
-            })
+        preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion)).and_then(|value| {
+            match value {
+                PreferenceValue::Version(version) => Some(version),
+                _ => None,
+            }
+        }),
     );
     bible_version_setting.value.stream().skip(1).create_effect({
         let status = status.clone();
@@ -264,7 +270,7 @@ fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
     view! {
         <>
             {header(locale, &t!("settings.title"))}
-            <main>
+            <main class="settings">
                 <h2>{t!("settings.display_settings.title")}</h2>
                 <dyn:view view={dark_mode_setting.view()} />
                 <dyn:view view={display_settings.view()} />
@@ -314,118 +320,6 @@ fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
             </main>
             {preference_status_footer(&status)}
         </>
-    }
-}
-
-fn liturgy_preferences_view(
-    status: &Behavior<Status>,
-    liturgy: TOCLiturgy,
-    language: Language,
-    version: Version,
-    prefs: &Option<(String, LiturgyPreferences)>,
-) -> View {
-    let client_prefs = if is_server!() {
-        HashMap::new()
-    } else {
-        preferences::get_prefs_for_liturgy(liturgy, language, version)
-    };
-
-    if let Some((label, prefs)) = prefs.as_ref() {
-        let categories = prefs
-                .iter()
-                .group_by(|pref| pref.category.as_ref())
-                .into_iter()
-                .map(|(label, group)| {
-                    let prefs = View::Fragment(
-                        group
-                            .filter_map(|pref| {
-                                if pref.only_one_choice() {
-                                    None
-                                } else {
-                                    let choices = View::Fragment(
-                                        pref.choices()
-                                            .enumerate()
-                                            .map(|(choice_idx, choice)| {
-                                                view! {
-                                                    <option value={choice_idx.to_string()}>{&choice.label}</option>
-                                                }
-                                            })
-                                            .collect()
-                                    );
-
-                                    let on_change = {
-                                        let pref = pref.clone();
-                                        let status = status.clone();
-                                        move |ev: Event| {
-                                            let value = event_target_value(ev);
-                                            log(&format!("on_change called for {:#?}", pref.key));
-                                            if let Ok(selected_idx) = value.parse::<usize>() {
-                                                if let Some(option) =
-                                                    pref.choices().nth(selected_idx)
-                                                {
-                                                    let mut current_prefs = preferences::get_prefs_for_liturgy(liturgy, language, version);
-                                                    current_prefs.insert(pref.key.clone(), option.value.clone());
-                                                    preference_effect(&status, move || 
-                                                        preferences::set_prefs_for_liturgy(liturgy, language, version, current_prefs)
-                                                    );
-                                                }
-                                            }
-                                        }
-                                    };
-
-                                    // load the initial value from client preferences set in localStorage
-                                    // because this is not known on the server side, needs to be a Behavior => Stream, not a static value
-                                    let initial_value = Behavior::new(0);
-                                    if let Some(idx) = client_prefs.get(&pref.key).and_then(|value| pref.choices().enumerate().find(|(_, choice)| &choice.value == value).map(|(idx, _)| idx)) {
-                                        // if the selected pref is idx 0, we don't need to do anything anyway
-                                        if idx != 0 {
-                                            initial_value.set(idx);
-                                        }
-                                    }
-
-                                    Some(view! {
-                                        <label class="preference">
-                                            {&pref.label}
-                                            <dyn:select
-                                                prop:value={initial_value.stream().map(|n| Some(n.to_string())).boxed_local()}
-                                                on:change=on_change
-                                            >
-                                                {choices}
-                                            </dyn:select>
-                                        </label>
-                                    })
-                                }
-                            })
-                            .collect(),
-                    );
-
-                    let label = if let Some(label) = label {
-                        view! { <h4>{label}</h4> }
-                    } else {
-                        View::Empty
-                    };
-
-                    view! {
-                        <>
-                            {label}
-                            {prefs}
-                        </>
-                    }
-                })
-                .collect::<Vec<_>>();
-
-        if categories.is_empty() {
-            View::Empty
-        } else {
-            view! {
-                <>
-                    <h3>{label}</h3>
-                    {View::Fragment(categories)}
-                </>
-            }
-        }
-    } else {
-        View::Empty
     }
 }
 

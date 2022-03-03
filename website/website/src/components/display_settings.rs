@@ -74,7 +74,6 @@ impl DisplaySettingsComponent {
 
         view! {
             <section class="display-settings">
-                <h3>{t!("settings.display_settings.liturgy")}</h3>
                 <label>
                     {t!("settings.display_settings.bible_verses")}
                     <dyn:input type="checkbox"

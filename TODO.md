@@ -2,10 +2,14 @@ Website Todos
 =============
 
 - [ ] Set liturgy preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
+- [ ] Upgrade to Actix 4
 - Bugs
+  - [ ] LFF special days like Thursday/Friday/Saturday after Ash Wednesday
+  - [ ] Thursday MP Canticle 2 should be 19 only, not 20 or 19
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)
   - [ ] Probably different canticles for Ash Wednesday than the app gives
+- [ ] Psalm 95 Fridays in Lent
 - Hymns
   - [x] Bing video search
     - [ ] Bing search acknowledgement on this page

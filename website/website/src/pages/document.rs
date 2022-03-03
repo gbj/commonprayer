@@ -1,8 +1,15 @@
 use std::collections::HashMap;
 
-use crate::{components::*, table_of_contents::PageType, TABLE_OF_CONTENTS};
+use crate::{
+    components::*,
+    preferences,
+    table_of_contents::PageType,
+    utils::{preferences::*, time::today},
+    TOCLiturgy, TABLE_OF_CONTENTS,
+};
 use episcopal_api::{
     calendar::{Calendar, Date},
+    language::Language,
     library::{CommonPrayer, Library},
     liturgy::{Content, Document, PreferenceKey, PreferenceValue, Version},
 };
@@ -14,7 +21,7 @@ use serde::Serialize;
 use serde_derive::Deserialize;
 use wasm_bindgen::UnwrapThrowExt;
 
-#[derive(Debug, Deserialize, Clone)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct DocumentPageParams {
     pub category: String,
     pub slug: Option<String>,
@@ -27,7 +34,7 @@ pub struct DocumentPageParams {
 
 #[derive(Serialize, Deserialize, Clone)]
 pub enum DocumentPageType {
-    Document(Box<Document>),
+    Document(DocumentPageParams, Box<Document>),
     Category(String, Version, Vec<Document>),
     CategorySummary(String, String, Vec<(Version, String)>),
 }
@@ -63,7 +70,7 @@ pub fn get_static_paths() -> Vec<String> {
 
 pub fn head(_locale: &str, props: &DocumentPageProps, _render_state: &()) -> View {
     let label = match &props.page_type {
-        DocumentPageType::Document(doc) => doc.label.as_ref(),
+        DocumentPageType::Document(_, doc) => doc.label.as_ref(),
         DocumentPageType::Category(label, _, _) => Some(label),
         DocumentPageType::CategorySummary(label, _, _) => Some(label),
     };
@@ -77,6 +84,7 @@ pub fn head(_locale: &str, props: &DocumentPageProps, _render_state: &()) -> Vie
             <title>{title}</title>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
+            <link rel="stylesheet" href="/static/settings.css"/>
             <link rel="stylesheet" href="/static/display-settings.css"/>
         </>
     }
@@ -84,7 +92,7 @@ pub fn head(_locale: &str, props: &DocumentPageProps, _render_state: &()) -> Vie
 
 pub fn body(locale: &str, props: &DocumentPageProps, _render_state: &()) -> View {
     let title = match &props.page_type {
-        DocumentPageType::Document(doc) => match &doc.label {
+        DocumentPageType::Document(_, doc) => match &doc.label {
             Some(label) => label.clone(),
             None => t!("common_prayer"),
         },
@@ -93,7 +101,7 @@ pub fn body(locale: &str, props: &DocumentPageProps, _render_state: &()) -> View
     };
 
     match &props.page_type {
-        DocumentPageType::Document(doc) => document_body(locale, props, title, doc),
+        DocumentPageType::Document(params, doc) => document_body(locale, props, title, doc, params),
         DocumentPageType::Category(_, _, docs) => category_body(locale, props, title, docs),
         DocumentPageType::CategorySummary(label, slug, pages) => {
             category_summary_body(locale, label, slug, pages)
@@ -130,7 +138,13 @@ fn category_summary_body(
     }
 }
 
-fn document_body(locale: &str, props: &DocumentPageProps, title: String, doc: &Document) -> View {
+fn document_body(
+    locale: &str,
+    props: &DocumentPageProps,
+    title: String,
+    doc: &Document,
+    params: &DocumentPageParams,
+) -> View {
     let date_picker = DatePicker::new(t!("date"), None);
     let base_path = props.base_path.clone();
     date_picker
@@ -149,11 +163,48 @@ fn document_body(locale: &str, props: &DocumentPageProps, title: String, doc: &D
             }
         });
 
-    let display_settings_menu = DisplaySettingsSideMenu::new();
     let date_menu = if doc.has_date_condition() {
         view! {
             <section class="preview-menu">
                 <dyn:view view={date_picker.view()}/>
+            </section>
+        }
+    } else {
+        View::Empty
+    };
+    let display_settings_menu = DisplaySettingsSideMenu::new();
+    let current_liturgy = props.slug.as_ref().and_then(|slug| {
+        let id = TOCLiturgy::from(slug.as_str());
+        if id == TOCLiturgy::NotFound {
+            None
+        } else {
+            Some(id)
+        }
+    });
+    let liturgy_preference_menu = if let Some(current_liturgy) = current_liturgy {
+        let liturgy_preference_menu = liturgy_preferences_view(
+            &display_settings_menu.status,
+            current_liturgy,
+            doc.language,
+            doc.version,
+            &liturgy_to_preferences(doc),
+        );
+        view! {
+            <section class="liturgy-preferences">
+                <h2>{t!("settings.liturgy")}</h2>
+                {liturgy_preference_menu}
+                <dyn:button
+                    on:click={
+                        let params = params.clone();
+                        let props = props.clone();
+                        let language = doc.language;
+                        let version = doc.version;
+                        let status = display_settings_menu.status.clone();
+                        move |_ev: Event| redirect_with_new_preferences(&status, current_liturgy, language, version, &params, &props)
+                    }
+                >
+                    {t!("settings.use_preferences")}
+                </dyn:button>
             </section>
         }
     } else {
@@ -165,7 +216,11 @@ fn document_body(locale: &str, props: &DocumentPageProps, title: String, doc: &D
         view! {
             <>
                 {date_menu}
+
+                <h2>{t!("settings.display_settings.title")}</h2>
                 {display_settings_menu.component.view()}
+
+                {liturgy_preference_menu}
             </>
         },
     );
@@ -181,6 +236,39 @@ fn document_body(locale: &str, props: &DocumentPageProps, title: String, doc: &D
                 <dyn:view view={document_controller.view(locale)}/>
             </dyn:main>
         </>
+    }
+}
+
+fn redirect_with_new_preferences(
+    status: &Behavior<Status>,
+    liturgy: TOCLiturgy,
+    language: Language,
+    version: Version,
+    params: &DocumentPageParams,
+    props: &DocumentPageProps,
+) {
+    let prefs = preferences::get_prefs_for_liturgy(liturgy, language, version);
+    // convert HashMap<K, V> to Vec<(K, V)> because serde_json can't serialize a HashMap with enum keys to a JSON map
+    let serialized_prefs =
+        serde_json::to_string(&prefs.iter().collect::<Vec<_>>()).unwrap_or_default();
+    let new_url = format!(
+        "{}/{}/{}/{}{}",
+        props.base_path,
+        params.date.unwrap_or_else(today),
+        params
+            .calendar
+            .clone()
+            .unwrap_or_else(|| "bcp1979".to_string()),
+        serialized_prefs,
+        if let Some(alternate) = &params.alternate {
+            format!("/{alternate}")
+        } else {
+            "".to_string()
+        }
+    );
+    match location().set_href(&new_url) {
+        Ok(_) => {}
+        Err(_) => status.set(Status::Error),
     }
 }
 
@@ -413,6 +501,7 @@ fn category_body(
 }
 
 fn find_page(
+    params: &DocumentPageParams,
     category: &str,
     slug: &Option<String>,
     version: Option<Version>,
@@ -476,7 +565,9 @@ fn find_page(
         ))
     } else {
         filtered_pages.get(0).map(|page| match page {
-            PageType::Document(_, doc) => DocumentPageType::Document(Box::new((*doc).clone())),
+            PageType::Document(_, doc) => {
+                DocumentPageType::Document(params.clone(), Box::new((*doc).clone()))
+            }
             PageType::Category(label, version, docs) => {
                 DocumentPageType::Category(label.to_string(), *version, docs.clone())
             }
@@ -490,20 +581,20 @@ pub fn hydration_state(
     params: &DocumentPageParams,
 ) -> Option<DocumentPageProps> {
     // find page in TOC, either with the given version or in any version
-    find_page(&params.category, &params.slug, params.version)
-        .or_else(|| find_page(&params.category, &params.slug, params.version))
+    find_page(params, &params.category, &params.slug, params.version)
+        .or_else(|| find_page(params, &params.category, &params.slug, params.version))
         // if document is not found, with return None => 404
         .and_then(|page_type| {
             // if it's a PageType::Document and we're given a date, compile it
             let page_type = match (&page_type, &params.date) {
                 (DocumentPageType::CategorySummary(_, _, _), _) => Some(page_type),
                 (DocumentPageType::Category(_, _, _), _) => Some(page_type),
-                (DocumentPageType::Document(doc), None) => {
+                (DocumentPageType::Document(params, doc), None) => {
                     let doc = *doc.clone();
                     let doc = doc.into_template();
-                    doc.map(|doc| DocumentPageType::Document(Box::new(doc)))
+                    doc.map(|doc| DocumentPageType::Document(params.clone(), Box::new(doc)))
                 }
-                (DocumentPageType::Document(doc), Some(date)) => {
+                (DocumentPageType::Document(params, doc), Some(date)) => {
                     let calendar = params
                         .calendar
                         .as_ref()
@@ -555,7 +646,7 @@ pub fn hydration_state(
                         doc.clone().into_template()
                     };
 
-                    doc.map(|doc| DocumentPageType::Document(Box::new(doc)))
+                    doc.map(|doc| DocumentPageType::Document(params.clone(), Box::new(doc)))
                 }
             };
 

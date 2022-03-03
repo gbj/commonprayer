@@ -441,7 +441,7 @@ fieldset.stacked label {
   left: 0;
   height: 100vh;
   width: 100vw;
-  max-width: 400px;
+  max-width: 350px;
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
   transition: transform 0.25s cubic-bezier(0.77, 0.2, 0.05, 1);
@@ -462,7 +462,9 @@ fieldset.stacked label {
 .canticle-swap-menu .menu-content {
   display: none;
   height: auto;
-  width: 350px;
+  max-height: calc(90vh - 2rem);
+  overflow-y: scroll;
+  width: 400px;
   max-width: calc(90vw - 2rem);
   padding: 1rem;
   position: fixed;

@@ -567,3 +567,21 @@ a.reference {
   background-color: #f1e8b8;
   color: black;
 }
+
+/* Liturgy Preference Menu */
+@media (min-width: 400px) {
+  .liturgy-preferences label {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .liturgy-preferences label > * {
+    width: 50%;
+  }
+
+  .liturgy-preferences select {
+    text-align: center;
+  }
+}

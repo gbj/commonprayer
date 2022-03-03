@@ -108,8 +108,9 @@ en:
     display_settings:
       title: Display Settings
       liturgy: Liturgy Display Settings
-      bible_verses: Show Bible verse numbers
-      psalm_verses: Show Psalm verse numbers
+      bible_verses: Show Bible Verse Numbers
+      psalm_verses: Show Psalm Verse Numbers
+    use_preferences: View Current Liturgy with Selected Preferences
 
   toc:
     table_of_contents: Table of Contents
