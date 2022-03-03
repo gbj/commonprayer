@@ -301,7 +301,9 @@ where
 
                 // if incremental generation, check if page has already been created and serve that file if it has
                 if page.incremental_generation {
-                    let build_artifact_path = format!("{}/artifacts/{}.html", *PROJECT_ROOT, path.replace('/', "-"));
+                    let build_artifact_dir = [(*PROJECT_ROOT).clone(), "artifacts".to_string()].into_iter().chain(path.split('/').map(String::from)).collect::<Vec<_>>().join("/");
+                    let mut build_artifact_path = build_artifact_dir.clone();
+                    build_artifact_path.push_str(".html");
                     let build_artifact_path = std::path::Path::new(&build_artifact_path);
                     if build_artifact_path.exists() {
                         match NamedFile::open(build_artifact_path) {
@@ -312,6 +314,11 @@ where
                             Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
                         }
                     } else {
+                        let build_artifact_dir_path = std::path::Path::new(&build_artifact_dir);
+                        if !build_artifact_dir_path.exists() {
+                            std::fs::create_dir_all(build_artifact_dir_path).expect("could not create static file dir");
+                        }
+
                         let mut file = File::create(build_artifact_path).expect("could not create static file");
                         match page.build(&locale, &path, params.into_inner(), Some(analytics_injection)) {
                             Ok(view) => {
