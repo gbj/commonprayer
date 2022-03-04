@@ -601,6 +601,7 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                                 {videos_view}
                             </ul>
                             <a class="more" target="_blank" href={&videos.web_search_url}>{t!("hymnal.more_results")}</a>
+                            <p class="description by-bing">{t!("hymnal.search_by_bing")}</p>
                         </>
                     }
                 }

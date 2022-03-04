@@ -7,13 +7,8 @@ Website Todos
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)
   - [ ] Probably different canticles for Ash Wednesday than the app gives
-- [ ] Psalm 95 Fridays in Lent
-- Hymns
-  - [x] Bing video search
-    - [ ] Bing search acknowledgement on this page
-    - [ ] note when no results were found -- (and re-search dropping tune?)
-    - [ ] update play button CSS for mobile
-  - [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany, especially in Service Music
+- Testing
+  - [ ] Set up tests for compiling actual liturgies, with snapshotted JSON versions
 - Clean up (look in template only mode, proofread/test)
   - [x] Noonday Prayer
   - [x] Compline
@@ -73,7 +68,7 @@ Website Todos
     - [x] Handle different versions (in link, and in page generation)
     - [x] Category pages (as distinct from document pages) with labels etc.
     - [ ] Group documents by label
-  - [ ] Summary pages for each category of document
+  - [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany, especially in Service Music
   - [ ] Lectionary/Readings page: handle special things like Vigils, multiple Christmas services, etc.
   - [ ] Calendar
     - [ ] LFF propers for holy days

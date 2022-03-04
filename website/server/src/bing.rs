@@ -1,4 +1,3 @@
-use anyhow::Result;
 use episcopal_api::hymnal::Hymn;
 use lazy_static::lazy_static;
 use reqwest::header::{HeaderName, HeaderValue};
@@ -12,7 +11,7 @@ lazy_static! {
 
 const BING_ENDPOINT: &str = "https://api.bing.microsoft.com/v7.0/videos/search";
 
-pub async fn search(hymn: &Hymn) -> Result<BingSearchResult> {
+pub async fn search(hymn: &Hymn) -> Result<BingSearchResult, reqwest::Error> {
     let query = format!(r#""{}""#, hymn.title);
     let query = urlencoding::encode(&query);
     let url = format!("{BING_ENDPOINT}?q={query}&count=10");

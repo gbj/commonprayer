@@ -55,6 +55,7 @@ en:
     video_error: Oops! Something went wrong when we tried to load videos for this hymn.
     more_results: Click here for more search results.
     category_lookup: "%{category} Hymns"
+    search_by_bing: Search results provided by the Bing Video Search API.
 
   liturgy: Liturgy
   date: Date

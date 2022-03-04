@@ -193,6 +193,7 @@ body > header {
   padding: 0.5rem;
   border-bottom: 1px solid var(--menu-border-color);
   min-height: 1.5rem;
+  z-index: 100;
 }
 
 body > header .page-title {

@@ -336,6 +336,9 @@ label.toggle:last-of-type {
 
 .video-view .metadata h4 {
   text-align: left;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .video-view h4 {
@@ -353,6 +356,9 @@ label.toggle:last-of-type {
   background-repeat: no-repeat;
   z-index: 30;
   background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .video-view li img {
@@ -369,6 +375,10 @@ label.toggle:last-of-type {
   -webkit-box-orient: vertical;
   width: 100%;
   overflow: hidden;
+}
+
+.by-bing {
+  text-align: center;
 }
 
 .video-view p {

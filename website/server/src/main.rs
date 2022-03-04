@@ -153,21 +153,33 @@ async fn hymnal_search_api(
 }
 
 // Hymn Video API
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
 struct HymnVideoParams {
     hymnal: Hymnals,
     number: HymnNumber,
 }
 
+#[derive(Debug)]
+pub struct HymnSearchError(reqwest::Error);
+
+impl std::fmt::Display for HymnSearchError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0)
+    }
+}
+
+impl ResponseError for HymnSearchError {}
+
 #[get("/api/hymnal/videos")]
-async fn video_search_api(params: Query<HymnVideoParams>) -> Option<web::Json<BingSearchResult>> {
+async fn video_search_api(params: Query<HymnVideoParams>) -> Result<web::Json<BingSearchResult>> {
     let hymnal: Hymnal = params.hymnal.into();
     let hymn = hymnal
         .hymns
         .iter()
-        .find(|hymn| hymn.number == params.number)?;
+        .find(|hymn| hymn.number == params.number).expect("could not find hymn with this #");
 
-    bing::search(hymn).await.map_err(|_| ()).map(web::Json).ok()
+    let result = bing::search(hymn).await.map_err(HymnSearchError)?;
+    Ok(web::Json(result))
 }
 
 #[derive(Deserialize)]
@@ -204,7 +216,7 @@ fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
     let artifacts_path = format!("{}/artifacts", *PROJECT_ROOT);
     let artifacts_path = std::path::Path::new(&artifacts_path);
     if artifacts_path.exists() {
-        println!("empting artifacts directory");
+        println!("emptying artifacts directory");
         std::fs::remove_dir_all(artifacts_path).expect("couldn't empty artifacts directory");
         std::fs::create_dir(artifacts_path).expect("couldn't create artifacts directory");
     } else {

@@ -53,7 +53,7 @@ pub struct VideoResult {
     #[serde(alias = "allowMobileEmbed", default = "default_bool_field")]
     pub allow_mobile_embed: bool,
     #[serde(alias = "viewCount")]
-    pub view_count: u64,
+    pub view_count: Option<u64>,
 }
 
 fn default_bool_field() -> bool {
