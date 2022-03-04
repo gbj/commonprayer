@@ -736,6 +736,13 @@ pub fn heading(locale: &str, heading: &Heading) -> HeaderAndMain {
             }
         }
         Heading::Text(level, content) => {
+            let content = View::Fragment(
+                content
+                    .split('\n')
+                    .map(|text| View::StaticText(text.to_string()))
+                    .intersperse_with(|| view! { <br/> })
+                    .collect(),
+            );
             let h = match level {
                 HeadingLevel::Heading1 => view! { <h1>{content}</h1> },
                 HeadingLevel::Heading2 => view! { <h2>{content}</h2> },
@@ -1113,11 +1120,20 @@ pub fn responsive_prayer(prayer: &ResponsivePrayer) -> HeaderAndMain {
 }
 
 pub fn rubric(rubric: &Rubric) -> HeaderAndMain {
-    (None, {
-        view! {
-            <p class="rubric">{rubric.to_string()}</p>
-        }
-    })
+    (
+        None,
+        View::Fragment(
+            rubric
+                .to_string()
+                .split("\n\n")
+                .map(|rubric| {
+                    view! {
+                        <p class="rubric">{rubric.to_string()}</p>
+                    }
+                })
+                .collect(),
+        ),
+    )
 }
 
 pub fn sentence(
