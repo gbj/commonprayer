@@ -438,10 +438,13 @@ pub trait Library {
                     };
 
                     let day_season = calendar.season(day);
+                    let base_day_season = calendar.base_season(day);
                     let season_id = COLLECT_LINKS.linked_id(&CollectId::Season(day_season));
+                    let base_season_id =
+                        COLLECT_LINKS.linked_id(&CollectId::Season(base_day_season));
                     let seasonal_collect = collects
                         .iter()
-                        .find(|(id, _)| id == &season_id)
+                        .find(|(id, _)| id == &season_id || id == &base_season_id)
                         .map(|(_, document)| document.clone());
 
                     let black_letter_feast_ids = day
