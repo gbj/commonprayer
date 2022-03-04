@@ -1,8 +1,6 @@
 Website Todos
 =============
 
-- [ ] Set liturgy preferences from Document page directly (rather than Settings > Office) so you can adjust them on the when setting date
-- [ ] Upgrade to Actix 4
 - Bugs
   - [ ] LFF special days like Thursday/Friday/Saturday after Ash Wednesday
   - [ ] Thursday MP Canticle 2 should be 19 only, not 20 or 19

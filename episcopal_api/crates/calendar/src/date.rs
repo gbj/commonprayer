@@ -8,7 +8,7 @@ use thiserror::Error;
 use crate::Weekday;
 
 #[derive(Error, Debug)]
-pub enum Error {
+pub enum DateError {
     #[error("could not parse Date from string")]
     Parse,
 }
@@ -45,8 +45,8 @@ impl Date {
     }
 
     /// Creates Date from a year, month, and day.
-    pub fn parse_from_str(s: &str, fmt: &str) -> Result<Date, Error> {
-        let naive_date = chrono::NaiveDate::parse_from_str(s, fmt).map_err(|_| Error::Parse)?;
+    pub fn parse_from_str(s: &str, fmt: &str) -> Result<Date, DateError> {
+        let naive_date = chrono::NaiveDate::parse_from_str(s, fmt).map_err(|_| DateError::Parse)?;
         Ok(Self { naive_date })
     }
 

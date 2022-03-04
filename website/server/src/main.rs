@@ -1,11 +1,14 @@
+#![feature(async_closure)]
+
 use std::{collections::HashSet, fs::File, io::Write};
 
 use actix_files::{Files, NamedFile};
 use actix_web::{
     error, get,
     http::StatusCode,
+    post,
     web::{self, Path, Query},
-    App, FromRequest, HttpRequest, HttpResponse, HttpServer, Result,
+    App, HttpRequest, HttpResponse, HttpServer, ResponseError, Result,
 };
 use episcopal_api::{
     api::summary::DailySummary,
@@ -38,14 +41,9 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
+            .app_data(web::FormConfig::default().limit(256 * 1024)) // increase max form size for DOCX export
             .service(daily_summary)
-            .service(
-                web::resource("/api/export/docx")
-                    .route(web::post().to(export_docx))
-                    .data(web::Form::<DocxExportFormData>::configure(|cfg| {
-                        cfg.limit(256 * 1024)
-                    })),
-            )
+            .service(export_docx)
             .service(canticle_list_api)
             .service(hymnal_api)
             .service(hymnal_search_api)
@@ -86,11 +84,24 @@ async fn hymnal_word_cloud(hymnal: web::Path<String>) -> String {
 }
 
 // JSON Daily Summary API
+#[derive(Debug)]
+pub struct DateError(episcopal_api::calendar::DateError);
+
+impl std::fmt::Display for DateError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0)
+    }
+}
+impl ResponseError for DateError {
+    fn status_code(&self) -> StatusCode {
+        StatusCode::INTERNAL_SERVER_ERROR
+    }
+}
+
 #[get("/api/daily_summary/{locale}/{date}.json")]
-async fn daily_summary(
-    web::Path((locale, date)): web::Path<(String, String)>,
-) -> Result<web::Json<DailySummary>, ()> {
-    let date = Date::parse_from_str(&date, "%Y-%m-%d").map_err(|_| ())?;
+async fn daily_summary(params: web::Path<(String, String)>) -> Result<web::Json<DailySummary>> {
+    let (locale, date) = params.into_inner();
+    let date = Date::parse_from_str(&date, "%Y-%m-%d").map_err(DateError)?;
     let language = locale_to_language(&locale);
     let summary = episcopal_api::library::CommonPrayer::daily_office_summary(&date, language);
     Ok(web::Json(summary))
@@ -98,7 +109,7 @@ async fn daily_summary(
 
 // Canticle List API
 #[get("/api/canticles.json")]
-async fn canticle_list_api() -> Result<web::Json<Vec<Document>>, ()> {
+async fn canticle_list_api() -> Result<web::Json<Vec<Document>>> {
     let canticles = TABLE_OF_CONTENTS
         .get(&("canticle", None))
         .unwrap()
@@ -116,7 +127,7 @@ async fn canticle_list_api() -> Result<web::Json<Vec<Document>>, ()> {
 
 // Hymnal API
 #[get("/api/hymnal/{hymnal}.json")]
-async fn hymnal_api(path: web::Path<Hymnals>) -> Result<web::Json<Hymnal>, ()> {
+async fn hymnal_api(path: web::Path<Hymnals>) -> Result<web::Json<Hymnal>> {
     Ok(web::Json(path.into_inner().into()))
 }
 
@@ -167,6 +178,7 @@ struct DocxExportFormData {
 }
 
 // Document Export APIs
+#[post("/api/export/docx")]
 async fn export_docx(data: web::Form<DocxExportFormData>) -> Result<NamedFile> {
     let data = data.into_inner();
     let doc: Document = serde_json::from_str(&data.doc)?;
@@ -263,7 +275,7 @@ where
         // Page with no locale => redirect based on preferred locale in request
         cfg.service(
             web::resource(if path == "index" { "/" } else { path.as_str() }).route(web::get().to(
-                |req: HttpRequest| {
+                async move |req: HttpRequest| {
                     let preferred_locale = req
                         .headers()
                         .get("Accept-Language")
@@ -271,14 +283,14 @@ where
                         .unwrap_or("en");
                     let path = req.path();
                     HttpResponse::TemporaryRedirect()
-                        .set_header(
+                        .insert_header((
                             actix_web::http::header::LOCATION,
                             format!(
                                 "/{}{}",
                                 preferred_locale,
                                 if path == "/" { "" } else { path }
                             ),
-                        )
+                        ))
                         .finish()
                 },
             )),
@@ -290,62 +302,64 @@ where
             let page = page.clone();
 
             move |req: HttpRequest, params: Path<P>| {
-                let path = req.uri().to_string();
+                let page = page.clone();
+                let locale = locale.to_string();
+                
+                async move {
+                    let path = req.uri().to_string();
 
-                // Plausible.io is an open-source analytics software as a service that uses no cookies and collects/sells no user data
-                // It is an alternative to Google Analytics, etc. with strong privacy protections
-                // Rather than an advertising based model, I pay a subscription fee to support their service
-                let analytics_injection = view! {
-                    <script defer data-domain="commonprayeronline.org" src="https://plausible.io/js/plausible.js"></script>
-                };
+                    // Plausible.io is an open-source analytics software as a service that uses no cookies and collects/sells no user data
+                    // It is an alternative to Google Analytics, etc. with strong privacy protections
+                    // Rather than an advertising based model, I pay a subscription fee to support their service
+                    let analytics_injection = view! {
+                        <script defer data-domain="commonprayeronline.org" src="https://plausible.io/js/plausible.js"></script>
+                    };
 
-                // if incremental generation, check if page has already been created and serve that file if it has
-                if page.incremental_generation {
-                    let build_artifact_dir = [(*PROJECT_ROOT).clone(), "artifacts".to_string()].into_iter().chain(path.split('/').map(String::from)).collect::<Vec<_>>().join("/");
-                    let mut build_artifact_path = build_artifact_dir.clone();
-                    build_artifact_path.push_str(".html");
-                    let build_artifact_path = std::path::Path::new(&build_artifact_path);
-                    if build_artifact_path.exists() {
-                        match NamedFile::open(build_artifact_path) {
-                            Ok(file) => match file.into_response(&req) {
-                                Ok(resp) => resp,
+                    // if incremental generation, check if page has already been created and serve that file if it has
+                    if page.incremental_generation {
+                        let build_artifact_dir = [(*PROJECT_ROOT).clone(), "artifacts".to_string()].into_iter().chain(path.split('/').map(String::from)).collect::<Vec<_>>().join("/");
+                        let mut build_artifact_path = build_artifact_dir.clone();
+                        build_artifact_path.push_str(".html");
+                        let build_artifact_path = std::path::Path::new(&build_artifact_path);
+                        if build_artifact_path.exists() {
+                            match NamedFile::open(build_artifact_path) {
+                                Ok(file) => file.into_response(&req),
                                 Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
-                            },
-                            Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
-                        }
-                    } else {
-                        let build_artifact_dir_path = std::path::Path::new(&build_artifact_dir);
-                        if !build_artifact_dir_path.exists() {
-                            std::fs::create_dir_all(build_artifact_dir_path).expect("could not create static file dir");
-                        }
+                            }
+                        } else {
+                            let build_artifact_dir_path = std::path::Path::new(&build_artifact_dir);
+                            if !build_artifact_dir_path.exists() {
+                                std::fs::create_dir_all(build_artifact_dir_path).expect("could not create static file dir");
+                            }
 
-                        let mut file = File::create(build_artifact_path).expect("could not create static file");
-                        match page.build(&locale, &path, params.into_inner(), Some(analytics_injection)) {
-                            Ok(view) => {
-                                let html= view.to_html();
-                                match file.write(html.as_bytes()) {
-                                    Ok(_) => println!("\t\t\tgenerated static file at {}", path),
-                                    Err(e) => println!("\t\t\terror generating static file for {}\n\t\t\t\t{}", path, e)
-                                };
-                                HttpResponse::Ok().body(&html)
-                            },
+                            let mut file = File::create(build_artifact_path).expect("could not create static file");
+                            match &page.build(&locale, &path, params.into_inner(), Some(analytics_injection)) {
+                                Ok(view) => {
+                                    let html= view.to_html();
+                                    match file.write(html.as_bytes()) {
+                                        Ok(_) => println!("\t\t\tgenerated static file at {}", path),
+                                        Err(e) => println!("\t\t\terror generating static file for {}\n\t\t\t\t{}", path, e)
+                                    };
+                                    HttpResponse::Ok().body(html)
+                                },
+                                Err(leptos::PageRenderError::NotFound) => {
+                                    let not_found = not_found_404().build(&locale, &path, (), None).unwrap();
+                                    HttpResponse::Ok().body(not_found.to_html())
+                                }
+                                Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
+                            }
+                        }
+                    }
+                    // otherwise, just render and serve the page
+                    else {
+                        match &page.build(&locale, &path, params.into_inner(), Some(analytics_injection)) {
+                            Ok(view) => HttpResponse::Ok().body(view.to_html()),
                             Err(leptos::PageRenderError::NotFound) => {
                                 let not_found = not_found_404().build(&locale, &path, (), None).unwrap();
-                                HttpResponse::Ok().body(&not_found.to_html())
+                                HttpResponse::Ok().body(not_found.to_html())
                             }
                             Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
                         }
-                    }
-                }
-                // otherwise, just render and serve the page
-                else {
-                    match page.build(&locale, &path, params.into_inner(), Some(analytics_injection)) {
-                        Ok(view) => HttpResponse::Ok().body(&view.to_html()),
-                        Err(leptos::PageRenderError::NotFound) => {
-                            let not_found = not_found_404().build(&locale, &path, (), None).unwrap();
-                            HttpResponse::Ok().body(&not_found.to_html())
-                        }
-                        Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
                     }
                 }
             }

@@ -20,7 +20,7 @@ mod weekday;
 mod year;
 pub use self::calendar::Calendar;
 pub use bcp1979::BCP1979_CALENDAR;
-pub use date::Date;
+pub use date::*;
 pub use feasts::*;
 pub use holy_day::{HolyDay, HolyDayId};
 pub use lff2018::LFF2018_CALENDAR;
