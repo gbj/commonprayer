@@ -349,7 +349,11 @@ impl Condition {
             },
             Condition::ObservedSeason(season) => calendar.season(day) == *season,
             Condition::Season(season) => {
-                calendar.season(day) == *season || calendar.base_season(day) == *season
+                if season.is_true_season() {
+                    calendar.season(day) == *season
+                } else {
+                    calendar.season(day) == *season || calendar.base_season(day) == *season
+                }
             }
             Condition::Week(week) => day.week == *week,
             Condition::Weekday(weekday) => day.date.weekday() == *weekday,
