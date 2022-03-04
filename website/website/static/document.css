@@ -225,24 +225,25 @@ a.reference {
 }
 
 /* Invitatory */
-.invitatory-header {
+.document > header.invitatory-header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   margin: 0.5rem 0;
+  justify-content: start;
 }
 
-.invitatory-header > * {
+.document > header.invitatory-header > * {
   margin: 0;
 }
 
-.invitatory-header .local-name,
-.invitatory-header .citation {
+.document > header.invitatory-header .local-name,
+.document > header.invitatory-header .citation {
   margin-right: 3rem;
 }
 
-.invitatory-header .citation,
-.invitatory-header .latin-name {
+.document > header.invitatory-header .citation,
+.document > header.invitatory-header .latin-name {
   display: inline-block;
   font-style: italic;
   font-weight: normal;

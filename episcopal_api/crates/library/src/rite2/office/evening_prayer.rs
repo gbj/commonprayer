@@ -46,12 +46,12 @@ lazy_static! {
     pub static ref EVENING_PRAYER_II : Document = Document::from(Liturgy::from(Series::from([
         Document::from(Heading::from((
             HeadingLevel::Heading1,
-            "Daily Evening Prayer: Rite Two",
+            "Daily Evening Prayer:\nRite Two",
         ))),
         Document::from(Heading::InsertDate),
         Document::from(Heading::InsertDay),
 
-        Document::from(Rubric::from("The Officiant begins the service with one or more of the following sentences of Scripture;\n\nor with the Service of Light, and continuing with the appointed Psalmody;\n\nor with the versicle “O God, make speed to save us.”")),
+        Document::from(Rubric::from("The Officiant begins the service with one or more of the following sentences of Scripture;\n\nor with the Service of Light, and continuing with the appointed Psalmody;\n\nor with the versicle “O God, make speed to save us.”")).page(115),
         Document::from(Categories::OpeningSentences).display(Show::TemplateOnly),
         Document::from(Categories::ServiceOfLight).display(Show::TemplateOnly),
 
@@ -63,7 +63,7 @@ lazy_static! {
         // Neither Service of Light nor OmitForeOffice
         Document::from(Series::from([
             Document::from(Categories::OpeningSentences).display(Show::CompiledOnly),
-            Document::from(Rubric::from("The following Confession of Sin may then be said; or the Office may continue at once with “O God make speed to save us.”")),
+            Document::from(Rubric::from("The following Confession of Sin may then be said; or the Office may continue at once with “O God make speed to save us.”")).page(116),
             Document::from(Heading::from((HeadingLevel::Heading3, "Confession of Sin"))),
             Document::from(Rubric::from("The Officiant says to the people")),
             Document::from(Choice::from([

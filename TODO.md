@@ -11,8 +11,13 @@ Website Todos
 - Clean up (look in template only mode, proofread/test)
   - [x] Noonday Prayer
   - [x] Compline
-  - [ ] Morning Prayer
+  - [x] Morning Prayer
   - [ ] Evening Prayer
+- [ ] Add liturgies
+  - [ ] Service of Light/Order of Worship for Evening
+  - [ ] Marriage liturgies
+  - [ ] Rite I Office
+  - [ ] Eucharistic liturgies
 - [ ] Better Biblical citation reading parsing (paragraphs)
 - [ ] Exports
   - [ ] docx
@@ -39,6 +44,8 @@ Website Todos
 - [ ] CI/CD
 - [ ] Additional library of documents
 - [ ] Clean up Index page + links
+- [ ] Additional preferences
+  - [ ] MP/EP: Officiant is a layperson/deacon vs. priest (absolution)
 - [ ] Additional Tests
 	- [ ] Does each holy day have 2 LFF collects + LFF readings?
 - [ ] Bugs
