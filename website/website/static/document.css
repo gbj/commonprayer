@@ -22,6 +22,11 @@
 }
 
 /** Document Header (label, citation, etc.) */
+.document h3,
+.document h4 {
+  font-size: 1rem;
+}
+
 .document > header,
 .psalm > section > header {
   display: flex;
