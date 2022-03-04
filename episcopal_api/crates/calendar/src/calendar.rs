@@ -1,5 +1,6 @@
 use std::{cmp::Reverse, convert::TryInto};
 
+use itertools::Itertools;
 use language::Language;
 use status::Status;
 
@@ -117,9 +118,15 @@ impl Calendar {
         let weekday = date.weekday();
         let week = self.liturgical_week(date);
         let proper = self.proper(date, week);
-        let holy_days = self
-            .holy_days(date, week, evening, false)
-            .collect::<Vec<_>>();
+        let holy_days = self.holy_days(date, week, evening, false);
+        let fallback_holy_days = self
+            .holy_days_fallback
+            .map(|holy_days| Calendar::filter_holy_days(date, week, evening, false, holy_days));
+        let holy_days = if let Some(fallback) = fallback_holy_days {
+            holy_days.chain(fallback).unique().collect::<Vec<_>>()
+        } else {
+            holy_days.collect::<Vec<_>>()
+        };
         let (observed, alternate) = self.observed_day(week, proper, weekday, &holy_days);
 
         LiturgicalDay {
@@ -326,10 +333,20 @@ impl Calendar {
         evening: bool,
         ignore_evening: bool,
     ) -> impl Iterator<Item = Feast> {
+        Calendar::filter_holy_days(date, week, evening, ignore_evening, self.holy_days)
+    }
+
+    fn filter_holy_days(
+        date: Date,
+        week: LiturgicalWeek,
+        evening: bool,
+        ignore_evening: bool,
+        holy_days: &[KalendarEntry],
+    ) -> impl Iterator<Item = Feast> + '_ {
         let today_month = date.month();
         let today_day = date.day();
         let today_weekday = date.weekday();
-        self.holy_days
+        holy_days
             .iter()
             .filter_map(move |(id, feast, f_time, f_stops_at_sunday)| {
                 let has_stopped = if let Some(stopping_week) = f_stops_at_sunday {

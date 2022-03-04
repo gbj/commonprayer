@@ -6,6 +6,7 @@ edition = "2018"
 [dependencies]
 chrono = { version = "0.4", features = ["serde"] }
 serde = { version = "1.0", features = ["derive"] }
+itertools = "0.10"
 thiserror = "1"
 language = { path = "../language" }
 status = { path = "../status" }
