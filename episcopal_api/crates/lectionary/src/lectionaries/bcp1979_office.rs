@@ -1071,12 +1071,6 @@ pub const BCP1979_DAILY_OFFICE_LECTIONARY: Lectionary = Lectionary {
         (
             LiturgicalDayId::Feast(Feast::Joseph),
             Year::Any,
-            ReadingType::SecondReading,
-            "Ephes. 3:14-21",
-        ),
-        (
-            LiturgicalDayId::Feast(Feast::Joseph),
-            Year::Any,
             ReadingType::Morning1,
             "Isa. 63:7-16",
         ),
