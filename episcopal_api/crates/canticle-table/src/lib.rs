@@ -30,6 +30,8 @@ impl CanticleTable {
         fallback: Option<&CanticleTable>,
         traditional_language: bool,
     ) -> Vec<CanticleId> {
+        let day_season = calendar.season(day);
+
         let primary_table_options = self
             .0
             .iter()
@@ -42,28 +44,34 @@ impl CanticleTable {
 
                 let feast_match = is_feast == entry.feast_day;
 
-                // whether this canticle is used on this weekday
-                let weekday_match = entry
-                    .weekday
-                    .map(|weekday| weekday == day.weekday)
-                    // entries with no weekday work for all weekdays
-                    .unwrap_or(true);
-
-                // whether this canticle is used in this week
-                let season_match = entry
-                    .season
-                    .map(|season| season == calendar.season(day))
-                    // entries with no season work for all seasons
-                    .unwrap_or(true);
-
+                let weekday_match = entry.is_weekday_match(&day.weekday);
+                let season_match = entry.is_season_match(&day_season);
                 let evening_match = is_evening == entry.evening;
                 let number_match = nth == entry.nth;
 
                 evening_match && number_match && season_match && weekday_match && feast_match
             })
-            .map(|entry| entry.canticle)
+            .map(|entry| entry)
             .collect::<Vec<_>>();
 
+        // if there's one specific for a season, use that instead of the general one
+        let primary_table_options = if primary_table_options.len() > 1
+            && primary_table_options.iter().any(|entry| {
+                entry.is_season_match(&day_season) && entry.is_weekday_match(&day.weekday)
+            }) {
+            primary_table_options
+                .iter()
+                .filter(|entry| !(entry.is_weekday_match(&day.weekday) && entry.season == None))
+                .map(|entry| entry.canticle)
+                .collect::<Vec<_>>()
+        } else {
+            primary_table_options
+                .iter()
+                .map(|entry| entry.canticle)
+                .collect::<Vec<_>>()
+        };
+
+        // fallback table
         let options = if primary_table_options.is_empty() {
             match fallback {
                 Some(fallback) => fallback.find(calendar, day, nth, None, traditional_language),
@@ -105,9 +113,74 @@ pub struct CanticleTableEntry {
     season: Option<Season>,
 }
 
+impl CanticleTableEntry {
+    pub fn is_weekday_match(&self, weekday: &Weekday) -> bool {
+        self.weekday
+            .map(|w| &w == weekday)
+            // entries with no weekday work for all weekdays
+            .unwrap_or(true)
+    }
+
+    pub fn is_season_match(&self, season: &Season) -> bool {
+        self.season
+            .map(|s| &s == season)
+            // entries with no season work for all seasons
+            .unwrap_or(true)
+    }
+}
+
 /// Whether this the first or second canticle in the liturgy.
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub enum CanticleNumber {
     One,
     Two,
+}
+
+#[cfg(test)]
+mod tests {
+    use calendar::{Date, BCP1979_CALENDAR};
+
+    use crate::{bcp1979::BCP1979_CANTICLE_TABLE_RITE_II, CanticleId, CanticleNumber};
+
+    #[test]
+    fn ash_wednesday_bcp1979() {
+        let day = BCP1979_CALENDAR.liturgical_day(Date::from_ymd(2022, 3, 2), false);
+        let one = BCP1979_CANTICLE_TABLE_RITE_II.find(
+            &BCP1979_CALENDAR,
+            &day,
+            CanticleNumber::One,
+            None,
+            false,
+        );
+        assert_eq!(one, vec![CanticleId::Canticle14]);
+        let two = BCP1979_CANTICLE_TABLE_RITE_II.find(
+            &BCP1979_CALENDAR,
+            &day,
+            CanticleNumber::Two,
+            None,
+            false,
+        );
+        assert_eq!(two, vec![CanticleId::Canticle16]);
+    }
+
+    #[test]
+    fn thursday_after_ash_wednesday_bcp1979() {
+        let day = BCP1979_CALENDAR.liturgical_day(Date::from_ymd(2022, 3, 3), false);
+        let one = BCP1979_CANTICLE_TABLE_RITE_II.find(
+            &BCP1979_CALENDAR,
+            &day,
+            CanticleNumber::One,
+            None,
+            false,
+        );
+        assert_eq!(one, vec![CanticleId::Canticle8]);
+        let two = BCP1979_CANTICLE_TABLE_RITE_II.find(
+            &BCP1979_CALENDAR,
+            &day,
+            CanticleNumber::Two,
+            None,
+            false,
+        );
+        assert_eq!(two, vec![CanticleId::Canticle19]);
+    }
 }
