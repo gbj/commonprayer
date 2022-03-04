@@ -34,7 +34,10 @@ impl CanticleTable {
             .0
             .iter()
             .filter(|entry| {
-                let is_feast = calendar.rank(day) >= Rank::HolyDay;
+                let day_rank = calendar.rank(day);
+                // only use "Feast Day" canticles for actual feasts, not days like
+                // Ash Wednesday/Thursday/Friday
+                let is_feast = day_rank >= Rank::HolyDay && day_rank != Rank::PrecedenceOverHolyDay;
                 let is_evening = day.evening;
 
                 let feast_match = is_feast == entry.feast_day;
