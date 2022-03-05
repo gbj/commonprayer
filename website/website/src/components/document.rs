@@ -1123,15 +1123,17 @@ pub fn responsive_prayer(prayer: &ResponsivePrayer) -> HeaderAndMain {
 }
 
 pub fn rubric(rubric: &Rubric) -> HeaderAndMain {
+    let class = if rubric.long { "rubric-long" } else { "rubric" };
+
     (
         None,
         View::Fragment(
             rubric
-                .to_string()
+                .text
                 .split("\n\n")
                 .map(|rubric| {
                     view! {
-                        <p class="rubric">{rubric.to_string()}</p>
+                        <p class={class}>{rubric.to_string()}</p>
                     }
                 })
                 .collect(),

@@ -137,6 +137,10 @@ a.reference {
   font-size: var(--rubric-size);
 }
 
+.rubric-long {
+  font-size: 0.9rem;
+}
+
 /* Preces */
 .preces {
   display: table;
