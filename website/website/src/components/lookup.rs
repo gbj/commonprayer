@@ -1,9 +1,9 @@
-use episcopal_api::liturgy::{CanticleTableEntry, LectionaryTableChoice, Version};
+use episcopal_api::liturgy::{CanticleTableEntry, Categories, LectionaryTableChoice, Version};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
 pub enum LookupType {
-    Category(Version, String),
+    Category(Categories, Version, String),
     Canticle(CanticleTableEntry),
     Collect(Version),
     Lectionary(LectionaryTableChoice),
@@ -15,8 +15,17 @@ pub fn slugify(s: &str) -> String {
 
 pub fn lookup_links(locale: &str, lookup_type: &LookupType) -> String {
     match lookup_type {
-        LookupType::Category(version, name) => {
-            format!("/{}/document/{}/{:#?}", locale, slugify(name), version)
+        LookupType::Category(category, version, name) => {
+            if category == &Categories::ServiceOfLight {
+                format!(
+                    "/{}/document/office/{}/{:#?}",
+                    locale,
+                    slugify(name),
+                    version
+                )
+            } else {
+                format!("/{}/document/{}/{:#?}", locale, slugify(name), version)
+            }
         }
         LookupType::Canticle(_) => format!("/{}/canticle-table", locale),
         LookupType::Collect(version) => {

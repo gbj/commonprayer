@@ -47,11 +47,11 @@ impl std::fmt::Display for TOCLiturgy {
 }
 
 macro_rules! hash_map {
-    ($( $key: expr => $val: expr ),*) => {{
-         let mut map = ::std::collections::HashMap::new();
-         $( map.insert($key, $val); )*
-         map
-    }}
+	($( $key: expr => $val: expr ),*) => {{
+		 let mut map = ::std::collections::HashMap::new();
+		 $( map.insert($key, $val); )*
+		 map
+	}}
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -65,8 +65,8 @@ lazy_static! {
         ("office", None) => vec![
            PageType::Document("morning-prayer", &*library::rite2::office::MORNING_PRAYER_II),
            PageType::Document("noonday-prayer", &*library::bcp1979::office::NOONDAY_PRAYER),
-           PageType::Document("evening-prayer", &*library::rite2::office::EVENING_PRAYER_II),
            PageType::Document("service-of-light", &*library::bcp1979::office::AN_ORDER_OF_WORSHIP_FOR_EVENING),
+           PageType::Document("evening-prayer", &*library::rite2::office::EVENING_PRAYER_II),
            PageType::Document("compline", &*library::bcp1979::office::COMPLINE),
         ],
         ("canticle", None) => vec![

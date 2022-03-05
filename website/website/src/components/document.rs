@@ -457,7 +457,10 @@ pub fn canticle(
 
 pub fn category(locale: &str, content: &Category, version: Version) -> HeaderAndMain {
     let name = t!(&format!("category.{:#?}", content.name));
-    let href = lookup_links(locale, &LookupType::Category(version, name.clone()));
+    let href = lookup_links(
+        locale,
+        &LookupType::Category(content.name, version, name.clone()),
+    );
     (
         None,
         view! {
@@ -1274,15 +1277,31 @@ fn display_format_as_class(display_format: DisplayFormat) -> &'static str {
 
 fn minimal_markdown(s: &str) -> View {
     View::Fragment(
-        s.split('*')
+        s.split("**")
             .enumerate()
-            .map(|(idx, text)| {
-                if idx % 2 == 1 {
+            .map(|(bold_idx, piece)| {
+                let italic_view = View::Fragment(
+                    piece
+                        .split('*')
+                        .enumerate()
+                        .map(|(italic_idx, text)| {
+                            if italic_idx % 2 == 1 {
+                                view! {
+                                    <em>{text}</em>
+                                }
+                            } else {
+                                View::StaticText(text.to_string())
+                            }
+                        })
+                        .collect(),
+                );
+
+                if bold_idx % 2 == 1 {
                     view! {
-                        <em>{text}</em>
+                        <strong>{italic_view}</strong>
                     }
                 } else {
-                    View::StaticText(text.to_string())
+                    italic_view
                 }
             })
             .collect(),

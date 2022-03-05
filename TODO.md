@@ -6,15 +6,12 @@ Website Todos
     - [ ] fallback day names and ranks
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)
+  - [ ] Mark Feasts of the Incarnation 
+  - [ ] Improve `minimal_markdown` function in `components/document.rs` so it can actually handle * and ** in any order
 - Testing
   - [ ] Set up tests for compiling actual liturgies, with snapshotted JSON versions
-- Clean up (look in template only mode, proofread/test)
-  - [x] Noonday Prayer
-  - [x] Compline
-  - [x] Morning Prayer
-  - [ ] Evening Prayer
 - [ ] Add liturgies
-  - [ ] Service of Light/Order of Worship for Evening
+  - [x] Service of Light/Order of Worship for Evening
   - [ ] Marriage liturgies
   - [ ] Rite I Office
   - [ ] Eucharistic liturgies
