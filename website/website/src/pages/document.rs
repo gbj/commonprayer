@@ -36,7 +36,7 @@ pub struct DocumentPageParams {
 pub enum DocumentPageType {
     Document(DocumentPageParams, Box<Document>),
     Category(String, Version, Vec<Document>),
-    CategorySummary(String, String, Vec<(Version, String)>),
+    CategorySummary(String, String, Vec<(Version, Option<String>, String)>),
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -113,15 +113,20 @@ fn category_summary_body(
     locale: &str,
     label: &str,
     category: &str,
-    pages: &[(Version, String)],
+    pages: &[(Version, Option<String>, String)],
 ) -> View {
     let title = label;
     let pages = View::Fragment(
         pages
             .iter()
-            .map(|(version, label)| {
+            .map(|(version, slug, label)| {
+                let link = if let Some(slug) = slug {
+                    format!("/{}/document/{}/{}/{:?}", locale, category, slug, version)
+                } else {
+                    format!("/{}/document/{}/{:?}", locale, category, version)
+                };
                 view! {
-                    <li><a href={format!("/{}/document/{}/{:?}", locale, category, version)}>{label}</a></li>
+                    <li><a href={link}>{label}</a></li>
                 }
             })
             .collect(),
@@ -557,9 +562,10 @@ fn find_page(
                 .map(|page| match page {
                     PageType::Document(slug, doc) => (
                         doc.version,
+                        Some(slug.to_string()),
                         doc.label.clone().unwrap_or_else(|| slug.to_string()),
                     ),
-                    PageType::Category(label, version, _) => (*version, label.to_string()),
+                    PageType::Category(label, version, _) => (*version, None, label.to_string()),
                 })
                 .collect(),
         ))
