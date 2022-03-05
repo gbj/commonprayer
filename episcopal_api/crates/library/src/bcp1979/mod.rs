@@ -1,3 +1,4 @@
+pub mod marriage;
 pub mod office;
 pub mod prayers_and_thanksgivings;
 

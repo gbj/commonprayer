@@ -144,6 +144,10 @@ lazy_static! {
         ],
         ("prayers-and-thanksgivings", None) => vec![
             PageType::Category("Prayers and Thanksgivings", Version::BCP1979, library::bcp1979::PRAYERS_AND_THANKSGIVINGS.clone())
+        ],
+        ("marriage", None) => vec![
+            PageType::Document("concerning-the-service", &*library::bcp1979::marriage::CONCERNING_THE_SERVICE),
+            PageType::Document("additional-directions", &*library::bcp1979::marriage::ADDITIONAL_DIRECTIONS),
         ]
     };
 }

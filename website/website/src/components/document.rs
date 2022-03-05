@@ -1133,7 +1133,7 @@ pub fn rubric(rubric: &Rubric) -> HeaderAndMain {
                 .split("\n\n")
                 .map(|rubric| {
                     view! {
-                        <p class={class}>{rubric.to_string()}</p>
+                        <p class={class}>{minimal_markdown(rubric)}</p>
                     }
                 })
                 .collect(),
