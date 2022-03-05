@@ -3,8 +3,8 @@ use crate::rite2::{CANTICLE_17, GLORIA_PATRI, LORDS_PRAYER_ABBREV};
 use calendar::Weekday;
 use liturgy::{
     Antiphon, Categories, Choice, Condition, DisplayFormat, Document, Heading, HeadingLevel,
-    HymnLink, Liturgy, Preces, PsalmCitation, Reference, ResponsivePrayer, Rubric, Sentence,
-    Series, Text, Version,
+    HymnLink, Liturgy, Preces, Reference, ResponsivePrayer, Rubric, Sentence, Series, Text,
+    Version,
 };
 use psalter::bcp1979::{PSALM_134, PSALM_31, PSALM_4, PSALM_91};
 

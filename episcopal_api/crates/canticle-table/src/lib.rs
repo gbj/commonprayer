@@ -51,7 +51,6 @@ impl CanticleTable {
 
                 evening_match && number_match && season_match && weekday_match && feast_match
             })
-            .map(|entry| entry)
             .collect::<Vec<_>>();
 
         // if there's one specific for a season, use that instead of the general one
