@@ -137,5 +137,6 @@ lazy_static! {
     ]))
     .evening(true))
     .version(Version::BCP1979)
+    .page(127)
     .label("Compline");
 }

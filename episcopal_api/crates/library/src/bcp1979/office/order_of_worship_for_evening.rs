@@ -1,7 +1,7 @@
 use calendar::Season;
 use liturgy::{
     Choice, Condition, Content, Document, Heading, HeadingLevel, HymnLink, Liturgy, Preces, Rubric,
-    Sentence, Series, Show, Text,
+    Sentence, Series, Show, Text, Version,
 };
 
 use crate::{
@@ -144,5 +144,8 @@ lazy_static! {
             Document::from(Text::from("").response("Thanks be to God. Alleluia, alleluia."))
         ]))
         .display(Show::TemplateOnly)
-    ])));
+    ])))
+    .label("An Order of Worship for the Evening")
+    .page(109)
+    .version(Version::BCP1979);
 }

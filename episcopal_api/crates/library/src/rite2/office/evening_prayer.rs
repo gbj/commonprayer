@@ -417,5 +417,8 @@ lazy_static! {
             LiturgyPreferenceOption::from(("Gospel", PreferenceValue::from(ReadingType::Gospel)))
           ]
         )).default_value(PreferenceValue::from(ReadingType::Empty)).category("Lessons"),
-    ]));
+    ]))
+    .label("Evening Prayer")
+    .version(Version::RiteII)
+    .page(115);
 }

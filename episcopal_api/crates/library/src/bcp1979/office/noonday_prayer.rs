@@ -107,6 +107,5 @@ lazy_static! {
                     ("People", "Thanks be to God.")
                 ]))
             ]))))
-            .version(Version::BCP1979)
-            .label("Compline");
+            .version(Version::BCP1979);
 }

@@ -575,5 +575,6 @@ lazy_static! {
         ]),
     )
     .version(Version::RiteII)
-    .label("Morning Prayer");
+    .label("Morning Prayer")
+    .page(75);
 }
