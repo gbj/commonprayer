@@ -147,6 +147,9 @@ lazy_static! {
         ],
         ("marriage", None) => vec![
             PageType::Document("concerning-the-service", &*library::bcp1979::marriage::CONCERNING_THE_SERVICE),
+            PageType::Document("celebration-and-blessing-of-a-marriage", &*library::bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE),
+            PageType::Document("blessing-of-a-civil-marriage", &*library::bcp1979::marriage::BLESSING_OF_A_CIVIL_MARRIAGE),
+            PageType::Document("an-order-for-marriage", &*library::bcp1979::marriage::AN_ORDER_FOR_MARRIAGE),
             PageType::Document("additional-directions", &*library::bcp1979::marriage::ADDITIONAL_DIRECTIONS),
         ]
     };

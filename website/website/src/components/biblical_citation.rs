@@ -12,7 +12,6 @@ use episcopal_api::{
 use futures::StreamExt;
 use leptos::*;
 use serde::Deserialize;
-use wasm_bindgen::UnwrapThrowExt;
 
 use super::DocumentController;
 
@@ -95,10 +94,18 @@ impl BibleReadingFromAPI {
                     match (ldf_type, book, chapter, verse, text) {
                         (Some(_), _, _, _, _) => None,
                         (_, Some(book), Some(chapter), Some(verse), Some(text)) => {
-                            let text = text.as_str().unwrap().to_string();
-                            let book = Book::from(book.as_str().unwrap());
-                            let chapter = chapter.as_str().unwrap().parse().unwrap();
-                            let verse = verse.as_str().unwrap().parse().unwrap();
+                            let text = text.as_str().unwrap_or_default().to_string();
+                            let book = Book::from(book.as_str().unwrap_or_default());
+                            let chapter = chapter
+                                .as_str()
+                                .unwrap_or_default()
+                                .parse()
+                                .unwrap_or_default();
+                            let verse = verse
+                                .as_str()
+                                .unwrap_or_default()
+                                .parse()
+                                .unwrap_or_default();
 
                             Some((
                                 BibleVerse {
@@ -126,8 +133,12 @@ fn reading_url(citation: &str, version: Version) -> String {
 }
 
 fn strip_entities(text: String) -> String {
-    // textarea hack — avoids additiheonal WASM size/Rust code at the expense of slow JS interop
-    let textarea = document().create_element("textarea").unwrap_throw();
-    textarea.set_inner_html(&text);
-    textarea.text_content().unwrap_or(text)
+    // textarea hack — avoids additional WASM size/Rust code at the expense of slow JS interop
+    match document().create_element("textarea") {
+        Ok(textarea) => {
+            textarea.set_inner_html(&text);
+            textarea.text_content().unwrap_or(text)
+        }
+        Err(_) => text,
+    }
 }

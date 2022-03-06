@@ -1,6 +1,7 @@
 Website Todos
 =============
 
+- [ ] Lazy loading for `BiblicalCitation`s within `Choice`s
 - Bugs
   - [x] LFF special days like Thursday/Friday/Saturday after Ash Wednesday
     - [ ] fallback day names and ranks

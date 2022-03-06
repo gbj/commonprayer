@@ -107,6 +107,9 @@ pub fn document_view(
         Content::CollectOfTheDay { allow_multiple } => {
             collect_of_the_day(locale, *allow_multiple, doc.version)
         }
+        Content::DocumentLink(version, label, category, slug) => {
+            document_link(locale, version, label, category, slug)
+        }
         Content::Empty => empty(),
         Content::Error(content) => error(content),
         Content::Antiphon(content) => antiphon(content),
@@ -662,6 +665,24 @@ pub fn document_class(doc: &Document) -> &'static str {
     }
 }
 
+pub fn document_link(
+    locale: &str,
+    version: &Version,
+    label: &str,
+    category: &str,
+    slug: &str,
+) -> HeaderAndMain {
+    let href = format!("/{}/document/{}/{}/{:#?}", locale, category, slug, version);
+    (
+        None,
+        view! {
+            <main class="lookup document">
+                <a href={href}>{label}</a>
+            </main>
+        },
+    )
+}
+
 pub fn empty() -> HeaderAndMain {
     (None, View::Empty)
 }
@@ -898,10 +919,19 @@ pub fn litany(litany: &Litany) -> HeaderAndMain {
             .lines
             .iter()
             .map(|line| {
+                let is_optional = line.starts_with("| ");
+                let line = line.replace("| ", "");
+                let short_response = litany.response.len() <= 8;
+                let class = if is_optional { "optional" } else { "" };
+
                 view! {
-                    <p>
+                    <p class={class}>
                         <span>{line}</span>
-                        <br/>
+                        {if short_response {
+                            View::StaticText(" ".to_string())
+                        } else {
+                            view! { <br/> }
+                        }}
                         <strong class="response">{&litany.response}</strong>
                     </p>
                 }
@@ -1245,9 +1275,11 @@ pub fn text(text: &Text) -> HeaderAndMain {
                     View::Empty
                 };
 
+                let separator = if text.is_empty() { "" } else { " " };
+
                 if idx == length - 1 {
                     view! {
-                        <p>{minimal_markdown(&text)} " " {response}</p>
+                        <p>{minimal_markdown(&text)} {separator} {response}</p>
                     }
                 } else {
                     view! {

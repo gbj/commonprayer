@@ -53,7 +53,7 @@ lazy_static! {
 
         Document::from(Rubric::from("The Officiant begins the service with one or more of the following sentences of Scripture;\n\nor with the Service of Light, and continuing with the appointed Psalmody;\n\nor with the versicle “O God, make speed to save us.”")).page(115),
         Document::from(Categories::OpeningSentences).display(Show::TemplateOnly),
-        Document::from(Categories::ServiceOfLight).display(Show::TemplateOnly),
+        Document::from(Content::DocumentLink(Version::BCP1979, "Service of Light".into(), "office".into(), "service-of-light".into())).display(Show::TemplateOnly),
 
         // Service of Light
         AN_ORDER_OF_WORSHIP_FOR_EVENING.clone().condition(

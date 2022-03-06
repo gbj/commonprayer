@@ -536,6 +536,12 @@ a.reference {
   display: none;
 }
 
+/* Litany */
+.litany .optional {
+  border-left: 2px solid var(--color);
+  padding-left: 0.5rem;
+}
+
 /* Lookups */
 .lookup {
   border-radius: var(--border-radius);
@@ -565,6 +571,11 @@ a.reference {
 
 .lookup.canticle-table-entry {
   background-color: #bd8fec;
+  color: black;
+}
+
+.lookup.document {
+  background-color: #febfb7;
   color: black;
 }
 

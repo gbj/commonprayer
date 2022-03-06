@@ -368,6 +368,8 @@ pub enum Content {
     Canticle(Canticle),
     /// An entry that can be looked up from a [CanticleTable](canticle_table::CanticleTable).
     CanticleTableEntry(CanticleTableEntry),
+    /// A link to another document by its version and label and its category and slug in the table of contents
+    DocumentLink(Version, String, String, String),
     /// The Gloria Patri is formatted such that it is broken into four lines rather than two if necessary
     GloriaPatri(GloriaPatri),
     /// A title, subtitle, label, or other heading
@@ -439,6 +441,7 @@ impl Content {
                 })
             }
             Content::CanticleTableEntry(_) => false,
+            Content::DocumentLink(..) => false, 
             Content::GloriaPatri(gloria) => gloria.text.0.contains(text) || gloria.text.1.contains(text) || gloria.text.2.contains(text) || gloria.text.3.contains(text),
             Content::Heading(heading) => match heading {
                 Heading::Date(s) => s.contains(text),
@@ -501,6 +504,7 @@ impl Content {
                 })
             }
             Content::CanticleTableEntry(_) => false,
+            Content::DocumentLink(..) => false,
             Content::GloriaPatri(gloria) => gloria.text.0.to_lowercase().contains(text) || gloria.text.1.to_lowercase().contains(text) || gloria.text.2.to_lowercase().contains(text) || gloria.text.3.to_lowercase().contains(text),
             Content::Heading(heading) => match heading {
                 Heading::Date(s) => s.to_lowercase().contains(text),

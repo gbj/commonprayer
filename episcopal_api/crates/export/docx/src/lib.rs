@@ -44,6 +44,7 @@ fn add_content(docx: Docx, doc: &Document) -> Docx {
         Content::CollectOfTheDay { allow_multiple: _ } => {
             docx.header(Header::new().add_paragraph(paragraph_with_text("The Collect of the Day")))
         }
+        Content::DocumentLink(..) => docx,
         Content::Empty => docx,
         Content::Error(content) => content.add_to_docx(docx),
         Content::Antiphon(content) => content.add_to_docx(docx),

@@ -24,7 +24,6 @@ pub enum Categories {
     OffertorySentences,
     InvitatoryAntiphons,
     PrayersAndThanksgivings,
-    ServiceOfLight,
 }
 
 impl Categories {
@@ -36,7 +35,6 @@ impl Categories {
             Categories::OffertorySentences => "Offertory Sentences",
             Categories::InvitatoryAntiphons => "Invitatory Antiphons",
             Categories::PrayersAndThanksgivings => "Prayers and Thanksgivings",
-            Categories::ServiceOfLight => "Service of Light",
         }
     }
 }
