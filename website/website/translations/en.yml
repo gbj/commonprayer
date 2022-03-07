@@ -77,6 +77,8 @@ en:
     CEB: CEB
     KJV: KJV
 
+  source: Source
+  reference: "%{source} p. %{page}"
   version:
     BCP1979: Book of Common Prayer (1979)
     EOW: Enriching Our Worship

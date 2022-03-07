@@ -9,8 +9,7 @@ use episcopal_api::{
     library::bcp1979::{COMPLINE, NOONDAY_PRAYER},
     library::rite2::{EVENING_PRAYER_II, MORNING_PRAYER_II},
     liturgy::{
-        Content, Document, GlobalPref, Lectionaries, LiturgyPreferences, PreferenceKey,
-        PreferenceValue, Version,
+        GlobalPref, Lectionaries, LiturgyPreferences, PreferenceKey, PreferenceValue, Version,
     },
 };
 use futures::StreamExt;

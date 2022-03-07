@@ -11,7 +11,7 @@ use episcopal_api::{
     calendar::{Calendar, Date},
     language::Language,
     library::{CommonPrayer, Library},
-    liturgy::{Content, Document, PreferenceKey, PreferenceValue, Version},
+    liturgy::{Content, Document, PreferenceKey, PreferenceValue, Reference, Version},
 };
 use futures::StreamExt;
 use itertools::Itertools;
@@ -36,7 +36,11 @@ pub struct DocumentPageParams {
 pub enum DocumentPageType {
     Document(DocumentPageParams, Box<Document>),
     Category(String, Version, Vec<Document>),
-    CategorySummary(String, String, Vec<(Version, Option<String>, String)>),
+    CategorySummary(
+        String,
+        String,
+        Vec<(Option<Reference>, Version, Option<String>, String)>,
+    ),
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -113,24 +117,25 @@ fn category_summary_body(
     locale: &str,
     label: &str,
     category: &str,
-    pages: &[(Version, Option<String>, String)],
+    pages: &[(Option<Reference>, Version, Option<String>, String)],
 ) -> View {
     let title = label;
     let pages = View::Fragment(
         pages
             .iter()
-            .group_by(|(version, ..)| version)
+            .group_by(|(reference, ..)| reference.map(|reference| reference.source))
             .into_iter()
-            .map(|(version, pages)| {
+            .map(|(source, pages)| {
                 let pages = View::Fragment(
                     pages
                         .into_iter()
-                        .map(|(version, slug, label)| {
+                        .map(|(reference, version, slug, label)| {
                             let link = if let Some(slug) = slug {
                                 format!("/{}/document/{}/{}/{:?}", locale, category, slug, version)
                             } else {
                                 format!("/{}/document/{}/{:?}", locale, category, version)
                             };
+
                             view! {
                                 <li><a href={link}>{label}</a></li>
                             }
@@ -138,9 +143,17 @@ fn category_summary_body(
                         .collect(),
                 );
 
+                let label = if let Some(source) = source {
+                    view! {
+                        <h2>{source.long_name()}</h2>
+                    }
+                } else {
+                    View::Empty
+                };
+
                 view! {
                     <>
-                        <h2>{t!(&format!("version.{:?}", version))}</h2>
+                        {label}
                         {pages}
                     </>
                 }
@@ -577,11 +590,14 @@ fn find_page(
                 .iter()
                 .map(|page| match page {
                     PageType::Document(slug, doc) => (
+                        doc.source,
                         doc.version,
                         Some(slug.to_string()),
                         doc.label.clone().unwrap_or_else(|| slug.to_string()),
                     ),
-                    PageType::Category(label, version, _) => (*version, None, label.to_string()),
+                    PageType::Category(label, version, _) => {
+                        (None, *version, None, label.to_string())
+                    }
                 })
                 .collect(),
         ))

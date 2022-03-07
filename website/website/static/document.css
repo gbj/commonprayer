@@ -48,6 +48,23 @@ a.reference {
   font-size: var(--rubric-size);
 }
 
+a.source-link {
+  display: block;
+  margin: auto;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  background-color: #d9d9d9;
+  max-width: 5rem;
+}
+
+a.source-link > span {
+  display: block;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
 .document > header .citation {
   font-weight: normal;
   font-style: italic;

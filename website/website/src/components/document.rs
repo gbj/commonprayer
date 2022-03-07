@@ -98,7 +98,7 @@ pub fn document_view(
 
     let header_and_main = match &doc.content {
         Content::Series(content) => series(locale, controller, path, content),
-        Content::Liturgy(content) => series(locale, &controller.clone(), path, &content.body),
+        Content::Liturgy(content) => liturgy(locale, controller, path, content, &doc.source),
         Content::Rubric(content) => rubric(content),
         Content::Text(content) => text(content),
         Content::Choice(content) => choice(locale, &controller.clone(), path, content),
@@ -944,6 +944,40 @@ pub fn litany(litany: &Litany) -> HeaderAndMain {
     };
 
     (None, main)
+}
+
+pub fn liturgy(
+    locale: &str,
+    controller: &DocumentController,
+    path: Vec<usize>,
+    liturgy: &Liturgy,
+    reference: &Option<Reference>,
+) -> HeaderAndMain {
+    let source_link = if let Some(reference) = reference {
+        view! {
+            <a class="source-link"
+                href={reference.as_url()}
+                target="_blank"
+            >
+                <span>{t!("source")}</span>
+                {t!("reference", source = reference.source.to_string().as_str(), page = reference.page.to_string().as_str())}
+            </a>
+        }
+    } else {
+        View::Empty
+    };
+
+    let (header, main) = series(locale, controller, path, &liturgy.body);
+
+    (
+        header,
+        view! {
+            <>
+                {source_link}
+                {main}
+            </>
+        },
+    )
 }
 
 pub fn parallel(
