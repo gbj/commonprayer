@@ -926,7 +926,7 @@ pub fn litany(litany: &Litany) -> HeaderAndMain {
 
                 view! {
                     <p class={class}>
-                        <span>{line}</span>
+                        <span>{minimal_markdown(&line)}</span>
                         {if short_response {
                             View::StaticText(" ".to_string())
                         } else {
@@ -982,7 +982,7 @@ pub fn preces(preces: &Preces) -> HeaderAndMain {
                 view! {
                     <p class="line">
                         <em class="label">{label}</em>
-                        <span class="text">{prayer}</span>
+                        <span class="text">{minimal_markdown(prayer)}</span>
                     </p>
                 }
             })

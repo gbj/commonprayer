@@ -154,6 +154,7 @@ a.reference {
 .preces > .line > .label,
 .preces > .line > .text {
   display: table-cell;
+  white-space: pre-wrap;
 }
 
 .preces > .line > .label {
@@ -537,6 +538,10 @@ a.reference {
 }
 
 /* Litany */
+.litany span {
+  white-space: pre-wrap;
+}
+
 .litany .optional {
   border-left: 2px solid var(--color);
   padding-left: 0.5rem;
