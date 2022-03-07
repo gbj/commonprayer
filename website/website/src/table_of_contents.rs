@@ -146,11 +146,15 @@ lazy_static! {
             PageType::Category("Prayers and Thanksgivings", Version::BCP1979, library::bcp1979::PRAYERS_AND_THANKSGIVINGS.clone())
         ],
         ("marriage", None) => vec![
+            // BCP
             PageType::Document("concerning-the-service", &*library::bcp1979::marriage::CONCERNING_THE_SERVICE),
             PageType::Document("celebration-and-blessing-of-a-marriage", &*library::bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE),
             PageType::Document("blessing-of-a-civil-marriage", &*library::bcp1979::marriage::BLESSING_OF_A_CIVIL_MARRIAGE),
             PageType::Document("an-order-for-marriage", &*library::bcp1979::marriage::AN_ORDER_FOR_MARRIAGE),
             PageType::Document("additional-directions", &*library::bcp1979::marriage::ADDITIONAL_DIRECTIONS),
+
+            // Expansive 1
+            PageType::Document("witnessing-and-blessing-lifelong-covenant", &*library::marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_LIFELONG_COVENANT),
         ]
     };
 }

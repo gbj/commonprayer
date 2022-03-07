@@ -15,7 +15,7 @@ pub enum Version {
     LibroDeOracionComun,
     /// Enriching Our Worship series
     EOW,
-    /// Expansive-language Eucharistic texts authorized by General Convention
+    /// Expansive-language Eucharistic and marriage texts authorized by General Convention
     Expansive,
     /// The New Revised Standard Version of the Bible
     NRSV,

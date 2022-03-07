@@ -13,7 +13,9 @@ impl Reference {
             Source::BCP1979 => "https://www.episcopalchurch.org/wp-content/uploads/sites/2/2019/11/bcp_compressed.pdf",
             Source::EOW1 => "https://www.churchpublishing.org/siteassets/pdf/enriching-our-worship-1/enrichingourworship1.pdf",
             Source::LFF2018 => "https://www.episcopalcommonprayer.org/uploads/1/2/9/8/129843103/lesser_feasts_and_fasts_2018_final_pages.pdf",
-            Source::LibroDeOracionComun => "https://www.episcopalchurch.org/wp-content/uploads/sites/2/2019/11/ellibro_deoracion_comun.pdf"
+            Source::LibroDeOracionComun => "https://www.episcopalchurch.org/wp-content/uploads/sites/2/2019/11/ellibro_deoracion_comun.pdf",
+            Source::LiturgicalResources1 => "https://extranet.generalconvention.org/staff/files/download/15668",
+            Source::LiturgicalResources2 => "https://extranet.generalconvention.org/staff/files/download/21226",
         };
 
         format!("{}#page={}", base_url, self.page)
@@ -41,6 +43,8 @@ pub enum Source {
     EOW1,
     LFF2018,
     LibroDeOracionComun,
+    LiturgicalResources1,
+    LiturgicalResources2,
 }
 
 impl Display for Source {
@@ -50,6 +54,8 @@ impl Display for Source {
             Source::EOW1 => "EOW 1",
             Source::LFF2018 => "LFF 2018",
             Source::LibroDeOracionComun => "LOC",
+            Source::LiturgicalResources1 => "Liturgical Resources 1",
+            Source::LiturgicalResources2 => "Liturgical Resources 2",
         };
         write!(f, "{}", name)
     }
