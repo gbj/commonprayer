@@ -1,6 +1,7 @@
 use lazy_static::lazy_static;
 use liturgy::*;
 use psalter::bcp1979::*;
+use status::Status;
 
 use crate::{
     bcp1979::marriage::BCP_WEDDING_READINGS, conditions::EASTER_SEASON,
@@ -42,7 +43,8 @@ lazy_static! {
         source: Source::LiturgicalResources1,
         page: 107
     })
-    .version(Version::Expansive);
+    .version(Version::Expansive)
+    .status(Status::TrialUse);
 
     // Variety of reading responses given for these liturgies
     static ref READING_RESPONSE: Document = Document::from(Choice::from(vec![
@@ -391,6 +393,7 @@ lazy_static! {
     pub static ref WITNESSING_AND_BLESSING_OF_A_LIFELONG_COVENANT: Document = Document::new()
         .label("The Witnessing and Blessing of a Lifelong Covenant")
         .version(Version::Expansive)
+        .status(Status::TrialUse)
         .source(Reference {
             source: Source::LiturgicalResources1,
             page: 79
@@ -461,9 +464,14 @@ lazy_static! {
     pub static ref WITNESSING_AND_BLESSING_OF_A_MARRIAGE: Document = Document::new()
         .label("The Witnessing and Blessing of a Marriage")
         .version(Version::Expansive)
+        .status(Status::TrialUse)
         .source(Reference {
             source: Source::LiturgicalResources1,
             page: 89
+        })
+        .alternate_source(Reference {
+            source: Source::LiturgicalResources2,
+            page: 14
         })
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "The Witnessing and Blessing\nof a Marriage"))),
@@ -522,10 +530,15 @@ lazy_static! {
 
     pub static ref CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2: Document = Document::new()
         .label("Celebration and Blessing of a Marriage (2)")
-        .version(Version::BCP1979)
+        .version(Version::Expansive)
+        .status(Status::TrialUse)
         .source(Reference {
             source: Source::LiturgicalResources1,
             page: 99
+        })
+        .alternate_source(Reference {
+            source: Source::LiturgicalResources2,
+            page: 7
         })
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "The Celebration and Blessing \nof a Marriage (2)"))),
@@ -648,4 +661,74 @@ lazy_static! {
                 Document::from(HymnLink::Tag("Marriage".into())),
             ])).display(Show::TemplateOnly)
     ]))));
+
+    pub static ref BLESSING_OF_A_CIVIL_MARRIAGE: Document = Document::new()
+        .label("Blessing of a Civil Marriage")
+        .version(Version::Expansive)
+        .status(Status::TrialUse)
+        .source(Reference {
+            source: Source::LiturgicalResources1,
+            page: 105
+        })
+        .alternate_source(Reference {
+            source: Source::LiturgicalResources2,
+            page: 25
+        })
+        .content(Content::Liturgy(Liturgy::from(Series::from(vec![
+            Document::from(Heading::from((HeadingLevel::Heading1, "The Blessing\nof a Civil Marriage"))),
+            Document::from(Rubric::from("The rite begins as prescribed for celebrations of the Holy Eucharist, using the Collect and Lessons appointed in the Marriage service.")),
+            Document::from(Content::DocumentLink(Version::Expansive, "Holy Eucharist".into(), "eucharist".into(), "holy-eucharist".into())),
+            Document::from(Content::DocumentLink(Version::Expansive, "Marriage Service".into(), "marriage".into(), "celebration-and-blessing-of-a-marriage-2".into())),
+
+            // Consent
+            Document::from(Rubric::from("After the Gospel (and homily), the couple stand before the Celebrant, who addresses them in these or similar words")),
+            Document::from("*N.* and *N.*, you have come here today to seek the blessing of God and of his Church upon your marriage. I require, therefore, that you promise, with the help of God, to fulfill the obligations which Christian Marriage demands."),
+
+            Document::from(Rubric::from("The Celebrant then addresses one member of the couple, then the other, saying")),
+            Document::from("*N.*, you have taken *N.* to be your *wife/husband/spouse*. Do you promise to love *her/him*, comfort *her/him*, honor and keep *her/him*, in sickness and in health, and, forsaking all others, to be faithful to *her/him* as long as you both shall live?"),
+            Document::from(Preces::from([
+                ("Answer", "I do.")
+            ])),
+
+            Document::from(Rubric::from("The Celebrant then addresses the congregation, saying")),
+            Document::from("Will you who have witnessed these promises do all in your power to uphold these two persons in their marriage?"),
+            Document::from(Preces::from([
+                ("", ""),
+                ("People", "We will.")
+            ])),
+
+            Document::from(Rubric::from("If rings are to be blessed, the members of the couple extend their hands toward the Priest [or Bishop], who says")),
+            Document::from(Text::from("Bless, O Lord, these rings to be signs of the vows by which *N.* and *N.* have bound themselves to each other; through Jesus Christ our Lord").response("Amen.")),
+            Document::from(Rubric::from("The Celebrant joins the right hands of the couple and says")),
+            Document::from("Those whom God has joined together let no one put asunder."),
+            Document::from(Preces::from([
+                ("People", "Amen.")
+            ])),
+
+            Document::from(Rubric::from("The service continues with The Prayers on page 104 [in the marriage service].")),
+            Document::from(Content::DocumentLink(Version::Expansive, "Marriage Service".into(), "marriage".into(), "celebration-and-blessing-of-a-marriage-2".into()))
+        ])
+    )));
+
+    pub static ref AN_ORDER_FOR_MARRIAGE: Document = Document::new()
+        .label("An Order for Marriage")
+        .version(Version::Expansive)
+        .status(Status::TrialUse)
+        .source(Reference {
+            source: Source::LiturgicalResources1,
+            page: 106
+        })
+        .content(Content::Liturgy(Liturgy::from(Series::from(vec![
+            Document::from(Heading::from((HeadingLevel::Heading1, "An Order for Marriage"))),
+            Document::from(Rubric::from("If it is desired to celebrate a marriage otherwise than as provided on pages 76-85 of “Liturgical Resources 1: The Witnessing and Blessing of a Lifelong Covenant (revised and expanded),” this Order is used.")),
+            Document::from(Content::DocumentLink(Version::Expansive, "Marriage Service".into(), "marriage".into(), "celebration-and-blessing-of-a-marriage-2".into())),
+            Document::from(Rubric::from("Normally, the celebrant is a priest or bishop. Where permitted by civil law, and when no priest or bishop is available, a deacon may function as celebrant, but does not pronounce a nuptial blessing.\n\nThe laws of the State having been complied with, the couple, together with their witnesses, families, and friends assemble in the church or in some other convenient place.")),
+            Document::from(Rubric::from("1. The teaching of the Church concerning Holy Matrimony, as it is declared in the formularies, is briefly stated. \n\n2. The intention of the two to enter the state of matrimony, and their free consent, is publicly ascertained. \n\n3. One or more Readings, one of which is always from Holy Scripture, may precede the exchange of vows. If there is to be a Communion, a Reading from the Gospel is always included. \n\n4. The vows are exchanged, using the following form").long()),
+            Document::from(Choice::from(vec![
+                Document::from("In the Name of God,\nI, *N.*, take you, *N.*, to be my *wife/husband/spouse*, \nto have and to hold from this day forward,\nfor better for worse, for richer for poorer,\nin sickness and in health, to love and to cherish, \nuntil we are parted by death.\nThis is my solemn vow."),
+                Document::from("I, *N.*, take thee *N.*, to my wedded *wife/husband/spouse*, \nto have and to hold from this day forward,\nfor better for worse, for richer for poorer,\nin sickness and in health, to love and to cherish,\ntill death us do part, according to God’s holy ordinance; \nand thereto I plight [*or* give] thee my troth.")
+            ])),
+            Document::from(Rubric::from("5. The Celebrant declares the union of the couple, in the Name of the Father, and of the Son, and of the Holy Spirit. \n\n6. Prayers are offered for the couple, for their life together, for the Christian community, and for the world. \n\n7. A priest or bishop pronounces a solemn blessing upon the couple. \n\n8. If there is no Communion, the service concludes with the Peace, the couple first greeting each other. The Peace may be exchanged throughout the assembly. \n\n9. If there is to be a Communion, the service continues with the Peace and the Offertory. The Holy Eucharist may be celebrated either according to Rite One or Rite Two, or according to the Order on page 401 of the Book of Common Prayer 1979.").long()),
+            Document::from(Content::DocumentLink(Version::BCP1979, "Holy Eucharist".into(), "eucharist".into(), "holy-eucharist".into())),
+        ]))));
 }

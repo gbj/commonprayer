@@ -40,7 +40,7 @@ lazy_static! {
             Document::from(Rubric::from("The Congregation responds")),
             Document::from(Text::from("").response("Amen.")),
 
-            Document::from(Rubric::from("The service continues with The Prayers in the marriage service.")),
+            Document::from(Rubric::from("The service continues with The Prayers on page 428 [in the marriage service].")),
             Document::from(Content::DocumentLink(Version::BCP1979, "Marriage Service".into(), "marriage".into(), "celebration-and-blessing-of-a-marriage".into()))
         ])
     )));

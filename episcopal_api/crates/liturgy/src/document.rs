@@ -14,6 +14,7 @@ pub struct Document {
     pub subtitle: Option<String>,
     pub language: Language,
     pub source: Option<Reference>,
+    pub alternate_source: Option<Reference>,
     pub status: Status,
     pub display: Show,
     pub version: Version,
@@ -31,6 +32,7 @@ impl Document {
             subtitle: None,
             language: Language::default(),
             source: None,
+            alternate_source: None,
             status: Status::Authorized,
             display: Show::Always,
             version: Version::RiteII,
@@ -155,6 +157,7 @@ impl Document {
 				subtitle, 
 				language, 
 				source, 
+                alternate_source,
 				status, 
 				display, 
 				version, 
@@ -184,6 +187,7 @@ impl Document {
 				subtitle,
 				language,
 				source,
+                alternate_source,
 				status,
 				display,
 				version,
@@ -245,6 +249,12 @@ impl Document {
     #[must_use]
     pub fn source(mut self, source: Reference) -> Self {
         self.source = Some(source);
+        self
+    }
+
+    #[must_use]
+    pub fn alternate_source(mut self, source: Reference) -> Self {
+        self.alternate_source = Some(source);
         self
     }
 

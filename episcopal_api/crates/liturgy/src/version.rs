@@ -17,6 +17,8 @@ pub enum Version {
     EOW,
     /// Expansive-language Eucharistic and marriage texts authorized by General Convention
     Expansive,
+    // A document that's intended to show parallels between multiple other versions
+    Parallel,
     /// The New Revised Standard Version of the Bible
     NRSV,
     /// The New Revised Standard Version (Anglicized Edition)
@@ -59,6 +61,7 @@ impl Display for Version {
             Version::ESV => "ESV",
             Version::KJV => "KJV",
             Version::CEB => "CEB",
+            Version::Parallel => "Parallels",
         };
         write!(f, "{}", label)
     }
@@ -87,6 +90,8 @@ impl TryFrom<&str> for Version {
             "ESV" => Ok(Self::ESV),
             "KJV" => Ok(Self::KJV),
             "CEB" => Ok(Self::CEB),
+            "Parallels" => Ok(Self::Parallel),
+            "Parallel" => Ok(Self::Parallel),
             _ => Err(()),
         }
     }

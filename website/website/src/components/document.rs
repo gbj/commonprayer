@@ -98,7 +98,14 @@ pub fn document_view(
 
     let header_and_main = match &doc.content {
         Content::Series(content) => series(locale, controller, path, content),
-        Content::Liturgy(content) => liturgy(locale, controller, path, content, &doc.source),
+        Content::Liturgy(content) => liturgy(
+            locale,
+            controller,
+            path,
+            content,
+            &doc.source,
+            &doc.alternate_source,
+        ),
         Content::Rubric(content) => rubric(content),
         Content::Text(content) => text(content),
         Content::Choice(content) => choice(locale, &controller.clone(), path, content),
@@ -951,9 +958,35 @@ pub fn liturgy(
     controller: &DocumentController,
     path: Vec<usize>,
     liturgy: &Liturgy,
-    reference: &Option<Reference>,
+    source: &Option<Reference>,
+    alternate_source: &Option<Reference>,
 ) -> HeaderAndMain {
-    let source_link = if let Some(reference) = reference {
+    let (header, main) = series(locale, controller, path, &liturgy.body);
+
+    let source_links = if source.is_some() || alternate_source.is_some() {
+        view! {
+            <div class="source-links">
+                {source_link(source)}
+                {source_link(alternate_source)}
+            </div>
+        }
+    } else {
+        View::Empty
+    };
+
+    (
+        header,
+        view! {
+            <>
+                {source_links}
+                {main}
+            </>
+        },
+    )
+}
+
+fn source_link(reference: &Option<Reference>) -> View {
+    if let Some(reference) = reference {
         view! {
             <a class="source-link"
                 href={reference.as_url()}
@@ -965,19 +998,7 @@ pub fn liturgy(
         }
     } else {
         View::Empty
-    };
-
-    let (header, main) = series(locale, controller, path, &liturgy.body);
-
-    (
-        header,
-        view! {
-            <>
-                {source_link}
-                {main}
-            </>
-        },
-    )
+    }
 }
 
 pub fn parallel(
