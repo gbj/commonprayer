@@ -110,6 +110,14 @@ impl Choice {
             } else {
                 reading.citation.clone()
             }
+        } else if let Content::BiblicalCitation(reading) = &doc.content {
+            if unique_citations > 1 && unique_versions > 1 {
+                format!("{} ({})", reading.citation, doc.version)
+            } else if unique_versions > 1 {
+                doc.version.to_string()
+            } else {
+                reading.citation.clone()
+            }
         } else if let Content::Sentence(reading) = &doc.content {
             let citation_and_text = if let Some(citation) = &reading.citation {
                 format!("{} (“{}”)", citation, reading.text)
