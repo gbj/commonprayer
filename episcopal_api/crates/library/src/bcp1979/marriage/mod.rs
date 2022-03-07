@@ -11,7 +11,7 @@ lazy_static! {
 
     pub static ref ADDITIONAL_DIRECTIONS : Document = Document::from(Series::from(vec![
         Document::from(Rubric::from("If Banns are to be published, the following form is used")),
-        Document::from("I publish the Banns of Marriage between *N.N.* of ____________ and *N.N.* of ___________ . If any of you know just cause why they may not be joined together in Holy Matrimony, you are bidden to declare it. This is the first (*or* second, *or* third) time of asking."),
+        Document::from("I publish the Banns of Marriage between *N.N.* of ____________ and *N.N.* of ___________. If any of you know just cause why they may not be joined together in Holy Matrimony, you are bidden to declare it. This is the first (*or* second, *or* third) time of asking."),
         Document::from(Rubric::from("The Celebration and Blessing of a Marriage may be used with any authorized liturgy for the Holy Eucharist. This service then replaces the Ministry of the Word, and the Eucharist begins with the Offertory.\n\nAfter the Declaration of Consent, if there is to be a giving in marriage, or presentation, the Celebrant asks,").long()),
         Document::from("Who gives (presents) this woman to be married to this man?"),
         Document::from(Rubric::from("or the following")),

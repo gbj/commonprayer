@@ -153,8 +153,11 @@ lazy_static! {
             PageType::Document("an-order-for-marriage", &*library::bcp1979::marriage::AN_ORDER_FOR_MARRIAGE),
             PageType::Document("additional-directions", &*library::bcp1979::marriage::ADDITIONAL_DIRECTIONS),
 
-            // Expansive 1
+            // Liturgical Resources 1
             PageType::Document("witnessing-and-blessing-lifelong-covenant", &*library::marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_LIFELONG_COVENANT),
+            PageType::Document("witnessing-and-blessing-marriage", &*library::marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE),
+            PageType::Document("celebration-and-blessing-of-a-marriage-2", &*library::marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2),
+            PageType::Document("additional-directions", &*library::marriage_alternatives::liturgical_resources_1::ADDITIONAL_DIRECTIONS)
         ]
     };
 }

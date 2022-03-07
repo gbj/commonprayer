@@ -5,6 +5,91 @@ use psalter::bcp1979::{PSALM_127, PSALM_128, PSALM_67};
 use crate::rite2::LORDS_PRAYER_CONTEMPORARY_AND_TRADITIONAL;
 
 lazy_static! {
+    pub static ref BCP_WEDDING_READINGS: Document = Document::from(Series::from(vec![
+        // First Reading
+        // note: there are no responses given in the BCP marriage liturgy except for the Gospel
+        Document::from(Choice::from(vec![
+            Document::from(BiblicalCitation::from("Genesis 1:26-28").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Book of Genesis.")))).label("The First Reading").version_label("Genesis 1:26-28 (Male and female he created them)"),
+            Document::from(BiblicalCitation::from("Genesis 2:4-9, 15-24").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Book of Genesis.")))).label("The First Reading").version_label("Genesis 2:4-9, 15-24 (A man cleaves to his wife and they become one flesh)"),
+            Document::from(BiblicalCitation::from("Song of Solomon 2:10-13; 8:6-7").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Song of Songs.")))).label("The First Reading").version_label("Song of Solomon 2:10-13; 8:6-7 (Many waters cannot quench love)"),
+            Document::from(BiblicalCitation::from("Tobit 8:5b-8").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Book of Tobit.")))).label("The First Reading").version_label("Tobit 8:5b-8 (New English Bible) (That she and I may grow old together)")
+        ])),
+
+        // Psalm/Hymn
+        Document::from(Rubric::from("Between the Readings, a Psalm, hymn, or anthem may be sung or said. Appropriate Psalms are 67, 127, and 128.")),
+        Document::from(HymnLink::Tag("Marriage".into())),
+        Document::from(Choice::from(vec![
+            Document::from(PSALM_67.clone()),
+            Document::from(PSALM_127.clone()),
+            Document::from(PSALM_128.clone())
+        ])),
+
+        // Second Reading
+        Document::from(Choice::from(vec![
+            Document::from(BiblicalCitation::from("1 Corinthians 13:1-13").intro(BiblicalReadingIntro::from(Document::from("A Reading from the First Letter to the Corinthians.")))).label("The Second Reading").version_label("1 Corinthians 13:1-13 (Love is patient and kind)"),
+            Document::from(BiblicalCitation::from("Ephesians 3:14-19").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Letter to the Ephesians.")))).label("The Second Reading").version_label("Ephesians 3:14-19 (The Father from whom every family is named)"),
+            Document::from(BiblicalCitation::from("Ephesians 5:1-2, 21-33").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Letter to the Ephesians.")))).label("The Second Reading").version_label("Ephesians 5:1-2, 21-33 (Walk in love, as Christ loved us)"),
+            Document::from(BiblicalCitation::from("Colossians 3:12-17").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Letter to the Colossians.")))).label("The Second Reading").version_label("Colossians 3:12-17 (Love which binds everything together in harmony)"),
+            Document::from(BiblicalCitation::from("1 John 4:7-16").intro(BiblicalReadingIntro::from(Document::from("A Reading from the First Letter of John.")))).label("The Second Reading").version_label("1 John 4:7-16 (Let us love one another for love is of God)"),
+        ])),
+
+        // Gospel
+        Document::from(Rubric::from("When a passage from the Gospel is to be read, all stand, and the Deacon or Minister appointed says")),
+        Document::from(Preces::from([
+            ("", "The Holy Gospel of our Lord Jesus Christ according to _____________."),
+            ("People", "Glory to you, Lord Christ.")
+        ])),
+
+        Document::from(Choice::from(vec![
+            Document::from(
+                BiblicalCitation::from("Matthew 5:1-10")
+                    .intro(BiblicalReadingIntro::from(Document::from(Preces::from([
+                        ("", "The Holy Gospel of our Lord Jesus Christ according to Matthew."),
+                        ("People", "Glory to you, Lord Christ.")
+                    ]))))
+            )
+                .label("The Gospel").version_label("Matthew 5:1-10 (The Beatitudes)"),
+            Document::from(
+                BiblicalCitation::from("Matthew 5:13-16")
+                    .intro(BiblicalReadingIntro::from(Document::from(Preces::from([
+                        ("", "The Holy Gospel of our Lord Jesus Christ according to Matthew."),
+                        ("People", "Glory to you, Lord Christ.")
+                    ]))))
+            )
+                .label("The Gospel").version_label("Matthew 5:13-16 (You are the light ... Let your light so shine)"),
+            Document::from(
+                BiblicalCitation::from("Matthew 7:21, 24-29")
+                    .intro(BiblicalReadingIntro::from(Document::from(Preces::from([
+                        ("", "The Holy Gospel of our Lord Jesus Christ according to Matthew."),
+                        ("People", "Glory to you, Lord Christ.")
+                    ]))))
+            )
+                .label("The Gospel").version_label("Matthew 7:21, 24-29 (Like a wise man who built his house upon the rock)"),
+            Document::from(
+                BiblicalCitation::from("Mark 10:6-9, 13-16")
+                    .intro(BiblicalReadingIntro::from(Document::from(Preces::from([
+                        ("", "The Holy Gospel of our Lord Jesus Christ according to Mark."),
+                        ("People", "Glory to you, Lord Christ.")
+                    ]))))
+            )
+                .label("The Gospel").version_label("Mark 10:6-9, 13-16 (They are no longer two but one)"),
+            Document::from(
+                BiblicalCitation::from("John 15:9-12")
+                    .intro(BiblicalReadingIntro::from(Document::from(Preces::from([
+                        ("", "The Holy Gospel of our Lord Jesus Christ according to John."),
+                        ("People", "Glory to you, Lord Christ.")
+                    ]))))
+            )
+                .label("The Gospel").version_label("John 15:9-12 (Love one another as I have loved you)"),
+        ])),
+
+        Document::from(Rubric::from("After the Gospel, the Reader says")),
+        Document::from(Preces::from([
+            ("", "The Gospel of the Lord."),
+            ("People", "Praise to you, Lord Christ.")
+        ])),
+    ]));
+
     pub static ref CELEBRATION_AND_BLESSING_OF_A_MARRIAGE: Document = Document::new()
         .label("Celebration and Blessing of a Marriage")
         .version(Version::BCP1979)
@@ -57,88 +142,7 @@ lazy_static! {
             // Readings
             Document::from(Rubric::from("Then one or more of the following passages from Holy Scripture is read. If there is to be a Communion, a passage from the Gospel always concludes the Readings.")),
 
-            // First Reading
-            // note: there are no responses given in the BCP marriage liturgy except for the Gospel
-            Document::from(Choice::from(vec![
-                Document::from(BiblicalCitation::from("Genesis 1:26-28").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Book of Genesis.")))).label("The First Reading").version_label("Genesis 1:26-28 (Male and female he created them)"),
-                Document::from(BiblicalCitation::from("Genesis 2:4-9, 15-24").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Book of Genesis.")))).label("The First Reading").version_label("Genesis 2:4-9, 15-24 (A man cleaves to his wife and they become one flesh)"),
-                Document::from(BiblicalCitation::from("Song of Solomon 2:10-13; 8:6-7").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Song of Songs.")))).label("The First Reading").version_label("Song of Solomon 2:10-13; 8:6-7 (Many waters cannot quench love)"),
-                Document::from(BiblicalCitation::from("Tobit 8:5b-8").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Book of Tobit.")))).label("The First Reading").version_label("Tobit 8:5b-8 (New English Bible) (That she and I may grow old together)")
-            ])),
-
-            // Psalm/Hymn
-            Document::from(Rubric::from("Between the Readings, a Psalm, hymn, or anthem may be sung or said. Appropriate Psalms are 67, 127, and 128.")),
-            Document::from(HymnLink::Tag("Marriage".into())),
-            Document::from(Choice::from(vec![
-                Document::from(PSALM_67.clone()),
-                Document::from(PSALM_127.clone()),
-                Document::from(PSALM_128.clone())
-            ])),
-
-            // Second Reading
-            Document::from(Choice::from(vec![
-                Document::from(BiblicalCitation::from("1 Corinthians 13:1-13").intro(BiblicalReadingIntro::from(Document::from("A Reading from the First Letter to the Corinthians.")))).label("The Second Reading").version_label("1 Corinthians 13:1-13 (Love is patient and kind)"),
-                Document::from(BiblicalCitation::from("Ephesians 3:14-19").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Letter to the Ephesians.")))).label("The Second Reading").version_label("Ephesians 3:14-19 (The Father from whom every family is named)"),
-                Document::from(BiblicalCitation::from("Ephesians 5:1-2, 21-33").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Letter to the Ephesians.")))).label("The Second Reading").version_label("Ephesians 5:1-2, 21-33 (Walk in love, as Christ loved us)"),
-                Document::from(BiblicalCitation::from("Colossians 3:12-17").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Letter to the Colossians.")))).label("The Second Reading").version_label("Colossians 3:12-17 (Love which binds everything together in harmony)"),
-                Document::from(BiblicalCitation::from("1 John 4:7-16").intro(BiblicalReadingIntro::from(Document::from("A Reading from the First Letter of John.")))).label("The Second Reading").version_label("1 John 4:7-16 (Let us love one another for love is of God)"),
-            ])),
-
-            // Gospel
-            Document::from(Rubric::from("When a passage from the Gospel is to be read, all stand, and the Deacon or Minister appointed says")),
-            Document::from(Preces::from([
-                ("", "The Holy Gospel of our Lord Jesus Christ according to _____________."),
-                ("People", "Glory to you, Lord Christ.")
-            ])),
-
-            Document::from(Choice::from(vec![
-                Document::from(
-                    BiblicalCitation::from("Matthew 5:1-10")
-                        .intro(BiblicalReadingIntro::from(Document::from(Preces::from([
-                            ("", "The Holy Gospel of our Lord Jesus Christ according to Matthew."),
-                            ("People", "Glory to you, Lord Christ.")
-                        ]))))
-                )
-                    .label("The Gospel").version_label("Matthew 5:1-10 (The Beatitudes)"),
-                Document::from(
-                    BiblicalCitation::from("Matthew 5:13-16")
-                        .intro(BiblicalReadingIntro::from(Document::from(Preces::from([
-                            ("", "The Holy Gospel of our Lord Jesus Christ according to Matthew."),
-                            ("People", "Glory to you, Lord Christ.")
-                        ]))))
-                )
-                    .label("The Gospel").version_label("Matthew 5:13-16 (You are the light . . . Let your light so shine)"),
-                Document::from(
-                    BiblicalCitation::from("Matthew 7:21, 24-29")
-                        .intro(BiblicalReadingIntro::from(Document::from(Preces::from([
-                            ("", "The Holy Gospel of our Lord Jesus Christ according to Matthew."),
-                            ("People", "Glory to you, Lord Christ.")
-                        ]))))
-                )
-                    .label("The Gospel").version_label("Matthew 7:21, 24-29 (Like a wise man who built his house upon the rock)"),
-                Document::from(
-                    BiblicalCitation::from("Mark 10:6-9, 13-16")
-                        .intro(BiblicalReadingIntro::from(Document::from(Preces::from([
-                            ("", "The Holy Gospel of our Lord Jesus Christ according to Mark."),
-                            ("People", "Glory to you, Lord Christ.")
-                        ]))))
-                )
-                    .label("The Gospel").version_label("Mark 10:6-9, 13-16 (They are no longer two but one)"),
-                Document::from(
-                    BiblicalCitation::from("John 15:9-12")
-                        .intro(BiblicalReadingIntro::from(Document::from(Preces::from([
-                            ("", "The Holy Gospel of our Lord Jesus Christ according to John."),
-                            ("People", "Glory to you, Lord Christ.")
-                        ]))))
-                )
-                    .label("The Gospel").version_label("John 15:9-12 (Love one another as I have loved you)"),
-            ])),
-
-            Document::from(Rubric::from("After the Gospel, the Reader says")),
-            Document::from(Preces::from([
-                ("", "The Gospel of the Lord."),
-                ("People", "Praise to you, Lord Christ.")
-            ])),
+            BCP_WEDDING_READINGS.clone(),
 
             Document::from(Rubric::from("A homily or other response to the Readings may follow.")),
 
