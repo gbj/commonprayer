@@ -77,6 +77,13 @@ en:
     CEB: CEB
     KJV: KJV
 
+  version:
+    BCP1979: Book of Common Prayer (1979)
+    EOW: Enriching Our Worship
+    Expansive: Expansive-Language
+    RiteI: Rite I (Traditional Language)
+    RiteII: Rite II (Contemporary Language)
+
   settings:
     dark_mode:
       label: Dark Mode

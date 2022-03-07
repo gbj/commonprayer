@@ -119,14 +119,30 @@ fn category_summary_body(
     let pages = View::Fragment(
         pages
             .iter()
-            .map(|(version, slug, label)| {
-                let link = if let Some(slug) = slug {
-                    format!("/{}/document/{}/{}/{:?}", locale, category, slug, version)
-                } else {
-                    format!("/{}/document/{}/{:?}", locale, category, version)
-                };
+            .group_by(|(version, ..)| version)
+            .into_iter()
+            .map(|(version, pages)| {
+                let pages = View::Fragment(
+                    pages
+                        .into_iter()
+                        .map(|(version, slug, label)| {
+                            let link = if let Some(slug) = slug {
+                                format!("/{}/document/{}/{}/{:?}", locale, category, slug, version)
+                            } else {
+                                format!("/{}/document/{}/{:?}", locale, category, version)
+                            };
+                            view! {
+                                <li><a href={link}>{label}</a></li>
+                            }
+                        })
+                        .collect(),
+                );
+
                 view! {
-                    <li><a href={link}>{label}</a></li>
+                    <>
+                        <h2>{t!(&format!("version.{:?}", version))}</h2>
+                        {pages}
+                    </>
                 }
             })
             .collect(),
