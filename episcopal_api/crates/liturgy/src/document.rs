@@ -21,7 +21,7 @@ pub struct Document {
     pub version_label: Option<String>,
     pub content: Content,
     pub is_compiled: bool,
-    pub tags: Vec<String>
+    pub tags: Vec<String>,
 }
 
 impl Document {
@@ -128,7 +128,7 @@ impl Document {
     /// assert!(doc.has_date_condition());
     /// let series = Document::from(Series::from(vec![Document::from(Text::from("Alleluia.")).condition(NOT_LENT.clone())]));
     /// assert!(series.has_date_condition());
-    /// assert!(library::rite2::office::COMPLINE.has_date_condition());
+    /// assert!(library::bcp1979::office::COMPLINE.has_date_condition());
     /// ```
     pub fn has_date_condition(&self) -> bool {
         let has_own_date_condition = self.condition.as_ref().map(|condition| condition.is_date_condition()).unwrap_or(false);
@@ -288,6 +288,17 @@ impl Document {
         self
     }
 
+    /// Whether any of the content is a parallel
+    pub fn contains_parallels(&self) -> bool {
+        match &self.content {
+            Content::Parallel(_) => true,
+            Content::Series(series) => series.iter().any(|child| child.contains_parallels()),
+            Content::Choice(choice) => choice.options.iter().any(|child| child.contains_parallels()),
+            Content::Liturgy(liturgy) => liturgy.body.iter().any(|child| child.contains_parallels()),
+            _ => false
+        }
+    }
+
     /// Whether any of the document's fields, or its content, contains the given text
     pub fn contains(&self, text: &str) -> bool {
         let label_contains = self
@@ -339,6 +350,40 @@ impl Document {
         let tags_contain = self.tags.iter().any(|tag| tag.to_lowercase().contains(&text));
         let content_contains = self.content.contains_case_insensitive(&text);
         label_contains || subtitle_contains || version_label_contains || source_contains || tags_contain || content_contains
+    }
+
+    /// An iterator of all child Documents whose `tags` field contains the given tag
+    /// ```
+    /// # use library::marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE;
+    /// # use library::marriage_alternatives::parallels;
+    /// # use library::bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE;
+    /// let children = CELEBRATION_AND_BLESSING_OF_A_MARRIAGE.children_with_tag(parallels::TITLE.into()).collect::<Vec<_>>();
+    /// assert_eq!(children.len(), 1);
+    /// let children = WITNESSING_AND_BLESSING_OF_A_MARRIAGE.children_with_tag(parallels::TITLE.into()).collect::<Vec<_>>();
+    /// assert_eq!(children.len(), 1);
+    /// ```
+    pub fn children_with_tag(&self, tag: String) -> impl Iterator<Item = &Document> {
+        let matches =  if self.tags.contains(&tag) {
+            Box::new(std::iter::once(self)) as Box<dyn Iterator<Item = &Document>>
+        } else {
+            match &self.content {
+                Content::Series(series) => Box::new(series.iter().flat_map(move |doc| doc.children_with_tag(tag.clone()))) as Box<dyn Iterator<Item = &Document>>,
+                Content::Liturgy(liturgy) => Box::new(liturgy.body.iter().flat_map(move |doc| doc.children_with_tag(tag.clone()))) as Box<dyn Iterator<Item = &Document>>,
+                _ => Box::new(std::iter::empty()) as Box<dyn Iterator<Item = &Document>>
+            }
+        };
+
+        matches
+    }
+
+    /// Provides an iterator over all the serial children of the `Document` without flattening any of the child types.
+    pub fn iter(&self) -> impl Iterator<Item = &Document> {
+        let boxed = match &self.content {
+            Content::Series(series) => Box::new(series.iter()) as Box<dyn Iterator<Item = &Document>>,
+            Content::Liturgy(liturgy) => Box::new(liturgy.body.iter()) as Box<dyn Iterator<Item = &Document>>,
+            _ => Box::new(std::iter::once(self)) as Box<dyn Iterator<Item = &Document>>
+        };
+        boxed
     }
 }
 

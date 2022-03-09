@@ -41,6 +41,7 @@ pub enum DocumentPageType {
         String,
         Vec<(Option<Reference>, Version, Option<String>, String)>,
     ),
+    Parallels(String, Document, Vec<Document>),
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -77,6 +78,7 @@ pub fn head(_locale: &str, props: &DocumentPageProps, _render_state: &()) -> Vie
         DocumentPageType::Document(_, doc) => doc.label.as_ref(),
         DocumentPageType::Category(label, _, _) => Some(label),
         DocumentPageType::CategorySummary(label, _, _) => Some(label),
+        DocumentPageType::Parallels(label, ..) => Some(label),
     };
     let title = match label {
         Some(label) => format!("{} – {}", label, t!("common_prayer")),
@@ -102,6 +104,7 @@ pub fn body(locale: &str, props: &DocumentPageProps, _render_state: &()) -> View
         },
         DocumentPageType::Category(label, _, _) => label.clone(),
         DocumentPageType::CategorySummary(label, _, _) => label.clone(),
+        DocumentPageType::Parallels(label, ..) => label.clone(),
     };
 
     match &props.page_type {
@@ -109,6 +112,9 @@ pub fn body(locale: &str, props: &DocumentPageProps, _render_state: &()) -> View
         DocumentPageType::Category(_, _, docs) => category_body(locale, props, title, docs),
         DocumentPageType::CategorySummary(label, slug, pages) => {
             category_summary_body(locale, label, slug, pages)
+        }
+        DocumentPageType::Parallels(label, base_doc, parallel_docs) => {
+            parallels_body(locale, label, base_doc, parallel_docs)
         }
     }
 }
@@ -534,6 +540,141 @@ fn category_body(
     }
 }
 
+fn parallels_body(
+    locale: &str,
+    label: &str,
+    index_doc: &Document,
+    parallel_docs: &[Document],
+) -> View {
+    let max_width = parallel_docs.len() + 1;
+
+    // build initial parallel table
+    let mut parallels = index_doc
+        .iter()
+        .map(|child| {
+            if !child.tags.is_empty() {
+                child
+                    .tags
+                    .iter()
+                    .flat_map(|tag| {
+                        std::iter::once((child.clone(), 1))
+                            .chain(parallel_docs.iter().map(|parallel_doc| {
+                                (
+                                    Document::series_or_document(
+                                        &mut parallel_doc.children_with_tag(tag.clone()).cloned(),
+                                    )
+                                    .unwrap_or_else(|| Document::from(Content::Empty)),
+                                    1, // "width" of this column
+                                )
+                            }))
+                            .collect::<Vec<_>>()
+                    })
+                    .collect::<Vec<_>>()
+            } else {
+                vec![(child.clone(), max_width)]
+            }
+        })
+        .collect::<Vec<_>>();
+
+    // merge adjacent cells that have the same content
+    for row in parallels.iter_mut() {
+        let unmodified_row = row.clone();
+        let mut cells_to_keep = Vec::new();
+        for (idx, (document, width)) in row.iter_mut().enumerate() {
+            let next_cell = unmodified_row.get(idx + 1);
+            if let Some((next_document, _)) = next_cell {
+                if next_document.content == document.content {
+                    *width += 1;
+                    cells_to_keep.push(false);
+                } else {
+                    cells_to_keep.push(true);
+                }
+            }
+        }
+        let mut keep = cells_to_keep.iter();
+        row.retain(|_| *keep.next().unwrap_or(&true));
+    }
+
+    let mut parallels: Vec<Vec<(Document, usize)>> = Vec::new();
+    for row in index_doc.iter() {
+        if row.tags.is_empty() {
+            parallels.push(vec![(row.clone(), max_width)]);
+        } else {
+            let parallel_tagged_documents = row
+                .tags
+                .iter()
+                .flat_map(|tag| {
+                    std::iter::once(row.clone()).chain(parallel_docs.iter().map(|parallel_doc| {
+                        Document::series_or_document(
+                            &mut parallel_doc.children_with_tag(tag.clone()).cloned(),
+                        )
+                        .unwrap_or_else(|| Document::from(Content::Empty))
+                    }))
+                })
+                .collect::<Vec<_>>();
+
+            let mut parallels_for_this_row: Vec<(Document, usize)> = Vec::new();
+
+            for (column_id, column) in parallel_tagged_documents.iter().enumerate() {
+                let prev_child = if column_id == 0 {
+                    None
+                } else {
+                    parallel_tagged_documents.get(column_id - 1)
+                };
+                if prev_child.is_none() || prev_child.unwrap().content != column.content {
+                    let mut width = 1;
+                    for subsequent_idx in (column_id + 1)..parallel_tagged_documents.len() {
+                        let subsequent_doc = parallel_tagged_documents.get(subsequent_idx);
+                        if subsequent_doc.is_some()
+                            && subsequent_doc.unwrap().content == column.content
+                        {
+                            width += 1;
+                        } else {
+                            break;
+                        }
+                    }
+                    parallels_for_this_row.push((column.clone(), width));
+                }
+            }
+
+            parallels.push(parallels_for_this_row);
+        }
+    }
+
+    // convert table into view
+    let parallels = View::Fragment(
+        parallels
+            .into_iter()
+            .map(|row| {
+                let cols = View::Fragment(
+                    row.into_iter()
+                        .map(|(child, width)| {
+                            let controller = DocumentController::new(child);
+                            view! {
+                                <td style="width: 50%" colspan={width.to_string()}>{controller.view(locale)}</td>
+                            }
+                        })
+                        .collect(),
+                );
+                view! {
+                    <tr>{cols}</tr>
+                }
+            })
+            .collect(),
+    );
+
+    view! {
+        <>
+            {header(locale, label)}
+            <main class="parallels">
+                <table>
+                    {parallels}
+                </table>
+            </main>
+        </>
+    }
+}
+
 fn find_page(
     params: &DocumentPageParams,
     category: &str,
@@ -568,6 +709,7 @@ fn find_page(
                     PageType::Category(_, s_version, _) => {
                         version.is_none() || version.as_ref() == Some(s_version)
                     }
+                    PageType::Parallel(s_slug, ..) => s_slug == slug,
                 }
             } else if let Some(version) = version {
                 match page {
@@ -575,6 +717,7 @@ fn find_page(
                     PageType::Category(_, s_version, _) => {
                         &version == s_version || version.is_subset_of(s_version)
                     }
+                    PageType::Parallel(s_slug, _, _, _) => &Some(s_slug.to_string()) == slug,
                 }
             } else {
                 true
@@ -598,6 +741,12 @@ fn find_page(
                     PageType::Category(label, version, _) => {
                         (None, *version, None, label.to_string())
                     }
+                    PageType::Parallel(slug, label, _, _) => (
+                        None,
+                        Version::Parallel,
+                        Some(slug.to_string()),
+                        label.to_string(),
+                    ),
                 })
                 .collect(),
         ))
@@ -609,6 +758,11 @@ fn find_page(
             PageType::Category(label, version, docs) => {
                 DocumentPageType::Category(label.to_string(), *version, docs.clone())
             }
+            PageType::Parallel(_, label, doc, docs) => DocumentPageType::Parallels(
+                label.to_string(),
+                (*doc).clone(),
+                docs.iter().map(|doc| (*doc).clone()).collect(),
+            ),
         })
     }
 }
@@ -686,6 +840,7 @@ pub fn hydration_state(
 
                     doc.map(|doc| DocumentPageType::Document(params.clone(), Box::new(doc)))
                 }
+                (DocumentPageType::Parallels(_, _, _), _) => Some(page_type),
             };
 
             let base_path = match (&params.slug, &params.version) {

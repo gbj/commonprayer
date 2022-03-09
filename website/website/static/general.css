@@ -215,6 +215,15 @@ body > main {
   width: 35rem;
 }
 
+body > main.parallels {
+  min-width: 90vw;
+}
+
+body > main.parallels td {
+  vertical-align: top;
+  border: 1px solid var(--border-color);
+}
+
 @media (min-width: 767px) {
   body > main {
     width: 37.5rem;

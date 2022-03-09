@@ -1,6 +1,10 @@
 Website Todos
 =============
 
+- [x] Automatic parallels page
+  - [ ] Add more Marriage parallels
+  - [ ] Parallelize readings
+- [ ] Add RCL readings for Holy Week/Easter Vigil/etc.
 - [ ] Lazy loading for `BiblicalCitation`s within `Choice`s
 - Bugs
   - [x] LFF special days like Thursday/Friday/Saturday after Ash Wednesday
@@ -14,6 +18,7 @@ Website Todos
 - [ ] Add liturgies
   - [x] Service of Light/Order of Worship for Evening
   - [ ] Marriage liturgies
+    - [ ] Check whether there are any other differences between LR1 and LR2
   - [ ] Rite I Office
   - [ ] Eucharistic liturgies
 - [ ] Better Biblical citation reading parsing (paragraphs)

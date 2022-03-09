@@ -58,6 +58,7 @@ macro_rules! hash_map {
 pub enum PageType<'a> {
     Document(&'a str, &'a Document),
     Category(&'a str, Version, Vec<Document>),
+    Parallel(&'a str, &'a str, &'a Document, Vec<&'a Document>),
 }
 
 lazy_static! {
@@ -146,6 +147,11 @@ lazy_static! {
             PageType::Category("Prayers and Thanksgivings", Version::BCP1979, library::bcp1979::PRAYERS_AND_THANKSGIVINGS.clone())
         ],
         ("marriage", None) => vec![
+            // Parallels
+            PageType::Parallel("parallels", "Marriage", &*library::bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE, vec![
+                &*library::marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2,
+            ]),
+
             // BCP
             PageType::Document("concerning-the-service", &*library::bcp1979::marriage::CONCERNING_THE_SERVICE),
             PageType::Document("celebration-and-blessing-of-a-marriage", &*library::bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE),

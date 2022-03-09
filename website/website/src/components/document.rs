@@ -977,10 +977,10 @@ pub fn liturgy(
     (
         header,
         view! {
-            <>
+            <article class="liturgy-with-source-links">
                 {source_links}
                 {main}
-            </>
+            </article>
         },
     )
 }

@@ -3,6 +3,7 @@ use liturgy::*;
 use psalter::bcp1979::*;
 use status::Status;
 
+use crate::marriage_alternatives::parallels::*;
 use crate::{
     bcp1979::marriage::BCP_WEDDING_READINGS, conditions::EASTER_SEASON,
     rite2::LORDS_PRAYER_CONTEMPORARY_AND_TRADITIONAL,
@@ -399,7 +400,7 @@ lazy_static! {
             page: 79
         })
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
-            Document::from(Heading::from((HeadingLevel::Heading1, "The Witnessing and Blessing\nof a Lifelong Covenant"))),
+            Document::from(Heading::from((HeadingLevel::Heading1, "The Witnessing and Blessing\nof a Lifelong Covenant"))).tags(["Title"]),
 
             // Concerning the Service
             Document::from(Heading::from((HeadingLevel::Heading3, "Concerning the Service"))),
@@ -474,7 +475,7 @@ lazy_static! {
             page: 14
         })
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
-            Document::from(Heading::from((HeadingLevel::Heading1, "The Witnessing and Blessing\nof a Marriage"))),
+            Document::from(Heading::from((HeadingLevel::Heading1, "The Witnessing and Blessing\nof a Marriage"))).tags(["Title"]),
 
             // Concerning the Service
             Document::from(Heading::from((HeadingLevel::Heading3, "Concerning the Service"))),
@@ -541,113 +542,143 @@ lazy_static! {
             page: 7
         })
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
-            Document::from(Heading::from((HeadingLevel::Heading1, "The Celebration and Blessing \nof a Marriage (2)"))),
-            Document::from(Rubric::from("At the time appointed, the persons to be married, with their witnesses, assemble in the church or some other appropriate place.")),
-            Document::from(Rubric::from("During their entrance, a hymn, psalm, or anthem may be sung, or instrumental music may be played.")),
-            Document::from(HymnLink::Tag("Marriage".into())),
+            Document::from(Heading::from((HeadingLevel::Heading1, "The Celebration and Blessing \nof a Marriage (2)"))).tags([TITLE]),
+            Document::from(Rubric::from("At the time appointed, the persons to be married, with their witnesses, assemble in the church or some other appropriate place.")).tags([PROCESSION_RUBRIC]),
+            Document::from(Rubric::from("During their entrance, a hymn, psalm, or anthem may be sung, or instrumental music may be played.")).tags([PROCESSION_MUSIC_RUBRIC]),
+            Document::from(HymnLink::Tag("Marriage".into())).tags([OPENING_HYMN]),
 
             // Opening Words
-            Document::from(Rubric::from("Then the Celebrant, facing the people and the persons to be married, with the woman to the right and the man to the left, addresses the congregation and says")),
-            Document::from("Dearly beloved: We have come together in the presence of God to witness and bless the joining together of *N.* and *N.* in Holy Matrimony. The joining of two people in a life of mutual fidelity signifies to us the mystery of the union between Christ and his Church, and so it is worthy of being honored among all people.\n\nThe union of two people in heart, body, and mind is intended by God for their mutual joy; for the help and comfort given one another in prosperity and adversity; and, when it is God’s will, for the gift of children and their nurture in the knowledge and love of the Lord.\n\nTherefore marriage is not to be entered into unadvisedly or lightly, but reverently, deliberately, and in accordance with the purposes for which it was instituted by God.\n\nInto this holy union *N.* *N.* and *N.* *N.* now come to be joined.\n\nIf any of you can show just cause why they may not lawfully be married, speak now; or else for ever hold your peace."),
-            Document::from(Rubric::from("Then the Celebrant says to the persons to be married")),
-            Document::from("I require and charge you both, here in the presence of God, that if either of you knows any reason why you may not be united in marriage lawfully, and in accordance with God’s Word, you do now confess it."),
+            Document::from(Rubric::from("Then the Celebrant, facing the people and the persons to be married, addresses the congregation and says")).tags([OPENING_ADDRESS_RUBRIC]),
+            Document::from("Dearly beloved: We have come together in the presence of God to witness and bless the joining together of *N.* and *N.* in Holy Matrimony. The joining of two people in a life of mutual fidelity signifies to us the mystery of the union between Christ and his Church, and so it is worthy of being honored among all people.\n\nThe union of two people in heart, body, and mind is intended by God for their mutual joy; for the help and comfort given one another in prosperity and adversity; and, when it is God’s will, for the gift of children and their nurture in the knowledge and love of the Lord.\n\nTherefore marriage is not to be entered into unadvisedly or lightly, but reverently, deliberately, and in accordance with the purposes for which it was instituted by God.\n\nInto this holy union *N.* *N.* and *N.* *N.* now come to be joined.\n\nIf any of you can show just cause why they may not lawfully be married, speak now; or else for ever hold your peace.").tags([OPENING_ADDRESS]),
+            Document::from(Rubric::from("Then the Celebrant says to the persons to be married")).tags([OPENING_WORDS_TO_COUPLE_RUBRIC]),
+            Document::from("I require and charge you both, here in the presence of God, that if either of you knows any reason why you may not be united in marriage lawfully, and in accordance with God’s Word, you do now confess it.").tags([OPENING_WORDS_TO_COUPLE]),
 
             // Declaration of Consent
-            Document::from(Heading::from((HeadingLevel::Heading2, "The Declaration of Consent"))),
-            Document::from(Rubric::from("The Celebrant says to one member of the couple, then to the other")),
-            Document::from(Preces::from([
-                ("", "*N.*, will you have this *woman/man/person* to be your *wife/husband/spouse*; to live together in the covenant of marriage? Will you love *her/him*, comfort *her/him*, honor and keep *her/him*, in sickness and in health; and, forsaking all others, be faithful to *her/him* as long as you both shall live?"),
-                ("Answer", "I will.")
-            ])),
+            Document::from(Heading::from((HeadingLevel::Heading2, "The Declaration of Consent"))).tags([CONSENT_HEADER]),
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("The Celebrant says to one member of the couple, then to the other")),
+                Document::from(Preces::from([
+                    ("", "*N.*, will you have this *woman/man/person* to be your *wife/husband/spouse*; to live together in the covenant of marriage? Will you love *her/him*, comfort *her/him*, honor and keep *her/him*, in sickness and in health; and, forsaking all others, be faithful to *her/him* as long as you both shall live?"),
+                    ("Answer", "I will.")
+                ])),
+            ])).tags([CONSENT]),
 
-            Document::from(Rubric::from("The Celebrant then addresses the congregation, saying")),
-            Document::from("Will all of you witnessing these promises do all in your power to uphold these two persons in their marriage?"),
-            Document::from(Preces::from([
-                ("", ""),
-                ("People", "We will.")
-            ])),
-            Document::from(Rubric::from("If there is to be a presentation or a giving in marriage, it takes place at this time.")),
-            Document::from(Content::DocumentLink(Version::Expansive, "Additional Directions".into(), "marriage".into(), "additional-directions".into())),
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("The Celebrant then addresses the congregation, saying")),
+                Document::from("Will all of you witnessing these promises do all in your power to uphold these two persons in their marriage?"),
+                Document::from(Preces::from([
+                    ("", ""),
+                    ("People", "We will.")
+                ])),
+            ])).tags([CONSENT_CONGREGATION]),
 
-            Document::from(Rubric::from("A hymn, psalm, or anthem may follow.")),
-            Document::from(HymnLink::Tag("Marriage".into())),
+            Document::from(Rubric::from("If there is to be a presentation or a giving in marriage, it takes place at this time.")).tags([PRESENTATION_RUBRIC]),
+            Document::from(Content::DocumentLink(Version::Expansive, "Additional Directions".into(), "marriage".into(), "additional-directions".into())).tags([ADDITIONAL_DIRECTIONS_PARALLEL]),
+
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("A hymn, psalm, or anthem may follow.")),
+                Document::from(HymnLink::Tag("Marriage".into())),
+            ])).tags([HYMN_PSALM_OR_ANTHEM]),
 
             // Liturgy of the Word
-            Document::from(Heading::from((HeadingLevel::Heading2, "The Ministry of the Word"))),
-            Document::from(Rubric::from("The Celebrant then says to the people")),
-            Document::from(Preces::from([
-                ("", "The Lord be with you."),
-                ("People", "And also with you."),
-                ("Celebrant", "Let us pray.")
-            ])),
-            Document::from(Text::from("O gracious and everliving God, you have created humankind in your image: Look mercifully upon *N.* and *N.* who come to you seeking your blessing, and assist them with your grace, that with true fidelity and steadfast love they may honor and keep the promises and vows they make; through Jesus Christ our Savior, who lives and reigns with you in the unity of the Holy Spirit, one God, for ever and ever.").response("Amen.")),
+            Document::from(Heading::from((HeadingLevel::Heading2, "The Ministry of the Word"))).tags([MINISTRY_OF_THE_WORD]),
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("The Celebrant then says to the people")),
+                Document::from(Preces::from([
+                    ("", "The Lord be with you."),
+                    ("People", "And also with you."),
+                    ("Celebrant", "Let us pray.")
+                ])),
+            ])).tags([SALUTATION]),
+
+            Document::from(Text::from("O gracious and everliving God, you have created humankind in your image: Look mercifully upon *N.* and *N.* who come to you seeking your blessing, and assist them with your grace, that with true fidelity and steadfast love they may honor and keep the promises and vows they make; through Jesus Christ our Savior, who lives and reigns with you in the unity of the Holy Spirit, one God, for ever and ever.").response("Amen.")).tags([COLLECT]),
 
             // Readings
             Document::from(Rubric::from("Then one or more of the following passages from Holy Scripture is read. Other readings from Scripture suitable for the occasion may be used. If there is to be a Communion, a passage from the Gospel always concludes the Readings.")),
 
             BCP_WEDDING_READINGS.clone(),
 
-            Document::from(Rubric::from("A homily or other response to the Readings may follow.")),
+            Document::from(Rubric::from("A homily or other response to the Readings may follow.")).tags([HOMILY]),
 
             // The Marriage
-            Document::from(Heading::from((HeadingLevel::Heading2, "The Marriage"))),
-            Document::from(Rubric::from("Each member of the couple, in turn, takes the right hand of the other and says")),
-            Document::from("In the Name of God, I, *N.*, take you, *N.*, to be my wife/husband/spouse, \nto have and to hold from this day forward,\nfor better for worse, for richer for poorer,\nin sickness and in health, to love and to cherish, \nuntil we are parted by death.\nThis is my solemn vow."),
-            Document::from(Rubric::from("The Priest may ask God’s blessing on rings as follows")),
-            Document::from(Text::from("Bless, O Lord, these rings to be signs of the vows\nby which *N.* and *N.* have bound themselves to each other; \nthrough Jesus Christ our Lord.").response("Amen.")),
-            Document::from(Rubric::from("The giver places the ring on the ring finger of the other’s hand and says")),
-            Document::from("*N.*, I give you this ring as a symbol of my vow,\nand with all that I am, and all that I have, I honor you, in the Name of the Father, and of the Son,\nand of the Holy Spirit [*or* in the Name of God]."),
-            Document::from(Rubric::from("Then the Celebrant joins the right hands of the couple and says")),
-            Document::from("Now that *N.* and *N.* have given themselves to each other by solemn vows, \nwith the joining of hands and the giving and receiving of rings,\nI pronounce that they are wed to one another,\nin the Name of the Father, and of the Son, and of the Holy Spirit. \nThose whom God has joined together let no one put asunder."),
-            Document::from(Preces::from([
-                ("", ""),
-                ("People", "Amen.")
-            ])),
+            Document::from(Heading::from((HeadingLevel::Heading2, "The Marriage"))).tags([THE_MARRIAGE_HEADER]),
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("Each member of the couple, in turn, takes the right hand of the other and says")),
+                Document::from("In the Name of God, I, *N.*, take you, *N.*, to be my *wife/husband/spouse*, \nto have and to hold from this day forward,\nfor better for worse, for richer for poorer,\nin sickness and in health, to love and to cherish, \nuntil we are parted by death.\nThis is my solemn vow."),
+            ])).tags([THE_MARRIAGE]),
+
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("The Priest may ask God’s blessing on rings as follows")),
+                Document::from(Text::from("Bless, O Lord, these rings to be signs of the vows\nby which *N.* and *N.* have bound themselves to each other; \nthrough Jesus Christ our Lord.").response("Amen.")),
+                Document::from(Rubric::from("The giver places the ring on the ring finger of the other’s hand and says")),
+                Document::from("*N.*, I give you this ring as a symbol of my vow,\nand with all that I am, and all that I have, I honor you, in the Name of the Father, and of the Son,\nand of the Holy Spirit [*or* in the Name of God]."),
+            ])).tags([THE_RINGS]),
+
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("Then the Celebrant joins the right hands of the couple and says")),
+                Document::from("Now that *N.* and *N.* have given themselves to each other by solemn vows, \nwith the joining of hands and the giving and receiving of rings,\nI pronounce that they are wed to one another,\nin the Name of the Father, and of the Son, and of the Holy Spirit. \nThose whom God has joined together let no one put asunder."),
+                Document::from(Preces::from([
+                    ("", ""),
+                    ("People", "Amen.")
+                ])),
+            ])).tags([PRONOUNCEMENT]),
 
             // The Prayers
-            Document::from(Heading::from((HeadingLevel::Heading2, "The Prayers"))),
-            Document::from(Rubric::from("All standing, the Celebrant says")),
-            Document::from("Let us pray together in the words our Savior taught us."),
-            Document::from(Rubric::from("People and Celebrant")),
-            Document::from(LORDS_PRAYER_CONTEMPORARY_AND_TRADITIONAL.clone()),
-            Document::from(Rubric::from("If Communion is to follow, the Lord’s Prayer may be omitted here.")),
-            Document::from(Rubric::from("The Deacon or other person appointed reads the following prayers, to which the People respond, saying, Amen.\n\nIf there is not to be a Communion, one or more of the prayers may be omitted.")),
-             Document::from(Litany::from((
-                "Amen.",
-                [
-                    "Let us pray.\n\nEternal God, creator and preserver of all life, author of salvation, and giver of all grace: Look with favor upon the world you have made, and for which your Son gave his life, and especially upon *N.* and *N.* whom you make one flesh in Holy Matrimony.",
-                    "Give them wisdom and devotion in the ordering of their common life, that each may be to the other a strength in need, a counselor in perplexity, a comfort in sorrow, and a companion in joy.",
-                    "Grant that their wills may be so knit together in your will, and their spirits in your Spirit, that they may grow in love and peace with you and one another all the days of their life.",
-                    "Give them grace, when they hurt each other, to recognize and acknowledge their fault, and to seek each other’s forgiveness and yours.",
-                    "Make their life together a sign of Christ’s love to this sinful and broken world, that unity may overcome estrangement, forgiveness heal guilt, and joy conquer despair.",
-                    "| Bestow on them, if it is your will, the gift and heritage of children, and the grace to bring them up to know you, to love you, and to serve you.",
-                    "Give them such fulfillment of their mutual affection that they may reach out in love and concern for others.",
-                    "Grant that all married persons who have witnessed these vows may find their lives strengthened and their loyalties confirmed.",
-                    "Grant that the bonds of our common humanity, by which all your children are united one to another, and the living to the dead, may be so transformed by your grace, that your will may be done on earth as it is in heaven; where, O Father, with your Son and the Holy Spirit, you live and reign in perfect unity, now and for ever."
-                ]
-            ))),
+            Document::from(Heading::from((HeadingLevel::Heading2, "The Prayers"))).tags([THE_PRAYERS_HEADER]),
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("All standing, the Celebrant says")),
+                Document::from("Let us pray together in the words our Savior taught us."),
+                Document::from(Rubric::from("People and Celebrant")),
+                Document::from(LORDS_PRAYER_CONTEMPORARY_AND_TRADITIONAL.clone()),
+                Document::from(Rubric::from("If Communion is to follow, the Lord’s Prayer may be omitted here.")),
+            ])).tags([LORDS_PRAYER]),
+
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("The Deacon or other person appointed reads the following prayers, to which the People respond, saying, Amen.\n\nIf there is not to be a Communion, one or more of the prayers may be omitted.")),
+                Document::from(Litany::from((
+                    "Amen.",
+                    [
+                        "Let us pray.\n\nEternal God, creator and preserver of all life, author of salvation, and giver of all grace: Look with favor upon the world you have made, and for which your Son gave his life, and especially upon *N.* and *N.* whom you make one flesh in Holy Matrimony.",
+                        "Give them wisdom and devotion in the ordering of their common life, that each may be to the other a strength in need, a counselor in perplexity, a comfort in sorrow, and a companion in joy.",
+                        "Grant that their wills may be so knit together in your will, and their spirits in your Spirit, that they may grow in love and peace with you and one another all the days of their life.",
+                        "Give them grace, when they hurt each other, to recognize and acknowledge their fault, and to seek each other’s forgiveness and yours.",
+                        "Make their life together a sign of Christ’s love to this sinful and broken world, that unity may overcome estrangement, forgiveness heal guilt, and joy conquer despair.",
+                        "| Bestow on them, if it is your will, the gift and heritage of children, and the grace to bring them up to know you, to love you, and to serve you.",
+                        "Give them such fulfillment of their mutual affection that they may reach out in love and concern for others.",
+                        "Grant that all married persons who have witnessed these vows may find their lives strengthened and their loyalties confirmed.",
+                        "Grant that the bonds of our common humanity, by which all your children are united one to another, and the living to the dead, may be so transformed by your grace, that your will may be done on earth as it is in heaven; where, O Father, with your Son and the Holy Spirit, you live and reign in perfect unity, now and for ever."
+                    ]
+                ))),
+            ])).tags([THE_PRAYERS]),
+
 
             // Blessing
-            Document::from(Heading::from((HeadingLevel::Heading2, "The Blessing of the Marriage"))),
-            Document::from(Rubric::from("The People remain standing. The couple kneel, and the Priest says one of the following prayers")),
+            Document::from(Heading::from((HeadingLevel::Heading2, "The Blessing of the Marriage"))).tags([BLESSING_OF_THE_MARRIAGE]),
+            Document::from(Rubric::from("The People remain standing. The couple kneel, and the Priest says one of the following prayers")).tags([BLESSING_RUBRIC]),
             Document::from(Choice::from(vec![
                 Document::from(Text::from("Most gracious God, we give you thanks for your tender love in sending Jesus Christ to come among us, to be born of a human mother, and to make the way of the cross to be the way of life. We thank you, also, for consecrating the union of two people in his Name. By the power of your Holy Spirit, pour out the abundance of your blessing upon *N.* and *N.* Defend them from every enemy. Lead them into all peace. Let their love for each other be a seal upon their hearts, a mantle about their shoulders, and a crown upon their foreheads. Bless them in their work and in their companionship; in their sleeping and in their waking; in their joys and in their sorrows; in their life and in their death. Finally, in your mercy, bring them to that table where your saints feast for ever in your heavenly home; through Jesus Christ our Lord, who with you and the Holy Spirit lives and reigns, one God, for ever and ever.").response("Amen.")),
                 Document::from(Text::from("O God, you have so consecrated the covenant of marriage that in it is represented the spiritual unity between Christ and his Church: Send therefore your blessing upon these your servants, that they may so love, honor, and cherish each other in faithfulness and patience, in wisdom and true godliness, that their home may be a haven of blessing and peace; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever.").response("Amen."))
-            ])),
-            Document::from(Rubric::from("The husband and wife still kneeling, the Priest adds this blessing")),
-            Document::from(Text::from("God the Father, God the Son, God the Holy Spirit, bless, preserve, and keep you; the Lord mercifully with his favor look upon you, and fill you with all spiritual benediction and grace; that you may faithfully live together in this life, and in the age to come have life everlasting.").response("Amen.")),
+            ])).tags([BLESSING_PRAYERS]),
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("The husband and wife still kneeling, the Priest adds this blessing")),
+                Document::from(Text::from("God the Father, God the Son, God the Holy Spirit, bless, preserve, and keep you; the Lord mercifully with his favor look upon you, and fill you with all spiritual benediction and grace; that you may faithfully live together in this life, and in the age to come have life everlasting.").response("Amen.")),
+            ])).tags([BLESSING_PROPER]),
 
             // Peace and Dismissal
-            Document::from(Heading::from((HeadingLevel::Heading3, "The Peace"))),
-            Document::from(Rubric::from("The Celebrant may say to the people")),
-            Document::from(Preces::from([
-                ("", "The peace of the Lord be always with you."),
-                ("People", "And also with you.")
-            ])),
+            Document::from(Heading::from((HeadingLevel::Heading3, "The Peace"))).tags([PEACE_HEADER]),
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("The Celebrant may say to the people")),
+                Document::from(Preces::from([
+                    ("", "The peace of the Lord be always with you."),
+                    ("People", "And also with you.")
+                ]))
+            ])).tags([THE_PEACE]),
 
-            Document::from(Rubric::from("The newly married couple then greet each other, after which greetings may be exchanged throughout the congregation.")),
-            Document::from(Rubric::from("When Communion is not to follow, the wedding party leaves the church. A hymn, psalm, or anthem may be sung, or instrumental music may be played.")),
-            Document::from(HymnLink::Tag("Marriage".into())),
+            Document::from(Rubric::from("The newly married couple then greet each other, after which greetings may be exchanged throughout the congregation.")).tags([POST_PEACE_RUBRICS]),
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("When Communion is not to follow, the wedding party leaves the church. A hymn, psalm, or anthem may be sung, or instrumental music may be played.")),
+                Document::from(HymnLink::Tag("Marriage".into())),
+            ])).tags([POST_PEACE_HYMN]),
 
             // Instructions: "At the Eucharist"
             Document::from(Series::from(vec![
@@ -659,7 +690,7 @@ lazy_static! {
                 Document::from(Text::from("O God, the giver of all that is true and lovely and gracious:\nWe give you thanks for binding us together\nin these holy mysteries of the Body and Blood \nof your Son Jesus Christ.\nGrant that by your Holy Spirit,\n*N.* and *N.*, now joined in Holy Matrimony, \nmay become one in heart and soul,\nlive in fidelity and peace,\nand obtain those eternal joys prepared for all who love you; \nfor the sake of Jesus Christ our Lord.").response("Amen.")).tags(["Postcommunion Prayer"]),
                 Document::from(Rubric::from("As the wedding party leaves the church, a hymn, psalm, or anthem may be sung; or instrumental music may be played.")),
                 Document::from(HymnLink::Tag("Marriage".into())),
-            ])).display(Show::TemplateOnly)
+            ])).display(Show::TemplateOnly).tags([AT_THE_EUCHARIST])
     ]))));
 
     pub static ref BLESSING_OF_A_CIVIL_MARRIAGE: Document = Document::new()
