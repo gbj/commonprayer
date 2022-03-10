@@ -103,7 +103,7 @@ lazy_static! {
 
             // Opening Words
             Document::from(Rubric::from("Then the Celebrant, facing the people and the persons to be married, with the woman to the right and the man to the left, addresses the congregation and says")).tags([OPENING_ADDRESS_RUBRIC]),
-            Document::from("Dearly beloved: We have come together in the presence of God to witness and bless the joining together of this man and this woman in Holy Matrimony. The bond and covenant of marriage was established by God in creation, and our Lord Jesus Christ adorned this manner of life by his presence and first miracle at a wedding in Cana of Galilee. It signifies to us the mystery of the union between Christ and his Church, and Holy Scripture commends it to be honored among all people.\n\nThe union of husband and wife in heart, body, and mind is intended by God for their mutual joy; for the help and comfort given one another in prosperity and adversity; and, when it is God’s will, for the procreation of children and their nurture in the knowledge and love of the Lord. Therefore marriage is not to be entered into unadvisedly or lightly, but reverently, deliberately, and in accordance with the purposes for which it was instituted by God.\n\nInto this holy union *N.N.* and *N.N.* now come to be joined.\n\nIf any of you can show just cause why they may not lawfully be married, speak now; or else for ever hold your peace.").tags([OPENING_ADDRESS]),
+            Document::from("Dearly beloved: We have come together in the presence of God to witness and bless the joining together of this man and this woman in Holy Matrimony. The bond and covenant of marriage was established by God in creation, and our Lord Jesus Christ adorned this manner of life by his presence and first miracle at a wedding in Cana of Galilee. It signifies to us the mystery of the union between Christ and his Church, and Holy Scripture commends it to be honored among all people.\n\nThe union of husband and wife in heart, body, and mind is intended by God for their mutual joy; for the help and comfort given one another in prosperity and adversity; and, when it is God’s will, for the procreation of children and their nurture in the knowledge and love of the Lord. Therefore marriage is not to be entered into unadvisedly or lightly, but reverently, deliberately, and in accordance with the purposes for which it was instituted by God.\n\nInto this holy union *N. N.* and *N. N.* now come to be joined.\n\nIf any of you can show just cause why they may not lawfully be married, speak now; or else for ever hold your peace.").tags([OPENING_ADDRESS]),
             Document::from(Rubric::from("Then the Celebrant says to the persons to be married")).tags([OPENING_WORDS_TO_COUPLE_RUBRIC]),
             Document::from("I require and charge you both, here in the presence of God, that if either of you know any reason why you may not be united in marriage lawfully, and in accordance with God’s Word, you do now confess it.").tags([OPENING_WORDS_TO_COUPLE]),
 
@@ -220,7 +220,7 @@ lazy_static! {
             ])).tags([BLESSING_PRAYERS]),
             Document::from(Series::from(vec![
                 Document::from(Rubric::from("The husband and wife still kneeling, the Priest adds this blessing")),
-                Document::from(Text::from("God the Father, God the Son, God the Holy Spirit, bless, preserve, and keep you; the Lord mercifully with his favor look upon you, and fill you with all spiritual benediction and grace; that you may faithfully live together in this life, and in the age to come have life everlasting. ").response("Amen.")),
+                Document::from(Text::from("God the Father, God the Son, God the Holy Spirit, bless, preserve, and keep you; the Lord mercifully with his favor look upon you, and fill you with all spiritual benediction and grace; that you may faithfully live together in this life, and in the age to come have life everlasting.").response("Amen.")),
             ])).tags([BLESSING_PROPER]),
 
             // Peace and Dismissal
@@ -242,15 +242,15 @@ lazy_static! {
 
             // Instructions: "At the Eucharist"
             Document::from(Series::from(vec![
-                Document::from(Heading::from((HeadingLevel::Heading2, "At the Eucharist"))),
-                Document::from(Rubric::from("The liturgy continues with the Offertory, at which the newly married couple may present the offerings of bread and wine.")),
-                Document::from(Content::DocumentLink(Version::RiteII, "Preface of Marriage".into(), "eucharist".into(), "proper-preface#marriage".into())),
-                Document::from(Rubric::from("At the Communion, it is appropriate that the newly married couple receive Communion first, after the ministers.")),
-                Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")),
-                Document::from(Text::from("O God, the giver of all that is true and lovely and gracious: We give you thanks for binding us together in these holy mysteries of the Body and Blood of your Son Jesus Christ. Grant that by your Holy Spirit, *N.* and *N.*, now joined in Holy Matrimony, may become one in heart and soul, live in fidelity and peace, and obtain those eternal joys prepared for all who love you; for the sake of Jesus Christ our Lord.").response("Amen.")).tags(["Postcommunion Prayer"]),
-                Document::from(Rubric::from("As the wedding party leaves the church, a hymn, psalm, or anthem may be sung; or instrumental music may be played.")),
-                Document::from(HymnLink::Tag("Marriage".into())),
-            ])).display(Show::TemplateOnly).tags([AT_THE_EUCHARIST])
+                Document::from(Heading::from((HeadingLevel::Heading2, "At the Eucharist"))).tags([AT_THE_EUCHARIST]),
+                Document::from(Rubric::from("The liturgy continues with the Offertory, at which the newly married couple may present the offerings of bread and wine.")).tags([OFFERTORY_RUBRIC]),
+                Document::from(Content::DocumentLink(Version::RiteII, "Preface of Marriage".into(), "eucharist".into(), "proper-preface#marriage".into())).tags([PROPER_PREFACE]),
+                Document::from(Rubric::from("At the Communion, it is appropriate that the newly married couple receive Communion first, after the ministers.")).tags([POST_PREFACE_RUBRIC]),
+                Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")).tags([POSTCOMMUNION_PRAYER]),
+                Document::from(Text::from("O God, the giver of all that is true and lovely and gracious: We give you thanks for binding us together in these holy mysteries of the Body and Blood of your Son Jesus Christ. Grant that by your Holy Spirit, *N.* and *N.*, now joined in Holy Matrimony, may become one in heart and soul, live in fidelity and peace, and obtain those eternal joys prepared for all who love you; for the sake of Jesus Christ our Lord.").response("Amen.").display_format(DisplayFormat::Unison)).tags(["Postcommunion Prayer", POSTCOMMUNION_PRAYER]),
+                Document::from(Rubric::from("As the wedding party leaves the church, a hymn, psalm, or anthem may be sung; or instrumental music may be played.")).tags([CLOSING_HYMN]),
+                Document::from(HymnLink::Tag("Marriage".into())).tags([CLOSING_HYMN]),
+            ])).display(Show::TemplateOnly)
         ])
     )));
 }

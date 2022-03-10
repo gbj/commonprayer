@@ -16,6 +16,7 @@ mod lectionary_reading;
 mod litany;
 mod liturgy;
 mod parallel;
+pub mod parallel_table;
 mod path;
 mod preces;
 mod preference;

@@ -2,8 +2,12 @@ Website Todos
 =============
 
 - [x] Automatic parallels page
-  - [ ] Add more Marriage parallels
+  - [x] Add more Marriage parallels
   - [ ] Parallelize readings
+  - [ ] Bugs
+    - [ ] handle Options better when chunking
+    - [ ] remove response from all but last Text
+    - [ ] remove label etc. from all but first doc
 - [ ] Add RCL readings for Holy Week/Easter Vigil/etc.
 - [ ] Lazy loading for `BiblicalCitation`s within `Choice`s
 - Bugs

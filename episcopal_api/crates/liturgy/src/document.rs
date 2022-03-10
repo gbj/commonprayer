@@ -377,13 +377,163 @@ impl Document {
     }
 
     /// Provides an iterator over all the serial children of the `Document` without flattening any of the child types.
-    pub fn iter(&self) -> impl Iterator<Item = &Document> {
+    pub fn children(&self) -> impl Iterator<Item = &Document> {
         let boxed = match &self.content {
             Content::Series(series) => Box::new(series.iter()) as Box<dyn Iterator<Item = &Document>>,
             Content::Liturgy(liturgy) => Box::new(liturgy.body.iter()) as Box<dyn Iterator<Item = &Document>>,
             _ => Box::new(std::iter::once(self)) as Box<dyn Iterator<Item = &Document>>
         };
         boxed
+    }
+
+    /// Reduces any `Document` into an iterator of its smallest parts. For example, a `Text` will be turned into 
+    /// a series of `Document`s, each of which represents one paragraph.
+    pub fn to_smallest_chunks(self) -> impl Iterator<Item = Document> {
+        let content = self.content.clone();
+        let iterator = match content {
+            Content::Series(series) => Box::new(series.into_vec().into_iter().flat_map(|child| child.to_smallest_chunks())) as Box<dyn Iterator<Item = Document>>,
+            Content::Parallel(parallel) => {
+                let chunked_children = parallel.into_vec().into_iter().filter_map(|child| Document::series_or_document(&mut child.to_smallest_chunks())).collect::<Vec<_>>();
+                Box::new(std::iter::once(Document {
+                    content: Content::Parallel(Parallel::from(chunked_children)),
+                    ..self
+                })) as Box<dyn Iterator<Item = Document>>
+            },
+            Content::Choice(choice) => {
+                let chunked_options = choice.options.clone().into_iter().filter_map(|child| Document::series_or_document(&mut child.to_smallest_chunks())).collect::<Vec<_>>();
+                Box::new(std::iter::once(Document {
+                    content: Content::Choice(Choice {
+                        options: chunked_options,
+                        ..choice
+                    }),
+                    ..self
+                })) as Box<dyn Iterator<Item = Document>>
+            },
+            Content::Text(text) => {
+                // allowed because of lifetime issues if we remove this and try to use the iterator instead
+                #[allow(clippy::needless_collect)]
+                let paragraphs = text.text.split("\n\n").map(String::from).collect::<Vec<_>>();
+                Box::new(paragraphs.into_iter().map(move |paragraph| Document {
+                    content: Content::Text(Text {
+                        text: paragraph,
+                        ..text.clone()
+                    }),
+                    ..self.clone()
+                })) as Box<dyn Iterator<Item = Document>> 
+            },
+            Content::Rubric(rubric) => {
+                // allowed because of lifetime issues if we remove this and try to use the iterator instead
+                #[allow(clippy::needless_collect)]
+                let paragraphs = rubric.text.split("\n\n").map(String::from).collect::<Vec<_>>();
+                Box::new(paragraphs.into_iter().map(move |paragraph| Document {
+                    content: Content::Rubric(Rubric {
+                        text: paragraph,
+                        ..rubric.clone()
+                    }),
+                    ..self.clone()
+                })) as Box<dyn Iterator<Item = Document>> 
+            },
+            Content::Litany(litany) => {
+                let response = litany.response.clone();
+                Box::new(litany.into_vec().into_iter().map(move |line| Document {
+                    content: Content::Litany(Litany {
+                        lines: vec![line],
+                        response: response.clone()
+                    }),
+                    ..self.clone()
+                }))
+            }
+            // TODO add some other chunked types?
+            /* Content::Canticle(_) => todo!(),
+            Content::CanticleTableEntry(_) => todo!(),
+            Content::DocumentLink(_, _, _, _) => todo!(),
+            Content::GloriaPatri(_) => todo!(),
+            Content::Heading(_) => todo!(),
+            Content::HymnLink(_) => todo!(),
+            Content::Invitatory(_) => todo!(),
+            Content::LectionaryReading(_) => todo!(),
+            Content::Litany(_) => todo!(),
+            Content::Liturgy(_) => todo!(),
+            Content::Preces(_) => todo!(),
+            Content::Psalm(_) => todo!(),
+            Content::PsalmCitation(_) => todo!(),
+            Content::ResponsivePrayer(_) => todo!(),
+            Content::Rubric(_) => todo!(),
+            Content::Sentence(_) => todo!(), */
+            _ => Box::new(std::iter::once(self)) as Box<dyn Iterator<Item = Document>>
+        };
+        iterator
+    }
+
+    pub fn to_parallel_table(&self, parallel_docs: &[&Document]) -> Vec<Vec<(Document, usize)>> {
+        let max_width = parallel_docs.len() + 1;
+
+        let mut parallels: Vec<Vec<(Document, usize)>> = Vec::new();
+        for row in self.children() {
+            if row.tags.is_empty() {
+                parallels.push(vec![(row.clone(), max_width)]);
+            } else {
+                let parallel_tagged_documents = row
+                    .tags
+                    .iter()
+                    .flat_map(|tag| {
+                        parallel_docs
+                            .iter()
+                            .map(|parallel_doc| {
+                                parallel_doc
+                                    .children_with_tag(tag.clone())
+                                    .flat_map(|child| child.clone().to_smallest_chunks())
+                                    .collect::<Vec<_>>()
+                            })
+                            .collect::<Vec<_>>()
+                    })
+                    .collect::<Vec<_>>();
+
+                let mut chunked_rows = Vec::new();
+
+                for (chunk_idx, chunk) in row.clone().to_smallest_chunks().enumerate() {
+                    chunked_rows.push(
+                        std::iter::once(chunk)
+                            .chain(parallel_tagged_documents.iter().map(|parallel| {
+                                parallel
+                                    .get(chunk_idx)
+                                    .cloned()
+                                    .unwrap_or_else(|| Document::from(Content::Empty))
+                            }))
+                            .collect::<Vec<_>>(),
+                    )
+                }
+
+                for row in chunked_rows {
+                    let mut parallels_for_this_row: Vec<(Document, usize)> = Vec::new();
+
+                    for (column_id, column) in row.iter().enumerate() {
+                        let prev_child = if column_id == 0 {
+                            None
+                        } else {
+                            row.get(column_id - 1)
+                        };
+                        if prev_child.is_none() || prev_child.unwrap().content != column.content {
+                            let mut width = 1;
+                            for subsequent_idx in (column_id + 1)..row.len() {
+                                let subsequent_doc = row.get(subsequent_idx);
+                                if subsequent_doc.is_some()
+                                    && subsequent_doc.unwrap().content == column.content
+                                {
+                                    width += 1;
+                                } else {
+                                    break;
+                                }
+                            }
+                            parallels_for_this_row.push((column.clone(), width));
+                        }
+                    }
+
+                    parallels.push(parallels_for_this_row);
+                }
+            }
+        }
+        parallels
     }
 }
 

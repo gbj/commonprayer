@@ -1,6 +1,8 @@
 use std::collections::HashMap;
 
+use episcopal_api::library::marriage_alternatives::parallels::MARRIAGE_PARALLEL_TAGS;
 use episcopal_api::library::{self, CollectData, CollectId};
+use episcopal_api::liturgy::parallel_table::build_parallel_table;
 use episcopal_api::liturgy::{Document, Heading, HeadingLevel, Rubric, Series, Version};
 use itertools::Itertools;
 use lazy_static::lazy_static;
@@ -58,7 +60,7 @@ macro_rules! hash_map {
 pub enum PageType<'a> {
     Document(&'a str, &'a Document),
     Category(&'a str, Version, Vec<Document>),
-    Parallel(&'a str, &'a str, &'a Document, Vec<&'a Document>),
+    Parallel(&'a str, &'a str, Vec<Vec<(Document, usize)>>),
 }
 
 lazy_static! {
@@ -148,9 +150,13 @@ lazy_static! {
         ],
         ("marriage", None) => vec![
             // Parallels
-            PageType::Parallel("parallels", "Marriage", &*library::bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE, vec![
-                &*library::marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2,
-            ]),
+            PageType::Parallel("parallels", "Marriage",
+                build_parallel_table(MARRIAGE_PARALLEL_TAGS, &[
+                    &*library::bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE,
+                    &*library::marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2,
+                    &*library::marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE,
+                ])
+            ),
 
             // BCP
             PageType::Document("concerning-the-service", &*library::bcp1979::marriage::CONCERNING_THE_SERVICE),
