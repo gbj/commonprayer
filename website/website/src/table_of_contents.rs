@@ -155,6 +155,7 @@ lazy_static! {
                     &*library::bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE,
                     &*library::marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2,
                     &*library::marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE,
+                    &*library::bcp1979::marriage::AN_ORDER_FOR_MARRIAGE
                 ])
             ),
 

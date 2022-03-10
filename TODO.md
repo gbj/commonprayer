@@ -4,8 +4,11 @@ Website Todos
 - [x] Automatic parallels page
   - [x] Add more Marriage parallels
   - [ ] Parallelize readings
+  - [ ] Add context 
+    - [ ] source links
+    - [ ] explanatory note for each liturgy
+    - [ ] introductory note that the structure isn't the same for all liturgies
   - [ ] Bugs
-    - [ ] handle Options better when chunking
     - [ ] remove response from all but last Text
     - [ ] remove label etc. from all but first doc
 - [ ] Add RCL readings for Holy Week/Easter Vigil/etc.
