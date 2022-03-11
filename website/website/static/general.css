@@ -220,8 +220,10 @@ body > main.parallels {
 }
 
 body > main.parallels table {
+  table-layout: fixed;
   border-collapse: collapse;
   border-spacing: 0;
+  width: 100%;
 }
 
 body > main.parallels td {

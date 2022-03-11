@@ -174,7 +174,11 @@ pub fn biblical_reading(
 ) -> HeaderAndMain {
     let intro = if let Some(intro) = &reading.intro {
         let doc = Document::from(intro.clone());
-        document_view(locale, controller, path, &doc)
+        view! {
+            <section class="reading-intro">
+                {document_view(locale, controller, path, &doc)}
+            </section>
+        }
     } else {
         View::Empty
     };
@@ -543,7 +547,7 @@ pub fn choice(
                     // swiping left and right on touch-enabled devices will rotate among selections
                     let swipestart = Behavior::new(0);
                     let swipe_offset = Behavior::new(0);
-                    let swipe_offset_style = swipe_offset.stream().map(|offset| format!("translateX({}px)", offset)).boxed_local();
+                    let swipe_offset_style = swipe_offset.stream().map(|offset| if offset == 0 { "".to_string() } else { format!("translateX({}px)", offset) }).boxed_local();
                     let can_swipe_left = idx > 0;
                     let can_swipe_right = idx < max_idx;
 

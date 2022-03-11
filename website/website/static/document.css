@@ -531,7 +531,6 @@ a.source-link > span {
 /* prevents these from flowing through the header */
 .choice li {
   position: relative;
-  z-index: -1;
 }
 .choice li.hidden {
   display: none;
@@ -557,6 +556,10 @@ a.source-link > span {
 .biblical-reading sup.verse-number {
   margin-right: 0.25rem;
   font-size: 0.6rem;
+}
+
+.biblical-reading .reading-intro {
+  margin-bottom: 1rem;
 }
 
 .bible-verses-hidden sup.verse-number {
