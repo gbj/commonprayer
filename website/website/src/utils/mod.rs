@@ -1,4 +1,6 @@
 use leptos::is_server;
+use wasm_bindgen::JsCast;
+use web_sys::Event;
 
 pub mod fetch;
 pub mod language;
@@ -17,4 +19,11 @@ pub fn decode_uri(encoded: &str) -> String {
             .as_string()
             .unwrap_or_default()
     }
+}
+
+pub fn event_target_checked(ev: Event) -> bool {
+    ev.target()
+        .unwrap()
+        .unchecked_into::<web_sys::HtmlInputElement>()
+        .checked()
 }
