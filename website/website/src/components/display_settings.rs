@@ -1,10 +1,10 @@
 use crate::{
     preferences::{self, DisplaySettings},
+    utils::event_target_checked,
     utils::preferences::*,
 };
 use futures::StreamExt;
 use leptos::*;
-use wasm_bindgen::JsCast;
 
 use super::{side_menu, Icon};
 
@@ -91,11 +91,4 @@ impl DisplaySettingsComponent {
             </section>
         }
     }
-}
-
-fn event_target_checked(ev: Event) -> bool {
-    ev.target()
-        .unwrap()
-        .unchecked_into::<web_sys::HtmlInputElement>()
-        .checked()
 }
