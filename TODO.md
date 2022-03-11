@@ -3,12 +3,13 @@ Website Todos
 
 - [x] Automatic parallels page
   - [x] Add more Marriage parallels
-  - [ ] Parallelize readings
+  - [x] Parallelize readings
   - [x] Add context 
     - [x] source links
     - [x] explanatory note for each liturgy
   - [ ] UI to toggle any given parallels on/off and highlight/export different things
   - [ ] Bugs
+    - [ ] Palm Sunday Daily Office & RCL Readings test
     - [ ] remove response from all but last Text
     - [ ] remove label etc. from all but first doc
 - [ ] Add RCL readings for Holy Week/Easter Vigil/etc.

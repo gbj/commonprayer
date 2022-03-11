@@ -144,7 +144,7 @@ lazy_static! {
         ])),
         Document::from(Rubric::from("After the Reading, the Reader may say")),
         READING_RESPONSE.clone()
-    ]));
+    ])).tags([FIRST_LESSON]);
 
     static ref LR1_PSALMS: Document = Document::from(Series::from(vec![
         Document::from(Rubric::from("Between the Readings, a psalm, hymn, or anthem may be sung or said. Appropriate psalms are Psalm 65, Psalm 67, Psalm 85:7–13, Psalm 98, Psalm 100, Psalm 126, Psalm 127, Psalm 133, Psalm 148, and Psalm 149:1–5.")),
@@ -160,7 +160,7 @@ lazy_static! {
             Document::from(PSALM_148.clone()),
             Document::from(PSALM_149.clone().citation("Psalm 149:1-5")),
         ])),
-    ]));
+    ])).tags([PSALM]);
 
     static ref LR1_SECOND_READING: Document = Document::from(Series::from(vec![
         Document::from(Choice::from(vec![
@@ -191,9 +191,20 @@ lazy_static! {
         ])),
         Document::from(Rubric::from("After the Reading, the Reader may say")),
         READING_RESPONSE.clone(),
-    ]));
+    ])).tags([SECOND_LESSON]);
 
     static ref LR1_GOSPEL: Document = Document::from(Series::from(vec![
+        Document::from(Rubric::from("All standing, the Deacon or Priest reads the Gospel, first saying")),
+        Document::from(Choice::from(vec![
+            Document::from(Preces::from([
+                ("", "The Holy Gospel of our Lord Jesus Christ according to _____________."),
+                ("People", "Glory to you, Lord Christ.")
+            ])),
+            Document::from(Preces::from([
+                ("", "The Holy Gospel of our Savior Jesus Christ according to _____________."),
+                ("People", "Glory to you, Lord Christ.")
+            ])),
+        ])).tags([GOSPEL]).display(Show::TemplateOnly),
         Document::from(Choice::from(vec![
             Document::from(BiblicalCitation::from("Matthew 5:1-16").intro(gospel_reading_intro("Matthew"))).label("The Gospel"),
             Document::from(BiblicalCitation::from("Mark 12:28–34").intro(gospel_reading_intro("Mark"))).label("The Gospel"),
@@ -206,7 +217,7 @@ lazy_static! {
             ("", "The Gospel of the Lord."),
             ("People", "Praise to you, Lord Christ.")
         ]))
-    ]));
+    ])).tags([GOSPEL]);
 
     static ref LR1_PRESENTATION_RINGS_VOWS: Document = Document::from(Series::from(vec![
         Document::from(Heading::from((HeadingLevel::Heading2, "The Witnessing of the Vows and the Blessing of the Covenant"))),
@@ -525,6 +536,7 @@ lazy_static! {
             LR1_FIRST_READING.clone(),
             LR1_PSALMS.clone(),
             LR1_SECOND_READING.clone(),
+
             LR1_GOSPEL.clone(),
 
             // Sermon

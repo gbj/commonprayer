@@ -14,16 +14,16 @@ lazy_static! {
             Document::from(BiblicalCitation::from("Genesis 2:4-9, 15-24").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Book of Genesis.")))).label("The First Reading").version_label("Genesis 2:4-9, 15-24 (A man cleaves to his wife and they become one flesh)"),
             Document::from(BiblicalCitation::from("Song of Solomon 2:10-13; 8:6-7").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Song of Songs.")))).label("The First Reading").version_label("Song of Solomon 2:10-13; 8:6-7 (Many waters cannot quench love)"),
             Document::from(BiblicalCitation::from("Tobit 8:5b-8").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Book of Tobit.")))).label("The First Reading").version_label("Tobit 8:5b-8 (New English Bible) (That she and I may grow old together)")
-        ])),
+        ])).tags([FIRST_LESSON]),
 
         // Psalm/Hymn
-        Document::from(Rubric::from("Between the Readings, a Psalm, hymn, or anthem may be sung or said. Appropriate Psalms are 67, 127, and 128.")),
+        Document::from(Rubric::from("Between the Readings, a Psalm, hymn, or anthem may be sung or said. Appropriate Psalms are 67, 127, and 128.")).tags([PSALM]),
         Document::from(HymnLink::Tag("Marriage".into())),
         Document::from(Choice::from(vec![
             Document::from(PSALM_67.clone()),
             Document::from(PSALM_127.clone()),
             Document::from(PSALM_128.clone())
-        ])),
+        ])).tags([PSALM]),
 
         // Second Reading
         Document::from(Choice::from(vec![
@@ -32,14 +32,14 @@ lazy_static! {
             Document::from(BiblicalCitation::from("Ephesians 5:1-2, 21-33").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Letter to the Ephesians.")))).label("The Second Reading").version_label("Ephesians 5:1-2, 21-33 (Walk in love, as Christ loved us)"),
             Document::from(BiblicalCitation::from("Colossians 3:12-17").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Letter to the Colossians.")))).label("The Second Reading").version_label("Colossians 3:12-17 (Love which binds everything together in harmony)"),
             Document::from(BiblicalCitation::from("1 John 4:7-16").intro(BiblicalReadingIntro::from(Document::from("A Reading from the First Letter of John.")))).label("The Second Reading").version_label("1 John 4:7-16 (Let us love one another for love is of God)"),
-        ])),
+        ])).tags([SECOND_LESSON]),
 
         // Gospel
-        Document::from(Rubric::from("When a passage from the Gospel is to be read, all stand, and the Deacon or Minister appointed says")),
+        Document::from(Rubric::from("When a passage from the Gospel is to be read, all stand, and the Deacon or Minister appointed says")).tags([GOSPEL]),
         Document::from(Preces::from([
             ("", "The Holy Gospel of our Lord Jesus Christ according to _____________."),
             ("People", "Glory to you, Lord Christ.")
-        ])),
+        ])).tags([GOSPEL]).display(Show::TemplateOnly),
 
         Document::from(Choice::from(vec![
             Document::from(
@@ -82,13 +82,13 @@ lazy_static! {
                     ]))))
             )
                 .label("The Gospel").version_label("John 15:9-12 (Love one another as I have loved you)"),
-        ])),
+        ])).tags([GOSPEL]),
 
-        Document::from(Rubric::from("After the Gospel, the Reader says")),
+        Document::from(Rubric::from("After the Gospel, the Reader says")).tags([GOSPEL]),
         Document::from(Preces::from([
             ("", "The Gospel of the Lord."),
             ("People", "Praise to you, Lord Christ.")
-        ])),
+        ])).tags([GOSPEL]),
     ]));
 
     pub static ref CELEBRATION_AND_BLESSING_OF_A_MARRIAGE: Document = Document::new()
