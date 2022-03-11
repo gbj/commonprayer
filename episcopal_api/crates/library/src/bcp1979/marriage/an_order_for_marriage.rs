@@ -7,11 +7,13 @@ lazy_static! {
         .label("An Order for Marriage")
         .version(Version::BCP1979)
         .page(435)
+        .explainer("A bare-bones outline given in the 1979 Book of Common Prayer for the requirements of a marriage service that could be celebrated otherwise than as provided in the traditional service.")
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "An Order for Marriage"))).tags([TITLE]),
-            Document::from(Rubric::from("If it is desired to celebrate a marriage otherwise than as provided on page 423 of this Book [The Celebration and Blessing of a Marriage], this Order is used.")).tags([OPENING_RUBRICS]),
-            Document::from(Content::DocumentLink(Version::BCP1979, "Marriage Service".into(), "marriage".into(), "celebration-and-blessing-of-a-marriage".into())).tags([OPENING_RUBRICS]),
-            Document::from(Rubric::from("Normally, the celebrant is a priest or bishop. Where permitted by civil law, and when no priest or bishop is available, a deacon may function as celebrant, but does not pronounce a nuptial blessing.\n\nThe laws of the State and the canons of this Church having been complied with, the man and the woman, together with their witnesses, families, and friends assemble in the church or in some other convenient place.")).tags([OPENING_RUBRICS]),
+            Document::from(Rubric::from("If it is desired to celebrate a marriage otherwise than as provided on page 423 of this Book [The Celebration and Blessing of a Marriage], this Order is used.")),
+            Document::from(Content::DocumentLink(Version::BCP1979, "Marriage Service".into(), "marriage".into(), "celebration-and-blessing-of-a-marriage".into())),
+            Document::from(Rubric::from("Normally, the celebrant is a priest or bishop. Where permitted by civil law, and when no priest or bishop is available, a deacon may function as celebrant, but does not pronounce a nuptial blessing.")),
+            Document::from(Rubric::from("The laws of the State and the canons of this Church having been complied with, the man and the woman, together with their witnesses, families, and friends assemble in the church or in some other convenient place.")).tags([PROCESSION_RUBRIC]),
             Document::from(Rubric::from("1. The teaching of the Church concerning Holy Matrimony, as it is declared in the formularies and canons of this Church, is briefly stated.").long()).tags([OPENING_ADDRESS]),
             Document::from(Rubric::from("2. The intention of the man and the woman to enter the state of matrimony, and their free consent, is publicly ascertained.").long()).tags([CONSENT]),
             Document::from(Rubric::from("3. One or more Readings, one of which is always from Holy Scripture, may precede the exchange of vows. If there is to be a Communion,\n\na Reading from the Gospel is always included.").long()),

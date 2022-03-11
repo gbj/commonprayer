@@ -985,7 +985,7 @@ pub fn liturgy(
     )
 }
 
-fn source_link(reference: &Option<Reference>) -> View {
+pub fn source_link(reference: &Option<Reference>) -> View {
     if let Some(reference) = reference {
         view! {
             <a class="source-link"

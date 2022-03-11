@@ -219,9 +219,28 @@ body > main.parallels {
   min-width: 90vw;
 }
 
+body > main.parallels table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
 body > main.parallels td {
   vertical-align: top;
   border: 1px solid var(--border-color);
+  padding: 0.25rem;
+}
+
+body > main.parallels a {
+  text-align: center;
+  display: block;
+}
+
+body > main.parallels h1 {
+  font-size: 1.75rem;
+}
+
+body > main.parallels h2 {
+  font-size: 1.25rem;
 }
 
 @media (min-width: 767px) {

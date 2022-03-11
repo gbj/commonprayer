@@ -20,6 +20,7 @@ pub struct Document {
     pub version: Version,
     pub version_label: Option<String>,
     pub content: Content,
+    pub explainer: Option<String>,
     pub is_compiled: bool,
     pub tags: Vec<String>,
 }
@@ -38,6 +39,7 @@ impl Document {
             version: Version::RiteII,
             version_label: None,
             content: Content::Empty,
+            explainer: None,
             is_compiled: false,
             tags: Vec::new()
         }
@@ -163,6 +165,7 @@ impl Document {
 				version, 
 				version_label, 
 				content, 
+                explainer,
 				is_compiled, 
 				tags
 			} = self;
@@ -193,6 +196,7 @@ impl Document {
 				version,
 				version_label,
 				content,
+                explainer,
 				is_compiled,
 				tags,
 			})
@@ -202,6 +206,12 @@ impl Document {
     #[must_use]
     pub fn content(mut self, content: Content) -> Self {
         self.content = content;
+        self
+    }
+
+    #[must_use]
+    pub fn explainer(mut self, text: impl Display) -> Self {
+        self.explainer = Some(text.to_string());
         self
     }
 

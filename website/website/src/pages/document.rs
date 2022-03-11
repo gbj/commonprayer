@@ -11,7 +11,10 @@ use episcopal_api::{
     calendar::{Calendar, Date},
     language::Language,
     library::{CommonPrayer, Library},
-    liturgy::{Content, Document, PreferenceKey, PreferenceValue, Reference, Version},
+    liturgy::{
+        parallel_table::ParallelDocument, Content, Document, PreferenceKey, PreferenceValue,
+        Reference, Version,
+    },
 };
 use futures::StreamExt;
 use itertools::Itertools;
@@ -41,7 +44,7 @@ pub enum DocumentPageType {
         String,
         Vec<(Option<Reference>, Version, Option<String>, String)>,
     ),
-    Parallels(String, Vec<Vec<(Document, usize)>>),
+    Parallels(String, Vec<Vec<(ParallelDocument, usize)>>),
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -538,7 +541,7 @@ fn category_body(
     }
 }
 
-fn parallels_body(locale: &str, label: &str, parallels: &[Vec<(Document, usize)>]) -> View {
+fn parallels_body(locale: &str, label: &str, parallels: &[Vec<(ParallelDocument, usize)>]) -> View {
     // convert table into view
     let parallels = View::Fragment(
         parallels
@@ -547,9 +550,27 @@ fn parallels_body(locale: &str, label: &str, parallels: &[Vec<(Document, usize)>
                 let cols = View::Fragment(
                     row.iter()
                         .map(|(child, width)| {
-                            let controller = DocumentController::new(child.clone());
+                            let view = match child {
+                                ParallelDocument::Source(reference) => source_link(reference),
+                                ParallelDocument::Link {
+                                    label,
+                                    version,
+                                    category,
+                                    slug,
+                                } => view! {
+                                    <a href={format!("/{}/document/{}/{}/{:?}", locale, category, slug, version)}>{label}</a>
+                                },
+                                ParallelDocument::Explainer(Some(explainer)) => view! {
+                                    <p class="explainer">{explainer}</p>
+                                },
+                                ParallelDocument::Explainer(None) => View::Empty,
+                                ParallelDocument::Document(doc) => {
+                                    DocumentController::new(*(*doc).clone()).view(locale)
+                                }
+                            };
+
                             view! {
-                                <td colspan={width.to_string()}>{controller.view(locale)}</td>
+                                <td colspan={width.to_string()}>{view}</td>
                             }
                         })
                         .collect(),

@@ -487,6 +487,7 @@ lazy_static! {
             source: Source::LiturgicalResources2,
             page: 14
         })
+        .explainer("An alternative marriage service approved in 2012. The structure differs from the “Celebration and Blessing” services; the parallel version rearranges it to show the differences between parallels.")
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "The Witnessing and Blessing\nof a Marriage"))).tags(["Title"]).tags([TITLE]),
 
@@ -557,6 +558,7 @@ lazy_static! {
             source: Source::LiturgicalResources2,
             page: 7
         })
+        .explainer("A gender-neutral adaptation of the 1979 marriage service, approved for trial use in 2015/2018.")
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "The Celebration and Blessing \nof a Marriage (2)"))).tags([TITLE]),
             Document::from(Rubric::from("At the time appointed, the persons to be married, with their witnesses, assemble in the church or some other appropriate place.")).tags([PROCESSION_RUBRIC]),

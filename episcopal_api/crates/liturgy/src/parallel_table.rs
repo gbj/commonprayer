@@ -1,22 +1,72 @@
 use std::fmt::Display;
 
-use crate::{Content, Document};
+use serde::{Deserialize, Serialize};
+
+use crate::{Content, Document, Reference, Version};
+
+#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
+pub enum ParallelDocument {
+    Source(Option<Reference>),
+    Link {
+        label: String,
+        version: Version,
+        category: String,
+        slug: String,
+    },
+    Explainer(Option<String>),
+    Document(Box<Document>),
+}
 
 pub fn build_parallel_table<T, U>(
+    category: &str,
     parallel_tags: T,
-    docs: &[&Document],
-) -> Vec<Vec<(Document, usize)>>
+    docs: &[(&str, &Document)],
+) -> Vec<Vec<(ParallelDocument, usize)>>
 where
     T: IntoIterator<Item = U>,
     U: Display,
 {
-    let mut parallels: Vec<Vec<(Document, usize)>> = Vec::new();
+    let mut parallels: Vec<Vec<(ParallelDocument, usize)>> = Vec::new();
 
+    // push source links
+    parallels.push(
+        docs.iter()
+            .map(|(_, doc)| (ParallelDocument::Source(doc.source), 1))
+            .collect(),
+    );
+
+    // push URLs
+    parallels.push(
+        docs.iter()
+            .map(|(slug, doc)| {
+                (
+                    ParallelDocument::Link {
+                        label: doc.label.clone().unwrap_or_default(),
+                        version: doc.version,
+                        category: category.to_string(),
+                        slug: slug.to_string(),
+                    },
+                    1,
+                )
+            })
+            .collect(),
+    );
+
+    // push explainers
+    if docs.iter().any(|(_, doc)| doc.explainer.is_some()) {
+        parallels.push(
+            docs.iter()
+                .map(|(_, doc)| (ParallelDocument::Explainer(doc.explainer.clone()), 1))
+                .collect(),
+        );
+    }
+
+    // push contents of documents
     for tag in parallel_tags.into_iter() {
         let mut parallel_tagged_docs = Vec::new();
 
         // chunk each parallel doc and add them
-        for doc in docs {
+        for (_, doc) in docs {
             let children_with_this_tag_in_this_doc = doc.children_with_tag(tag.to_string());
 
             parallel_tagged_docs.push(
@@ -50,7 +100,7 @@ where
 
         // deduplicate/expand width of columns
         for row in chunked_rows {
-            let mut parallels_for_this_row: Vec<(Document, usize)> = Vec::new();
+            let mut parallels_for_this_row: Vec<(ParallelDocument, usize)> = Vec::new();
 
             for (column_id, column) in row.iter().enumerate() {
                 let prev_child = if column_id == 0 {
@@ -70,7 +120,8 @@ where
                             break;
                         }
                     }
-                    parallels_for_this_row.push((column.clone(), width));
+                    parallels_for_this_row
+                        .push((ParallelDocument::Document(Box::new(column.clone())), width));
                 }
             }
 

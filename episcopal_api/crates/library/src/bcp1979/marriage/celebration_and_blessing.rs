@@ -95,6 +95,7 @@ lazy_static! {
         .label("Celebration and Blessing of a Marriage")
         .version(Version::BCP1979)
         .page(423)
+        .explainer("The standard marriage service from the 1979 Book of Common Prayer.")
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "The Celebration and\nBlessing of a Marriage"))).tags([TITLE]),
             Document::from(Rubric::from("At the time appointed, the persons to be married, with their witnesses, assemble in the church or some other appropriate place.")).tags([PROCESSION_RUBRIC]),

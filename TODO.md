@@ -4,10 +4,10 @@ Website Todos
 - [x] Automatic parallels page
   - [x] Add more Marriage parallels
   - [ ] Parallelize readings
-  - [ ] Add context 
-    - [ ] source links
-    - [ ] explanatory note for each liturgy
-    - [ ] introductory note that the structure isn't the same for all liturgies
+  - [x] Add context 
+    - [x] source links
+    - [x] explanatory note for each liturgy
+  - [ ] UI to toggle any given parallels on/off and highlight/export different things
   - [ ] Bugs
     - [ ] remove response from all but last Text
     - [ ] remove label etc. from all but first doc

@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use episcopal_api::library::marriage_alternatives::parallels::MARRIAGE_PARALLEL_TAGS;
 use episcopal_api::library::{self, CollectData, CollectId};
-use episcopal_api::liturgy::parallel_table::build_parallel_table;
+use episcopal_api::liturgy::parallel_table::{build_parallel_table, ParallelDocument};
 use episcopal_api::liturgy::{Document, Heading, HeadingLevel, Rubric, Series, Version};
 use itertools::Itertools;
 use lazy_static::lazy_static;
@@ -60,7 +60,7 @@ macro_rules! hash_map {
 pub enum PageType<'a> {
     Document(&'a str, &'a Document),
     Category(&'a str, Version, Vec<Document>),
-    Parallel(&'a str, &'a str, Vec<Vec<(Document, usize)>>),
+    Parallel(&'a str, &'a str, Vec<Vec<(ParallelDocument, usize)>>),
 }
 
 lazy_static! {
@@ -151,11 +151,11 @@ lazy_static! {
         ("marriage", None) => vec![
             // Parallels
             PageType::Parallel("parallels", "Marriage",
-                build_parallel_table(MARRIAGE_PARALLEL_TAGS, &[
-                    &*library::bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE,
-                    &*library::marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2,
-                    &*library::marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE,
-                    &*library::bcp1979::marriage::AN_ORDER_FOR_MARRIAGE
+                build_parallel_table("marriage", MARRIAGE_PARALLEL_TAGS, &[
+                    ("celebration-and-blessing-of-a-marriage", &*library::bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE),
+                    ("celebration-and-blessing-of-a-marriage-2", &*library::marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2),
+                    ("witnessing-and-blessing-marriage", &*library::marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE),
+                    ("an-order-for-marriage", &*library::bcp1979::marriage::AN_ORDER_FOR_MARRIAGE)
                 ])
             ),
 
