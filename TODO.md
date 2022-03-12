@@ -1,20 +1,9 @@
 Website Todos
 =============
 
-- [x] Automatic parallels page
-  - [x] Add more Marriage parallels
-  - [x] Parallelize readings
-  - [x] Add context 
-    - [x] source links
-    - [x] explanatory note for each liturgy
-  - [ ] UI to toggle any given parallels on/off and highlight/export different things
-  - [ ] Bugs
-    - [ ] Palm Sunday Daily Office & RCL Readings test
-    - [ ] remove response from all but last Text
-    - [ ] remove label etc. from all but first doc
-- [ ] Add RCL readings for Holy Week/Easter Vigil/etc.
-- [ ] Lazy loading for `BiblicalCitation`s within `Choice`s
+- [ ] Check RCL readings for Holy Week/Easter Vigil/etc.
 - Bugs
+  - [ ] Palm Sunday Daily Office & RCL Readings test
   - [x] LFF special days like Thursday/Friday/Saturday after Ash Wednesday
     - [ ] fallback day names and ranks
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
@@ -25,8 +14,6 @@ Website Todos
   - [ ] Set up tests for compiling actual liturgies, with snapshotted JSON versions
 - [ ] Add liturgies
   - [x] Service of Light/Order of Worship for Evening
-  - [ ] Marriage liturgies
-    - [ ] Check whether there are any other differences between LR1 and LR2
   - [ ] Rite I Office
   - [ ] Eucharistic liturgies
 - [ ] Better Biblical citation reading parsing (paragraphs)
@@ -40,10 +27,15 @@ Website Todos
     - [ ] Word
     - [ ] Venite
     - [x] JSON
+  - Parallels improvements
+    - [ ] UI to toggle any given parallels on/off and highlight/export different things
+    - [ ] remove response from all but last Text (in parallels)
+    - [ ] remove label etc. from all but first doc (in parallels)
 - [ ] Fix LFF collects with empty labels
 - [ ] Rite II collects need Version::RiteII, not default (Version::BCP1979)
 - [ ] Systematic distinction between server date/current time (when rendering, either SSR or even more so SSG) and client current time/date — replaces instances where the prerendered UI accidentally assumes server time (e.g., Morning/Evening in daily readings page)
 - [ ] Stored selections for certain Choices
+- [ ] Lazy loading for `BiblicalCitation`s within `Choice`s
 - [ ] Psalter page
   - [ ] Page
   - [ ] In liturgy
