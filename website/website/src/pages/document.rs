@@ -44,7 +44,7 @@ pub enum DocumentPageType {
         String,
         Vec<(Option<Reference>, Version, Option<String>, String)>,
     ),
-    Parallels(String, Vec<Vec<(ParallelDocument, usize)>>),
+    Parallels(String, String, Vec<Vec<(ParallelDocument, usize)>>),
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -116,7 +116,9 @@ pub fn body(locale: &str, props: &DocumentPageProps, _render_state: &()) -> View
         DocumentPageType::CategorySummary(label, slug, pages) => {
             category_summary_body(locale, label, slug, pages)
         }
-        DocumentPageType::Parallels(label, parallels) => parallels_body(locale, label, parallels),
+        DocumentPageType::Parallels(label, initial_text, parallels) => {
+            parallels_body(locale, label, initial_text, parallels)
+        }
     }
 }
 
@@ -130,9 +132,11 @@ fn category_summary_body(
     let pages = View::Fragment(
         pages
             .iter()
-            .group_by(|(reference, ..)| reference.map(|reference| reference.source))
+            .group_by(|(reference, version, ..)| {
+                (version, reference.map(|reference| reference.source))
+            })
             .into_iter()
-            .map(|(source, pages)| {
+            .map(|((version, source), pages)| {
                 let pages = View::Fragment(
                     pages
                         .into_iter()
@@ -151,8 +155,13 @@ fn category_summary_body(
                 );
 
                 let label = if let Some(source) = source {
+                    let label = if version == &Version::Parallel {
+                        t!("version.Parallel")
+                    } else {
+                        source.long_name().to_string()
+                    };
                     view! {
-                        <h2>{source.long_name()}</h2>
+                        <h2>{label}</h2>
                     }
                 } else {
                     View::Empty
@@ -541,7 +550,12 @@ fn category_body(
     }
 }
 
-fn parallels_body(locale: &str, label: &str, parallels: &[Vec<(ParallelDocument, usize)>]) -> View {
+fn parallels_body(
+    locale: &str,
+    label: &str,
+    initial_text: &str,
+    parallels: &[Vec<(ParallelDocument, usize)>],
+) -> View {
     // convert table into view
     let parallels = View::Fragment(
         parallels
@@ -582,10 +596,18 @@ fn parallels_body(locale: &str, label: &str, parallels: &[Vec<(ParallelDocument,
             .collect(),
     );
 
+    let initial_text = View::Fragment(
+        initial_text
+            .split("\n\n")
+            .map(|para| view! { <p class="initial-text">{para}</p> })
+            .collect(),
+    );
+
     view! {
         <>
             {header(locale, label)}
             <main class="parallels">
+                {initial_text}
                 <table>
                     {parallels}
                 </table>
@@ -636,7 +658,7 @@ fn find_page(
                     PageType::Category(_, s_version, _) => {
                         &version == s_version || version.is_subset_of(s_version)
                     }
-                    PageType::Parallel(s_slug, _, _) => &Some(s_slug.to_string()) == slug,
+                    PageType::Parallel(s_slug, _, _, _) => &Some(s_slug.to_string()) == slug,
                 }
             } else {
                 true
@@ -660,7 +682,7 @@ fn find_page(
                     PageType::Category(label, version, _) => {
                         (None, *version, None, label.to_string())
                     }
-                    PageType::Parallel(slug, label, _) => (
+                    PageType::Parallel(slug, label, _, _) => (
                         None,
                         Version::Parallel,
                         Some(slug.to_string()),
@@ -677,9 +699,11 @@ fn find_page(
             PageType::Category(label, version, docs) => {
                 DocumentPageType::Category(label.to_string(), *version, docs.clone())
             }
-            PageType::Parallel(_, label, table) => {
-                DocumentPageType::Parallels(label.to_string(), table.to_vec())
-            }
+            PageType::Parallel(_, label, initial_text, table) => DocumentPageType::Parallels(
+                label.to_string(),
+                initial_text.to_string(),
+                table.to_vec(),
+            ),
         })
     }
 }
@@ -757,7 +781,7 @@ pub fn hydration_state(
 
                     doc.map(|doc| DocumentPageType::Document(params.clone(), Box::new(doc)))
                 }
-                (DocumentPageType::Parallels(_, _), _) => Some(page_type),
+                (DocumentPageType::Parallels(_, _, _), _) => Some(page_type),
             };
 
             let base_path = match (&params.slug, &params.version) {

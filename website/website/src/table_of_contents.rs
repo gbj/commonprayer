@@ -60,7 +60,12 @@ macro_rules! hash_map {
 pub enum PageType<'a> {
     Document(&'a str, &'a Document),
     Category(&'a str, Version, Vec<Document>),
-    Parallel(&'a str, &'a str, Vec<Vec<(ParallelDocument, usize)>>),
+    Parallel(
+        &'a str,
+        &'a str,
+        &'a str,
+        Vec<Vec<(ParallelDocument, usize)>>,
+    ),
 }
 
 lazy_static! {
@@ -150,7 +155,9 @@ lazy_static! {
         ],
         ("marriage", None) => vec![
             // Parallels
-            PageType::Parallel("parallels", "Marriage",
+            PageType::Document("readings", &*library::marriage_alternatives::parallels::PARALLEL_READINGS),
+            PageType::Parallel("parallels", "Marriage Service Parallels",
+                "In addition to the marriage service in the Book of Common Prayer (1979), the Episcopal Church has authorized several alternative marriage services, mainly in response to the need for gender-neutral language to describe the couple following the approval of same-sex marriage. This page is intended to show the parallels between the various authorized marriage services, noting differences as they arise.\n\nNote: “The Witnessing and Blessing of a Marriage,” as its own rite, differs in structure from the other services. Its prayers are here presented as alternatives to the traditional prayers, but the layout on this page does not reflect the exact order of materials in that rite.",
                 build_parallel_table("marriage", MARRIAGE_PARALLEL_TAGS, &[
                     ("celebration-and-blessing-of-a-marriage", &*library::bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE),
                     ("celebration-and-blessing-of-a-marriage-2", &*library::marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2),

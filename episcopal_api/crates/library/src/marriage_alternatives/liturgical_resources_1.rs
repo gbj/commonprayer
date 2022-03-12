@@ -498,7 +498,7 @@ lazy_static! {
             source: Source::LiturgicalResources2,
             page: 14
         })
-        .explainer("An alternative marriage service approved in 2012. The structure differs from the “Celebration and Blessing” services; the parallel version rearranges it to show the differences between parallels.")
+        .explainer("An alternative marriage service approved for trial use in 2012, designed for couples of any gender and shaped by a desire to include the experiences of same-sex couples in the marriage rite.")
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "The Witnessing and Blessing\nof a Marriage"))).tags(["Title"]).tags([TITLE]),
 

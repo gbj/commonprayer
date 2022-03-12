@@ -1,3 +1,8 @@
+use liturgy::{
+    BiblicalCitation, Choice, Content, Document, Heading, HeadingLevel, Liturgy, Reference, Series,
+    Source, Version,
+};
+
 pub const TITLE: &str = "TITLE";
 pub const OPENING_RUBRICS: &str = "OPENING_RUBRICS";
 pub const WORD_OF_GOD_HEADING: &str = "WORD_OF_GOD_HEADING";
@@ -101,3 +106,74 @@ pub const MARRIAGE_PARALLEL_TAGS: [&str; 50] = [
     POSTCOMMUNION_PRAYER,
     CLOSING_HYMN,
 ];
+
+use psalter::bcp1979::*;
+
+lazy_static! {
+    pub static ref PARALLEL_READINGS: Document = Document::new()
+        .label("Wedding Readings")
+        .version(Version::Parallel)
+        .page(426)
+        .alternate_source(Reference {
+            source: Source::LiturgicalResources2,
+            page: 18
+        })
+        .content(Content::Liturgy(Liturgy::from(Series::from(vec![
+            Document::from(Heading::from((HeadingLevel::Heading1, "Wedding Readings"))),
+            Document::from(Heading::from((HeadingLevel::Heading2, "The First Lesson"))),
+            Document::from(Choice::from(vec![
+                Document::from(BiblicalCitation::from("Genesis 1:26-28")),
+                Document::from(BiblicalCitation::from("Genesis 2:4-9, 15-24")),
+                Document::from(BiblicalCitation::from("Song of Solomon 2:10-13; 8:6-7")),
+                Document::from(BiblicalCitation::from("Tobit 8:5b-8")),
+                Document::from(BiblicalCitation::from("Ruth 1:16–17")),
+                Document::from(BiblicalCitation::from("1 Samuel 18:1b, 3; 20:16–17; 42a")),
+                Document::from(BiblicalCitation::from("1 Samuel 18:1-4")),
+                Document::from(BiblicalCitation::from("Ecclesiastes 4:9-12")),
+                Document::from(BiblicalCitation::from("Song of Solomon 2:10–13; 8:6–7")),
+                Document::from(BiblicalCitation::from("Micah 4:1-4")),
+            ])),
+            Document::from(Heading::from((HeadingLevel::Heading2, "The Psalm"))),
+            Document::from(Choice::from(vec![
+                Document::from(PSALM_65.clone()),
+                Document::from(PSALM_67.clone()),
+                Document::from(PSALM_85.clone().citation("Psalm 85:7-13")),
+                Document::from(PSALM_98.clone()),
+                Document::from(PSALM_100.clone()),
+                Document::from(PSALM_126.clone()),
+                Document::from(PSALM_127.clone()),
+                Document::from(PSALM_128.clone()),
+                Document::from(PSALM_133.clone()),
+                Document::from(PSALM_148.clone()),
+                Document::from(PSALM_149.clone().citation("Psalm 149:1-5")),
+            ])),
+            Document::from(Heading::from((HeadingLevel::Heading2, "The Second Lesson"))),
+            Document::from(Choice::from(vec![
+                Document::from(BiblicalCitation::from("1 Corinthians 13:1-13")),
+                Document::from(BiblicalCitation::from("1 Corinthians 12:31b–13:13")),
+                Document::from(BiblicalCitation::from("Ephesians 3:14-19")),
+                Document::from(BiblicalCitation::from("Ephesians 3:14–21")),
+                Document::from(BiblicalCitation::from("Ephesians 5:1-2, 21-33")),
+                Document::from(BiblicalCitation::from("Colossians 3:12-17")),
+                Document::from(BiblicalCitation::from("1 John 4:7-16")),
+                Document::from(BiblicalCitation::from("Romans 12:9–18")),
+                Document::from(BiblicalCitation::from("2 Corinthians 5:17–20")),
+                Document::from(BiblicalCitation::from("Galatians 5:14, 22–26")),
+                Document::from(BiblicalCitation::from("1 John 3:18–24")),
+                Document::from(BiblicalCitation::from("1 John 4:7–16, 21")),
+            ])),
+            Document::from(Heading::from((HeadingLevel::Heading2, "The Gospel"))),
+            Document::from(Choice::from(vec![
+                Document::from(BiblicalCitation::from("Matthew 5:1-10")),
+                Document::from(BiblicalCitation::from("Matthew 5:13-16")),
+                Document::from(BiblicalCitation::from("Matthew 5:1-16")),
+                Document::from(BiblicalCitation::from("Matthew 7:21, 24-29")),
+                Document::from(BiblicalCitation::from("Mark 10:6-9, 13-16")),
+                Document::from(BiblicalCitation::from("Mark 12:28–34")),
+                Document::from(BiblicalCitation::from("Luke 6:32-38")),
+                Document::from(BiblicalCitation::from("John 15:9-12")),
+                Document::from(BiblicalCitation::from("John 15:9–17")),
+                Document::from(BiblicalCitation::from("John 17:1–2, 18–26")),
+            ]))
+        ]))));
+}
