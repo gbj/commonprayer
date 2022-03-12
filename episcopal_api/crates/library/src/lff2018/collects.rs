@@ -622,7 +622,7 @@ lazy_static! {
         CollectId::Feast(Feast::GregoryTheGreat),
         CollectData::from(
             Document::from(
-                Text::from("Almighty and merciful God, you raised up Gregory of Rome to be a servant of the servants of God, and inspired him to send missionaries to preachthe Gospel to the English people: Preserve your church in the catholic and apostolic faith, that your people, being fruitful in every good work, may receive the crown of glory that never fades away; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
+                Text::from("Almighty and merciful God, you raised up Gregory of Rome to be a servant of the servants of God, and inspired him to send missionaries to preach the Gospel to the English people: Preserve your church in the catholic and apostolic faith, that your people, being fruitful in every good work, may receive the crown of glory that never fades away; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                     .response("Amen.")
                 )
                 .label("Gregory the Great")

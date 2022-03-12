@@ -14,7 +14,7 @@ lazy_static! {
               verses: vec![
                 PsalmVerse {
                       number: 1,
-                      a: String::from("Hear my prayer,O God; *"),
+                      a: String::from("Hear my prayer, O God; *"),
                       b: String::from("do not hide yourself from my petition.")
                   },
                 PsalmVerse {
