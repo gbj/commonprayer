@@ -9,7 +9,7 @@
 }
 
 .day.sunday > * {
-	font-weight: bold;
+  font-weight: bold;
   padding-top: 1rem;
 }
 
@@ -28,6 +28,10 @@
 
 .day > * {
   display: table-cell;
+}
+
+a.alternative {
+  margin-top: 0.5rem;
 }
 
 /* Tablet/desktop: true calendar view */
@@ -51,8 +55,8 @@
     width: calc((var(--main-width) / 7) - 2px - 2rem);
   }
 
-
-  .day.sunday > *, .day > .month-number {
+  .day.sunday > *,
+  .day > .month-number {
     padding: 0;
   }
 

@@ -4,7 +4,7 @@ mod reading_type;
 
 pub use lectionaries::*;
 pub use reading::Reading;
-pub use reading_type::ReadingType;
+pub use reading_type::*;
 
 use calendar::{DailyOfficeYear, LiturgicalDay, LiturgicalDayId, Year, YearType};
 use serde::Serialize;

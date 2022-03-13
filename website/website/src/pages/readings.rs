@@ -10,8 +10,8 @@ use episcopal_api::{
     lectionary::Reading,
     library::CommonPrayer,
     liturgy::{
-        BiblicalCitation, Document, GlobalPref, Lectionaries, PreferenceKey, PreferenceValue,
-        Psalm, Version,
+        BiblicalCitation, Content, Document, GlobalPref, Lectionaries, PreferenceKey,
+        PreferenceValue, Psalm, Version,
     },
 };
 use futures::{Stream, StreamExt};
@@ -44,6 +44,7 @@ pub enum DailyReadingsPageProps {
 #[derive(Deserialize, Clone)]
 pub struct DailyReadingsUrlParams {
     date: Option<String>,
+    alternate_readings: Option<String>,
 }
 
 fn head(locale: &str, props: &DailyReadingsPageProps, _render_state: &()) -> View {
@@ -85,7 +86,12 @@ fn static_props(
     } else if date.is_some() && path.contains(&format!("{}/", RedirectMode::Eucharist)) {
         date.as_ref().and_then(|date| {
             Date::parse_from_str(date, "%Y-%m-%d").ok().map(|date| {
-                let summary = CommonPrayer::eucharistic_lectionary_summary(&date, language);
+                let alternate = params
+                    .alternate_readings
+                    .as_ref()
+                    .and_then(|feast| serde_json::from_str(&format!(r#""{feast}""#)).ok());
+                let summary =
+                    CommonPrayer::eucharistic_lectionary_summary(&date, language, alternate);
 
                 DailyReadingsPageProps::Lectionary(Box::new(summary))
             })
@@ -105,6 +111,10 @@ fn build_paths_fn() -> Vec<String> {
     vec![
         format!("{}/{{date}}", RedirectMode::DailyOffice),
         format!("{}/{{date}}", RedirectMode::Eucharist),
+        format!(
+            "{}/{{date}}/{{alternate_readings}}",
+            RedirectMode::Eucharist
+        ),
         "{date}".into(),
         "".into(),
     ]
@@ -301,7 +311,7 @@ fn eucharist_body(locale: &str, summary: &EucharisticLectionarySummary) -> View 
                 />
             </label>
 
-                {observed}
+            {observed}
             </dyn:main>
             {preference_status_footer(&display_settings_menu.status)}
         </>
@@ -354,6 +364,40 @@ fn eucharistic_observance_view(
         track_choice_toggle.toggled,
         bible_version,
     );
+
+    let vigil_readings_view = View::Fragment(
+        summary
+            .vigil_readings
+            .iter()
+            .map(|doc| {
+                view! {
+                    <article class="document">
+                    {
+                        DocumentController::new(doc.clone().version(
+                            if matches!(doc.content, Content::Psalm(_)) {
+                                doc.version
+                            } else {
+                                bible_version
+                            },
+                        ))
+                        .view(locale)
+                    }
+                    </article>
+                }
+            })
+            .collect(),
+    );
+    let vigil_readings_view = if summary.vigil_readings.is_empty() {
+        View::None
+    } else {
+        view! {
+            <>
+                <a id="vigil"></a>
+                <h3>{t!("lectionary.vigil")}</h3>
+                {vigil_readings_view}
+            </>
+        }
+    };
 
     let epistle = if let Some(epistle) = &summary.epistle {
         view! {
@@ -410,6 +454,7 @@ fn eucharistic_observance_view(
         <>
             {title}
             {collect_view}
+            {vigil_readings_view}
             {track_choice_toggle_view}
             {tracked_readings_view}
             {epistle}

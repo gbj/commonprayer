@@ -16,6 +16,7 @@ pub struct LiturgicalDay {
     pub holy_days: Vec<Feast>,
     pub observed: LiturgicalDayId,
     pub alternate: Option<LiturgicalDayId>,
+    pub alternative_services: Vec<Feast>,
 }
 
 #[derive(Copy, Clone, PartialEq, Eq, Hash, Debug, Serialize, Deserialize)]

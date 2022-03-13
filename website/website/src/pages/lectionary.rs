@@ -1,7 +1,7 @@
 use crate::{components::header, utils::language::locale_to_language};
 use chrono::{Datelike, Local};
 use episcopal_api::{
-    calendar::{Date, LiturgicalDay, LiturgicalDayId, Rank, Weekday, BCP1979_CALENDAR},
+    calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId, Rank, Weekday, BCP1979_CALENDAR},
     lectionary::Reading,
     library::summary,
     liturgy::Document,
@@ -37,6 +37,7 @@ pub struct LectionaryDayEntry {
     month: u8,
     day: u8,
     listing: Option<(String, LiturgicalDay)>,
+    alternatives: Vec<(String, Feast)>,
 }
 
 #[derive(Serialize, Clone)]
@@ -66,21 +67,41 @@ pub fn render_state(
             if current_date.year() == year {
                 let liturgical_day = BCP1979_CALENDAR.liturgical_day(current_date, false);
                 let rank = BCP1979_CALENDAR.rank(&liturgical_day);
+                let language = locale_to_language(locale);
+
+                let alternatives = liturgical_day
+                    .alternative_services
+                    .iter()
+                    .map(|feast| {
+                        (
+                            summary::localize_day_name(
+                                &liturgical_day,
+                                &LiturgicalDayId::Feast(*feast),
+                                &BCP1979_CALENDAR,
+                                language,
+                            ),
+                            *feast,
+                        )
+                    })
+                    .collect();
+
                 let marked_on_calendar = if rank >= Rank::HolyDay {
                     let localized_day_name = summary::localize_day_name(
                         &liturgical_day,
                         &liturgical_day.observed,
                         &BCP1979_CALENDAR,
-                        locale_to_language(locale),
+                        language,
                     );
                     Some((localized_day_name, liturgical_day))
                 } else {
                     None
                 };
+
                 Some(LectionaryDayEntry {
                     month: current_date.month(),
                     day: current_date.day(),
                     listing: marked_on_calendar,
+                    alternatives,
                 })
             } else {
                 None
@@ -117,7 +138,7 @@ fn calendar_body(locale: &str, year: u16, days: &[LectionaryDayEntry]) -> View {
                 let days = View::Fragment(
                     group
                         .into_iter()
-                        .map(|LectionaryDayEntry { day, listing, .. }| {
+                        .map(|LectionaryDayEntry { day, listing, alternatives, .. }| {
                             let listing = if let Some((day_name, liturgical_day)) = listing {
                                 let transferred = if matches!(
                                     liturgical_day.observed,
@@ -128,10 +149,29 @@ fn calendar_body(locale: &str, year: u16, days: &[LectionaryDayEntry]) -> View {
                                     View::Empty
                                 };
 
+                                let alternatives = if alternatives.is_empty() {
+                                    View::Empty
+                                } else {
+                                    View::Fragment(
+                                        alternatives
+                                            .iter()
+                                            .map(|(name, feast)| view! {
+                                                <a 
+                                                    class="alternative" 
+                                                    href={format!("/{}/readings/lectionary/{}-{}-{}/{:?}", locale, year, month, day, feast)}
+                                                >
+                                                    {name}
+                                                </a>
+                                            })
+                                            .collect()
+                                    )
+                                };
+
                                 view! {
                                     <>
                                         <a href={format!("/{}/readings/lectionary/{}-{}-{}", locale, year, month, day)}>{day_name}</a>
                                         {transferred}
+                                        {alternatives}
                                     </>
                                 }
                             } else {

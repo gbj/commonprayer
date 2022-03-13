@@ -21,7 +21,18 @@ pub const BCP1979_CALENDAR: Calendar = Calendar {
     feast_names: &BCP1979_FEAST_NAMES,
     week_names: &BCP1979_WEEK_NAMES,
     proper_names: &BCP1979_PROPER_NAMES,
+    major_day_alternatives: &BCP1979_MAJOR_DAY_ALTERNATIVES,
 };
+
+pub(crate) const BCP1979_MAJOR_DAY_ALTERNATIVES: [(Feast, &[Feast]); 4] = [
+    (
+        Feast::ChristmasDay,
+        &[Feast::ChristmasDayII, Feast::ChristmasDayIII],
+    ),
+    (Feast::HolySaturday, &[Feast::EasterVigil]),
+    (Feast::EasterSunday, &[Feast::EasterDayEveningService]),
+    (Feast::Pentecost, &[Feast::PentecostVigil]),
+];
 
 pub(crate) const BCP1979_WEEKS: [(Cycle, u8, LiturgicalWeek); 59] = [
     (Cycle::Advent, 0, LiturgicalWeek::LastPentecost),
@@ -159,7 +170,7 @@ pub(crate) const BCP1979_HOLY_DAY_SEASONS: [(Feast, Season); 35] = [
     (Feast::AshWednesday, Season::Lent),
 ];
 
-pub(crate) const BCP1979_HOLY_DAY_RANKS: [(Feast, Rank); 86] = [
+pub(crate) const BCP1979_HOLY_DAY_RANKS: [(Feast, Rank); 88] = [
     (Feast::EveOfAllSaints, Rank::PrincipalFeast),
     (Feast::AllSaintsDay, Rank::PrincipalFeast),
     (Feast::ChristmasDay, Rank::PrincipalFeast),
@@ -171,7 +182,9 @@ pub(crate) const BCP1979_HOLY_DAY_RANKS: [(Feast, Rank); 86] = [
     (Feast::EveOfPentecost, Rank::PrincipalFeast),
     (Feast::PalmSunday, Rank::PrincipalFeast),
     (Feast::EasterSunday, Rank::PrincipalFeast),
+    (Feast::EasterVigil, Rank::PrincipalFeast),
     (Feast::Pentecost, Rank::PrincipalFeast),
+    (Feast::PentecostVigil, Rank::PrincipalFeast),
     (Feast::TrinitySunday, Rank::PrincipalFeast),
     (Feast::AscensionDay, Rank::PrincipalFeast),
     (Feast::EveOfTheAscension, Rank::PrincipalFeast),
@@ -1279,7 +1292,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     ),
 ];
 
-pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 191] = [
+pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 196] = [
     (Feast::AbsalomJones, Language::En, "Absalom Jones, Priest, 1818", Status::Authorized),
     (Feast::AgnesAndCeciliaOfRome, Language::En, "Agnes, Martyr at Rome, 304", Status::Authorized),
     (Feast::AidanOfLindisfarne, Language::En, "Aidan, Bishop of Lindisfarne, 651", Status::Authorized),
@@ -1309,6 +1322,8 @@ pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 191] = 
     (Feast::CharlesHenryBrent, Language::En, "Charles Henry Brent, Bishop of the Philippines, and of Western New York, 1929", Status::Authorized),
     (Feast::CharlesSimeon, Language::En, "Charles Simeon, Priest, 1836", Status::Authorized),
     (Feast::ChristmasDay, Language::En, "Christmas Day", Status::Authorized),
+    (Feast::ChristmasDayII, Language::En, "Christmas II", Status::Authorized),
+    (Feast::ChristmasDayIII, Language::En, "Christmas III", Status::Authorized),
     (Feast::ClareOfAssisi, Language::En, "Clare, Abbess at Assisi, 1253", Status::Authorized),
     (Feast::ClementOfRome, Language::En, "Clement, Bishop of Rome, c. 100", Status::Authorized),
     (Feast::ClementOfAlexandria, Language::En, "Clement of Alexandria, Priest, c. 210", Status::Authorized),
@@ -1324,6 +1339,9 @@ pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 191] = 
     (Feast::DavidOfWales, Language::En, "David, Bishop of Menevia, Wales, c. 544", Status::Authorized),
     (Feast::Dominic, Language::En, "Dominic, Priest and Friar, 1221", Status::Authorized),
     (Feast::Dunstan, Language::En, "Dunstan, Archbishop of Canterbury, 988", Status::Authorized),
+    (Feast::EasterSunday, Language::En, "Easter Day", Status::Authorized),
+    (Feast::EasterVigil, Language::En, "Easter Vigil", Status::Authorized),
+    (Feast::EasterDayEveningService, Language::En, "Easter Day Evening Service", Status::Authorized),
     (Feast::EdwardBouveriePusey, Language::En, "Edward Bouverie Pusey, Priest, 1882", Status::Authorized),
     (Feast::ElizabethOfHungary, Language::En, "Elizabeth, Princess of Hungary, 1231", Status::Authorized),
     (Feast::EphremOfNisibis, Language::En, "Ephrem of Edessa, Syria, Deacon, 373", Status::Authorized),

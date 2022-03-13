@@ -2,8 +2,8 @@ use language::Language;
 
 use crate::{
     bcp1979::{
-        BCP1979_HOLY_DAY_RANKS, BCP1979_HOLY_DAY_SEASONS, BCP1979_PROPER_NAMES, BCP1979_WEEKS,
-        BCP1979_WEEK_NAMES, BCP1979_WEEK_SEASONS,
+        BCP1979_HOLY_DAY_RANKS, BCP1979_HOLY_DAY_SEASONS, BCP1979_MAJOR_DAY_ALTERNATIVES,
+        BCP1979_PROPER_NAMES, BCP1979_WEEKS, BCP1979_WEEK_NAMES, BCP1979_WEEK_SEASONS,
     },
     feasts::KalendarEntry,
     holy_day::HolyDayId,
@@ -26,6 +26,7 @@ pub const LFF2018_CALENDAR: Calendar = Calendar {
     feast_names: &LFF2018_FEAST_NAMES,
     week_names: &BCP1979_WEEK_NAMES,
     proper_names: &BCP1979_PROPER_NAMES,
+    major_day_alternatives: &BCP1979_MAJOR_DAY_ALTERNATIVES,
 };
 
 // Array of all observances listed in Lesser Feasts & Fasts (2018)

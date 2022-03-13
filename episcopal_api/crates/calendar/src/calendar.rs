@@ -42,6 +42,8 @@ pub struct Calendar {
     pub week_names: &'static [(LiturgicalWeek, Language, &'static str)],
     /// Name for each [Proper](crate::Proper), by language
     pub proper_names: &'static [(Proper, Language, &'static str)],
+    /// Alternative services for certain major days
+    pub major_day_alternatives: &'static [(Feast, &'static [Feast])],
 }
 
 impl Calendar {
@@ -128,6 +130,12 @@ impl Calendar {
             holy_days.collect::<Vec<_>>()
         };
         let (observed, alternate) = self.observed_day(week, proper, weekday, &holy_days);
+        let alternative_services = self
+            .major_day_alternatives
+            .iter()
+            .find(|(s_feast, _)| observed == LiturgicalDayId::Feast(*s_feast))
+            .map(|(_, alternatives)| alternatives.to_vec())
+            .unwrap_or_default();
 
         LiturgicalDay {
             date,
@@ -140,6 +148,7 @@ impl Calendar {
             proper,
             observed,
             alternate,
+            alternative_services,
         }
     }
 

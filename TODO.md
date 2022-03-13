@@ -1,6 +1,9 @@
 Website Todos
 =============
 
+- [x] Alternative major feast readings (Christmas 1/2/3, Easter Vigil, Pentecost Vigil)
+  - [x] Lectionary page
+  - [x] handle Canticles in lectionaries
 - [ ] Check RCL readings for Holy Week/Easter Vigil/etc.
 - Bugs
   - [ ] Palm Sunday Daily Office & RCL Readings test

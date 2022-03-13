@@ -39,6 +39,27 @@ pub enum ReadingType {
     Evening2,
 }
 
+pub const VIGIL_READING_TYPES: [ReadingType; 18] = [
+    ReadingType::Vigil1,
+    ReadingType::VigilPsalm1,
+    ReadingType::Vigil2,
+    ReadingType::VigilPsalm2,
+    ReadingType::Vigil3,
+    ReadingType::VigilPsalm3,
+    ReadingType::Vigil4,
+    ReadingType::VigilPsalm4,
+    ReadingType::Vigil5,
+    ReadingType::VigilPsalm5,
+    ReadingType::Vigil6,
+    ReadingType::VigilPsalm6,
+    ReadingType::Vigil7,
+    ReadingType::VigilPsalm7,
+    ReadingType::Vigil8,
+    ReadingType::VigilPsalm8,
+    ReadingType::Vigil9,
+    ReadingType::VigilPsalm9,
+];
+
 impl ReadingType {
     pub fn is_psalm(&self) -> bool {
         matches!(

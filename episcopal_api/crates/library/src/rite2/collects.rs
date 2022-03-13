@@ -506,6 +506,20 @@ lazy_static! {
             }
         ),
         (
+            CollectId::Feast(Feast::EasterVigil),
+            CollectData {
+                document: Document::from(
+                    Text::from("Almighty God, who for our redemption gave your only-begotten Son to the death of the cross, and by his glorious resurrection delivered us from the power of our enemy: Grant us so to die daily to sin, that we may evermore live with him in the joy of his resurrection; through Jesus Christ your Son our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
+                        .response("Amen.")
+                )
+                .label("Easter Vigil")
+                .page(295),
+                preface: "".into(),
+                rubric_before: None,
+                rubric_after: None
+            }
+        ),
+        (
             CollectId::Week(LiturgicalWeek::Easter),
             CollectData {
                 document: Document::from(
