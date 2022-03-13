@@ -2929,21 +2929,6 @@ lazy_static! {
         )
     ),
         (
-        CollectId::Feast(Feast::ChristmasDay),
-        CollectData::from(
-            Document::from(
-                Text::from("Almighty God, you have given your only-begotten Son to take our nature upon him, and to be born [this day] ofa pure virgin: Grant that we, who have been born again and made your children by adoption and grace, may daily be renewed by your Holy Spirit; through our Lord Jesus Christ, to whom with you and the same Spirit be honor and glory, now and for ever.")
-                    .response("Amen.")
-                )
-                .label("")
-                .source(Reference {
-                    source: Source::LFF2018,
-                    page: 0
-                })
-                .version(Version::RiteII)
-        )
-    ),
-        (
         CollectId::Feast(Feast::MargaretOfScotland),
         CollectData::from(
             Document::from(
