@@ -388,7 +388,7 @@ fn eucharistic_observance_view(
             .collect(),
     );
     let vigil_readings_view = if summary.vigil_readings.is_empty() {
-        View::None
+        View::Empty
     } else {
         view! {
             <>
