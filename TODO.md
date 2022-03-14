@@ -1,6 +1,16 @@
 Website Todos
 =============
 
+- [ ] Exports
+  - [ ] docx
+    - [ ] finish DOCX export code
+  - [x] LDF JSON
+  - [ ] Export menu on Document page
+    - [ ] Link
+    - [ ] Embed (iFrame)
+    - [ ] Word
+    - [ ] Venite
+    - [x] JSON
 - Bugs
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)
@@ -12,17 +22,6 @@ Website Todos
   - [x] Service of Light/Order of Worship for Evening
   - [ ] Rite I Office
   - [ ] Eucharistic liturgies
-- [ ] Better Biblical citation reading parsing (paragraphs)
-- [ ] Exports
-  - [ ] docx
-    - [ ] finish DOCX export code
-  - [x] LDF JSON
-  - [ ] Export menu on Document page
-    - [ ] Link
-    - [ ] Embed (iFrame)
-    - [ ] Word
-    - [ ] Venite
-    - [x] JSON
   - Parallels improvements
     - [ ] UI to toggle any given parallels on/off and highlight/export different things
     - [ ] remove response from all but last Text (in parallels)
@@ -32,47 +31,15 @@ Website Todos
 - [ ] Systematic distinction between server date/current time (when rendering, either SSR or even more so SSG) and client current time/date — replaces instances where the prerendered UI accidentally assumes server time (e.g., Morning/Evening in daily readings page)
 - [ ] Stored selections for certain Choices
 - [ ] Lazy loading for `BiblicalCitation`s within `Choice`s
-- [ ] Psalter page
-  - [ ] Page
-  - [ ] In liturgy
-- [ ] Prayers & Thanksgivings
-- [ ] Error handling for pages: need to return a `Result` because possible path doesn't work if dynamic
 - [ ] Figure out partial hydration again
-- [ ] Merge this back into the Episcopal-API repo
 - [ ] Sunday Readings page (a copy of Daily Readings, but use RCL?)
 - [ ] CI/CD
 - [ ] Additional library of documents
-- [ ] Clean up Index page + links
 - [ ] Additional preferences
   - [ ] MP/EP: Officiant is a layperson/deacon vs. priest (absolution)
 - [ ] Additional Tests
 	- [ ] Does each holy day have 2 LFF collects + LFF readings?
-- [ ] Bugs
-	- [ ] psalms_by_citation (for e.g., Psalm 106:1-5) not capturing verses correctly? (http://localhost:1234/en/holy-day/JohnMasonNeale)
-	- [ ] Build actual pages for lookups
-- [ ] Collects of the Day w/ two versions
-    - [ ] Export
-      - [x] Rite II
-      - [x] Rite I
-      - [ ] Rite II collect page #s
-      - [ ] check Rite I against Rite II collects
-      - [ ] Compare LFF Rite 1 and Rite 2
-      - [ ] Sort LFF collects by date order
-      - [ ] Sanity check on LFF collect names
-      - [ ] LFF collect page #s
-    - [ ] Compile in Library compiler
-    - [x] Build page
-      - [ ] Sort (Seasons of the Year, Holy Days, etc. as in prayer book)
-      - [x] Search function
-        - [ ] Debounce
-      - [ ] Remove duplicates
-    - [x] Links to page
-    - [ ] Order collects by page
-    - [ ] Add page numbers to collects
-  - [x] Category
-    - [x] Handle different versions (in link, and in page generation)
-    - [x] Category pages (as distinct from document pages) with labels etc.
-    - [ ] Group documents by label
+  - [ ] Sanity check on LFF collect names
   - [ ] Correct Document representations for hymn texts; some are Text, but some are Preces or Litany, especially in Service Music
   - [ ] Lectionary/Readings page: handle special things like Vigils, multiple Christmas services, etc.
   - [ ] Calendar
