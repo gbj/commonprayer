@@ -3,7 +3,9 @@ use std::pin::Pin;
 use crate::{
     components::*,
     preferences,
-    utils::{language::locale_to_language, time::today},
+    utils::{
+        language::locale_to_language, scroll_to_element_by_id_with_padding_for_header, time::today,
+    },
 };
 use episcopal_api::{
     calendar::{
@@ -19,7 +21,6 @@ use leptos::*;
 use rust_i18n::t;
 use serde_derive::{Deserialize, Serialize};
 use wasm_bindgen::UnwrapThrowExt;
-use web_sys::ScrollToOptions;
 
 pub fn calendar() -> Page<CalendarPageProps, (), ()> {
     Page::new("calendar")
@@ -254,13 +255,7 @@ fn show_hide_class(
 
 fn scroll_to_row(calendar: CalendarChoice, hash: &str) {
     let root_id = root_id(calendar);
-    let el = document().get_element_by_id(&format!("{}-{}", root_id, hash));
-    if let Some(el) = el {
-        // scroll into view, with some padding at the top for the menu
-        // uses scroll_by rather than scroll_to because the DomRect is apparently relative to the current position
-        let rect = el.get_bounding_client_rect();
-        window().scroll_by_with_scroll_to_options(ScrollToOptions::new().top(rect.y() - 150.0));
-    }
+    scroll_to_element_by_id_with_padding_for_header(&format!("{}-{}", root_id, hash));
 }
 
 fn root_id(calendar: CalendarChoice) -> &'static str {

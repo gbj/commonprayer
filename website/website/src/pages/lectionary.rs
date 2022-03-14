@@ -1,4 +1,4 @@
-use crate::{components::header, utils::language::locale_to_language};
+use crate::{components::header, utils::{language::locale_to_language, time::today, scroll_to_element_by_id_with_padding_for_header}};
 use chrono::{Datelike, Local};
 use episcopal_api::{
     calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId, Rank, Weekday, BCP1979_CALENDAR},
@@ -6,6 +6,7 @@ use episcopal_api::{
     library::summary,
     liturgy::Document,
 };
+use futures::StreamExt;
 use itertools::Itertools;
 use leptos::*;
 use serde::{Deserialize, Serialize};
@@ -18,7 +19,6 @@ pub fn lectionary() -> Page<(), LectionaryPageParams, LectionaryPageRenderState>
         .hydration_state(|_, _, _| Some(()))
         .render_state(render_state)
         .incremental_generation()
-        .static_page()
 }
 
 #[derive(Deserialize, Clone)]
@@ -127,6 +127,21 @@ pub fn body(locale: &str, _props: &(), render_state: &LectionaryPageRenderState)
 }
 
 fn calendar_body(locale: &str, year: u16, days: &[LectionaryDayEntry]) -> View {
+    // on first load, scroll to today
+    if !is_server!() {
+        let date = today();
+        location().set_hash(&format!("{}/{}", date.month(), date.day()));
+    }
+
+    // listen for hash changes and scroll to month
+    window_event_stream("hashchange").map(|_| ()).start_with(()).create_effect(|_| {
+        if let Some(mmdd) = location_hash() {
+            scroll_to_element_by_id_with_padding_for_header(&mmdd);
+        }
+    });
+
+
+    // build calendar
     let grouped_by_month = days
         .iter()
         .group_by(|LectionaryDayEntry { month, .. }| month);
@@ -187,7 +202,7 @@ fn calendar_body(locale: &str, year: u16, days: &[LectionaryDayEntry]) -> View {
 
                             view! {
                                 <div class={class}>
-                                    <a id={month.to_string()}></a>
+                                    <a id={format!("{}/{}", month, day)}></a>
                                     <div class="month-number">{day.to_string()}</div>
                                     {listing}
                                 </div>
