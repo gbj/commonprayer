@@ -1,26 +1,38 @@
+use custom_elements::inject_style;
 use custom_elements::CustomElement;
-use liturgy::Document;
-use sauron::{prelude::*, web_sys::HtmlElement};
-use web::{Msg, Viewer};
+use liturgy::{Content, Document};
+use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
+use web_sys::{HtmlElement, Node};
+use website::components::DocumentController;
 
 struct ComponentWrapper {
-    program: Option<Program<Viewer, Msg>>,
+    locale: String,
+    node: Option<Node>,
 }
 
 impl ComponentWrapper {
     fn new() -> Self {
-        Self { program: None }
+        Self {
+            locale: String::from("en"),
+            node: None,
+        }
     }
 }
 
 impl CustomElement for ComponentWrapper {
     fn inject_children(&mut self, this: &HtmlElement) {
-        let program = Program::append_to_mount(Viewer::new(), this);
-        self.program = Some(program);
+        inject_style(
+            this,
+            include_str!("../../../../../website/website/static/document.css"),
+        );
+        let node = leptos::create_comment_node(&leptos::document());
+        this.append_child(&node);
+        self.node = Some(node);
     }
 
     fn observed_attributes() -> &'static [&'static str] {
-        &["doc"]
+        &["locale", "doc"]
     }
 
     fn attribute_changed_callback(
@@ -30,12 +42,26 @@ impl CustomElement for ComponentWrapper {
         _old_value: Option<String>,
         new_value: Option<String>,
     ) {
+        leptos::log(&format!("attribute changed {}", name));
+        if name.as_str() == "locale" {
+            if let Some(value) = &new_value {
+                self.locale = value.to_owned();
+            }
+        }
         if name.as_str() == "doc" {
-            if let Some(value) = new_value {
-                if let Ok(doc) = serde_json::from_str::<Document>(&value) {
-                    if let Some(program) = &self.program {
-                        program.dispatch(Msg::SetDocument(doc));
+            if let Some(value) = &new_value {
+                match serde_json::from_str::<Document>(value) {
+                    Ok(doc) => {
+                        leptos::log(&format!("doc = {:#?}", doc));
+                        let view = DocumentController::new(doc).view(&self.locale);
+                        let node = view.client_side_render();
+                        if let Some(old_node) = &self.node {
+                            leptos::replace_with(old_node.unchecked_ref(), &node);
+                            leptos::log(&format!("new node = {:#?}", node));
+                            self.node = Some(node);
+                        }
                     }
+                    Err(e) => leptos::log(&format!("error\n\n{:#?}", e)),
                 }
             }
         };
@@ -50,5 +76,5 @@ impl Default for ComponentWrapper {
 
 #[wasm_bindgen]
 pub fn run() {
-    ComponentWrapper::define("eapi-doc");
+    ComponentWrapper::define("commonprayer-doc");
 }

@@ -5,6 +5,7 @@ Website Todos
   - [ ] docx
     - [ ] finish DOCX export code
   - [x] LDF JSON
+  - [x] web component
   - [ ] Export menu on Document page
     - [ ] Link
     - [ ] Embed (iFrame)

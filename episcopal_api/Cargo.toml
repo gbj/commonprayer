@@ -26,7 +26,6 @@ members = [
   "crates/calendar",
   "crates/canticle-table",
   "crates/export/docx",
-  "crates/export/web",
   "crates/export/web-component",
   "crates/hymnal",
   "crates/language",

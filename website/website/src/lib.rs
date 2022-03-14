@@ -2,7 +2,7 @@
 #![feature(iter_intersperse)]
 
 pub mod api;
-mod components;
+pub mod components;
 pub mod pages;
 pub mod preferences;
 mod table_of_contents;

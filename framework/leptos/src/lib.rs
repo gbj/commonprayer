@@ -17,10 +17,7 @@ pub use dynamic_element::DynamicElement;
 pub use event_stream::*;
 pub use hydrate::hydrate_page;
 pub use leptos_macro::view;
-pub use operations::{
-    append_child, body, create_element, document, event_target_value, location, location_hash,
-    location_pathname, log, request_animation_frame, set_attribute, set_timeout, window,
-};
+pub use operations::*;
 pub use reactive::*;
 pub use ssg::*;
 pub use static_element::StaticElement;
