@@ -30,7 +30,11 @@ pub fn parse_reference(reference: &str) -> Vec<BibleReferenceRange> {
                 bracket_opened = false;
             }
         } else {
-            let current = parse_single_reference(&part, prev, bracket_opened);
+            let current = parse_single_reference(
+                &part,
+                prev.or_else(|| list.last().cloned()),
+                bracket_opened,
+            );
             list.push(current);
             prev = Some(current);
         }
@@ -145,7 +149,31 @@ fn parse_single_reference(
             start_partial_structure,
             None,
         ) {
-            Some(query) => query,
+            Some(query) => {
+                BibleReferenceQuery {
+                    book: query.book.or_else(|| {
+                        previous.and_then(|prev| {
+                            let prev_end = prev.end.and_then(|end| end.book);
+                            let prev_start = prev.start.book;
+                            prev_end.or(prev_start)
+                        })
+                    }),
+                    chapter: query.chapter.or_else(|| {
+                        // only use previous chapter if previous citation had both chapter and verse
+                        // so this won't, for example, think that Psalm 120, 121 is Psalm 120, Psalm 120:121
+                        previous.and_then(|prev| {
+                            if prev.start.verse.is_some() || bracketed {
+                                let prev_end = prev.end.and_then(|end| end.chapter);
+                                let prev_start = prev.start.chapter;
+                                prev_end.or(prev_start)
+                            } else {
+                                None
+                            }
+                        })
+                    }),
+                    ..query
+                }
+            }
             None => {
                 return BibleReferenceRange {
                     start: BibleReferenceQuery {
@@ -156,7 +184,7 @@ fn parse_single_reference(
                     },
                     end: None,
                     bracketed,
-                }
+                };
             }
         },
         None => {
@@ -169,7 +197,7 @@ fn parse_single_reference(
                 },
                 end: None,
                 bracketed,
-            }
+            };
         }
     };
 

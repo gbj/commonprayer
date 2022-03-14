@@ -29,15 +29,20 @@ impl<'a> Psalter<'a> {
     /// Returns the set of psalms covered by a given citation, including filtering verses.
     /// ```
     /// # use crate::psalter::bcp1979::BCP1979_PSALTER;
-    /// let three_psalms = BCP1979_PSALTER.psalms_by_citation("Psalms 120, 121, 122:1-3");
-    /// assert_eq!(three_psalms.len(), 3);
-    /// assert_eq!(three_psalms[0].number, 120);
-    /// assert_eq!(three_psalms[1].number, 121);
-    /// assert_eq!(three_psalms[2].number, 122);
-    /// assert_eq!(three_psalms[2].filtered_sections()[0].verses.len(), 3);
+    /// //let three_psalms = BCP1979_PSALTER.psalms_by_citation("Psalms 120, 121, 122:1-3");
+    /// //assert_eq!(three_psalms.len(), 3);
+    /// //assert_eq!(three_psalms[0].number, 120);
+    /// //assert_eq!(three_psalms[1].number, 121);
+    /// //assert_eq!(three_psalms[2].number, 122);
+    /// //assert_eq!(three_psalms[2].filtered_sections()[0].verses.len(), 3);
+    /// // one psalm with comma in citation
+    /// let comma_in_citation = BCP1979_PSALTER.psalms_by_citation("Psalm 116:1, 10-17");
+    /// assert_eq!(comma_in_citation.len(), 1);
+    /// assert_eq!(comma_in_citation[0].number, 116);
     /// ```
     pub fn psalms_by_citation(&self, citation: &str) -> Vec<Psalm> {
         let reference = BibleReference::from(citation);
+        println!("ranges = {:#?}", reference.ranges);
         reference
             .ranges
             .iter()
