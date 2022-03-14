@@ -4,7 +4,7 @@ use liturgy::{Document, Reference, Source, Text, Version};
 use crate::{CollectData, CollectId};
 
 lazy_static! {
-    pub static ref LFF_COLLECTS_CONTEMPORARY: [(CollectId, CollectData); 267] = [(
+    pub static ref LFF_COLLECTS_CONTEMPORARY: [(CollectId, CollectData); 266] = [(
         CollectId::Feast(Feast::RichardOfChichester,),
         CollectData::from(
             Document::from(
@@ -3995,7 +3995,7 @@ lazy_static! {
     ),
     ];
 
-    pub static ref LFF_COLLECTS_TRADITIONAL: [(CollectId, CollectData); 273] = [
+    pub static ref LFF_COLLECTS_TRADITIONAL: [(CollectId, CollectData); 272] = [
                 (
         CollectId::Feast(Feast::JohnMasonNeale),
         CollectData::from(
@@ -6884,21 +6884,6 @@ lazy_static! {
                     .response("Amen.")
                 )
                 .label("Martin Luther")
-                .source(Reference {
-                    source: Source::LFF2018,
-                    page: 0
-                })
-                .version(Version::RiteI)
-        )
-    ),
-        (
-        CollectId::Feast(Feast::ChristmasDay),
-        CollectData::from(
-            Document::from(
-                Text::from("Almighty God, who hast given us thy only-begotten Sonto take our nature upon him and as at this time to be born of a pure virgin: Grant that we, being regenerate and made thy children by adoption and grace, may daily be renewed by thy Holy Ghost; through the same our Lord Jesus Christ, who liveth and reigneth with thee and the same Holy Ghost ever, one God, world without end.")
-                    .response("Amen.")
-                )
-                .label("")
                 .source(Reference {
                     source: Source::LFF2018,
                     page: 0
