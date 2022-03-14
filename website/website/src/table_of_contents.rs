@@ -199,29 +199,31 @@ fn from_collects<'a>(
                 HeadingLevel::Heading2,
                 category.cloned().unwrap_or_default(),
             ))))
-            .chain(data.map(|(_, data)| {
-                let mut pieces = Vec::new();
+            .chain(data.dedup_by(|a, b| a.1.document == b.1.document).map(
+                |(_, data)| {
+                    let mut pieces = Vec::new();
 
-                if let Some(text) = &data.rubric_before {
-                    pieces.push(Document::from(Rubric::from(text.clone())))
-                }
-                pieces.push(Document {
-                    label: None,
-                    subtitle: None,
-                    ..data.document.clone()
-                });
-                if !data.preface.is_empty() {
-                    pieces.push(Document::from(Rubric::from(data.preface.clone())));
-                }
-                if let Some(text) = &data.rubric_after {
-                    pieces.push(Document::from(Rubric::from(text.clone())))
-                }
+                    if let Some(text) = &data.rubric_before {
+                        pieces.push(Document::from(Rubric::from(text.clone())))
+                    }
+                    pieces.push(Document {
+                        label: None,
+                        subtitle: None,
+                        ..data.document.clone()
+                    });
+                    if !data.preface.is_empty() {
+                        pieces.push(Document::from(Rubric::from(data.preface.clone())));
+                    }
+                    if let Some(text) = &data.rubric_after {
+                        pieces.push(Document::from(Rubric::from(text.clone())))
+                    }
 
-                let mut series = Document::from(Series::from(pieces));
-                series.label = data.document.label.clone();
-                series.subtitle = data.document.subtitle.clone();
-                series
-            }))
+                    let mut series = Document::from(Series::from(pieces));
+                    series.label = data.document.label.clone();
+                    series.subtitle = data.document.subtitle.clone();
+                    series
+                },
+            ))
         })
         .collect()
 }

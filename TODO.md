@@ -1,7 +1,6 @@
 Website Todos
 =============
 
-- [ ] Check RCL readings for Holy Week/Easter Vigil/etc.
 - Bugs
   - [ ] Handling of collects for Easter Vigil/Christmas Eve prevents them from showing up in Lectionary/Readings page
   - [x] LFF special days like Thursday/Friday/Saturday after Ash Wednesday

@@ -107,6 +107,23 @@ lazy_static! {
             CollectId::Feast(Feast::ChristmasDay),
             CollectData {
                 document: Document::from(
+                    Text::from("O God, who hast caused this holy night to shine with the illumination of the true Light: Grant us, we beseech thee, that as we have known the mystery of that Light upon earth, so may we also perfectly enjoy him in heaven; where with thee and the Holy Spirit he liveth and reigneth, one God, in glory everlasting.")
+                        .response("Amen.")
+                )
+                .label("The Nativity of Our Lord: Christmas Day")
+                    .subtitle("December 25")
+                .page(161)
+                .tags(["Seasons of the Year"])
+                .version(Version::RiteI),
+                preface: "".into(),
+                rubric_before: None,
+                rubric_after: Some("or this".into())
+            }
+        ),
+        (
+            CollectId::Feast(Feast::ChristmasDay),
+            CollectData {
+                document: Document::from(
                     Text::from("Almighty God, who hast given us thy only-begotten Son to take our nature upon him and as at this time to be born of a pure virgin: Grant that we, being regenerate and made thy children by adoption and grace, may daily be renewed by thy Holy Spirit; through the same our Lord Jesus Christ, who liveth and reigneth with thee and the same Spirit ever, one God, world without end.")
                         .response("Amen.")
                 )
@@ -556,6 +573,22 @@ lazy_static! {
         ),
         (
             CollectId::Feast(Feast::EasterVigil),
+            CollectData {
+                document: Document::from(
+                    Text::from("O God, who didst make this most holy night to shine with the glory of the Lord’s resurrection: Stir up in thy Church that Spirit of adoption which is given to us in Baptism, that we, being renewed both in body and mind, may worship thee in sincerity and truth; through the same Jesus Christ our Lord, who liveth and reigneth with thee in the unity of the same Spirit, one God, now and for ever.")
+                        .response("Amen.")
+                )
+                .label("Easter Day")
+                .page(170)
+                .tags(["Seasons of the Year"])
+                .version(Version::RiteI),
+                preface: "".into(),
+                rubric_before: None,
+                rubric_after: None
+            }
+        ),
+        (
+            CollectId::Week(LiturgicalWeek::Easter),
             CollectData {
                 document: Document::from(
                     Text::from("O God, who didst make this most holy night to shine with the glory of the Lord’s resurrection: Stir up in thy Church that Spirit of adoption which is given to us in Baptism, that we, being renewed both in body and mind, may worship thee in sincerity and truth; through the same Jesus Christ our Lord, who liveth and reigneth with thee in the unity of the same Spirit, one God, now and for ever.")
