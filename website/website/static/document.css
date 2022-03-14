@@ -553,6 +553,10 @@ a.source-link > span {
 }
 
 /* Biblical Reading */
+.biblical-reading {
+  white-space: pre-wrap;
+}
+
 .biblical-reading sup.verse-number {
   margin-right: 0.25rem;
   font-size: 0.6rem;

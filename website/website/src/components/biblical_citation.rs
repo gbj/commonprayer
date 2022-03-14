@@ -77,50 +77,84 @@ pub struct BibleReadingFromAPI {
     pub value: Vec<serde_json::value::Value>,
 }
 
+#[derive(Debug)]
+enum ReadingContent {
+    Verse(BibleVerse, String),
+    ParagraphBreak,
+}
+
 impl BibleReadingFromAPI {
     fn api_data_to_biblical_reading(&self, citation: &BiblicalCitation) -> BiblicalReading {
+        let mut text = Vec::new();
+        let parts = self
+            .value
+            .iter()
+            .filter_map(|line| {
+                let book = line.get("book");
+                let chapter = line.get("chapter");
+                let verse = line.get("verse");
+                let text = line.get("text");
+                let ldf_type = line.get("type");
+                match (ldf_type, book, chapter, verse, text) {
+                    (Some(value), ..) => {
+                        if value == &serde_json::Value::String("heading".to_string()) {
+                            Some(ReadingContent::ParagraphBreak)
+                        } else {
+                            log(&format!("non-verse, non-heading entry = {:#?}", line));
+                            None
+                        }
+                    }
+                    (_, Some(book), Some(chapter), Some(verse), Some(text)) => {
+                        let text = text.as_str().unwrap_or_default().to_string();
+                        let book = Book::from(book.as_str().unwrap_or_default());
+                        let chapter = chapter
+                            .as_str()
+                            .unwrap_or_default()
+                            .parse()
+                            .unwrap_or_default();
+                        let verse = verse
+                            .as_str()
+                            .unwrap_or_default()
+                            .parse()
+                            .unwrap_or_default();
+
+                        Some(ReadingContent::Verse(
+                            BibleVerse {
+                                book,
+                                chapter,
+                                verse,
+                                verse_part: BibleVersePart::All,
+                            },
+                            strip_entities(text),
+                        ))
+                    }
+                    _ => None,
+                }
+            })
+            .collect::<Vec<_>>();
+        for (idx, piece) in parts.iter().enumerate() {
+            let peeked = parts.get(idx + 1);
+            let this_verse = match (piece, peeked) {
+                (ReadingContent::Verse(verse, text), None) => {
+                    Some((verse.to_owned(), text.to_owned()))
+                }
+                (ReadingContent::Verse(verse, text), Some(ReadingContent::Verse(..))) => {
+                    Some((verse.to_owned(), text.to_owned()))
+                }
+                (ReadingContent::Verse(verse, text), Some(ReadingContent::ParagraphBreak)) => {
+                    Some((verse.to_owned(), text.to_owned() + "\n\n"))
+                }
+                (ReadingContent::ParagraphBreak, _) => None,
+            };
+            if let Some(data) = this_verse {
+                text.push(data);
+            }
+        }
+
         BiblicalReading {
             citation: self.citation.clone(),
             intro: citation.intro.clone(),
-            text: self
-                .value
-                .iter()
-                .filter_map(|line| {
-                    let book = line.get("book");
-                    let chapter = line.get("chapter");
-                    let verse = line.get("verse");
-                    let text = line.get("text");
-                    let ldf_type = line.get("type");
-                    match (ldf_type, book, chapter, verse, text) {
-                        (Some(_), _, _, _, _) => None,
-                        (_, Some(book), Some(chapter), Some(verse), Some(text)) => {
-                            let text = text.as_str().unwrap_or_default().to_string();
-                            let book = Book::from(book.as_str().unwrap_or_default());
-                            let chapter = chapter
-                                .as_str()
-                                .unwrap_or_default()
-                                .parse()
-                                .unwrap_or_default();
-                            let verse = verse
-                                .as_str()
-                                .unwrap_or_default()
-                                .parse()
-                                .unwrap_or_default();
-
-                            Some((
-                                BibleVerse {
-                                    book,
-                                    chapter,
-                                    verse,
-                                    verse_part: BibleVersePart::All,
-                                },
-                                strip_entities(text),
-                            ))
-                        }
-                        _ => None,
-                    }
-                })
-                .collect(),
+            text,
         }
     }
 }
