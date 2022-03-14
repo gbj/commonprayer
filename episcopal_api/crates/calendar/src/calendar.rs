@@ -27,9 +27,9 @@ pub struct Calendar {
     pub weeks: &'static [(Cycle, u8, LiturgicalWeek)],
     /// All holy days in the calendar
     pub holy_days: &'static [KalendarEntry],
-    /// A fallback set of holy days that will be used if looking for a feast that's not found in this calendar
+    /// A calendar that can be used to look up information for feasts that are not found in this calendar
     /// (used for e.g., days that appear in the BCP calendar but don't have separate LFF entries)
-    pub holy_days_fallback: Option<&'static [KalendarEntry]>,
+    pub holy_days_fallback: Option<&'static Calendar>,
     /// Ranks of holy days in this calendar
     pub holy_day_ranks: &'static [(Feast, Rank)],
     /// Associations between [Feast]s and [Season]s
@@ -121,9 +121,9 @@ impl Calendar {
         let week = self.liturgical_week(date);
         let proper = self.proper(date, week);
         let holy_days = self.holy_days(date, week, evening, false);
-        let fallback_holy_days = self
-            .holy_days_fallback
-            .map(|holy_days| Calendar::filter_holy_days(date, week, evening, false, holy_days));
+        let fallback_holy_days = self.holy_days_fallback.map(|fallback| {
+            Calendar::filter_holy_days(date, week, evening, false, fallback.holy_days)
+        });
         let holy_days = if let Some(fallback) = fallback_holy_days {
             holy_days.chain(fallback).unique().collect::<Vec<_>>()
         } else {
@@ -233,16 +233,30 @@ impl Calendar {
 
     /// The name of a [Feast](crate::Feast) in a given [Language](language::Language)
     pub fn feast_name(&self, feast: Feast, language: Language) -> Option<String> {
-        self.feast_names
-            .iter()
-            .find(|(s_feast, s_language, _, _)| *s_feast == feast && *s_language == language)
-            .map(|(_, _, name, status)| {
-                if status == &Status::TrialUse {
-                    format!("[{name}]")
-                } else {
-                    name.to_string()
-                }
-            })
+        if let Some(fallback) = self.holy_days_fallback {
+            self.feast_names
+                .iter()
+                .chain(fallback.feast_names.iter())
+                .find(|(s_feast, s_language, _, _)| *s_feast == feast && *s_language == language)
+                .map(|(_, _, name, status)| {
+                    if status == &Status::TrialUse {
+                        format!("[{name}]")
+                    } else {
+                        name.to_string()
+                    }
+                })
+        } else {
+            self.feast_names
+                .iter()
+                .find(|(s_feast, s_language, _, _)| *s_feast == feast && *s_language == language)
+                .map(|(_, _, name, status)| {
+                    if status == &Status::TrialUse {
+                        format!("[{name}]")
+                    } else {
+                        name.to_string()
+                    }
+                })
+        }
     }
 
     /// The name of a [LiturgicalWeek](crate::LiturgicalWeek) in a given [Language](language::Language)
@@ -284,11 +298,20 @@ impl Calendar {
 
     /// The rank of the given feast day in this calendar
     pub fn feast_day_rank(&self, feast: &Feast) -> Rank {
-        self.holy_day_ranks
-            .iter()
-            .find(|(search_feast, _)| search_feast == feast)
-            .map(|(_, rank)| *rank)
-            .unwrap_or(Rank::OptionalObservance)
+        if let Some(fallback) = self.holy_days_fallback {
+            self.holy_day_ranks
+                .iter()
+                .chain(fallback.holy_day_ranks.iter())
+                .find(|(search_feast, _)| search_feast == feast)
+                .map(|(_, rank)| *rank)
+                .unwrap_or(Rank::OptionalObservance)
+        } else {
+            self.holy_day_ranks
+                .iter()
+                .find(|(search_feast, _)| search_feast == feast)
+                .map(|(_, rank)| *rank)
+                .unwrap_or(Rank::OptionalObservance)
+        }
     }
 
     /// Whether the given feast is the "Eve of ___"
@@ -302,6 +325,7 @@ impl Calendar {
             .holy_days_fallback
             .and_then(|fallback| {
                 fallback
+                    .holy_days
                     .iter()
                     .find(|(_, search_feast, _, _)| search_feast == feast)
             })
@@ -321,6 +345,7 @@ impl Calendar {
             });
         let in_fallback = self.holy_days_fallback.and_then(|fallback| {
             fallback
+                .holy_days
                 .iter()
                 .find(|(_, search_feast, _, _)| search_feast == feast)
                 .and_then(|(_, _, time, _)| match time {

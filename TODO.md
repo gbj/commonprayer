@@ -2,9 +2,6 @@ Website Todos
 =============
 
 - Bugs
-  - [ ] Handling of collects for Easter Vigil/Christmas Eve prevents them from showing up in Lectionary/Readings page
-  - [x] LFF special days like Thursday/Friday/Saturday after Ash Wednesday
-    - [ ] fallback day names and ranks
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)
   - [ ] Mark Feasts of the Incarnation 
