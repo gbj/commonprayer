@@ -15,10 +15,12 @@ pub struct EucharisticObservanceSummary {
     pub observance: LiturgicalDayId,
     pub localized_name: String,
     pub collects: Option<Document>,
-    pub vigil_readings: Vec<Document>,
     pub tracked_readings: TrackedReadings,
     pub epistle: Option<Document>,
     pub gospel: Option<Document>,
+    // special occasions
+    pub vigil_readings: Vec<Document>,
+    pub liturgy_of_the_palms: Option<Document>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]

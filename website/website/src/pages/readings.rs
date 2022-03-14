@@ -427,6 +427,20 @@ fn eucharistic_observance_view(
         View::Empty
     };
 
+    let palms = if let Some(palms) = &summary.liturgy_of_the_palms {
+        view! {
+            <>
+                <a id="palms"></a>
+                <h3>{t!("lectionary.palms")}</h3>
+                <article class="document">
+                    <dyn:view view={DocumentController::new(palms.clone().version(bible_version)).view(locale)}/>
+                </article>
+            </>
+        }
+    } else {
+        View::Empty
+    };
+
     // not every day has readings assigned in The Lectionary: offer a choice to redirect
     // either to the Daily Office Lectionary or to The Lectionary
     let no_readings_link = if summary.epistle.is_none() && summary.gospel.is_none() {
@@ -454,6 +468,7 @@ fn eucharistic_observance_view(
         <>
             {title}
             {collect_view}
+            {palms}
             {vigil_readings_view}
             {track_choice_toggle_view}
             {tracked_readings_view}

@@ -122,6 +122,12 @@ fn summarize_eucharistic_observance(
             .map(|reading| Document::from(BiblicalCitation::from(reading.citation))),
     );
 
+    let liturgy_of_the_palms = Document::choice_or_document(
+        &mut RCL
+            .reading_by_type(observance, day, ReadingType::PalmsGospel)
+            .map(|reading| Document::from(BiblicalCitation::from(reading.citation))),
+    );
+
     EucharisticObservanceSummary {
         observance: *observance,
         localized_name,
@@ -130,6 +136,7 @@ fn summarize_eucharistic_observance(
         tracked_readings,
         epistle,
         gospel,
+        liturgy_of_the_palms,
     }
 }
 
