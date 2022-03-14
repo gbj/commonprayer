@@ -1,6 +1,6 @@
 use custom_elements::inject_style;
 use custom_elements::CustomElement;
-use liturgy::{Content, Document};
+use liturgy::Document;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{HtmlElement, Node};
@@ -32,12 +32,12 @@ impl CustomElement for ComponentWrapper {
     }
 
     fn observed_attributes() -> &'static [&'static str] {
-        &["locale", "doc"]
+        &["locale", "doc", "href"]
     }
 
     fn attribute_changed_callback(
         &mut self,
-        _this: &HtmlElement,
+        this: &HtmlElement,
         name: String,
         _old_value: Option<String>,
         new_value: Option<String>,
@@ -65,6 +65,23 @@ impl CustomElement for ComponentWrapper {
                 }
             }
         };
+        if name.as_str() == "href" {
+            if let Some(href) = &new_value {
+                wasm_bindgen_futures::spawn_local({
+                    let this = this.clone();
+                    let href = href.clone();
+                    async move {
+                        if let Ok(resp) = reqwasm::http::Request::get(&href).send().await {
+                            if let Ok(data) = resp.json::<Document>().await {
+                                if let Ok(json) = serde_json::to_string(&data) {
+                                    this.set_attribute("doc", &json);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
     }
 }
 
