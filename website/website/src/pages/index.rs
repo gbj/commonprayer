@@ -123,6 +123,12 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                     <li>
                         {make_link(locale, "historical-documents", "toc.historical_documents", true)}
                     </li>
+                    <li>
+                        {make_link(locale, "lectionary", "lectionary.the_lectionary", false)}
+                    </li>
+                    <li>
+                        {make_link(locale, "readings", "toc.daily_office_lectionary", false)}
+                    </li>
                 </ul>
             </main>
         </>
