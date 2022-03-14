@@ -531,11 +531,27 @@ fn first_lesson_and_psalm_view(
         View::Empty
     };
 
+    let psalm_citation = readings
+        .psalm
+        .as_ref()
+        .and_then(|psalm| {
+            if let Content::Psalm(psalm) = &psalm.content {
+                psalm.citation.clone()
+            } else if let Content::Canticle(canticle) = &psalm.content {
+                Some(t!(
+                    "canticle_table.canticle_n",
+                    n = &canticle.number.to_string()
+                ))
+            } else {
+                None
+            }
+        })
+        .unwrap_or_else(|| t!("lectionary.psalm"));
     let psalm = if let Some(psalm) = &readings.psalm {
         view! {
             <>
                 <a id="psalm"></a>
-                <h3>{t!("lectionary.psalm")}</h3>
+                <h3>{psalm_citation}</h3>
                 <article class="document">
                     <dyn:view view={DocumentController::new(psalm.clone()).view(locale)}/>
                 </article>
