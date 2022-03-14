@@ -136,7 +136,7 @@ fn parse_single_reference(
     previous: Option<BibleReferenceRange>,
     bracketed: bool,
 ) -> BibleReferenceRange {
-    let mut range_pieces = reference.split('-');
+    let mut range_pieces = reference.split('-').flat_map(|s| s.split('–'));
     let first_half = range_pieces.next();
     let second_half = range_pieces.next();
 
