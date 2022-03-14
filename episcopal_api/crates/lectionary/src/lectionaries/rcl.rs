@@ -432,12 +432,6 @@ pub const RCL: Lectionary = Lectionary {
         (
             LiturgicalDayId::Feast(Feast::EasterSunday),
             Year::Any,
-            ReadingType::SecondReading,
-            "Acts 10:34-43",
-        ),
-        (
-            LiturgicalDayId::Feast(Feast::EasterSunday),
-            Year::Any,
             ReadingType::Gospel,
             "John 20:1-18",
         ),
@@ -476,6 +470,12 @@ pub const RCL: Lectionary = Lectionary {
             Year::Rcl(RCLYear::C),
             ReadingType::SecondReading,
             "1 Corinthians 15:19-26",
+        ),
+        (
+            LiturgicalDayId::Feast(Feast::EasterSunday),
+            Year::Any,
+            ReadingType::SecondReading,
+            "Acts 10:34-43",
         ),
         (
             LiturgicalDayId::Feast(Feast::EasterSunday),
