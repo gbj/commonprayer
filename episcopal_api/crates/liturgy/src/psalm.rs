@@ -23,7 +23,7 @@ impl Psalm {
 
     /// Returns only the verses and sections of a psalm that are included in its citation.
     /// ```
-    /// # use psalter::bcp1979::{PSALM_1, PSALM_119};
+    /// # use psalter::bcp1979::*;
     /// # use reference_parser::BibleReference;
     /// // simple filtering within a single-section psalm
     /// let mut psalm_1 = PSALM_1.clone();
@@ -38,6 +38,12 @@ impl Psalm {
     /// assert_eq!(psalm_119.filtered_sections()[0].verses.len(), 8);
     /// assert_eq!(psalm_119.filtered_sections()[0].local_name, "Qoph");
     /// assert_eq!(psalm_119.filtered_sections()[0].verses[0].a, "I call with my whole heart; *");
+    ///
+    /// // filtering with comma
+    /// let mut psalm_116 = PSALM_116.clone();
+    /// psalm_116.citation = Some(String::from("Psalm 116:1, 10-17"));
+    /// assert_eq!(psalm_116.filtered_sections().len(), 1);
+    /// assert_eq!(psalm_116.filtered_sections()[0].verses.len(), 9);
     /// ```
     pub fn filtered_sections(&self) -> Vec<PsalmSection> {
         let citation = self.citation.as_ref().map(BibleReference::from);

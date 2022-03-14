@@ -20,7 +20,7 @@ impl BibleReferenceRange {
                 .end
                 .and_then(|end| end.chapter)
                 .unwrap_or(start_chapter);
-            let end_verse = self.end.and_then(|end| end.verse);
+            let end_verse = self.end.and_then(|end| end.verse).or(self.start.verse);
             let end_verse_part = self.end.map(|end| end.verse_part);
 
             verse.book >= start_book

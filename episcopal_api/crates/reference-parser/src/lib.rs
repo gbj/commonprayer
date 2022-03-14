@@ -60,6 +60,9 @@ impl BibleReference {
     /// let reference = BibleReference::from("Psalms 120, 121, 122");
     /// let verse = BibleVerse { book: Book::Psalms, chapter: 122, verse: 3, verse_part: BibleVersePart::All };
     /// assert_eq!(reference.contains(verse), true);
+    /// let reference = BibleReference::from("Psalm 116:1, 10-17");
+    /// let verse = BibleVerse { book: Book::Psalms, chapter: 116, verse: 4, verse_part: BibleVersePart::All };
+    /// assert_eq!(reference.contains(verse), false);
     /// ```
     /// Tests whether the given [BibleVerse] is included within this reference.
     pub fn contains(&self, verse: BibleVerse) -> bool {

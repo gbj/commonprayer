@@ -39,10 +39,17 @@ impl<'a> Psalter<'a> {
     /// let comma_in_citation = BCP1979_PSALTER.psalms_by_citation("Psalm 116:1, 10-17");
     /// assert_eq!(comma_in_citation.len(), 1);
     /// assert_eq!(comma_in_citation[0].number, 116);
+    /// assert_eq!(comma_in_citation[0]
+    ///            .sections
+    ///            .iter()
+    ///            .flat_map(|section| section.verses.iter())
+    ///            .collect::<Vec<_>>()
+    ///            .len(),
+    ///        9
+    ///    );
     /// ```
     pub fn psalms_by_citation(&self, citation: &str) -> Vec<Psalm> {
         let reference = BibleReference::from(citation);
-        println!("ranges = {:#?}", reference.ranges);
         reference
             .ranges
             .iter()
