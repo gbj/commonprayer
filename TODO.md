@@ -12,6 +12,8 @@ Website Todos
     - [ ] Word
     - [ ] Venite
     - [x] JSON
+- Disable certain UI features until WASM loads:
+  - [ ] Search on hymnal page
 - Bugs
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)

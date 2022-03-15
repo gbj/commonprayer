@@ -1,7 +1,7 @@
 use std::io::{Seek, Write};
 use thiserror::Error;
 
-use docx_rs::{BreakType, Docx, Header, Paragraph, Run};
+use docx_rs::{AlignmentType, BreakType, Docx, Header, Paragraph, Run};
 use liturgy::*;
 
 mod styles;
@@ -264,13 +264,46 @@ impl AddToDocx for Heading {
 
 impl AddToDocx for Invitatory {
     fn add_to_docx(&self, docx: Docx) -> Docx {
-        docx.add_paragraph(paragraph_with_text("TODO"))
+        let header = Paragraph::new()
+            .add_run(Run::new().add_text(format!("{}\t", self.local_name)).bold())
+            .add_run(
+                Run::new()
+                    .add_text(self.latin_name.clone().unwrap_or_default())
+                    .italic(),
+            );
+
+        let header = if let Some(citation) = &self.citation {
+            header.add_run(Run::new().add_text(format!("\t{}", citation)).italic())
+        } else {
+            header
+        };
+
+        let docx = docx.add_paragraph(header);
+
+        self.sections.iter().fold(docx, |docx, section| {
+            let paragraph = section.verses.iter().fold(
+                Paragraph::new().style(PSALM_OR_CANTICLE),
+                |para, verse| {
+                    verse
+                        .a
+                        .split('\n')
+                        .map(String::from)
+                        .chain(verse.b.split('\n').map(|b| format!("\t{b}")))
+                        .fold(para, |para, line| {
+                            para.add_run(
+                                Run::new().add_text(line).add_break(BreakType::TextWrapping),
+                            )
+                        })
+                },
+            );
+            docx.add_paragraph(paragraph)
+        })
     }
 }
 
 impl AddToDocx for LectionaryReading {
     fn add_to_docx(&self, docx: Docx) -> Docx {
-        docx.add_paragraph(paragraph_with_text("TODO"))
+        docx
     }
 }
 
@@ -349,7 +382,22 @@ impl AddToDocx for PsalmCitation {
 
 impl AddToDocx for ResponsivePrayer {
     fn add_to_docx(&self, docx: Docx) -> Docx {
-        docx.add_paragraph(paragraph_with_text("TODO"))
+        let paragraph = self
+            .iter()
+            .enumerate()
+            .fold(Paragraph::new(), |paragraph, (idx, line)| {
+                if idx % 2 == 1 {
+                    paragraph.add_run(
+                        Run::new()
+                            .add_text(line)
+                            .bold()
+                            .add_break(BreakType::TextWrapping),
+                    )
+                } else {
+                    paragraph.add_run(Run::new().add_text(line).add_break(BreakType::TextWrapping))
+                }
+            });
+        docx.add_paragraph(paragraph)
     }
 }
 
@@ -361,7 +409,34 @@ impl AddToDocx for Rubric {
 
 impl AddToDocx for Sentence {
     fn add_to_docx(&self, docx: Docx) -> Docx {
-        docx.add_paragraph(paragraph_with_text("TODO"))
+        let text_paragraph = paragraph_with_text(&self.text);
+
+        let docx = if let Some(response) = &self.response {
+            if let Content::Text(text) = &response.content {
+                if text.text.len() < 10 {
+                    docx.add_paragraph(
+                        text_paragraph
+                            .add_run(Run::new().add_text(" ").add_text(&text.text).bold()),
+                    )
+                } else {
+                    add_content(docx.add_paragraph(text_paragraph), response)
+                }
+            } else {
+                add_content(docx.add_paragraph(text_paragraph), response)
+            }
+        } else {
+            docx.add_paragraph(text_paragraph)
+        };
+
+        if let Some(citation) = &self.citation {
+            docx.add_paragraph(
+                paragraph_with_text(citation)
+                    .italic()
+                    .align(AlignmentType::Right),
+            )
+        } else {
+            docx
+        }
     }
 }
 

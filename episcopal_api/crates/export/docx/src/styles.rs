@@ -55,21 +55,21 @@ impl StyledDocument for Docx {
                     Style::new(HEADING_1, StyleType::Paragraph)
                         .name(HEADING_1)
                         .based_on(NORMAL)
-                        .size(36)
+                        .size(72)
                         .bold(),
                 )
                 .add_style(
                     Style::new(HEADING_2, StyleType::Paragraph)
                         .name(HEADING_2)
                         .based_on(NORMAL)
-                        .size(24)
+                        .size(48)
                         .bold(),
                 )
                 .add_style(
                     Style::new(HEADING_3, StyleType::Paragraph)
                         .name(HEADING_3)
                         .based_on(NORMAL)
-                        .size(16)
+                        .size(32)
                         .bold(),
                 )
                 .add_style(
