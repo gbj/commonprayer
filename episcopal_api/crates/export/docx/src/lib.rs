@@ -4,6 +4,9 @@ use thiserror::Error;
 use docx_rs::{BreakType, Docx, Header, Paragraph, Run};
 use liturgy::*;
 
+mod styles;
+pub use styles::*;
+
 pub struct DocxDocument(Docx);
 
 #[derive(Error, Debug)]
@@ -23,7 +26,8 @@ impl DocxDocument {
 
 impl From<Document> for DocxDocument {
     fn from(doc: Document) -> Self {
-        let docx = Docx::new();
+        let docx = Docx::new().inject_styles();
+
         Self(add_content(docx, &doc))
     }
 }
@@ -100,13 +104,13 @@ impl AddToDocx for Category {
 
 impl AddToDocx for DocumentError {
     fn add_to_docx(&self, docx: Docx) -> Docx {
-        docx.add_paragraph(paragraph_with_text(self).style("Error"))
+        docx.add_paragraph(paragraph_with_text(self).style(ERROR))
     }
 }
 
 impl AddToDocx for Antiphon {
     fn add_to_docx(&self, docx: Docx) -> Docx {
-        docx.add_paragraph(paragraph_with_text(self).style("Antiphon"))
+        docx.add_paragraph(paragraph_with_text(self).style(ANTIPHON))
     }
 }
 
@@ -126,7 +130,7 @@ impl AddToDocx for BiblicalReading {
             docx
         };
 
-        let docx = docx.add_paragraph(paragraph_with_text(&self.citation).style("Heading 3"));
+        let docx = docx.add_paragraph(paragraph_with_text(&self.citation).style(HEADING_3));
 
         let para = Paragraph::new();
         let para = self.text.iter().fold(para, |para, (_verse_number, text)| {
@@ -139,7 +143,47 @@ impl AddToDocx for BiblicalReading {
 
 impl AddToDocx for Canticle {
     fn add_to_docx(&self, docx: Docx) -> Docx {
-        docx.add_paragraph(paragraph_with_text("TODO"))
+        let header = Paragraph::new()
+            .add_run(
+                Run::new()
+                    .add_text(format!("{}\t", self.number))
+                    .size(36)
+                    .bold(),
+            )
+            .add_run(Run::new().add_text(format!("{}\t", self.local_name)).bold())
+            .add_run(
+                Run::new()
+                    .add_text(self.latin_name.clone().unwrap_or_default())
+                    .italic()
+                    .add_break(BreakType::TextWrapping),
+            );
+
+        let header = if let Some(citation) = &self.citation {
+            header.add_run(Run::new().add_text(format!("\t{}", citation)))
+        } else {
+            header
+        };
+
+        let docx = docx.add_paragraph(header);
+
+        self.sections.iter().fold(docx, |docx, section| {
+            let paragraph = section.verses.iter().fold(
+                Paragraph::new().style(PSALM_OR_CANTICLE),
+                |para, verse| {
+                    verse
+                        .a
+                        .split('\n')
+                        .map(String::from)
+                        .chain(verse.b.split('\n').map(|b| format!("\t{b}")))
+                        .fold(para, |para, line| {
+                            para.add_run(
+                                Run::new().add_text(line).add_break(BreakType::TextWrapping),
+                            )
+                        })
+                },
+            );
+            docx.add_paragraph(paragraph)
+        })
     }
 }
 
@@ -157,6 +201,7 @@ impl AddToDocx for GloriaPatri {
                 Run::new()
                     .add_text(a)
                     .add_text(b)
+                    .add_text(" *")
                     .add_break(BreakType::TextWrapping)
                     .add_tab()
                     .add_text(c)
@@ -171,15 +216,15 @@ impl AddToDocx for Heading {
         match self {
             Heading::InsertDate => docx,
             Heading::InsertDay => docx,
-            Heading::Date(text) => docx.add_paragraph(paragraph_with_text(text).style("Date")),
+            Heading::Date(text) => docx.add_paragraph(paragraph_with_text(text).style(DATE)),
             Heading::Day {
                 name,
                 proper,
                 holy_days,
             } => {
-                let docx = docx.add_paragraph(paragraph_with_text(name).style("Day"));
+                let docx = docx.add_paragraph(paragraph_with_text(name).style(DAY));
                 let docx = if let Some(proper) = proper {
-                    docx.add_paragraph(paragraph_with_text(proper).style("Day"))
+                    docx.add_paragraph(paragraph_with_text(proper).style(DAY))
                 } else {
                     docx
                 };
@@ -205,16 +250,13 @@ impl AddToDocx for Heading {
                 }
             }
             Heading::Text(level, text) => {
-                docx.add_paragraph(paragraph_with_text(text).style(&format!(
-                    "Heading{}",
-                    match level {
-                        HeadingLevel::Heading1 => 1,
-                        HeadingLevel::Heading2 => 2,
-                        HeadingLevel::Heading3 => 3,
-                        HeadingLevel::Heading4 => 4,
-                        HeadingLevel::Heading5 => 5,
-                    }
-                )))
+                docx.add_paragraph(paragraph_with_text(text).style(match level {
+                    HeadingLevel::Heading1 => HEADING_1,
+                    HeadingLevel::Heading2 => HEADING_2,
+                    HeadingLevel::Heading3 => HEADING_3,
+                    HeadingLevel::Heading4 => HEADING_4,
+                    HeadingLevel::Heading5 => HEADING_5,
+                }))
             }
         }
     }
@@ -268,13 +310,40 @@ impl AddToDocx for Preces {
 
 impl AddToDocx for Psalm {
     fn add_to_docx(&self, docx: Docx) -> Docx {
-        docx.add_paragraph(paragraph_with_text("TODO"))
+        let header = Paragraph::new().add_run(
+            Run::new()
+                .add_text(format!("{}\t", self.number))
+                .size(36)
+                .bold(),
+        );
+
+        let docx = docx.add_paragraph(header);
+
+        self.filtered_sections().iter().fold(docx, |docx, section| {
+            let paragraph = section.verses.iter().fold(
+                // TODO add psalm local name/Latin name as well
+                Paragraph::new().style(PSALM_OR_CANTICLE),
+                |para, verse| {
+                    verse
+                        .a
+                        .split('\n')
+                        .map(String::from)
+                        .chain(verse.b.split('\n').map(|b| format!("\t{b}")))
+                        .fold(para, |para, line| {
+                            para.add_run(
+                                Run::new().add_text(line).add_break(BreakType::TextWrapping),
+                            )
+                        })
+                },
+            );
+            docx.add_paragraph(paragraph)
+        })
     }
 }
 
 impl AddToDocx for PsalmCitation {
     fn add_to_docx(&self, docx: Docx) -> Docx {
-        docx.add_paragraph(paragraph_with_text("TODO"))
+        docx.add_paragraph(paragraph_with_text(self))
     }
 }
 
@@ -286,7 +355,7 @@ impl AddToDocx for ResponsivePrayer {
 
 impl AddToDocx for Rubric {
     fn add_to_docx(&self, docx: Docx) -> Docx {
-        docx.add_paragraph(paragraph_with_text(self).style("Rubric"))
+        docx.add_paragraph(paragraph_with_text(self).style(RUBRIC))
     }
 }
 
