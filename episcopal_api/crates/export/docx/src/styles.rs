@@ -1,4 +1,4 @@
-use docx_rs::{Docx, RunFonts, RunProperty, SpecialIndentType, Style, StyleType, Styles};
+use docx_rs::{Docx, RunFonts, Style, StyleType, Styles};
 
 pub const NORMAL: &str = "Normal";
 pub const RUBRIC: &str = "Rubric";
