@@ -1,3 +1,4 @@
+mod alert;
 mod biblical_citation;
 mod date_picker;
 mod display_settings;
@@ -13,6 +14,7 @@ mod search_bar;
 mod segment_button;
 mod toggle;
 
+pub use alert::*;
 pub use biblical_citation::*;
 pub use date_picker::*;
 pub use display_settings::*;

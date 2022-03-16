@@ -7,14 +7,19 @@ Website Todos
   - [x] LDF JSON
   - [x] web component
   - [ ] Export menu on Document page
-    - [ ] Link
-    - [ ] Embed (iFrame)
-    - [ ] Word
-    - [ ] Venite
+    - [x] Link
+      - [ ] include selected options
+    - [ ] Embed (iFrame? web component?)
+    - [x] Word
+    - [ ] Venite LDF export
     - [x] JSON
+  - [x] Popover alert instead of two side menus
 - Disable certain UI features until WASM loads:
   - [ ] Search on hymnal page
 - Bugs
+  - [ ] P&Ts search page should filter out links that don't match
+  - [ ] Vincent de Paul and Louise de
+  - [ ] Initial "  " in Biblical reading verse => \t
   - [ ] Don't show Holy Day page links for days like December 31, that have neither readings nor bio
   - [ ] Collect page numbers list *last* page, not first page, of collect (if it changes mid-collect)
   - [ ] Mark Feasts of the Incarnation 

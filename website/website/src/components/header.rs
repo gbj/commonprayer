@@ -3,15 +3,30 @@ use leptos::*;
 use web_sys::{ScrollBehavior, ScrollToOptions};
 
 pub fn header(locale: &str, page_title: &str) -> View {
-    build_header(locale, page_title, None)
+    build_header(locale, page_title, None, [])
 }
 
 pub fn header_with_side_menu(locale: &str, page_title: &str, side_menu: View) -> View {
-    build_header(locale, page_title, Some(side_menu))
+    build_header(locale, page_title, Some(side_menu), [])
 }
 
-fn build_header(locale: &str, page_title: &str, side_menu: Option<View>) -> View {
+pub fn header_with_side_menu_and_buttons(
+    locale: &str,
+    page_title: &str,
+    side_menu: View,
+    additional_buttons: impl IntoIterator<Item = View>,
+) -> View {
+    build_header(locale, page_title, Some(side_menu), additional_buttons)
+}
+
+fn build_header(
+    locale: &str,
+    page_title: &str,
+    side_menu: Option<View>,
+    additional_buttons: impl IntoIterator<Item = View>,
+) -> View {
     let side_menu = side_menu.unwrap_or(View::Empty);
+    let additional_buttons = View::Fragment(additional_buttons.into_iter().collect());
 
     view! {
         <header>
@@ -23,6 +38,7 @@ fn build_header(locale: &str, page_title: &str, side_menu: Option<View>) -> View
                 {page_title}
             </dyn:h1>
             {side_menu}
+            {additional_buttons}
         </header>
     }
 }

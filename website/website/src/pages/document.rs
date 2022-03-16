@@ -50,9 +50,10 @@ pub enum DocumentPageType {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct DocumentPageProps {
     pub page_type: DocumentPageType,
-    base_path: String,
-    slug: Option<String>,
-    date: String,
+    pub base_path: String,
+    pub path: String,
+    pub slug: Option<String>,
+    pub date: String,
 }
 
 pub fn document() -> Page<DocumentPageProps, DocumentPageParams, ()> {
@@ -261,6 +262,8 @@ fn document_body(
         View::Empty
     };
 
+    let document_controller = DocumentController::new(doc.clone());
+
     let side_menu = side_menu(
         Icon::Settings,
         view! {
@@ -275,15 +278,26 @@ fn document_body(
         },
     );
 
-    let document_controller = DocumentController::new(doc.clone());
+    // export button and overlay
+    let export_alert = Alert::new(export_links(props, &document_controller));
+    let export_button = {
+        let is_open = export_alert.is_open.clone();
+        view! {
+            <dyn:button on:click=move |_ev: Event| is_open.set(!is_open.get())>
+                <img src={Icon::Link.to_string()}/>
+                <span class="screen-reader-only">{t!("export.export")}</span>
+            </dyn:button>
+        }
+    };
 
     view! {
         <>
-            {header_with_side_menu(locale, &title, side_menu)}
+            {header_with_side_menu_and_buttons(locale, &title, side_menu, [export_button])}
             <dyn:main
                 class={display_settings_menu.current_settings().stream().map(|settings| settings.to_class()).boxed_local()}
-            >                //<dyn:view view={export_links(&props.slug, &props.date, &document_controller)} />
+            >
                 <dyn:view view={document_controller.view(locale)}/>
+                {export_alert.view()}
             </dyn:main>
         </>
     }
@@ -710,7 +724,7 @@ fn find_page(
 
 pub fn hydration_state(
     locale: &str,
-    _path: &str,
+    path: &str,
     params: &DocumentPageParams,
 ) -> Option<DocumentPageProps> {
     // find page in TOC, either with the given version or in any version
@@ -799,6 +813,7 @@ pub fn hydration_state(
             page_type.map(|page_type| DocumentPageProps {
                 page_type,
                 base_path,
+                path: path.to_string(),
                 slug: params.slug.clone(),
                 date: params.date.map(|date| date.to_string()).unwrap_or_default(),
             })

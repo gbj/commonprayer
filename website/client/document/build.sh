@@ -1,1 +1,1 @@
-wasm-pack build --target=web --release
+RUSTFLAGS=--cfg=web_sys_unstable_apis wasm-pack build --target=web --release

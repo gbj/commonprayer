@@ -10,6 +10,12 @@ pub fn log(s: &str) {
     }
 }
 
+pub fn warn(s: &str) {
+    unsafe {
+        web_sys::console::warn_1(&JsValue::from_str(s));
+    }
+}
+
 pub fn window() -> web_sys::Window {
     web_sys::window().expect("could not find window object")
 }

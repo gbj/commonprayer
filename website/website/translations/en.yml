@@ -226,11 +226,14 @@ en:
     canticle_n: Canticle %{number}
 
   export:
+    export: Export
     link: Share Link
     embed: Embed Code
     word: Open in Word
     venite: Open in Venite.app
     json: Download (JSON)
+    clipboard_success: Copied to Clipboard
+    clipboard_error: "Could not copy to clipboard. Try copying and pasting manually: "
 
   bcp_1979: Book of Common Prayer (1979)
   bcp_1979_abbrev: BCP (1979)

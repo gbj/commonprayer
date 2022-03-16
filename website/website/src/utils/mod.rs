@@ -5,6 +5,7 @@ use web_sys::{Event, ScrollToOptions};
 pub mod fetch;
 pub mod language;
 pub mod preferences;
+pub mod share;
 pub mod time;
 
 pub fn decode_uri(encoded: &str) -> String {

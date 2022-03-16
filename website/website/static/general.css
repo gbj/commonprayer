@@ -196,6 +196,15 @@ body > header {
   z-index: 100;
 }
 
+body > header > button {
+  background: var(--background);
+  border: none;
+}
+
+body > header > button:hover {
+  cursor: pointer;
+}
+
 body > header .page-title {
   font-variant: small-caps;
   font-size: 1.25rem;
@@ -396,6 +405,10 @@ fieldset.stacked label {
 
 .menu.right {
   right: 0.5rem;
+}
+
+.menu.right:nth-of-type(2) {
+  right: 2.5rem;
 }
 
 .menu input.menu-toggle-input {
@@ -603,7 +616,9 @@ ul.reading-links,
 /* Export Links */
 .export-links {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  margin: 0;
+  padding: 3rem;
 }
 
 .export-links a,
@@ -612,10 +627,18 @@ ul.reading-links,
   align-items: center;
   justify-content: center;
   border: 1px solid var(--border-color);
+  border-bottom: none;
+  box-sizing: border-box;
   text-align: center;
   text-decoration: none;
   color: var(--color);
   background: var(--background);
+  min-width: 200px;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 1rem;
+  font-weight: lighter;
+  padding: 0.5rem 0;
 }
 
 .export-links a img,
@@ -631,14 +654,17 @@ ul.reading-links,
   cursor: pointer;
 }
 
-.export-links a:first-child {
+.export-links > a:first-child,
+.export-links > button:first-child {
   border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
 }
 
-.export-links a:last-child {
-  border-top-right-radius: var(--border-radius);
+.export-links > a:last-child,
+.export-links > button:last-child {
+  border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .export-links .venite:hover {
@@ -655,4 +681,50 @@ ul.reading-links,
 
 .export-links .word button:hover img {
   filter: var(--button-filter-light);
+}
+
+footer.export-status {
+  display: block;
+  margin: auto;
+  width: 100%;
+  margin-top: 1rem;
+  height: 3rem;
+}
+
+footer.export-status pre {
+  width: 100%;
+  white-space: pre-wrap;
+}
+
+/* Pop-up alerts */
+.alert.alert-overlay {
+  opacity: 0.25;
+  background: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 200;
+  transition: opacity 0.25s ease;
+}
+
+.alert.alert-overlay.hidden {
+  opacity: 0;
+  width: 0;
+  z-index: -1;
+}
+
+.alert-content {
+  display: block;
+  transform: translateX(-50%) translateY(-50%);
+  position: fixed;
+  z-index: 201;
+  left: 50%;
+  top: 50%;
+  background: var(--background);
+}
+
+.alert-content.hidden {
+  display: none;
 }
