@@ -17,14 +17,14 @@ impl Alert {
     pub fn view(self) -> View {
         view! {
             <>
-                <dyn:div class="alert alert-overlay"
+                <dyn:div class="alert alert-overlay hidden"
                     class:hidden={self.is_open.stream().map(|open| !open).boxed_local()}
                     on:click={
                         let is_open = self.is_open.clone();
                         move |_ev: Event| is_open.set(false)
                     }
                 ></dyn:div>
-                <dyn:div class="alert alert-content"
+                <dyn:div class="alert alert-content hidden"
                     class:hidden={self.is_open.stream().map(|open| !open).boxed_local()}
                 >
                     {self.content}
