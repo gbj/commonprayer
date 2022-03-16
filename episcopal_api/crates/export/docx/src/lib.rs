@@ -1,7 +1,10 @@
 use std::io::{Seek, Write};
 use thiserror::Error;
 
-use docx_rs::{AlignmentType, BreakType, Docx, Header, Paragraph, Run};
+use docx_rs::{
+    AlignmentType, BreakType, DocumentChild, Docx, Header, Paragraph, Run, Table, TableCell,
+    TableRow,
+};
 use liturgy::*;
 
 mod styles;
@@ -36,7 +39,25 @@ fn add_content(docx: Docx, doc: &Document) -> Docx {
     match &doc.content {
         Content::Liturgy(liturgy) => liturgy.body.iter().fold(docx, add_content),
         Content::Series(series) => series.iter().fold(docx, add_content),
-        Content::Parallel(_parallel) => docx.add_paragraph(paragraph_with_text("[TODO parallel]")),
+        Content::Parallel(parallel) => docx.add_table(Table::without_borders(vec![TableRow::new(
+            parallel
+                .iter()
+                .map(|child| {
+                    let fake_docx = add_content(Docx::new(), child);
+                    fake_docx
+                        .document
+                        .children
+                        .into_iter()
+                        .fold(TableCell::new(), |cell, child| {
+                            if let DocumentChild::Paragraph(paragraph) = child {
+                                cell.add_paragraph(paragraph)
+                            } else {
+                                cell
+                            }
+                        })
+                })
+                .collect(),
+        )])),
         Content::Choice(choice) => {
             if let Some(selected_doc) = choice.options.get(choice.selected) {
                 add_content(docx, selected_doc)
@@ -87,11 +108,6 @@ fn paragraph_with_text(text: impl std::fmt::Display) -> Paragraph {
         }
     })
 }
-
-trait ToParagraph {
-    fn to_paragraph(&self) -> Paragraph;
-}
-
 trait AddToDocx {
     fn add_to_docx(&self, docx: Docx) -> Docx;
 }
