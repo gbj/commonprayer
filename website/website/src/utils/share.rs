@@ -10,6 +10,7 @@ pub enum ClipboardError {
     Write,
 }
 
+#[cfg(web_sys_unstable_apis)]
 pub async fn copy_text(text: &str) -> Result<(), ClipboardError> {
     let clipboard = window()
         .navigator()
@@ -19,4 +20,9 @@ pub async fn copy_text(text: &str) -> Result<(), ClipboardError> {
         .await
         .map_err(|_| ClipboardError::Write)?;
     Ok(())
+}
+
+#[cfg(not(web_sys_unstable_apis))]
+pub async fn copy_text(_text: &str) -> Result<(), ClipboardError> {
+    Err(ClipboardError::NotAvailable)
 }
