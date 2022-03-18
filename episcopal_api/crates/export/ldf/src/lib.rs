@@ -3,7 +3,13 @@ use liturgy::*;
 use serde_json::{Map, Value};
 
 struct ConvertableDocument(Document);
-struct LdfJson(Value);
+pub struct LdfJson(Value);
+
+impl LdfJson {
+    pub fn into_inner(self) -> Value {
+        self.0
+    }
+}
 
 impl From<Document> for LdfJson {
     fn from(doc: Document) -> Self {

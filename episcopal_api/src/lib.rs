@@ -4,6 +4,7 @@ pub use canticle_table;
 pub use docx;
 pub use hymnal;
 pub use language;
+pub use ldf;
 pub use lectionary;
 pub use library;
 pub use liturgy;

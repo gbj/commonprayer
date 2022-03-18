@@ -14,6 +14,7 @@ canticle-table = { path = "crates/canticle-table" }
 docx = { path = "crates/export/docx" }
 hymnal = { path = "crates/hymnal" }
 language = { path = "crates/language" }
+ldf = { path = "crates/export/ldf" }
 lectionary = { path = "crates/lectionary" }
 library = { path = "crates/library" }
 liturgy = { path = "crates/liturgy" }
