@@ -45,6 +45,10 @@
   --link-color-filter: invert(38%) sepia(78%) saturate(2321%) hue-rotate(335deg)
     brightness(76%) contrast(106%);
   --link-visited-color: #9a2626;
+
+  /* Document selection */
+  --selected-background: #ededf4;
+  --selected-border: #e6e6ef;
 }
 
 a {

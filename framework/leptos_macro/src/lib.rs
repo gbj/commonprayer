@@ -94,6 +94,12 @@ fn node_to_tokens(node: &Node, hydrate_only: bool) -> Option<TokenStream> {
                     .style(#name, #value)
                 })
             }
+            // DOM reference
+            else if name == "dom:ref" {
+                Some(quote::quote! {
+                    .dom_ref(#value)
+                })
+            }
             // Attributes
             // Attributes with values can simply be set
             else if let Some(value) = value {
@@ -266,7 +272,14 @@ fn static_element(
                 Some(quote_spanned! {
                     span => compile_error!("property handlers cannot be attached to static elements");
                 })
-            } else {
+            }
+            else if attr_name == "dom:ref" {
+                let span = node.name_span().unwrap();
+                Some(quote_spanned! {
+                    span => compile_error!("DOM ref cannot be stored for a static element");
+                })
+            }
+            else {
                 node_to_tokens(node, hydrate_only)
             }
         })

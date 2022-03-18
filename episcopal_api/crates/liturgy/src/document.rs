@@ -745,6 +745,14 @@ impl Content {
             Content::HymnLink(_) => false,
         }
     }
+
+    pub fn is_container(&self) -> bool {
+        matches!(self, Content::Liturgy(_) | Content::Series(_) | Content::Parallel(_) | Content::Choice(_))
+    }
+
+    pub fn is_leaf(&self) -> bool {
+        !self.is_container()
+    }
 }
 
 // Create Document from a Content enum

@@ -146,11 +146,52 @@ pub fn document_view(
         View::Empty
     };
 
+    let (.., main) = header_and_main;
+
+    // manage whether this item is being selected
+    let dom_ref = Behavior::<Option<web_sys::Element>>::new(None);
+    let selected = Behavior::new(false);
+
+    let selection_change = document_event_stream("selectionchange");
+    selection_change.create_effect({
+        let dom_ref = dom_ref.clone();
+        let selected = selected.clone();
+        move |_| {
+            if let Ok(selection) = window().get_selection() {
+                if let Some(selection) = selection {
+                    if let Some(el) = dom_ref.get() {
+                        let is_selected = selection.contains_node(&el).unwrap_or(false)
+                            || descendants(&el)
+                                .any(|el| selection.contains_node(&el).unwrap_or(false));
+                        selected.set(is_selected);
+                    }
+                } else {
+                    selected.set(false);
+                }
+            }
+        }
+    });
+
+    let is_leaf_doc = doc.content.is_leaf();
+    let is_selected = selected
+        .stream()
+        .map(move |selected| selected && is_leaf_doc)
+        .boxed_local();
+
+    let main = view! {
+        <dyn:article class={document_class(doc)}
+            dom:ref={&dom_ref}
+            class:selected={is_selected}
+        >
+            {main}
+        </dyn:article>
+    };
+
     view! {
         <>
             {label}
             {header}
-            <dyn:view view={header_and_main.1}/>
+            {main}
         </>
     }
 }
@@ -1305,9 +1346,7 @@ pub fn series(
                     move |(idx, doc)| {
                         let mut new_path = path.clone();
                         new_path.push(idx);
-                        view! {
-                            <article class={document_class(doc)}>{document_view(locale, controller, new_path.clone(), doc)}</article>
-                        }
+                        document_view(locale, controller, new_path.clone(), doc)
                     }
                 })
                 .collect(),

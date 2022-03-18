@@ -76,6 +76,14 @@ pub fn location() -> web_sys::Location {
     window().location()
 }
 
+pub fn descendants(el: &web_sys::Element) -> impl Iterator<Item = web_sys::Element> {
+    let children = el.children();
+    (0..children.length()).filter_map({
+        let children = children.clone();
+        move |idx| children.item(idx)
+    })
+}
+
 /// Current window.location.hash without the beginning #
 pub fn location_hash() -> Option<String> {
     if is_server!() {

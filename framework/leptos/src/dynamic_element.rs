@@ -2,7 +2,7 @@ use std::pin::Pin;
 
 use futures::Stream;
 
-use crate::{attribute::DynamicAttributeValue, child::IntoDynamicViewChild, view::View};
+use crate::{attribute::DynamicAttributeValue, child::IntoDynamicViewChild, view::View, Behavior};
 
 /// An HTML [Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)
 /// that can be rendered partially on the server side, but will need to be hydrated on the
@@ -15,6 +15,7 @@ pub struct DynamicElement {
     pub(crate) styles: Vec<(&'static str, StyleStream)>,
     pub(crate) properties: Vec<(&'static str, PropertyStream)>,
     pub(crate) event_listeners: Vec<(&'static str, EventListener)>,
+    pub(crate) dom_ref: Option<Behavior<Option<web_sys::Element>>>,
     pub(crate) children: Vec<View>,
 }
 
@@ -55,6 +56,7 @@ impl DynamicElement {
             styles: Vec::new(),
             properties: Vec::new(),
             event_listeners: Vec::new(),
+            dom_ref: None,
             children: Vec::new(),
         }
     }
@@ -75,6 +77,11 @@ impl DynamicElement {
 
     pub fn class(mut self, class_name: &'static str, value: ClassStream) -> Self {
         self.classes.push((class_name, value));
+        self
+    }
+
+    pub fn dom_ref(mut self, behavior: &Behavior<Option<web_sys::Element>>) -> Self {
+        self.dom_ref = Some(behavior.clone());
         self
     }
 

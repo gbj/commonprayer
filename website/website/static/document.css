@@ -644,3 +644,13 @@ a.source-link > span {
     text-align: center;
   }
 }
+
+.document:not(.selected) {
+  margin: -1px;
+  padding: 1px;
+}
+.document.selected {
+  background: var(--selected-background);
+  border: 1px solid var(--selected-border);
+  margin: -1px;
+}

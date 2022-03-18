@@ -197,11 +197,17 @@ impl View {
                 if let Ok(Some(el)) =
                     parent.query_selector(&format!("[data-hk=\"{}\"]", hydration_key))
                 {
+                    // hydrate node
                     add_event_listeners(&el, element.event_listeners);
                     add_reactive_attributes(&el, element.attributes);
                     add_reactive_classes(&el, element.classes);
                     add_reactive_styles(&el, element.styles);
                     add_reactive_properties(&el, element.properties);
+
+                    // store DOM ref
+                    if let Some(dom_ref_behavior) = element.dom_ref {
+                        dom_ref_behavior.set(Some(el.clone()));
+                    }
                 } else {
                     log(&format!(
                         "WARNING: could not find element with hydration key {}",
@@ -274,6 +280,11 @@ impl View {
                 add_reactive_classes(&el, element.classes);
                 add_reactive_styles(&el, element.styles);
                 add_reactive_properties(&el, element.properties);
+
+                // store DOM ref
+                if let Some(dom_ref_behavior) = element.dom_ref {
+                    dom_ref_behavior.set(Some(el.clone()));
+                }
 
                 for child in element.children {
                     append_child(&el, &child.client_side_render());

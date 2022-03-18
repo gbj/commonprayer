@@ -15,8 +15,13 @@ Website Todos
     - [x] JSON
   - [x] Popover alert instead of two side menus
 - Piece-by-piece export
-  - [ ] LDF
-  - [ ] Word
+  - [ ] detect when a document is being selected
+    - [ ] one change: accept if even only a PART of the node is selected
+  - [ ] add these to a global, sorted list of selected docs
+  - [ ] UI to export to 
+    - [ ] LDF
+    - [ ] Word
+  - [ ] separate UI for parallels, involving a click-to-select function
 - Disable certain UI features until WASM loads:
   - [ ] Search on hymnal page
 - Bugs
