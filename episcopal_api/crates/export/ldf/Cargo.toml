@@ -1,0 +1,9 @@
+[package]
+name = "ldf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+liturgy = { path = "../../liturgy" }
+serde_json = "1"
+itertools = "0.10"

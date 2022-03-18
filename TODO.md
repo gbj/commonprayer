@@ -2,9 +2,9 @@ Website Todos
 =============
 
 - [ ] Exports
-  - [ ] docx
-    - [ ] finish DOCX export code
-  - [x] LDF JSON
+  - [x] docx
+  - [x] EAPI JSON
+  - [ ] LDF JSON
   - [x] web component
   - [ ] Export menu on Document page
     - [x] Link
