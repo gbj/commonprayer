@@ -15,7 +15,7 @@ pub fn slugify(s: &str) -> String {
 
 pub fn lookup_links(locale: &str, lookup_type: &LookupType) -> String {
     match lookup_type {
-        LookupType::Category(category, version, name) => {
+        LookupType::Category(_, version, name) => {
             format!("/{}/document/{}/{:#?}", locale, slugify(name), version)
         }
         LookupType::Canticle(_) => format!("/{}/canticle-table", locale),

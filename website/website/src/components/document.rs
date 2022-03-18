@@ -285,7 +285,10 @@ pub fn canticle(
                                                     let current_content = current_content.clone();
                                                     let show_option_list = show_option_list.clone();
                                                     move |_ev: Event| {
-                                                        controller.update_document_at_path(path.clone(), doc.clone());
+                                                        let update_result = controller.update_document_at_path(path.clone(), doc.clone());
+                                                        if let Err(e) = update_result {
+                                                            warn(&format!("[error when calling controller.update_document_at_path({:#?}, ..)]\n\n{:#?}", path, e));
+                                                        }
                                                         show_option_list.set(false);
                                                         if let Content::Canticle(canticle) = doc.content.clone() {
                                                             current_content.set(canticle);

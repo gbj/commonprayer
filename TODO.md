@@ -4,7 +4,7 @@ Website Todos
 - [ ] Exports
   - [x] docx
   - [x] EAPI JSON
-  - [ ] LDF JSON
+  - [x] LDF JSON
   - [x] web component
   - [ ] Export menu on Document page
     - [x] Link
@@ -14,6 +14,9 @@ Website Todos
     - [x] Venite LDF export
     - [x] JSON
   - [x] Popover alert instead of two side menus
+- Piece-by-piece export
+  - [ ] LDF
+  - [ ] Word
 - Disable certain UI features until WASM loads:
   - [ ] Search on hymnal page
 - Bugs

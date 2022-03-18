@@ -36,3 +36,9 @@ impl SearchBar {
         }
     }
 }
+
+impl Default for SearchBar {
+    fn default() -> Self {
+        Self::new()
+    }
+}

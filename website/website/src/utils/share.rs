@@ -1,6 +1,4 @@
-use leptos::window;
 use thiserror::Error;
-use wasm_bindgen_futures::JsFuture;
 
 #[derive(Error, Debug)]
 pub enum ClipboardError {
@@ -12,6 +10,9 @@ pub enum ClipboardError {
 
 #[cfg(web_sys_unstable_apis)]
 pub async fn copy_text(text: &str) -> Result<(), ClipboardError> {
+    use leptos::window;
+    use wasm_bindgen_futures::JsFuture;
+
     let clipboard = window()
         .navigator()
         .clipboard()

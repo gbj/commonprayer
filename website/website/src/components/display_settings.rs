@@ -41,6 +41,12 @@ impl DisplaySettingsSideMenu {
     }
 }
 
+impl Default for DisplaySettingsSideMenu {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 pub struct DisplaySettingsComponent {
     pub current_settings: Behavior<DisplaySettings>,
 }
@@ -90,5 +96,11 @@ impl DisplaySettingsComponent {
                 </label>
             </section>
         }
+    }
+}
+
+impl Default for DisplaySettingsComponent {
+    fn default() -> Self {
+        Self::new()
     }
 }

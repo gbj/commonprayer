@@ -130,7 +130,10 @@ fn calendar_body(locale: &str, year: u16, days: &[LectionaryDayEntry]) -> View {
     // on first load, scroll to today
     if !is_server!() {
         let date = today();
-        location().set_hash(&format!("{}/{}", date.month(), date.day()));
+        let hash_result = location().set_hash(&format!("{}/{}", date.month(), date.day()));
+        if let Err(e) = hash_result {
+            warn(&format!("[error in calendar_body when calling location.setHash()]\n\n{:#?}", e));
+        }
     }
 
     // listen for hash changes and scroll to month
