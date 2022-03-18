@@ -1,6 +1,6 @@
-use episcopal_api::liturgy::*;
 use futures::{Stream, StreamExt};
 use leptos::*;
+use liturgy::*;
 use wasm_bindgen::{JsCast, UnwrapThrowExt};
 
 use crate::{

@@ -230,7 +230,7 @@ en:
     link: Share Link
     embed: Embed Code
     word: Open in Word
-    venite: Open in Venite.app
+    venite: Copy to Venite.app
     json: Download (JSON)
     clipboard_success: Copied to Clipboard
     clipboard_error: "Could not copy to clipboard. Try copying and pasting manually: "

@@ -1,6 +1,6 @@
 use crate::{components::header, utils::{language::locale_to_language, time::today, scroll_to_element_by_id_with_padding_for_header}};
 use chrono::{Datelike, Local};
-use episcopal_api::{
+use {
     calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId, Rank, Weekday, BCP1979_CALENDAR},
     lectionary::Reading,
     library::summary,

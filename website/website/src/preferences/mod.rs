@@ -1,10 +1,8 @@
 use std::collections::HashMap;
 
-use episcopal_api::{
-    language::Language,
-    liturgy::{GlobalPref, PreferenceKey, PreferenceValue, Version},
-};
+use language::Language;
 use leptos::{is_server, log, window};
+use liturgy::{GlobalPref, PreferenceKey, PreferenceValue, Version};
 use serde::{Deserialize, Serialize};
 
 use crate::table_of_contents::TOCLiturgy;

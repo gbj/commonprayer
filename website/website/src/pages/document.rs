@@ -7,15 +7,6 @@ use crate::{
     utils::{preferences::*, time::today},
     TOCLiturgy, TABLE_OF_CONTENTS,
 };
-use episcopal_api::{
-    calendar::{Calendar, Date},
-    language::Language,
-    library::{CommonPrayer, Library},
-    liturgy::{
-        parallel_table::ParallelDocument, Content, Document, PreferenceKey, PreferenceValue,
-        Reference, Version,
-    },
-};
 use futures::StreamExt;
 use itertools::Itertools;
 use leptos::*;
@@ -23,6 +14,13 @@ use rust_i18n::t;
 use serde::Serialize;
 use serde_derive::Deserialize;
 use wasm_bindgen::UnwrapThrowExt;
+use calendar::{Calendar, Date};
+use language::Language;
+use library::{CommonPrayer, Library};
+use liturgy::{
+        parallel_table::ParallelDocument, Content, Document, PreferenceKey, PreferenceValue,
+        Reference, Version,
+    };
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct DocumentPageParams {

@@ -1,18 +1,15 @@
 use crate::{components::*, preferences, utils::language::locale_to_language};
-use episcopal_api::{
-    calendar::{
-        lff2018::LFF_BIOS, Feast, HolyDayId, LiturgicalDayId, Time, BCP1979_CALENDAR,
-        LFF2018_CALENDAR,
-    },
-    lectionary::{ReadingType, LFF2018_LECTIONARY, RCL},
-    library::{lff2018::collects::*, CollectId},
-    liturgy::{
-        BiblicalCitation, Choice, Content, Document, GlobalPref, PreferenceKey, PreferenceValue,
-        Version,
-    },
-    psalter::bcp1979::BCP1979_PSALTER,
+use calendar::{
+    lff2018::LFF_BIOS, Feast, HolyDayId, LiturgicalDayId, Time, BCP1979_CALENDAR, LFF2018_CALENDAR,
 };
+use lectionary::{ReadingType, LFF2018_LECTIONARY, RCL};
 use leptos::*;
+use library::{lff2018::collects::*, CollectId};
+use liturgy::{
+    BiblicalCitation, Choice, Content, Document, GlobalPref, PreferenceKey, PreferenceValue,
+    Version,
+};
+use psalter::bcp1979::BCP1979_PSALTER;
 use rust_i18n::t;
 use serde_derive::{Deserialize, Serialize};
 

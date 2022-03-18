@@ -1,21 +1,19 @@
 use std::rc::Rc;
 
 use crate::utils::preferences::*;
-use episcopal_api::{
-    api::summary::{
-        DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary,
-        FirstLessonAndPsalm, ObservanceSummary, TrackedReadings,
-    },
-    calendar::{Date, LiturgicalDayId},
-    lectionary::Reading,
-    library::CommonPrayer,
-    liturgy::{
-        BiblicalCitation, Content, Document, GlobalPref, Lectionaries, PreferenceKey,
-        PreferenceValue, Psalm, Version,
-    },
+use api::summary::{
+    DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary, FirstLessonAndPsalm,
+    ObservanceSummary, TrackedReadings,
 };
+use calendar::{Date, LiturgicalDayId};
 use futures::{Stream, StreamExt};
+use lectionary::Reading;
 use leptos::*;
+use library::CommonPrayer;
+use liturgy::{
+    BiblicalCitation, Content, Document, GlobalPref, Lectionaries, PreferenceKey, PreferenceValue,
+    Psalm, Version,
+};
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::UnwrapThrowExt;
 

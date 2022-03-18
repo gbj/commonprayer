@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use episcopal_api::api::summary::{DailySummary, PartialDailySummary};
+use api::summary::{DailySummary, PartialDailySummary};
 use futures::stream::{Stream, StreamExt};
 use leptos::*;
 

@@ -1,6 +1,5 @@
 use futures::StreamExt;
 use leptos::*;
-use wasm_bindgen_futures::JsFuture;
 
 use crate::{pages::DocumentPageProps, utils::share};
 
@@ -14,7 +13,6 @@ enum Status {
 }
 
 pub fn export_links(props: &DocumentPageProps, document_controller: &DocumentController) -> View {
-    let path = props.path.clone();
     let slug = props.slug.clone().unwrap_or_else(|| String::from("export"));
 
     let status = Behavior::new(Status::Idle);
@@ -72,10 +70,14 @@ pub fn export_links(props: &DocumentPageProps, document_controller: &DocumentCon
                     </form>
 
                     // Venite: TODO
-                    /* <a class="venite" href="#">
+                    <dyn:button class="link venite" on:click={
+                        let status = status.clone();
+                        let ctrl = document_controller.clone();
+                        move |_ev: Event| copy_ldf(&status, &ctrl)
+                    }>
                         <img src="/static/icons/venite.svg"/>
                         {t!("export.venite")}
-                    </a> */
+                    </dyn:button>
 
                     // JSON: downloads a named JSON file
                     <dyn:a
@@ -98,6 +100,22 @@ pub fn export_links(props: &DocumentPageProps, document_controller: &DocumentCon
                 </dyn:p>
             </footer>
         </>
+    }
+}
+
+fn copy_ldf(status: &Behavior<Status>, ctrl: &DocumentController) {
+    let json = ldf::LdfJson::from(ctrl.get_state());
+    match serde_json::to_string(&json.into_inner()) {
+        Ok(json) => {
+            let status = status.clone();
+            wasm_bindgen_futures::spawn_local(async move {
+                match share::copy_text(&json).await {
+                    Ok(_) => status.set(Status::Success),
+                    Err(_) => status.set(Status::Error(json)),
+                }
+            });
+        }
+        Err(_) => status.set(Status::Error(String::default())),
     }
 }
 

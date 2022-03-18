@@ -8,8 +8,8 @@ use crate::{
         fetch::{Fetch, FetchStatus},
     },
 };
-use episcopal_api::hymnal::*;
-use episcopal_api::liturgy::Text;
+use hymnal::*;
+use liturgy::Text;
 use futures::StreamExt;
 use leptos::*;
 use serde::{Deserialize, Serialize};

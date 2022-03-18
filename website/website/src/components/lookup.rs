@@ -1,4 +1,4 @@
-use episcopal_api::liturgy::{CanticleTableEntry, Categories, LectionaryTableChoice, Version};
+use liturgy::{CanticleTableEntry, Categories, LectionaryTableChoice, Version};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]

@@ -1,6 +1,6 @@
 use std::{time::Duration, collections::HashMap};
 
-use episcopal_api::{liturgy::{PreferenceKey, PreferenceValue, Version, LiturgyPreferences, Content, Document}, language::Language};
+use {liturgy::{PreferenceKey, PreferenceValue, Version, LiturgyPreferences, Content, Document}, language::Language};
 use futures::StreamExt;
 use leptos::*;
 use itertools::Itertools;

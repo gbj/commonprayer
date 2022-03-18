@@ -1,4 +1,4 @@
-use episcopal_api::language::Language;
+use language::Language;
 
 pub fn locale_to_language(locale: &str) -> Language {
     match locale {

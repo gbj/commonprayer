@@ -1,11 +1,11 @@
 use std::collections::HashMap;
 
-use episcopal_api::library::marriage_alternatives::parallels::MARRIAGE_PARALLEL_TAGS;
-use episcopal_api::library::{self, CollectData, CollectId};
-use episcopal_api::liturgy::parallel_table::{build_parallel_table, ParallelDocument};
-use episcopal_api::liturgy::{Document, Heading, HeadingLevel, Rubric, Series, Version};
 use itertools::Itertools;
 use lazy_static::lazy_static;
+use library::marriage_alternatives::parallels::MARRIAGE_PARALLEL_TAGS;
+use library::{self, CollectData, CollectId};
+use liturgy::parallel_table::{build_parallel_table, ParallelDocument};
+use liturgy::{Document, Heading, HeadingLevel, Rubric, Series, Version};
 use serde::{Deserialize, Serialize};
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]

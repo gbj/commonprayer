@@ -3,15 +3,15 @@ use crate::{
     preferences,
     utils::fetch::{Fetch, FetchStatus},
 };
-use episcopal_api::{
+use futures::StreamExt;
+use leptos::*;
+use serde::Deserialize;
+use {
     liturgy::{
         BiblicalCitation, BiblicalReading, GlobalPref, PreferenceKey, PreferenceValue, Version,
     },
     reference_parser::{BibleVerse, BibleVersePart, Book},
 };
-use futures::StreamExt;
-use leptos::*;
-use serde::Deserialize;
 
 use super::DocumentController;
 

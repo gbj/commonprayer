@@ -11,7 +11,7 @@ Website Todos
       - [ ] include selected options
     - [ ] Embed (iFrame? web component?)
     - [x] Word
-    - [ ] Venite LDF export
+    - [x] Venite LDF export
     - [x] JSON
   - [x] Popover alert instead of two side menus
 - Disable certain UI features until WASM loads:
@@ -34,13 +34,18 @@ Website Todos
     - [ ] UI to toggle any given parallels on/off and highlight/export different things
     - [ ] remove response from all but last Text (in parallels)
     - [ ] remove label etc. from all but first doc (in parallels)
+- [ ] PsalmDisplayFormat
+  - [ ] Invitatory, Canticle, and Psalm
+  - [ ] web view
+  - [ ] docx export
+  - [ ] LDF export
 - [ ] Fix LFF collects with empty labels
 - [ ] Rite II collects need Version::RiteII, not default (Version::BCP1979)
+- [ ] Add Ember Days
 - [ ] Systematic distinction between server date/current time (when rendering, either SSR or even more so SSG) and client current time/date — replaces instances where the prerendered UI accidentally assumes server time (e.g., Morning/Evening in daily readings page)
 - [ ] Stored selections for certain Choices
 - [ ] Lazy loading for `BiblicalCitation`s within `Choice`s
 - [ ] Figure out partial hydration again
-- [ ] Sunday Readings page (a copy of Daily Readings, but use RCL?)
 - [ ] CI/CD
 - [ ] Additional library of documents
 - [ ] Additional preferences

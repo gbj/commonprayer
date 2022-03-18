@@ -1,6 +1,6 @@
 use crate::components::*;
-use episcopal_api::liturgy::{Reference, Source};
 use leptos::*;
+use liturgy::{Reference, Source};
 
 pub fn canticle_table() -> Page<(), (), ()> {
     Page::new("canticle-table")

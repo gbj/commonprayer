@@ -1,4 +1,4 @@
-use episcopal_api::calendar::Date;
+use calendar::Date;
 
 use crate::table_of_contents::TOCLiturgy;
 

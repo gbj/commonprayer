@@ -4,16 +4,14 @@ use crate::{
     table_of_contents::TOCLiturgy,
     utils::preferences::*,
 };
-use episcopal_api::{
-    language::Language,
-    library::bcp1979::{COMPLINE, NOONDAY_PRAYER},
-    library::rite2::{EVENING_PRAYER_II, MORNING_PRAYER_II},
-    liturgy::{
-        GlobalPref, Lectionaries, LiturgyPreferences, PreferenceKey, PreferenceValue, Version,
-    },
-};
 use futures::StreamExt;
+use language::Language;
 use leptos::*;
+use library::bcp1979::{COMPLINE, NOONDAY_PRAYER};
+use library::rite2::{EVENING_PRAYER_II, MORNING_PRAYER_II};
+use liturgy::{
+    GlobalPref, Lectionaries, LiturgyPreferences, PreferenceKey, PreferenceValue, Version,
+};
 use rust_i18n::t;
 use serde::{Deserialize, Serialize};
 

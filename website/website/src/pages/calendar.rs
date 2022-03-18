@@ -7,17 +7,15 @@ use crate::{
         language::locale_to_language, scroll_to_element_by_id_with_padding_for_header, time::today,
     },
 };
-use episcopal_api::{
-    calendar::{
-        feasts::KalendarEntry, Calendar, Date, Feast, HolyDayId, Rank, Time, BCP1979_CALENDAR,
-        LFF2018_CALENDAR,
-    },
-    language::Language,
-    liturgy::{GlobalPref, PreferenceKey, PreferenceValue},
+use calendar::{
+    feasts::KalendarEntry, Calendar, Date, Feast, HolyDayId, Rank, Time, BCP1979_CALENDAR,
+    LFF2018_CALENDAR,
 };
 use futures::{Stream, StreamExt};
+use language::Language;
 use leptos::LiftStreamExt;
 use leptos::*;
+use liturgy::{GlobalPref, PreferenceKey, PreferenceValue};
 use rust_i18n::t;
 use serde_derive::{Deserialize, Serialize};
 use wasm_bindgen::UnwrapThrowExt;

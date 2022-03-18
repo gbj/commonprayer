@@ -1,4 +1,4 @@
-use episcopal_api::calendar::Date;
+use calendar::Date;
 use futures::StreamExt;
 use leptos::*;
 

@@ -1,14 +1,12 @@
 use std::collections::HashMap;
 
 use crate::components::{self, *};
-use episcopal_api::{
-    calendar::LiturgicalDayId,
-    lectionary::{ReadingType, BCP1979_30_DAY_PSALTER},
-    liturgy::Psalm,
-    psalter::{bcp1979::BCP1979_PSALTER, loc::LOC_PSALTER, Psalter},
-};
+use calendar::LiturgicalDayId;
 use itertools::Itertools;
+use lectionary::{ReadingType, BCP1979_30_DAY_PSALTER};
 use leptos::*;
+use liturgy::Psalm;
+use psalter::{bcp1979::BCP1979_PSALTER, loc::LOC_PSALTER, Psalter};
 
 pub fn psalter() -> Page<(), (), PsalterRenderState> {
     Page::new("psalter")

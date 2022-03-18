@@ -1,6 +1,6 @@
 use itertools::Itertools;
 use liturgy::*;
-use serde_json::{Map, Value};
+use serde_json::{Map, Number, Value};
 
 struct ConvertableDocument(Document);
 pub struct LdfJson(Value);
@@ -19,10 +19,22 @@ impl From<Document> for LdfJson {
         let mut map = Map::new();
         map.insert("type".to_string(), doc.as_ldf_type().into_value());
         map.insert("style".to_string(), doc.as_ldf_style().into_value());
-        map.insert("label".to_string(), doc.0.label.into_value());
+        map.insert(
+            "display_format".to_string(),
+            doc.as_display_format().into_value(),
+        );
+        map.insert("citation".to_string(), doc.to_citation().into_value());
 
-        // TODO add type-specific metadata
+        map.insert("metadata".to_string(), doc.as_metadata());
 
+        map.insert(
+            "label".to_string(),
+            if let Content::Psalm(psalm) = &doc.0.content {
+                Value::String(psalm.number.to_string())
+            } else {
+                doc.0.label.into_value()
+            },
+        );
         map.insert("value".to_string(), doc.0.content.into_value());
         LdfJson(Value::Object(map))
     }
@@ -73,6 +85,95 @@ impl ConvertableDocument {
             _ => None,
         }
     }
+
+    fn as_display_format(&self) -> Option<&'static str> {
+        match &self.0.content {
+            Content::GloriaPatri(c) => Some(c.display_format.as_str()),
+            Content::Text(c) => Some(c.display_format.as_str()),
+            _ => None,
+        }
+    }
+
+    fn to_citation(&self) -> Option<String> {
+        match &self.0.content {
+            Content::BiblicalCitation(c) => Some(c.citation.clone()),
+            Content::BiblicalReading(c) => Some(c.citation.clone()),
+            Content::Canticle(c) => c.citation.clone(),
+            Content::Invitatory(c) => c.citation.clone(),
+            Content::Psalm(c) => c.citation.clone(),
+            Content::Sentence(c) => c.citation.clone(),
+            _ => None,
+        }
+    }
+
+    fn as_metadata(&self) -> Value {
+        match &self.0.content {
+            Content::Choice(choice) => {
+                let mut m = Map::new();
+                m.insert(
+                    "selected".to_string(),
+                    Value::Number(Number::from_f64(choice.selected as f64).unwrap()),
+                );
+                Value::Object(m)
+            }
+            Content::Text(text) => {
+                let mut m = Map::new();
+                m.insert("response".to_string(), text.response.as_ref().into_value());
+                Value::Object(m)
+            }
+            Content::Heading(heading) => {
+                let level = match heading {
+                    Heading::Text(level, _) => match level {
+                        HeadingLevel::Heading1 => 1.0,
+                        HeadingLevel::Heading2 => 2.0,
+                        HeadingLevel::Heading3 => 3.0,
+                        HeadingLevel::Heading4 => 4.0,
+                        HeadingLevel::Heading5 => 5.0,
+                    },
+                    _ => 2.0,
+                };
+                let mut m = Map::new();
+                m.insert(
+                    "level".to_string(),
+                    Value::Number(Number::from_f64(level).unwrap()),
+                );
+                Value::Object(m)
+            }
+            Content::Invitatory(invitatory) => {
+                let mut m = Map::new();
+                match &invitatory.antiphon {
+                    SeasonalAntiphon::Omit => {
+                        m.insert("omit_antiphon".to_string(), Value::Bool(true))
+                    }
+                    SeasonalAntiphon::Insert => {
+                        m.insert("insert_seasonal_antiphon".to_string(), Value::Bool(true))
+                    }
+                    SeasonalAntiphon::Antiphon(antiphon) => m.insert(
+                        "antiphon".to_string(),
+                        LdfJson::from(Document::from(antiphon.clone())).into_inner(),
+                    ),
+                };
+                Value::Object(m)
+            }
+            Content::Litany(litany) => {
+                let mut m = Map::new();
+                m.insert(
+                    "response".to_string(),
+                    Value::String(litany.response.clone()),
+                );
+                Value::Object(m)
+            }
+            Content::Psalm(psalm) => {
+                let mut m = Map::new();
+                m.insert(
+                    "number".to_string(),
+                    Value::String(psalm.number.to_string()),
+                );
+                Value::Object(m)
+            }
+            _ => Value::Null,
+        }
+    }
 }
 
 pub trait IntoValue {
@@ -96,7 +197,7 @@ impl IntoValue for Content {
             Content::Parallel(c) => c.into_value(),
             Content::Choice(c) => c.into_value(),
             Content::Antiphon(c) => c.into_value(),
-            Content::BiblicalCitation(_) => Value::Array(vec![]),
+            Content::BiblicalCitation(_) => Value::Null,
             Content::BiblicalReading(c) => c.into_value(),
             Content::Canticle(c) => c.into_value(),
             Content::GloriaPatri(c) => c.into_value(),
@@ -224,12 +325,12 @@ impl IntoValue for GloriaPatri {
         let (a, b, c, d) = self.text;
         Value::Array(vec![
             Value::String(format!(
-                "{} {}&nbsp;*",
+                "{}{}&nbsp;*",
                 a.replace(' ', "&nbsp;"),
                 b.replace(' ', "&nbsp;")
             )),
             Value::String(format!(
-                "{} {}",
+                "{}{}",
                 c.replace(' ', "&nbsp;"),
                 d.replace(' ', "&nbsp;")
             )),
@@ -244,7 +345,7 @@ impl IntoValue for Heading {
             Heading::InsertDay => Value::Null,
             Heading::Date(s) => Value::Array(vec![Value::String(s)]),
             Heading::Day { name, .. } => Value::Array(vec![Value::String(name)]),
-            Heading::Text(_, text) => Value::Array(vec![Value::String(text)]),
+            Heading::Text(_, text) => Value::Array(vec![Value::String(text.replace('\n', " "))]),
         }
     }
 }
@@ -339,7 +440,7 @@ fn psalm_verse<V: std::fmt::Display>(number: Option<V>, a: String, b: String) ->
 impl IntoValue for Psalm {
     fn into_value(self) -> Value {
         Value::Array(
-            self.sections
+            self.filtered_sections()
                 .into_iter()
                 .map(|section| {
                     let mut map = Map::new();

@@ -1,8 +1,6 @@
-use episcopal_api::{
-    language::Language,
-    liturgy::{GlobalPref, PreferenceKey, PreferenceValue, Version},
-};
+use language::Language;
 use leptos::*;
+use liturgy::{GlobalPref, PreferenceKey, PreferenceValue, Version};
 use wasm_bindgen::UnwrapThrowExt;
 
 use crate::{
