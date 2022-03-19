@@ -60,7 +60,7 @@ impl Document {
     }
 
     /// Transforms a [Document], which can nest sub-documents in a [Liturgy], [Series], [Choice], or [Parallel],
-    /// into a flat iterator of [Document]s
+    /// into a flattened list of children
     pub fn flatten(&self) -> Vec<&Document> {
         let children = match &self.content {
             Content::Liturgy(liturgy) => Some(liturgy.body.iter().collect::<Vec<_>>()),
@@ -74,6 +74,45 @@ impl Document {
         } else {
             vec![self]
         }
+    }
+
+    /// Transforms a [Document], which can nest sub-documents in a [Liturgy], [Series], [Choice], or [Parallel],
+    /// into a flattened list of [Document]s paired with the paths to get to them
+    /// ```
+    /// # use crate::liturgy::*;
+    /// let doc = Document::from(Series::from(vec![Document::from(Text::from("Child #1")), Document::from(Text::from("Child #2"))]));
+    /// let paths = doc.flatten_with_path().map(|(path, _)| path).collect::<Vec<_>>();
+    /// assert_eq!(paths[0], vec![0]);
+    /// assert_eq!(paths[1], vec![1]);
+    /// ```
+    pub fn flatten_with_path(&self) -> impl Iterator<Item = (Vec<usize>, &Document)> {
+        fn flatten_doc_with_path_starting_from_path(doc: &Document, starting_path: Vec<usize>) -> impl Iterator<Item = (Vec<usize>, &Document)>  {
+            let children = match &doc.content {
+                Content::Liturgy(liturgy) => Some(liturgy.body.iter().collect::<Vec<_>>()),
+                Content::Series(series) => Some(series.iter().collect::<Vec<_>>()),
+                Content::Parallel(parallel) => Some(parallel.iter().collect::<Vec<_>>()),
+                Content::Choice(choice) => Some(choice.options.iter().collect::<Vec<_>>()),
+                _ => None,
+            };
+            if let Some(children) = children {
+                Box::new(
+                    children
+                        .into_iter()
+                        .enumerate()
+                        .flat_map({
+                            move |(idx, child)| {
+                                let mut new_path = starting_path.clone();
+                                new_path.push(idx);
+                                flatten_doc_with_path_starting_from_path(child, new_path)
+                            }
+                        })
+                ) as Box<dyn Iterator<Item = (Vec<usize>, &Document)>>
+            } else {
+                Box::new(std::iter::once((starting_path, doc))) as Box<dyn Iterator<Item = (Vec<usize>, &Document)>>
+            }
+        }
+
+        flatten_doc_with_path_starting_from_path(self, Vec::new())
     }
 
     /// Builds a new Document from an iterator of Documents; either a [Choice] (if multiple Documents) or a single Document.

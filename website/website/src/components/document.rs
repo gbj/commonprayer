@@ -1,3 +1,5 @@
+use std::{collections::HashSet, pin::Pin};
+
 use futures::{Stream, StreamExt};
 use leptos::*;
 use liturgy::*;
@@ -16,11 +18,16 @@ pub struct DocumentController {
     // state of the document and sub-documents, but updating it won't necessarily rip out
     // and update the whole View for the Document
     state: Behavior<Document>,
+    // manages which subdocuments, if any, have been selected
+    pub selections: Option<Behavior<HashSet<Vec<usize>>>>,
 }
 
 impl From<Behavior<Document>> for DocumentController {
     fn from(state: Behavior<Document>) -> Self {
-        Self { state }
+        Self {
+            state,
+            selections: None,
+        }
     }
 }
 
@@ -28,6 +35,17 @@ impl DocumentController {
     pub fn new(document: Document) -> Self {
         Self {
             state: Behavior::new(document),
+            selections: None,
+        }
+    }
+
+    pub fn new_with_selections(
+        document: Document,
+        selections: Behavior<HashSet<Vec<usize>>>,
+    ) -> Self {
+        Self {
+            state: Behavior::new(document),
+            selections: Some(selections),
         }
     }
 
@@ -39,8 +57,60 @@ impl DocumentController {
         self.state.get()
     }
 
+    /// If there are selections listed, gives a Series of the selected Documents.
+    /// If there are no selections, returns the whole Document.
+    pub fn get_state_filtered_by_selections(&self) -> Document {
+        let doc = self.get_state();
+        if let Some(selections) = &self.selections {
+            let selections = selections.get();
+            let mut docs = doc
+                .flatten_with_path()
+                .filter_map(|(path, doc)| {
+                    if selections.contains(&path) {
+                        Some(doc)
+                    } else {
+                        None
+                    }
+                })
+                .cloned();
+            Document::series_or_document(&mut docs).unwrap_or_else(|| doc.clone())
+        } else {
+            doc
+        }
+    }
+
     pub fn stream(&self) -> impl Stream<Item = Document> {
         self.state.stream()
+    }
+
+    pub fn filtered_stream(&self) -> impl Stream<Item = Document> {
+        if let Some(selections) = &self.selections {
+            Box::pin(
+                (self.stream(), selections.stream())
+                    .lift()
+                    .filter_map(|(state, selections)| async {
+                        match (state, selections) {
+                            (Some(state), Some(selections)) => Some((state, selections)),
+                            _ => None,
+                        }
+                    })
+                    .map(|(state, selections)| {
+                        let mut docs = state
+                            .flatten_with_path()
+                            .filter_map(|(path, doc)| {
+                                if selections.contains(&path) {
+                                    Some(doc)
+                                } else {
+                                    None
+                                }
+                            })
+                            .cloned();
+                        Document::series_or_document(&mut docs).unwrap_or_else(|| state.clone())
+                    }),
+            ) as Pin<Box<dyn Stream<Item = Document>>>
+        } else {
+            Box::pin(self.stream()) as Pin<Box<dyn Stream<Item = Document>>>
+        }
     }
 
     pub fn update_content_at_path(
@@ -96,48 +166,53 @@ pub fn document_view(
         }
     };
 
-    let header_and_main = match &doc.content {
-        Content::Series(content) => series(locale, controller, path, content),
-        Content::Liturgy(content) => liturgy(
-            locale,
-            controller,
-            path,
-            content,
-            &doc.source,
-            &doc.alternate_source,
-        ),
-        Content::Rubric(content) => rubric(content),
-        Content::Text(content) => text(content),
-        Content::Choice(content) => choice(locale, &controller.clone(), path, content),
-        Content::Parallel(content) => parallel(locale, controller, path, content),
-        Content::Category(content) => category(locale, content, doc.version),
-        Content::CollectOfTheDay { allow_multiple } => {
-            collect_of_the_day(locale, *allow_multiple, doc.version)
+    let header_and_main = {
+        let path = path.clone();
+        match &doc.content {
+            Content::Series(content) => series(locale, controller, path, content),
+            Content::Liturgy(content) => liturgy(
+                locale,
+                controller,
+                path,
+                content,
+                &doc.source,
+                &doc.alternate_source,
+            ),
+            Content::Rubric(content) => rubric(content),
+            Content::Text(content) => text(content),
+            Content::Choice(content) => choice(locale, &controller.clone(), path, content),
+            Content::Parallel(content) => parallel(locale, controller, path, content),
+            Content::Category(content) => category(locale, content, doc.version),
+            Content::CollectOfTheDay { allow_multiple } => {
+                collect_of_the_day(locale, *allow_multiple, doc.version)
+            }
+            Content::DocumentLink(version, label, category, slug) => {
+                document_link(locale, version, label, category, slug)
+            }
+            Content::Empty => empty(),
+            Content::Error(content) => error(content),
+            Content::Antiphon(content) => antiphon(content),
+            Content::BiblicalCitation(content) => (
+                None,
+                view! { <dyn:view view={biblical_citation(locale, controller, path, content, doc.version)}/>},
+            ),
+            Content::BiblicalReading(content) => {
+                biblical_reading(locale, controller, path, content)
+            }
+            Content::Canticle(content) => canticle(content, doc.version, path, controller),
+            Content::CanticleTableEntry(content) => canticle_table_entry(locale, content),
+            Content::GloriaPatri(content) => gloria_patri(content),
+            Content::Heading(content) => heading(locale, content),
+            Content::HymnLink(content) => hymn_link(locale, content),
+            Content::Invitatory(content) => invitatory(content),
+            Content::LectionaryReading(content) => lectionary_reading(locale, content),
+            Content::Litany(content) => litany(content),
+            Content::Preces(content) => preces(content),
+            Content::Psalm(content) => psalm(content),
+            Content::PsalmCitation(content) => psalm_citation(content),
+            Content::ResponsivePrayer(content) => responsive_prayer(content),
+            Content::Sentence(content) => sentence(locale, controller, path, content),
         }
-        Content::DocumentLink(version, label, category, slug) => {
-            document_link(locale, version, label, category, slug)
-        }
-        Content::Empty => empty(),
-        Content::Error(content) => error(content),
-        Content::Antiphon(content) => antiphon(content),
-        Content::BiblicalCitation(content) => (
-            None,
-            view! { <dyn:view view={biblical_citation(locale, controller, path, content, doc.version)}/>},
-        ),
-        Content::BiblicalReading(content) => biblical_reading(locale, controller, path, content),
-        Content::Canticle(content) => canticle(content, doc.version, path, controller),
-        Content::CanticleTableEntry(content) => canticle_table_entry(locale, content),
-        Content::GloriaPatri(content) => gloria_patri(content),
-        Content::Heading(content) => heading(locale, content),
-        Content::HymnLink(content) => hymn_link(locale, content),
-        Content::Invitatory(content) => invitatory(content),
-        Content::LectionaryReading(content) => lectionary_reading(locale, content),
-        Content::Litany(content) => litany(content),
-        Content::Preces(content) => preces(content),
-        Content::Psalm(content) => psalm(content),
-        Content::PsalmCitation(content) => psalm_citation(content),
-        Content::ResponsivePrayer(content) => responsive_prayer(content),
-        Content::Sentence(content) => sentence(locale, controller, path, content),
     };
 
     let header = if let Some(header) = header_and_main.0 {
@@ -162,7 +237,7 @@ pub fn document_view(
                     if let Some(el) = dom_ref.get() {
                         let is_selected = selection.contains_node(&el).unwrap_or(false)
                             || descendants(&el)
-                                .any(|el| selection.contains_node(&el).unwrap_or(false));
+                                .any(|node| selection.contains_node(&node).unwrap_or(false));
                         selected.set(is_selected);
                     }
                 } else {
@@ -177,6 +252,22 @@ pub fn document_view(
         .stream()
         .map(move |selected| selected && is_leaf_doc)
         .boxed_local();
+
+    // register selection with root DocumentController
+    if is_leaf_doc {
+        let controller = controller.clone();
+        if let Some(selections) = controller.selections {
+            selected.stream().create_effect(move |selected| {
+                selections.update(|selections| {
+                    if selected {
+                        selections.insert(path.clone());
+                    } else {
+                        selections.remove(&path);
+                    }
+                })
+            });
+        }
+    }
 
     let main = view! {
         <dyn:article class={document_class(doc)}

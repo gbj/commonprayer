@@ -618,11 +618,15 @@ ul.reading-links,
 }
 
 /* Export Links */
+.export-alert {
+  padding: 3rem;
+}
+
 .export-links {
   display: flex;
   flex-direction: column;
   margin: 0;
-  padding: 3rem;
+  padding: 0;
 }
 
 .export-links a,

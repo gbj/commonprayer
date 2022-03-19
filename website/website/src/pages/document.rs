@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 use crate::{
     components::*,
@@ -7,20 +7,20 @@ use crate::{
     utils::{preferences::*, time::today},
     TOCLiturgy, TABLE_OF_CONTENTS,
 };
+use calendar::{Calendar, Date};
 use futures::StreamExt;
 use itertools::Itertools;
+use language::Language;
 use leptos::*;
+use library::{CommonPrayer, Library};
+use liturgy::{
+    parallel_table::ParallelDocument, Content, Document, PreferenceKey, PreferenceValue, Reference,
+    Version,
+};
 use rust_i18n::t;
 use serde::Serialize;
 use serde_derive::Deserialize;
 use wasm_bindgen::UnwrapThrowExt;
-use calendar::{Calendar, Date};
-use language::Language;
-use library::{CommonPrayer, Library};
-use liturgy::{
-        parallel_table::ParallelDocument, Content, Document, PreferenceKey, PreferenceValue,
-        Reference, Version,
-    };
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct DocumentPageParams {
@@ -260,7 +260,8 @@ fn document_body(
         View::Empty
     };
 
-    let document_controller = DocumentController::new(doc.clone());
+    let selections = Behavior::new(HashSet::new());
+    let document_controller = DocumentController::new_with_selections(doc.clone(), selections);
 
     let side_menu = side_menu(
         Icon::Settings,

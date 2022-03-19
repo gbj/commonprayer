@@ -1,4 +1,3 @@
-use futures::Stream;
 use leptos::{document, is_server, window};
 use wasm_bindgen::JsCast;
 use web_sys::{Event, ScrollToOptions};

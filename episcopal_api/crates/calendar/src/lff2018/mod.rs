@@ -7,7 +7,7 @@ use crate::{
     },
     feasts::KalendarEntry,
     holy_day::HolyDayId,
-    Calendar, Feast, Time, BCP1979_CALENDAR, BCP1979_FEASTS,
+    Calendar, Feast, Time, BCP1979_CALENDAR,
 };
 use status::Status;
 

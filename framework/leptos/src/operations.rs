@@ -76,11 +76,26 @@ pub fn location() -> web_sys::Location {
     window().location()
 }
 
-pub fn descendants(el: &web_sys::Element) -> impl Iterator<Item = web_sys::Element> {
-    let children = el.children();
-    (0..children.length()).filter_map({
+pub fn descendants(el: &web_sys::Element) -> impl Iterator<Item = web_sys::Node> {
+    let children = el.child_nodes();
+    (0..children.length()).flat_map({
         let children = children.clone();
-        move |idx| children.item(idx)
+        move |idx| {
+            let child = children.get(idx);
+            if let Some(child) = child {
+                // if an Element, send children
+                if child.node_type() == 1 {
+                    Box::new(descendants(&child.unchecked_into()))
+                        as Box<dyn Iterator<Item = web_sys::Node>>
+                }
+                // otherwise, just the node
+                else {
+                    Box::new(std::iter::once(child)) as Box<dyn Iterator<Item = web_sys::Node>>
+                }
+            } else {
+                Box::new(std::iter::empty()) as Box<dyn Iterator<Item = web_sys::Node>>
+            }
+        }
     })
 }
 

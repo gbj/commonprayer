@@ -41,6 +41,12 @@ where
         *self.value.borrow_mut() = value;
     }
 
+    pub fn update(&self, update_fn: impl Fn(&mut T)) {
+        let mut current = self.get();
+        (update_fn)(&mut current);
+        self.set(current);
+    }
+
     pub fn stream(&self) -> impl Stream<Item = T>
     where
         T: 'static,
