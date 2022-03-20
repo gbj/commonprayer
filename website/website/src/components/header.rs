@@ -26,7 +26,16 @@ fn build_header(
     additional_buttons: impl IntoIterator<Item = View>,
 ) -> View {
     let side_menu = side_menu.unwrap_or(View::Empty);
-    let additional_buttons = View::Fragment(additional_buttons.into_iter().collect());
+    let additional_buttons = additional_buttons.into_iter().collect::<Vec<_>>();
+    let additional_buttons = if additional_buttons.is_empty() {
+        View::Empty
+    } else {
+        view! {
+            <section class="additional-buttons">
+                {View::Fragment(additional_buttons)}
+            </section>
+        }
+    };
 
     view! {
         <header>

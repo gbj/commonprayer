@@ -200,12 +200,12 @@ body > header {
   z-index: 100;
 }
 
-body > header > button {
+body > header button {
   background: var(--background);
   border: none;
 }
 
-body > header > button:hover {
+body > header button:hover {
   cursor: pointer;
 }
 
@@ -397,7 +397,25 @@ fieldset.stacked label {
 }
 
 /* Nav Menu */
-.menu {
+body > header {
+  display: grid;
+  grid-template-areas: "left title additional right";
+  grid-template-columns: 4rem 1fr 2rem 2rem;
+}
+
+.menu.left {
+  grid-area: left;
+}
+
+.menu.right {
+  grid-area: right;
+}
+
+.additional-buttons {
+  grid-area: additional;
+}
+
+/* .menu {
   display: block;
   position: absolute;
   top: 0;
@@ -409,18 +427,13 @@ fieldset.stacked label {
 
 .menu.right {
   right: 0.5rem;
-}
-
-.menu.right:nth-of-type(2) {
-  right: 2.5rem;
-}
+} */
 
 .menu input.menu-toggle-input {
   /* hide it */
   opacity: 0;
   /* place above both hamburgers and menu itself */
   position: absolute;
-  top: 0.5rem;
   margin: 0;
   z-index: 5;
   height: var(--nav-button-height);
@@ -429,6 +442,10 @@ fieldset.stacked label {
 }
 
 .menu.left {
+  left: 0.5rem;
+}
+
+.menu.left input.menu-toggle-input {
   left: 0.5rem;
 }
 
@@ -445,10 +462,6 @@ fieldset.stacked label {
 
 .menu.left .menu-toggle-button {
   left: 0.5rem;
-}
-
-.menu.right .menu-toggle-button {
-  right: 1rem;
 }
 
 .menu input.menu-toggle-input:not(:checked) ~ .menu-toggle-button {
