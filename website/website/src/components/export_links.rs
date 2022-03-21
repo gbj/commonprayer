@@ -179,9 +179,7 @@ pub fn parallel_exports(selections: &Behavior<HashMap<(usize, usize), Document>>
     fn doc_stream(
         selections: &Behavior<HashMap<(usize, usize), Document>>,
     ) -> impl Stream<Item = Document> {
-        selections
-            .stream()
-            .map(|selections| selections_to_doc(selections))
+        selections.stream().map(selections_to_doc)
     }
 
     let status = Behavior::new(Status::Idle);
