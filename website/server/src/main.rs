@@ -209,7 +209,7 @@ async fn export_docx(data: web::Form<DocxExportFormData>) -> Result<NamedFile> {
     let path = dir.path().join(file_name);
     let file = File::create(&path)?;
 
-    let mut docx = episcopal_api::docx::DocxDocument::from(doc);
+    let docx = episcopal_api::docx::DocxDocument::from(doc);
     docx.write(&file)
         .map_err(|e| error::InternalError::new(e.to_string(), StatusCode::INTERNAL_SERVER_ERROR))?;
     Ok(NamedFile::open(path)?)
