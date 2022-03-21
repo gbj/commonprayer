@@ -1,32 +1,15 @@
 Website Todos
 =============
 
-- [ ] Exports
-  - [x] docx
-  - [x] EAPI JSON
-  - [x] LDF JSON
-  - [x] web component
-  - [ ] Export menu on Document page
-    - [x] Link
-      - [ ] include selected options
-    - [ ] Embed (iFrame? web component?)
-    - [x] Word
-    - [x] Venite LDF export
-    - [x] JSON
-  - [x] Popover alert instead of two side menus
-- Piece-by-piece export
-  - [x] detect when a document is being selected
-    - [ ] one change: accept if even only a PART of the node is selected
-  - [x] add these to a global, sorted list of selected docs
-  - [ ] UI to export to 
-    - [ ] LDF
-    - [x] Word
-    - [x] JSON
-    - [x] actually pay attention to "use whole doc" toggle
-  - [ ] separate UI for parallels, involving a click-to-select function
+- [ ] Fix compiling on Heroku again
+- [ ] Automatically roll up text/Bible reading on mobile (but keep paragraphs)
+- [ ] Rogation Days
+- [ ] Ember Days
 - Disable certain UI features until WASM loads:
   - [ ] Search on hymnal page
 - Bugs
+  - [ ] DOCX export should default to US letter
+    - [ ] DOCX: fix weird line spacing thing?
   - [ ] P&Ts search page should filter out links that don't match
   - [ ] Vincent de Paul and Louise de
   - [ ] Initial "  " in Biblical reading verse => \t

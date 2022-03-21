@@ -7,10 +7,18 @@ use wasm_bindgen::{JsCast, UnwrapThrowExt};
 
 use crate::{
     components::*,
+    utils::event_target_checked,
     utils::fetch::{Fetch, FetchError, FetchStatus},
 };
 
 use super::lookup::{lookup_links, LookupType};
+
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
+pub enum SelectionMode {
+    Idle,
+    Auto,
+    Manual,
+}
 
 #[derive(Clone)]
 pub struct DocumentController {
@@ -20,6 +28,7 @@ pub struct DocumentController {
     state: Behavior<Document>,
     // manages which subdocuments, if any, have been selected
     pub selections: Option<Behavior<HashSet<Vec<usize>>>>,
+    pub selection_mode: Behavior<SelectionMode>,
 }
 
 impl From<Behavior<Document>> for DocumentController {
@@ -27,6 +36,7 @@ impl From<Behavior<Document>> for DocumentController {
         Self {
             state,
             selections: None,
+            selection_mode: Behavior::new(SelectionMode::Idle),
         }
     }
 }
@@ -36,6 +46,7 @@ impl DocumentController {
         Self {
             state: Behavior::new(document),
             selections: None,
+            selection_mode: Behavior::new(SelectionMode::Idle),
         }
     }
 
@@ -46,6 +57,7 @@ impl DocumentController {
         Self {
             state: Behavior::new(document),
             selections: Some(selections),
+            selection_mode: Behavior::new(SelectionMode::Idle),
         }
     }
 
@@ -231,17 +243,20 @@ pub fn document_view(
     selection_change.create_effect({
         let dom_ref = dom_ref.clone();
         let selected = selected.clone();
+        let manual_mode = controller.selection_mode.clone();
         move |_| {
-            if let Ok(selection) = window().get_selection() {
-                if let Some(selection) = selection {
-                    if let Some(el) = dom_ref.get() {
-                        let is_selected = selection.contains_node(&el).unwrap_or(false)
-                            || descendants(&el)
-                                .any(|node| selection.contains_node(&node).unwrap_or(false));
-                        selected.set(is_selected);
+            if manual_mode.get() == SelectionMode::Auto {
+                if let Ok(selection) = window().get_selection() {
+                    if let Some(selection) = selection {
+                        if let Some(el) = dom_ref.get() {
+                            let is_selected = selection.contains_node(&el).unwrap_or(false)
+                                || descendants(&el)
+                                    .any(|node| selection.contains_node(&node).unwrap_or(false));
+                            selected.set(is_selected);
+                        }
+                    } else {
+                        selected.set(false);
                     }
-                } else {
-                    selected.set(false);
                 }
             }
         }
@@ -253,9 +268,16 @@ pub fn document_view(
         .map(move |selected| selected && is_leaf_doc)
         .boxed_local();
 
+    let hide_selection_checkbox = controller
+        .selection_mode
+        .stream()
+        .map(|mode| mode != SelectionMode::Manual)
+        .boxed_local();
+
     // register selection with root DocumentController
     if is_leaf_doc {
         let controller = controller.clone();
+        let path = path.clone();
         if let Some(selections) = controller.selections {
             selected.stream().create_effect(move |selected| {
                 selections.update(|selections| {
@@ -269,6 +291,40 @@ pub fn document_view(
         }
     }
 
+    let checkbox = if let Some(selections) = &controller.selections {
+        if is_leaf_doc {
+            view! {
+                <dyn:input
+                    type="checkbox"
+                    class="manual-select hidden"
+                    class:hidden={hide_selection_checkbox}
+                    on:change={
+                        let selections = selections.clone();
+                        let manual_mode = controller.selection_mode.clone();
+                        move |ev: Event| {
+                            if manual_mode.get() == SelectionMode::Manual {
+                                let checked = event_target_checked(ev);
+                                selections.update(|selections| {
+                                    if checked {
+                                        selected.set(true);
+                                        selections.insert(path.clone());
+                                    } else {
+                                        selected.set(false);
+                                        selections.remove(&path);
+                                    }
+                                });
+                            }
+                        }
+                    }
+                />
+            }
+        } else {
+            View::Empty
+        }
+    } else {
+        View::Empty
+    };
+
     let main = view! {
         <dyn:article class={document_class(doc)}
             dom:ref={&dom_ref}
@@ -280,6 +336,7 @@ pub fn document_view(
 
     view! {
         <>
+            {checkbox}
             {label}
             {header}
             {main}

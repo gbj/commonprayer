@@ -236,6 +236,7 @@ en:
     clipboard_error: "Could not copy to clipboard. Try copying and pasting manually: "
     selections: Selected Text
     whole_doc: Whole Document
+    select: Select Items to Export
 
   bcp_1979: Book of Common Prayer (1979)
   bcp_1979_abbrev: BCP (1979)

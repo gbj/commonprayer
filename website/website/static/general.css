@@ -253,6 +253,10 @@ body > main.parallels td {
   padding: 0.25rem;
 }
 
+body > main.parallels td.selected {
+  background: var(--selected-background);
+}
+
 body > main.parallels tr:nth-child(2) td,
 body > main.parallels tr:nth-child(3) td {
   border-bottom: 0;
@@ -400,7 +404,7 @@ fieldset.stacked label {
 body > header {
   display: grid;
   grid-template-areas: "left title additional right";
-  grid-template-columns: 4rem 1fr 2rem 2rem;
+  grid-template-columns: 6rem 1fr 4rem 2rem;
 }
 
 .menu.left {
@@ -413,21 +417,10 @@ body > header {
 
 .additional-buttons {
   grid-area: additional;
+  display: flex;
+  justify-content: space-around;
+  width: 4rem;
 }
-
-/* .menu {
-  display: block;
-  position: absolute;
-  top: 0;
-}
-
-.menu.left {
-  left: 0;
-}
-
-.menu.right {
-  right: 0.5rem;
-} */
 
 .menu input.menu-toggle-input {
   /* hide it */

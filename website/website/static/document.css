@@ -649,8 +649,18 @@ a.source-link > span {
   margin: -1px;
   padding: 1px;
 }
+
 .document.selected {
   background: var(--selected-background);
   border: 1px solid var(--selected-border);
   margin: -1px;
+}
+
+.manual-select {
+  display: block;
+  float: right;
+}
+
+.manual-select.hidden {
+  display: none;
 }

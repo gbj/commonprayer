@@ -1,7 +1,10 @@
 #[derive(Copy, Clone, Debug, Hash, PartialEq, Eq)]
 pub enum Icon {
     Calendar,
+    Checkbox,
     Close,
+    Cursor,
+    Download,
     Left,
     Link,
     Music,
@@ -18,7 +21,10 @@ impl std::fmt::Display for Icon {
             "{}",
             match self {
                 Icon::Calendar => "/static/icons/tabler-icon-calendar-event.svg",
+                Icon::Checkbox => "/static/icons/checkbox.svg",
                 Icon::Close => "/static/icons/tabler-icon-x.svg",
+                Icon::Cursor => "/static/icons/cursor-text.svg",
+                Icon::Download => "/static/icons/download.svg",
                 Icon::Left => "/static/icons/tabler-icon-arrow-left.svg",
                 Icon::Link => "/static/icons/tabler-icon-link.svg",
                 Icon::Music => "/static/icons/tabler-icon-music.svg",

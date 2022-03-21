@@ -1,7 +1,8 @@
-use std::time::Duration;
+use std::{collections::HashMap, time::Duration};
 
-use futures::StreamExt;
+use futures::{Stream, StreamExt};
 use leptos::*;
+use liturgy::{Content, Document};
 
 use crate::{components::Toggle, pages::DocumentPageProps, utils::share};
 
@@ -133,7 +134,7 @@ pub fn export_links(props: &DocumentPageProps, document_controller: &DocumentCon
                         </button>
                     </form>
 
-                    // Venite: TODO
+                    // Venite
                     <dyn:button class="link venite" on:click={
                         let status = status.clone();
                         let ctrl = document_controller.clone();
@@ -147,6 +148,99 @@ pub fn export_links(props: &DocumentPageProps, document_controller: &DocumentCon
                     <dyn:a
                         class="json"
                         download={&format!("{}{}{}.json", slug, if props.date.is_empty() { "" } else { "-" }, props.date)}
+                        href={json_link_stream}
+                    >
+                        <img src="/static/icons/tabler-icon-download.svg"/>
+                        {t!("export.json")}
+                    </dyn:a>
+                </ul>
+            </main>
+            <footer class="export-status">
+                <dyn:p class="success" class:hidden={status.stream().map(|status| status != Status::Success).boxed_local()}>
+                    {t!("export.clipboard_success")}
+                </dyn:p>
+                <dyn:p class="error" class:hidden={status.stream().map(|status| !matches!(status, Status::Error(_))).boxed_local()}>
+                    {t!("export.clipboard_error")}
+                    <dyn:pre>{text_to_copy}</dyn:pre>
+                </dyn:p>
+            </footer>
+        </>
+    }
+}
+
+pub fn parallel_exports(selections: &Behavior<HashMap<(usize, usize), Document>>) -> View {
+    fn selections_to_doc(selections: HashMap<(usize, usize), Document>) -> Document {
+        let mut pairs = selections.into_iter().collect::<Vec<_>>();
+        pairs.sort_by_key(|(key, _)| *key);
+        Document::series_or_document(&mut pairs.into_iter().map(|(_, doc)| doc))
+            .unwrap_or_else(|| Document::from(Content::Empty))
+    }
+
+    fn doc_stream(
+        selections: &Behavior<HashMap<(usize, usize), Document>>,
+    ) -> impl Stream<Item = Document> {
+        selections
+            .stream()
+            .map(|selections| selections_to_doc(selections))
+    }
+
+    let status = Behavior::new(Status::Idle);
+
+    let serialized_doc_stream = doc_stream(selections)
+        .map(|doc| serde_json::to_string(&doc).unwrap())
+        .boxed_local();
+
+    let json_link_stream = doc_stream(selections)
+        .map(|doc| {
+            let json = serde_json::to_string(&doc).unwrap();
+            format!("data:application/json,{}", js_sys::encode_uri(&json))
+        })
+        .boxed_local();
+
+    let text_to_copy = status
+        .stream()
+        .map(|status| {
+            if let Status::Error(text_to_copy) = status {
+                text_to_copy
+            } else {
+                String::default()
+            }
+        })
+        .boxed_local();
+
+    view! {
+        <>
+            <main class="export-alert">
+                <ul class="export-links">
+                    // Word: posts a hidden form to the server and opens the result in a new tab
+                    <form class="word" target="_blank" method="post" action="/api/export/docx">
+                        <input type="hidden" name="liturgy" value="parallel" />
+                        <input type="hidden" name="date" value="" />
+                        <dyn:input type="hidden" name="doc" value={serialized_doc_stream}/>
+                        <button type="submit">
+                            <img src="/static/icons/file-word-regular.svg"/>
+                            {t!("export.word")}
+                        </button>
+                    </form>
+
+                    // Venite
+                    <dyn:button class="link venite" on:click={
+                        let status = status.clone();
+                        let selections = selections.clone();
+                        move |_ev: Event| {
+                            let doc = selections_to_doc(selections.get());
+                            let json = ldf::LdfJson::from(doc);
+                            copy(serde_json::to_string(&json.into_inner()), &status);
+                        }
+                    }>
+                        <img src="/static/icons/venite.svg"/>
+                        {t!("export.venite")}
+                    </dyn:button>
+
+                    // JSON: downloads a named JSON file
+                    <dyn:a
+                        class="json"
+                        download="parallel.json"
                         href={json_link_stream}
                     >
                         <img src="/static/icons/tabler-icon-download.svg"/>

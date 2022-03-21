@@ -4,7 +4,7 @@ use crate::{
     components::*,
     preferences,
     table_of_contents::PageType,
-    utils::{preferences::*, time::today},
+    utils::{event_target_checked, preferences::*, time::today},
     TOCLiturgy, TABLE_OF_CONTENTS,
 };
 use calendar::{Calendar, Date};
@@ -262,6 +262,7 @@ fn document_body(
 
     let selections = Behavior::new(HashSet::new());
     let document_controller = DocumentController::new_with_selections(doc.clone(), selections);
+    document_controller.selection_mode.set(SelectionMode::Auto);
 
     let side_menu = side_menu(
         Icon::Settings,
@@ -569,14 +570,22 @@ fn parallels_body(
     initial_text: &str,
     parallels: &[Vec<(ParallelDocument, usize)>],
 ) -> View {
+    let selecting = Behavior::new(false);
+    let parallel_selections: Behavior<HashMap<(usize, usize), Document>> =
+        Behavior::new(HashMap::new());
+
     // convert table into view
     let parallels = View::Fragment(
         parallels
             .iter()
-            .map(|row| {
+            .enumerate()
+            .map(|(row_idx, row)| {
                 let cols = View::Fragment(
                     row.iter()
-                        .map(|(child, width)| {
+                        .enumerate()
+                        .map(|(col_idx, (child, width))| {
+                            let this_doc_selected = Behavior::new(false);
+
                             let view = match child {
                                 ParallelDocument::Source(reference) => source_link(reference),
                                 ParallelDocument::Link {
@@ -592,12 +601,43 @@ fn parallels_body(
                                 },
                                 ParallelDocument::Explainer(None) => View::Empty,
                                 ParallelDocument::Document(doc) => {
-                                    DocumentController::new(*(*doc).clone()).view(locale)
+                                    let doc = *(*doc).clone();
+
+                                    let checkbox = view! {
+                                        <dyn:input
+                                            type="checkbox"
+                                            class="manual-select hidden"
+                                            class:hidden={selecting.stream().map(|selecting| !selecting).boxed_local()}
+                                            on:click={
+                                                let doc = doc.clone();
+                                                let selections = parallel_selections.clone();
+                                                let this_doc_selected = this_doc_selected.clone();
+                                                move |ev: Event| {
+                                                    let checked = event_target_checked(ev);
+                                                    let key = (row_idx, col_idx);
+                                                    if checked {
+                                                        this_doc_selected.set(true);
+                                                        selections.update(|selections| { selections.insert(key, doc.clone()); });
+                                                    } else {
+                                                        this_doc_selected.set(false);
+                                                        selections.update(|selections| { selections.remove(&key); });
+                                                    }
+                                                }
+                                            }
+                                        />
+                                    };
+
+                                    view! {
+                                        <>
+                                            {checkbox}
+                                            {DocumentController::new(doc).view(locale)}
+                                        </>
+                                    }
                                 }
                             };
 
                             view! {
-                                <td colspan={width.to_string()}>{view}</td>
+                                <dyn:td colspan={width.to_string()} class:selected={this_doc_selected.stream().boxed_local()}>{view}</dyn:td>
                             }
                         })
                         .collect(),
@@ -609,6 +649,48 @@ fn parallels_body(
             .collect(),
     );
 
+    let display_settings_menu = DisplaySettingsSideMenu::new();
+    let side_menu = side_menu(
+        Icon::Settings,
+        view! {
+            <>
+                <h2>{t!("settings.display_settings.title")}</h2>
+                {display_settings_menu.component.view()}
+            </>
+        },
+    );
+
+    let alert = Alert::new(parallel_exports(&parallel_selections));
+
+    let select_button = {
+        view! {
+            <>
+                <dyn:button
+                    on:click={
+                        let selecting = selecting.clone();
+                        let alert_is_open = alert.is_open.clone();
+                        move |_ev: Event| {
+                            // if currently selecting, show export alert
+                            if selecting.get() {
+                                alert_is_open.set(true);
+                            }
+                            // otherwise, show checkboxes
+                            else {
+                                selecting.set(true);
+                            }
+                        }
+                    }
+                >
+                    <dyn:img src={Icon::Checkbox.to_string()} class:hidden={selecting.stream().boxed_local()} />
+                    <dyn:span class="screen-reader-only" class:hidden={selecting.stream().boxed_local()}>{t!("export.select")}</dyn:span>
+                    <dyn:img src={Icon::Download.to_string()} class="hidden" class:hidden={selecting.stream().map(|n| !n).boxed_local()} />
+                    <dyn:span class="hidden screen-reader-only" class:hidden={selecting.stream().map(|n| !n).boxed_local()}>{t!("export.export")}</dyn:span>
+                </dyn:button>
+                {alert.view()}
+            </>
+        }
+    };
+
     let initial_text = View::Fragment(
         initial_text
             .split("\n\n")
@@ -618,13 +700,15 @@ fn parallels_body(
 
     view! {
         <>
-            {header(locale, label)}
-            <main class="parallels">
+            {header_with_side_menu_and_buttons(locale, label, side_menu, [select_button])}
+            <dyn:main
+                class={display_settings_menu.current_settings().stream().map(|settings| format!("parallels {}", settings.to_class())).boxed_local()}
+            >
                 {initial_text}
                 <table>
                     {parallels}
                 </table>
-            </main>
+            </dyn:main>
         </>
     }
 }
