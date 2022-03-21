@@ -1,4 +1,5 @@
 #![feature(async_closure)]
+#![feature(const_fn_trait_bound)]
 
 use std::{collections::HashSet, fs::File, io::Write};
 
