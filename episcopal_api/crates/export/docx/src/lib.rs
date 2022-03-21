@@ -19,7 +19,7 @@ pub enum DocxError {
 }
 
 impl DocxDocument {
-    pub fn write<W>(&mut self, w: W) -> Result<(), DocxError>
+    pub fn write<W>(mut self, w: W) -> Result<(), DocxError>
     where
         W: Write + Seek,
     {
