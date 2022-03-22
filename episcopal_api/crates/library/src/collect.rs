@@ -30,7 +30,7 @@ pub enum CollectId {
     CommonOfSaints(CommonOfSaints),
     VariousOccasions(VariousOccasions),
 }
-pub struct CollectLinks([(CollectId, CollectId); 9]);
+pub struct CollectLinks([(CollectId, CollectId); 11]);
 
 impl CollectLinks {
     pub fn linked_id(&self, initial_id: &CollectId) -> CollectId {
@@ -43,6 +43,14 @@ impl CollectLinks {
 }
 
 pub const COLLECT_LINKS: CollectLinks = CollectLinks([
+    (
+        CollectId::Feast(Feast::EmberDay),
+        CollectId::VariousOccasions(VariousOccasions::EmberDays),
+    ),
+    (
+        CollectId::Feast(Feast::RogationDay),
+        CollectId::VariousOccasions(VariousOccasions::RogationDays),
+    ),
     (
         CollectId::Season(Season::Advent),
         CollectId::Week(LiturgicalWeek::Advent1),

@@ -448,32 +448,38 @@ pub trait Library {
                         .find(|(id, _)| id == &season_id || id == &base_season_id)
                         .map(|(_, document)| document.clone());
 
-                    let black_letter_feast_ids = day
+                    let black_letter_collect_ids = day
                         .holy_days
                         .iter()
                         .filter(|feast| {
                             day.observed != LiturgicalDayId::Feast(**feast)
                                 && day.alternate != Some(LiturgicalDayId::Feast(**feast))
                         })
-                        .map(|feast| CollectId::Feast(*feast))
+                        .map(|feast| COLLECT_LINKS.linked_id(&CollectId::Feast(*feast)))
                         .collect::<Vec<_>>();
 
                     let black_letter_collects = if use_black_letter_collects {
                         Some(
-                            collects
+                            black_letter_collect_ids
                                 .iter()
-                                .filter_map(|(id, data)| {
-                                    if black_letter_feast_ids.contains(id) {
-                                        Some(data.document.clone())
-                                    } else {
-                                        None
-                                    }
+                                .filter_map(|collect_id| {
+                                    Document::choice_or_document(&mut collects.iter().filter_map(
+                                        |(id, data)| {
+                                            if id == collect_id {
+                                                Some(data.document.clone())
+                                            } else {
+                                                None
+                                            }
+                                        },
+                                    ))
                                 })
-                                .collect::<Vec<_>>(),
+                                .collect(),
                         )
                     } else {
                         None
                     };
+
+                    println!("black_letter_collects = {:#?}", black_letter_collects);
 
                     let mut collects = Vec::new();
                     // Sunday or Holy Day

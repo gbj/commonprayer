@@ -4,11 +4,16 @@ Website Todos
 - [ ] Automatically roll up text/Bible reading on mobile (but keep paragraphs)
 - [ ] Rogation Days
   - [ ] Collects
-- [x] Ember Days
-  - [ ] Collects
 - Disable certain UI features until WASM loads:
   - [ ] Search on hymnal page
+- Burial Services
+  - [ ] Rite I
+  - [ ] Rite II
+  - [ ] Burial of One Who Does Not Profess the Christian Faith (BOS)
+  - [ ] Burial of a Child (EOW 2)
+  - [ ] An Order for Burial
 - Bugs
+  - [ ] 9/21 Matthew morning psalms
   - [ ] DOCX export should default to US letter
     - [ ] DOCX: fix weird line spacing thing?
   - [ ] P&Ts search page should filter out links that don't match
