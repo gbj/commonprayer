@@ -1,10 +1,11 @@
 Website Todos
 =============
 
-- [ ] Fix compiling on Heroku again
 - [ ] Automatically roll up text/Bible reading on mobile (but keep paragraphs)
 - [ ] Rogation Days
-- [ ] Ember Days
+  - [ ] Collects
+- [x] Ember Days
+  - [ ] Collects
 - Disable certain UI features until WASM loads:
   - [ ] Search on hymnal page
 - Bugs
