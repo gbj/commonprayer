@@ -1,6 +1,6 @@
 use crate::{
     year::{DailyOfficeYear, RCLYear},
-    Date, Feast, LiturgicalWeek, Proper, Weekday,
+    Date, Feast, LiturgicalWeek, Proper, VariousOccasions, Weekday,
 };
 use serde::{Deserialize, Serialize};
 
@@ -26,4 +26,5 @@ pub enum LiturgicalDayId {
     ProperAndDay(Proper, Weekday),
     TransferredFeast(Feast),
     DayOfMonth(u8),
+    VariousOccasions(VariousOccasions),
 }

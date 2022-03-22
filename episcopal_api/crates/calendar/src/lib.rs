@@ -16,6 +16,7 @@ mod rank;
 mod sanctoral;
 mod season;
 mod transferred_feast;
+mod various_occasions;
 mod weekday;
 mod year;
 pub use self::calendar::Calendar;
@@ -31,6 +32,7 @@ pub use propers::Proper;
 pub use rank::Rank;
 pub use sanctoral::Sanctoral;
 pub use season::Season;
+pub use various_occasions::*;
 pub use weekday::Weekday;
 pub use year::{DailyOfficeYear, RCLYear, Year, YearType};
 

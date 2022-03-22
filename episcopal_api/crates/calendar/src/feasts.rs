@@ -52,6 +52,8 @@ pub enum Feast {
     AshWednesday,
     EasterSunday,
     LaborDay,
+    EmberDay,
+    RogationDay,
     // Additional RCL selections for special services on select feast days
     ChristmasDayII,
     ChristmasDayIII,

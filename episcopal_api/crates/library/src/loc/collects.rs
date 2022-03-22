@@ -1,5 +1,5 @@
-use crate::{CollectData, CollectId, VariousOccasions};
-use calendar::{CommonOfSaints, Feast, LiturgicalWeek, Proper};
+use crate::{CollectData, CollectId};
+use calendar::{CommonOfSaints, Feast, LiturgicalWeek, Proper, VariousOccasions};
 use language::Language;
 use liturgy::{Document, Heading, HeadingLevel, Series, Text, Version};
 

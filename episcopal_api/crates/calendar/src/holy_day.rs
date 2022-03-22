@@ -25,4 +25,17 @@ pub enum HolyDayId {
     /// let thanksgiving = HolyDayId::DayOfMonth { month: 11, week: 4, day: Weekday::Thu }
     /// ```
     DayOfMonth { month: u8, week: u8, day: Weekday },
+    /// e.g., Ember Days in fall and winter: the Wednesday, Friday, and Saturday
+    /// after September 14 and December 13, respectively. Note: These dates are *not*
+    /// inclusive: if September 14 is a Wednesday, the first Ember Day is September 21,
+    /// and the others follow it.
+    /// ```no_compile
+    /// let fall_ember_friday = HolyDayId::WeekdayAfterDay { month: 9, day: 14, starting_weekday: Some(Weekday::Wed) weekday: Weekday::Wed }
+    /// ```
+    WeekdayAfterDate {
+        month: u8,
+        day: u8,
+        starting_weekday: Option<Weekday>,
+        weekday: Weekday,
+    },
 }

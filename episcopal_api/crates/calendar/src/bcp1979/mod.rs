@@ -170,7 +170,7 @@ pub(crate) const BCP1979_HOLY_DAY_SEASONS: [(Feast, Season); 35] = [
     (Feast::AshWednesday, Season::Lent),
 ];
 
-pub(crate) const BCP1979_HOLY_DAY_RANKS: [(Feast, Rank); 88] = [
+pub(crate) const BCP1979_HOLY_DAY_RANKS: [(Feast, Rank); 89] = [
     (Feast::EveOfAllSaints, Rank::PrincipalFeast),
     (Feast::AllSaintsDay, Rank::PrincipalFeast),
     (Feast::ChristmasDay, Rank::PrincipalFeast),
@@ -251,6 +251,7 @@ pub(crate) const BCP1979_HOLY_DAY_RANKS: [(Feast, Rank); 88] = [
         Rank::PrecedenceOverWeekday,
     ),
     (Feast::AshWednesday, Rank::PrecedenceOverHolyDay),
+    (Feast::EmberDay, Rank::EmberDay),
     (Feast::December24, Rank::PrecedenceOverWeekday),
     (Feast::December29, Rank::PrecedenceOverWeekday),
     (Feast::December30, Rank::PrecedenceOverWeekday),
@@ -268,7 +269,7 @@ pub(crate) const BCP1979_HOLY_DAY_RANKS: [(Feast, Rank); 88] = [
 ];
 
 /// Array of all observances in the BCP 1979 calendar
-pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
+pub const BCP1979_FEASTS: [KalendarEntry; 212] = [
     // Thanksgiving, Labor Day, All Saints’ Sunday
     (
         HolyDayId::DayOfMonth {
@@ -287,6 +288,111 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
             day: Weekday::Thu,
         },
         Feast::ThanksgivingDay,
+        Time::AllDay,
+        None,
+    ),
+    // Ember Days
+    (
+        HolyDayId::SpecialDay(LiturgicalWeek::Lent1, Weekday::Wed),
+        Feast::EmberDay,
+        Time::AllDay,
+        None,
+    ),
+    (
+        HolyDayId::SpecialDay(LiturgicalWeek::Lent1, Weekday::Fri),
+        Feast::EmberDay,
+        Time::AllDay,
+        None,
+    ),
+    (
+        HolyDayId::SpecialDay(LiturgicalWeek::Lent1, Weekday::Sat),
+        Feast::EmberDay,
+        Time::AllDay,
+        None,
+    ),
+    (
+        HolyDayId::SpecialDay(LiturgicalWeek::Pentecost, Weekday::Wed),
+        Feast::EmberDay,
+        Time::AllDay,
+        None,
+    ),
+    (
+        HolyDayId::SpecialDay(LiturgicalWeek::Pentecost, Weekday::Fri),
+        Feast::EmberDay,
+        Time::AllDay,
+        None,
+    ),
+    (
+        HolyDayId::SpecialDay(LiturgicalWeek::Pentecost, Weekday::Sat),
+        Feast::EmberDay,
+        Time::AllDay,
+        None,
+    ),
+    // Fall Ember Days
+    (
+        HolyDayId::WeekdayAfterDate {
+            month: 9,
+            day: 14,
+            starting_weekday: Some(Weekday::Wed),
+            weekday: Weekday::Wed,
+        },
+        Feast::EmberDay,
+        Time::AllDay,
+        None,
+    ),
+    (
+        HolyDayId::WeekdayAfterDate {
+            month: 9,
+            day: 14,
+            starting_weekday: Some(Weekday::Wed),
+            weekday: Weekday::Fri,
+        },
+        Feast::EmberDay,
+        Time::AllDay,
+        None,
+    ),
+    (
+        HolyDayId::WeekdayAfterDate {
+            month: 9,
+            day: 14,
+            starting_weekday: Some(Weekday::Wed),
+            weekday: Weekday::Sat,
+        },
+        Feast::EmberDay,
+        Time::AllDay,
+        None,
+    ),
+    // Winter Ember Days
+    (
+        HolyDayId::WeekdayAfterDate {
+            month: 12,
+            day: 13,
+            starting_weekday: Some(Weekday::Wed),
+            weekday: Weekday::Wed,
+        },
+        Feast::EmberDay,
+        Time::AllDay,
+        None,
+    ),
+    (
+        HolyDayId::WeekdayAfterDate {
+            month: 12,
+            day: 13,
+            starting_weekday: Some(Weekday::Wed),
+            weekday: Weekday::Fri,
+        },
+        Feast::EmberDay,
+        Time::AllDay,
+        None,
+    ),
+    (
+        HolyDayId::WeekdayAfterDate {
+            month: 12,
+            day: 13,
+            starting_weekday: Some(Weekday::Wed),
+            weekday: Weekday::Sat,
+        },
+        Feast::EmberDay,
         Time::AllDay,
         None,
     ),
@@ -1292,7 +1398,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 200] = [
     ),
 ];
 
-pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 196] = [
+pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 197] = [
     (Feast::AbsalomJones, Language::En, "Absalom Jones, Priest, 1818", Status::Authorized),
     (Feast::AgnesAndCeciliaOfRome, Language::En, "Agnes, Martyr at Rome, 304", Status::Authorized),
     (Feast::AidanOfLindisfarne, Language::En, "Aidan, Bishop of Lindisfarne, 651", Status::Authorized),
@@ -1489,6 +1595,7 @@ pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 196] = 
     (Feast::January4, Language::En, "January 4", Status::Authorized),
     (Feast::January5, Language::En, "January 5", Status::Authorized),
     (Feast::EveOfEpiphany, Language::En, "Eve of Epiphany", Status::Authorized),
+    (Feast::EmberDay, Language::En, "Ember Day", Status::Authorized)
 ];
 
 pub(crate) const BCP1979_WEEK_NAMES: [(LiturgicalWeek, Language, &str); 59] = [

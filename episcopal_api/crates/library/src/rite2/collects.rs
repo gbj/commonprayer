@@ -1,7 +1,7 @@
-use calendar::{CommonOfSaints, Feast, LiturgicalWeek, Proper};
+use calendar::{CommonOfSaints, Feast, LiturgicalWeek, Proper, VariousOccasions};
 use liturgy::{Document, Heading, HeadingLevel, Series, Text};
 
-use crate::{CollectData, CollectId, VariousOccasions};
+use crate::{CollectData, CollectId};
 
 lazy_static! {
     pub static ref COLLECTS_CONTEMPORARY: Vec<(CollectId, CollectData)> = vec![

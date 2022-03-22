@@ -38,6 +38,7 @@ pub struct LectionaryDayEntry {
     day: u8,
     listing: Option<(String, LiturgicalDay)>,
     alternatives: Vec<(String, Feast)>,
+    other_notes: Vec<String>
 }
 
 #[derive(Serialize, Clone)]
@@ -68,6 +69,20 @@ pub fn render_state(
                 let liturgical_day = BCP1979_CALENDAR.liturgical_day(current_date, false);
                 let rank = BCP1979_CALENDAR.rank(&liturgical_day);
                 let language = locale_to_language(locale);
+
+                let other_notes = liturgical_day
+                    .holy_days
+                    .iter()
+                    .filter(|feast| BCP1979_CALENDAR.feast_day_rank(feast) == Rank::EmberDay)
+                    .map(|feast| {
+                        summary::localize_day_name(
+                            &liturgical_day,
+                            &LiturgicalDayId::Feast(*feast),
+                            &BCP1979_CALENDAR,
+                            language,
+                        )
+                    })
+                    .collect();
 
                 let alternatives = liturgical_day
                     .alternative_services
@@ -102,6 +117,7 @@ pub fn render_state(
                     day: current_date.day(),
                     listing: marked_on_calendar,
                     alternatives,
+                    other_notes
                 })
             } else {
                 None
@@ -156,7 +172,7 @@ fn calendar_body(locale: &str, year: u16, days: &[LectionaryDayEntry]) -> View {
                 let days = View::Fragment(
                     group
                         .into_iter()
-                        .map(|LectionaryDayEntry { day, listing, alternatives, .. }| {
+                        .map(|LectionaryDayEntry { day, listing, alternatives, other_notes, .. }| {
                             let listing = if let Some((day_name, liturgical_day)) = listing {
                                 let transferred = if matches!(
                                     liturgical_day.observed,
@@ -203,11 +219,21 @@ fn calendar_body(locale: &str, year: u16, days: &[LectionaryDayEntry]) -> View {
                                 "day"
                             };
 
+                            let other_notes = if other_notes.is_empty() {
+                                View::Empty
+                            } else {
+                                let others = View::Fragment(other_notes.iter().map(|s| view! { <li>{s}</li>} ).collect());
+                                view! {
+                                    <ul class="other-notes">{others}</ul>
+                                }
+                            };
+
                             view! {
                                 <div class={class}>
                                     <a id={format!("{}/{}", month, day)}></a>
                                     <div class="month-number">{day.to_string()}</div>
                                     {listing}
+                                    {other_notes}
                                 </div>
                             }
                         })

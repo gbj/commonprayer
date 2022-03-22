@@ -84,7 +84,9 @@ impl Calendar {
             let feast_rank = self.feast_day_rank(feast);
             match observed {
                 LiturgicalDayId::Feast(o_feast) => {
-                    o_feast != *feast && feast_rank >= Rank::PrecedenceOverWeekday
+                    o_feast != *feast
+                        && (feast_rank >= Rank::PrecedenceOverWeekday
+                            || feast_rank == Rank::EmberDay)
                 }
                 LiturgicalDayId::TransferredFeast(t_feast) => {
                     // to be honest it's a little unclear whether a transferred red-letter day should
@@ -380,6 +382,7 @@ impl Calendar {
         let today_month = date.month();
         let today_day = date.day();
         let today_weekday = date.weekday();
+        let today_year = date.year();
         holy_days
             .iter()
             .filter_map(move |(id, feast, f_time, f_stops_at_sunday)| {
@@ -421,6 +424,31 @@ impl Calendar {
                             None
                         }
                     }
+                    HolyDayId::WeekdayAfterDate {
+                        month,
+                        day,
+                        starting_weekday,
+                        weekday,
+                    } => {
+                        let starting_date = Date::from_ymd(today_year, *month, *day);
+                        let starting_date = if let Some(starting_weekday) = starting_weekday {
+                            if starting_date.weekday() == *starting_weekday {
+                                starting_date.add_days(7)
+                            } else {
+                                starting_date
+                            }
+                        } else {
+                            starting_date
+                        };
+
+                        let distance_in_days = (date - starting_date).num_days();
+
+                        if (0..7).contains(&distance_in_days) && weekday == &date.weekday() {
+                            Some(*feast)
+                        } else {
+                            None
+                        }
+                    }
                 }
             })
     }
@@ -444,7 +472,7 @@ impl Calendar {
                 .filter(|feast| {
                     let rank = self.feast_day_rank(feast);
                     // only include if rank is higher than a black-letter day
-                    rank > Rank::OptionalObservance
+                    rank >= Rank::PrecedenceOverWeekday
                     // if, if today is a Sunday, if rank is above a Sunday
                     // Sundays trump e.g., red-letter saints’ days
                         && (weekday != Weekday::Sun || rank >= Rank::Sunday)
@@ -672,5 +700,24 @@ mod tests {
 
         let day = BCP1979_CALENDAR.liturgical_day(date, true);
         assert_eq!(day.observed, LiturgicalDayId::Feast(Feast::EveOfPentecost));
+    }
+
+    #[test]
+    fn appropriately_handle_ember_days() {
+        let date = Date::from_ymd(2021, 2, 24);
+        let day = BCP1979_CALENDAR.liturgical_day(date, false);
+        assert!(day.holy_days.contains(&Feast::EmberDay));
+
+        let date = Date::from_ymd(2021, 9, 15);
+        let day = BCP1979_CALENDAR.liturgical_day(date, false);
+        assert!(day.holy_days.contains(&Feast::EmberDay));
+
+        let date = Date::from_ymd(2021, 9, 14);
+        let day = BCP1979_CALENDAR.liturgical_day(date, false);
+        assert!(!day.holy_days.contains(&Feast::EmberDay));
+
+        let date = Date::from_ymd(2022, 9, 21);
+        let day = BCP1979_CALENDAR.liturgical_day(date, false);
+        assert!(day.holy_days.contains(&Feast::EmberDay));
     }
 }

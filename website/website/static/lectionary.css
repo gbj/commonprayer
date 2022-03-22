@@ -34,6 +34,17 @@ a.alternative {
   margin-top: 0.5rem;
 }
 
+ul.other-notes {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  display: block;
+  margin-left: auto;
+  font-size: 0.9rem;
+  font-variant: small-caps;
+}
+
 /* Tablet/desktop: true calendar view */
 @media (min-width: 767px) {
   :root {
@@ -87,5 +98,17 @@ a.alternative {
 
   body > main.lectionary.calendar {
     width: var(--main-width);
+  }
+
+  ul.other-notes {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: block;
+    margin-top: auto;
+    padding-top: 1rem;
+    font-size: 0.9rem;
+    font-variant: small-caps;
   }
 }
