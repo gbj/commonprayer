@@ -403,14 +403,19 @@ impl AddToDocx for ResponsivePrayer {
             .enumerate()
             .fold(Paragraph::new(), |paragraph, (idx, line)| {
                 if idx % 2 == 1 {
-                    paragraph.add_run(
-                        Run::new()
-                            .add_text(line)
-                            .bold()
-                            .add_break(BreakType::TextWrapping),
-                    )
+                    line.split('\n').fold(paragraph, |paragraph, line| {
+                        paragraph.add_run(
+                            Run::new()
+                                .add_text(line)
+                                .bold()
+                                .add_break(BreakType::TextWrapping),
+                        )
+                    })
                 } else {
-                    paragraph.add_run(Run::new().add_text(line).add_break(BreakType::TextWrapping))
+                    line.split('\n').fold(paragraph, |paragraph, line| {
+                        paragraph
+                            .add_run(Run::new().add_text(line).add_break(BreakType::TextWrapping))
+                    })
                 }
             });
         docx.add_paragraph(paragraph)

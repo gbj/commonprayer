@@ -1375,6 +1375,13 @@ pub fn responsive_prayer(prayer: &ResponsivePrayer) -> HeaderAndMain {
             .iter()
             .enumerate()
             .map(|(n, line)| {
+                let line = View::Fragment(
+                    line.split('\n')
+                        .map(|s| View::StaticText(s.to_string()))
+                        .intersperse_with(|| view! { <br/> })
+                        .collect(),
+                );
+
                 if n % 2 == 1 {
                     view! {
                         <span>
