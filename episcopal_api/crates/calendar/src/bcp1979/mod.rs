@@ -170,7 +170,7 @@ pub(crate) const BCP1979_HOLY_DAY_SEASONS: [(Feast, Season); 35] = [
     (Feast::AshWednesday, Season::Lent),
 ];
 
-pub(crate) const BCP1979_HOLY_DAY_RANKS: [(Feast, Rank); 89] = [
+pub(crate) const BCP1979_HOLY_DAY_RANKS: [(Feast, Rank); 90] = [
     (Feast::EveOfAllSaints, Rank::PrincipalFeast),
     (Feast::AllSaintsDay, Rank::PrincipalFeast),
     (Feast::ChristmasDay, Rank::PrincipalFeast),
@@ -252,6 +252,7 @@ pub(crate) const BCP1979_HOLY_DAY_RANKS: [(Feast, Rank); 89] = [
     ),
     (Feast::AshWednesday, Rank::PrecedenceOverHolyDay),
     (Feast::EmberDay, Rank::EmberDay),
+    (Feast::RogationDay, Rank::EmberDay),
     (Feast::December24, Rank::PrecedenceOverWeekday),
     (Feast::December29, Rank::PrecedenceOverWeekday),
     (Feast::December30, Rank::PrecedenceOverWeekday),
@@ -269,7 +270,7 @@ pub(crate) const BCP1979_HOLY_DAY_RANKS: [(Feast, Rank); 89] = [
 ];
 
 /// Array of all observances in the BCP 1979 calendar
-pub const BCP1979_FEASTS: [KalendarEntry; 212] = [
+pub const BCP1979_FEASTS: [KalendarEntry; 215] = [
     // Thanksgiving, Labor Day, All Saints’ Sunday
     (
         HolyDayId::DayOfMonth {
@@ -288,6 +289,25 @@ pub const BCP1979_FEASTS: [KalendarEntry; 212] = [
             day: Weekday::Thu,
         },
         Feast::ThanksgivingDay,
+        Time::AllDay,
+        None,
+    ),
+    // Rogation Days
+    (
+        HolyDayId::SpecialDay(LiturgicalWeek::Easter6, Weekday::Mon),
+        Feast::RogationDay,
+        Time::AllDay,
+        None,
+    ),
+    (
+        HolyDayId::SpecialDay(LiturgicalWeek::Easter6, Weekday::Tue),
+        Feast::RogationDay,
+        Time::AllDay,
+        None,
+    ),
+    (
+        HolyDayId::SpecialDay(LiturgicalWeek::Easter6, Weekday::Wed),
+        Feast::RogationDay,
         Time::AllDay,
         None,
     ),
@@ -1398,7 +1418,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 212] = [
     ),
 ];
 
-pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 197] = [
+pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 198] = [
     (Feast::AbsalomJones, Language::En, "Absalom Jones, Priest, 1818", Status::Authorized),
     (Feast::AgnesAndCeciliaOfRome, Language::En, "Agnes, Martyr at Rome, 304", Status::Authorized),
     (Feast::AidanOfLindisfarne, Language::En, "Aidan, Bishop of Lindisfarne, 651", Status::Authorized),
@@ -1595,7 +1615,8 @@ pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 197] = 
     (Feast::January4, Language::En, "January 4", Status::Authorized),
     (Feast::January5, Language::En, "January 5", Status::Authorized),
     (Feast::EveOfEpiphany, Language::En, "Eve of Epiphany", Status::Authorized),
-    (Feast::EmberDay, Language::En, "Ember Day", Status::Authorized)
+    (Feast::EmberDay, Language::En, "Ember Day", Status::Authorized),
+    (Feast::RogationDay, Language::En, "Rogation Day", Status::Authorized)
 ];
 
 pub(crate) const BCP1979_WEEK_NAMES: [(LiturgicalWeek, Language, &str); 59] = [
