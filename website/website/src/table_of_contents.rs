@@ -187,15 +187,16 @@ lazy_static! {
             PageType::Document("an-order-for-marriage-2", &*library::marriage_alternatives::liturgical_resources_2::AN_ORDER_FOR_MARRIAGE_2),
         ],
         ("burial", None) => vec![
-            /* PageType::Parallel("parallels", "Burial Service Parallels",
+            PageType::Parallel("parallels", "Burial Service Parallels",
                 "",
                 build_parallel_table("burial", BURIAL_PARALLEL_TAGS, &[
                     ("burial-of-a-child", &*library::eow::volume_2::burial_of_a_child::BURIAL_OF_A_CHILD),
                     ("an-order-for-burial", &*library::bcp1979::burial::AN_ORDER_FOR_BURIAL)
                 ])
-            ), */
+            ),
 
             // BCP
+            PageType::Document("concerning-the-service", &*library::bcp1979::burial::CONCERNING_THE_BURIAL_SERVICE),
             PageType::Document("an-order-for-burial", &*library::bcp1979::burial::AN_ORDER_FOR_BURIAL),
 
             // EOW 2
