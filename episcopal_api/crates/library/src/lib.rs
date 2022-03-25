@@ -20,6 +20,7 @@ use crate::{
 extern crate lazy_static;
 
 pub mod bcp1979;
+pub mod bos;
 pub mod collect;
 pub mod conditions;
 pub mod eow;

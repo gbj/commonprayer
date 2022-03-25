@@ -9,6 +9,7 @@ lazy_static! {
     pub static ref AN_ORDER_FOR_BURIAL : Document = Document::new()
         .page(506)
         .label("An Order for Burial")
+        .version(Version::BCP1979)
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "An Order for Burial"))).tags([TITLE]),
             Document::from(Rubric::from("When, for pastoral considerations, neither of the burial rites in this Book is deemed appropriate, the following form is used")).tags([OPENING_RUBRIC]),
@@ -26,6 +27,7 @@ lazy_static! {
     pub static ref CONCERNING_THE_BURIAL_SERVICE: Document = Document::new()
         .page(468)
         .label("Concerning the Service")
+        .version(Version::BCP1979)
         .content(Content::Series(Series::from(vec![
             Document::from(Heading::from((
                 HeadingLevel::Heading2,
