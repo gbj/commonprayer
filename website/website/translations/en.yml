@@ -141,6 +141,7 @@ en:
     holy_eucharist: Holy Eucharist
     pastoral_offices: Pastoral Offices
     marriage: Marriage
+    burial: Burial
     episcopal_services: Episcopal Services
     psalter_full: The Psalter, or Psalms of David
     prayers_and_thanksgivings: Prayers and Thanksgivings
@@ -153,6 +154,7 @@ en:
     OffertorySentences: Offertory Sentences
     InvitatoryAntiphons: Invitatory Antiphons
     PrayersAndThanksgivings: Prayers and Thanksgivings
+    AdditionalPrayers: Additional Prayers
     ServiceOfLight: Service of Light
     office: Daily Office
     canticle: Canticles

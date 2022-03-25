@@ -1050,7 +1050,7 @@ lazy_static! {
                 text_sources: "South African".into(),
                 tune_sources: "South African".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Burial of a Child".into()]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1245,7 +1245,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Burial of a Child".into()]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1395,7 +1395,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "".into(),
-                tags: vec![]
+                tags: vec!["Burial of a Child".into()]
             },
             Hymn {
                 source: Hymnals::WLP,
@@ -1440,7 +1440,7 @@ lazy_static! {
                 text_sources: "Traditional Ojibway lullaby from Chippewa Music</i> by Frances Densmore (1867-1957)".into(),
                 tune_sources: "Traditional Ojibway lullaby from Chippewa Music</i> by Frances Densmore (1867-1957)".into(),
                 text: "Way way way way way way way way way way way way way way.\nLord, have mercy. Lord, have mercy. Lord, have mercy.\nAlleluia. Alleluia. Alleluia.\nHoly Spirit, come, Holy Spirit, come, make our hearts your home.\nLet us bless the Lord. Let us bless the Lord. Thanks be to God.".into(),
-                tags: vec![]
+                tags: vec!["Burial of a Child".into()]
             },
             Hymn {
                 source: Hymnals::WLP,

@@ -1,5 +1,8 @@
 use liturgy::{Choice, DisplayFormat, Document, GloriaPatri, Preces, Text};
 
+pub const LORDS_PRAYER_TRADITIONAL_TEXT: &str = "Our Father, who art in heaven,\n	hallowed be thy Name,\n	thy kingdom come,\n	thy will be done,\n	on earth as it is in heaven.\nGive us this day our daily bread.\nAnd forgive us our trespasses,\n	as we forgive those\n	who trespass against us.\nAnd lead us not into temptation,\n	but deliver us from evil.\nFor thine is the kingdom,\n	and the power, and the glory,\n	for ever and ever.";
+pub const LORDS_PRAYER_CONTEMPORARY_TEXT: &str = "Our Father in heaven,\n	hallowed be your Name,\n	your kingdom come,\n	your will be done,\n	on earth as in heaven.\nGive us today our daily bread.\nForgive us our sins,\n	as we forgive those\n	who sin against us.\nSave us from the time of trial,\n	and deliver us from evil.\nFor the kingdom, the power,\n	and the glory are yours,\n	now and for ever.";
+
 lazy_static! {
     pub static ref WORD_OF_THE_LORD: Preces = Preces::from([
         ("", "The Word of the Lord."),
@@ -14,8 +17,8 @@ lazy_static! {
     ));
 
     pub static ref LORDS_PRAYER_CONTEMPORARY_AND_TRADITIONAL: Choice = Choice::from([
-      Document::from(Text::from("Our Father, who art in heaven,\n	hallowed be thy Name,\n	thy kingdom come,\n	thy will be done,\n	on earth as it is in heaven.\nGive us this day our daily bread.\nAnd forgive us our trespasses,\n	as we forgive those\n	who trespass against us.\nAnd lead us not into temptation,\n	but deliver us from evil.\nFor thine is the kingdom,\n	and the power, and the glory,\n	for ever and ever.").response("Amen.").display_format(DisplayFormat::Unison)).label("The Lord’s Prayer").version_label("Traditional"),
-      Document::from(Text::from("Our Father in heaven,\n	hallowed be your Name,\n	your kingdom come,\n	your will be done,\n	on earth as in heaven.\nGive us today our daily bread.\nForgive us our sins,\n	as we forgive those\n	who sin against us.\nSave us from the time of trial,\n	and deliver us from evil.\nFor the kingdom, the power,\n	and the glory are yours,\n	now and for ever.").response("Amen.").display_format(DisplayFormat::Unison)).label("The Lord’s Prayer").version_label("Contemporary")
+      Document::from(Text::from(LORDS_PRAYER_TRADITIONAL_TEXT).response("Amen.").display_format(DisplayFormat::Unison)).label("The Lord’s Prayer").version_label("Traditional"),
+      Document::from(Text::from(LORDS_PRAYER_CONTEMPORARY_TEXT).response("Amen.").display_format(DisplayFormat::Unison)).label("The Lord’s Prayer").version_label("Contemporary")
     ]);
 
     pub static ref LORDS_PRAYER_ABBREV: Choice = Choice::from([

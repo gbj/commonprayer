@@ -11678,7 +11678,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "Irish ballad melody; <i>The Church Hymnary, </i>1927 (adapt.)".into(),
                 text: "".into(),
-                tags: vec!["Hymns".into(), "Jesus Christ our Lord".into()]
+                tags: vec!["Hymns".into(), "Jesus Christ our Lord".into(), "Burial of a Child".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -11790,7 +11790,7 @@ lazy_static! {
                 page_number: 707,
                 copyright_restriction: true,
                 number: HymnNumber::H(490),
-                title: "In him there is no darkness at all".into(),
+                title: "I want to walk as a child of the light".into(),
                 tune: "HOUSTON".into(),
                 authors: "Kathleen Thomerson, b. 1934".into(),
                 composers: "Kathleen Thomerson, b. 1934".into(),
@@ -11798,7 +11798,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "".into(),
-                tags: vec!["Hymns".into(), "Jesus Christ our Lord".into()]
+                tags: vec!["Hymns".into(), "Jesus Christ our Lord".into(), "Burial of a Child".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -13748,7 +13748,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "American folk hymn".into(),
                 text: "1 Jerusalem, my happy home,\nwhen shall I come to thee?\nWhen shall my sorrows have an end?\nThy joys when shall I see?\n\n2 Thy saints are crowned with glory great;\nthey see God face to face;\nthey triumph still, they still rejoice\nin that most happy place.\n\n3 There David stands with harp in hand\nas master of the choir:\nten thousand times would one be blest\nwho might this music hear.\n\n4 Our Lady sings Magnificat\nwith tune surpassing sweet,\nand blessed martyrs' harmony\ndoth ring in every street.\n\n5 Jerusalem, Jerusalem,\nGod grant that I may see\nthine endless joy, and of the same\npartaker ever be! \n".into(),
-                tags: vec!["Hymns".into(), "The Church Triumphant".into()]
+                tags: vec!["Hymns".into(), "The Church Triumphant".into(), "Burial of a Child".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -14123,7 +14123,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1 The King of love my shepherd is,\nwhose goodness faileth never;\nI nothing lack if I am his,\nand he is mine for ever.\n\n2 Where streams of living water flow, \nmy ransomed soul he leadeth,\nand where the verdant pastures grow,\nwith food celestial feedeth.\n\n3 Perverse and foolish oft I strayed,\nbut yet in love he sought me,\nand on his shoulder gently laid,\nand home, rejoicing, brought me.\n\n4 In death's dark vale I fear no ill\nwith thee, dear Lord, beside me;\nthy rod and staff my comfort still,\nthy cross before to guide me.\n\n5 Thou spread'st a table in my sight;\nthy unction grace bestoweth;\nand oh, what transport of delight\nfrom thy pure chalice floweth!\n\n6 And so through all the length of days\nthy goodness faileth never: \nGood Shepherd, may I sing thy praise\nwithin thy house for ever. \n".into(),
-                tags: vec!["Hymns".into(), "The Christian Life".into()]
+                tags: vec!["Hymns".into(), "The Christian Life".into(), "Burial of a Child".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -14138,7 +14138,7 @@ lazy_static! {
                 text_sources: "".into(),
                 tune_sources: "".into(),
                 text: "1 The King of love my shepherd is,\nwhose goodness faileth never;\nI nothing lack if I am his,\nand he is mine for ever.\n\n2 Where streams of living water flow, \nmy ransomed soul he leadeth,\nand where the verdant pastures grow,\nwith food celestial feedeth.\n\n3 Perverse and foolish oft I strayed,\nbut yet in love he sought me,\nand on his shoulder gently laid,\nand home, rejoicing, brought me.\n\n4 In death's dark vale I fear no ill\nwith thee, dear Lord, beside me;\nthy rod and staff my comfort still,\nthy cross before to guide me.\n\n5 Thou spread'st a table in my sight;\nthy unction grace bestoweth;\nand oh, what transport of delight\nfrom thy pure chalice floweth!\n\n6 And so through all the length of days\nthy goodness faileth never: \nGood Shepherd, may I sing thy praise\nwithin thy house for ever. \n".into(),
-                tags: vec!["Hymns".into(), "The Christian Life".into()]
+                tags: vec!["Hymns".into(), "The Christian Life".into(), "Burial of a Child".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -14588,7 +14588,7 @@ lazy_static! {
                 text_sources: "Afro-American spiritual".into(),
                 tune_sources: "Afro-American spiritual".into(),
                 text: "[Refrain:] \nThere is a balm in Gilead,\nto make the wounded whole, \nthere is a balm in Gilead \nto heal the sin-sick soul. \n\n1 Sometimes I feel discouraged. \nand think my work's in vain, \nbut then the Holy Spirit \nrevives my soul again. (Refrain) \n\n2 If you cannot preach like Peter, \nif you cannot pray like Paul, \nyou can tell the love of Jesus \nand say, “He died for all.” (Refrain)".into(),
-                tags: vec!["Hymns".into(), "The Christian Life".into()]
+                tags: vec!["Hymns".into(), "The Christian Life".into(), "Burial of a Child".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,
@@ -15128,7 +15128,7 @@ lazy_static! {
                 text_sources: "Traditional Latin".into(),
                 tune_sources: "Traditional canon".into(),
                 text: "Dona nobis pacem, pacem.\nDona nobis pacem.\nDona nobis pacem.\nDona nobis pacem.\nDona nobis pacem.\nCona nobis pacem.".into(),
-                tags: vec!["Hymns".into(), "Rounds and Canons".into()]
+                tags: vec!["Hymns".into(), "Rounds and Canons".into(), "Burial of a Child".into()]
             },
             Hymn {
                 source: Hymnals::Hymnal1982,

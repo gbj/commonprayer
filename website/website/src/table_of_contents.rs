@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use itertools::Itertools;
 use lazy_static::lazy_static;
+use library::bcp1979::burial::parallels::BURIAL_PARALLEL_TAGS;
 use library::marriage_alternatives::parallels::MARRIAGE_PARALLEL_TAGS;
 use library::{self, CollectData, CollectId};
 use liturgy::parallel_table::{build_parallel_table, ParallelDocument};
@@ -184,6 +185,24 @@ lazy_static! {
             // Liturgical Resources 2
             // mostly duplicates LR1, but changes elements of An Order for Marriage
             PageType::Document("an-order-for-marriage-2", &*library::marriage_alternatives::liturgical_resources_2::AN_ORDER_FOR_MARRIAGE_2),
+        ],
+        ("burial", None) => vec![
+            /* PageType::Parallel("parallels", "Burial Service Parallels",
+                "",
+                build_parallel_table("burial", BURIAL_PARALLEL_TAGS, &[
+                    ("burial-of-a-child", &*library::eow::volume_2::burial_of_a_child::BURIAL_OF_A_CHILD),
+                    ("an-order-for-burial", &*library::bcp1979::burial::AN_ORDER_FOR_BURIAL)
+                ])
+            ), */
+
+            // BCP
+            PageType::Document("an-order-for-burial", &*library::bcp1979::burial::AN_ORDER_FOR_BURIAL),
+
+            // EOW 2
+            PageType::Document("burial-of-a-child", &*library::eow::volume_2::burial_of_a_child::BURIAL_OF_A_CHILD),
+        ],
+        ("additional-prayers", Some(Version::EOW)) => vec![
+            PageType::Category("Additional Prayers", Version::EOW, library::eow::volume_2::burial_of_a_child::ADDITIONAL_PRAYERS_BURIAL_OF_A_CHILD.clone())
         ]
     };
 }

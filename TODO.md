@@ -8,8 +8,10 @@ Website Todos
   - [ ] Rite I
   - [ ] Rite II
   - [ ] Burial of One Who Does Not Profess the Christian Faith (BOS)
-  - [ ] Burial of a Child (EOW 2)
-  - [ ] An Order for Burial
+  - [x] Burial of a Child (EOW 2)
+    - [ ] Integrate the Additional Prayers into Prayers & Thanksgivings
+  - [x] An Order for Burial
+  - [ ] Check parallels
 - Bugs
   - [ ] Choice label & Rogation/Ember collects w/ subheadings (see e.g., /readings/office/2022-05-23)
   - [ ] 9/21 Matthew morning psalms

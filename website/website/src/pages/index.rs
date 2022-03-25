@@ -106,6 +106,9 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                             <li>
                                 {make_link(locale, "document/marriage", "toc.marriage", false)}
                             </li>
+                            <li>
+                                {make_link(locale, "document/burial", "toc.burial", false)}
+                            </li>
                         </ul>
                     </li>
                     <li>

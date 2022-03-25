@@ -1,6 +1,7 @@
 pub mod canticles;
 
 pub use canticles::*;
+pub mod volume_2;
 use liturgy::Text;
 
 lazy_static! {
