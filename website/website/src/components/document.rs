@@ -1567,7 +1567,8 @@ fn display_format_as_class(display_format: DisplayFormat) -> &'static str {
 
 fn minimal_markdown(s: &str) -> View {
     View::Fragment(
-        s.split("**")
+        s.replace("\\*", "∗") // replace escaped asterisks with another Unicode asterisk
+            .split("**")
             .enumerate()
             .map(|(bold_idx, piece)| {
                 let italic_view = View::Fragment(
@@ -1577,10 +1578,10 @@ fn minimal_markdown(s: &str) -> View {
                         .map(|(italic_idx, text)| {
                             if italic_idx % 2 == 1 {
                                 view! {
-                                    <em>{text}</em>
+                                    <em>{text.replace('∗', "*")}</em>
                                 }
                             } else {
-                                View::StaticText(text.to_string())
+                                View::StaticText(text.replace('∗', "*"))
                             }
                         })
                         .collect(),
