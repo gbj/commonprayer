@@ -26,8 +26,7 @@ lazy_static! {
                 )),
                 CanticleVerse::from((
                     "Let us humble ourselves, let us strive to know the Lord, *",
-                    "whose justice dawns like morning light,
-its dawning as sure as the sunrise."
+                    "whose justice dawns like morning light,\nits dawning as sure as the sunrise."
                 )),
                 CanticleVerse::from((
                     "God’s justice will come to us like a shower, *",
