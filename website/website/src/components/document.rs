@@ -1377,7 +1377,7 @@ pub fn responsive_prayer(prayer: &ResponsivePrayer) -> HeaderAndMain {
             .map(|(n, line)| {
                 let line = View::Fragment(
                     line.split('\n')
-                        .map(|s| View::StaticText(s.to_string()))
+                        .map(minimal_markdown)
                         .intersperse_with(|| view! { <br/> })
                         .collect(),
                 );
