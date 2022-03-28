@@ -187,6 +187,7 @@ lazy_static! {
             PageType::Document("an-order-for-marriage-2", &*library::marriage_alternatives::liturgical_resources_2::AN_ORDER_FOR_MARRIAGE_2),
         ],
         ("burial", None) => vec![
+            PageType::Document("readings", &*library::bcp1979::burial::parallels::PARALLEL_READINGS),
             PageType::Parallel("parallels", "Burial Service Parallels",
                 "",
                 build_parallel_table("burial", BURIAL_PARALLEL_TAGS, &[

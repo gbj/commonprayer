@@ -188,7 +188,7 @@ pub fn document_view(
                 path,
                 content,
                 &doc.source,
-                &doc.alternate_source,
+                &doc.alternate_sources,
             ),
             Content::Rubric(content) => rubric(content),
             Content::Text(content) => text(content),
@@ -1155,15 +1155,21 @@ pub fn liturgy(
     path: Vec<usize>,
     liturgy: &Liturgy,
     source: &Option<Reference>,
-    alternate_source: &Option<Reference>,
+    alternate_sources: &[Reference],
 ) -> HeaderAndMain {
     let (header, main) = series(locale, controller, path, &liturgy.body);
 
-    let source_links = if source.is_some() || alternate_source.is_some() {
+    let source_links = if source.is_some() || !alternate_sources.is_empty() {
+        let alternates = View::Fragment(
+            alternate_sources
+                .iter()
+                .map(|source| source_link(&Some(*source)))
+                .collect(),
+        );
         view! {
             <div class="source-links">
                 {source_link(source)}
-                {source_link(alternate_source)}
+                {alternates}
             </div>
         }
     } else {

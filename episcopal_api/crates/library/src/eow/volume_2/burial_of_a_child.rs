@@ -72,7 +72,7 @@ lazy_static! {
             ])).tags([PSALM]),
 
             Document::from(Choice::from(vec![
-                Document::from(BiblicalCitation::from("Romans 8: 31-39").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Letter to the Romans.")))).label("From the New Testament").version_label("Romans 8: 31-39 (Who will separate us from the love of Christ?)"),
+                Document::from(BiblicalCitation::from("Romans 8:31-39").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Letter to the Romans.")))).label("From the New Testament").version_label("Romans 8: 31-39 (Who will separate us from the love of Christ?)"),
                 Document::from(BiblicalCitation::from("1 Thessalonians 4:13-14,18").intro(BiblicalReadingIntro::from(Document::from("A Reading from the First Letter to the Thessalonians.")))).label("From the New Testament").version_label("1 Thessalonians 4:13-14,18 (We do not want you to be uninformed about those who have died)"),
                 Document::from(BiblicalCitation::from("1 John 3:1-2").intro(BiblicalReadingIntro::from(Document::from("A Reading from the First Letter of John.")))).label("From the New Testament").version_label("1 John 3:1-2 (See what love the Father has given us)"),
             ])).tags([SECOND_LESSON]),
