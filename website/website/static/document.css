@@ -525,7 +525,7 @@ a.source-link > span {
 .choice nav select {
   display: block;
   margin-left: auto;
-  max-width: calc(75vw - 2rem);
+  max-width: min(calc(75vw - 2rem), 100%);
   text-overflow: ellipsis;
 }
 /* prevents these from flowing through the header */

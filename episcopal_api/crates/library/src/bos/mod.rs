@@ -13,11 +13,11 @@ lazy_static! {
         })
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "Burial of One Who Does Not Profess the Christian Faith"))).tags([TITLE]),
-            Document::from(Rubric::from("This anthem; and any of the following Psalms, Lessons, and Prayers; and the form of Committal given below may be used with the Order for Burial on page 506 of the Prayer Book.")),
+            Document::from(Rubric::from("This anthem; and any of the following Psalms, Lessons, and Prayers; and the form of Committal given below may be used with the Order for Burial on page 506 of the Prayer Book.")).tags([OPENING_RUBRIC]),
             Document::from(Content::DocumentLink(Version::BCP1979, "An Order for Burial".into(), "burial".into(), "an-order-for-burial".into())),
-            Document::from(Heading::from((HeadingLevel::Heading2, "Opening Anthem"))),
+            Document::from(Heading::from((HeadingLevel::Heading2, "Opening Anthem"))).tags([OPENING_RUBRIC]),
             Document::from(Text::from("The steadfast love of the Lord never ceases, \nhis mercies never come to an end;\nthey are new every morning; \ngreat is his faithfulness.\nThe Lord will not cast off forever.\nThough he cause grief, he will have compassion \naccording to the abundance of his steadfast love;\nThe Lord does not willingly afflict or grieve his children.")).tags([ANTHEMS]),
-            Document::from(Heading::from((HeadingLevel::Heading2, "Lessons and Psalms"))),
+            Document::from(Heading::from((HeadingLevel::Heading2, "Lessons and Psalms"))).tags([LESSONS_HEADING]),
             Document::from(Choice::from(vec![
                 Document::from(BiblicalCitation::from("Ecclesiastes 3:1-11").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Book of Ecclesiastes.")))).label("The First Lesson").version_label("Ecclesiastes 3:1-11 (For everything there is a season)"),
                 Document::from(BiblicalCitation::from("Ecclesiastes 12:1-7").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Book of Ecclesiastes.")))).label("The First Lesson").version_label("Ecclesiastes 12:1-7 (Remember your Creator in the days of your youth)"),
@@ -36,8 +36,8 @@ lazy_static! {
                 ]))))
             ).label("The Gospel").version_label("John 10:11-16 (I am the good shepherd)").tags([GOSPEL]),
 
+            Document::from(Heading::from((HeadingLevel::Heading2, "Prayers"))).tags([PRAYERS_TITLE]),
             Document::from(Series::from(vec![
-                Document::from(Heading::from((HeadingLevel::Heading2, "Prayers"))),
                 Document::from(Heading::from((HeadingLevel::Heading3, "For the Deceased"))),
                 Document::from(Text::from("Almighty God, we entrust all who are dear to us to your never-failing care and love, for this life and the life to come, knowing that you are doing for them better things than we can desire or pray for; through Jesus Christ our Lord.").response("Amen.")),
                 Document::from(Text::from("Into your hands, O God, we commend our *brother, N.*, as into the hands of a faithful Creator and most loving Savior. In your infinite goodness, wisdom, and power, work in *him* the merciful purpose of your perfect will, through Jesus Christ our Lord.").response("Amen.")),

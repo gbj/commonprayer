@@ -2,7 +2,8 @@ use crate::conditions::{
     EASTER_SEASON, FRIDAY_IN_LENT, NOT_INSERT_GLORIA, NOT_LENT, VENITE_NOT_IN_PSALMS,
 };
 use crate::rite2::{
-    APOSTLES_CREED, GLORIA_PATRI, LORDS_PRAYER_CONTEMPORARY_AND_TRADITIONAL, WORD_OF_THE_LORD,
+    APOSTLES_CREED, GLORIA_PATRI, LORDS_PRAYER_CONTEMPORARY_AND_TRADITIONAL, PASCHA_NOSTRUM,
+    WORD_OF_THE_LORD,
 };
 use calendar::{LiturgicalWeek, Rank, Weekday};
 use canticle_table::CanticleNumber;
@@ -173,59 +174,7 @@ lazy_static! {
                 ]))
                 .page(82),
 
-                Document::from(Invitatory {
-                        local_name: String::from("Christ our Passover"),
-                        citation: Some(String::from("1 Corinthians 5:7-8; Romans 6:9-11; 1 Corinthians 15:20-22 ")),
-                        latin_name: Some(String::from("Pascha Nostrum")),
-                        antiphon: SeasonalAntiphon::Omit,
-                        gloria_patri: None,
-                        sections: vec![
-                                InvitatorySection {
-                                        verses: vec![
-                                                InvitatoryVerse {
-                                                        a: String::from("Alleluia.\nChrist our Passover has been sacrificed for us; * "),
-                                                        b: String::from("therefore let us keep the feast,")
-                                                },
-                                                InvitatoryVerse {
-                                                        a: String::from("Not with the old leaven, the leaven of malice and evil, *"),
-                                                        b: String::from("but with the unleavened bread of sincerity and truth. Alleluia.")
-                                                }
-                                        ]
-                                },
-                                InvitatorySection {
-                                        verses: vec![
-                                                InvitatoryVerse {
-                                                        a: String::from("Christ being raised from the dead will never die again; *"),
-                                                        b: String::from("death no longer has dominion over him.")
-                                                },
-                                                InvitatoryVerse {
-                                                        a: String::from("The death that he died, he died to sin, once for all; *"),
-                                                        b: String::from("but the life he lives, he lives to God.")
-                                                },
-                                                InvitatoryVerse {
-                                                        a: String::from("So also consider yourselves dead to sin, *"),
-                                                        b: String::from("and alive to God in Jesus Christ our Lord. Alleluia.")
-                                                }
-                                        ]
-                                },
-                                InvitatorySection {
-                                        verses: vec![
-                                                InvitatoryVerse {
-                                                        a: String::from("Christ has been raised from the dead, *"),
-                                                        b: String::from("the first fruits of those who have fallen asleep.")
-                                                },
-                                                InvitatoryVerse {
-                                                        a: String::from("For since by a man came death, * "),
-                                                        b: String::from("by a man has come also the resurrection of the dead.")
-                                                },
-                                                InvitatoryVerse {
-                                                        a: String::from("For as in Adam all die, *"),
-                                                        b: String::from("so also in Christ shall all be made alive. Alleluia.")
-                                                }
-                                        ]
-                                }
-                        ]
-                }).version_label("Pascha Nostrum").condition(EASTER_SEASON.clone()).page(83)
+                Document::from(PASCHA_NOSTRUM.clone()).version_label("Pascha Nostrum").condition(EASTER_SEASON.clone()).page(83)
             ])),
 
                 // Psalms

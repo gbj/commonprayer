@@ -15,7 +15,7 @@ use leptos::*;
 use library::{CommonPrayer, Library};
 use liturgy::{
     parallel_table::ParallelDocument, Content, Document, PreferenceKey, PreferenceValue, Reference,
-    Version,
+    Source, Version,
 };
 use rust_i18n::t;
 use serde::Serialize;
@@ -128,6 +128,22 @@ fn category_summary_body(
     pages: &[(Option<Reference>, Version, Option<String>, String)],
 ) -> View {
     let title = label;
+
+    let versions_per_source: HashMap<Option<Source>, Vec<Version>> = pages
+        .iter()
+        .group_by(|(reference, ..)| reference.map(|reference| reference.source))
+        .into_iter()
+        .map(|(source, docs)| {
+            (
+                source,
+                docs.into_iter()
+                    .unique_by(|(_, version, ..)| version)
+                    .map(|(_, version, ..)| *version)
+                    .collect::<Vec<_>>(),
+            )
+        })
+        .collect();
+
     let pages = View::Fragment(
         pages
             .iter()
@@ -153,9 +169,18 @@ fn category_summary_body(
                         .collect(),
                 );
 
+                let source_has_docs_with_multiple_versions = versions_per_source
+                    .get(&source)
+                    .map(|docs| docs.len() > 1)
+                    .unwrap_or(false);
+
                 let label = if let Some(source) = source {
                     let label = if version == &Version::Parallel {
                         t!("version.Parallel")
+                    } else if source_has_docs_with_multiple_versions
+                        && version != &Version::default()
+                    {
+                        format!("{}: {}", source, version)
                     } else {
                         source.long_name().to_string()
                     };
@@ -702,6 +727,7 @@ fn parallels_body(
         <>
             {header_with_side_menu_and_buttons(locale, label, side_menu, [select_button])}
             <dyn:main
+                class="parallels"
                 class={display_settings_menu.current_settings().stream().map(|settings| format!("parallels {}", settings.to_class())).boxed_local()}
             >
                 {initial_text}

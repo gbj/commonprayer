@@ -187,18 +187,20 @@ lazy_static! {
             PageType::Document("an-order-for-marriage-2", &*library::marriage_alternatives::liturgical_resources_2::AN_ORDER_FOR_MARRIAGE_2),
         ],
         ("burial", None) => vec![
-            /* PageType::Parallel("parallels", "Burial Service Parallels",
+            PageType::Parallel("parallels", "Burial Service Parallels",
                 "",
                 build_parallel_table("burial", BURIAL_PARALLEL_TAGS, &[
+                    ("burial", &*library::rite2::burial::BURIAL_RITE_II),
                     ("burial-of-a-child", &*library::eow::volume_2::burial_of_a_child::BURIAL_OF_A_CHILD),
                     ("burial-of-a-non-christian", &*library::bos::BURIAL_OF_A_NON_CHRISTIAN),
                     ("an-order-for-burial", &*library::bcp1979::burial::AN_ORDER_FOR_BURIAL)
                 ])
-            ), */
+            ),
 
             // BCP
             PageType::Document("concerning-the-service", &*library::bcp1979::burial::CONCERNING_THE_BURIAL_SERVICE),
             PageType::Document("an-order-for-burial", &*library::bcp1979::burial::AN_ORDER_FOR_BURIAL),
+            PageType::Document("burial", &*library::rite2::burial::BURIAL_RITE_II),
 
             // EOW 2
             PageType::Document("burial-of-a-child", &*library::eow::volume_2::burial_of_a_child::BURIAL_OF_A_CHILD),
@@ -206,7 +208,8 @@ lazy_static! {
             // BOS
             PageType::Document("burial-of-a-non-christian", &*library::bos::BURIAL_OF_A_NON_CHRISTIAN),
         ],
-        ("additional-prayers", Some(Version::EOW)) => vec![
+        ("additional-prayers", None) => vec![
+            PageType::Category("Additional Prayers", Version::RiteII, library::rite2::burial::ADDITIONAL_PRAYERS_BURIAL.clone()),
             PageType::Category("Additional Prayers", Version::EOW, library::eow::volume_2::burial_of_a_child::ADDITIONAL_PRAYERS_BURIAL_OF_A_CHILD.clone())
         ]
     };

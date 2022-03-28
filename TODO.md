@@ -6,15 +6,17 @@ Website Todos
   - [ ] Search on hymnal page
 - Burial Services
   - [ ] Rite I
-  - [ ] Rite II
+  - [x] Rite II
   - [x] Burial of One Who Does Not Profess the Christian Faith (BOS)
   - [x] Burial of a Child (EOW 2)
     - [ ] Integrate the Additional Prayers into Prayers & Thanksgivings
   - [x] An Order for Burial
-  - [ ] Check parallels
+  - [x] Check parallels
   - [ ] Readings parallel
 - Bugs
+  - [ ] Proper Preface links in Burial/Marriage
   - [ ] Choice label & Rogation/Ember collects w/ subheadings (see e.g., /readings/office/2022-05-23)
+  - [ ] DOCX handle | in litanies
   - [ ] 9/21 Matthew morning psalms
   - [ ] 9/21 Matthew doubled collect
   - [ ] DOCX export should default to US letter

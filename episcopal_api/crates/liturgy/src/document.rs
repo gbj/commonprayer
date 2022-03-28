@@ -440,7 +440,13 @@ impl Document {
     pub fn to_smallest_chunks(self) -> impl Iterator<Item = Document> {
         let content = self.content.clone();
         let iterator = match content {
-            Content::Series(series) => Box::new(series.into_vec().into_iter().flat_map(|child| child.to_smallest_chunks())) as Box<dyn Iterator<Item = Document>>,
+            Content::Series(series) => {
+                if series.is_indivisible() {
+                    Box::new(std::iter::once(self)) as Box<dyn Iterator<Item = Document>>
+                } else {
+                    Box::new(series.into_vec().into_iter().flat_map(|child| child.to_smallest_chunks())) as Box<dyn Iterator<Item = Document>>
+                }
+            },
             Content::Parallel(parallel) => {
                 let chunked_children = parallel.into_vec().into_iter().filter_map(|child| Document::series_or_document(&mut child.to_smallest_chunks())).collect::<Vec<_>>();
                 Box::new(std::iter::once(Document {
@@ -512,77 +518,6 @@ impl Document {
             _ => Box::new(std::iter::once(self)) as Box<dyn Iterator<Item = Document>>
         };
         iterator
-    }
-
-    pub fn to_parallel_table(&self, parallel_docs: &[&Document]) -> Vec<Vec<(Document, usize)>> {
-        let max_width = parallel_docs.len() + 1;
-
-        let mut parallels: Vec<Vec<(Document, usize)>> = Vec::new();
-        for row in self.children() {
-            if row.tags.is_empty() {
-                parallels.push(vec![(row.clone(), max_width)]);
-            } else {
-                let parallel_tagged_documents = row
-                    .tags
-                    .iter()
-                    .flat_map(|tag| {
-                        parallel_docs
-                            .iter()
-                            .map(|parallel_doc| {
-                                parallel_doc
-                                    .children_with_tag(tag.clone())
-                                    .flat_map(|child| child.clone().to_smallest_chunks())
-                                    .collect::<Vec<_>>()
-                            })
-                            .collect::<Vec<_>>()
-                    })
-                    .collect::<Vec<_>>();
-
-                let mut chunked_rows = Vec::new();
-
-                for (chunk_idx, chunk) in row.clone().to_smallest_chunks().enumerate() {
-                    chunked_rows.push(
-                        std::iter::once(chunk)
-                            .chain(parallel_tagged_documents.iter().map(|parallel| {
-                                parallel
-                                    .get(chunk_idx)
-                                    .cloned()
-                                    .unwrap_or_else(|| Document::from(Content::Empty))
-                            }))
-                            .collect::<Vec<_>>(),
-                    )
-                }
-
-                for row in chunked_rows {
-                    let mut parallels_for_this_row: Vec<(Document, usize)> = Vec::new();
-
-                    for (column_id, column) in row.iter().enumerate() {
-                        let prev_child = if column_id == 0 {
-                            None
-                        } else {
-                            row.get(column_id - 1)
-                        };
-                        if prev_child.is_none() || prev_child.unwrap().content != column.content {
-                            let mut width = 1;
-                            for subsequent_idx in (column_id + 1)..row.len() {
-                                let subsequent_doc = row.get(subsequent_idx);
-                                if subsequent_doc.is_some()
-                                    && subsequent_doc.unwrap().content == column.content
-                                {
-                                    width += 1;
-                                } else {
-                                    break;
-                                }
-                            }
-                            parallels_for_this_row.push((column.clone(), width));
-                        }
-                    }
-
-                    parallels.push(parallels_for_this_row);
-                }
-            }
-        }
-        parallels
     }
 }
 

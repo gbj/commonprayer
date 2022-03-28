@@ -4,7 +4,7 @@ use crate::{Choice, Document, Parallel};
 
 /// Multiple [Document](crate::Document)s that are displayed in order.
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
-pub struct Series(Vec<Document>);
+pub struct Series(Vec<Document>, bool);
 
 impl Series {
     pub fn iter(&self) -> impl Iterator<Item = &Document> {
@@ -22,6 +22,15 @@ impl Series {
     pub fn as_mut_slice(&mut self) -> &mut [Document] {
         &mut self.0
     }
+
+    pub fn is_indivisible(&self) -> bool {
+        self.1
+    }
+
+    pub fn indivisible(mut self) -> Self {
+        self.1 = true;
+        self
+    }
 }
 
 impl<T, U> From<T> for Series
@@ -30,7 +39,7 @@ where
     U: Into<Document>,
 {
     fn from(items: T) -> Self {
-        Self(items.into_iter().map(|item| item.into()).collect())
+        Self(items.into_iter().map(|item| item.into()).collect(), false)
     }
 }
 

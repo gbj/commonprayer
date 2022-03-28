@@ -23,14 +23,15 @@ lazy_static! {
                     "Concerning the Service"
                 ))),
                 Document::from(Rubric::from("The death of a member of the Church should be reported as soon as possible to, and arrangements for the funeral should be made in consultation with, the Minister of the Congregation.\n\nBaptized Christians are properly buried from the church. The service should be held at a time when the congregation has opportunity to be present.\n\nThe coffin is to be closed before the service, and it remains closed thereafter. It is appropriate that it be covered with a pall or other suitable covering. If necessary, or if desired, all or part of the service of Committal may be said in the church. If preferred, the Committal service may take place before the service in the church. It may also be used prior to cremation.\n\nA priest normally presides at the service. It is appropriate that the bishop, when present, preside at the Eucharist and pronounce the Commendation. \n\nIt is desirable that the Lesson from the Old Testament, and the Epistle, be read by lay persons.\n\nWhen the services of a priest cannot be obtained, a deacon or lay reader may preside at the service.\n\nIt is customary that the celebrant meet the body and go before it into the church or towards the grave.\n\nThe anthems at the beginning of the service are sung or said as the body is borne into the church, or during the entrance of the ministers, or by the celebrant standing in the accustomed place.\n\nWhen children die, it is usually long before their expected span of life. Often they die very suddenly and sometimes violently, whether as victims of abuse, gunfire, or drunken drivers, adding to the trauma of their survivors. The surprise and horror at the death of a child call for a liturgical framework that addresses these different expectations and circumstances.").long())
-            ])).tags([CONCERNING_THE_SERVICE]),
+            ])),
+
+            Document::from(Heading::from((
+                HeadingLevel::Heading2,
+                "Gather in the Name of God"
+            ))).tags([OPENING_RUBRIC]),
+            Document::from(Rubric::from("All stand while one or more of the following is said or sung")).tags([OPENING_RUBRIC]),
 
             Document::from(Series::from(vec![
-                Document::from(Heading::from((
-                    HeadingLevel::Heading2,
-                    "Gather in the Name of God"
-                ))),
-                Document::from(Rubric::from("All stand while one or more of the following is said or sung")),
                 Document::from(Sentence::from("He will feed his flock like a shepherd; he will gather the lambs in his arms, and carry them in his bosom.").citation("Isaiah 40:11")),
                 Document::from(Sentence::from("The eternal God is your refuge, and underneath are the everlasting arms.").citation("Deuteronomy 33:27")),
                 Document::from(Sentence::from("As a mother comforts her child, so I will comfort you.").citation("Isaiah 66:13a")),
@@ -38,7 +39,7 @@ lazy_static! {
                 Document::from(Sentence::from("For these things I weep; my eyes flow with tears.... But you, O Lord, reign for ever; your throne endures to all generations.").citation("Lamentations 1: 16a; 5:19")),
                 Document::from(Sentence::from("Jesus said, Let the little children come to me, and do not stop them; for it is to such as these that the kingdom of heaven belongs.").citation("Matthew 19:14")),
                 Document::from(Sentence::from("For the Lamb at the center of the throne will be their shepherd, and he will guide them to springs of the water of life, and God will wipe away every tear from their eyes.").citation("Revelation 7:17")),
-            ])).tags([ANTHEMS]),
+            ]).indivisible()).tags([ANTHEMS]),
 
             Document::from(Series::from(vec![
                 Document::from(Rubric::from("When all are in place, the Minister may address the congregation, acknowledging briefly the purpose of their gathering, and bidding their prayers for the deceased and the bereaved.")),
@@ -74,13 +75,13 @@ lazy_static! {
                 Document::from(BiblicalCitation::from("Romans 8: 31-39").intro(BiblicalReadingIntro::from(Document::from("A Reading from the Letter to the Romans.")))).label("From the New Testament").version_label("Romans 8: 31-39 (Who will separate us from the love of Christ?)"),
                 Document::from(BiblicalCitation::from("1 Thessalonians 4:13-14,18").intro(BiblicalReadingIntro::from(Document::from("A Reading from the First Letter to the Thessalonians.")))).label("From the New Testament").version_label("1 Thessalonians 4:13-14,18 (We do not want you to be uninformed about those who have died)"),
                 Document::from(BiblicalCitation::from("1 John 3:1-2").intro(BiblicalReadingIntro::from(Document::from("A Reading from the First Letter of John.")))).label("From the New Testament").version_label("1 John 3:1-2 (See what love the Father has given us)"),
-            ])),
+            ])).tags([SECOND_LESSON]),
 
             Document::from(Choice::from(vec![
                 Document::from(PSALM_121.clone()),
                 Document::from(PSALM_139.clone().citation("Psalm 139:7-12")),
                 Document::from(PSALM_142.clone().citation("Psalm 142:1-6"))
-            ])).tags([PSALM]),
+            ])).tags([PSALM_2]),
 
             Document::from(Choice::from(vec![
                 Document::from(
@@ -136,7 +137,7 @@ lazy_static! {
                         ]))))
                 )
                     .label("The Gospel")
-                    .version_label("John 10:11-16"),
+                    .version_label("John 10:11-16 (I am the good shepherd)"),
             ])).tags([GOSPEL]),
 
             Document::from(Heading::from((HeadingLevel::Heading2, "The Sermon"))).tags([HOMILY]),
@@ -148,10 +149,11 @@ lazy_static! {
                 Document::from(Text::from("I believe in God, the Father almighty,\n\tcreator of heaven and earth.\nI believe in Jesus Christ, his only Son, our Lord.\n\tHe was conceived by the power of the Holy Spirit\n\t\tand born of the Virgin Mary.\n\tHe suffered under Pontius Pilate,\n\t\twas crucified, died, and was buried.\n\tHe descended to the dead.\n\tOn the third day he rose again.\n\tHe ascended into heaven,\n\t\tand is seated at the right hand of the Father.\n\tHe will come again to judge the living and the dead.\n\nI believe in the Holy Spirit,\n\tthe holy catholic Church,\n\tthe communion of saints,\n\tthe forgiveness of sins,\n\tthe resurrection of the body,\n\tand the life everlasting. Amen.").display_format(DisplayFormat::Unison))
             ])).tags([CREED]),
 
+            Document::from(Rubric::from("The service continues with the Prayers. If the Eucharist is not celebrated, the Lord’s Prayer concludes the intercessions.")).tags([RUBRIC_BEFORE_PRAYERS]),
+            Document::from(Heading::from((HeadingLevel::Heading2, "The Prayers of the People"))).tags([PRAYERS_TITLE]),
+            Document::from(Rubric::from("The Deacon or other person appointed says")).tags([PRAYERS_RUBRIC]),
+
             Document::from(Series::from(vec![
-                Document::from(Rubric::from("The service continues with the Prayers. If the Eucharist is not celebrated, the Lord’s Prayer concludes the intercessions.")),
-                Document::from(Heading::from((HeadingLevel::Heading2, "The Prayers of the People"))),
-                Document::from(Rubric::from("The Deacon or other person appointed says")),
                 Document::from(Litany::from((
                     "O God, have mercy",
                     [
@@ -166,15 +168,14 @@ lazy_static! {
                     ]
                 ))),
                 Document::from(Rubric::from("The Minister concludes the prayers with this Collect")),
-                Document::from(Text::from("Compassionate God, your ways are beyond our understanding, and your love for those whom you create is greater by far than ours; comfort all who grieve for this child *N.* Give them the faith to endure the wilderness of bereavement and bring them in the fullness of time to share with *N.* the light and joy of your eternal presence; through Jesus Christ our Lord.").response("Amen."))
+                Document::from(Text::from("Compassionate God, your ways are beyond our understanding, and your love for those whom you create is greater by far than ours; comfort all who grieve for this child *N.* Give them the faith to endure the wilderness of bereavement and bring them in the fullness of time to share with *N.* the light and joy of your eternal presence; through Jesus Christ our Lord.").response("Amen.")),
             ])).tags([PRAYERS]),
 
-            Document::from(Series::from(vec![
-                Document::from(Rubric::from("When the Eucharist is not to be celebrated, the service continues with the Commendation or with the Committal.")),
-                Document::from(Heading::from((HeadingLevel::Heading2, "At the Eucharist"))),
-                Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")),
-                Document::from(Text::from("Almighty God, we thank you that in you great love you have fed us with the spiritual food and drink of the Body and Blood of your Son Jesus Christ, and have given us a foretaste of your heavenly banquet. Grant that this Sacrament may be to us a comfort in affliction, and a pledge of our inheritance in that kingdom where there is no death, neither sorrow nor crying, but the fullness of joy with all your saints; through Jesus Christ our Savior.").response("Amen."))
-            ])).tags([AT_THE_EUCHARIST]),
+            Document::from(Rubric::from("When the Eucharist is not to be celebrated, the service continues with the Commendation or with the Committal.")).tags([RUBRIC_AFTER_PRAYERS]),
+
+            Document::from(Heading::from((HeadingLevel::Heading2, "At the Eucharist"))).tags([AT_THE_EUCHARIST_TITLE]),
+            Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")).tags([POSTCOMMUNION_PRAYER]),
+            Document::from(Text::from("Almighty God, we thank you that in your great love you have fed us with the spiritual food and drink of the Body and Blood of your Son Jesus Christ, and have given us a foretaste of your heavenly banquet. Grant that this Sacrament may be to us a comfort in affliction, and a pledge of our inheritance in that kingdom where there is no death, neither sorrow nor crying, but the fullness of joy with all your saints; through Jesus Christ our Savior.").response("Amen.").display_format(DisplayFormat::Unison)).tags([POSTCOMMUNION_PRAYER]),
 
             Document::from(Series::from(vec![
                 Document::from(Heading::from((HeadingLevel::Heading2, "The Commendation"))),
@@ -197,7 +198,6 @@ lazy_static! {
                 Document::from(Heading::from((HeadingLevel::Heading2, "The Committal"))),
                 Document::from(Rubric::from("One or more of the following anthems is sung or said")),
                 Document::from(Sentence::from("They are before the throne of God,\nand worship him day and night within his temple,\nand the one who is seated on his throne will shelter them.\nThey will hunger no more and thirst no more;\nthe sun will not strike them, nor any scorching heat;\nfor the Lamb at the center of the throne will be their shepherd,\nand he will guide them to springs of the water of life,\nand God will wipe away every tear from their eyes.").citation("Revelation 7:15-17")),
-                Document::from(Rubric::from("or this")),
                 Document::from(Sentence::from("See, the home of God is among mortals. He will dwell with them\n\tas their God;\nthey will be his peoples, and God himself will be with them;\nhe will wipe away every tear from their eyes. Death will be no more;\nmourning and crying and pain will be no more, for the first\n\tthings have passed away.\nThose who conquer will inherit these things, and I will be their\n\tGod, and they will be my children.").citation("Revelation 21: 3b-4, 7")),
                 Document::from(Rubric::from("Before the following prayer, the coffin may be lowered into the grave.")),
                 Document::from(Rubric::from("Then, while earth is cast upon the coffin, the minister says these words")),
@@ -205,31 +205,31 @@ lazy_static! {
                 Document::from(Text::from("\\* *Or* the deep, *or* the elements, *or* its resting place.")),
                 Document::from(Rubric::from("Then shall be sung or said")),
                 Document::from(Sentence::from("Jesus said to his friends, “You have pain now; but I will see you again, and your hearts will rejoice, and no one will take your joy from you.”").citation("John 16:22")),
-                Document::from(Rubric::from("Then the minister says")),
-                Document::from(Preces::from([
-                    ("", "The Lord be with you."),
-                    ("People", "And also with you."),
-                    ("Minister", "Let us pray.")
-                ])),
-                Document::from(Choice::from(vec![
-                    Document::from(Text::from("Loving God, we stand before you in pain and sadness. You gave the gift of new life, and now it has been taken from us. Hear the cry of our hearts for the pain of our loss. Be with us as we struggle to understand the mystery of life and death. Receive *N.* in the arms of your mercy, to live in your gracious and eternal love, and help us to commit ourselves to your tender care. In Jesus’ name we pray.").response("Amen.")),
-                    Document::from(Text::from("God, you have loved us into being. Hear our cries at our loss of *N.* Move us from the shadow of death into the light of your love and peace in the name of Mary’s child, Jesus the risen one.").response("Amen."))
-                ])),
-                Document::from(Rubric::from("Here one or more of the additional prayers may be said. Then the Lord’s Prayer may be said.")),
-                Document::from(Categories::AdditionalPrayers).version(Version::EOW),
-                Document::from(Choice::from(vec![
-                    Document::from(Series::from(vec![
-                        Document::from(Text::from("As our Savior Christ\nhas taught us,\nwe now pray,\n")),
-                        Document::from(Rubric::from("Officiant and People")),
-                        Document::from(Text::from(LORDS_PRAYER_CONTEMPORARY_TEXT).response("Amen.").display_format(DisplayFormat::Unison))
-                    ])).version_label("Contemporary"),
-                    Document::from(Series::from(vec![
-                        Document::from(Text::from("And now, as our Savior\nChrist has taught us,\nwe are bold to say,")),
-                        Document::from(Rubric::from("Officiant and People")),
-                        Document::from(Text::from(LORDS_PRAYER_TRADITIONAL_TEXT).response("Amen.").display_format(DisplayFormat::Unison))
-                    ])).version_label("Traditional"),
-                ])),
             ])).tags([COMMITTAL]),
+            Document::from(Rubric::from("Then the minister says")).tags([COMMITTAL_PRAYERS]),
+            Document::from(Preces::from([
+                ("", "The Lord be with you."),
+                ("People", "And also with you."),
+                ("Minister", "Let us pray.")
+            ])).tags([COMMITTAL_PRAYERS]),
+            Document::from(Choice::from(vec![
+                Document::from(Text::from("Loving God, we stand before you in pain and sadness. You gave the gift of new life, and now it has been taken from us. Hear the cry of our hearts for the pain of our loss. Be with us as we struggle to understand the mystery of life and death. Receive *N.* in the arms of your mercy, to live in your gracious and eternal love, and help us to commit ourselves to your tender care. In Jesus’ name we pray.").response("Amen.")),
+                Document::from(Text::from("God, you have loved us into being. Hear our cries at our loss of *N.* Move us from the shadow of death into the light of your love and peace in the name of Mary’s child, Jesus the risen one.").response("Amen."))
+            ])).tags([COMMITTAL_PRAYERS]),
+            Document::from(Rubric::from("Here one or more of the additional prayers may be said. Then the Lord’s Prayer may be said.")).tags([COMMITTAL_PRAYERS]),
+            Document::from(Categories::AdditionalPrayers).version(Version::EOW).tags([COMMITTAL_PRAYERS]),
+            Document::from(Choice::from(vec![
+                Document::from(Series::from(vec![
+                    Document::from(Text::from("As our Savior Christ\nhas taught us,\nwe now pray,\n")),
+                    Document::from(Rubric::from("Officiant and People")),
+                    Document::from(Text::from(LORDS_PRAYER_CONTEMPORARY_TEXT).response("Amen.").display_format(DisplayFormat::Unison))
+                ])).version_label("Contemporary"),
+                Document::from(Series::from(vec![
+                    Document::from(Text::from("And now, as our Savior\nChrist has taught us,\nwe are bold to say,")),
+                    Document::from(Rubric::from("Officiant and People")),
+                    Document::from(Text::from(LORDS_PRAYER_TRADITIONAL_TEXT).response("Amen.").display_format(DisplayFormat::Unison))
+                ])).version_label("Traditional"),
+            ])).tags([COMMITTAL_LORDS_PRAYER]),
 
             Document::from(Series::from(vec![
                 Document::from(Rubric::from("The Blessing follows.")),

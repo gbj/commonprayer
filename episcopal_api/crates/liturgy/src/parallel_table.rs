@@ -108,12 +108,16 @@ where
                 } else {
                     row.get(column_id - 1)
                 };
-                if prev_child.is_none() || prev_child.unwrap().content != column.content {
+                if prev_child.is_none()
+                    || prev_child.unwrap().content != column.content
+                    || prev_child.unwrap().version != column.version
+                {
                     let mut width = 1;
                     for subsequent_idx in (column_id + 1)..row.len() {
                         let subsequent_doc = row.get(subsequent_idx);
                         if subsequent_doc.is_some()
                             && subsequent_doc.unwrap().content == column.content
+                            && subsequent_doc.unwrap().version == column.version
                         {
                             width += 1;
                         } else {
