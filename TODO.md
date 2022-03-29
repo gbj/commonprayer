@@ -5,14 +5,19 @@ Website Todos
 - Disable certain UI features until WASM loads:
   - [ ] Search on hymnal page
 - Burial Services
-  - [ ] Rite I
+  - [x] Rite I
+    - [ ] Additional Prayers
   - [x] Rite II
   - [x] Burial of One Who Does Not Profess the Christian Faith (BOS)
   - [x] Burial of a Child (EOW 2)
     - [ ] Integrate the Additional Prayers into Prayers & Thanksgivings
   - [x] An Order for Burial
   - [x] Check parallels
-  - [ ] Readings parallel
+  - [x] Readings parallel
+  - [ ] Integrate Additional Prayers into Prayers & THanksgivings
+      - [ ] EOW
+      - [ ] Rite 2
+      - [ ] Rite 1
 - Bugs
   - [ ] Proper Preface links in Burial/Marriage
   - [ ] Choice label & Rogation/Ember collects w/ subheadings (see e.g., /readings/office/2022-05-23)

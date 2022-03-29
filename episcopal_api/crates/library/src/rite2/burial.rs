@@ -90,6 +90,16 @@ lazy_static! {
                 Document::from(PSALM_116.clone()),
             ])).tags([PSALM_2]),
 
+            Document::from(Series::from(vec![
+                Document::from(Rubric::from("Then, all standing, the Deacon or Minister appointed reads the Gospel, first saying")),
+                Document::from(Preces::from([
+                    ("", "The Holy Gospel of our Lord Jesus Christ according to John."),
+                    ("People", "Glory to you, Lord Christ.")
+                ]))
+            ]))
+                .display(Show::TemplateOnly)
+                .tags([GOSPEL_RUBRIC]),
+
             Document::from(Choice::from(vec![
                 Document::from(
                     BiblicalCitation::from("John 5:24-27")
@@ -117,7 +127,7 @@ lazy_static! {
                         ]))))
                 )
                     .label("The Gospel")
-                    .version_label("John 10:11-16"),
+                    .version_label("John 10:11-16 (I am the good shepherd)"),
                 Document::from(
                     BiblicalCitation::from("John 11:21-27")
                         .intro(BiblicalReadingIntro::from(Document::from(Preces::from([
@@ -154,6 +164,7 @@ lazy_static! {
 
             // Prayers
             Document::from(Rubric::from("If there is not to be a Communion, the Lord’s Prayer is said here, and the service continues with the Prayers of the People, or with one or more suitable prayers (see pages 503-505).\n\nWhen there is a Communion, the following form of the Prayers of the People is used, or else the form on page 465 or 480.")).tags([RUBRIC_BEFORE_PRAYERS]),
+            Document::from(Categories::AdditionalPrayers).version(Version::RiteII).tags([RUBRIC_BEFORE_PRAYERS]),
             Document::from(Series::from(vec![
                 Document::from(Litany::from((
                     "Hear us, Lord.",
@@ -192,8 +203,8 @@ lazy_static! {
                 Document::from(ResponsivePrayer::from([
                     "Give rest, O Christ, to your servant(s) with your saints,",
                     "where sorrow and pain are no more,\nneither sighing, but life everlasting.\n",
-                    "You only are immortal, the creator and maker of mankind; and we are mortal, formed of the earth, and to earth shall we return. For so did you ordain when you created me, saying, “You are dust, and to dust you shall return.” All of us go down to the dust, yet even at the grave we make our song: Alleluia, alleluia, alleluia.\n\nGive rest, O Christ, to your servant(s) with your saints,",
-                    "where sorrow and pain are no more,\nneither sighing, but life everlasting.",
+                    "You only are immortal, the creator and maker of mankind; and we are mortal, formed of the earth, and to earth shall we return. For so did you ordain when you created me, saying, “You are dust, and to dust you shall return.” All of us go down to the dust, yet even at the grave we make our song: Alleluia, alleluia, alleluia.",
+                    "Give rest, O Christ, to your servant(s) with your saints,\nwhere sorrow and pain are no more,\nneither sighing, but life everlasting.",
                 ])),
                 Document::from(Rubric::from("The Celebrant, facing the body, says")),
                 Document::from(Text::from("Into your hands, O merciful Savior, we commend your servant *N.* Acknowledge, we humbly beseech you, a sheep of your own fold, a lamb of your own flock, a sinner of your own redeeming. Receive *him* into the arms of your mercy, into the blessed rest of everlasting peace, and into the glorious company of the saints in light.").response("Amen.")),
@@ -228,12 +239,8 @@ lazy_static! {
             ])).tags([COMMITTAL_PRAYERS]),
             Document::from(Rubric::from("Celebrant and People")).tags([COMMITTAL_PRAYERS]),
             Document::from(Choice::from(vec![
-                Document::from(Series::from(vec![
-                    Document::from(Text::from(LORDS_PRAYER_CONTEMPORARY_TEXT).response("Amen.").display_format(DisplayFormat::Unison))
-                ])).version_label("Contemporary"),
-                Document::from(Series::from(vec![
-                    Document::from(Text::from(LORDS_PRAYER_TRADITIONAL_TEXT).response("Amen.").display_format(DisplayFormat::Unison))
-                ])).version_label("Traditional"),
+                Document::from(Text::from(LORDS_PRAYER_CONTEMPORARY_TEXT).response("Amen.").display_format(DisplayFormat::Unison)).version_label("Contemporary"),
+                Document::from(Text::from(LORDS_PRAYER_TRADITIONAL_TEXT).response("Amen.").display_format(DisplayFormat::Unison)).version_label("Traditional"),
             ])).tags([COMMITTAL_LORDS_PRAYER]),
             Document::from(Rubric::from("Other prayers may be added.")).tags([COMMITTAL_PRAYERS_2]),
             Document::from(Categories::AdditionalPrayers).version(Version::RiteII).tags([COMMITTAL_PRAYERS_2]),

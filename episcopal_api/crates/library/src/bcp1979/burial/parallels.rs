@@ -18,6 +18,7 @@ pub const PSALM: &str = "Psalm";
 pub const SECOND_LESSON: &str = "Second Lesson";
 pub const PSALM_RUBRIC_2: &str = "Psalm Rubric 2";
 pub const PSALM_2: &str = "Psalm 2";
+pub const GOSPEL_RUBRIC: &str = "Gospel Rubric";
 pub const GOSPEL: &str = "Gospel";
 pub const HOMILY: &str = "Homily";
 pub const CREED: &str = "Apostles’ Creed";
@@ -42,7 +43,7 @@ pub const DISMISSAL: &str = "Dismissal";
 pub const CONSECRATION_OF_A_GRAVE: &str = "Consecration of a Grave";
 pub const ADDITIONAL_PRAYERS: &str = "Additional Prayers";
 
-pub const BURIAL_PARALLEL_TAGS: [&str; 36] = [
+pub const BURIAL_PARALLEL_TAGS: [&str; 37] = [
     TITLE,
     OPENING_RUBRIC,
     RECEPTION,
@@ -56,6 +57,7 @@ pub const BURIAL_PARALLEL_TAGS: [&str; 36] = [
     SECOND_LESSON,
     PSALM_RUBRIC_2,
     PSALM_2,
+    GOSPEL_RUBRIC,
     GOSPEL,
     HOMILY,
     CREED,

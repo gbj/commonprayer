@@ -201,6 +201,7 @@ lazy_static! {
             // BCP
             PageType::Document("concerning-the-service", &*library::bcp1979::burial::CONCERNING_THE_BURIAL_SERVICE),
             PageType::Document("an-order-for-burial", &*library::bcp1979::burial::AN_ORDER_FOR_BURIAL),
+            PageType::Document("burial", &*library::rite1::burial::BURIAL_RITE_I),
             PageType::Document("burial", &*library::rite2::burial::BURIAL_RITE_II),
 
             // EOW 2
@@ -212,6 +213,9 @@ lazy_static! {
         ("additional-prayers", None) => vec![
             PageType::Category("Additional Prayers", Version::RiteII, library::rite2::burial::ADDITIONAL_PRAYERS_BURIAL.clone()),
             PageType::Category("Additional Prayers", Version::EOW, library::eow::volume_2::burial_of_a_child::ADDITIONAL_PRAYERS_BURIAL_OF_A_CHILD.clone())
+        ],
+        ("common", Some(Version::RiteI)) => vec![
+            PageType::Document("apostles-creed", &*library::rite1::APOSTLES_CREED_TRADITIONAL)
         ]
     };
 }
