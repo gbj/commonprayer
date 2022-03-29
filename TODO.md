@@ -1,24 +1,34 @@
 Website Todos
 =============
 
-- [ ] Automatically roll up text/Bible reading on mobile (but keep paragraphs)
-- Disable certain UI features until WASM loads:
-  - [ ] Search on hymnal page
+- Eucharist
+  - [ ] Eucharistic Prayers
+    - [ ] A
+    - [ ] B
+    - [ ] C
+    - [ ] D
+    - [ ] 1
+    - [ ] 2
+    - [ ] A (Expansive)
+    - [ ] B (Expansive)2
+    - [ ] D (Expansive)
+    - [ ] EOW 1
+    - [ ] EOW 2
+    - [ ] EOW 3
+  - [ ] Eucharistic Liturgies
+    - [ ] Rite 2
+    - [ ] Rite 1
+    - [ ] EOW
 - Burial Services
-  - [x] Rite I
-    - [ ] Additional Prayers
-  - [x] Rite II
-  - [x] Burial of One Who Does Not Profess the Christian Faith (BOS)
-  - [x] Burial of a Child (EOW 2)
-    - [ ] Integrate the Additional Prayers into Prayers & Thanksgivings
-  - [x] An Order for Burial
-  - [x] Check parallels
-  - [x] Readings parallel
   - [ ] Integrate Additional Prayers into Prayers & THanksgivings
       - [ ] EOW
       - [ ] Rite 2
       - [ ] Rite 1
+- [ ] Automatically roll up text/Bible reading on mobile (but keep paragraphs)
+- Disable certain UI features until WASM loads:
+  - [ ] Search on hymnal page
 - Bugs
+  - [ ] On category pages, group headings (so e.g., BCP has sub-headers for versions in Burial, not three separate H2s)
   - [ ] Proper Preface links in Burial/Marriage
   - [ ] Choice label & Rogation/Ember collects w/ subheadings (see e.g., /readings/office/2022-05-23)
   - [ ] DOCX handle | in litanies
