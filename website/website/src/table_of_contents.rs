@@ -211,6 +211,7 @@ lazy_static! {
             PageType::Document("burial-of-a-non-christian", &*library::bos::BURIAL_OF_A_NON_CHRISTIAN),
         ],
         ("additional-prayers", None) => vec![
+            PageType::Category("Additional Prayers", Version::RiteI, library::rite1::burial::ADDITIONAL_PRAYERS_BURIAL_I.clone()),
             PageType::Category("Additional Prayers", Version::RiteII, library::rite2::burial::ADDITIONAL_PRAYERS_BURIAL.clone()),
             PageType::Category("Additional Prayers", Version::EOW, library::eow::volume_2::burial_of_a_child::ADDITIONAL_PRAYERS_BURIAL_OF_A_CHILD.clone())
         ],
