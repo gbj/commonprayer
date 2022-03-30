@@ -3,6 +3,8 @@ Website Todos
 
 - [ ] Baptism
 - Eucharist
+  - [ ] Prayers of the People
+    - [ ] link to these in renaming service 
   - [ ] Eucharistic Prayers
     - [ ] A
     - [ ] B

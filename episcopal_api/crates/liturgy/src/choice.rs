@@ -145,6 +145,8 @@ impl Choice {
             } else {
                 format!("{}. {}", canticle.number, canticle.local_name)
             }
+        } else if let Content::ResponsivePrayer(prayer) = &doc.content {
+            prayer.iter().next().map(String::from).unwrap_or_default()
         } else if unique_labels > 1 && doc.label.is_some() {
             doc.label.clone().unwrap()
         } else if unique_versions > 1 {

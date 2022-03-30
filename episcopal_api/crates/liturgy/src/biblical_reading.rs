@@ -25,6 +25,15 @@ impl From<Document> for BiblicalReadingIntro {
     }
 }
 
+impl<T> From<T> for BiblicalReadingIntro
+where
+    T: std::fmt::Display,
+{
+    fn from(t: T) -> Self {
+        Self(Box::new(Document::from(t.to_string())))
+    }
+}
+
 impl From<BiblicalReadingIntro> for Document {
     fn from(intro: BiblicalReadingIntro) -> Self {
         *intro.0

@@ -218,13 +218,19 @@ lazy_static! {
             // BOS
             PageType::Document("burial-of-a-non-christian", &*library::bos::BURIAL_OF_A_NON_CHRISTIAN),
         ],
+        ("occasional-services", None) => vec![
+            PageType::Document("renaming", &*library::bos::A_SERVICE_OF_RENAMING),
+        ],
         ("additional-prayers", None) => vec![
             PageType::Category("Additional Prayers", Version::RiteI, library::rite1::burial::ADDITIONAL_PRAYERS_BURIAL_I.clone()),
             PageType::Category("Additional Prayers", Version::RiteII, library::rite2::burial::ADDITIONAL_PRAYERS_BURIAL.clone()),
             PageType::Category("Additional Prayers", Version::EOW, library::eow::volume_2::burial_of_a_child::ADDITIONAL_PRAYERS_BURIAL_OF_A_CHILD.clone())
         ],
         ("common", Some(Version::RiteI)) => vec![
-            PageType::Document("apostles-creed", &*library::rite1::APOSTLES_CREED_TRADITIONAL)
+            PageType::Document("apostles-creed", &*library::rite1::APOSTLES_CREED_TRADITIONAL),
+        ],
+        ("common", Some(Version::RiteII)) => vec![
+            PageType::Document("nicene-creed", &*library::rite2::eucharist::NICENE_CREED_II)
         ]
     };
 }
