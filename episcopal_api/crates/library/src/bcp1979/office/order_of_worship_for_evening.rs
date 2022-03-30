@@ -31,7 +31,7 @@ lazy_static! {
         ])).condition(EASTER_SEASON.clone()),
 
         // Lent opening
-        Document::from(Rubric::from("In place of the above, from Easter Day through the Day of Pentecost")).display(Show::TemplateOnly),
+        Document::from(Rubric::from("In Lent and on other penitential occasions")).display(Show::TemplateOnly),
         Document::from(Preces::from([
             ("Officiant", "Bless the Lord who forgives all our sins;"),
             ("People", "His mercy endures for ever.")

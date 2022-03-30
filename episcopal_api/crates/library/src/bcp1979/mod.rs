@@ -1,3 +1,4 @@
+pub mod baptism;
 pub mod burial;
 pub mod marriage;
 pub mod office;

@@ -368,7 +368,7 @@ lazy_static! {
         )).category("Lectionaries and Cycles"),
 
         LiturgyPreference::from((
-          PreferenceKey::from(GlobalPref::PsalmCycle),
+          PreferenceKey::from(GlobalPref::Lectionary),
           "Lectionary",
           [
             LiturgyPreferenceOption::from(("Daily Office Lectionary", PreferenceValue::from(Lectionaries::BCP1979DailyOffice))),
@@ -378,7 +378,7 @@ lazy_static! {
         )).category("Lectionaries and Cycles"),
 
         LiturgyPreference::from((
-          PreferenceKey::from(GlobalPref::PsalmCycle),
+          PreferenceKey::from(GlobalPref::CanticleTable),
           "Canticle Table",
           [
             LiturgyPreferenceOption::from(("Book of Common Prayer (1979)", PreferenceValue::from(CanticleTables::BCP1979RiteII))),

@@ -1,5 +1,7 @@
 use liturgy::*;
 
+use crate::conditions::{EASTER_SEASON, LENT};
+
 pub const LORDS_PRAYER_TRADITIONAL_TEXT: &str = "Our Father, who art in heaven,\n	hallowed be thy Name,\n	thy kingdom come,\n	thy will be done,\n	on earth as it is in heaven.\nGive us this day our daily bread.\nAnd forgive us our trespasses,\n	as we forgive those\n	who trespass against us.\nAnd lead us not into temptation,\n	but deliver us from evil.\nFor thine is the kingdom,\n	and the power, and the glory,\n	for ever and ever.";
 pub const LORDS_PRAYER_CONTEMPORARY_TEXT: &str = "Our Father in heaven,\n	hallowed be your Name,\n	your kingdom come,\n	your will be done,\n	on earth as in heaven.\nGive us today our daily bread.\nForgive us our sins,\n	as we forgive those\n	who sin against us.\nSave us from the time of trial,\n	and deliver us from evil.\nFor the kingdom, the power,\n	and the glory are yours,\n	now and for ever.";
 
@@ -88,5 +90,30 @@ lazy_static! {
                         ]
                 }
         ]
-};
+    };
+
+    pub static ref EUCHARIST_INTROS_II: Document = Document::from(Series::from(vec![
+        // Default opening
+        Document::from(Preces::from([
+            ("", "Blessed be God: Father, Son, and Holy Spirit."),
+            ("People", "And blessed be his kingdom, now and for ever. Amen.")
+        ])).condition(Condition::All(vec![
+            Condition::Not(Box::new(EASTER_SEASON.clone())),
+            Condition::Not(Box::new(LENT.clone())),
+        ])),
+
+        // Easter opening
+        Document::from(Rubric::from("In place of the above, from Easter Day through the Day of Pentecost")).display(Show::TemplateOnly),
+        Document::from(Preces::from([
+            ("Officiant", "Alleluia. Christ is risen."),
+            ("People", "The Lord is risen indeed. Alleluia.")
+        ])).condition(EASTER_SEASON.clone()),
+
+        // Lent opening
+        Document::from(Rubric::from("In Lent and on other penitential occasions")).display(Show::TemplateOnly),
+        Document::from(Preces::from([
+            ("Officiant", "Bless the Lord who forgives all our sins;"),
+            ("People", "His mercy endures for ever.")
+        ])).condition(LENT.clone()),
+    ]));
 }

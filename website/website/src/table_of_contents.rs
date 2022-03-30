@@ -15,6 +15,7 @@ pub enum TOCLiturgy {
     NP,
     EP,
     Compline,
+    //Baptism,
     Eucharist,
     NotFound,
 }
@@ -26,6 +27,7 @@ impl From<&str> for TOCLiturgy {
             "evening-prayer" => TOCLiturgy::EP,
             "noonday-prayer" => TOCLiturgy::NP,
             "compline" => TOCLiturgy::Compline,
+            //"holy-baptism" => TOCLiturgy::Baptism,
             "eucharist" => TOCLiturgy::Eucharist,
             _ => TOCLiturgy::NotFound,
         }
@@ -42,6 +44,7 @@ impl std::fmt::Display for TOCLiturgy {
                 TOCLiturgy::NP => "noonday-prayer",
                 TOCLiturgy::EP => "evening-prayer",
                 TOCLiturgy::Compline => "compline",
+                //TOCLiturgy::Baptism => "holy-baptism",
                 TOCLiturgy::Eucharist => "eucharist",
                 TOCLiturgy::NotFound => "404",
             }
@@ -153,6 +156,11 @@ lazy_static! {
         ],
         ("prayers-and-thanksgivings", None) => vec![
             PageType::Category("Prayers and Thanksgivings", Version::BCP1979, library::bcp1979::PRAYERS_AND_THANKSGIVINGS.clone())
+        ],
+        ("baptism", None) => vec![
+            PageType::Document("concerning-the-service", &*library::bcp1979::baptism::CONCERNING_THE_SERVICE),
+            PageType::Document("holy-baptism", &*library::bcp1979::baptism::HOLY_BAPTISM),
+            PageType::Document("additional-directions", &*library::bcp1979::baptism::ADDITIONAL_DIRECTIONS),
         ],
         ("marriage", None) => vec![
             // Parallels

@@ -1,6 +1,7 @@
 Website Todos
 =============
 
+- [ ] Baptism
 - Eucharist
   - [ ] Eucharistic Prayers
     - [ ] A
@@ -28,6 +29,7 @@ Website Todos
 - Disable certain UI features until WASM loads:
   - [ ] Search on hymnal page
 - Bugs
+  - [ ] 11/7 All Saints’ transferred collect should be All Saints
   - [ ] On category pages, group headings (so e.g., BCP has sub-headers for versions in Burial, not three separate H2s)
   - [ ] Proper Preface links in Burial/Marriage
   - [ ] Choice label & Rogation/Ember collects w/ subheadings (see e.g., /readings/office/2022-05-23)
