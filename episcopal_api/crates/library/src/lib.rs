@@ -2,7 +2,7 @@ use calendar::{Calendar, LiturgicalDay, LiturgicalDayId, Rank, Weekday};
 use canticle_table::{CanticleId, CanticleTable};
 use itertools::Itertools;
 use language::Language;
-use lectionary::{Lectionary, ReadingType};
+use lectionary::{rcl_readings, Lectionary, RCLTrack, Reading, ReadingType};
 use liturgy::*;
 use loc::collects::COLECTAS;
 use psalter::{bcp1979::BCP1979_PSALTER, Psalter};
@@ -111,44 +111,58 @@ pub trait Library {
                     let lectionary = Self::lectionary(chosen_lectionary);
 
                     if let Some(reading_type) = reading_type {
-                        let mut docs = lectionary
-                            .reading_by_type_with_override(
+                        let readings = if chosen_lectionary == Lectionaries::RCLTrack1
+                            || chosen_lectionary == Lectionaries::RCLTrack2
+                        {
+                            let track = if chosen_lectionary == Lectionaries::RCLTrack1 {
+                                RCLTrack::One
+                            } else {
+                                RCLTrack::Two
+                            };
+                            Box::new(
+                                rcl_readings(observed, day, track)
+                                    .filter(|reading| reading.reading_type == reading_type),
+                            ) as Box<dyn Iterator<Item = Reading>>
+                        } else {
+                            Box::new(lectionary.reading_by_type_with_override(
                                 observed,
                                 day,
                                 reading_type,
                                 lectionary_reading.reading_type_overridden_by,
-                            )
-                            .map(|reading| {
-                                if reading_type.is_psalm() {
-                                    Self::compile(
-                                        Document::from(PsalmCitation::from(reading.citation)),
-                                        calendar,
-                                        day,
-                                        observed,
-                                        prefs,
-                                        liturgy_prefs,
-                                    )
-                                    .unwrap()
-                                } else {
-                                    let intro = lectionary_reading.intro.as_ref().map(|intro| {
-                                        BiblicalReadingIntro::from(intro.compile(&reading.citation))
-                                    });
-                                    Document {
-                                        content: Content::BiblicalCitation(BiblicalCitation {
-                                            citation: reading.citation,
-                                            intro,
-                                        }),
-                                        version: prefs
-                                            .value(&PreferenceKey::from(GlobalPref::BibleVersion))
-                                            .and_then(|value| match value {
-                                                PreferenceValue::Version(version) => Some(*version),
-                                                _ => None,
-                                            })
-                                            .unwrap_or(Version::NRSV),
-                                        ..document.clone()
-                                    }
+                            )) as Box<dyn Iterator<Item = Reading>>
+                        };
+
+                        let mut docs = readings.map(|reading| {
+                            if reading_type.is_psalm() {
+                                Self::compile(
+                                    Document::from(PsalmCitation::from(reading.citation)),
+                                    calendar,
+                                    day,
+                                    observed,
+                                    prefs,
+                                    liturgy_prefs,
+                                )
+                                .unwrap()
+                            } else {
+                                let intro = lectionary_reading.intro.as_ref().map(|intro| {
+                                    BiblicalReadingIntro::from(intro.compile(&reading.citation))
+                                });
+                                Document {
+                                    content: Content::BiblicalCitation(BiblicalCitation {
+                                        citation: reading.citation,
+                                        intro,
+                                    }),
+                                    version: prefs
+                                        .value(&PreferenceKey::from(GlobalPref::BibleVersion))
+                                        .and_then(|value| match value {
+                                            PreferenceValue::Version(version) => Some(*version),
+                                            _ => None,
+                                        })
+                                        .unwrap_or(Version::NRSV),
+                                    ..document.clone()
                                 }
-                            });
+                            }
+                        });
 
                         // MorningPsalm and EveningPsalm are the only ones that include multiple of the same reading type in sequence
                         if matches!(
@@ -479,8 +493,6 @@ pub trait Library {
                     } else {
                         None
                     };
-
-                    println!("black_letter_collects = {:#?}", black_letter_collects);
 
                     let mut collects = Vec::new();
                     // Sunday or Holy Day
