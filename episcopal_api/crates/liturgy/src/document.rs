@@ -19,6 +19,7 @@ pub struct Document {
     pub display: Show,
     pub version: Version,
     pub version_label: Option<String>,
+    pub optional: bool,
     pub content: Content,
     pub explainer: Option<String>,
     pub is_compiled: bool,
@@ -38,6 +39,7 @@ impl Document {
             display: Show::Always,
             version: Version::RiteII,
             version_label: None,
+            optional: false,
             content: Content::Empty,
             explainer: None,
             is_compiled: false,
@@ -203,6 +205,7 @@ impl Document {
 				display, 
 				version, 
 				version_label, 
+                optional,
 				content, 
                 explainer,
 				is_compiled, 
@@ -234,6 +237,7 @@ impl Document {
 				display,
 				version,
 				version_label,
+                optional,
 				content,
                 explainer,
 				is_compiled,
@@ -322,6 +326,12 @@ impl Document {
     #[must_use]
     pub fn language(mut self, language: Language) -> Self {
         self.language = language;
+        self
+    }
+
+    #[must_use]
+    pub fn optional(mut self) -> Self {
+        self.optional = true;
         self
     }
 

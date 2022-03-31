@@ -1,7 +1,8 @@
 Website Todos
 =============
 
-- [ ] Baptism
+- [x] Baptism
+  - [ ] Add preferences
 - Eucharist
   - [ ] Prayers of the People
     - [ ] link to these in renaming service 

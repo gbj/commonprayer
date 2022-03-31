@@ -664,3 +664,9 @@ a.source-link > span {
 .manual-select.hidden {
   display: none;
 }
+
+.document.optional {
+  border-left: 2px solid var(--color);
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
+}

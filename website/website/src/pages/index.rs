@@ -95,7 +95,7 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                         {make_link(locale, "document/proper-liturgies", "toc.proper_liturgies", true)}
                     </li>
                     <li>
-                        {make_link(locale, "document/baptism", "toc.holy_baptism", true)}
+                        {make_link(locale, "document/baptism", "toc.holy_baptism", false)}
                     </li>
                     <li>
                         {make_link(locale, "document/eucharist", "toc.holy_eucharist", true)}

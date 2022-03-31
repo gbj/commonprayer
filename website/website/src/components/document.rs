@@ -859,13 +859,17 @@ pub fn collect_of_the_day(locale: &str, _allow_multiple: bool, version: Version)
     (None, main)
 }
 
-pub fn document_class(doc: &Document) -> &'static str {
-    match (doc.display, doc.is_compiled) {
-        (Show::Hidden, _) => "document hidden",
-        (Show::CompiledOnly, false) => "document hidden",
-        (Show::TemplateOnly, true) => "hidden template-only",
-        _ => "document",
-    }
+pub fn document_class(doc: &Document) -> String {
+    format!(
+        "{}{}",
+        if doc.optional { "optional " } else { "" },
+        match (doc.display, doc.is_compiled) {
+            (Show::Hidden, _) => "document hidden",
+            (Show::CompiledOnly, false) => "document hidden",
+            (Show::TemplateOnly, true) => "hidden template-only",
+            _ => "document",
+        }
+    )
 }
 
 pub fn document_link(
@@ -1236,10 +1240,18 @@ pub fn preces(preces: &Preces) -> HeaderAndMain {
         preces
             .iter()
             .map(|(label, prayer)| {
+                let lines = View::Fragment(
+                    prayer
+                        .split('\n')
+                        .map(minimal_markdown)
+                        .intersperse_with(|| view! { <br/> })
+                        .collect(),
+                );
+
                 view! {
                     <p class="line">
                         <em class="label">{label}</em>
-                        <span class="text">{minimal_markdown(prayer)}</span>
+                        <span class="text">{lines}</span>
                     </p>
                 }
             })
