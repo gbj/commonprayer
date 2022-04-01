@@ -106,6 +106,10 @@ a:visited {
   .menu-toggle-button:not(.hamburger) {
     filter: var(--button-filter-light);
   }
+
+  .additional-buttons img {
+    filter: var(--button-filter-light);
+  }
 }
 
 body.dark-mode-dark {
@@ -146,6 +150,10 @@ body.dark-mode-dark {
 }
 
 body.dark-mode-dark .menu-toggle-button:not(.hamburger) {
+  filter: var(--button-filter-light);
+}
+
+body.dark-mode-dark .additional-buttons img {
   filter: var(--button-filter-light);
 }
 
