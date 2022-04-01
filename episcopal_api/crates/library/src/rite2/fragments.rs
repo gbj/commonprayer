@@ -105,14 +105,14 @@ lazy_static! {
         // Easter opening
         Document::from(Rubric::from("In place of the above, from Easter Day through the Day of Pentecost")).display(Show::TemplateOnly),
         Document::from(Preces::from([
-            ("Officiant", "Alleluia. Christ is risen."),
+            ("Celebrant", "Alleluia. Christ is risen."),
             ("People", "The Lord is risen indeed. Alleluia.")
         ])).condition(EASTER_SEASON.clone()),
 
         // Lent opening
         Document::from(Rubric::from("In Lent and on other penitential occasions")).display(Show::TemplateOnly),
         Document::from(Preces::from([
-            ("Officiant", "Bless the Lord who forgives all our sins;"),
+            ("Celebrant", "Bless the Lord who forgives all our sins;"),
             ("People", "His mercy endures for ever.")
         ])).condition(LENT.clone()),
     ]));
