@@ -67,7 +67,7 @@ fn add_content(docx: Docx, doc: &Document) -> Docx {
         }
         Content::Category(content) => content.add_to_docx(docx),
         Content::CollectOfTheDay { allow_multiple: _ } => {
-            docx.header(Header::new().add_paragraph(paragraph_with_text("The Collect of the Day")))
+            docx.add_paragraph(paragraph_with_text("The Collect of the Day").style(HEADING_3))
         }
         Content::DocumentLink(..) => docx,
         Content::Empty => docx,

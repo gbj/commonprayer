@@ -32,7 +32,6 @@ Website Todos
 - Disable certain UI features until WASM loads:
   - [ ] Search on hymnal page
 - Bugs
-  - [ ] Collect of the Day in DOCX should be a heading, not a header!
   - [ ] DOCX: line breaks in Apostles’ Creed
   - [ ] 11/7 All Saints’ transferred collect should be All Saints
   - [ ] On category pages, group headings (so e.g., BCP has sub-headers for versions in Burial, not three separate H2s)
