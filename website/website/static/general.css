@@ -91,6 +91,10 @@ a:visited {
     --link-color-filter: invert(53%) sepia(9%) saturate(3609%)
       hue-rotate(314deg) brightness(87%) contrast(73%);
     --link-visited-color: #c45f5f;
+
+    /* Selections */
+    --selected-background: #363637;
+    --selected-border: #aeaeb2;
   }
 
   .menu-toggle-button:not(.hamburger) {

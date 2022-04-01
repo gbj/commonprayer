@@ -32,7 +32,6 @@ Website Todos
 - Disable certain UI features until WASM loads:
   - [ ] Search on hymnal page
 - Bugs
-  - [ ] Dark mode selection color way too light
   - [ ] Collect of the Day in DOCX should be a heading, not a header!
   - [ ] DOCX: line breaks in Apostles’ Creed
   - [ ] 11/7 All Saints’ transferred collect should be All Saints
