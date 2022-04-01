@@ -399,7 +399,8 @@ pub trait Library {
 
                     let day_rank = calendar.rank(day);
                     let holy_day_collect = match observed {
-                        LiturgicalDayId::Feast(feast) => {
+                        LiturgicalDayId::Feast(feast)
+                        | LiturgicalDayId::TransferredFeast(feast) => {
                             let feast = calendar.feast_eve_following_day(feast).unwrap_or(*feast);
 
                             let id = COLLECT_LINKS.linked_id(&CollectId::Feast(feast));
