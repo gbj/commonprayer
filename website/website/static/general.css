@@ -107,7 +107,7 @@ a:visited {
     filter: var(--button-filter-light);
   }
 
-  .additional-buttons img {
+  button:not(.venite) img, a img {
     filter: var(--button-filter-light);
   }
 }
@@ -153,7 +153,7 @@ body.dark-mode-dark .menu-toggle-button:not(.hamburger) {
   filter: var(--button-filter-light);
 }
 
-body.dark-mode-dark .additional-buttons img {
+body.dark-mode-dark button img, body.dark-mode-dark a img {
   filter: var(--button-filter-light);
 }
 
