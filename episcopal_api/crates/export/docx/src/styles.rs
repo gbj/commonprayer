@@ -41,8 +41,13 @@ impl StyledDocument for Docx {
                         .bold(),
                 )
                 .add_style(
-                    Style::new(ANTIPHON, StyleType::Paragraph)
+                    Style::new(RESPONSE, StyleType::Paragraph)
                         .name(RESPONSE)
+                        .bold(),
+                )
+                .add_style(
+                    Style::new(ANTIPHON, StyleType::Paragraph)
+                        .name(ANTIPHON)
                         .italic(),
                 )
                 .add_style(
