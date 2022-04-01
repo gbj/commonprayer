@@ -60,7 +60,7 @@ a.source-link {
   color: inherit;
   padding: 0.5rem;
   border-radius: var(--border-radius);
-  background-color: #d9d9d9;
+  background-color: var(--source-link-background);
   max-width: 8rem;
   text-align: center;
   display: block;
