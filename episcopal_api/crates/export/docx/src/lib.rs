@@ -340,7 +340,27 @@ impl AddToDocx for Litany {
 
 impl AddToDocx for Preces {
     fn add_to_docx(&self, docx: Docx) -> Docx {
-        let para = Paragraph::new();
+        let table = Table::without_borders(
+            self.iter()
+                .enumerate()
+                .map(|(idx, (v, r))| {
+                    TableRow::new(vec![
+                        TableCell::new().add_paragraph(
+                            Paragraph::new().add_run(Run::new().add_text(v).italic()),
+                        ),
+                        if idx % 2 == 1 {
+                            TableCell::new().add_paragraph(paragraph_with_text(r).style(RESPONSE))
+                        } else {
+                            TableCell::new().add_paragraph(paragraph_with_text(r))
+                        },
+                    ])
+                })
+                .collect(),
+        );
+
+        docx.add_table(table)
+
+        /* let para = Paragraph::new();
         let para = self.iter().enumerate().fold(para, |para, (idx, (v, r))| {
             let r = if idx % 2 == 1 {
                 Run::new()
@@ -353,7 +373,7 @@ impl AddToDocx for Preces {
             para.add_run(Run::new().add_text(v).italic().add_tab())
                 .add_run(r)
         });
-        docx.add_paragraph(para)
+        docx.add_paragraph(para) */
     }
 }
 
