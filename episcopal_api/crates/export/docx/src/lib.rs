@@ -359,21 +359,6 @@ impl AddToDocx for Preces {
         );
 
         docx.add_table(table)
-
-        /* let para = Paragraph::new();
-        let para = self.iter().enumerate().fold(para, |para, (idx, (v, r))| {
-            let r = if idx % 2 == 1 {
-                Run::new()
-                    .add_text(r)
-                    .bold()
-                    .add_break(BreakType::TextWrapping)
-            } else {
-                Run::new().add_text(r).add_break(BreakType::TextWrapping)
-            };
-            para.add_run(Run::new().add_text(v).italic().add_tab())
-                .add_run(r)
-        });
-        docx.add_paragraph(para) */
     }
 }
 
