@@ -162,6 +162,9 @@ lazy_static! {
             PageType::Document("holy-baptism", &*library::bcp1979::baptism::HOLY_BAPTISM),
             PageType::Document("additional-directions", &*library::bcp1979::baptism::ADDITIONAL_DIRECTIONS),
         ],
+        ("eucharist", None) => vec![
+            PageType::Category("pop", Version::BCP1979, library::bcp1979::eucharist::PRAYERS_OF_THE_PEOPLE.clone()),
+        ],
         ("marriage", None) => vec![
             // Parallels
             PageType::Document("readings", &*library::marriage_alternatives::parallels::PARALLEL_READINGS),
