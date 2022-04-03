@@ -1,10 +1,10 @@
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
-use crate::Document;
+use crate::{Content, Document, Heading};
 
 /// A short Biblical reading, with an optional response.
-#[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, Default, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Sentence {
     pub text: String,
     pub citation: Option<String>,
@@ -40,6 +40,29 @@ where
             text: text.to_string(),
             citation: None,
             response: None,
+        }
+    }
+}
+
+// Conversions
+impl From<Content> for Sentence {
+    fn from(f: Content) -> Self {
+        match f {
+            Content::Sentence(c) => c,
+            Content::Antiphon(c) => Self::from(c),
+            Content::Heading(c) => Self::from(c),
+            Content::Rubric(c) => Self::from(c),
+            Content::Text(c) => Self::from(c),
+            _ => Self::default(),
+        }
+    }
+}
+
+impl From<Heading> for Sentence {
+    fn from(f: Heading) -> Self {
+        match f {
+            Heading::Text(_, text) => Self::from(text),
+            _ => Self::default(),
         }
     }
 }

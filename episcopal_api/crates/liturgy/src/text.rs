@@ -1,10 +1,10 @@
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
-use crate::DisplayFormat;
+use crate::{Antiphon, Content, DisplayFormat, Heading, Rubric, Sentence};
 
 /// Text, without any additional styling or semantics
-#[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, Default, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Text {
     pub text: String,
     pub display_format: DisplayFormat,
@@ -51,5 +51,46 @@ impl From<&str> for Text {
 impl Display for Text {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.text)
+    }
+}
+
+// Conversions
+impl From<Content> for Text {
+    fn from(f: Content) -> Self {
+        match f {
+            Content::Text(c) => c,
+            Content::Antiphon(c) => Self::from(c),
+            Content::Heading(c) => Self::from(c),
+            Content::Rubric(c) => Self::from(c),
+            Content::Sentence(c) => Self::from(c),
+            _ => Self::default(),
+        }
+    }
+}
+
+impl From<Antiphon> for Text {
+    fn from(f: Antiphon) -> Self {
+        Self::from(f.to_string())
+    }
+}
+
+impl From<Heading> for Text {
+    fn from(f: Heading) -> Self {
+        match f {
+            Heading::Text(_, text) => Self::from(text),
+            _ => Self::default(),
+        }
+    }
+}
+
+impl From<Rubric> for Text {
+    fn from(f: Rubric) -> Self {
+        Self::from(f.to_string())
+    }
+}
+
+impl From<Sentence> for Text {
+    fn from(f: Sentence) -> Self {
+        Self::from(f.text)
     }
 }

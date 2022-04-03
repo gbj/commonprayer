@@ -23,3 +23,9 @@ impl DisplayFormat {
         }
     }
 }
+
+impl Default for DisplayFormat {
+    fn default() -> Self {
+        Self::Default
+    }
+}
