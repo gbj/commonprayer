@@ -11,19 +11,34 @@ pub struct Editor {
     redo_stack: Behavior<Vec<Document>>,
 }
 
+const AUTOSAVE: &str = "autosave";
+
 impl Editor {
     pub fn new() -> Self {
-        let editable_doc =
-            EditableDocument::from(Document::from(Liturgy::from(Series::from(vec![
-                Document::from(Text::from("Test text #1.").response("Amen.")),
-                Document::from(Text::from("Test text #2")),
-            ]))));
+        // load from autosave
+        let storage = window().local_storage().unwrap().unwrap();
+        let editable_doc = storage
+            .get(AUTOSAVE)
+            .unwrap()
+            .map(|value| EditableDocument::from(serde_json::from_str::<Document>(&value).unwrap()))
+            .unwrap_or_else(|| {
+                EditableDocument::from(Document::from(Liturgy::from(Series::from(vec![
+                    Document::from(Text::from("Test text #1.").response("Amen.")),
+                    Document::from(Text::from("Test text #2")),
+                ]))))
+            });
 
+        // Update Undo Stack
         let undo_stack = Behavior::new(Vec::new());
 
         editable_doc.stream().create_effect({
             let undo_stack = undo_stack.clone();
             move |new_doc| undo_stack.update(|stack| stack.push(new_doc.clone()))
+        });
+
+        // Autosave
+        editable_doc.stream().create_effect(move |new_doc| {
+            storage.set(AUTOSAVE, &serde_json::to_string(&new_doc).unwrap());
         });
 
         Self {
@@ -37,7 +52,7 @@ impl Editor {
         let json_stream = self
             .editable_doc
             .stream()
-            .map(|doc| serde_json::to_string(&doc).unwrap())
+            .map(|doc| serde_json::to_string_pretty(&doc).unwrap())
             .boxed_local();
 
         let wc_doc_stream = self
@@ -84,6 +99,16 @@ impl Editor {
                     }
                 >
                     "Redo"
+                </dyn:button>
+                <dyn:button
+                    on:click={
+                        let editable_doc = self.editable_doc.document.clone();
+                        move |_ev: Event| {
+                            editable_doc.set(Document::from(Content::Empty));
+                        }
+                    }
+                >
+                    "Clear"
                 </dyn:button>
                 <div class="panes">
                     <div class="editor">{self.editable_doc.view()}</div>
