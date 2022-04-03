@@ -1,6 +1,9 @@
 Website Todos
 =============
 
+- [ ] Editor (to speed up liturgy creation)
+  - [ ] Conversions
+  - [ ] Rust code export
 - [x] Baptism
   - [ ] Add preferences
 - Eucharist
@@ -23,6 +26,7 @@ Website Todos
     - [ ] Rite 2
     - [ ] Rite 1
     - [ ] EOW
+- [ ] Audio export
 - Burial Services
   - [ ] Integrate Additional Prayers into Prayers & THanksgivings
       - [ ] EOW

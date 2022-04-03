@@ -161,11 +161,15 @@ fn node_to_tokens(node: &Node, hydrate_only: bool) -> Option<TokenStream> {
                 let children = nodes_to_children(&node.children, hydrate_only);
                 // Dynamic elements
                 if tag_name.starts_with("dyn:") {
-                    dynamic_element(node, tag_name.replace("dyn:", ""), &children)
+                    dynamic_element(
+                        node,
+                        tag_name.replace("dyn:", "").replace("_", "-"),
+                        &children,
+                    )
                 }
                 // Static elements
                 else {
-                    static_element(node, hydrate_only, tag_name, &children)
+                    static_element(node, hydrate_only, tag_name.replace("_", "-"), &children)
                 }
             }
         }

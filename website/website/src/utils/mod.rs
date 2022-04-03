@@ -22,13 +22,6 @@ pub fn decode_uri(encoded: &str) -> String {
     }
 }
 
-pub fn event_target_checked(ev: Event) -> bool {
-    ev.target()
-        .unwrap()
-        .unchecked_into::<web_sys::HtmlInputElement>()
-        .checked()
-}
-
 pub fn scroll_to_element_by_id_with_padding_for_header(id: &str) {
     let el = document().get_element_by_id(id);
     if let Some(el) = el {

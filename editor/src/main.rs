@@ -1,0 +1,16 @@
+#![allow(unused_braces)]
+
+use leptos::*;
+
+mod content;
+mod editor;
+use editor::*;
+
+fn main() {
+    let body = body();
+    let editor = Editor::new();
+    if let Some(body) = body {
+        body.append_child(&editor.view().client_side_render())
+            .expect("couldn't mount editor");
+    }
+}

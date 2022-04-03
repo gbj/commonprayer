@@ -1,6 +1,5 @@
 use crate::{
     preferences::{self, DisplaySettings},
-    utils::event_target_checked,
     utils::preferences::*,
 };
 use futures::StreamExt;

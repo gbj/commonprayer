@@ -7,7 +7,6 @@ use wasm_bindgen::{JsCast, UnwrapThrowExt};
 
 use crate::{
     components::*,
-    utils::event_target_checked,
     utils::fetch::{Fetch, FetchError, FetchStatus},
 };
 
@@ -335,12 +334,14 @@ pub fn document_view(
     };
 
     view! {
-        <>
+        // this could be a fragment, but causes problems in web components
+        // because a DocumentFragment can't be replaceNode'd with another one
+        <div class="document">
             {checkbox}
             {label}
             {header}
             {main}
-        </>
+        </div>
     }
 }
 

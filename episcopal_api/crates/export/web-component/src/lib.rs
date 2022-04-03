@@ -42,7 +42,6 @@ impl CustomElement for ComponentWrapper {
         _old_value: Option<String>,
         new_value: Option<String>,
     ) {
-        leptos::log(&format!("attribute changed {}", name));
         if name.as_str() == "locale" {
             if let Some(value) = &new_value {
                 self.locale = value.to_owned();
@@ -52,12 +51,10 @@ impl CustomElement for ComponentWrapper {
             if let Some(value) = &new_value {
                 match serde_json::from_str::<Document>(value) {
                     Ok(doc) => {
-                        leptos::log(&format!("doc = {:#?}", doc));
                         let view = DocumentController::new(doc).view(&self.locale);
                         let node = view.client_side_render();
                         if let Some(old_node) = &self.node {
                             leptos::replace_with(old_node.unchecked_ref(), &node);
-                            leptos::log(&format!("new node = {:#?}", node));
                             self.node = Some(node);
                         }
                     }

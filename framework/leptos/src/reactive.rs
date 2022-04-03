@@ -36,7 +36,7 @@ where
 
     pub fn set(&self, value: T) {
         for subscriber in self.subscribers.borrow().iter() {
-            subscriber.unbounded_send(value.clone()).unwrap();
+            subscriber.unbounded_send(value.clone());
         }
         *self.value.borrow_mut() = value;
     }

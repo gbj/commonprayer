@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CommonPrayerOnline.org Liturgy Editor</title>
+		<style>
+			.panes {
+				display: flex;
+				justify-content: space-between;
+			}
+
+			.metadata {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.metadata label {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.metadata label.horizontal {
+				flex-direction: row;
+			}
+
+			.panes > * {
+				min-height: 100vh;
+				width: 33vw;
+			}
+
+			.content {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.hidden {
+				display: none;
+			}
+		</style>
+		<link data-trunk rel="copy-dir" href="../episcopal_api/crates/export/web-component/example/pkg"/>
+		<script type="module">
+			import init, { run } from '/pkg/web_component.js';
+			async function main() {
+				await init();
+				run();
+			}
+			main();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

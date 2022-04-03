@@ -31,6 +31,10 @@ impl Series {
         self.1 = true;
         self
     }
+
+    pub fn push(&mut self, doc: Document) {
+        self.0.push(doc)
+    }
 }
 
 impl<T, U> From<T> for Series

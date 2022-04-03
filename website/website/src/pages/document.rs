@@ -4,7 +4,7 @@ use crate::{
     components::*,
     preferences,
     table_of_contents::PageType,
-    utils::{event_target_checked, preferences::*, time::today},
+    utils::{preferences::*, time::today},
     TOCLiturgy, TABLE_OF_CONTENTS,
 };
 use calendar::{Calendar, Date};

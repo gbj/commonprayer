@@ -120,6 +120,13 @@ pub fn event_target_value(event: web_sys::Event) -> String {
         .value()
 }
 
+pub fn event_target_checked(ev: web_sys::Event) -> bool {
+    ev.target()
+        .unwrap()
+        .unchecked_into::<web_sys::HtmlInputElement>()
+        .checked()
+}
+
 pub fn request_animation_frame(cb: impl Fn() + 'static) {
     let cb = Closure::wrap(Box::new(cb) as Box<dyn Fn()>).into_js_value();
     window()
