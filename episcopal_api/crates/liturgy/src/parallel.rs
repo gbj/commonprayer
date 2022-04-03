@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{Choice, Document, Series};
+use crate::{Choice, Content, Document, Liturgy, Series};
 
 /// Multiple [Document](crate::Document)s that are displayed side by side.
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
@@ -31,6 +31,25 @@ where
 {
     fn from(items: T) -> Self {
         Self(items.into_iter().map(|item| item.into()).collect())
+    }
+}
+
+// Conversions
+impl From<Content> for Parallel {
+    fn from(content: Content) -> Self {
+        match content {
+            Content::Parallel(c) => c,
+            Content::Series(c) => Self::from(c),
+            Content::Liturgy(c) => Self::from(c),
+            Content::Choice(c) => Self::from(c),
+            _ => Self::from([content]),
+        }
+    }
+}
+
+impl From<Liturgy> for Parallel {
+    fn from(content: Liturgy) -> Self {
+        Self::from(content.body)
     }
 }
 

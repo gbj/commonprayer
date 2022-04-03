@@ -23,8 +23,7 @@ impl Editor {
             .map(|value| EditableDocument::from(serde_json::from_str::<Document>(&value).unwrap()))
             .unwrap_or_else(|| {
                 EditableDocument::from(Document::from(Liturgy::from(Series::from(vec![
-                    Document::from(Text::from("Test text #1.").response("Amen.")),
-                    Document::from(Text::from("Test text #2")),
+                    Document::from(""),
                 ]))))
             });
 
@@ -104,7 +103,7 @@ impl Editor {
                     on:click={
                         let editable_doc = self.editable_doc.document.clone();
                         move |_ev: Event| {
-                            editable_doc.set(Document::from(Content::Empty));
+                            editable_doc.set(Document::from(""));
                         }
                     }
                 >

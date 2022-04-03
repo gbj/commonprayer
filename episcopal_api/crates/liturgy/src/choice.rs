@@ -1,7 +1,7 @@
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 
-use crate::{Content, Document, Parallel, Series};
+use crate::{Content, Document, Liturgy, Parallel, Series};
 use calendar::Date;
 
 /// Multiple [Document](crate::Document)s that are displayed one at a time, with a menu to choose between them.
@@ -24,6 +24,25 @@ where
             rotated: false,
             should_rotate: false,
         }
+    }
+}
+
+// Conversions
+impl From<Content> for Choice {
+    fn from(content: Content) -> Self {
+        match content {
+            Content::Choice(c) => c,
+            Content::Liturgy(c) => Self::from(c),
+            Content::Series(c) => Self::from(c),
+            Content::Parallel(c) => Self::from(c),
+            _ => Self::from([Document::from(content)]),
+        }
+    }
+}
+
+impl From<Liturgy> for Choice {
+    fn from(content: Liturgy) -> Self {
+        Self::from(content.body)
     }
 }
 

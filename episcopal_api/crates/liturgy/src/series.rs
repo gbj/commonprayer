@@ -47,6 +47,7 @@ where
     }
 }
 
+// Conversions
 impl From<Content> for Series {
     fn from(content: Content) -> Self {
         match content {

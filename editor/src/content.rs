@@ -70,9 +70,33 @@ pub fn content_editing_view(doc: &Behavior<Document>, content: &Content) -> View
 fn swap_content(doc: &Behavior<Document>, new_type: &str) -> Content {
     let curr = doc.get().content;
     match new_type {
+        "Empty" => Content::Empty,
         "Antiphon" => Content::Antiphon(Antiphon::from(curr)),
+        //"Biblical Citation" => Content::BiblicalCitation(BiblicalCitation::from(curr)),
+        //"Biblical Reading" => Content::BiblicalReading(BiblicalReading::from(curr)),
+        //"Canticle" => Content::Canticle(Canticle::from(curr)),
+        //"Canticle Table Entry" => Content::CanticleTableEntry(CanticleTableEntry::from(curr)),
+        //"Category" => Content::Category(Category::from(curr)),
+        "Choice" => Content::Choice(Choice::from(curr)),
+        "Collect of the Day" => Content::CollectOfTheDay {
+            allow_multiple: false,
+        },
+        //"Document Link" => Content::DocumentLink(DocumentLink::from(curr)),
+        //"Gloria Patri" => Content::GloriaPatri(GloriaPatri::from(curr)),
+        //"Heading" => Content::Heading(Heading::from(curr)),
+        //"Hymn Link" => Content::HymnLink(Hymn Link::from(curr)),
+        //"Invitatory" => Content::Invitatory(Invitatory::from(curr)),
+        //"Lectionary Reading" => Content::LectionaryReading(LectionaryReading::from(curr)),
+        "Litany" => Content::Litany(Litany::from(curr)),
+        "Liturgy" => Content::Liturgy(Liturgy::from(curr)),
+        "Parallel" => Content::Parallel(Parallel::from(curr)),
+        "Preces" => Content::Preces(Preces::from(curr)),
+        //"Psalm" => Content::Psalm(Psalm::from(curr)),
+        //"Psalm Citation" => Content::PsalmCitation(Psalm Citation::from(curr)),
+        "Responsive Prayer" => Content::ResponsivePrayer(ResponsivePrayer::from(curr)),
         "Rubric" => Content::Rubric(Rubric::from(curr)),
         "Sentence" => Content::Sentence(Sentence::from(curr)),
+        "Series" => Content::Series(Series::from(curr)),
         "Text" => Content::Text(Text::from(curr)),
         // All others => Empty
         _ => Content::Empty,
@@ -246,7 +270,7 @@ fn edit_series(root_doc: &Behavior<Document>, content: &Series) -> View {
                 on:click={
                     let root_doc = root_doc.clone();
                     move |_ev: Event| {
-                        content.update(|content| content.push(Document::from(Content::Empty)));
+                        content.update(|content| content.push(Document::from("")));
                         let new_content = content.get();
                         root_doc.update(|root_doc| root_doc.content = Content::Series(new_content.clone()));
                     }

@@ -1,3 +1,5 @@
+#![feature(iter_intersperse)]
+
 mod antiphon;
 mod biblical_citation;
 mod biblical_reading;

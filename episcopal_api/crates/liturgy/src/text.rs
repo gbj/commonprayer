@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
-use crate::{Antiphon, Content, DisplayFormat, Heading, Rubric, Sentence};
+use crate::{Antiphon, Content, DisplayFormat, Heading, Preces, Rubric, Sentence};
 
 /// Text, without any additional styling or semantics
 #[derive(Clone, Debug, Default, Hash, Eq, PartialEq, Serialize, Deserialize)]
@@ -80,6 +80,18 @@ impl From<Heading> for Text {
             Heading::Text(_, text) => Self::from(text),
             _ => Self::default(),
         }
+    }
+}
+
+impl From<Preces> for Text {
+    fn from(f: Preces) -> Self {
+        Self::from(
+            f.into_vec()
+                .into_iter()
+                .map(|(v, r)| format!("{v}\t{r}"))
+                .intersperse_with(|| String::from("\n"))
+                .collect::<String>(),
+        )
     }
 }
 
