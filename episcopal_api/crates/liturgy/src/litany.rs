@@ -1,8 +1,10 @@
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
+use crate::{Content, Preces, ResponsivePrayer, Text};
+
 /// A responsive prayer in which the same response is given to every petition
-#[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, Default, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Litany {
     pub response: String,
     pub lines: Vec<String>,
@@ -28,6 +30,70 @@ where
         Self {
             response: response.to_string(),
             lines: lines.into_iter().map(|line| line.to_string()).collect(),
+        }
+    }
+}
+
+// Conversions
+impl From<Content> for Litany {
+    fn from(content: Content) -> Self {
+        match content {
+            Content::Litany(c) => c,
+            Content::Preces(c) => Self::from(c),
+            Content::ResponsivePrayer(c) => Self::from(c),
+            Content::Text(c) => Self::from(c),
+            _ => Self::default(),
+        }
+    }
+}
+
+impl From<Preces> for Litany {
+    fn from(content: Preces) -> Self {
+        let vec = content.into_vec();
+        let response = vec.get(1).cloned().unwrap_or_default().1;
+        Self {
+            response,
+            lines: vec
+                .into_iter()
+                .enumerate()
+                .filter_map(|(idx, (_, line))| if idx % 2 == 1 { Some(line) } else { None })
+                .collect(),
+        }
+    }
+}
+
+impl From<ResponsivePrayer> for Litany {
+    fn from(content: ResponsivePrayer) -> Self {
+        let vec = content.into_vec();
+        let response = vec.get(1).cloned().unwrap_or_default();
+        Self {
+            response,
+            lines: vec
+                .into_iter()
+                .enumerate()
+                .filter_map(|(idx, line)| if idx % 2 == 1 { Some(line) } else { None })
+                .collect(),
+        }
+    }
+}
+
+impl From<Text> for Litany {
+    fn from(content: Text) -> Self {
+        let mut lines = content.text.split('\n');
+        let first_line = lines.next().unwrap_or_default();
+        let response = lines.next().unwrap_or_default();
+        Self {
+            response: response.to_string(),
+            lines: std::iter::once(first_line)
+                .chain(lines)
+                .filter_map(move |line| {
+                    if line.trim() == response {
+                        None
+                    } else {
+                        Some(line.to_string())
+                    }
+                })
+                .collect(),
         }
     }
 }
