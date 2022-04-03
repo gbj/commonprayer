@@ -2,11 +2,11 @@ use std::{fmt::Display, iter};
 
 use serde::{Deserialize, Serialize};
 
-use crate::{Document, PreferenceKey, PreferenceValue, Reference, Series};
+use crate::{Content, Document, PreferenceKey, PreferenceValue, Reference, Series};
 
 /// A liturgical template that can carry a set of possible preferences and
 /// other metadata, as well as sub-documents.
-#[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, Default, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Liturgy {
     pub preferences: LiturgyPreferences,
     pub evening: bool,
@@ -216,6 +216,17 @@ where
             label: option.to_string(),
             value: option.into(),
             fallback_value: None,
+        }
+    }
+}
+
+// Conversions
+impl From<Content> for Liturgy {
+    fn from(content: Content) -> Self {
+        match content {
+            Content::Liturgy(c) => c,
+            Content::Series(c) => Self::from(c),
+            _ => Self::from(Series::from(vec![Document::from(content)])),
         }
     }
 }

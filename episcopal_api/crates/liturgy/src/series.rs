@@ -1,9 +1,9 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{Choice, Document, Parallel};
+use crate::{Choice, Content, Document, Liturgy, Parallel};
 
 /// Multiple [Document](crate::Document)s that are displayed in order.
-#[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, Default, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Series(Vec<Document>, bool);
 
 impl Series {
@@ -47,6 +47,18 @@ where
     }
 }
 
+impl From<Content> for Series {
+    fn from(content: Content) -> Self {
+        match content {
+            Content::Series(c) => c,
+            Content::Choice(c) => Self::from(c),
+            Content::Parallel(c) => Self::from(c),
+            Content::Liturgy(c) => Self::from(c),
+            _ => Self::from([Document::from(content)]),
+        }
+    }
+}
+
 impl From<Choice> for Series {
     fn from(choice: Choice) -> Self {
         Self::from(choice.options)
@@ -56,5 +68,11 @@ impl From<Choice> for Series {
 impl From<Parallel> for Series {
     fn from(parallel: Parallel) -> Self {
         Self::from(parallel.into_vec())
+    }
+}
+
+impl From<Liturgy> for Series {
+    fn from(liturgy: Liturgy) -> Self {
+        liturgy.body
     }
 }
