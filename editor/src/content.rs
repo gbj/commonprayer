@@ -1,3 +1,4 @@
+use crate::dyn_attr_once;
 use crate::EditableDocument;
 use futures::StreamExt;
 use leptos::*;
@@ -10,6 +11,7 @@ pub fn content_editing_view(doc: &Behavior<Document>, content: &Content) -> View
         Content::Empty => View::Empty,
         Content::Antiphon(content) => edit_antiphon(doc, content),
         Content::Liturgy(content) => edit_liturgy(doc, content),
+        Content::Preces(content) => edit_preces(doc, content),
         Content::Rubric(content) => edit_rubric(doc, content),
         Content::Sentence(content) => edit_sentence(doc, content),
         Content::Series(content) => edit_series(doc, content),
@@ -223,6 +225,100 @@ fn edit_sentence(doc: &Behavior<Document>, content: &Sentence) -> View {
                     }
                 />
             </label>
+        </>
+    }
+}
+
+fn edit_preces(root_doc: &Behavior<Document>, content: &Preces) -> View {
+    let content = Behavior::new(content.clone());
+    let list = NaiveList::new(
+        |children| {
+            view! {
+                <table class="series">
+                    {children}
+                </table>
+            }
+        },
+        content.stream().map(move |preces| preces.into_vec()),
+        {
+            let root_doc = root_doc.clone();
+            let content = content.clone();
+            move |(idx, (v, r))| {
+                let v = Behavior::new(v);
+                let r = Behavior::new(r);
+
+                view! {
+                    <tr>
+                        <td>
+                            <dyn:input type="text"
+                                //prop:value={v.stream().map(Some).boxed_local()}
+                                value={dyn_attr_once(&v.get())}
+                                on:change={
+                                    let content = content.clone();
+                                    let root_doc = root_doc.clone();
+                                    move |ev: Event| {
+                                        let val = event_target_value(ev);
+                                        v.set(val.clone());
+                                        content.update(move |content| {
+                                            let mut vec = content.clone().into_vec();
+                                            let mut line = vec.get(idx).cloned().unwrap_or_default();
+                                            line.0 = val.clone();
+                                            if let Some(l) = vec.get_mut(idx) {
+                                                *l = line;
+                                            };
+                                            *content = Preces::from(vec);
+                                        });
+                                        let new_content = content.get();
+                                        root_doc.update(move |doc| doc.content = Content::Preces(new_content.clone()));
+                                    }
+                                }
+                            />
+                        </td>
+                        <td>
+                            <dyn:input type="text"
+                                prop:value={r.stream().map(Some).boxed_local()}
+                                on:change={
+                                    let content = content.clone();
+                                    let root_doc = root_doc.clone();
+                                    move |ev: Event| {
+                                        let val = event_target_value(ev);
+                                        r.set(val.clone());
+                                        content.update(move |content| {
+                                            let mut vec = content.clone().into_vec();
+                                            let mut line = vec.get(idx).cloned().unwrap_or_default();
+                                            line.1 = val.clone();
+                                            if let Some(l) = vec.get_mut(idx) {
+                                                *l = line;
+                                            };
+                                            *content = Preces::from(vec);
+                                        });
+                                        let new_content = content.get();
+                                        root_doc.update(move |doc| doc.content = Content::Preces(new_content.clone()));
+                                    }
+                                }
+                            />
+                        </td>
+                    </tr>
+                }
+            }
+        },
+    );
+
+    view! {
+        <>
+            {list.view()}
+            <dyn:button
+                on:click={
+                    let root_doc = root_doc.clone();
+                    move |_ev: Event| {
+                        content.update(|content| content.push((String::new(), String::new())));
+                        let new_content = content.get();
+                        root_doc.update(|root_doc| root_doc.content = Content::Preces(new_content.clone()));
+                    }
+                }
+            >
+                "Add"
+            </dyn:button>
         </>
     }
 }

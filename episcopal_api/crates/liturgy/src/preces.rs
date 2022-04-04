@@ -16,6 +16,10 @@ impl Preces {
     pub fn into_vec(self) -> Vec<(String, String)> {
         self.0
     }
+
+    pub fn push(&mut self, line: (String, String)) {
+        self.0.push(line);
+    }
 }
 
 impl<T, A, B> From<T> for Preces
@@ -56,8 +60,8 @@ impl From<Text> for Preces {
                 .map(|line| {
                     let mut parts = line.splitn(2, ' ');
                     (
-                        parts.next().unwrap_or_default().to_string(),
-                        parts.next().unwrap_or_default().to_string(),
+                        parts.next().unwrap_or_default().trim().to_string(),
+                        parts.next().unwrap_or_default().trim().to_string(),
                     )
                 })
                 .collect(),
