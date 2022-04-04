@@ -13,6 +13,13 @@ pub struct Editor {
 
 const AUTOSAVE: &str = "autosave";
 
+#[derive(Copy, Clone, PartialEq, Eq)]
+enum SecondPane {
+    Preview,
+    JSON,
+    Rust,
+}
+
 impl Editor {
     pub fn new() -> Self {
         // load from autosave
@@ -48,6 +55,8 @@ impl Editor {
     }
 
     pub fn view(&self) -> View {
+        let secondary_pane_mode = Behavior::new(SecondPane::Preview);
+
         let json_stream = self
             .editable_doc
             .stream()
@@ -109,12 +118,13 @@ impl Editor {
                 >
                     "Clear"
                 </dyn:button>
+
                 <div class="panes">
                     <div class="editor">{self.editable_doc.view()}</div>
-                    <div class="preview">
+                    <dyn:div class:preview={dyn_class_once()} class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::Preview).boxed_local()}>
                         <dyn:commonprayer_doc doc={wc_doc_stream}></dyn:commonprayer_doc>
-                    </div>
-                    <dyn:textarea class:json={dyn_class_once()}>{json_stream}</dyn:textarea>
+                    </dyn:div>
+                    <dyn:textarea class:json={dyn_class_once()} class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::JSON).boxed_local()}>{json_stream}</dyn:textarea>
                 </div>
            </main>
         }
@@ -154,7 +164,7 @@ impl EditableDocument {
         view! {
             <article>
                 // Toggle Metadata
-                <dyn:button class="show-metadata"
+                <dyn:button class={dyn_attr_once("show-metadata")}
                     on:click={
                         let metadata_open = metadata_open.clone();
                         move |_ev: Event| metadata_open.set(!metadata_open.get())

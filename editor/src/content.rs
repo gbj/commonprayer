@@ -1,5 +1,5 @@
-use crate::dyn_attr_once;
 use crate::EditableDocument;
+use crate::{dyn_attr_once, dyn_class_once};
 use futures::StreamExt;
 use leptos::*;
 use liturgy::*;
@@ -241,16 +241,22 @@ fn edit_biblical_citation(doc: &Behavior<Document>, content: &BiblicalCitation) 
 
     let content = Behavior::new(content.clone());
 
+    fn set_intro(
+        doc: &Behavior<Document>,
+        content: &Behavior<BiblicalCitation>,
+        intro: Option<BiblicalReadingIntro>,
+    ) {
+        content.update(move |content| {
+            content.intro = intro.clone();
+        });
+        let new_content = content.get();
+        doc.update(move |doc| doc.content = Content::BiblicalCitation(new_content.clone()));
+    }
+
     intro.document.stream().skip(1).create_effect({
         let doc = doc.clone();
         let content = content.clone();
-        move |intro_doc| {
-            content.update(move |content| {
-                content.intro = Some(BiblicalReadingIntro::from(intro_doc.clone()))
-            });
-            let new_content = content.get();
-            doc.update(move |doc| doc.content = Content::BiblicalCitation(new_content.clone()));
-        }
+        move |intro_doc| set_intro(&doc, &content, Some(BiblicalReadingIntro::from(intro_doc)))
     });
 
     view! {
@@ -267,22 +273,26 @@ fn edit_biblical_citation(doc: &Behavior<Document>, content: &BiblicalCitation) 
                     prop:value={content.stream().map(|v| Some(v.citation)).boxed_local()}
                 />
             </label>
-            <label>
+            <label class="horizontal">
                 "Introduction"
                 <dyn:input type={dyn_attr_once("checkbox")}
                     prop:checked={show_intro.stream().map(|checked| if checked { Some("checked".to_string())} else { None }).boxed_local()}
                     on:change={
+                        let doc = doc.clone();
                         let show_intro = show_intro.clone();
                         move |ev: Event| {
                             let checked = event_target_checked(ev);
                             show_intro.set(checked);
+                            if !checked {
+                                set_intro(&doc, &content, None);
+                            }
                         }
                     }
                 />
-                <dyn:div class:hidden={show_intro.stream().map(|show| !show).boxed_local()}>
-                    {intro.view()}
-                </dyn:div>
             </label>
+            <dyn:div class:intro={dyn_class_once()} class:hidden={show_intro.stream().map(|show| !show).boxed_local()}>
+                {intro.view()}
+            </dyn:div>
         </>
     }
 }

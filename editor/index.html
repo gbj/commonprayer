@@ -3,6 +3,10 @@
 	<head>
 		<title>CommonPrayerOnline.org Liturgy Editor</title>
 		<style>
+			body {
+				font-family: sans-serif;
+			}
+
 			.panes {
 				display: flex;
 				justify-content: space-between;
@@ -24,7 +28,8 @@
 
 			.panes > * {
 				min-height: 100vh;
-				width: 33vw;
+				width: 50%;
+				padding: 1rem;
 			}
 
 			.content {
@@ -34,6 +39,37 @@
 
 			.hidden {
 				display: none;
+			}
+
+			.series {
+				list-style-type: none;
+				padding: 0.5rem;
+			}
+
+			.series > li {
+				background-color: #f0f0f0;
+				margin-bottom: 2rem;
+				padding: 0.5rem;
+			}
+
+			.show-metadata {
+				display: block;
+				margin-left: auto;
+				margin-bottom: 0.5rem;
+			}
+
+			.content > label {
+				display: flex;
+				flex-direction: column;
+				margin-bottom: 0.5rem;
+			}
+
+			.content > label.horizontal {
+				flex-direction: row;
+			}
+
+			.intro {
+				padding-left: 1rem;
 			}
 		</style>
 		<link data-trunk rel="copy-dir" href="../episcopal_api/crates/export/web-component/example/pkg"/>
