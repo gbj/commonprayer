@@ -58,7 +58,7 @@ impl From<Text> for Preces {
                 .text
                 .split('\n')
                 .map(|line| {
-                    let mut parts = line.splitn(2, ' ');
+                    let mut parts = line.splitn(2, [' ', '\t']);
                     (
                         parts.next().unwrap_or_default().trim().to_string(),
                         parts.next().unwrap_or_default().trim().to_string(),

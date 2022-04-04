@@ -909,3 +909,147 @@ impl From<Text> for Document {
         Self::from(Content::Text(content))
     }
 }
+
+impl From<Series> for Content {
+	fn from(content: Series) -> Self {
+        Self::Series(content)
+    }
+}
+
+impl From<Parallel> for Content {
+	fn from(content: Parallel) -> Self {
+        Self::Parallel(content)
+    }
+}
+
+impl From<Choice> for Content {
+	fn from(content: Choice) -> Self {
+        Self::Choice(content)
+    }
+}
+
+impl From<Category> for Content {
+	fn from(content: Category) -> Self {
+        Self::Category(content)
+    }
+}
+
+impl From<DocumentError> for Content {
+	fn from(content: DocumentError) -> Self {
+        Self::Error(content)
+    }
+}
+
+impl From<Antiphon> for Content {
+	fn from(content: Antiphon) -> Self {
+        Self::Antiphon(content)
+    }
+}
+
+impl From<BiblicalCitation> for Content {
+	fn from(content: BiblicalCitation) -> Self {
+        Self::BiblicalCitation(content)
+    }
+}
+
+impl From<BiblicalReading> for Content {
+	fn from(content: BiblicalReading) -> Self {
+        Self::BiblicalReading(content)
+    }
+}
+
+impl From<Canticle> for Content {
+	fn from(content: Canticle) -> Self {
+        Self::Canticle(content)
+    }
+}
+
+impl From<CanticleTableEntry> for Content {
+	fn from(content: CanticleTableEntry) -> Self {
+        Self::CanticleTableEntry(content)
+    }
+}
+
+impl From<GloriaPatri> for Content {
+	fn from(content: GloriaPatri) -> Self {
+        Self::GloriaPatri(content)
+    }
+}
+
+impl From<Heading> for Content {
+	fn from(content: Heading) -> Self {
+        Self::Heading(content)
+    }
+}
+
+impl From<HymnLink> for Content {
+	fn from(content: HymnLink) -> Self {
+        Self::HymnLink(content)
+    }
+}
+
+impl From<Invitatory> for Content {
+	fn from(content: Invitatory) -> Self {
+        Self::Invitatory(content)
+    }
+}
+
+impl From<LectionaryReading> for Content {
+	fn from(content: LectionaryReading) -> Self {
+        Self::LectionaryReading(content)
+    }
+}
+
+impl From<Litany> for Content {
+	fn from(content: Litany) -> Self {
+        Self::Litany(content)
+    }
+}
+
+impl From<Liturgy> for Content {
+	fn from(content: Liturgy) -> Self {
+        Self::Liturgy(content)
+    }
+}
+
+impl From<Preces> for Content {
+	fn from(content: Preces) -> Self {
+        Self::Preces(content)
+    }
+}
+
+impl From<Psalm> for Content {
+	fn from(content: Psalm) -> Self {
+        Self::Psalm(content)
+    }
+}
+
+impl From<PsalmCitation> for Content {
+	fn from(content: PsalmCitation) -> Self {
+        Self::PsalmCitation(content)
+    }
+}
+
+impl From<ResponsivePrayer> for Content {
+	fn from(content: ResponsivePrayer) -> Self {
+        Self::ResponsivePrayer(content)
+    }
+}
+
+impl From<Rubric> for Content {
+	fn from(content: Rubric) -> Self {
+        Self::Rubric(content)
+    }
+}
+
+impl From<Sentence> for Content {
+	fn from(content: Sentence) -> Self {
+        Self::Sentence(content)
+    }
+}
+
+impl From<Text> for Content {
+	fn from(content: Text) -> Self {
+        Self::Text(content)
+    }
+}

@@ -15,6 +15,10 @@ impl ResponsivePrayer {
     pub fn into_vec(self) -> Vec<String> {
         self.0
     }
+
+    pub fn push(&mut self, line: String) {
+        self.0.push(line);
+    }
 }
 
 impl<T, A> From<T> for ResponsivePrayer

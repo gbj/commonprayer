@@ -61,6 +61,7 @@ impl From<Content> for Text {
             Content::Text(c) => c,
             Content::Antiphon(c) => Self::from(c),
             Content::Heading(c) => Self::from(c),
+            Content::Preces(c) => Self::from(c),
             Content::Rubric(c) => Self::from(c),
             Content::Sentence(c) => Self::from(c),
             _ => Self::default(),

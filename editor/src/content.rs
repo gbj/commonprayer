@@ -10,8 +10,10 @@ pub fn content_editing_view(doc: &Behavior<Document>, content: &Content) -> View
     let content_body = match content {
         Content::Empty => View::Empty,
         Content::Antiphon(content) => edit_antiphon(doc, content),
+        Content::BiblicalCitation(content) => edit_biblical_citation(doc, content),
         Content::Liturgy(content) => edit_liturgy(doc, content),
         Content::Preces(content) => edit_preces(doc, content),
+        Content::ResponsivePrayer(content) => edit_responsive_prayer(doc, content),
         Content::Rubric(content) => edit_rubric(doc, content),
         Content::Sentence(content) => edit_sentence(doc, content),
         Content::Series(content) => edit_series(doc, content),
@@ -74,7 +76,7 @@ fn swap_content(doc: &Behavior<Document>, new_type: &str) -> Content {
     match new_type {
         "Empty" => Content::Empty,
         "Antiphon" => Content::Antiphon(Antiphon::from(curr)),
-        //"Biblical Citation" => Content::BiblicalCitation(BiblicalCitation::from(curr)),
+        "Biblical Citation" => Content::BiblicalCitation(BiblicalCitation::from(curr)),
         //"Biblical Reading" => Content::BiblicalReading(BiblicalReading::from(curr)),
         //"Canticle" => Content::Canticle(Canticle::from(curr)),
         //"Canticle Table Entry" => Content::CanticleTableEntry(CanticleTableEntry::from(curr)),
@@ -147,6 +149,72 @@ fn autogrow_textarea(ev: Event) {
     }
 }
 
+macro_rules! update_field {
+    ($root_doc:ident, $content:ident, $update_statement:expr) => {{
+        let root_doc = $root_doc.clone();
+        let content = $content.clone();
+        move |_ev: Event| {
+            content.update($update_statement);
+            let new_content = content.get();
+            root_doc.update(|root_doc| root_doc.content = Content::from(new_content.clone()));
+        }
+    }};
+}
+
+macro_rules! update_field_with_value {
+    ($root_doc:ident, $content:ident, $update_statement:expr) => {{
+        let root_doc = $root_doc.clone();
+        let content = $content.clone();
+        move |ev: Event| {
+            content.update($update_statement(ev));
+            let new_content = content.get();
+            root_doc.update(|root_doc| root_doc.content = Content::from(new_content.clone()));
+        }
+    }};
+}
+
+macro_rules! update_optional_string_field {
+    ($root_doc:ident, $content:ident, $content_type:ty, $update_field:expr) => {{
+        let root_doc = $root_doc.clone();
+        let content = $content.clone();
+        move |ev: Event| {
+            let val = event_target_value(ev);
+            let new_value = if val.is_empty() {
+                None
+            } else {
+                Some(val.clone())
+            };
+            content.update(move |content: &mut $content_type| {
+                $update_field(content, new_value.clone())
+            });
+            let new_content = content.get();
+            root_doc.update(|root_doc| root_doc.content = Content::from(new_content.clone()));
+        }
+    }};
+}
+
+macro_rules! update_nth_item_in_vec {
+    ($root_doc:ident, $content:ident, $content_type:ty, $idx:ident, $update_field:expr) => {{
+        let root_doc = $root_doc.clone();
+        let content = $content.clone();
+        move |ev: Event| {
+            let val = event_target_value(ev);
+
+            content.update(move |content: &mut $content_type| {
+                let mut vec = content.clone().into_vec();
+                let mut line = vec.get($idx).cloned().unwrap_or_default();
+                if let Some(l) = vec.get_mut($idx) {
+                    $update_field(&mut line, val.clone());
+                    *l = line;
+                };
+                *content = <$content_type>::from(vec);
+            });
+            let new_content = content.get();
+            root_doc.update(|root_doc| root_doc.content = Content::from(new_content.clone()));
+        }
+    }};
+}
+
 fn edit_antiphon(doc: &Behavior<Document>, content: &Antiphon) -> View {
     let content = Behavior::new(content.clone());
     view! {
@@ -160,6 +228,62 @@ fn edit_antiphon(doc: &Behavior<Document>, content: &Antiphon) -> View {
             }
             prop:value={content.stream().map(|v| Some(v.to_string())).boxed_local()}
         />
+    }
+}
+
+fn edit_biblical_citation(doc: &Behavior<Document>, content: &BiblicalCitation) -> View {
+    let show_intro = Behavior::new(content.intro.is_some());
+    let intro = if let Some(intro) = &content.intro {
+        EditableDocument::from(Document::from(intro.clone()))
+    } else {
+        EditableDocument::from(Document::from(""))
+    };
+
+    let content = Behavior::new(content.clone());
+
+    intro.document.stream().skip(1).create_effect({
+        let doc = doc.clone();
+        let content = content.clone();
+        move |intro_doc| {
+            content.update(move |content| {
+                content.intro = Some(BiblicalReadingIntro::from(intro_doc.clone()))
+            });
+            let new_content = content.get();
+            doc.update(move |doc| doc.content = Content::BiblicalCitation(new_content.clone()));
+        }
+    });
+
+    view! {
+        <>
+            <label>
+                "Citation"
+                <dyn:input
+                    on:change=update_field_with_value!(doc, content,
+                        |ev| {
+                            let val = event_target_value(ev);
+                            move |content: &mut BiblicalCitation| content.citation = val.clone()
+                        }
+                    )
+                    prop:value={content.stream().map(|v| Some(v.citation)).boxed_local()}
+                />
+            </label>
+            <label>
+                "Introduction"
+                <dyn:input type={dyn_attr_once("checkbox")}
+                    prop:checked={show_intro.stream().map(|checked| if checked { Some("checked".to_string())} else { None }).boxed_local()}
+                    on:change={
+                        let show_intro = show_intro.clone();
+                        move |ev: Event| {
+                            let checked = event_target_checked(ev);
+                            show_intro.set(checked);
+                        }
+                    }
+                />
+                <dyn:div class:hidden={show_intro.stream().map(|show| !show).boxed_local()}>
+                    {intro.view()}
+                </dyn:div>
+            </label>
+        </>
     }
 }
 
@@ -210,19 +334,7 @@ fn edit_sentence(doc: &Behavior<Document>, content: &Sentence) -> View {
                 "Citation"
                 <dyn:input
                     prop:value={content.stream().map(|sentence| sentence.citation).boxed_local()}
-                    on:change={
-                        let doc = doc.clone();
-                        move |ev: Event| {
-                            let v = event_target_value(ev);
-                            if v.is_empty() {
-                                content.update(|content| content.citation = None);
-                            } else {
-                                content.update(move |content| content.citation = Some(v.clone()));
-                            }
-                            let new_content = Content::Sentence(content.get());
-                            doc.update(move |doc| doc.content = new_content.clone())
-                        }
-                    }
+                    on:change=update_optional_string_field!(doc, content, Sentence, |sentence: &mut Sentence, new_value| sentence.citation = new_value)
                 />
             </label>
         </>
@@ -234,7 +346,7 @@ fn edit_preces(root_doc: &Behavior<Document>, content: &Preces) -> View {
     let list = NaiveList::new(
         |children| {
             view! {
-                <table class="series">
+                <table class="preces">
                     {children}
                 </table>
             }
@@ -244,58 +356,18 @@ fn edit_preces(root_doc: &Behavior<Document>, content: &Preces) -> View {
             let root_doc = root_doc.clone();
             let content = content.clone();
             move |(idx, (v, r))| {
-                let v = Behavior::new(v);
-                let r = Behavior::new(r);
-
                 view! {
                     <tr>
                         <td>
                             <dyn:input type="text"
-                                //prop:value={v.stream().map(Some).boxed_local()}
-                                value={dyn_attr_once(&v.get())}
-                                on:change={
-                                    let content = content.clone();
-                                    let root_doc = root_doc.clone();
-                                    move |ev: Event| {
-                                        let val = event_target_value(ev);
-                                        v.set(val.clone());
-                                        content.update(move |content| {
-                                            let mut vec = content.clone().into_vec();
-                                            let mut line = vec.get(idx).cloned().unwrap_or_default();
-                                            line.0 = val.clone();
-                                            if let Some(l) = vec.get_mut(idx) {
-                                                *l = line;
-                                            };
-                                            *content = Preces::from(vec);
-                                        });
-                                        let new_content = content.get();
-                                        root_doc.update(move |doc| doc.content = Content::Preces(new_content.clone()));
-                                    }
-                                }
+                                value={dyn_attr_once(&v)}
+                                on:change=update_nth_item_in_vec!(root_doc, content, Preces, idx, |line: &mut (String, String), val: String| line.0 = val)
                             />
                         </td>
                         <td>
                             <dyn:input type="text"
-                                prop:value={r.stream().map(Some).boxed_local()}
-                                on:change={
-                                    let content = content.clone();
-                                    let root_doc = root_doc.clone();
-                                    move |ev: Event| {
-                                        let val = event_target_value(ev);
-                                        r.set(val.clone());
-                                        content.update(move |content| {
-                                            let mut vec = content.clone().into_vec();
-                                            let mut line = vec.get(idx).cloned().unwrap_or_default();
-                                            line.1 = val.clone();
-                                            if let Some(l) = vec.get_mut(idx) {
-                                                *l = line;
-                                            };
-                                            *content = Preces::from(vec);
-                                        });
-                                        let new_content = content.get();
-                                        root_doc.update(move |doc| doc.content = Content::Preces(new_content.clone()));
-                                    }
-                                }
+                                value={dyn_attr_once(&r)}
+                                on:change=update_nth_item_in_vec!(root_doc, content, Preces, idx, |line: &mut (String, String), val: String| line.1 = val)
                             />
                         </td>
                     </tr>
@@ -308,14 +380,44 @@ fn edit_preces(root_doc: &Behavior<Document>, content: &Preces) -> View {
         <>
             {list.view()}
             <dyn:button
-                on:click={
-                    let root_doc = root_doc.clone();
-                    move |_ev: Event| {
-                        content.update(|content| content.push((String::new(), String::new())));
-                        let new_content = content.get();
-                        root_doc.update(|root_doc| root_doc.content = Content::Preces(new_content.clone()));
-                    }
+                on:click=update_field!(root_doc, content, |content| content.push((String::new(), String::new())))
+            >
+                "Add"
+            </dyn:button>
+        </>
+    }
+}
+
+fn edit_responsive_prayer(root_doc: &Behavior<Document>, content: &ResponsivePrayer) -> View {
+    let content = Behavior::new(content.clone());
+    let list = NaiveList::new(
+        |children| {
+            view! {
+                <p class="responsive-prayer">
+                    {children}
+                </p>
+            }
+        },
+        content.stream().map(move |preces| preces.into_vec()),
+        {
+            let root_doc = root_doc.clone();
+            let content = content.clone();
+            move |(idx, line)| {
+                view! {
+                    <dyn:input type="text"
+                        value={dyn_attr_once(&line)}
+                        on:change=update_nth_item_in_vec!(root_doc, content, ResponsivePrayer, idx, |line: &mut String, val: String| *line = val)
+                    />
                 }
+            }
+        },
+    );
+
+    view! {
+        <>
+            {list.view()}
+            <dyn:button
+                on:click=update_field!(root_doc, content, |content| content.push(String::new()))
             >
                 "Add"
             </dyn:button>
@@ -363,14 +465,7 @@ fn edit_series(root_doc: &Behavior<Document>, content: &Series) -> View {
         <>
             {list.view()}
             <dyn:button
-                on:click={
-                    let root_doc = root_doc.clone();
-                    move |_ev: Event| {
-                        content.update(|content| content.push(Document::from("")));
-                        let new_content = content.get();
-                        root_doc.update(|root_doc| root_doc.content = Content::Series(new_content.clone()));
-                    }
-                }
+                on:click=update_field!(root_doc, content, |content| content.push(Document::from("")))
             >
                 "Add"
             </dyn:button>
@@ -383,16 +478,12 @@ fn edit_text(doc: &Behavior<Document>, text: &Text) -> View {
     view! {
         <>
             <dyn:textarea
-                on:change={
-                    let doc = doc.clone();
-                    let content = content.clone();
-                    move |ev: Event| {
-                        let v = event_target_value(ev);
-                        content.update(move |content| content.text = v.clone());
-                        let new_content = Content::Text(content.get());
-                        doc.update(move |doc| doc.content = new_content.clone())
+                on:change=update_field_with_value!(doc, content,
+                    |ev| {
+                        let val = event_target_value(ev);
+                        move |content: &mut Text| content.text = val.clone()
                     }
-                }
+                )
                 on:keyup=autogrow_textarea
                 on:focus=autogrow_textarea
             >
@@ -402,19 +493,7 @@ fn edit_text(doc: &Behavior<Document>, text: &Text) -> View {
                 "Response"
                 <dyn:input
                     prop:value={content.stream().map(|text| text.response).boxed_local()}
-                    on:change={
-                        let doc = doc.clone();
-                        move |ev: Event| {
-                            let v = event_target_value(ev);
-                            if v.is_empty() {
-                                content.update(|text| text.response = None);
-                            } else {
-                                content.update(move |text| text.response = Some(v.clone()));
-                            }
-                            let new_content = Content::Text(content.get());
-                            doc.update(move |doc| doc.content = new_content.clone())
-                        }
-                    }
+                    on:change=update_optional_string_field!(doc, content, Text, |text: &mut Text, new_value| text.response = new_value)
                 />
             </label>
         </>
