@@ -2,6 +2,7 @@
 
 use leptos::*;
 
+mod condition;
 mod content;
 mod editor;
 use editor::*;

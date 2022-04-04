@@ -1,6 +1,6 @@
 use std::pin::Pin;
 
-use crate::content::content_editing_view;
+use crate::{condition::ConditionEditor, content::content_editing_view};
 use futures::{Stream, StreamExt};
 use leptos::*;
 use liturgy::*;
@@ -121,10 +121,16 @@ impl Editor {
 
                 <div class="panes">
                     <div class="editor">{self.editable_doc.view()}</div>
-                    <dyn:div class:preview={dyn_class_once()} class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::Preview).boxed_local()}>
-                        <dyn:commonprayer_doc doc={wc_doc_stream}></dyn:commonprayer_doc>
-                    </dyn:div>
-                    <dyn:textarea class:json={dyn_class_once()} class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::JSON).boxed_local()}>{json_stream}</dyn:textarea>
+                    <div class="secondary">
+                        <div class="buttons">
+                            <dyn:button on:click={let mode = secondary_pane_mode.clone(); move |_ev: Event| mode.set(SecondPane::Preview)}>"Preview"</dyn:button>
+                            <dyn:button on:click={let mode = secondary_pane_mode.clone(); move |_ev: Event| mode.set(SecondPane::JSON)}>"JSON"</dyn:button>
+                        </div>
+                        <dyn:div class:preview={dyn_class_once()} class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::Preview).boxed_local()}>
+                            <dyn:commonprayer_doc doc={wc_doc_stream}></dyn:commonprayer_doc>
+                        </dyn:div>
+                        <dyn:textarea class:json={dyn_class_once()} class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::JSON).boxed_local()}>{json_stream}</dyn:textarea>
+                    </div>
                 </div>
            </main>
         }
@@ -161,6 +167,18 @@ impl EditableDocument {
                 .boxed_local(),
         );
 
+        fn set_condition(doc: &Behavior<Document>, condition: Option<Condition>) {
+            doc.update(move |doc| doc.condition = condition.clone());
+        }
+
+        let initial_condition = self.document.get().condition;
+        let show_condition = Behavior::new(initial_condition.is_some());
+        let condition_editor = ConditionEditor::from(initial_condition);
+        condition_editor.condition.stream().skip(1).create_effect({
+            let doc = self.document.clone();
+            move |new_condition| set_condition(&doc, new_condition)
+        });
+
         view! {
             <article>
                 // Toggle Metadata
@@ -173,13 +191,33 @@ impl EditableDocument {
                     "Toggle Metadata"
                 </dyn:button>
 
+                <label>
+                    "Conditional"
+                    <em>"(only shows under certain circumstances)"</em>
+                    <dyn:input type={dyn_attr_once("checkbox")}
+                        prop:checked={condition_editor.condition.stream().map(|condition| condition.map(|_| "checked".to_string())).boxed_local()}
+                        on:change={
+                            let show_condition = show_condition.clone();
+                            let doc = self.document.clone();
+                            move |ev: Event| {
+                                let checked = event_target_checked(ev);
+                                show_condition.set(checked);
+                                if !checked {
+                                    set_condition(&doc, None);
+                                }
+                            }
+                        }
+                    />
+                    <dyn:div class:hidden={show_condition.stream().map(|show| !show).boxed_local()}>
+                        {condition_editor.view()}
+                    </dyn:div>
+                </label>
+
                 // Edit Metadata
                 <dyn:fieldset
                     class:metadata={dyn_class_once()}
                     class:hidden={metadata_open.stream().map(|open| !open).boxed_local()}
                 >
-                    // Condition: TODO
-
                     // Label
                     <label>
                         "Label"
