@@ -132,7 +132,7 @@ pub(crate) const BCP1979_WEEK_SEASONS: [(LiturgicalWeek, Season); 31] = [
     // This will (nominally, but not relevantly) reduce search times since this is O(n)
 ];
 
-pub(crate) const BCP1979_HOLY_DAY_SEASONS: [(Feast, Season); 35] = [
+pub(crate) const BCP1979_HOLY_DAY_SEASONS: [(Feast, Season); 38] = [
     (Feast::ChristmasDay, Season::Christmas),
     (Feast::December29, Season::Christmas),
     (Feast::December30, Season::Christmas),
@@ -147,6 +147,9 @@ pub(crate) const BCP1979_HOLY_DAY_SEASONS: [(Feast, Season); 35] = [
     (Feast::January2, Season::Christmas),
     (Feast::January3, Season::Christmas),
     (Feast::January4, Season::Christmas),
+    (Feast::EasterVigil, Season::Easter),
+    (Feast::EasterSunday, Season::Easter),
+    (Feast::EasterDayEveningService, Season::Easter),
     (Feast::MondayInEasterWeek, Season::Easter),
     (Feast::MondayInHolyWeek, Season::HolyWeek),
     (Feast::SaturdayAfterAscension, Season::Ascension),
