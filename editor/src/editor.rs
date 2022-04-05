@@ -129,7 +129,22 @@ impl Editor {
                         <dyn:div class:preview={dyn_class_once()} class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::Preview).boxed_local()}>
                             <dyn:commonprayer_doc doc={wc_doc_stream}></dyn:commonprayer_doc>
                         </dyn:div>
-                        <dyn:textarea class:json={dyn_class_once()} class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::JSON).boxed_local()}>{json_stream}</dyn:textarea>
+                        <dyn:textarea
+                            class:json={dyn_class_once()}
+                            class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::JSON).boxed_local()}
+                            on:change={
+                                let doc = self.editable_doc.document.clone();
+                                move |ev: Event| {
+                                    let new_json = event_target_value(ev);
+                                    match serde_json::from_str::<Document>(&new_json) {
+                                        Ok(document) => { doc.set(document); },
+                                        Err(e) => { window().alert_with_message(&e.to_string()); }
+                                    }
+                                }
+                            }
+                        >
+                            {json_stream}
+                        </dyn:textarea>
                     </div>
                 </div>
            </main>
