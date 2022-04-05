@@ -6333,20 +6333,32 @@ pub const BCP1979_DAILY_OFFICE_LECTIONARY: Lectionary = Lectionary {
         (
             LiturgicalDayId::Feast(Feast::EasterSunday),
             Year::Any,
-            ReadingType::FirstReading,
+            ReadingType::Morning1,
             "Exod. 12:1-14",
         ),
         (
             LiturgicalDayId::Feast(Feast::EasterSunday),
             Year::Any,
-            ReadingType::SecondReading,
+            ReadingType::Morning2,
+            "John 1:1-18",
+        ),
+        (
+            LiturgicalDayId::Feast(Feast::EasterSunday),
+            Year::Any,
+            ReadingType::Evening1,
             "Isa. 51:9-11",
         ),
         (
             LiturgicalDayId::Feast(Feast::EasterSunday),
             Year::Any,
-            ReadingType::Gospel,
-            "John 1:1-18",
+            ReadingType::Evening2,
+            "Luke 24:13-35",
+        ),
+        (
+            LiturgicalDayId::Feast(Feast::EasterSunday),
+            Year::Any,
+            ReadingType::Evening2,
+            "John 20:19-23",
         ),
         (
             LiturgicalDayId::Feast(Feast::MondayInEasterWeek),
