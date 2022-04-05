@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::{AsRefStr, Display, EnumIter, EnumString, IntoStaticStr};
 
 use crate::holy_day::HolyDayId;
 use crate::lff2018::LFF_BIOS;
@@ -21,7 +22,21 @@ pub fn bio_for_feast(feast: Feast) -> Option<&'static str> {
         .map(|(_, bio)| *bio)
 }
 
-#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug, Serialize, Deserialize)]
+#[derive(
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    Hash,
+    Debug,
+    Serialize,
+    Deserialize,
+    EnumString,
+    Display,
+    AsRefStr,
+    IntoStaticStr,
+    EnumIter,
+)]
 pub enum Feast {
     // Special Days
     FridayAfterAscension,

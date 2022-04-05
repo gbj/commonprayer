@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::{AsRefStr, Display, EnumIter, EnumString, IntoStaticStr};
 
-#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug, Serialize, Deserialize)]
+#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug, Serialize, Deserialize, AsRefStr, Display, EnumIter, EnumString, IntoStaticStr)]
 pub enum Season {
     Advent,
     Christmas,

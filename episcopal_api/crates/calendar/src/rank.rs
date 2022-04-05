@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::{AsRefStr, Display, EnumIter, EnumString, IntoStaticStr};
 
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug, Serialize, Deserialize)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug, Serialize, Deserialize, AsRefStr, Display, EnumIter, EnumString, IntoStaticStr)]
 pub enum Rank {
     PrincipalFeast = 10,
     PrecedenceOverSunday = 9,

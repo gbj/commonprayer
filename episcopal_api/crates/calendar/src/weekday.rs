@@ -1,6 +1,23 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::{AsRefStr, Display, EnumIter, EnumString, IntoStaticStr};
 
-#[derive(Copy, Clone, Debug, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(
+    Copy,
+    Clone,
+    Debug,
+    Serialize,
+    Deserialize,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    AsRefStr,
+    Display,
+    EnumIter,
+    EnumString,
+    IntoStaticStr,
+)]
 pub enum Weekday {
     /// Monday.
     Mon,
@@ -29,20 +46,6 @@ impl From<chrono::Weekday> for Weekday {
             chrono::Weekday::Sat => Self::Sat,
             chrono::Weekday::Sun => Self::Sun,
         }
-    }
-}
-
-impl std::fmt::Display for Weekday {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        f.write_str(match *self {
-            Weekday::Mon => "Mon",
-            Weekday::Tue => "Tue",
-            Weekday::Wed => "Wed",
-            Weekday::Thu => "Thu",
-            Weekday::Fri => "Fri",
-            Weekday::Sat => "Sat",
-            Weekday::Sun => "Sun",
-        })
     }
 }
 

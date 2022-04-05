@@ -1,8 +1,25 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::{AsRefStr, Display, EnumIter, EnumString, IntoStaticStr};
 
 use crate::Date;
 
-#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug, PartialOrd, Ord, Serialize, Deserialize)]
+#[derive(
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    Hash,
+    Debug,
+    PartialOrd,
+    Ord,
+    Serialize,
+    Deserialize,
+    AsRefStr,
+    Display,
+    EnumIter,
+    EnumString,
+    IntoStaticStr,
+)]
 pub enum Proper {
     Proper1,
     Proper2,
