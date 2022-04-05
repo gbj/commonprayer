@@ -1,4 +1,4 @@
-use crate::{dyn_attr_once, dyn_class_once};
+use crate::{condition, dyn_attr_once, dyn_class_once};
 use calendar::*;
 use futures::StreamExt;
 use leptos::*;
@@ -249,7 +249,55 @@ fn edit_condition(root_condition: &Behavior<Option<Condition>>) -> View {
 								</div>
 							}
 						},
-                        Condition::Any(_) => todo!(),
+                        Condition::Any(conditions) => {
+                            // TODO make this all into a macro and apply to Any/All/None
+                            let root = root_condition.clone();
+                            let conditions = Behavior::new(conditions);
+
+                            let list = NaiveList::new(
+                                |items| view! {
+                                    <ul class="conditions">{items}</ul>
+                                },
+                                conditions.stream(),
+                                {let root = root.clone(); let conditions = conditions.clone(); move |(idx, condition)| {
+                                    let editor = ConditionEditor::from(Some(condition));
+                                    editor.condition.stream().skip(1).create_effect({
+                                        let root = root.clone();
+                                        let conditions = conditions.clone();
+                                        move |condition| {
+                                            // TODO start here with updating the condition at this index
+                                            conditions.update(move |conditions: &mut Vec<Condition>| {
+                                                if let Some(l) = conditions.get_mut(idx) {
+                                                    if let Some(condition) = &condition {
+                                                        *l = condition.clone();
+                                                    }
+                                                };
+                                            });
+                                            root.set(Some(Condition::Any(conditions.get())));
+                                        }
+                                    });
+                                    editor.view()
+                                }}
+                            );
+                            view! {
+                                <div class="condition any">
+                                    {list.view()}
+                                    <dyn:button
+                                        on:click={
+                                            let root = root.clone();
+                                            let conditions = conditions.clone();
+                                            move |_ev: Event| {
+                                                conditions.update(|c| c.push(Condition::Evening));
+                                                let new_conditions = conditions.get();
+                                                root.update(move |root| *root = Some(Condition::Any(new_conditions.clone())));
+                                            }
+                                        }
+                                    >
+                                        "Add"
+                                    </dyn:button>
+                                </div>
+                            }
+                        },
                         Condition::All(_) => todo!(),
                         Condition::None(_) => todo!(),
                     },

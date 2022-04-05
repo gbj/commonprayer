@@ -206,27 +206,28 @@ impl EditableDocument {
                     "Toggle Metadata"
                 </dyn:button>
 
-                <label>
-                    "Conditional"
-                    <em>"(only shows under certain circumstances)"</em>
-                    <dyn:input type={dyn_attr_once("checkbox")}
-                        prop:checked={condition_editor.condition.stream().map(|condition| condition.map(|_| "checked".to_string())).boxed_local()}
-                        on:change={
-                            let show_condition = show_condition.clone();
-                            let doc = self.document.clone();
-                            move |ev: Event| {
-                                let checked = event_target_checked(ev);
-                                show_condition.set(checked);
-                                if !checked {
-                                    set_condition(&doc, None);
+                <div class="condition-field">
+                    <label class="condition">
+                        "Conditional"
+                        <dyn:input type={dyn_attr_once("checkbox")}
+                            prop:checked={condition_editor.condition.stream().map(|condition| condition.map(|_| "checked".to_string())).boxed_local()}
+                            on:change={
+                                let show_condition = show_condition.clone();
+                                let doc = self.document.clone();
+                                move |ev: Event| {
+                                    let checked = event_target_checked(ev);
+                                    show_condition.set(checked);
+                                    if !checked {
+                                        set_condition(&doc, None);
+                                    }
                                 }
                             }
-                        }
-                    />
+                        />
+                    </label>
                     <dyn:div class:hidden={show_condition.stream().map(|show| !show).boxed_local()}>
                         {condition_editor.view()}
                     </dyn:div>
-                </label>
+                </div>
 
                 // Edit Metadata
                 <dyn:fieldset

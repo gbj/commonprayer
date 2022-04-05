@@ -12,7 +12,7 @@
 				justify-content: space-between;
 			}
 
-			.secondary {
+			.editor, .secondary {
 				display: flex;
 				flex-direction: column;
 				height: 100vh;
@@ -81,6 +81,34 @@
 
 			.intro {
 				padding-left: 1rem;
+			}
+
+			.condition-field {
+				border: 1px solid black;
+				margin: 1rem 0;
+				padding: 0.5rem;
+			}
+
+			label.condition {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+			}
+
+			.condition-editor {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.condition-editor * {
+				margin: 0.25rem 0;
+			}
+
+			.condition.and, .condition.or {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
 			}
 		</style>
 		<link data-trunk rel="copy-dir" href="../episcopal_api/crates/export/web-component/example/pkg"/>
