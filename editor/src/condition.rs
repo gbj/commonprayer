@@ -3,6 +3,8 @@ use calendar::*;
 use futures::StreamExt;
 use leptos::*;
 use liturgy::*;
+use std::str::FromStr;
+use strum::IntoEnumIterator;
 
 pub struct ConditionEditor {
     pub condition: Behavior<Option<Condition>>,
@@ -110,6 +112,30 @@ macro_rules! edit_date_condition {
     }};
 }
 
+macro_rules! select_enum {
+    ($root:ident, $value:ident, $enum_type:ty, $val_expr:expr) => {{
+        let root = $root.clone();
+        let value = Behavior::new($value);
+        view! {
+            <dyn:select
+                prop:value={value.stream().map(|value| Some(value.to_string())).boxed_local()}
+                on:change=move |ev: Event| {
+                    if let Ok(val) = $enum_type::from_str(&event_target_value(ev)) {
+                        value.set(val);
+                        root.set(Some(($val_expr)(val)));
+                    }
+                }
+            >
+                {View::Fragment(
+                    $enum_type::iter()
+                        .map(|variant| view! { <option>{variant.to_string()}</option> })
+                        .collect()
+                )}
+            </dyn:select>
+        }
+    }};
+}
+
 fn edit_condition(root_condition: &Behavior<Option<Condition>>) -> View {
     View::ViewStream(
         root_condition
@@ -119,37 +145,23 @@ fn edit_condition(root_condition: &Behavior<Option<Condition>>) -> View {
                 move |condition| match condition {
                     None => View::Empty,
                     Some(condition) => match condition {
-                        Condition::Day(_) => todo!(),
-                        Condition::Feast(_) => todo!(),
-                        Condition::Season(_) => todo!(),
-                        Condition::ObservedSeason(_) => todo!(),
-                        Condition::Week(week) => todo!(),
-                        Condition::Weekday(_) => todo!(),
+                        Condition::Day(_) => view! { <p>"TODO: code manually for now"</p> },
+                        Condition::Feast(feast) => {
+							select_enum!(root_condition, feast, Feast, Condition::Feast)
+						},
+                        Condition::Season(season) => {
+							select_enum!(root_condition, season, Season, Condition::Season)
+						},
+                        Condition::ObservedSeason(season) => {
+							select_enum!(root_condition, season, Season, Condition::ObservedSeason)
+						},
+                        Condition::Week(week) => select_enum!(root_condition, week, LiturgicalWeek, Condition::Week),
+                        Condition::Weekday(weekday) => {
+							select_enum!(root_condition, weekday, Weekday, Condition::Weekday)
+						},
                         Condition::Evening => View::Empty,
                         Condition::RankGte(rank) => {
-							let root = root_condition.clone();
-							let rank = Behavior::new(rank);
-							view! {
-								<dyn:select
-									prop:value={rank.stream().map(|rank| Some((rank as u8).to_string())).boxed_local()}
-									on:change=move |ev: Event| {
-										let val = rank_from_value(event_target_value(ev).parse::<u8>().unwrap_or(6));
-										rank.set(val);
-										root.set(Some(Condition::RankGte(val)));
-									}
-								>
-									<option value="10">"PrincipalFeast"</option>
-									<option value="9">"PrecedenceOverSunday"</option>
-									<option value="8">"Sunday"</option>
-									<option value="7">"PrecedenceOverHolyDay"</option>
-									<option value="6">"HolyDay"</option>
-									<option value="5">"SpecialDevotion"</option>
-									<option value="3">"PrecedenceOverWeekday"</option>
-									<option value="2">"EmberDay"</option>
-									<option value="1">"OptionalObservance"</option>
-									<option value="0">"FerialWeekday"</option>
-								</dyn:select>
-							}
+							select_enum!(root_condition, rank, Rank, Condition::RankGte)
 						},
                         Condition::DateLt(m, d) => {
                             edit_date_condition!(root_condition, m, d, |month, date| {
@@ -314,21 +326,5 @@ fn value_from_condition_type(condition: &Condition) -> &'static str {
         Condition::Any(_) => "Any",
         Condition::All(_) => "All",
         Condition::None(_) => "None",
-    }
-}
-
-fn rank_from_value(value: u8) -> Rank {
-    match value {
-        10 => Rank::PrincipalFeast,
-        9 => Rank::PrecedenceOverSunday,
-        8 => Rank::Sunday,
-        7 => Rank::PrecedenceOverHolyDay,
-        6 => Rank::HolyDay,
-        5 => Rank::SpecialDevotion,
-        3 => Rank::PrecedenceOverWeekday,
-        2 => Rank::EmberDay,
-        1 => Rank::OptionalObservance,
-        0 => Rank::FerialWeekday,
-        _ => Rank::HolyDay,
     }
 }
