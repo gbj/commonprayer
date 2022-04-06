@@ -644,6 +644,32 @@ fn edit_text(doc: &Behavior<Document>, text: &Text) -> View {
     let content = Behavior::new(text.clone());
     view! {
         <>
+            <dyn:button
+                on:click={
+                    let content = content.clone();
+                    let doc = doc.clone();
+                    move |_ev: Event| {
+                        let text = content.get();
+                        let response = if text.text.ends_with("Amen.") {
+                            Some("Amen.".to_string())
+                        } else if text.text.ends_with("Amén.") {
+                            Some("Amén.".to_string())
+                        } else {
+                            None
+                        };
+                        let new_text = text.text.replace("Amen.", "").replace("Amén.", "").replace("\n", " ");
+                        let new_text = new_text.trim();
+                        content.update(move |text| {
+                            text.text = new_text.to_string();
+                            text.response = response.clone();
+                        });
+                        let new_content = content.get();
+                        doc.update(|doc| doc.content = Content::Text(new_content.clone()));
+                    }
+                }
+            >
+                "Trim"
+            </dyn:button>
             <dyn:textarea
                 on:change=update_field_with_value!(doc, content,
                     |ev| {
