@@ -16,7 +16,7 @@ const AUTOSAVE: &str = "autosave";
 #[derive(Copy, Clone, PartialEq, Eq)]
 enum SecondPane {
     Preview,
-    JSON,
+    Json,
     Rust,
 }
 
@@ -124,14 +124,14 @@ impl Editor {
                     <div class="secondary">
                         <div class="buttons">
                             <dyn:button on:click={let mode = secondary_pane_mode.clone(); move |_ev: Event| mode.set(SecondPane::Preview)}>"Preview"</dyn:button>
-                            <dyn:button on:click={let mode = secondary_pane_mode.clone(); move |_ev: Event| mode.set(SecondPane::JSON)}>"JSON"</dyn:button>
+                            <dyn:button on:click={let mode = secondary_pane_mode.clone(); move |_ev: Event| mode.set(SecondPane::Json)}>"JSON"</dyn:button>
                         </div>
                         <dyn:div class:preview={dyn_class_once()} class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::Preview).boxed_local()}>
                             <dyn:commonprayer_doc doc={wc_doc_stream}></dyn:commonprayer_doc>
                         </dyn:div>
                         <dyn:textarea
                             class:json={dyn_class_once()}
-                            class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::JSON).boxed_local()}
+                            class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::Json).boxed_local()}
                             on:change={
                                 let doc = self.editable_doc.document.clone();
                                 move |ev: Event| {
