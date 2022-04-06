@@ -3,6 +3,8 @@ use crate::{dyn_attr_once, dyn_class_once};
 use futures::StreamExt;
 use leptos::*;
 use liturgy::*;
+use std::str::FromStr;
+use strum::IntoEnumIterator;
 use wasm_bindgen::JsCast;
 use web_sys::HtmlElement;
 
@@ -11,6 +13,7 @@ pub fn content_editing_view(doc: &Behavior<Document>, content: &Content) -> View
         Content::Empty => View::Empty,
         Content::Antiphon(content) => edit_antiphon(doc, content),
         Content::BiblicalCitation(content) => edit_biblical_citation(doc, content),
+        Content::Heading(content) => edit_heading(doc, content),
         Content::Liturgy(content) => edit_liturgy(doc, content),
         Content::Preces(content) => edit_preces(doc, content),
         Content::ResponsivePrayer(content) => edit_responsive_prayer(doc, content),
@@ -87,7 +90,7 @@ fn swap_content(doc: &Behavior<Document>, new_type: &str) -> Content {
         },
         //"Document Link" => Content::DocumentLink(DocumentLink::from(curr)),
         //"Gloria Patri" => Content::GloriaPatri(GloriaPatri::from(curr)),
-        //"Heading" => Content::Heading(Heading::from(curr)),
+        "Heading" => Content::Heading(Heading::from(curr)),
         //"Hymn Link" => Content::HymnLink(Hymn Link::from(curr)),
         //"Invitatory" => Content::Invitatory(Invitatory::from(curr)),
         //"Lectionary Reading" => Content::LectionaryReading(LectionaryReading::from(curr)),
@@ -297,6 +300,92 @@ fn edit_biblical_citation(doc: &Behavior<Document>, content: &BiblicalCitation) 
     }
 }
 
+fn edit_heading(doc: &Behavior<Document>, content: &Heading) -> View {
+    let content = Behavior::new(content.clone());
+    view! {
+        <>
+            <dyn:select
+                prop:value={content.stream().map(|variant| { let s: &'static str = variant.into(); Some(s.to_string())}).boxed_local()}
+                on:change={
+                    let content = content.clone();
+                    move |ev: Event| {
+                        let val = Heading::from_str(&event_target_value(ev)).unwrap();
+                        content.set(val);
+                    }
+                }
+            >
+                {View::Fragment(
+                    Heading::iter()
+                        .map(|variant| {
+                            let s: &'static str = variant.into();
+                            view! { <option>{s}</option> }
+                        })
+                        .collect()
+                )}
+            </dyn:select>
+            <dyn:select
+                class:hidden={content.stream().map(|variant| !matches!(variant, Heading::Text(_, _))).boxed_local()}
+                prop:value={content.stream()
+                    .map(|variant| {
+                        if let Heading::Text(level, _) = variant {
+                            let s: &'static str = level.into();
+                            Some(level.to_string())
+                        } else {
+                            None
+                        }
+                    })
+                    .boxed_local()
+                }
+                on:change={
+                    let content = content.clone();
+                    let doc = doc.clone();
+                    move |ev: Event| {
+                        let val = HeadingLevel::from_str(&event_target_value(ev)).unwrap();
+                        content.update(|content| if let Heading::Text(_, text) = content {
+                            *content = Heading::Text(val, text.to_string());
+                        });
+                        let new_content = content.get();
+                        doc.update(move |doc| doc.content = Content::Heading(new_content.clone()));
+                    }
+                }
+            >
+                {View::Fragment(
+                    HeadingLevel::iter()
+                        .map(|variant| {
+                            let s: &'static str = variant.into();
+                            view! { <option>{s}</option> }
+                        })
+                        .collect()
+                )}
+            </dyn:select>
+            <dyn:input
+                class:hidden={content.stream().map(|variant| !matches!(variant, Heading::Text(_, _))).boxed_local()}
+                prop:value={content.stream()
+                    .map(|variant| {
+                        if let Heading::Text(_, text) = variant {
+                            Some(text)
+                        } else {
+                            None
+                        }
+                    })
+                    .boxed_local()
+                }
+                on:change={
+                    let doc = doc.clone();
+                    move |ev: Event| {
+                        let val = event_target_value(ev);
+                        content.update(move |content| if let Heading::Text(level, _) = content {
+                            *content = Heading::Text(*level, val.clone());
+                        });
+                        let new_content = content.get();
+                        doc.update(move |doc| doc.content = Content::Heading(new_content.clone()));
+                    }
+                }
+            />
+        </>
+    }
+}
+
 fn edit_liturgy(doc: &Behavior<Document>, content: &Liturgy) -> View {
     edit_series(doc, &content.body)
 }
@@ -435,6 +524,50 @@ fn edit_responsive_prayer(root_doc: &Behavior<Document>, content: &ResponsivePra
     }
 }
 
+macro_rules! quick_edit_button {
+    ($root:ident, $content:ident, $quick_edit:ident, $textarea:ident, $content_type:ty, $label:expr) => {
+        view! {
+            <dyn:button
+                on:click={
+                    let root = $root.clone();
+                    let content = $content.clone();
+                    let quick_edit = $quick_edit.clone();
+                    let textarea = $textarea.clone();
+                    move |ev: Event| {
+                        ev.prevent_default();
+                        if let Ok(Some(selection)) = window().get_selection() {
+                            // remove text from textarea
+                            if let Some(textarea) = textarea.get() {
+                                let textarea: web_sys::HtmlTextAreaElement = textarea.unchecked_into();
+                                let selection_start = textarea.selection_start().unwrap().unwrap_or(0) as usize;
+                                let selection_end = textarea.selection_end().unwrap().unwrap_or(0) as usize;
+                                let value = textarea.value();
+
+                                // clear textarea
+                                let before_selection = value[0..selection_start].to_string();
+                                let after_selection = value[selection_end..].to_string();
+                                let new_value = format!("{before_selection}{after_selection}");
+                                let new_value = new_value.trim();
+                                textarea.set_value(&new_value);
+                                window().local_storage().unwrap().unwrap().set("quick-edit", &new_value);
+                                quick_edit.set(new_value.to_string());
+
+                                // update content
+                                let text = value[selection_start..selection_end].to_string();
+                                content.update(move |content| content.push(Document::from(<$content_type>::from(Text::from(text.clone())))));
+                                let new_content = content.get();
+                                root.update(|root_doc| root_doc.content = Content::from(new_content.clone()));
+                            }
+                        }
+                    }
+                }
+            >
+                {$label}
+            </dyn:button>
+        }
+    };
+}
+
 fn edit_series(root_doc: &Behavior<Document>, content: &Series) -> View {
     let content = Behavior::new(content.clone());
     let list = NaiveList::new(
@@ -471,8 +604,32 @@ fn edit_series(root_doc: &Behavior<Document>, content: &Series) -> View {
         },
     );
 
+    let storage = window().local_storage().unwrap().unwrap();
+    let quick_edit = Behavior::new(storage.get("quick-edit").unwrap().unwrap_or_default());
+    let textarea: Behavior<Option<web_sys::Element>> = Behavior::new(None);
+
     view! {
         <>
+            <div class="quick-edit">
+                <h3>"Quick Edit"</h3>
+                <div class="buttons">
+                    {quick_edit_button!(root_doc, content, quick_edit, textarea, Text, "Text")}
+                    {quick_edit_button!(root_doc, content, quick_edit, textarea, Heading, "Heading")}
+                    {quick_edit_button!(root_doc, content, quick_edit, textarea, Rubric, "Rubric")}
+                    {quick_edit_button!(root_doc, content, quick_edit, textarea, Preces, "Preces")}
+                    {quick_edit_button!(root_doc, content, quick_edit, textarea, ResponsivePrayer, "ResponsivePrayer")}
+                    {quick_edit_button!(root_doc, content, quick_edit, textarea, Litany, "Litany")}
+                </div>
+                <dyn:textarea
+                    dom:ref={&textarea}
+                    prop:value={quick_edit.stream().map(Some).boxed_local()}
+                    on:change=move |ev: Event| {
+                        let val = event_target_value(ev);
+                        storage.set("quick-edit", &val);
+                        quick_edit.set(val);
+                    }
+                ></dyn:textarea>
+            </div>
             {list.view()}
             <dyn:button
                 on:click=update_field!(root_doc, content, |content| content.push(Document::from("")))
