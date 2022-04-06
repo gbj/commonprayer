@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::{Display, EnumIter, EnumString};
 
 /// Language that can be assigned to a [Document](liturgy::Document)
-#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize, Display, EnumIter, EnumString)]
 pub enum Language {
     /// English
     En,

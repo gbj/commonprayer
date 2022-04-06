@@ -6,6 +6,8 @@ edition = "2021"
 [dependencies]
 leptos = { path = "../framework/leptos" }
 calendar = { path = "../episcopal_api/crates/calendar" }
+language = { path = "../episcopal_api/crates/language" }
+lectionary = { path = "../episcopal_api/crates/lectionary" }
 liturgy = { path = "../episcopal_api/crates/liturgy" }
 strum = "0.24"
 serde_json = "1"

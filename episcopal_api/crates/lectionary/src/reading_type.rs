@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::{Display, EnumIter, EnumString};
 
-#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug, PartialOrd, Ord, Serialize, Deserialize)]
+#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug, PartialOrd, Ord, Serialize, Deserialize, Display, EnumIter, EnumString)]
 pub enum ReadingType {
     Empty,
     // Special Services
@@ -37,6 +38,12 @@ pub enum ReadingType {
     Morning2,
     Evening1,
     Evening2,
+}
+
+impl Default for ReadingType {
+    fn default() -> Self {
+        Self::Empty
+    }
 }
 
 pub const VIGIL_READING_TYPES: [ReadingType; 18] = [

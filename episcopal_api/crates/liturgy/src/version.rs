@@ -1,9 +1,10 @@
-use std::{convert::TryFrom, fmt::Display};
+use std::{convert::TryFrom, fmt::Display, str::FromStr};
+use strum_macros::{Display, EnumIter, EnumString};
 
 use serde::{Deserialize, Serialize};
 
 /// Different versions that a liturgical [Document](crate::Document) could be (e.g., Rite I, Rite II, EOW)
-#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize, EnumIter)]
 pub enum Version {
     /// 1979 Book of Common Prayer
     BCP1979,
@@ -98,5 +99,13 @@ impl TryFrom<&str> for Version {
             "Parallel" => Ok(Self::Parallel),
             _ => Err(()),
         }
+    }
+}
+
+impl FromStr for Version {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Self::try_from(s)
     }
 }

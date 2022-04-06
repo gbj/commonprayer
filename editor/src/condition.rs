@@ -1,11 +1,12 @@
 use crate::{condition, dyn_attr_once, dyn_class_once};
 use calendar::*;
 use futures::StreamExt;
+use language::Language;
+use lectionary::ReadingType;
 use leptos::*;
 use liturgy::*;
 use std::str::FromStr;
 use strum::IntoEnumIterator;
-
 pub struct ConditionEditor {
     pub condition: Behavior<Option<Condition>>,
 }
@@ -136,6 +137,60 @@ macro_rules! select_enum {
     }};
 }
 
+macro_rules! list_of_conditions {
+    ($root:ident, $conditions:ident, $constructor:expr) => {
+        {
+            let root = $root.clone();
+            let conditions = Behavior::new($conditions);
+
+            let list = NaiveList::new(
+                |items| view! {
+                    <ul class="conditions">{items}</ul>
+                },
+                conditions.stream(),
+                {let root = root.clone(); let conditions = conditions.clone(); move |(idx, condition)| {
+                    let editor = ConditionEditor::from(Some(condition));
+                    editor.condition.stream().skip(1).create_effect({
+                        let root = root.clone();
+                        let conditions = conditions.clone();
+                        move |condition| {
+                            // TODO start here with updating the condition at this index
+                            conditions.update(move |conditions: &mut Vec<Condition>| {
+                                if let Some(l) = conditions.get_mut(idx) {
+                                    if let Some(condition) = &condition {
+                                        *l = condition.clone();
+                                    }
+                                };
+                            });
+                            let new_conditions = conditions.get();
+                            root.set(Some(($constructor)(new_conditions)));
+                        }
+                    });
+                    editor.view()
+                }}
+            );
+            view! {
+                <div class="condition multiple">
+                    {list.view()}
+                    <dyn:button
+                        on:click={
+                            let root = root.clone();
+                            let conditions = conditions.clone();
+                            move |_ev: Event| {
+                                conditions.update(|c| c.push(Condition::Evening));
+                                let new_conditions = conditions.get();
+                                root.update(move |root| *root = Some(($constructor)(new_conditions.clone())));
+                            }
+                        }
+                    >
+                        "Add"
+                    </dyn:button>
+                </div>
+            }
+        }
+    }
+}
+
 fn edit_condition(root_condition: &Behavior<Option<Condition>>) -> View {
     View::ViewStream(
         root_condition
@@ -145,7 +200,7 @@ fn edit_condition(root_condition: &Behavior<Option<Condition>>) -> View {
                 move |condition| match condition {
                     None => View::Empty,
                     Some(condition) => match condition {
-                        Condition::Day(_) => view! { <p>"TODO: code manually for now"</p> },
+                        Condition::Day(day) => view! { <pre>{serde_json::to_string_pretty(&day).unwrap()}</pre> },
                         Condition::Feast(feast) => {
 							select_enum!(root_condition, feast, Feast, Condition::Feast)
 						},
@@ -204,7 +259,7 @@ fn edit_condition(root_condition: &Behavior<Option<Condition>>) -> View {
                                 </dyn:select>
                             }
                         }
-                        Condition::Preference(_, _) => todo!(),
+                        Condition::Preference(key, value) => preference_condition_editor(&root_condition, key, value),
                         Condition::Not(pref) => {
 							let root = root_condition.clone();
 
@@ -249,57 +304,9 @@ fn edit_condition(root_condition: &Behavior<Option<Condition>>) -> View {
 								</div>
 							}
 						},
-                        Condition::Any(conditions) => {
-                            // TODO make this all into a macro and apply to Any/All/None
-                            let root = root_condition.clone();
-                            let conditions = Behavior::new(conditions);
-
-                            let list = NaiveList::new(
-                                |items| view! {
-                                    <ul class="conditions">{items}</ul>
-                                },
-                                conditions.stream(),
-                                {let root = root.clone(); let conditions = conditions.clone(); move |(idx, condition)| {
-                                    let editor = ConditionEditor::from(Some(condition));
-                                    editor.condition.stream().skip(1).create_effect({
-                                        let root = root.clone();
-                                        let conditions = conditions.clone();
-                                        move |condition| {
-                                            // TODO start here with updating the condition at this index
-                                            conditions.update(move |conditions: &mut Vec<Condition>| {
-                                                if let Some(l) = conditions.get_mut(idx) {
-                                                    if let Some(condition) = &condition {
-                                                        *l = condition.clone();
-                                                    }
-                                                };
-                                            });
-                                            root.set(Some(Condition::Any(conditions.get())));
-                                        }
-                                    });
-                                    editor.view()
-                                }}
-                            );
-                            view! {
-                                <div class="condition any">
-                                    {list.view()}
-                                    <dyn:button
-                                        on:click={
-                                            let root = root.clone();
-                                            let conditions = conditions.clone();
-                                            move |_ev: Event| {
-                                                conditions.update(|c| c.push(Condition::Evening));
-                                                let new_conditions = conditions.get();
-                                                root.update(move |root| *root = Some(Condition::Any(new_conditions.clone())));
-                                            }
-                                        }
-                                    >
-                                        "Add"
-                                    </dyn:button>
-                                </div>
-                            }
-                        },
-                        Condition::All(_) => todo!(),
-                        Condition::None(_) => todo!(),
+                        Condition::Any(conditions) => list_of_conditions!(root_condition, conditions, Condition::Any),
+                        Condition::All(conditions) => list_of_conditions!(root_condition, conditions, Condition::All),
+                        Condition::None(conditions) => list_of_conditions!(root_condition, conditions, Condition::None),
                     },
                 }
             })
@@ -334,7 +341,7 @@ fn default_condition_from_type(condition_type: &str) -> Option<Condition> {
         "Day of Month" => Some(Condition::DayOfMonth(1)),
         "Preference" => Some(Condition::Preference(
             PreferenceKey::from("key"),
-            PreferenceValue::from("value"),
+            PreferenceValue::Local("value".into()),
         )),
         "Not" => Some(Condition::Not(Box::new(Condition::Evening))),
         "And" => Some(Condition::And(
@@ -374,5 +381,206 @@ fn value_from_condition_type(condition: &Condition) -> &'static str {
         Condition::Any(_) => "Any",
         Condition::All(_) => "All",
         Condition::None(_) => "None",
+    }
+}
+
+macro_rules! enum_preference_value {
+    ($value:ident, $variant:expr, $match:expr, $inner:ty) => {
+        view! {
+            <dyn:select class:hidden={$value.stream().map(|(_, value)| (($match)(value)).is_none()).boxed_local()}
+                prop:value={
+                    $value.stream()
+                            .map(|(_, value)| ($match)(value))
+                            .boxed_local()
+                }
+                on:change={
+                    let value = $value.clone();
+                    move |ev: Event| {
+                        let val = event_target_value(ev);
+                        value.update(|(_, value)| {
+                            let val = $inner::from_str(&val).unwrap();
+                            *value = $variant(val);
+                        });
+                    }
+                }
+            >
+                {View::Fragment(
+                    $inner::iter()
+                        .map(|variant| view! { <option>{variant.to_string()}</option> })
+                        .collect()
+                )}
+            </dyn:select>
+        }
+    }
+}
+
+fn preference_condition_editor(
+    root_condition: &Behavior<Option<Condition>>,
+    key: PreferenceKey,
+    value: PreferenceValue,
+) -> View {
+    let root = root_condition.clone();
+
+    let value = Behavior::new((key, value));
+    value.stream().skip(1).create_effect({
+        move |(key, value)| {
+            root.set(Some(Condition::Preference(key, value)));
+        }
+    });
+
+    view! {
+        <div class="condition preference">
+            <fieldset>
+                <legend>"Key"</legend>
+                <label>
+                    "Global"
+                    <dyn:select
+                        prop:value={
+                            value.stream()
+                                .map(|(key, _)| if let PreferenceKey::Global(val) = key {
+                                    let s: &'static str = val.into();
+                                    Some(s.to_string())
+                                } else {
+                                    None
+                                })
+                                .boxed_local()
+                        }
+                        on:change={
+                            let value = value.clone();
+                            move |ev: Event| {
+                                let val = event_target_value(ev);
+                                value.update(move |(key, _)| *key = PreferenceKey::Global(GlobalPref::from_str(&val).unwrap()))
+                            }
+                        }
+                    >
+                        {View::Fragment(
+                            GlobalPref::iter()
+                                .map(|variant| {
+                                    let s: &'static str = variant.into();
+                                    view! { <option>{s}</option> }
+                                })
+                                .collect()
+                        )}
+                    </dyn:select>
+                </label>
+                <label>
+                    "Local"
+                    <dyn:input
+                        prop:value={
+                            value.stream()
+                                .map(|(key, _)| if let PreferenceKey::Local(val) = key {
+                                    Some(val)
+                                } else {
+                                    None
+                                })
+                                .boxed_local()
+                        }
+                        on:change={
+                            let value = value.clone();
+                            move |ev: Event| {
+                                let val = event_target_value(ev);
+                                value.update(move |(key, _)| *key = PreferenceKey::Local(val.clone()))
+                            }
+                        }
+                    />
+                </label>
+            </fieldset>
+            <fieldset>
+                <legend>"Value"</legend>
+                <dyn:select
+                    prop:value={
+                        value.stream()
+                            .map(|(_, value)| {
+                                let s: &'static str = value.into();
+                                Some(s.to_string())
+                            })
+                            .boxed_local()
+                    }
+                    on:change={
+                        let value = value.clone();
+                        move |ev: Event| {
+                            let val = PreferenceValue::from_str(&event_target_value(ev)).unwrap();
+                            value.update(|(_, value)| * value = val.clone());
+                        }
+                    }
+                >
+                        {View::Fragment(
+                            PreferenceValue::iter()
+                                .map(|variant| {
+                                    let s: &'static str = variant.into();
+                                    view! { <option>{s}</option> }
+                                })
+                            .collect()
+                        )}
+                </dyn:select>
+
+                // Local/String preference value
+                <dyn:input class:hidden={value.stream().map(|(_, value)| !matches!(value, PreferenceValue::Local(_))).boxed_local()}
+                    prop:value={
+                        value.stream()
+                                .map(|(_, value)| if let PreferenceValue::Local(val) = value {
+                                    Some(val)
+                                } else {
+                                    None
+                                })
+                                .boxed_local()
+                    }
+                    on:change={
+                        let value = value.clone();
+                        move |ev: Event| {
+                            let val = event_target_value(ev);
+                            value.update(|(_, value)| *value = PreferenceValue::Local(val.clone()));
+                        }
+                    }
+                />
+
+                // Enum values
+                {enum_preference_value!(
+                    value,
+                    PreferenceValue::Language,
+                    |value| match value {
+                        PreferenceValue::Language(v) => Some(v.to_string()),
+                        _ => None
+                    },
+                    Language)
+                }
+                {enum_preference_value!(
+                    value,
+                    PreferenceValue::Version,
+                    |value| match value {
+                        PreferenceValue::Version(v) => Some(v.to_string()),
+                        _ => None
+                    },
+                    Version)
+                }
+                {enum_preference_value!(
+                    value,
+                    PreferenceValue::Lectionary,
+                    |value| match value {
+                        PreferenceValue::Lectionary(v) => Some(v.to_string()),
+                        _ => None
+                    },
+                    Lectionaries)
+                }
+                {enum_preference_value!(
+                    value,
+                    PreferenceValue::CanticleTable,
+                    |value| match value {
+                        PreferenceValue::CanticleTable(v) => Some(v.to_string()),
+                        _ => None
+                    },
+                    CanticleTables)
+                }
+                {enum_preference_value!(
+                    value,
+                    PreferenceValue::ReadingType,
+                    |value| match value {
+                        PreferenceValue::ReadingType(v) => Some(v.to_string()),
+                        _ => None
+                    },
+                    ReadingType)
+                }
+            </fieldset>
+        </div>
     }
 }
