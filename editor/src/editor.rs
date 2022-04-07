@@ -4,6 +4,9 @@ use crate::{condition::ConditionEditor, content::content_editing_view};
 use futures::{Stream, StreamExt};
 use leptos::*;
 use liturgy::*;
+use serde::{Deserialize, Serialize};
+use wasm_bindgen::JsCast;
+use web_sys::DragEvent;
 
 pub struct Editor {
     editable_doc: EditableDocument,
@@ -153,21 +156,36 @@ impl Editor {
 }
 
 pub struct EditableDocument {
+    pub root_doc: Behavior<Document>,
     pub document: Behavior<Document>,
+    pub path: Behavior<Option<Vec<usize>>>,
 }
 
 impl From<Document> for EditableDocument {
     fn from(document: Document) -> Self {
+        let document = Behavior::new(document);
         Self {
-            document: Behavior::new(document),
+            root_doc: document.clone(),
+            document,
+            path: Behavior::new(None),
         }
     }
 }
 
 impl From<Behavior<Document>> for EditableDocument {
     fn from(document: Behavior<Document>) -> Self {
-        Self { document }
+        Self {
+            root_doc: document.clone(),
+            document,
+            path: Behavior::new(None),
+        }
     }
+}
+
+#[derive(Deserialize, Serialize)]
+struct PathAndDocument {
+    path: Vec<usize>,
+    document: Document,
 }
 
 impl EditableDocument {
@@ -178,7 +196,10 @@ impl EditableDocument {
         let content_view = View::ViewStream(
             self.document
                 .stream()
-                .map(move |doc| content_editing_view(&doc_handle, &doc.content))
+                .map({
+                    let root_doc = self.root_doc.clone();
+                    move |doc| content_editing_view(&root_doc, &[], &doc_handle, &doc.content)
+                })
                 .boxed_local(),
         );
 
@@ -195,7 +216,45 @@ impl EditableDocument {
         });
 
         view! {
-            <article>
+            <dyn:article
+                draggable={dyn_attr_once("true")}
+                class:droppable={dyn_class_once()}
+                on:dragstart={
+                    let path = self.path.clone();
+                    move |ev: Event| {
+                        let drag_event: DragEvent = ev.unchecked_into();
+                        if let Some(data_transfer) = drag_event.data_transfer() {
+                            if let Some(path) = path.get() {
+                                data_transfer.set_data("application/json", &serde_json::to_string(&path).unwrap());
+                            }
+                        }
+                    }
+                }
+                on:dragover=|ev: Event| {
+                    let ev: DragEvent = ev.unchecked_into();
+                    ev.prevent_default();
+                }
+                on:drop={
+                    let path = self.path.clone();
+                    let doc = self.document.clone();
+                    let root_doc = self.root_doc.clone();
+                    move |ev: Event| {
+                        let ev: DragEvent = ev.unchecked_into();
+                        ev.prevent_default();
+                        if let Some(data_transfer) = ev.data_transfer() {
+                            if let Ok(start_path) = data_transfer.get_data("application/json") {
+                                if let Some(dest_path) = path.get() {
+                                    let start_path: Vec<usize> = serde_json::from_str(&start_path).unwrap();
+                                    log(&format!("moving from {:?} to {:?}", start_path, dest_path));
+                                    root_doc.update(|doc| {
+                                        doc.move_subdocument(&start_path, &dest_path);
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            >
                 <div class="metadata-buttons">
                     <dyn:button
                         on:click={
@@ -206,7 +265,6 @@ impl EditableDocument {
                         "Condition"
                     </dyn:button>
 
-                    // Toggle Metadata
                     <dyn:button
                         on:click={
                             let metadata_open = metadata_open.clone();
@@ -214,6 +272,21 @@ impl EditableDocument {
                         }
                     >
                         "Metadata"
+                    </dyn:button>
+
+                    <dyn:button
+                        class:hidden={self.path.stream().map(|path| path.is_none()).boxed_local()}
+                        on:click={
+                            let path = self.path.clone();
+                            let root_doc = self.root_doc.clone();
+                            move |_ev: Event| {
+                                if let Some(path) = path.get() {
+                                    root_doc.update(move |doc| { doc.remove_at_path(&path); });
+                                }
+                            }
+                        }
+                    >
+                        "X"
                     </dyn:button>
                 </div>
 
@@ -381,7 +454,7 @@ impl EditableDocument {
                 <div class="content">
                     {content_view}
                 </div>
-            </article>
+            </dyn:article>
         }
     }
 

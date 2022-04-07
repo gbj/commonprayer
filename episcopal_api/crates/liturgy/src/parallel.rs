@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize, __private::doc};
 
 use crate::{Choice, Content, Document, Liturgy, Series};
 
@@ -21,6 +21,18 @@ impl Parallel {
 
     pub fn as_mut_slice(&mut self) -> &mut [Document] {
         &mut self.0
+    }
+
+    pub fn push(&mut self, document: Document) {
+        self.0.push(document)
+    }
+
+    pub fn remove_at_index(&mut self, index: usize) -> Document {
+        self.0.remove(index)
+    }
+
+    pub fn insert_at(&mut self, index: usize, doc: Document) {
+        self.0.insert(index, doc)
     }
 }
 

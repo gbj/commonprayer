@@ -8,19 +8,24 @@ use strum::IntoEnumIterator;
 use wasm_bindgen::JsCast;
 use web_sys::HtmlElement;
 
-pub fn content_editing_view(doc: &Behavior<Document>, content: &Content) -> View {
+pub fn content_editing_view(
+    root_doc: &Behavior<Document>,
+    path: &[usize],
+    doc: &Behavior<Document>,
+    content: &Content,
+) -> View {
     let content_body = match content {
         Content::Empty => View::Empty,
-        Content::Antiphon(content) => edit_antiphon(doc, content),
-        Content::BiblicalCitation(content) => edit_biblical_citation(doc, content),
-        Content::Heading(content) => edit_heading(doc, content),
-        Content::Liturgy(content) => edit_liturgy(doc, content),
-        Content::Preces(content) => edit_preces(doc, content),
-        Content::ResponsivePrayer(content) => edit_responsive_prayer(doc, content),
-        Content::Rubric(content) => edit_rubric(doc, content),
-        Content::Sentence(content) => edit_sentence(doc, content),
-        Content::Series(content) => edit_series(doc, content),
-        Content::Text(content) => edit_text(doc, content),
+        Content::Antiphon(content) => edit_antiphon(path, doc, content),
+        Content::BiblicalCitation(content) => edit_biblical_citation(path, doc, content),
+        Content::Heading(content) => edit_heading(path, doc, content),
+        Content::Liturgy(content) => edit_liturgy(root_doc, path, doc, content),
+        Content::Preces(content) => edit_preces(path, doc, content),
+        Content::ResponsivePrayer(content) => edit_responsive_prayer(path, doc, content),
+        Content::Rubric(content) => edit_rubric(path, doc, content),
+        Content::Sentence(content) => edit_sentence(path, doc, content),
+        Content::Series(content) => edit_series(root_doc, path, doc, content),
+        Content::Text(content) => edit_text(path, doc, content),
         _ => view! {
             <p>"TODO Content Type"</p>
         },
@@ -218,7 +223,7 @@ macro_rules! update_nth_item_in_vec {
     }};
 }
 
-fn edit_antiphon(doc: &Behavior<Document>, content: &Antiphon) -> View {
+fn edit_antiphon(path: &[usize], doc: &Behavior<Document>, content: &Antiphon) -> View {
     let content = Behavior::new(content.clone());
     view! {
         <dyn:input
@@ -234,7 +239,11 @@ fn edit_antiphon(doc: &Behavior<Document>, content: &Antiphon) -> View {
     }
 }
 
-fn edit_biblical_citation(doc: &Behavior<Document>, content: &BiblicalCitation) -> View {
+fn edit_biblical_citation(
+    path: &[usize],
+    doc: &Behavior<Document>,
+    content: &BiblicalCitation,
+) -> View {
     let show_intro = Behavior::new(content.intro.is_some());
     let intro = if let Some(intro) = &content.intro {
         EditableDocument::from(Document::from(intro.clone()))
@@ -300,7 +309,7 @@ fn edit_biblical_citation(doc: &Behavior<Document>, content: &BiblicalCitation) 
     }
 }
 
-fn edit_heading(doc: &Behavior<Document>, content: &Heading) -> View {
+fn edit_heading(path: &[usize], doc: &Behavior<Document>, content: &Heading) -> View {
     let content = Behavior::new(content.clone());
     view! {
         <>
@@ -386,11 +395,16 @@ fn edit_heading(doc: &Behavior<Document>, content: &Heading) -> View {
     }
 }
 
-fn edit_liturgy(doc: &Behavior<Document>, content: &Liturgy) -> View {
-    edit_series(doc, &content.body)
+fn edit_liturgy(
+    root_doc: &Behavior<Document>,
+    path: &[usize],
+    doc: &Behavior<Document>,
+    content: &Liturgy,
+) -> View {
+    edit_series(root_doc, path, doc, &content.body)
 }
 
-fn edit_rubric(doc: &Behavior<Document>, content: &Rubric) -> View {
+fn edit_rubric(path: &[usize], doc: &Behavior<Document>, content: &Rubric) -> View {
     let content = Behavior::new(content.clone());
     view! {
         <dyn:textarea
@@ -409,7 +423,7 @@ fn edit_rubric(doc: &Behavior<Document>, content: &Rubric) -> View {
     }
 }
 
-fn edit_sentence(doc: &Behavior<Document>, content: &Sentence) -> View {
+fn edit_sentence(path: &[usize], doc: &Behavior<Document>, content: &Sentence) -> View {
     let content = Behavior::new(content.clone());
     view! {
         <>
@@ -440,7 +454,7 @@ fn edit_sentence(doc: &Behavior<Document>, content: &Sentence) -> View {
     }
 }
 
-fn edit_preces(root_doc: &Behavior<Document>, content: &Preces) -> View {
+fn edit_preces(path: &[usize], root_doc: &Behavior<Document>, content: &Preces) -> View {
     let content = Behavior::new(content.clone());
     let list = NaiveList::new(
         |children| {
@@ -487,7 +501,11 @@ fn edit_preces(root_doc: &Behavior<Document>, content: &Preces) -> View {
     }
 }
 
-fn edit_responsive_prayer(root_doc: &Behavior<Document>, content: &ResponsivePrayer) -> View {
+fn edit_responsive_prayer(
+    path: &[usize],
+    root_doc: &Behavior<Document>,
+    content: &ResponsivePrayer,
+) -> View {
     let content = Behavior::new(content.clone());
     let list = NaiveList::new(
         |children| {
@@ -568,7 +586,12 @@ macro_rules! quick_edit_button {
     };
 }
 
-fn edit_series(root_doc: &Behavior<Document>, content: &Series) -> View {
+fn edit_series(
+    first_root_doc: &Behavior<Document>,
+    path: &[usize],
+    root_doc: &Behavior<Document>,
+    content: &Series,
+) -> View {
     let content = Behavior::new(content.clone());
     let list = NaiveList::new(
         |children| {
@@ -581,8 +604,14 @@ fn edit_series(root_doc: &Behavior<Document>, content: &Series) -> View {
         content.stream().map(|series| series.into_vec()),
         {
             let root_doc = root_doc.clone();
+            let path = path.to_vec();
+            let first_root_doc = first_root_doc.clone();
             move |(idx, doc)| {
-                let editable_doc = EditableDocument::from(doc);
+                let mut editable_doc = EditableDocument::from(doc);
+                editable_doc.root_doc = first_root_doc.clone();
+                let mut path = path.clone();
+                path.push(idx);
+                editable_doc.path.set(Some(path.clone()));
                 editable_doc.document.stream().skip(1).create_effect({
                     let root_doc = root_doc.clone();
                     move |doc| {
@@ -596,6 +625,8 @@ fn edit_series(root_doc: &Behavior<Document>, content: &Series) -> View {
                         };
                     }
                 });
+
+                let drag_inside = Behavior::new(false);
 
                 view! {
                     <li>{editable_doc.view()}</li>
@@ -640,7 +671,7 @@ fn edit_series(root_doc: &Behavior<Document>, content: &Series) -> View {
     }
 }
 
-fn edit_text(doc: &Behavior<Document>, text: &Text) -> View {
+fn edit_text(path: &[usize], doc: &Behavior<Document>, text: &Text) -> View {
     let content = Behavior::new(text.clone());
     view! {
         <>

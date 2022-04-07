@@ -81,6 +81,18 @@ impl Choice {
         self
     }
 
+    pub fn push(&mut self, document: Document) {
+        self.options.push(document)
+    }
+
+    pub fn remove_at_index(&mut self, index: usize) -> Document {
+        self.options.remove(index)
+    }
+
+    pub fn insert_at(&mut self, index: usize, doc: Document) {
+        self.options.insert(index, doc)
+    }
+
     /// Generates an appropriate label to differentiate this option from all the others
     /// ```
     /// # use crate::liturgy::{Document, Choice};

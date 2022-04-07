@@ -13,6 +13,7 @@ strum = "0.24"
 serde_json = "1"
 futures = "0.3"
 wasm-bindgen = { version = "0.2" }
+serde = { version = "1", features = ["derive"]}
 
 [dependencies.web-sys]
 version = "0.3"
@@ -20,9 +21,11 @@ features = [
   "console",
   "Comment",
   "CssStyleDeclaration",
+  "DataTransfer",
   "Document",
   "DocumentFragment",
   "DomTokenList",
+  "DragEvent",
   "Element",
   "Event",
   "HtmlCollection",

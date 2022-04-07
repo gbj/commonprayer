@@ -94,4 +94,57 @@ impl Document {
             }
         }
     }
+
+    pub fn remove_at_path(&mut self, path: &[usize]) -> Result<Document, PathError> {
+        // first, get all but last item of path
+        let mut path = path.to_vec();
+        let idx = path.pop();
+        let parent = self.at_path_mut(path)?;
+        if let Some(idx) = idx {
+            match &mut parent.content {
+                Content::Liturgy(ref mut content) => Ok(content.body.remove_at_index(idx)),
+                Content::Series(ref mut content) => Ok(content.remove_at_index(idx)),
+                Content::Parallel(ref mut content) => Ok(content.remove_at_index(idx)),
+                Content::Choice(ref mut content) => Ok(content.remove_at_index(idx)),
+                _ => Err(PathError::DoesNotExist),
+            }
+        } else {
+            Err(PathError::DoesNotExist)
+        }
+    }
+
+    pub fn move_subdocument(
+        &mut self,
+        start_path: &[usize],
+        end_path: &[usize],
+    ) -> Result<(), PathError> {
+        let old_doc = self.remove_at_path(start_path)?;
+        let mut end_path = end_path.to_vec();
+        let idx = end_path.pop().ok_or(PathError::DoesNotExist)?;
+        let parent = self.at_path_mut(end_path)?;
+        parent.insert_at(idx, old_doc)?;
+        Ok(())
+    }
+
+    pub fn insert_at(&mut self, index: usize, doc: Document) -> Result<(), PathError> {
+        match &mut self.content {
+            Content::Liturgy(c) => {
+                c.body.insert_at(index, doc);
+                Ok(())
+            }
+            Content::Series(c) => {
+                c.insert_at(index, doc);
+                Ok(())
+            }
+            Content::Choice(c) => {
+                c.insert_at(index, doc);
+                Ok(())
+            }
+            Content::Parallel(c) => {
+                c.insert_at(index, doc);
+                Ok(())
+            }
+            _ => Err(PathError::DoesNotExist),
+        }
+    }
 }

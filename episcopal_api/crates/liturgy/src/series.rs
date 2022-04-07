@@ -35,6 +35,14 @@ impl Series {
     pub fn push(&mut self, doc: Document) {
         self.0.push(doc)
     }
+
+    pub fn remove_at_index(&mut self, index: usize) -> Document {
+        self.0.remove(index)
+    }
+
+    pub fn insert_at(&mut self, index: usize, doc: Document) {
+        self.0.insert(index, doc)
+    }
 }
 
 impl<T, U> From<T> for Series
