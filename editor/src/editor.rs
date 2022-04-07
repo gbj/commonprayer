@@ -196,38 +196,30 @@ impl EditableDocument {
 
         view! {
             <article>
-                // Toggle Metadata
-                <dyn:button class={dyn_attr_once("show-metadata")}
-                    on:click={
-                        let metadata_open = metadata_open.clone();
-                        move |_ev: Event| metadata_open.set(!metadata_open.get())
-                    }
-                >
-                    "Toggle Metadata"
-                </dyn:button>
+                <div class="metadata-buttons">
+                    <dyn:button
+                        on:click={
+                            let show_condition = show_condition.clone();
+                            move |_ev: Event| show_condition.set(!show_condition.get())
+                        }
+                    >
+                        "Condition"
+                    </dyn:button>
 
-                <div class="condition-field">
-                    <label class="condition">
-                        "Conditional"
-                        <dyn:input type={dyn_attr_once("checkbox")}
-                            prop:checked={condition_editor.condition.stream().map(|condition| condition.map(|_| "checked".to_string())).boxed_local()}
-                            on:change={
-                                let show_condition = show_condition.clone();
-                                let doc = self.document.clone();
-                                move |ev: Event| {
-                                    let checked = event_target_checked(ev);
-                                    show_condition.set(checked);
-                                    if !checked {
-                                        set_condition(&doc, None);
-                                    }
-                                }
-                            }
-                        />
-                    </label>
-                    <dyn:div class:hidden={show_condition.stream().map(|show| !show).boxed_local()}>
-                        {condition_editor.view()}
-                    </dyn:div>
+                    // Toggle Metadata
+                    <dyn:button
+                        on:click={
+                            let metadata_open = metadata_open.clone();
+                            move |_ev: Event| metadata_open.set(!metadata_open.get())
+                        }
+                    >
+                        "Metadata"
+                    </dyn:button>
                 </div>
+
+                <dyn:div class:hidden={show_condition.stream().map(|show| !show).boxed_local()}>
+                    {condition_editor.view()}
+                </dyn:div>
 
                 // Edit Metadata
                 <dyn:fieldset

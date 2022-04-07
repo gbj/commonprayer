@@ -23,38 +23,41 @@ impl ConditionEditor {
     pub fn view(&self) -> View {
         view! {
             <div class="condition-editor">
-                <dyn:select
-                    prop:value={self.condition.stream().map(|condition| Some(value_from_optional_condition_type(&condition).to_string())).boxed_local()}
-                    on:change={
-                        let condition = self.condition.clone();
-                        move |ev: Event| {
-                            let value = default_condition_from_type(&event_target_value(ev));
-                            condition.set(value);
+                <label>
+                    "Condition"
+                    <dyn:select
+                        prop:value={self.condition.stream().map(|condition| Some(value_from_optional_condition_type(&condition).to_string())).boxed_local()}
+                        on:change={
+                            let condition = self.condition.clone();
+                            move |ev: Event| {
+                                let value = default_condition_from_type(&event_target_value(ev));
+                                condition.set(value);
+                            }
                         }
-                    }
-                >
-                    <option>"—"</option>
-                    <option>"Day"</option>
-                    <option>"Feast"</option>
-                    <option>"Season"</option>
-                    <option>"Observed Season"</option>
-                    <option>"Week"</option>
-                    <option>"Weekday"</option>
-                    <option>"Evening"</option>
-                    <option>"Rank Gte"</option>
-                    <option>"Date Lt"</option>
-                    <option>"Date Lte"</option>
-                    <option>"Date Gt"</option>
-                    <option>"Date Gte"</option>
-                    <option>"Day of Month"</option>
-                    <option>"Preference"</option>
-                    <option>"Not"</option>
-                    <option>"And"</option>
-                    <option>"Or"</option>
-                    <option>"Any"</option>
-                    <option>"All"</option>
-                    <option>"None"</option>
-                </dyn:select>
+                    >
+                        <option>"—"</option>
+                        <option>"Day"</option>
+                        <option>"Feast"</option>
+                        <option>"Season"</option>
+                        <option>"Observed Season"</option>
+                        <option>"Week"</option>
+                        <option>"Weekday"</option>
+                        <option>"Evening"</option>
+                        <option>"Rank Gte"</option>
+                        <option>"Date Lt"</option>
+                        <option>"Date Lte"</option>
+                        <option>"Date Gt"</option>
+                        <option>"Date Gte"</option>
+                        <option>"Day of Month"</option>
+                        <option>"Preference"</option>
+                        <option>"Not"</option>
+                        <option>"And"</option>
+                        <option>"Or"</option>
+                        <option>"Any"</option>
+                        <option>"All"</option>
+                        <option>"None"</option>
+                    </dyn:select>
+                </label>
                 {edit_condition(&self.condition)}
             </div>
         }
