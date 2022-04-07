@@ -21,15 +21,16 @@ lazy_static! {
             Document::from(Heading::from((HeadingLevel::Heading1, "The Burial of the Dead:\nRite Two"))).tags([TITLE]),
             Document::from(Rubric::from("All stand while one or more of the following anthems are sung or said.\n\nA hymn, psalm, or some other suitable anthem may be sung instead.")).tags([OPENING_RUBRIC]),
             Document::from(Choice::from(vec![
-                Text::from("I am Resurrection and I am Life, says the Lord.\nWhoever has faith in me shall have life,\neven though he die.\nAnd everyone who has life,\nand has committed himself to me in faith,\nshall not die for ever.\n\nAs for me, I know that my Redeemer lives\nand that at the last he will stand upon the earth.\nAfter my awaking, he will raise me up;\nand in my body I shall see God.\nI myself shall see, and my eyes behold him\nwho is my friend and not a stranger.\n\nFor none of us has life in himself,\nand none becomes his own master when he dies.\nFor if we have life, we are alive in the Lord,\nand if we die, we die in the Lord.\nSo, then, whether we live or die,\nwe are the Lord’s possession.\n\nHappy from now on\nare those who die in the Lord!\nSo it is, says the Spirit,\nfor they rest from their labors.").into(),
-                ResponsivePrayer::from([
+                Document::from(Text::from("I am Resurrection and I am Life, says the Lord.\nWhoever has faith in me shall have life,\neven though he die.\nAnd everyone who has life,\nand has committed himself to me in faith,\nshall not die for ever.\n\nAs for me, I know that my Redeemer lives\nand that at the last he will stand upon the earth.\nAfter my awaking, he will raise me up;\nand in my body I shall see God.\nI myself shall see, and my eyes behold him\nwho is my friend and not a stranger.\n\nFor none of us has life in himself,\nand none becomes his own master when he dies.\nFor if we have life, we are alive in the Lord,\nand if we die, we die in the Lord.\nSo, then, whether we live or die,\nwe are the Lord’s possession.\n\nHappy from now on\nare those who die in the Lord!\nSo it is, says the Spirit,\nfor they rest from their labors."))
+                .version_label("I am Resurrection and I am Life"),
+                Document::from(ResponsivePrayer::from([
                     "In the midst of life we are in death;\nfrom whom can we seek help?\nFrom you alone, O Lord,\nwho by our sins are justly angered.",
                     "Holy God, Holy and Mighty,\nHoly and merciful Savior,\ndeliver us not into the bitterness of eternal death.",
                     "Lord, you know the secrets of our hearts;\nshut not your ears to our prayers,\nbut spare us, O Lord.",
                     "Holy God, Holy and Mighty,\nHoly and merciful Savior,\ndeliver us not into the bitterness of eternal death.",
                     "O worthy and eternal Judge,\ndo not let the pains of death\nturn us away from you at our last hour.",
                     "Holy God, Holy and Mighty,\nHoly and merciful Savior,\ndeliver us not into the bitterness of eternal death.",
-                ]).into()
+                ])).version_label("In the midst of life we are in death")
             ])).tags([ANTHEMS]),
             Document::from(Rubric::from("When all are in place, the Celebrant may address the congregation, acknowledging briefly the purpose of their gathering, and bidding their prayers for the deceased and the bereaved.")).tags([OPENING_PRAYERS]),
 
