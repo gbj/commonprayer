@@ -1,7 +1,10 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::{Display, EnumIter, EnumString};
 
 /// Different modes of displaying a [Document](crate::Document)
-#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(
+    Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize, Display, EnumString, EnumIter,
+)]
 pub enum DisplayFormat {
     /// Show the document with its default formatting
     Default,

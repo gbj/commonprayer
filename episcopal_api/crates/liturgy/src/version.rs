@@ -48,6 +48,10 @@ impl Version {
             (Version::RiteI, Version::BCP1979) | (Version::RiteII, Version::BCP1979)
         )
     }
+
+    pub fn is_default(&self) -> bool {
+        self == &Self::default()
+    }
 }
 
 impl Display for Version {

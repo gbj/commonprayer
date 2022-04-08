@@ -64,3 +64,7 @@ pub use series::*;
 pub use show::*;
 pub use text::*;
 pub use version::*;
+
+pub(crate) fn is_false(val: &bool) -> bool {
+    !*val
+}

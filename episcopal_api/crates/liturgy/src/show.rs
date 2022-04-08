@@ -12,3 +12,15 @@ pub enum Show {
     /// Displayed only in concrete mode, i.e., when a document has been compiled for a particular date
     CompiledOnly,
 }
+
+impl Default for Show {
+    fn default() -> Self {
+        Self::Always
+    }
+}
+
+impl Show {
+    pub fn is_default(&self) -> bool {
+        self == &Self::default()
+    }
+}

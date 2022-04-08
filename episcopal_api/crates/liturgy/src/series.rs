@@ -4,44 +4,48 @@ use crate::{Choice, Content, Document, Liturgy, Parallel};
 
 /// Multiple [Document](crate::Document)s that are displayed in order.
 #[derive(Clone, Debug, Default, Hash, Eq, PartialEq, Serialize, Deserialize)]
-pub struct Series(Vec<Document>, bool);
+pub struct Series {
+    children: Vec<Document>,
+    #[serde(skip_serializing_if = "crate::is_false", default)]
+    indivisible: bool,
+}
 
 impl Series {
     pub fn iter(&self) -> impl Iterator<Item = &Document> {
-        self.0.iter()
+        self.children.iter()
     }
 
     pub fn into_vec(self) -> Vec<Document> {
-        self.0
+        self.children
     }
 
     pub fn as_slice(&self) -> &[Document] {
-        &self.0
+        &self.children
     }
 
     pub fn as_mut_slice(&mut self) -> &mut [Document] {
-        &mut self.0
+        &mut self.children
     }
 
     pub fn is_indivisible(&self) -> bool {
-        self.1
+        self.indivisible
     }
 
     pub fn indivisible(mut self) -> Self {
-        self.1 = true;
+        self.indivisible = true;
         self
     }
 
     pub fn push(&mut self, doc: Document) {
-        self.0.push(doc)
+        self.children.push(doc)
     }
 
     pub fn remove_at_index(&mut self, index: usize) -> Document {
-        self.0.remove(index)
+        self.children.remove(index)
     }
 
     pub fn insert_at(&mut self, index: usize, doc: Document) {
-        self.0.insert(index, doc)
+        self.children.insert(index, doc)
     }
 }
 
@@ -51,7 +55,10 @@ where
     U: Into<Document>,
 {
     fn from(items: T) -> Self {
-        Self(items.into_iter().map(|item| item.into()).collect(), false)
+        Self {
+            children: items.into_iter().map(|item| item.into()).collect(),
+            indivisible: false,
+        }
     }
 }
 

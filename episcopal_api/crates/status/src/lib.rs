@@ -10,3 +10,15 @@ pub enum Status {
     /// Not officially authorized, but traditional or optional
     Unauthorized,
 }
+
+impl Default for Status {
+    fn default() -> Self {
+        Status::Authorized
+    }
+}
+
+impl Status {
+    pub fn is_default(&self) -> bool {
+        self == &Self::default()
+    }
+}
