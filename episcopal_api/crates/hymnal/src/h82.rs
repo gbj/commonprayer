@@ -9135,7 +9135,7 @@ lazy_static! {
                 page_number: 533,
                 copyright_restriction: false,
                 number: HymnNumber::H(313),
-                title: "Thou didst give thyself for me".into(),
+                title: "Let thy Blood in mercy poured".into(),
                 tune: "JESUS, MEIN ZUBERSICHT".into(),
                 authors: "John Brownlie, 1859-1925".into(),
                 composers: "Johann Cruger, 1598-1662".into(),
