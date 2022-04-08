@@ -215,9 +215,11 @@ impl EditableDocument {
             move |new_condition| set_condition(&doc, new_condition)
         });
 
+        let dragging = Behavior::new(false);
+
         view! {
             <dyn:article
-                draggable={dyn_attr_once("true")}
+                prop:draggable={dragging.stream().map(|v| if v { Some("true".into()) } else { None }).boxed_local()}
                 class:droppable={dyn_class_once()}
                 on:dragstart={
                     let path = self.path.clone();
@@ -232,7 +234,7 @@ impl EditableDocument {
                 }
                 on:dragover=|ev: Event| {
                     let ev: DragEvent = ev.unchecked_into();
-                    ev.prevent_default();
+                    //ev.prevent_default();
                 }
                 on:drop={
                     let path = self.path.clone();
@@ -245,7 +247,6 @@ impl EditableDocument {
                             if let Ok(start_path) = data_transfer.get_data("application/json") {
                                 if let Some(dest_path) = path.get() {
                                     let start_path: Vec<usize> = serde_json::from_str(&start_path).unwrap();
-                                    log(&format!("moving from {:?} to {:?}", start_path, dest_path));
                                     root_doc.update(|doc| {
                                         doc.move_subdocument(&start_path, &dest_path);
                                     });
@@ -256,6 +257,12 @@ impl EditableDocument {
                 }
             >
                 <div class="metadata-buttons">
+                    <dyn:button
+                        class:hidden={self.document.stream().map(|doc| if matches!(doc.content, Content::Liturgy(_) | Content::Series(_)) { true } else { false }).boxed_local()}
+                        on:click=move |_ev: Event| dragging.set(!dragging.get())
+                    >
+                        "⇵"
+                    </dyn:button>
                     <dyn:button
                         on:click={
                             let show_condition = show_condition.clone();

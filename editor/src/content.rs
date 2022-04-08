@@ -401,12 +401,45 @@ fn edit_liturgy(
     doc: &Behavior<Document>,
     content: &Liturgy,
 ) -> View {
-    edit_series(root_doc, path, doc, &content.body)
+    let series_doc = Behavior::new(Document::from(content.body.clone()));
+    series_doc.stream().skip(1).create_effect({
+        let doc = doc.clone();
+        move |new_series| {
+            doc.update(|doc| {
+                if let (Content::Series(series), Content::Liturgy(liturgy)) =
+                    (&new_series.content, &mut doc.content)
+                {
+                    liturgy.body = series.clone();
+                } else {
+                    doc.content = new_series.content.clone();
+                }
+            });
+        }
+    });
+    edit_series(root_doc, path, &series_doc, &content.body)
 }
 
 fn edit_rubric(path: &[usize], doc: &Behavior<Document>, content: &Rubric) -> View {
     let content = Behavior::new(content.clone());
     view! {
+        <dyn:button
+            on:click={
+                let content = content.clone();
+                let doc = doc.clone();
+                move |_ev: Event| {
+                    let text = content.get();
+                    let new_text = text.text.replace("\n\n", "\\n\\n").replace("\n", " ").replace("\\n\\n", "\n\n");
+                    let new_text = new_text.trim();
+                    content.update(move |text| {
+                        text.text = new_text.to_string();
+                    });
+                    let new_content = content.get();
+                    doc.update(|doc| doc.content = Content::Rubric(new_content.clone()));
+                }
+            }
+        >
+            "\\n"
+        </dyn:button>
         <dyn:textarea
             on:change={
                 let doc = doc.clone();
@@ -719,6 +752,28 @@ fn edit_text(path: &[usize], doc: &Behavior<Document>, text: &Text) -> View {
                     prop:value={content.stream().map(|text| text.response).boxed_local()}
                     on:change=update_optional_string_field!(doc, content, Text, |text: &mut Text, new_value| text.response = new_value)
                 />
+            </label>
+            <label>
+                "Display Format"
+                <dyn:select
+                    prop:value={content.stream().map(|text| Some(text.display_format.to_string())).boxed_local()}
+                    on:change={
+                        let content = content.clone();
+                        let doc = doc.clone();
+                        move |ev: Event| {
+                            let val = DisplayFormat::from_str(&event_target_value(ev)).unwrap();
+                            content.update(move |content| content.display_format = val);
+                            let new_content = content.get();
+                            doc.update(|doc| doc.content = Content::from(new_content.clone()));
+                        }
+                    }
+                >
+                    {View::Fragment(
+                        DisplayFormat::iter()
+                            .map(|variant| view! { <option>{variant.to_string()}</option> })
+                            .collect()
+                    )}
+                </dyn:select>
             </label>
         </>
     }
