@@ -270,7 +270,7 @@ lazy_static! {
 
             // Possible location #1 for sermon
             Document::from(Heading::from((HeadingLevel::Heading3, "The Sermon")))
-                .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::from("after_readings")))
+                .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::Local("after_readings".into())))
                 .display(Show::CompiledOnly),
 
             // Creed
@@ -379,7 +379,7 @@ lazy_static! {
 
             // Possible location #2 for sermon
             Document::from(Heading::from((HeadingLevel::Heading3, "The Sermon")))
-                .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::from("after_collects")))
+                .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::Local("after_collects".into())))
                 .display(Show::CompiledOnly),
 
             // Closing Prayers
@@ -421,7 +421,7 @@ lazy_static! {
 
             // Possible location #3 for sermon
             Document::from(Heading::from((HeadingLevel::Heading3, "The Sermon")))
-                .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::from("after_office")))
+                .condition(Condition::Preference(PreferenceKey::from("sermon"), PreferenceValue::Local("after_office".into())))
                 .display(Show::CompiledOnly),
             ]))
         .preferences([
@@ -515,12 +515,12 @@ lazy_static! {
                 PreferenceKey::from("sermon"),
                 "Sermon",
                 [
-                    LiturgyPreferenceOption::from(("—", PreferenceValue::from("none"))),
-                    LiturgyPreferenceOption::from(("After the Readings", PreferenceValue::from("after_readings"))),
-                    LiturgyPreferenceOption::from(("After the Collects", PreferenceValue::from("after_collects"))),
-                    LiturgyPreferenceOption::from(("After the Office", PreferenceValue::from("after_office"))),
+                    LiturgyPreferenceOption::from(("—", PreferenceValue::Local("none".into()))),
+                    LiturgyPreferenceOption::from(("After the Readings", PreferenceValue::Local("after_readings".into()))),
+                    LiturgyPreferenceOption::from(("After the Collects", PreferenceValue::Local("after_collects".into()))),
+                    LiturgyPreferenceOption::from(("After the Office", PreferenceValue::Local("after_office".into()))),
                 ]
-            )).default_value(PreferenceValue::from("none")).category("Advanced Settings")
+            )).default_value(PreferenceValue::Local("none".into())).category("Advanced Settings")
         ]),
     )
     .version(Version::RiteII)

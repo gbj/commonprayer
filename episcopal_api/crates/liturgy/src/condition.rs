@@ -226,10 +226,10 @@ pub enum Condition {
     /// # use std::collections::HashMap;
     /// # let liturgy_prefs = LiturgyPreferences::default();
     /// let mut prefs = HashMap::new();
-    /// prefs.insert(PreferenceKey::from("bibleVersion"), PreferenceValue::from("NRSV"));
-    /// let condition = Condition::Preference(PreferenceKey::from("bibleVersion"), PreferenceValue::from("NRSV"));
+    /// prefs.insert(PreferenceKey::from("bibleVersion"), PreferenceValue::Local("NRSV".into()));
+    /// let condition = Condition::Preference(PreferenceKey::from("bibleVersion"), PreferenceValue::Local("NRSV".into()));
     /// assert_eq!(condition.include(&BCP1979_CALENDAR, &day, &prefs, &liturgy_prefs), true);
-    /// prefs.insert(PreferenceKey::from("bibleVersion"), PreferenceValue::from("ESV"));
+    /// prefs.insert(PreferenceKey::from("bibleVersion"), PreferenceValue::Local("ESV".into()));
     /// assert_eq!(condition.include(&BCP1979_CALENDAR, &day, &prefs, &liturgy_prefs), false);
     /// ```
     Preference(PreferenceKey, PreferenceValue),

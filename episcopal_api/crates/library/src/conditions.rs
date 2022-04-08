@@ -12,7 +12,7 @@ lazy_static! {
     /// True when the "Insert Gloria Patri between psalms" preference is not set
     pub static ref NOT_INSERT_GLORIA: Condition = Condition::Not(Box::new(Condition::Preference(
         PreferenceKey::from(GlobalPref::InsertGloria),
-        PreferenceValue::from("true")
+        PreferenceValue::Bool(true)
     )));
 
     /// True only from Easter to Pentecost
