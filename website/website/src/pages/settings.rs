@@ -39,6 +39,7 @@ fn head(_locale: &str, _props: &SettingsPageProps, _render_state: &()) -> View {
     view! {
         <>
             <title>{t!("settings.title")} " – " {t!("common_prayer")}</title>
+            <link rel="stylesheet" href="/static/vars.css"/>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/settings.css"/>
             <link rel="stylesheet" href="/static/display-settings.css"/>
@@ -147,8 +148,8 @@ fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
         "calendar",
         PreferenceKey::from(GlobalPref::Calendar),
         t!("settings.calendar"),
-        (t!("bcp_1979"), PreferenceValue::from("bcp1979")),
-        (t!("lff_2018"), PreferenceValue::from("lff2018")),
+        (t!("bcp_1979"), PreferenceValue::Local("bcp1979".into())),
+        (t!("lff_2018"), PreferenceValue::Local("lff2018".into())),
         false,
     );
 

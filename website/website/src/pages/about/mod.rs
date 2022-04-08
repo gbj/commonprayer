@@ -13,6 +13,7 @@ pub fn head(_locale: &str, _props: &(), _render_state: &()) -> View {
     view! {
         <>
             <title>{t!("menu.about")} " – " {t!("common_prayer")}</title>
+            <link rel="stylesheet" href="/static/vars.css"/>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/about.css"/>
         </>

@@ -33,6 +33,7 @@ pub fn head(_locale: &str, _props: &CalendarPageProps, _render_state: &()) -> Vi
     view! {
         <>
             <title>{t!("menu.calendar")} " – " {t!("common_prayer")}</title>
+            <link rel="stylesheet" href="/static/vars.css"/>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/calendar.css"/>
         </>
@@ -144,7 +145,7 @@ pub fn body(locale: &str, props: &CalendarPageProps, _render_state: &()) -> View
         CalendarChoice::LFF2018 => true,
         CalendarChoice::None => preferences::is(
             &PreferenceKey::from(GlobalPref::Calendar),
-            &PreferenceValue::from("lff2018"),
+            &PreferenceValue::Local("lff2018".into()),
         ),
     };
 

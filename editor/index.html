@@ -1,148 +1,159 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>CommonPrayerOnline.org Liturgy Editor</title>
-		<style>
-			body {
-				font-family: sans-serif;
-			}
+  <head>
+    <title>CommonPrayerOnline.org Liturgy Editor</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
 
-			.panes {
-				display: flex;
-				justify-content: space-between;
-			}
+      .panes {
+        display: flex;
+        justify-content: space-between;
+      }
 
-			.editor, .secondary {
-				display: flex;
-				flex-direction: column;
-				height: 100vh;
-				width: 50%;
-				padding: 1rem;
-			}
+      .editor,
+      .secondary {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 50%;
+        padding: 1rem;
+      }
 
-			.buttons {
-				display: flex;
-				flex-direction: row;
-			}
+      .buttons {
+        display: flex;
+        flex-direction: row;
+      }
 
-			.metadata {
-				display: flex;
-				flex-direction: column;
-			}
+      .metadata {
+        display: flex;
+        flex-direction: column;
+      }
 
-			.metadata label {
-				display: flex;
-				flex-direction: column;
-			}
+      .metadata label {
+        display: flex;
+        flex-direction: column;
+      }
 
-			.metadata label.horizontal {
-				flex-direction: row;
-			}
+      .metadata label.horizontal {
+        flex-direction: row;
+      }
 
-			.secondary textarea {
-				height: 100%;
-			}
+      .secondary textarea {
+        height: 100%;
+      }
 
-			.content {
-				display: flex;
-				flex-direction: column;
-			}
+      .content {
+        display: flex;
+        flex-direction: column;
+      }
 
-			.hidden {
-				display: none;
-			}
+      .hidden {
+        display: none;
+      }
 
-			.series {
-				list-style-type: none;
-				padding: 0.5rem;
-			}
+      .series {
+        list-style-type: none;
+        padding: 0.5rem;
+      }
 
-			.series > li {
-				background-color: #f0f0f0;
-				margin-bottom: 2rem;
-				padding: 0.5rem;
-			}
+      .series > li {
+        background-color: #f0f0f0;
+        margin-bottom: 2rem;
+        padding: 0.5rem;
+      }
 
-			.metadata-buttons {
-				display: flex;
-				justify-content: right;
-				margin-bottom: 0.5rem;
-			}
+      .metadata-buttons {
+        display: flex;
+        justify-content: right;
+        margin-bottom: 0.5rem;
+      }
 
-			.content > label {
-				display: flex;
-				flex-direction: column;
-				margin-bottom: 0.5rem;
-			}
+      .metadata-buttons button:first-child {
+        margin-right: auto;
+      }
 
-			.content > label.horizontal {
-				flex-direction: row;
-			}
+      .content > label {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0.5rem;
+      }
 
-			.intro {
-				padding-left: 1rem;
-			}
+      .content > label.horizontal {
+        flex-direction: row;
+      }
 
-			.condition-field {
-				border: 1px solid black;
-				margin: 1rem 0;
-				padding: 0.5rem;
-			}
+      .intro {
+        padding-left: 1rem;
+      }
 
-			label.condition {
-				display: flex;
-				flex-direction: row;
-				justify-content: space-between;
-			}
+      .condition-field {
+        border: 1px solid black;
+        margin: 1rem 0;
+        padding: 0.5rem;
+      }
 
-			.condition-editor {
-				display: flex;
-				flex-direction: column;
-			}
+      label.condition {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
 
-			.condition-editor * {
-				margin: 0.25rem 0;
-			}
+      .condition-editor {
+        display: flex;
+        flex-direction: column;
+      }
 
-			.condition.and, .condition.or {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: space-between;
-			}
+      .condition-editor * {
+        margin: 0.25rem 0;
+      }
 
-			.condition.preference {
-				display: flex;
-			}
+      .condition.and,
+      .condition.or {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
 
-			.condition.preference fieldset {
-				width: 50%;
-			}
+      .condition.preference {
+        display: flex;
+      }
 
-			.quick-edit {
-				padding: 0.25rem;
-				border: 1px solid black;
-			}
+      .condition.preference fieldset {
+        width: 50%;
+      }
 
-			.quick-edit textarea {
-				width: 100%;
-				height: 10rem;
-			}
+      .quick-edit {
+        padding: 0.25rem;
+        border: 1px solid black;
+      }
 
-			.dropping {
-				border: 3px dotted #ffa0a0;
-			}
-		</style>
-		<link data-trunk rel="copy-dir" href="../episcopal_api/crates/export/web-component/example/pkg"/>
-		<script type="module">
-			import init, { run } from '/pkg/web_component.js';
-			async function main() {
-				await init();
-				run();
-			}
-			main();
-		</script>
-	</head>
-	<body>
-	</body>
+      .quick-edit textarea {
+        width: 100%;
+        height: 10rem;
+      }
+
+      .dropping {
+        border: 3px dotted #ffa0a0;
+      }
+    </style>
+    <link
+      data-trunk
+      rel="copy-dir"
+      href="../episcopal_api/crates/export/web-component/example/pkg"
+    />
+    <link data-trunk rel="copy-dir" href="../website/website/static" />
+    <link rel="stylesheet" href="/static/vars.css" />
+    <script type="module">
+      import init, { run } from "/pkg/web_component.js";
+      async function main() {
+        await init();
+        run();
+      }
+      main();
+    </script>
+  </head>
+  <body></body>
 </html>

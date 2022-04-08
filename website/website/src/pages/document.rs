@@ -90,6 +90,7 @@ pub fn head(_locale: &str, props: &DocumentPageProps, _render_state: &()) -> Vie
     view! {
         <>
             <title>{title}</title>
+            <link rel="stylesheet" href="/static/vars.css"/>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
             <link rel="stylesheet" href="/static/settings.css"/>

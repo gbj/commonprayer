@@ -70,6 +70,7 @@ pub fn head(
     view! {
         <>
             <title>{title} " – " {t!("common_prayer")}</title>
+            <link rel="stylesheet" href="/static/vars.css"/>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/hymnal.css"/>
             <link rel="stylesheet" href="/static/document.css"/>

@@ -46,6 +46,7 @@ fn head(_locale: &str, props: &HolyDayProps, _render_state: &()) -> View {
     view! {
         <>
             <title>{title}</title>
+            <link rel="stylesheet" href="/static/vars.css"/>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
             <link rel="stylesheet" href="/static/holy-day.css"/>

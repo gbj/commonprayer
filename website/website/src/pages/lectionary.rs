@@ -131,6 +131,7 @@ pub fn head(_locale: &str, _props: &(), _render_state: &LectionaryPageRenderStat
     view! {
         <>
             <title>{t!("menu.lectionary")} " – " {t!("common_prayer")}</title>
+            <link rel="stylesheet" href="/static/vars.css"/>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/lectionary.css"/>
             <link rel="stylesheet" href="/static/document.css"/>

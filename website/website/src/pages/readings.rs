@@ -62,6 +62,7 @@ fn head(locale: &str, props: &DailyReadingsPageProps, _render_state: &()) -> Vie
     view! {
         <>
             <title>{title}</title>
+            <link rel="stylesheet" href="/static/vars.css"/>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
             <link rel="stylesheet" href="/static/daily-readings.css"/>
@@ -909,7 +910,7 @@ impl Controls {
         let use_lff_2018 = Toggle::new(
             preferences::is(
                 &PreferenceKey::from(GlobalPref::Calendar),
-                &PreferenceValue::from("lff2018"),
+                &PreferenceValue::Local("lff2018".into()),
             ),
             "calendar",
             t!("bcp_1979"),

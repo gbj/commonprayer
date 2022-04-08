@@ -24,6 +24,7 @@ fn head(_locale: &str, _props: &NotFoundPageProps, _render_state: &()) -> View {
     view! {
         <>
             <title>{t!("page_404.title")} " – " {t!("common_prayer")}</title>
+            <link rel="stylesheet" href="/static/vars.css"/>
             <link rel="stylesheet" href="/static/general.css"/>
             <link rel="stylesheet" href="/static/404.css"/>
         </>
