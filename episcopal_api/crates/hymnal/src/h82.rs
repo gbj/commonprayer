@@ -9124,6 +9124,7 @@ lazy_static! {
                 tune: "MALABAR".into(),
                 authors: "Charles William Humphreys, 1840-1921 ; Percy Dearmer, 1867-1936".into(),
                 composers: "David McKinley Williams, 1887-1978".into(),
+                meter: "8.7.8.7".into(),
                 text_sources: "Syriac Liturgy of Malabar".into(),
                 tune_sources: "".into(),
                 text: "".into(),
