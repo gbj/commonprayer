@@ -1,7 +1,10 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::{Display, EnumIter, EnumString};
 
 /// Marks the status of a particular piece of liturgy or calendar observance
-#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(
+    Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize, EnumIter, EnumString, Display,
+)]
 pub enum Status {
     /// Fully authorized
     Authorized,

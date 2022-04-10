@@ -2,8 +2,11 @@ Website Todos
 =============
 
 - [ ] Editor (to speed up liturgy creation)
-  - [ ] Conversions
-  - [ ] Rust code export
+  - [x] Conversions
+  - [x] Choice
+  - [x] Litany
+  - [x] Rust code export
+    - [ ] finish for additional types as needed
 - [x] Baptism
   - [ ] Add preferences
 - Eucharist

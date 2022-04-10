@@ -18,6 +18,14 @@ impl Litany {
     pub fn into_vec(self) -> Vec<String> {
         self.lines
     }
+
+    pub fn push(&mut self, line: String) {
+        self.lines.push(line);
+    }
+
+    pub fn remove_at_index(&mut self, index: usize) -> String {
+        self.lines.remove(index)
+    }
 }
 
 impl<R, T, A> From<(R, T)> for Litany
@@ -30,6 +38,15 @@ where
         Self {
             response: response.to_string(),
             lines: lines.into_iter().map(|line| line.to_string()).collect(),
+        }
+    }
+}
+
+impl From<Vec<String>> for Litany {
+    fn from(lines: Vec<String>) -> Self {
+        Self {
+            response: String::new(),
+            lines,
         }
     }
 }

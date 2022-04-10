@@ -9,6 +9,7 @@ calendar = { path = "../episcopal_api/crates/calendar" }
 language = { path = "../episcopal_api/crates/language" }
 lectionary = { path = "../episcopal_api/crates/lectionary" }
 liturgy = { path = "../episcopal_api/crates/liturgy" }
+to_rust_code = { path = "../episcopal_api/crates/export/to_rust_code" }
 strum = "0.24"
 serde_json = "1"
 futures = "0.3"

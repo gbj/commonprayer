@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
+use strum_macros::{EnumIter, EnumString, IntoStaticStr};
 
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Reference {
@@ -30,7 +31,19 @@ impl From<u16> for Reference {
     }
 }
 
-#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(
+    Copy,
+    Clone,
+    Debug,
+    Hash,
+    Eq,
+    PartialEq,
+    Serialize,
+    Deserialize,
+    EnumIter,
+    EnumString,
+    IntoStaticStr,
+)]
 pub enum Source {
     BCP1979,
     EOW1,

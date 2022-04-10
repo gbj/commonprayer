@@ -3,8 +3,12 @@ use std::pin::Pin;
 use crate::{condition::ConditionEditor, content::content_editing_view};
 use futures::{Stream, StreamExt};
 use leptos::*;
+use language::Language;
 use liturgy::*;
 use serde::{Deserialize, Serialize};
+use strum::IntoEnumIterator;
+use std::str::FromStr;
+use to_rust_code::ToRustCode;
 use wasm_bindgen::JsCast;
 use web_sys::DragEvent;
 
@@ -72,6 +76,12 @@ impl Editor {
             .map(|doc| serde_json::to_string(&doc).unwrap())
             .boxed_local();
 
+        let rust_stream = self
+            .editable_doc
+            .stream()
+            .map(|doc| doc.to_rust_code(0))
+            .boxed_local();
+
         view! {
            <main>
                 <h1>"Liturgy Editor"</h1>
@@ -128,6 +138,7 @@ impl Editor {
                         <div class="buttons">
                             <dyn:button on:click={let mode = secondary_pane_mode.clone(); move |_ev: Event| mode.set(SecondPane::Preview)}>"Preview"</dyn:button>
                             <dyn:button on:click={let mode = secondary_pane_mode.clone(); move |_ev: Event| mode.set(SecondPane::Json)}>"JSON"</dyn:button>
+                            <dyn:button on:click={let mode = secondary_pane_mode.clone(); move |_ev: Event| mode.set(SecondPane::Rust)}>"Rust"</dyn:button>
                         </div>
                         <dyn:div class:preview={dyn_class_once()} class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::Preview).boxed_local()}>
                             <dyn:commonprayer_doc doc={wc_doc_stream}></dyn:commonprayer_doc>
@@ -148,6 +159,12 @@ impl Editor {
                         >
                             {json_stream}
                         </dyn:textarea>
+                        <dyn:pre
+                            class:json={dyn_class_once()}
+                            class:hidden={secondary_pane_mode.stream().map(|mode| mode != SecondPane::Rust).boxed_local()}
+                        >
+                            {rust_stream}
+                        </dyn:pre>
                     </div>
                 </div>
            </main>
@@ -258,10 +275,10 @@ impl EditableDocument {
             >
                 <div class="metadata-buttons">
                     <dyn:button
-                        class:hidden={self.document.stream().map(|doc| if matches!(doc.content, Content::Liturgy(_) | Content::Series(_)) { true } else { false }).boxed_local()}
-                        on:click=move |_ev: Event| dragging.set(!dragging.get())
+                        class:hidden={self.document.stream().map(|doc| matches!(doc.content, Content::Liturgy(_) | Content::Series(_))).boxed_local()}
+                        on:click={let dragging = dragging.clone(); move |_ev: Event| dragging.set(!dragging.get())}
                     >
-                        "⇵"
+                        {View::ViewStream(dragging.stream().map(|dragging| if dragging { View::StaticText("Drag".into()) } else { View::StaticText("⇵".into()) }).boxed_local())}
                     </dyn:button>
                     <dyn:button
                         on:click={
@@ -346,8 +363,96 @@ impl EditableDocument {
                         />
                     </label>
 
-                    // TODO: Language
+                     <label>
+                        "Language"
+                        <dyn:input type={dyn_attr_once("text")}
+                            on:change={
+                                let doc = self.document.clone();
+                                move |ev| {
+                                    let v = event_target_value(ev);
+                                    doc.update(move |doc| {
+                                        if v.is_empty() {
+                                            doc.subtitle = None;
+                                        } else {
+                                            doc.subtitle = Some(v.clone());
+                                        }
+                                    })
+                                }
+                            }
+                        />
+                        <dyn:select
+                            on:change={
+                                let doc = self.document.clone();
+                                move |ev| {
+                                    let v = Language::from_str(&event_target_value(ev)).unwrap();
+                                    doc.update(move |doc| {
+                                        doc.language = v;
+                                    })
+                                }
+                            }
+                        >
+                            {View::Fragment(
+                                Language::iter()
+                                    .map(|variant| view! { <option>{variant.to_string()}</option> })
+                                    .collect()
+                            )}
+                        </dyn:select>
+                    </label>
+
                     // TODO: Source
+                    <div class="source">
+                        <label>
+                            "Source"
+                            <dyn:select
+                                prop:value={self.document.stream().map(|doc| doc.source.map(|reference| { let s: &'static str = reference.source.into(); s.to_string()})).boxed_local()}
+                                on:change={
+                                    let doc = self.document.clone();
+                                    move |ev| {
+                                        let v = Source::from_str(&event_target_value(ev)).unwrap();
+                                        doc.update(move |doc| {
+                                            if let Some(mut reference) = doc.source {
+                                                reference.source = v;
+                                            } else {
+                                                doc.source = Some(Reference {
+                                                    source: v,
+                                                    page: 0
+                                                })
+                                            }
+                                        })
+                                    }
+                                }
+                            >
+                                {View::Fragment(
+                                    Source::iter()
+                                        .map(|variant| { let s: &'static str = variant.into(); view! { <option>{s}</option> } })
+                                        .collect()
+                                )}
+                            </dyn:select>
+                        </label>
+                        <label>
+                            "Page"
+                            <dyn:input
+                                type={dyn_attr_once("number")}
+                                prop:value={self.document.stream().map(|doc| doc.source.map(|reference| reference.page.to_string())).boxed_local()}
+                                on:change={
+                                    let doc = self.document.clone();
+                                    move |ev| {
+                                        let v = event_target_value(ev).parse().unwrap();
+                                        doc.update(move |doc| {
+                                            if let Some(mut reference) = doc.source {
+                                                reference.page = v;
+                                            } else {
+                                                doc.source = Some(Reference {
+                                                    source: Source::default(),
+                                                    page: v
+                                                })
+                                            }
+                                        })
+                                    }
+                                }
+                            />
+                        </label>
+                    </div>
                     // TODO: alternate_sources
                     // TODO: Status
 

@@ -18,7 +18,9 @@ pub fn content_editing_view(
         Content::Empty => View::Empty,
         Content::Antiphon(content) => edit_antiphon(path, doc, content),
         Content::BiblicalCitation(content) => edit_biblical_citation(path, doc, content),
+        Content::Choice(content) => edit_choice(root_doc, path, doc, content),
         Content::Heading(content) => edit_heading(path, doc, content),
+        Content::Litany(content) => edit_litany(path, doc, content),
         Content::Liturgy(content) => edit_liturgy(root_doc, path, doc, content),
         Content::Preces(content) => edit_preces(path, doc, content),
         Content::ResponsivePrayer(content) => edit_responsive_prayer(path, doc, content),
@@ -309,6 +311,77 @@ fn edit_biblical_citation(
     }
 }
 
+fn edit_choice(
+    first_root_doc: &Behavior<Document>,
+    path: &[usize],
+    doc: &Behavior<Document>,
+    choice: &Choice,
+) -> View {
+    let content = Behavior::new(choice.clone());
+    let showing_choice = Behavior::new(choice.selected.to_string());
+
+    let list = NaiveList::new(
+        |children| {
+            view! {
+                <div class="choice-children">
+                    {children}
+                </div>
+            }
+        },
+        content.stream().map(|series| series.options),
+        {
+            let root_doc = doc.clone();
+            let path = path.to_vec();
+            let first_root_doc = first_root_doc.clone();
+            move |(idx, doc)| {
+                let mut editable_doc = EditableDocument::from(doc);
+                editable_doc.root_doc = first_root_doc.clone();
+                let mut path = path.clone();
+                path.push(idx);
+                editable_doc.path.set(Some(path.clone()));
+                editable_doc.document.stream().skip(1).create_effect({
+                    let root_doc = root_doc.clone();
+                    move |doc| {
+                        let mut root_doc_curr = root_doc.get();
+                        match root_doc_curr.at_path_mut(vec![idx]) {
+                            Ok(doc_at_path) => {
+                                *doc_at_path = doc;
+                                root_doc.set(root_doc_curr)
+                            }
+                            Err(e) => log(&format!("{:#?}", e)),
+                        };
+                    }
+                });
+
+                view! {
+                    <dyn:div>{editable_doc.view()}</dyn:div>
+                }
+            }
+        },
+    );
+
+    view! {
+        <>
+            <dyn:select
+                prop:value={showing_choice.stream().map(Some).boxed_local()}
+                on:change=move |ev: Event| showing_choice.set(event_target_value(ev))
+            >
+                {View::Fragment(
+                    choice.options.iter().enumerate()
+                        .map(|(idx, child)| view! { <option value={idx.to_string()}>{choice.option_label(child, idx)}</option> })
+                        .collect()
+                )}
+            </dyn:select>
+            {list.view()}
+            <dyn:button
+                on:click=update_field!(doc, content, |content| content.push(Document::from("")))
+            >
+                "Add Option"
+            </dyn:button>
+        </>
+    }
+}
+
 fn edit_heading(path: &[usize], doc: &Behavior<Document>, content: &Heading) -> View {
     let content = Behavior::new(content.clone());
     view! {
@@ -391,6 +464,66 @@ fn edit_heading(path: &[usize], doc: &Behavior<Document>, content: &Heading) -> 
                     }
                 }
             />
+        </>
+    }
+}
+
+fn edit_litany(
+    path: &[usize],
+    root_doc: &Behavior<Document>,
+    content: &Litany,
+) -> View {
+    let content = Behavior::new(content.clone());
+    let list = NaiveList::new(
+        |children| {
+            view! {
+                <p class="litany">
+                    {children}
+                </p>
+            }
+        },
+        content.stream().map(move |preces| preces.into_vec()),
+        {
+            let root_doc = root_doc.clone();
+            let content = content.clone();
+            move |(idx, line)| {
+                view! {
+                    <div>
+                        <dyn:input type="text"
+                            value={dyn_attr_once(&line)}
+                            on:change=update_nth_item_in_vec!(root_doc, content, Litany, idx, |line: &mut String, val: String| *line = val)
+                        />
+                        <dyn:button
+                            on:click=update_field!(root_doc, content, |content| {content.remove_at_index(idx); })
+                        >
+                            "x"
+                        </dyn:button>
+                    </div>
+                }
+            }
+        },
+    );
+
+    view! {
+        <>
+            <label>
+                "Response"
+                <dyn:input
+                    prop:value={content.stream().map(|litany| Some(litany.response)).boxed_local()}
+                    on:change=update_field_with_value!(root_doc, content,
+                        |ev| {
+                            let val = event_target_value(ev);
+                            move |content: &mut Litany| content.response = val.clone()
+                        }
+                    )
+                />
+            </label>
+            {list.view()}
+            <dyn:button
+                on:click=update_field!(root_doc, content, |content| content.push(String::new()))
+            >
+                "Add"
+            </dyn:button>
         </>
     }
 }
@@ -554,10 +687,17 @@ fn edit_responsive_prayer(
             let content = content.clone();
             move |(idx, line)| {
                 view! {
-                    <dyn:input type="text"
-                        value={dyn_attr_once(&line)}
-                        on:change=update_nth_item_in_vec!(root_doc, content, ResponsivePrayer, idx, |line: &mut String, val: String| *line = val)
-                    />
+                    <div>
+                        <dyn:input type="text"
+                            value={dyn_attr_once(&line)}
+                            on:change=update_nth_item_in_vec!(root_doc, content, ResponsivePrayer, idx, |line: &mut String, val: String| *line = val)
+                        />
+                        <dyn:button
+                            on:click=update_field!(root_doc, content, |content| {content.remove_at_index(idx); })
+                        >
+                            "x"
+                        </dyn:button>
+                    </div>
                 }
             }
         },

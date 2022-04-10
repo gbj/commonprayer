@@ -1,5 +1,6 @@
 use language::Language;
 use serde::{Deserialize, Serialize};
+use strum_macros::{Display, EnumIter, EnumString};
 
 /// Inserts all documents filed under this category in the library.
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
@@ -17,7 +18,16 @@ impl From<Categories> for Category {
     }
 }
 
-#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+impl Category {
+    pub fn rotate(mut self) -> Self {
+        self.rotate = true;
+        self
+    }
+}
+
+#[derive(
+    Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize, EnumIter, EnumString, Display,
+)]
 pub enum Categories {
     OpeningSentences,
     ClosingSentences,

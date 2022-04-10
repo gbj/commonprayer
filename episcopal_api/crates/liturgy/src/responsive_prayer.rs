@@ -19,6 +19,10 @@ impl ResponsivePrayer {
     pub fn push(&mut self, line: String) {
         self.0.push(line);
     }
+
+    pub fn remove_at_index(&mut self, index: usize) -> String {
+        self.0.remove(index)
+    }
 }
 
 impl<T, A> From<T> for ResponsivePrayer

@@ -28,6 +28,7 @@ members = [
   "crates/canticle-table",
   "crates/export/docx",
   "crates/export/ldf",
+  "crates/export/to_rust_code",
   "crates/export/web-component",
   "crates/hymnal",
   "crates/language",

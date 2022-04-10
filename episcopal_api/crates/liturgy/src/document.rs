@@ -261,8 +261,8 @@ impl Document {
     }
 
     #[must_use]
-    pub fn content(mut self, content: Content) -> Self {
-        self.content = content;
+    pub fn content(mut self, content: impl Into<Content>) -> Self {
+        self.content = content.into();
         self
     }
 

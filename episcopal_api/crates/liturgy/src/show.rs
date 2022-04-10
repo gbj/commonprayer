@@ -1,7 +1,10 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::{Display, EnumIter, EnumString};
 
 /// Determines when a piece of a document should be displayed
-#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(
+    Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize, EnumIter, EnumString, Display,
+)]
 pub enum Show {
     /// Displayed
     Always,

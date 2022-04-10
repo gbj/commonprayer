@@ -1,0 +1,9 @@
+[package]
+name = "to_rust_code"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+language = { path = "../../language" }
+liturgy = { path = "../../liturgy" }
+status = { path = "../../status" }

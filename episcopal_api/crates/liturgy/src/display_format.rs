@@ -25,6 +25,10 @@ impl DisplayFormat {
             DisplayFormat::Unison => "unison",
         }
     }
+
+    pub fn is_default(&self) -> bool {
+        self == &Self::default()
+    }
 }
 
 impl Default for DisplayFormat {

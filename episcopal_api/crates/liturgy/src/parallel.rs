@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize, __private::doc};
+use serde::{Deserialize, Serialize};
 
 use crate::{Choice, Content, Document, Liturgy, Series};
 
