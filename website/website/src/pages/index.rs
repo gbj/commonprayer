@@ -79,7 +79,7 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                         </ul>
                     </li>
                     <li>
-                        {make_link(locale, "document/litany", "toc.great_litany", true)}
+                        {make_link(locale, "document/litany", "toc.great_litany", false)}
                     </li>
                     <li>
                         {make_link(locale, "document/collects", "collects", false)}

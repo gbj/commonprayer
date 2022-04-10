@@ -81,6 +81,9 @@ lazy_static! {
            PageType::Document("evening-prayer", &*library::rite2::office::EVENING_PRAYER_II),
            PageType::Document("compline", &*library::bcp1979::office::COMPLINE),
         ],
+        ("litany", None) => vec![
+           PageType::Document("litany", &*library::bcp1979::THE_GREAT_LITANY),
+        ],
         ("canticle", None) => vec![
             PageType::Document("1", &*library::rite1::canticles::CANTICLE_1),
             PageType::Document("2", &*library::rite1::canticles::CANTICLE_2),
