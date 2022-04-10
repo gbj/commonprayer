@@ -701,13 +701,13 @@ impl Library for CommonPrayer {
 
     fn category(category: Categories, version: Version) -> Vec<Document> {
         match (category, version) {
-            (Categories::OpeningSentences, Version::RiteII) => {
+            (Categories::OpeningSentences, Version::RiteII | Version::BCP1979) => {
                 rite2::office::OPENING_SENTENCES.clone()
             }
-            (Categories::InvitatoryAntiphons, Version::RiteII) => {
+            (Categories::InvitatoryAntiphons, Version::RiteII | Version::BCP1979) => {
                 rite2::office::INVITATORY_ANTIPHONS.clone()
             }
-            (Categories::ClosingSentences, Version::RiteII) => {
+            (Categories::ClosingSentences, Version::RiteII | Version::BCP1979) => {
                 rite2::office::CLOSING_SENTENCES.clone()
             }
             _ => Vec::new(),
