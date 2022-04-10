@@ -207,7 +207,7 @@ impl ToRustCode for Content {
                     name, proper, holy_days
                 ),
                 Heading::Text(level, text) => {
-                    format!("Heading::Text(HeadingLevel::{}, {:?})", level, text)
+                    format!("Heading::from((HeadingLevel::{}, {:?}))", level, text)
                 }
             },
             Content::Antiphon(content) => format!("Antiphon::from({:?})", content),
@@ -230,7 +230,10 @@ impl ToRustCode for Content {
                     .collect::<String>();
                 format!("ResponsivePrayer::from([\n\t{}\n])", children)
             }
-            Content::Rubric(content) => format!("Rubric::from({:?})", content),
+            Content::Rubric(content) => {
+                let long = if content.long { ".long()" } else { "" };
+                format!("Rubric::from({:?}){}", content.text, long)
+            }
             Content::Category(content) => {
                 let rotate = if content.rotate { ".rotate()" } else { "" };
                 format!("Category::from(Categories::{}){}", content.name, rotate)
