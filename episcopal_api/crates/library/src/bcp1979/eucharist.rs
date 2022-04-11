@@ -44,6 +44,7 @@ mod pop {
         .page(383);
 
         pub static ref FORM_II: Document = Document::from(Series::from(vec![
+            Document::from(Heading::from((HeadingLevel::Heading3, "Form II"))),
             Document::from(Rubric::from("In the course of the silence after each bidding, the People offer their own prayers, either silently or aloud.")),
             Document::from("I ask your prayers for God’s people throughout the world; for our Bishop(s) ___________ ; for this gathering; and for all ministers and people.\nPray for the Church."),
             Document::from(Rubric::from("Silence")),
@@ -63,5 +64,142 @@ mod pop {
             Document::from(Rubric::from("Silence")),
             Document::from(Rubric::from("The Celebrant adds a concluding Collect."))
         ])).page(385);
+
+        pub static ref FORM_III: Document = Document::from(Series::from(vec![
+            Document::from(Heading::from((HeadingLevel::Heading3, "Form III"))),
+            Document::from(Rubric::from("The Leader and People pray responsively")),
+            Document::from(ResponsivePrayer::from([
+                "Father, we pray for your holy Catholic Church;",
+                "That we all may be one.",
+                "Grant that every member of the Church may truly and humbly serve you;",
+                "That your Name may be glorified by all people.",
+                "We pray for all bishops, priests, and deacons;",
+                "That they may be faithful ministers of your Word and Sacraments.",
+                "We pray for all who govern and hold authority in the nations of the world;",
+                "That there may be justice and peace on the earth.",
+                "Give us grace to do your will in all that we undertake;",
+                "That our works may find favor in your sight.",
+                "Have compassion on those who suffer from any grief or trouble;",
+                "That they may be delivered from their distress.",
+                "Give to the departed eternal rest;",
+                "Let light perpetual shine upon them.",
+                "We praise you for your saints who have entered into joy;",
+                "May we also come to share in your heavenly kingdom."
+            ])),
+            Document::from(Text::from("Let us pray for our own needs and those of others.")),
+            Document::from(Rubric::from("Silence\n\nThe People may add their own petitions.")),
+            Document::from(Rubric::from("The Celebrant adds a concluding Collect"))
+        ])).page(387);
+
+        pub static ref FORM_IV: Document = Document::from(Series::from(vec![
+            Document::from(Heading::from((HeadingLevel::Heading3, "Form IV"))),
+            Document::from(Rubric::from("Deacon or other leader")),
+            Document::from(Text::from("Let us pray for the Church and for the world.")),
+            Document::from(Text::from("Grant, Almighty God, that all who confess your Name may be united in your truth, live together in your love, and reveal your glory in the world.")),
+            Document::from(Rubric::from("Silence")),
+            Document::from(ResponsivePrayer::from([
+                "Lord, in your mercy",
+                "Hear our prayer."
+            ])),
+            Document::from(Text::from("Guide the people of this land, and of all the nations, in the ways of justice and peace; that we may honor one another and serve the common good.")),
+            Document::from(Rubric::from("Silence")),
+            Document::from(ResponsivePrayer::from([
+                "Lord, in your mercy",
+                "Hear our prayer."
+            ])),
+            Document::from(Text::from("Give us all a reverence for the earth as your own creation, that we may use its resources rightly in the service of others and to your honor and glory.")),
+            Document::from(Rubric::from("Silence")),
+            Document::from(ResponsivePrayer::from([
+                "Lord, in your mercy",
+                "Hear our prayer."
+            ])),
+            Document::from(Text::from("Bless all whose lives are closely linked with ours, and grant that we may serve Christ in them, and love one another as he loves us.")),
+            Document::from(Rubric::from("Silence")),
+            Document::from(ResponsivePrayer::from([
+                "Lord, in your mercy",
+                "Hear our prayer."
+            ])),
+            Document::from(Text::from("Comfort and heal all those who suffer in body, mind, or spirit; give them courage and hope in their troubles, and bring them the joy of your salvation.")),
+            Document::from(Rubric::from("Silence")),
+            Document::from(ResponsivePrayer::from([
+                "Lord, in your mercy",
+                "Hear our prayer."
+            ])),
+            Document::from(Text::from("We commend to your mercy all who have died, that your will for them may be fulfilled; and we pray that we may share with all your saints in your eternal kingdom.")),
+            Document::from(Rubric::from("Silence")),
+            Document::from(ResponsivePrayer::from([
+                "Lord, in your mercy",
+                "Hear our prayer."
+            ])),
+            Document::from(Rubric::from("The Celebrant adds a concluding Collect."))
+        ])).page(388);
+
+        pub static ref FORM_V: Document = Document::from(Series::from(vec![
+            Document::from(Heading::from((HeadingLevel::Heading3, "Form V"))),
+            Document::from(Rubric::from("Deacon or other leader")),
+            Document::from(Text::from("In peace, let us pray to the Lord, saying, “Lord, have mercy.”")),
+            Document::from(Litany::from((
+                "Lord, have mercy.",
+                [
+                    "For the holy Church of God, that it may be filled with truth and love, and be found without fault at the day of your coming, we pray to you, O Lord.",
+                    "For *N.* our Presiding Bishop, for *N.* (*N.*) our own Bishop(s), for all bishops and other ministers, and for all the holy people of God, we pray to you, O Lord.",
+                    "For all who fear God and believe in you, Lord Christ, that our divisions may cease, and that all may be one as you and the Father are one, we pray to you, O Lord.",
+                    "For the mission of the Church, that in faithful witness it may preach the Gospel to the ends of the earth, we pray to you, O Lord.",
+                    "| For those who do not yet believe, and for those who have lost their faith, that they may receive the light of the Gospel, we pray to you, O Lord.",
+                    "For the peace of the world, that a spirit of respect and forbearance may grow among nations and peoples, we pray to you, O Lord.",
+                    "For those in positions of public trust [especially _________ ], that they may serve justice, and promote the dignity and freedom of every person, we pray to you, O Lord.",
+                    "| For all who live and work in this community [especially _____________ ], we pray to you, O Lord.",
+                    "| For a blessing upon all human labor, and for the right use of the riches of creation, that the world may be freed from poverty, famine, and disaster, we pray to you, O Lord.",
+                    "For the poor, the persecuted, the sick, and all who suffer; for refugees, prisoners, and all who are in danger; that they may be relieved and protected, we pray to you, O Lord.",
+                    "For this *congregation* [for those who are present, and for those who are absent], that we may be delivered from hardness of heart, and show forth your glory in all that we do, we pray to you, O Lord.",
+                    "| For our enemies and those who wish us harm; and for all whom we have injured or offended, we pray to you, O Lord.",
+                    "| For ourselves; for the forgiveness of our sins, and for the grace of the Holy Spirit to amend our lives, we pray to you, O Lord.",
+                    "For all who have commended themselves to our prayers; for our families, friends, and neighbors; that being freed from anxiety, they may live in joy, peace, and health, we pray to you, O Lord.",
+                    "| For ___________, we pray to you, O Lord.",
+                    "For all who have died in the communion of your Church, and those whose faith is known to you alone, that, with all the saints, they may have rest in that place where there is no pain or grief, but life eternal, we pray to you, O Lord."
+                ]
+            ))),
+            Document::from(ResponsivePrayer::from([
+                "Rejoicing in the fellowship of [the ever-blessed Virgin Mary, (*blessed N.*) and] all the saints, let us commend ourselves, and one another, and all our life to Christ our God.",
+                "To you, O Lord our God."
+            ])),
+            Document::from(Rubric::from("Silence")),
+            Document::from(Rubric::from("The Celebrant adds a concluding Collect, or the following Doxology")),
+            Document::from(Text::from("For yours is the majesty, O Father, Son, and Holy Spirit; yours is the kingdom and the power and the glory, now and for ever.").response("Amen."))
+        ])).version_label("Form V (Lord, have mercy.)");
+
+        pub static ref FORM_V_KYRIE: Document = Document::from(Series::from(vec![
+            Document::from(Heading::from((HeadingLevel::Heading3, "Form V"))),
+            Document::from(Rubric::from("Deacon or other leader")),
+            Document::from(Text::from("In peace, let us pray to the Lord, saying, Kyrie, eleison.”")),
+            Document::from(Litany::from((
+                "Kyrie, eleison.",
+                [
+                    "For the holy Church of God, that it may be filled with truth and love, and be found without fault at the day of your coming, we pray to you, O Lord.",
+                    "For *N.* our Presiding Bishop, for *N.* (*N.*) our own Bishop(s), for all bishops and other ministers, and for all the holy people of God, we pray to you, O Lord.",
+                    "For all who fear God and believe in you, Lord Christ, that our divisions may cease, and that all may be one as you and the Father are one, we pray to you, O Lord.",
+                    "For the mission of the Church, that in faithful witness it may preach the Gospel to the ends of the earth, we pray to you, O Lord.",
+                    "| For those who do not yet believe, and for those who have lost their faith, that they may receive the light of the Gospel, we pray to you, O Lord.",
+                    "For the peace of the world, that a spirit of respect and forbearance may grow among nations and peoples, we pray to you, O Lord.",
+                    "For those in positions of public trust [especially _________ ], that they may serve justice, and promote the dignity and freedom of every person, we pray to you, O Lord.",
+                    "| For all who live and work in this community [especially _____________ ], we pray to you, O Lord.",
+                    "| For a blessing upon all human labor, and for the right use of the riches of creation, that the world may be freed from poverty, famine, and disaster, we pray to you, O Lord.",
+                    "For the poor, the persecuted, the sick, and all who suffer; for refugees, prisoners, and all who are in danger; that they may be relieved and protected, we pray to you, O Lord.",
+                    "For this *congregation* [for those who are present, and for those who are absent], that we may be delivered from hardness of heart, and show forth your glory in all that we do, we pray to you, O Lord.",
+                    "| For our enemies and those who wish us harm; and for all whom we have injured or offended, we pray to you, O Lord.",
+                    "| For ourselves; for the forgiveness of our sins, and for the grace of the Holy Spirit to amend our lives, we pray to you, O Lord.",
+                    "For all who have commended themselves to our prayers; for our families, friends, and neighbors; that being freed from anxiety, they may live in joy, peace, and health, we pray to you, O Lord.",
+                    "| For ___________, we pray to you, O Lord.",
+                    "For all who have died in the communion of your Church, and those whose faith is known to you alone, that, with all the saints, they may have rest in that place where there is no pain or grief, but life eternal, we pray to you, O Lord."
+                ]
+            ))),
+            Document::from(ResponsivePrayer::from([
+                "Rejoicing in the fellowship of [the ever-blessed Virgin Mary, (*blessed N.*) and] all the saints, let us commend ourselves, and one another, and all our life to Christ our God.",
+                "To you, O Lord our God."
+            ])),
+            Document::from(Rubric::from("Silence")),
+            Document::from(Rubric::from("The Celebrant adds a concluding Collect, or the following Doxology")),
+            Document::from(Text::from("For yours is the majesty, O Father, Son, and Holy Spirit; yours is the kingdom and the power and the glory, now and for ever.").response("Amen."))
+        ])).version_label("Form V (Kyrie, eleison.)");
     }
 }
