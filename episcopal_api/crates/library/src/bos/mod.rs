@@ -8,6 +8,124 @@ use liturgy::*;
 use psalter::bcp1979::*;
 
 lazy_static! {
+    pub static ref OUR_LADY_OF_GUADALUPE: Document = Document::new()
+        .label("Our Lady of Guadalupe")
+        .version(Version::BOS)
+        .source(Reference {
+                    source: Source::BookOfOccasionalServices2018,
+                    page: 27
+                })
+        .content(Liturgy::from(vec![
+            Document::from(Heading::from((HeadingLevel::Heading2, "Concerning the Service"))),
+            Document::from(Rubric::from("The Feast of La Virgen de Guadalupe is celebrated on Decemeber 12 throughout Mexico and increasingly in the Episcopal Church.\n\nAccording to tradition, an indigenous man named Juan Diego Cuauhtlatoatzin saw la Virgen on two separate occasions, on December 9 and December 12, 1531. In his vision, she told Juan Diego to ask the archbishop to build a church on the hill of Tepeyac, located in today’s Mexico City. Unconvinced by an uneducated, indigenous person, the bishop asked for proof of La Virgen’s appearance. When Juan Diego returned to Tepeyac, he found roses growing. He gathered the roses in his tilma (cloak) and took them to show to the bishop. Roses spilled out when he unfolded the tilma, and it revealed an image of La Virgen, a dark- skinned indigenous woman, head bowed in prayer. The bishop, convinced by the miracle, built a church.\n\nThe image of La Virgen de Guadelupe permeates Latino cultures. She serves as a rallying point for people’s hopes of liberation and justice revealed in Jesus Christ. The popularity of the feast continues to grow and is attached to many cultural observances. On the day of the feast, people process through towns and cities, offering their songs of love and joy. The procession is followed by a celebration of the Holy Eucharist that may feature dancers, drummers, banners, and mariachis.")),
+            Document::from(Heading::from((HeadingLevel::Heading1, "December 12 – Our Lady of Guadalupe"))),
+            Document::from(Preces::from([
+                ("Presider", "A great sign appeared in the sky, a woman clothed with the sun,"),
+                ("People", "With the moon under her feet, and on her head a crown of twelve stars."),
+                ("Presider", "Let us pray.")
+            ])),
+            Document::from(Text::from("Be present with us, God our Deliverer, as you were present with La Virgen de Guadalupe (the Virgin of Guadelupe) who called Juan Diego her beloved son. May her example of tender care for the poor and oppressed guide us in the way of justice and mercy; through Jesus Christ our Lord.").response("Amen.")),
+            Document::from(Preces::from([
+                ("Deacon", "Let us go forth in peace."),
+                ("People", "In the Name of Christ. Amen.")
+            ])),
+            Document::from(Rubric::from("During the procession, the people may carry flowers, and appropriate hymns, psalms, or anthems are sung, such as the hymn “La Guadalupana.”")),
+            Document::from(Rubric::from("Upon arrival in the sanctuary, the Eucharist begins with the Collect of the Day.")),
+            Document::from(Rubric::from("The people standing, the Presider says")),
+            Document::from(Preces::from([
+                ("Presider", "The Lord be with you."),
+                ("People", "And also with you"),
+                ("Presider", "Let us pray.")
+            ])),
+            Document::new()	.label("The Collect of the Day")
+                .content(Text::from("O God of love, you blessed your people at El Tepeyac with the presence of La Virgen de Guadelupe: grant that her example of love to the poor and forsaken may stir our faith to recognize all people as members of one family. Teach us to follow in the way you have prepared for us, that we may honor one another in word and action, sharing with her your commonwealth of peace; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, in glory everlasting.").response("Amen.")),
+            Document::from(Rubric::from("The Eucharist continues in the usual manner, using the following Psalm and\nLessons")),
+            Document::from(Choice::from(vec![
+                        Document::new()
+                            .version_label("Zechariah 2:10-13")
+                            .content(Series::from(vec![
+                                Document::new()
+                                    .label("The First Reading")
+                                    .content(BiblicalCitation::from("Zechariah 2:10-13")
+                                        .intro(BiblicalReadingIntro::from(Document::from(Text::from("A Reading from the Book of Zechariah."))))
+                                    ),
+                                Document::from(Preces::from([
+                                    ("", "The Word of the Lord."),
+                                    ("People", "Thanks be to God.")
+                                ]))
+                        ])),
+                        Document::new()
+                            .version_label("The Nican Mopohua")
+                            .content(Series::from(vec![
+                                            Document::new()	.version_label("The Nican Mopohua")
+                                                .content(Text::from("A Reading from *The Nican Mopohua*.\n\nJuan Diego returned and right at the top of the mountain he saw the Lady from heaven, at the spot where he saw her the first time. Seeing her, he fell down before her and said, “Lady, the smallest of my daughters, my Child, I went where you sent me to fulfill your mandate; though with difficulty, to the seat of the bishop; I saw him and exposed your message; he received me graciously and listened attentively; but I understood by his response that he believes that it is I who makes the request of building your temple, and that perhaps is not your command. Istrongly beg, Lady, my Child that you send instead of me someone who is known, respected and esteemed. If we entrust your message to someone like that he is sure to be believed. The Bishop does not believe me because I am a lesser man, I'm small, I'm a no one, and you, my Child, the least of my daughters, Lady, you send me to a place where I do not belong. Forgive me if I cause you great sorrow.” Our Lady replied: “Listen, my son, I understand but need you to know thatthat I have many servants and messengers whom I can send to do my bidding yet I choose you. You are the one that I strictly command, to go again tomorrow to see the Bishop. Tell him once more who sends you and that it is my will for a temple to be built in my honor. Tell him, that the ever-Blessed Virgin Mary, mother of God, is the one that sends you.” Juan Diego replied: “My Lady, My Child, I will do what you ask. I'll do your will; but perhaps I will not be heard with pleasure. I know that it will be difficult for them to believe me.”")),
+                                            Document::from(Text::from("Here ends the Reading."))
+                        ]))
+            ])),
+            Document::from(Choice::from(vec![
+                Document::from(PSALM_131.clone()),
+                Document::from(PSALM_116.clone()),
+            ])),
+            Document::from(Series::from(vec![
+                Document::new()
+                    .label("The Second Reading")
+                    .content(BiblicalCitation::from("Revelation 11:19a; 12:1-6a")
+                        .intro(BiblicalReadingIntro::from(Document::from(Text::from("A Reading from the Book of Revelation."))))
+                    ),
+                Document::from(Preces::from([
+                    ("", "The Word of the Lord."),
+                    ("People", "Thanks be to God.")
+                ]))
+            ])),
+            Document::from(Series::from(vec![
+                            Document::new()
+                                .label("The Gospel")
+                                .content(BiblicalCitation::from("Luke 6:20-23")
+                                    .intro(BiblicalReadingIntro::from(Document::from(Preces::from([
+                                        ("Presider", "The Holy Gospel of our Lord Jesus Christ according to Luke."),
+                                        ("People", "Glory to you, Lord Christ.")
+                                    ]))))
+                                ),
+                            Document::from(Preces::from([
+                                ("", "The Gospel of the Lord."),
+                                ("People", "Praise to you, Lord Christ.")
+                            ]))
+            ])),
+            Document::from(Heading::from((HeadingLevel::Heading3, "A Homily"))),
+            Document::from(Heading::from((HeadingLevel::Heading3, "The Prayers of the People"))),
+            Document::from(Litany::from((
+                "Hear our prayer.",
+                [
+                    "As we honor La Virgen de Guadelupe, may we strive for unity among all people;\nWe pray to you, God of mercy.",
+                    "May the vision of Juan Diego inspire our community to stand against prejudice, discrimination, hatred, and violence;\nWe pray to you, God of mercy.",
+                    "May our care for youth and children, the elderly and sick, the weak, helpless and poor (especially ______), reflect the love of La Virgen, revealed at Tepeyac;\nWe pray to you, God of mercy.",
+                    "May the vision of La Virgen strengthen us to stand with all immigrants and refugees in their struggle in every nation and people, (especially the people of ______);\nWe pray to you, God of mercy.",
+                    "May those who have died (especially ) rest in your peace, and those who mourn (especially ) find comfort in fellowship with La Virgen de Guadelupe and all the saints;\nWe pray to you, God of mercy."
+                ]
+            ))),
+            Document::from(Rubric::from("Intercessions may be offered by the people.")),
+            Document::from(Rubric::from("The Presider adds this concluding Collect.")),
+            Document::from(Text::from("O God of power and mercy, who gives us roses in a season of darkness; fill us with your unexpected truth and vision of peace among all people. By the example of La Virgen de Guadelupe, may we seek the justice which unites all people everywhere; through Jesus Christ our Lord.").response("Amen.")),
+            Document::from(Heading::from((HeadingLevel::Heading3, "The Peace"))),
+            Document::from(Rubric::from("The Presider says to the people")),
+            Document::from(Preces::from([
+                ("", "The peace of Christ be always with you."),
+                ("People", "And also with you.")
+            ])),
+            Document::from(Heading::from((HeadingLevel::Heading2, "At the Eucharist"))),
+            Document::from(Rubric::from("The liturgy continues with the Offertory.")),
+            Document::new()	.label("Proper Preface")
+                .content(Text::from("Because in revealing La Virgen de Guadelupe at El Tepeyac, you have shown us your way of justice and peace, lifted up the small and lowly, and assured us of your great love for the poor and weak.")),
+            Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")),
+            Document::from(Rubric::from("Presider and People")),
+            Document::from(Text::from("We give you thanks, O God, for gathering your children together in the Sacrament of Christ’s Body and Blood. We rejoice that you have remembered us; for we were scattered and have now been drawn together from the four corners of the earth. May we who celebrate La Virgen de Guadelupe ever strive for peace, and serve you as witnesses of Jesus Christ, until the Lord dawns in glory.").response("Amen.").display_format(DisplayFormat::Unison)),
+            Document::from(Rubric::from("Following the postcommunion prayer, the Congregation may place flowers at the image of La Virgen de Guadalupe. Appropriate hymns, anthems, instrumental music, or songs such as “Buenos Días Paloma Blanca” may accompany this action.")),
+            Document::from(Rubric::from("The Bishop, when present, or the Priest, may bless the people.")),
+            Document::from(Rubric::from("The Deacon, or the Presider, dismisses the people.")),
+            Document::from(Rubric::from("Songs, hymns, and readings traditionally used on the Feast of Our Lady of\nGuadalupe include the following.")),
+            Document::from(Text::from("Songs and Hymns:\nLa Guadalupana\nBuenos Días Paloma Blanca\nMi Virgen Ranchera\nO Virgen la mas Hermosa")),
+        ]));
+
     pub static ref A_SERVICE_OF_RENAMING: Document = Document::new()
         .version(Version::BOS)
         .label("A Service of Renaming")

@@ -225,6 +225,7 @@ lazy_static! {
             PageType::Document("burial-of-a-non-christian", &*library::bos::BURIAL_OF_A_NON_CHRISTIAN),
         ],
         ("occasional-services", None) => vec![
+            PageType::Document("guadalupe", &*library::bos::OUR_LADY_OF_GUADALUPE),
             PageType::Document("renaming", &*library::bos::A_SERVICE_OF_RENAMING),
         ],
         ("additional-prayers", None) => vec![
