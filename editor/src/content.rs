@@ -362,22 +362,24 @@ fn edit_choice(
 
     view! {
         <>
-            <dyn:select
-                prop:value={showing_choice.stream().map(Some).boxed_local()}
-                on:change=move |ev: Event| showing_choice.set(event_target_value(ev))
-            >
-                {View::Fragment(
-                    choice.options.iter().enumerate()
-                        .map(|(idx, child)| view! { <option value={idx.to_string()}>{choice.option_label(child, idx)}</option> })
-                        .collect()
-                )}
-            </dyn:select>
+            <div class="buttons">
+                <dyn:select
+                    prop:value={showing_choice.stream().map(Some).boxed_local()}
+                    on:change=move |ev: Event| showing_choice.set(event_target_value(ev))
+                >
+                    {View::Fragment(
+                        choice.options.iter().enumerate()
+                            .map(|(idx, child)| view! { <option value={idx.to_string()}>{choice.option_label(child, idx)}</option> })
+                            .collect()
+                    )}
+                </dyn:select>
+                <dyn:button
+                    on:click=update_field!(doc, content, |content| content.push(Document::from("")))
+                >
+                    "Add Option"
+                </dyn:button>
+            </div>
             {list.view()}
-            <dyn:button
-                on:click=update_field!(doc, content, |content| content.push(Document::from("")))
-            >
-                "Add Option"
-            </dyn:button>
         </>
     }
 }
@@ -468,11 +470,7 @@ fn edit_heading(path: &[usize], doc: &Behavior<Document>, content: &Heading) -> 
     }
 }
 
-fn edit_litany(
-    path: &[usize],
-    root_doc: &Behavior<Document>,
-    content: &Litany,
-) -> View {
+fn edit_litany(path: &[usize], root_doc: &Behavior<Document>, content: &Litany) -> View {
     let content = Behavior::new(content.clone());
     let list = NaiveList::new(
         |children| {

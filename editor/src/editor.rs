@@ -2,12 +2,12 @@ use std::pin::Pin;
 
 use crate::{condition::ConditionEditor, content::content_editing_view};
 use futures::{Stream, StreamExt};
-use leptos::*;
 use language::Language;
+use leptos::*;
 use liturgy::*;
 use serde::{Deserialize, Serialize};
-use strum::IntoEnumIterator;
 use std::str::FromStr;
+use strum::IntoEnumIterator;
 use to_rust_code::ToRustCode;
 use wasm_bindgen::JsCast;
 use web_sys::DragEvent;
@@ -439,14 +439,10 @@ impl EditableDocument {
                                     move |ev| {
                                         let v = event_target_value(ev).parse().unwrap();
                                         doc.update(move |doc| {
-                                            if let Some(mut reference) = doc.source {
-                                                reference.page = v;
-                                            } else {
-                                                doc.source = Some(Reference {
-                                                    source: Source::default(),
-                                                    page: v
-                                                })
-                                            }
+                                            doc.source = Some(Reference {
+                                                source: doc.source.map(|reference| reference.source).unwrap_or_default(),
+                                                page: v
+                                            });
                                         })
                                     }
                                 }

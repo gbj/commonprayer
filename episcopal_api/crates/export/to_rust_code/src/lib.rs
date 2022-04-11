@@ -42,6 +42,7 @@ impl ToRustCode for Document {
         let source = self
             .source
             .map(|reference| {
+                let source_str: &'static str = reference.source.into();
                 if reference.source == Source::BCP1979 {
                     format!("\t.page({})", reference.page)
                 } else {
@@ -50,7 +51,7 @@ impl ToRustCode for Document {
                 source: Source::{},
                 page: {}
             }})",
-                        reference.source, reference.page
+                        source_str, reference.page
                     )
                 }
             })
@@ -253,7 +254,7 @@ impl ToRustCode for Content {
                     .map(|intro| {
                         let doc: Document = intro.clone().into();
                         format!(
-                            "BiblicalReadingIntro::from({})",
+                            ".intro(BiblicalReadingIntro::from({}))",
                             doc.to_rust_code(start_tabs)
                         )
                     })
