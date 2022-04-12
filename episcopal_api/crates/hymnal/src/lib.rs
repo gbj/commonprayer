@@ -3,10 +3,12 @@ use serde::{
     Deserialize, Serialize,
 };
 
+mod el_himnario;
 mod h82;
 mod levas;
 mod wlp;
 
+pub use el_himnario::*;
 pub use h82::*;
 pub use levas::*;
 pub use wlp::*;
@@ -16,6 +18,7 @@ pub enum Hymnals {
     Hymnal1982,
     LEVAS,
     WLP,
+    ElHimnario
 }
 
 impl std::fmt::Display for Hymnals {
@@ -27,6 +30,7 @@ impl std::fmt::Display for Hymnals {
                 Hymnals::Hymnal1982 => "H82",
                 Hymnals::LEVAS => "LEVAS",
                 Hymnals::WLP => "WLP",
+                Hymnals::ElHimnario => "El Himnario"
             }
         )
     }
@@ -38,6 +42,7 @@ impl From<Hymnals> for Hymnal {
             Hymnals::Hymnal1982 => HYMNAL_1982.clone(),
             Hymnals::LEVAS => LEVAS.clone(),
             Hymnals::WLP => WLP.clone(),
+            Hymnals::ElHimnario => EL_HIMNARIO.clone()
         }
     }
 }

@@ -3,6 +3,7 @@ use crate::{
     rite2::eucharist::{GLORIA_IN_EXCELSIS, KYRIE_ELEISON, TRISAGION},
 };
 use calendar::Season;
+use hymnal::{HymnNumber, Hymnals};
 use lazy_static::lazy_static;
 use liturgy::*;
 use psalter::bcp1979::*;
@@ -124,6 +125,12 @@ lazy_static! {
             Document::from(Rubric::from("The Deacon, or the Presider, dismisses the people.")),
             Document::from(Rubric::from("Songs, hymns, and readings traditionally used on the Feast of Our Lady of\nGuadalupe include the following.")),
             Document::from(Text::from("Songs and Hymns:\nLa Guadalupana\nBuenos Días Paloma Blanca\nMi Virgen Ranchera\nO Virgen la mas Hermosa")),
+            Document::from(Heading::from((HeadingLevel::Heading3, "From Hymnal 1982"))),
+            Document::from(Content::HymnLink(HymnLink::Hymn(Hymnals::Hymnal1982, HymnNumber::H(277)))),
+            Document::from(Content::HymnLink(HymnLink::Hymn(Hymnals::Hymnal1982, HymnNumber::H(278)))),
+            Document::from(Heading::from((HeadingLevel::Heading3, "From El Himnario"))),
+            Document::from(Content::HymnLink(HymnLink::Hymn(Hymnals::ElHimnario, HymnNumber::H(483)))),
+            Document::from(Content::HymnLink(HymnLink::Hymn(Hymnals::ElHimnario, HymnNumber::H(62))))
         ]));
 
     pub static ref A_SERVICE_OF_RENAMING: Document = Document::new()

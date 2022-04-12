@@ -9,6 +9,8 @@ Website Todos
     - [ ] finish for additional types as needed
 - [x] Baptism
   - [ ] Add preferences
+- [ ] Hymnals
+  - [ ] El Himnario
 - Eucharist
   - [ ] Prayers of the People
     - [ ] link to these in renaming service 
