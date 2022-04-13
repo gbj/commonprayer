@@ -479,6 +479,7 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
         Hymnals::Hymnal1982 => "EH1982",
         Hymnals::LEVAS => "LEVS1993",
         Hymnals::WLP => "WLP1997",
+        Hymnals::ElHimnario => "EH1998",
     };
     let hymnary_hymn_link = format!(
         "https://hymnary.org/hymn/{}/{}",
@@ -610,6 +611,19 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
         })
         .boxed_local();
 
+    let rite_song_link = if let Some(link) = rite_song_link(&hymn.source, &hymn.number) {
+        view! {
+            <>
+                <a class="hymnary-link" href={link} target="_blank">"ritesong"</a>
+                " "
+                {t!("or")}
+                " "
+            </>
+        }
+    } else {
+        View::Empty
+    };
+
     view! {
         <>
             {header(locale, &format!("{} {}", hymn.number, hymn.title))}
@@ -638,10 +652,7 @@ fn hymn_body(locale: &str, hymnal: &HymnalMetadata, hymn: &Hymn) -> View {
                 <p class="hymnary-link">
                     {t!("hymnal.more_info")}
                     " "
-                    <a class="hymnary-link" href={rite_song_link(&hymn.source, &hymn.number)} target="_blank">"ritesong"</a>
-                    " "
-                    {t!("or")}
-                    " "
+                    {rite_song_link}
                     <a class="hymnary-link" href={hymnary_hymn_link} target="_blank">"Hymnary.org"</a>
                     "."
                 </p>
@@ -786,24 +797,31 @@ fn escape_italics(original: &str) -> View {
     )
 }
 
-fn rite_song_link(hymnal: &Hymnals, number: &HymnNumber) -> String {
+fn rite_song_link(hymnal: &Hymnals, number: &HymnNumber) -> Option<String> {
     let id = match (hymnal, number) {
-        (Hymnals::Hymnal1982, HymnNumber::S(n)) => 1353 + (n - 1),
-        (Hymnals::Hymnal1982, HymnNumber::H(n)) => 193 + (n - 1),
-        (Hymnals::LEVAS, HymnNumber::H(n)) => 913 + (n - 1),
-        (Hymnals::LEVAS, HymnNumber::S(n)) => 913 + (n - 1),
-        (Hymnals::WLP, HymnNumber::H(n)) => 1968 + (n - 721),
-        (Hymnals::WLP, HymnNumber::S(n)) => 1968 + (n - 721),
+        (Hymnals::Hymnal1982, HymnNumber::S(n)) => Some(1353 + (n - 1)),
+        (Hymnals::Hymnal1982, HymnNumber::H(n)) => Some(193 + (n - 1)),
+        (Hymnals::LEVAS, HymnNumber::H(n)) => Some(913 + (n - 1)),
+        (Hymnals::LEVAS, HymnNumber::S(n)) => Some(913 + (n - 1)),
+        (Hymnals::WLP, HymnNumber::H(n)) => Some(1968 + (n - 721)),
+        (Hymnals::WLP, HymnNumber::S(n)) => Some(1968 + (n - 721)),
+        (Hymnals::ElHimnario, _) => None
     };
 
     let base = match (hymnal, number) {
         (Hymnals::Hymnal1982, HymnNumber::S(_n)) => {
-            "https://www.riteseries.org/song/Hymnal1982ServiceMusic/"
+            Some("https://www.riteseries.org/song/Hymnal1982ServiceMusic/")
         }
-        (Hymnals::Hymnal1982, HymnNumber::H(_n)) => "https://www.riteseries.org/song/Hymnal1982/",
-        (Hymnals::LEVAS, _) => "https://www.riteseries.org/song/levs/",
-        (Hymnals::WLP, _) => "https://www.riteseries.org/song/wlp/",
+        (Hymnals::Hymnal1982, HymnNumber::H(_n)) => Some("https://www.riteseries.org/song/Hymnal1982/"),
+        (Hymnals::LEVAS, _) =>Some( "https://www.riteseries.org/song/levs/"),
+        (Hymnals::WLP, _) => Some("https://www.riteseries.org/song/wlp/"),
+        (Hymnals::ElHimnario, _) => None
     };
 
-    format!("{}{}/", base, id)
+    if let (Some(base), Some(id)) = (base, id) {
+        Some(format!("{}{}/", base, id))
+    } else {
+        None
+    }
+
 }

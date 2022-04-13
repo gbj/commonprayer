@@ -53,10 +53,17 @@ impl Default for Hymnals {
     }
 }
 
+impl Hymnals {
+    pub fn is_default(&self) -> bool {
+        self == &Self::default()
+    }
+}
+
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Hymnal {
     pub id: Hymnals,
     pub title: String,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
     pub subtitle: String,
     pub copyright: String,
     pub year: u16,
@@ -114,19 +121,39 @@ fn strip_non_word_characters(original: &str) -> String {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Hymn {
+    #[serde(skip_serializing_if = "Hymnals::is_default", default)]
     pub source: Hymnals,
+    #[serde(skip_serializing_if = "is_zero", default)]
     pub page_number: u16,
+    #[serde(skip_serializing_if = "is_false", default)]
     pub copyright_restriction: bool,
     pub number: HymnNumber,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
     pub title: String,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
     pub tune: String,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
     pub authors: String,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
     pub composers: String,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
     pub meter: String,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
     pub text_sources: String,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
     pub tune_sources: String,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
     pub text: String,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub tags: Vec<String>,
+}
+
+fn is_zero(number: &u16) -> bool {
+    *number == 0
+}
+
+fn is_false(b: &bool) -> bool {
+    *b == false
 }
 
 #[derive(Copy, Clone, Debug, PartialOrd, Ord, PartialEq, Eq, Hash)]

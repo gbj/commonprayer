@@ -1,0 +1,4868 @@
+{
+  "id": "ElHimnario",
+  "title": "El Himnario",
+  "copyright": "Copyright © 1998 by Church Publishing Incorporated",
+  "year": 1998,
+  "hymns": [
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "1",
+      "title": "Cantad al Señor",
+      "tune": "CANTAI AO SENHOR",
+      "authors": "Felipe Blycker J.",
+      "composers": "Samuel Pascoe",
+      "meter": "11.10.11.10",
+      "text_sources": "Anónimo de Brasil",
+      "tune_sources": "Melodía brasileña"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "2",
+      "title": "Es tiempo de que alabemos de Dios",
+      "tune": "AVIVAMIENTO",
+      "authors": "Ramón Díaz",
+      "composers": "Ramón Díaz",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "3",
+      "title": "Al despuntar en la loma el día",
+      "tune": "AL DESPUNTAR EL DIA",
+      "authors": "Heber Romero",
+      "composers": "Heber Romero; Julio R. Vargas",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "4",
+      "title": "Dios de la vida",
+      "tune": "SANDON",
+      "authors": "Hugh Thomson Kerr; George Lockwood",
+      "composers": "Charles Henry Purday; John Weaver",
+      "meter": "10.4.10.4.10.10"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "5",
+      "title": "Cantemos al Creador",
+      "tune": "ROSAS",
+      "authors": "Carlos Rosas",
+      "composers": "Carlos Rosas",
+      "tune_sources": "Arm.: <cite>The New Century Hymnal</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "6",
+      "title": "Cantad alegres al Señor",
+      "tune": "DUKE STREET",
+      "authors": "Tomás J. González Carvajal",
+      "composers": "John Hatton",
+      "meter": "8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "7",
+      "title": "Cántale a Dios",
+      "tune": "SANTA CLARA",
+      "authors": "Héber Romero",
+      "composers": "Luis Olivieri; Emanuel Olivieri"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "8",
+      "title": "Te alabaré, Señor",
+      "tune": "ECUADOR",
+      "composers": "Skinner Chávez-Melo",
+      "tune_sources": "Melodía de Ecuador"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "9",
+      "title": "Todo se hace para la gloria de Dios",
+      "tune": "CAMERÚN",
+      "authors": "Abel Nkuinji; Louis C. Kroehler",
+      "composers": "Abel Nkuinji",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "10",
+      "title": "Santo, santo, santo, santo",
+      "tune": "CUÉLLAR",
+      "authors": "Guillermo Cuéllar",
+      "composers": "Guillermo Cuéllar; Raquel Mora Martínez",
+      "text_sources": "<cite>La Misa Popular Salvadoreña</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "11",
+      "title": "Tuya es, Dios, la gloria",
+      "tune": "RÍO DE LA PLATA",
+      "composers": "Carlton R. Young",
+      "meter": "6.5.6.4",
+      "text_sources": "Tradicional latino-americano",
+      "tune_sources": "Melodía tradicional"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "12",
+      "title": "Señor, mi Dios, al contemplar los cielos",
+      "tune": "O STORE GUD",
+      "authors": "Carl Boberg; Stuart K. Hine; Arturo W. Hotton Rives; Stuart K. Hine",
+      "composers": "Stuart K. Hine",
+      "tune_sources": "Melodía sueca"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "13",
+      "title": "Nombres sin fin",
+      "tune": "WESTCHASE",
+      "authors": "Brian Wren; George Lockwood",
+      "composers": "Carlton R. Young",
+      "meter": "9.10.11.9"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "14",
+      "title": "Grandes y maravillosas son tus obras",
+      "tune": "GRANDES Y MARAVILLOSAS",
+      "composers": "Anónimo; Felipe Blycker J.",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "15",
+      "title": "Cuando cantar se glorifica a Dios",
+      "tune": "ENGELBERG",
+      "authors": "Fred Pratt Green; Juan F. Chávez; Carlos Touché",
+      "composers": "Charles Villiers Stanford",
+      "meter": "10.10.10.4"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "16",
+      "title": "Dios es amor",
+      "tune": "BAYLACH",
+      "authors": "J. Baylach",
+      "composers": "J. Baylach; Roberto Milano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "17",
+      "title": "¡Al Dios de Abraham, loor!",
+      "tune": "LEONI (YIGDAL)",
+      "authors": "Daniel Ben Judah, siglo XIV; G. P. Simmonds",
+      "composers": "Meyer Lyon",
+      "tune_sources": "Melodía hebrea"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "18",
+      "title": "Dios, te saludo, eres Redentor",
+      "tune": "TOULON",
+      "authors": "John Calvin; Elizabeth Lee Smith; George Lockwood",
+      "meter": "10.10.10.10",
+      "tune_sources": "Genevan Psalter"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "19",
+      "title": "Señor, ¿qué es nuestro templo?",
+      "tune": "PORTER",
+      "authors": "Federico J. Pagura",
+      "composers": "Skinner Chávez-Melo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "20",
+      "title": "Oh, criaturas del Señor",
+      "tune": "LASST UNS ERFREUEN",
+      "authors": "Francisco de Asís; José Míguez Bonino",
+      "composers": "Ralph Vaughan Williams",
+      "tune_sources": "Geistliche Kirchengesang, Colonia"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "21",
+      "title": "Alma, bendice a Dios",
+      "tune": "LOBE DEN HERREN",
+      "authors": "Joachim Neander; Fritz Fliedner",
+      "composers": "William Sterndale Bennett",
+      "meter": "14.14.4.7.8",
+      "tune_sources": "Stralsund Gesangbuch, 1665"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "22",
+      "title": "Canta, canta, alma mía",
+      "tune": "LAUDA ANIMA",
+      "authors": "Henry Francis Lyte; Roberto E. Ríos; Lorenzo Álvarez",
+      "composers": "John Goss",
+      "meter": "8.7.8.7.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "23",
+      "title": "Al caer la lluvia (As the rain is falling)",
+      "tune": "ALABANZA",
+      "authors": "Pablo Fernández Badillo; Roberto Escamilla; Elise S. Eslinger",
+      "composers": "Pablo Fernández Badillo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "24",
+      "title": "¡Santo! ¡Santo! ¡Santo!",
+      "tune": "NICAEA",
+      "authors": "Reginald Heber; Juan B. Cabrera",
+      "composers": "John B. Dykes",
+      "meter": "13.12.13.12"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "25",
+      "title": "Dios de las aves",
+      "tune": "ROEDER",
+      "authors": "Jaroslav J. Vajda; Federico J. Pagura",
+      "composers": "Carl F. Schalk",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "26",
+      "title": "¡El cielo canta alegría!",
+      "tune": "ALEGRÍA",
+      "authors": "Pablo Sosa",
+      "composers": "Pablo Sosa; Alvin Schutmaat"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "27",
+      "title": "Despunta el alba",
+      "tune": "BUNESSAN",
+      "authors": "Eleanor Farjeon",
+      "composers": "Skinner Chávez-Melo",
+      "meter": "5.5.5.4 D",
+      "text_sources": "Trad.: comité editorial del himnario Albricias",
+      "tune_sources": "Melodía gálica"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "28",
+      "title": "Con cánticos, Señor",
+      "tune": "DARWALL",
+      "authors": "James John Cummings; M. N. Hutchinson",
+      "composers": "John Darwall",
+      "meter": "6.6.6.6.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "29",
+      "title": "¡Canta, Débora, canta!",
+      "tune": "DÉBORA",
+      "authors": "Luiza Cruz; Raquel Gutiérrez-Achón",
+      "composers": "Luiza Cruz",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "30",
+      "title": "No hay amor como el de Dios",
+      "tune": "EL AMOR DE MI SEÑOR",
+      "authors": "Rafael Cuna",
+      "composers": "Rafael Cuna"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "31",
+      "title": "Te exaltaré, mi Dios, mi Rey",
+      "tune": "TE EXALTARÉ",
+      "composers": "Casiodoro A. Cárdenas",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "32",
+      "title": "Jubilosos, te adoramos",
+      "tune": "HYMN TO JOY",
+      "authors": "Henry van Dyke; George P. Simmonds; Esteban Sywulkab B.",
+      "composers": "Ludwig van Beethoven; Edward Hodges",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "33",
+      "title": "Cantemos al amor de los amores",
+      "tune": "AMOR DE LOS AMORES",
+      "authors": "Anónimo",
+      "composers": "Anónimo; M. Cvetic",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "34",
+      "title": "Allí está Jesús",
+      "tune": "SUS HECHOS",
+      "authors": "Alberto Betel Giacumbo",
+      "composers": "Pablo Sosa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "35",
+      "title": "Venid, nuestras voces unamos",
+      "tune": "THE ASH GROVE",
+      "authors": "Isaac Watts",
+      "composers": "Skinner Chávez-Melo",
+      "meter": "12.11.12.11 D",
+      "text_sources": "Trad. adapt. del comité editorial del himnario Albricias",
+      "tune_sources": "Melodia folclórica galesa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "36",
+      "title": "En el nombre de Jesús se doble",
+      "tune": "MALACATÁN",
+      "composers": "Felipe Blycker",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "37",
+      "title": "Jesús, tu dulce nombre",
+      "tune": "GOSHEN",
+      "authors": "Juan Bautista Cabrera",
+      "composers": "Charles I. Purday",
+      "text_sources": "Antiguo himno latino",
+      "tune_sources": "Melodía tradicional alemana"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "38",
+      "title": "¡Majestad!",
+      "tune": "MAJESTY",
+      "authors": "Jack Hayford",
+      "composers": "Jack Hayford; Eugene Thomas",
+      "meter": "Irregular",
+      "text_sources": "Trad. y estrofa 2, comité editor de Celebremos."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "39",
+      "title": "Ni en la tierra ni en el cielo",
+      "tune": "WELLESLEY",
+      "authors": "José M. de Mora",
+      "composers": "Lizzie S. Tourjée",
+      "meter": "8.7.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "40",
+      "title": "Dancé en la mañana",
+      "tune": "LORD OF THE DANCE",
+      "authors": "Sydney Carter; Federico J. Pagura",
+      "composers": "Sydney Carter; Gary Alan Smith",
+      "tune_sources": "Melodía Shaker"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "41",
+      "title": "¡Eres del mundo, Cristo, la esperanza!",
+      "tune": "DONNE SECOURS",
+      "authors": "Georgia Harkness; Gonzalo Báez-Camargo",
+      "meter": "11.10.11.10",
+      "tune_sources": "Salterio de Ginebra"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "42",
+      "title": "Jesús es mi Rey soberano (O Jesus, my King)",
+      "tune": "MI REY Y MI AMIGO",
+      "authors": "Vicente Mendoza; George Lockwood",
+      "composers": "Vicente Mendoza",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "43",
+      "title": "A Cristo doy my canto",
+      "tune": "I WILL SING FOR JESUS",
+      "authors": "P. Phillips; Anónimo",
+      "composers": "P. Phillips"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "44",
+      "title": "¡Oh, qué bueno es Jesús!",
+      "tune": "OH QUÉ BUENO",
+      "authors": "Anónimo",
+      "composers": "Anónimo; Dale Grotenhuis"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "45",
+      "title": "Jesús excelso",
+      "tune": "CRUSADER'S HYMN",
+      "authors": "Lorenzo Álvarez; Federico J. Pagura",
+      "composers": "Richard Storrs Willis",
+      "meter": "5.6.8.5.5.8",
+      "text_sources": "Münster Gesangbuch",
+      "tune_sources": "Melodía siciliana"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "46",
+      "title": "Nombre sobre todo nombre",
+      "tune": "SOBRE TODO NOMBRE",
+      "composers": "M. A. Baughen",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "47",
+      "title": "Mil voces para celebrar",
+      "tune": "AZMON",
+      "authors": "Charles Wesley; Federico J. Pagura",
+      "composers": "Carl G. Gläser; Lowell Mason",
+      "meter": "8.6.8.6"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "48",
+      "title": "Yo soy la luz del mundo",
+      "tune": "SAN JERÓNIMO",
+      "composers": "Rodolfo Ascencio G.",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "49",
+      "title": "De tu cántaro dame",
+      "tune": "SAMARITANA",
+      "authors": "Alfredo Colom M.",
+      "composers": "Alfredo Colom M.; Roberto C. Savage"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "50",
+      "title": "Cristo es la peña de Horeb (Christ is the mountain)",
+      "tune": "PEÑA DE HOREB",
+      "authors": "Anónimo",
+      "composers": "Luis Olivieri",
+      "meter": "Irregular",
+      "text_sources": "Trad. al inglés <cite>The New Century Hymnal</cite>, 1993.",
+      "tune_sources": "Melódia puertorriqueña"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "51",
+      "title": "Jesús, nombre de amor",
+      "tune": "NOMBRE DE AMOR",
+      "authors": "William Washam How; Samuel J. Vélez Santiago",
+      "composers": "Roberto Milano",
+      "meter": "6.6.6.6"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "52",
+      "title": "Espíritu de luz y amor",
+      "tune": "DOMINUS REGIT ME",
+      "authors": "Anónimo",
+      "composers": "John B. Dykes",
+      "meter": "8.7.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "53",
+      "title": "Eres fuerza para el pobre",
+      "tune": "ESPÍRITU DE VIDA",
+      "authors": "Juan J. Sosa",
+      "composers": "Juan J. Sosa; Craig Kingsbury; Randall De Bruyn"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "54",
+      "title": "Santo Consolador",
+      "tune": "TRENTHAM",
+      "authors": "Edwin Hatch",
+      "composers": "Robert Jackson",
+      "meter": "6.6.8.6",
+      "text_sources": "Trad. Comisión Revisora de <cite>Cántico Nuevo</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "55",
+      "title": "Soplo del Dios viviente (Breath of the living God)",
+      "tune": "DIOS VIVIENTE",
+      "authors": "Osvaldo Catena",
+      "composers": "Lorraine Floríndez",
+      "text_sources": "Trad. al inglés <cite>The New Century Hymnal</cite>, 1993.",
+      "tune_sources": "Tradicional de Noruega"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "56",
+      "title": "Hay un dulce espíritu",
+      "tune": "SWEET, SWEET SPIRIT",
+      "authors": "Doris Akers; Pedro Pirón",
+      "composers": "Doris Akers"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "57",
+      "title": "Florece una rosa",
+      "tune": "ES IST EIN ROS",
+      "authors": "Gracia Grindal ; Dimas Planas; Federico Fliedner",
+      "composers": "Michael Praetorius",
+      "meter": "7.6.7.6.6.7.6",
+      "text_sources": "Villancico alemán S. XV.",
+      "tune_sources": "Alte Catholische Geistliche Kirchengsang"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "58",
+      "title": "Consolad al pueblo mío",
+      "tune": "PSALM 42",
+      "authors": "Johannes Olearius; Dimas Planas-Belfort",
+      "meter": "8.7.8.7.7.7.8.8",
+      "tune_sources": "<cite>Trente quatro pseaumes de David</cite>, Genève"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "59",
+      "title": "Junto al Jordán",
+      "tune": "PUER NOBIS",
+      "authors": "Dimas Planas Belfort",
+      "composers": "Michael Praetorius",
+      "meter": "8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "60",
+      "title": "Ven Jesús, nuestra esperanza (Come to be our hope)",
+      "tune": "NUESTRA ESPERANZA",
+      "authors": "Jaci Maraschin; Jorge Rodríguez; Jaci Maraschin",
+      "composers": "Marcílio de Oliviera Filho",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "61",
+      "title": "¡Cantemos todos!",
+      "tune": "PAMBICHE",
+      "authors": "Benjamín Núnez",
+      "composers": "Alfredo Morales"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "62",
+      "title": "Como estrella en claro cielo",
+      "tune": "RAQUEL",
+      "authors": "Skinner Chávez-Melo",
+      "composers": "Skinner Chávez-Melo",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "63",
+      "title": "Una voz invita y llama",
+      "tune": "INVITACIÓN",
+      "authors": "Edward Caswall; Dimas Planas-Belfort",
+      "composers": "José Antonio Ruiz",
+      "meter": "8.7.8.7 D",
+      "text_sources": "Himno latino, 1632."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "64",
+      "title": "Ven, Jesús muy esperado",
+      "tune": "HYFRYDOL",
+      "authors": "Charles Wesley; Lorenzo Álvarez",
+      "composers": "Rowland H. Prichard",
+      "meter": "8.7.8.7 D",
+      "tune_sources": "<cite>The English Hymnal</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "65",
+      "title": "Oh ven, oh ven Emanuel",
+      "tune": "VENI EMMANUEL",
+      "authors": "Federico J. Pagura",
+      "composers": "Thomas Helmore",
+      "text_sources": "Trad. 3, 5, y 6 estrs. Editorial Avance Luterano; Antifonas latinas, siglo IX",
+      "tune_sources": "Canto llano, siglo IV"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "66",
+      "title": "En el frío invernal",
+      "tune": "LO DESEMBRE CONGELAT",
+      "authors": "Skinner Chávez-Melo; Skinner Chávez-Melo",
+      "meter": "Irregular",
+      "text_sources": "Anónimo catalán",
+      "tune_sources": "Melodía tradicional de Cataluña"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "67",
+      "title": "Bendito el Rey que viene",
+      "tune": "BENDITO EL REY",
+      "authors": "Federico J. Pagura",
+      "composers": "Raquel Mora Martínez",
+      "meter": "13.13.13.13"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "68",
+      "title": "Ábranse los cielos",
+      "tune": "NÖEL SUISSE",
+      "authors": "Anónimo",
+      "composers": "Skinner Chávez-Melo",
+      "tune_sources": "Villancico francés"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "69",
+      "title": "Preparen el camino del Señor",
+      "tune": "PREPAREN EL CAMINO",
+      "authors": "Fernando Rodríguez",
+      "composers": "Fernando Rodríguez; Samuel Pascoe"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "70",
+      "title": "Calle todo ser humano",
+      "tune": "PICARDY",
+      "authors": "Gerard Moultrie; Lorenzo Álvarez",
+      "text_sources": "Liturgia de San Jacobo",
+      "tune_sources": "Arm. <cite>The English Hymnal</cite>, 1906, alt.; Melodía tradicional francesa, s.XVII"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "71",
+      "title": "El Dios de inmensa majestad",
+      "tune": "MUJER BENDITA",
+      "authors": "Lorenzo Álvarez",
+      "composers": "Roberto Milano",
+      "meter": "8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "72",
+      "title": "Gozo del mundo es el Señor",
+      "tune": "ANTIOCH",
+      "authors": "Isaac Watts; Anónimo",
+      "composers": "G.F. Handel; Lowell Mason",
+      "meter": "8.6.8.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "73",
+      "title": "El Dios de paz",
+      "tune": "EL DIOS DE PAZ",
+      "authors": "Anónimo",
+      "composers": "Anónimo; Skinner Chávez-Melo",
+      "tune_sources": "Basada en melodía hebrea"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "74",
+      "title": "Toda la tierra",
+      "tune": "TAULÉ",
+      "authors": "Alberto Taulé; Anónimo",
+      "composers": "Alberto Taulé; Skinner Chávez-Melo",
+      "meter": "11.11.12.12",
+      "text_sources": "Catalán text by Alberto Taulé"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "75",
+      "title": "¡Alzaos, puertas! y enterá",
+      "tune": "MACHT HOCH DIE TÜR",
+      "authors": "Georg Weissel; S. Cobián",
+      "meter": "8.8.8.8.8.8.6.6",
+      "tune_sources": "<cite>Geistriches Gesangbuch</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "76",
+      "title": "¡Mi Dios, qué mañana!",
+      "tune": "MY LORD WHAT A MORNING",
+      "authors": "Evelyn Robert-Olivieri",
+      "composers": "Melva Costen; Skinner Chávez-Melo",
+      "text_sources": "Espiritual áfrico-americano",
+      "tune_sources": "Espiritual áfrico-americano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "77",
+      "title": "¡Oh santísimo, felicísimo!",
+      "tune": "SICILIAN MARINERS",
+      "authors": "Johannes D. Falk; Federico Fliedner",
+      "tune_sources": "Canto siciliano, Siglo XVIII"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "78",
+      "title": "A media noche resonó",
+      "tune": "CAROL",
+      "authors": "Edmund H. Sears; Dimas Planas Belfort",
+      "composers": "Richard Storrs Willis",
+      "meter": "8.6.8.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "79",
+      "title": "¡Emanuel!",
+      "tune": "MCGEE",
+      "authors": "Bob McGee",
+      "composers": "Bob McGee",
+      "meter": "Irregular",
+      "text_sources": "Trad."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "80",
+      "title": "Tú dejaste tu trono",
+      "tune": "ROOM FOR THEE",
+      "authors": "Emily E. S. Elliott; Anónimo",
+      "composers": "Ira D. Sankey"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "81",
+      "title": "Venid, fieles todos ",
+      "tune": "ADESTE FIDELES",
+      "authors": "John F. Wade; Juan Bautista Cabrera",
+      "composers": "John F. Wade",
+      "meter": "Irregular",
+      "text_sources": "Himno latino del Siglo XVIII"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "82",
+      "title": "Ya se abrió el cielo",
+      "tune": "NOCHE GLORIOSA",
+      "authors": "Federico J. Pagura",
+      "composers": "Homero Perera"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "83",
+      "title": "Fruto del amor divino",
+      "tune": "DIVINUM MYSTERIUM",
+      "authors": "Aurelius Clemens Prudentius; Federico J. Pagura; Skinner Chávez-Melo",
+      "composers": "Charles Winfred Douglas",
+      "meter": "8.7.8.7.8.7.7",
+      "tune_sources": "Canto llano siglo XI"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "84",
+      "title": "Suenan campanas de gloria",
+      "tune": "CAMPANAS DE GLORIA",
+      "authors": "Noel Estrada",
+      "composers": "Noel Estrada; Luis Olivieri"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "85",
+      "title": "Niño lindo",
+      "tune": "VENEZUELA",
+      "composers": "Vicente Emilio Sojo",
+      "text_sources": "Tradicional de Venezuela",
+      "tune_sources": "Tradicional de Venezuela"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "86",
+      "title": "¡Gloria a Dios en las alturas!",
+      "tune": "ST. GEORGE'S WINDSOR",
+      "authors": "Juan Bautista Cabrera",
+      "composers": "George J. Elvey",
+      "meter": "8.7.8.7.8.8.7.7.7.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "87",
+      "title": "Vé, dí en la montaña",
+      "tune": "GO TELL IT ON THE MOUNTAIN",
+      "authors": "John W. Work, Jr.; Anita González",
+      "composers": "John W. Work, Jr.",
+      "text_sources": "Espiritual áfrico-americano",
+      "tune_sources": "Espiritual áfrico-americano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "88",
+      "title": "En la noche los pastores",
+      "tune": "PASTORES VELAN",
+      "composers": "Juan Luis García",
+      "meter": "Irregular",
+      "text_sources": "Tradicional de España",
+      "tune_sources": "Villancico español"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "89",
+      "title": "Se oye un son en alta esfera",
+      "tune": "MENDELSSOHN",
+      "authors": "Charles Wesley; Federico Fliedner",
+      "composers": "Felix Mendelssohn-Bartholdy",
+      "meter": "8.7.8.7.8.8.7.7.7.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "90",
+      "title": "Este ramito de flores",
+      "tune": "MYRNA",
+      "authors": "Skinner Chávez-Melo",
+      "composers": "Skinner Chávez-Melo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "91",
+      "title": "¡Cantad, cantad; la voz alzad!",
+      "tune": "CREATION",
+      "authors": "Effie Chastain de Naylor",
+      "composers": "Franz J. Haydn",
+      "meter": "8.8.8.8 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "92",
+      "title": "Ángeles cantando están",
+      "tune": "GLORIA",
+      "authors": "Anónimo; George P. Simmonds; Lorenzo Álvarez",
+      "composers": "Austin C. Lovelace",
+      "tune_sources": "Villancico francés S. 18"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "93",
+      "title": "Un ángel fue quien vino a traer",
+      "tune": "THE FIRST NOWELL",
+      "authors": "Lorenzo Álvarez",
+      "text_sources": "Villancico inglés del S. XVIII",
+      "tune_sources": "Melodía tradicional inglesa, S. XVII; Arm. de <cite>Christmas Carols New and Old</cite>, 1871"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "94",
+      "title": "Sueños de Navidad",
+      "tune": "BARRANQUILLA",
+      "authors": "Alvin Schutmaat",
+      "composers": "Alvin Schutmaat",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "95",
+      "title": "¿Qué niño es éste?",
+      "tune": "GREENSLEEVES",
+      "authors": "William C. Dix; Angel M. Mergal",
+      "tune_sources": "Melodía tradicional inglesa, S. XVI"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "96",
+      "title": "Oh, pueblecito de Belén",
+      "tune": "ST. LOUIS",
+      "authors": "Phillips Brooks; Tomás M. Westrup",
+      "composers": "Lewis H. Redner",
+      "meter": "8.6.8.6.7.6.8.6"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "97",
+      "title": "¡Noche de paz!",
+      "tune": "STILLE NACHT",
+      "authors": "Joseph Mohr; Federico Fliedner",
+      "composers": "Franz Gruber",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "98",
+      "title": "Alégrense cristianos",
+      "tune": "IN DULCI JUBILO",
+      "authors": "John Mason Neale; Federico J. Pagura",
+      "composers": "Gary Alan Smith",
+      "text_sources": "Himno latino del S. 14",
+      "tune_sources": "Melodía alemana de Siglo XIV"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "99",
+      "title": "Allá en el pesebre",
+      "tune": "CRADLE SONG",
+      "authors": "Anónimo; George P. Simmonds",
+      "composers": "William James Kirkpatrick",
+      "meter": "11.11.11.11"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "100",
+      "title": "Venid, pastorcillos",
+      "tune": "MUELLER",
+      "authors": "Francisco Martínez de la Rosa",
+      "composers": "James R. Murray",
+      "meter": "11.11.11.11"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "101",
+      "title": "Duérmete, Niño lindo",
+      "tune": "A LA RU",
+      "composers": "John Donald Robb",
+      "text_sources": "Folclórico hispano",
+      "tune_sources": "Melodía folclórica hispana"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "102",
+      "title": "Casitas de las montañas",
+      "tune": "VILLANCICO HOSANA",
+      "authors": "Rafael Hernández",
+      "composers": "Rafael Hernández"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "103",
+      "title": "Suenen dulces himnos",
+      "tune": "RING THE BELLS",
+      "authors": "William O. Cushing; Juan B. Cabrera",
+      "composers": "George Frederick Root"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "104",
+      "title": "Ya llegó la Nochebuena",
+      "tune": "NOCHEBUENA",
+      "composers": "Roberto Milano",
+      "text_sources": "Tradicional de Argentina",
+      "tune_sources": "Tradicional de Argentina"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "105",
+      "title": "¿Qué estrella es ésta?",
+      "tune": "PUER NOBIS",
+      "authors": "Charles Coffin; John Chandler; Lorenzo Álvarez",
+      "composers": "Michael Praetorius; George R. Woodward",
+      "meter": "8.8.8.8",
+      "text_sources": "English tr.: <cite>Hymns Ancient and Modern</cite>",
+      "tune_sources": "Trier MS, S. XIV"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "106",
+      "title": "Niño: es astro",
+      "tune": "STAR CHILD",
+      "authors": "Shirley Erena Murray; Raquel Gutiérrez-Achón; George Lockwood",
+      "composers": "Carlton R. Young"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "107",
+      "title": "De entre todas las ciudades",
+      "tune": "STUTTGART",
+      "authors": "Marcus A.C. Prudentius; Juan Bautista Cabrera",
+      "composers": "Christian F. Witt; William Henry Havergal; William Henry Havergal",
+      "meter": "8.7.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "108",
+      "title": "Del oriente venimos tres",
+      "tune": "KINGS OF ORIENT",
+      "authors": "John H. Hopkins, Jr.; Effie Chastain de Naylor",
+      "composers": "John H. Hopkins, Jr."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "109",
+      "title": "Los que andaban en la oscuridad",
+      "tune": "CUPEY",
+      "authors": "John Morison; Samuel J. Vélez Santiago",
+      "composers": "Luis Olivieri",
+      "meter": "9.8.9.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "110",
+      "title": "Con amor y gratitud",
+      "tune": "SALZBURG",
+      "authors": "Christopher Wordsworth; Pablo D. Sosa",
+      "composers": "Jakob Hintze; J.S. Bach",
+      "meter": "7.7.7.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "111",
+      "title": "Tres magos",
+      "tune": "TRES MAGOS",
+      "authors": "Pablo Fernández Badillo",
+      "composers": "Pablo Fernández Badillo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "112",
+      "title": "Astro más bello",
+      "tune": "MORNING STAR",
+      "authors": "Reginald Heber; T. M. Westrup",
+      "composers": "James P. Harding",
+      "meter": "11.10.11.10"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "113",
+      "title": "Los magos (The magi)",
+      "tune": "LOS MAGOS",
+      "authors": "Manuel Fernández Juncos; Carolyn Jennings",
+      "tune_sources": "Tradicional puertorriqueña"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "114",
+      "title": "Una vez en un establo",
+      "tune": "IRBY",
+      "authors": "Cecil Frances Alexander; James Waring McCrady; Lorenzo Álvarez",
+      "composers": "Henry John Gauntlett; Arthur Henry Mann",
+      "meter": "8.7.8.7.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "115",
+      "title": "Con gran gozo y candor",
+      "tune": "DIX",
+      "authors": "William C. Dix; Evelyn Robert-Olivieri",
+      "composers": "Conrad Kocher; William Henry Monk",
+      "meter": "7.7.7.7.7.7",
+      "tune_sources": "De una coral por Conrad Kocher"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "116",
+      "title": "Oh, Sión, abre bien tus puertas",
+      "tune": "DON PALOMAS",
+      "authors": "Jean Baptiste de Santeuil; Edward Caswall; Samuel J. Vélez Santiago",
+      "composers": "Roberto Milano",
+      "meter": "8.6.8.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "117",
+      "title": "Cuando al Jordán fue Cristo",
+      "tune": "COMPLAINER",
+      "authors": "Fred Pratt Green; Alberto Merubia",
+      "composers": "William Walker; Carlton R. Young",
+      "meter": "7.6.7.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "118",
+      "title": "¡Gloriosa luz! ¡Visión sin par!",
+      "tune": "DEO GRACIAS",
+      "authors": "Federico J. Pagura",
+      "meter": "8.8.8.8",
+      "text_sources": "Himno latino anónimo",
+      "tune_sources": "Canción de Agincourt, 1415"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "119",
+      "title": "¡Qué bueno, oh Cristo, es estar aquí!",
+      "tune": "ERHALT UNS, HERR",
+      "authors": "Joseph A. Robinson; Samuel J. Vélez Santiago",
+      "composers": "Johann S. Bach",
+      "meter": "8.8.8.8",
+      "tune_sources": "Melodía del Geistliche Lieder"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "120",
+      "title": "El pueblo de Israel clamó",
+      "tune": "GO DOWN, MOSES",
+      "authors": "Dimas Planas-Belfort",
+      "composers": "William Farley Smith",
+      "text_sources": "Basado en texto original (espiritual áfrico-americano",
+      "tune_sources": "Espiritual áfrico-americano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "121",
+      "title": "La gracia sublime",
+      "tune": "AMAZING GRACE",
+      "authors": "John Newton; Cristóbal E. Morales",
+      "composers": "Austin C. Lovelace",
+      "meter": "8.6.8.6",
+      "tune_sources": "Antingua melodía norteamericana"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "122",
+      "title": "Tal como soy",
+      "tune": "WOODWORTH",
+      "authors": "Charlotte Elliott; Tomás M. Westrup",
+      "composers": "William B. Bradbury",
+      "meter": "8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "123",
+      "title": "Camina, pubelo de Dios",
+      "tune": "NUEVA CREACIÓN",
+      "authors": "Cesáreo Gabaráin",
+      "composers": "Cesáreo Gabaráin; Juan Luis García"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "124",
+      "title": "Busquen a Dios",
+      "tune": "GENEVA",
+      "authors": "Fred Pratt Green; George Lockwood",
+      "composers": "George Henry Day"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "125",
+      "title": "Todo te está diciendo",
+      "tune": "VUÉLVETE A DIOS",
+      "authors": "Osvaldo Catena",
+      "composers": "Osvaldo Catena"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "126",
+      "title": "Nunca, Dios mío",
+      "tune": "FLEMMING",
+      "authors": "Juan Bautista Cabrera",
+      "composers": "Friedrich F. Flemming",
+      "meter": "11.11.11.5"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "127",
+      "title": "¡Piedad, oh santo Dios, piedad!",
+      "tune": "WINDHAM",
+      "authors": "Isaac Watts; M. N. Hutchinson",
+      "composers": "Daniel Read",
+      "meter": "8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "128",
+      "title": "En sincera adoración",
+      "tune": "ABERYSTWYTH",
+      "authors": "Robert Grant; Lorenzo Álvarez; Lorenzo Álvarez",
+      "composers": "Joseph Parry",
+      "meter": "7.7.7.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "129",
+      "title": "¡Oh Señor! procuro en vano",
+      "tune": "LLANSANAN",
+      "authors": "Isabel P. Balderas",
+      "meter": "8.7.8.7 D",
+      "tune_sources": "Melodía galesa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "130",
+      "title": "Es bendito el Rey",
+      "tune": "EBER",
+      "authors": "Barbara Mink",
+      "composers": "Barbara Mink",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "131",
+      "title": "Con majestad montado va",
+      "tune": "WINCHESTER NEW",
+      "authors": "Henry Hart Milman; Lorenzo Álvarez",
+      "meter": "8.8.8.8",
+      "tune_sources": "Musicalisches Hand-Buch"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "132",
+      "title": "Mantos y palmas (Filled with excitement)",
+      "tune": "HOSANNA",
+      "authors": "Rubén Ruíz Ávila; Gertrude C. Suppe",
+      "composers": "Rubén Ruíz Ávila; Alvin Schutmaat"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "133",
+      "title": "¡Jerusalén, ¡despierta ya!",
+      "tune": "ELLACOMBE",
+      "authors": "Juan Bautista Cabrera",
+      "composers": "William H. Monk",
+      "meter": "8.6.8.6 D",
+      "tune_sources": "Melodía anónima; publicada en Wurtemberg, 1784"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "134",
+      "title": "¡Honor, loor y gloria!",
+      "tune": "ST. THEODULPH",
+      "authors": "Teodolfo de Orleans; Lorenzo Álvarez",
+      "composers": "Melchior Teschner",
+      "meter": "7.6.7.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "135",
+      "title": "Un mandamiento nuevo",
+      "tune": "LOPERENA",
+      "authors": "William Loperena",
+      "composers": "William Loperena; Luis Olivieri; Roberto Milano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "136",
+      "title": "Jesús, tú reuniste",
+      "tune": "LAVAPES",
+      "authors": "Jaci Maraschin; José A. Valenzuela",
+      "composers": "Jaci Maraschin; Luis Olivieri; Roberto Milano",
+      "meter": "11.11.11.11"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "137",
+      "title": "No hay mayor amor",
+      "tune": "MAYOR AMOR ",
+      "authors": "Alejandro Mayol",
+      "composers": "Alejandro Mayol"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "138",
+      "title": "Jesús, Jesús",
+      "tune": "CHEREPONI",
+      "authors": "Tom Colvin; Felicia Fina",
+      "composers": "Tom Colvin; Charles H. Webb",
+      "tune_sources": "Canto folclórico de Ghana"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "139",
+      "title": "Canta lengua el gran misterio",
+      "tune": "PANGE LINGUA",
+      "authors": "Lorenzo Álvarez; Venantius Honorius Fortunatus",
+      "meter": "8.7.8.7.8.7",
+      "tune_sources": "Canto Llano de Sarum"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "140",
+      "title": "En la excelsa cruz de Cristo",
+      "tune": "RATHBUN",
+      "authors": "John Bowring; S. D. Athans",
+      "composers": "Ithamar Conkey",
+      "meter": "8.7.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "141",
+      "title": "¡Oh rostro ensangrentado!",
+      "tune": "PASSION CHORALE",
+      "authors": "Bernardo de Claraval; Paul Gerhardt; James W. Alexander; Anónimo",
+      "composers": "Hans Leo Hassler; J. S. Bach",
+      "meter": "7.6.7.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "142",
+      "title": "¿Presenciaste la muerte del Señor?",
+      "tune": "WERE YOU THERE",
+      "authors": "Federico J. Pagura; Lois Kroehler",
+      "composers": "Melva Wilson Costen",
+      "meter": "Irregular",
+      "text_sources": "Espiritual áfrico-americano",
+      "tune_sources": "Espiritual áfrico-americano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "143",
+      "title": "Mira sus manos",
+      "tune": "CRUCIFIXIÓN",
+      "authors": "Ramón Bon",
+      "composers": "Guillermo B. Boomer",
+      "meter": "10.9.10.9."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "144",
+      "title": "Mi dulce buen Jesús",
+      "tune": "MI ORACIÓN",
+      "authors": "Pablo Fernández Badillo",
+      "composers": "Pablo Fernández Badillo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "145",
+      "title": "La cruz excelsa al contemplar",
+      "tune": "HAMBURG",
+      "authors": "Isaac Watts; William T. T. Millham",
+      "composers": "Lowell Mason",
+      "meter": "8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "146",
+      "title": "En el monte Calvario",
+      "tune": "THE OLD RUGGED CROSS",
+      "authors": "George Bennard; S. D. Athans",
+      "composers": "George Bennard"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "147",
+      "title": "La natura es libro abierto",
+      "tune": "STUTTGART",
+      "authors": "Isaac Watts; Samuel J. Vélez Santiago",
+      "composers": "William H. Havergal; William H. Havergal",
+      "meter": "8.7.8.7",
+      "tune_sources": "Melodía de <cite>Salmodia Sacra</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "148",
+      "title": "Brota ya el retoño",
+      "tune": "NOËL NOUVELET",
+      "authors": "John Macleod Campbell Crum; Skinner Chávez-Melo",
+      "composers": "Martin Shaw",
+      "meter": "11.10.10.11",
+      "tune_sources": "Villancico medieval francés"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "149",
+      "title": "¡Salve, día feliz! (Resurrección)",
+      "tune": "SALVE FESTA DIES",
+      "authors": "Venantius Honorius Fortunatus; Skinner Chávez-Melo",
+      "composers": "Ralph Vaughan Williams",
+      "text_sources": "Trad. del inglés"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "150",
+      "title": "Dios envió a su Hijo",
+      "tune": "RESURRECTION",
+      "authors": "Gloria Gaither; William Gaither; Pedro Pirón",
+      "composers": "William Gaither"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "151",
+      "title": "Alzad, oh pueblos, vuestra voz",
+      "tune": "O FILII ET FILIAE",
+      "authors": "Jean Tisserand, S. XV; J. M. Neale; Federico J. Pagura",
+      "text_sources": "Del latin, siglos XVI y XVII",
+      "tune_sources": "Melodía de Airs sur les hymnes sacrez, odes et noël, 1623"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "152",
+      "title": "Al Cristo vivo sirvo",
+      "tune": "ACKLEY",
+      "authors": "Alfred Ackley; George P. Simmonds",
+      "composers": "Alfred Ackley"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "153",
+      "title": "A ti la gloria",
+      "tune": "JUDAS MACCABEUS",
+      "authors": "Anónimo; Edmond Budry",
+      "composers": "G. F. Handel",
+      "tune_sources": "Arr. <cite>Harmonia Sacra</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "154",
+      "title": "Ya la batalla terminó",
+      "tune": "MINCHIN",
+      "authors": "Francis Pott; Federico J. Pagura",
+      "composers": "James Minchin",
+      "text_sources": "himno latino"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "155",
+      "title": "Voces de gozo y de loor",
+      "tune": "LASST UNS ERFREUEN",
+      "authors": "Anónimo",
+      "composers": "Ralph Vaughan Williams",
+      "tune_sources": "Geistliche Kirchengesang"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "156",
+      "title": "El Señor resucitó",
+      "tune": "EASTER HYMN",
+      "authors": "Michael Weisse; Charles Wesley; Juan Bautista Cabrera",
+      "tune_sources": "Lyra Davidica"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "157",
+      "title": "¡Aleluya! Cristo resucitó",
+      "tune": "SANTO DOMINGO",
+      "authors": "Luis Bojos",
+      "composers": "Luis Bojos"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "158",
+      "title": "¡Aleluya! ¡Aleluya! (Hoy cantemos todos)",
+      "tune": "SAN ALBERTO",
+      "authors": "William Loperena",
+      "composers": "William Loperena; Luis Olivieri"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "159",
+      "title": "¡Resucitó, resucitó!",
+      "tune": "RESUCITÓ",
+      "authors": "Kiko Argüello; Pablo Sywulka B.",
+      "composers": "Kiko Argüello; Felipe Blycker"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "160",
+      "title": "Del sepulcro tenebroso",
+      "tune": "EBENEZER",
+      "authors": "Germán Luders",
+      "composers": "Thomas J. Williams",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "161",
+      "title": "¡Cristo vive, fuera el llanto!",
+      "tune": "CENTRAL",
+      "authors": "Nicolás Martínez",
+      "composers": "Pablo Sosa",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "162",
+      "title": "Ved al Cristo, Rey de gloria",
+      "tune": "CROWN HIM",
+      "authors": "Thomas Kelly; Anónimo",
+      "composers": "George C. Stebbins"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "163",
+      "title": "¡Día, día, día!",
+      "tune": "DÍA",
+      "authors": "Ricardo Pietrantonio",
+      "composers": "Ricardo Pietrantonio"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "164",
+      "title": "Canten todos ¡Cristo vive!",
+      "tune": "BARMI",
+      "authors": "Barbara Mink",
+      "composers": "Barbara Mink",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "165",
+      "title": "Hoy celebramos (Come, celebrate)",
+      "tune": "CRISTO VIVE",
+      "authors": "Mortimer Arias; Roberto Escamilla; Elise Eslinger",
+      "composers": "Antonio Auza; Homero Perera"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "166",
+      "title": "¡Aleluya! ¡Aleluya! demos gracias",
+      "tune": "ALLELUIA NO. 1",
+      "authors": "Donald Fishel",
+      "composers": "Donald Fishel; Betty Pulkingham; Charles Mallory; George Mims"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "167",
+      "title": "Canta aleluya al Señor",
+      "tune": "SING ALLELUIA",
+      "authors": "Linda Stassen; Sonia Andrea Linares M.",
+      "composers": "Linda Stassen; Dale Grotenhuis",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "168",
+      "title": "¡Aleluya! ¡Aleluya! Cristo ha resucitado",
+      "tune": "RIVERA",
+      "composers": "Alberto C. Rivera",
+      "meter": "Irregular",
+      "text_sources": "Salutación litúrgica"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "169",
+      "title": "¡Éste es el día!",
+      "tune": "ÉSTE ES EL DÍA",
+      "authors": "Pablo D. Sosa",
+      "composers": "Pablo D. Sosa; Roberto Milano",
+      "text_sources": "Basado en el Salmo 118:19-24"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "170",
+      "title": "Te agradecemos, Redentor",
+      "tune": "ERSCHIENEN IST",
+      "authors": "Christopher Vischer; Matthias Loy; Juan Burghi",
+      "composers": "Nikolaus Herman"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "171",
+      "title": "Al Salvador Jesús",
+      "tune": "DIADEMATA",
+      "authors": "Matthew Bridges; Anónimo; Anónimo",
+      "composers": "George J. Elvey",
+      "meter": "6.6.8.6"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "172",
+      "title": "Cristo asciende",
+      "tune": "CHRIST REMONTE",
+      "authors": "Charles Pfender; I. J. de Ribeiro",
+      "composers": "Th. Stern",
+      "meter": "8.8.7.8.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "173",
+      "title": "¡Salve, día feliz! (Ascensión)",
+      "tune": "SALVE FESTA DIES",
+      "authors": "Venantius Honorius Fortunatus; Skinner Chávez-Melo",
+      "composers": "Ralph Vaughan Williams",
+      "text_sources": "Trad. del inglés"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "174",
+      "title": "¡Aleluya! gloria a Cristo",
+      "tune": "HYFRYDOL",
+      "authors": "William C. Dix; Lorenzo Álvarez",
+      "composers": "Rowland H. Prichard",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "175",
+      "title": "Celebremos del Señor",
+      "tune": "LLANFAIR",
+      "authors": "Charles Wesley; Federico J. Pagura",
+      "composers": "Robert Williams; David Evans, 1874-1948"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "176",
+      "title": "Dios nos ha dado promesa",
+      "tune": "SHOWERS OF BLESSING",
+      "authors": "Daniel W. Whittle; Anónimo",
+      "composers": "James McGranahan"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "177",
+      "title": "En un aposento alto",
+      "tune": "ABBOT'S LEIGH",
+      "authors": "H. W. Cragin",
+      "composers": "Cyril Vincent Taylor",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "178",
+      "title": "Ven, oh Tú que haces nuevos",
+      "tune": "VEN, SANTO ESPÍRITU",
+      "authors": "Simei Monteiro; Luis Olivieri",
+      "composers": "Simei Monteiro",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "179",
+      "title": "Un gran clamor del cielo",
+      "tune": "GLOUCESTER",
+      "authors": "George B. Timms; Juan Fransisco Chávez",
+      "composers": "Skinner Chávez-Melo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "180",
+      "title": "Ven, poder consolador",
+      "tune": "CHAMARRITA",
+      "authors": "Álvaro Michelín Salomón",
+      "composers": "Álvaro Michelín Salomón",
+      "meter": "7.7.7.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "181",
+      "title": "¡Salve, día feliz! (Pentecostés)",
+      "tune": "SALVE FESTA DIES",
+      "authors": "Venantius Honorius Fortunatus; Skinner Chávez-Melo",
+      "composers": "Ralph Vaughan Williams",
+      "text_sources": "Trad. del inglés"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "182",
+      "title": "Santo, Espíritu de Dios",
+      "tune": "LIVING GOD",
+      "authors": "Daniel Iverson; Anónimo",
+      "composers": "Daniel Iverson",
+      "meter": "11.11.12.11"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "183",
+      "title": "Cual murmullo de paloma",
+      "tune": "BRIDEGROOM",
+      "authors": "Carl P. Daw, Jr.; Skinner Chávez-Melo",
+      "composers": "Peter Cutts",
+      "meter": "8.7.8.7.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "184",
+      "title": "Ven, Santo Espíritu creador",
+      "tune": "COME HOLY GHOST",
+      "authors": "Angel Arroyo Rivera",
+      "composers": "John Henry Hopkins, Jr.; David Hurd; David Hurd",
+      "meter": "8.8.8.8",
+      "text_sources": "Himno latino del siglo IX"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "185",
+      "title": "Desciende, Espíritu de amor",
+      "tune": "ST. AGNES",
+      "authors": "Isaac Watts; J. B. Cabrera",
+      "composers": "J. B. Dykes",
+      "meter": "8.6.8.6"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "186",
+      "title": "Ven, Espíritu, cual viento",
+      "tune": "BEACH SPRING",
+      "authors": "Ann Neufeld Rupp; Barbara Mink",
+      "composers": "James H. Wood",
+      "meter": "8.7.8.7 D",
+      "tune_sources": "<cite>The Sacred Harp</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "187",
+      "title": "¡Cuán grande es en majestad!",
+      "tune": "CASTAÑER",
+      "authors": "Isaac Watts; Caryl Micklem; Samuel J. Veléz Santiago",
+      "composers": "Roberto Milano",
+      "meter": "14.14.14.14"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "188",
+      "title": "A nuestro creador",
+      "tune": "AMÉRICA",
+      "authors": "Anónimo",
+      "meter": "6.6.4.6.6.6.4",
+      "tune_sources": "Thesaurus Musicus"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "189",
+      "title": "Ven, ¡oh Todopoderoso!",
+      "tune": "EBENEZER (TONY-Y-BOTEL)",
+      "authors": "Henry G. Jackson",
+      "composers": "Thomas J. Williams",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "190",
+      "title": "En santa hermandad (United by God's love)",
+      "tune": "EN SANTA HERMANDAD",
+      "authors": "William Loperena; Carolyn Jennings",
+      "composers": "William Loperena; Roberto Milano; Luis Olivieri",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "191",
+      "title": "Trinidad excelsa, eterna",
+      "tune": "SANTÍSIMA TRINIDAD",
+      "authors": "Samuel J. Vélez Santiago",
+      "composers": "Luis Olivieri",
+      "meter": "8.8.8.8 D",
+      "tune_sources": "Tradicional de Ecuador"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "192",
+      "title": "A Dios dad gracias",
+      "tune": "ALLEIN GOTT IN DER HÖH",
+      "authors": "Nikolaus Decius; F. Fliedner",
+      "composers": "Nikolaus Decius",
+      "meter": "8.7.8.7.8.8.7",
+      "tune_sources": "Melodía anterior a la Reforma Protestante"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "193",
+      "title": "¿Quiénes son los que ceñidos?",
+      "tune": "REX GLORIAE",
+      "authors": "Theobald H. Schenck; F. E. Cox; J. B. Cabrera",
+      "composers": "Henry Smart; Federico J. Pagura",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "194",
+      "title": "De tus santos en la tierra",
+      "tune": "HYFRYDOL",
+      "authors": "Horatio Bolton Nelson; Juan B. Cabrera",
+      "composers": "Rowland H. Prichard",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "195",
+      "title": "De tus santos en la tierra",
+      "tune": "ST. ASAPH",
+      "authors": "Juan B. Cabrera; Horatio Bolton Nelson",
+      "composers": "William S. Bambridge",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "196",
+      "title": "¡Oh, cuánto gozo!",
+      "tune": "GOZO",
+      "authors": "Peter Abelard; Angel Arroyo Rivera",
+      "composers": "Benito Amaro",
+      "meter": "11.11.11.11 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "197",
+      "title": "Con gratitud, Señor",
+      "tune": "ST. GEORGE",
+      "authors": "Richard Mant; Federico J. Pagura",
+      "composers": "Henry John Gauntlett",
+      "meter": "6.6.8.6"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "198",
+      "title": "Te loamos, Dios clemente",
+      "tune": "PICARDY",
+      "authors": "Lefferd M. A. Haughnout",
+      "meter": "8.7.8.7.8.7",
+      "tune_sources": "Melodía tradicional francesa, S. XVII"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "199",
+      "title": "Hoy, por los santos que descansan ya",
+      "tune": "SINE NOMINE",
+      "authors": "William W. How; Federico J. Pagura",
+      "composers": "Ralph Vaughan Williams"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "200",
+      "title": "El Rey de gloria viene",
+      "tune": "KING OF GLORY",
+      "authors": "Willard F. Jabusch; Eunice Miller",
+      "tune_sources": "Melodía hebrea"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "201",
+      "title": "Tuyo es el Reino",
+      "tune": "BUENOS AIRES",
+      "composers": "Pablo D. Sosa",
+      "meter": "Irregular",
+      "text_sources": "Basado en el “Padre Nuestro”"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "202",
+      "title": "Rey de reyes",
+      "tune": "KING OF KINGS",
+      "authors": "Naomi Batya; Sophie Conty",
+      "meter": "Irregular",
+      "tune_sources": "melodía hebrea"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "203",
+      "title": "Loores dad a Cristo el Rey",
+      "tune": "CORONATION",
+      "authors": "Edward Perronet; Tomás M. Westrup",
+      "composers": "Oliver Holden",
+      "meter": "8.6.8.6"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "204",
+      "title": "Señor Jesús, eterno Rey",
+      "tune": "TRURO",
+      "authors": "Isaac Watts; Epigmenio Velasco",
+      "composers": "Lowell Mason",
+      "meter": "8.8.8.8",
+      "tune_sources": "Salmodia Evangélica"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "205",
+      "title": "Iglesia de Cristo, tu santa misión",
+      "tune": "LYONS",
+      "authors": "Charles Wesley; Anónimo",
+      "composers": "Johann Michael Haydn",
+      "meter": "11.11.11.11"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "206",
+      "title": "En Jesucristo afirmamos",
+      "tune": "LA IGLESIA EDUCA",
+      "authors": "Pedro Hernández Cortés",
+      "composers": "Pedro Hernández Cortés; José D. Flores; Miladys Hernández",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "207",
+      "title": "Firmes y adelante",
+      "tune": "ST. GERTRUDE",
+      "authors": "Sabine Baring-Gould; J. B. Cabrera",
+      "composers": "Arthur S. Sullivan"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "208",
+      "title": "Eran cien ovejas",
+      "tune": "VISIÓN PASTORAL",
+      "authors": "Juan Romero",
+      "composers": "Juan Romero; Felipe Blycker J.",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "209",
+      "title": "Es Cristo de su Iglesia",
+      "tune": "AURELIA",
+      "authors": "Samuel J. Stone; George P. Simmonds; Federico J. Pagura",
+      "composers": "Samuel Sebastian Wesley",
+      "meter": "7.6.7.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "210",
+      "title": "¡Oh Padre que bendices!",
+      "tune": "LANCASHIRE",
+      "authors": "Lorenzo Álvarez",
+      "composers": "Henry Smart",
+      "meter": "7.6.7.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "211",
+      "title": "Dios de gracia, Dios de gloria",
+      "tune": "CWM RHONDDA",
+      "authors": "Harry Emerson Fosdick; Federico J. Pagura",
+      "composers": "John Hughes",
+      "meter": "8.7.8.7.8.7.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "212",
+      "title": "Sólo excelso, amor divino",
+      "tune": "BEECHER",
+      "authors": "Frederick William Faber; Elida G. Falcón; Juanita R. Ballock; Luis Olivieri",
+      "composers": "John Zundel",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "213",
+      "title": "¡Suelta la alegría!",
+      "tune": "SUELTA LA ALEGRÍA",
+      "authors": "Eseario Sosa Rodríguez",
+      "composers": "Eseario Sosa Rodríguez",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "214",
+      "title": "Juntos cual hermanos",
+      "tune": "MY LORD WHAT A MORNING",
+      "authors": "Cesáreo Gabaráin",
+      "composers": "Skinner Chávez-Melo",
+      "tune_sources": "Espiritual áfrico-americano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "215",
+      "title": "Ni oriente ni occidente",
+      "tune": "MCKEE",
+      "authors": "John Oxenham; J.R. de Balloch",
+      "composers": "Harry T. Burleigh",
+      "meter": "8.6.8.6",
+      "tune_sources": "Melodía folclórica norteamericana"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "216",
+      "title": "Muchos resplendores",
+      "tune": "TJÄNSTERNA",
+      "authors": "Anders Frostenson; Pablo D. Sosa",
+      "composers": "Olle Widestrand; Skinner Chávez-Melo",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "217",
+      "title": "Mirad cuán bueno es",
+      "tune": "ARMONIA",
+      "composers": "Leslie M. Gómez",
+      "meter": "Irregular",
+      "text_sources": "Basado en el Salmo 133:1, 3"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "218",
+      "title": "Miren qué bueno",
+      "tune": "MIREN QUÉ BUENO",
+      "authors": "Pablo D. Sosa",
+      "composers": "Pablo D. Sosa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "219",
+      "title": "Amémonos, hermanos",
+      "tune": "MUNICH",
+      "authors": "Juan Bautista Cabrera",
+      "composers": "F. Mendelssohn-Bartholdy",
+      "meter": "7.6.7.6 D",
+      "tune_sources": "Neuvermehrtes Meiningisches Gesangbuch"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "220",
+      "title": "Sagrado es el amor",
+      "tune": "DENNIS",
+      "authors": "John Fawcett; Anónimo",
+      "composers": "Johann G. Nägeli; Lowell Mason",
+      "meter": "6.6.8.6"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "221",
+      "title": "Mirad cuán grato es",
+      "tune": "VALDOVINO",
+      "authors": "Héctor C. Valdovino",
+      "composers": "Héctor C. Valdovino",
+      "meter": "6.8.6.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "222",
+      "title": "Somos uno en Cristo",
+      "tune": "SOMOS UNO",
+      "authors": "Anónimo",
+      "composers": "Anónimo; Felipe Blycker",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "223",
+      "title": "Somos uno en espíritu",
+      "tune": "ST. BRENDAN'S",
+      "authors": "Peter Scholtes; Federico J. Pagura",
+      "composers": "Peter Scholtes; Richard D. Wetzel"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "224",
+      "title": "¡Cuán firme cimiento!",
+      "tune": "FOUNDATION",
+      "authors": "K; Vicente Mendoza",
+      "composers": "Tabor",
+      "meter": "11.11.11.11",
+      "text_sources": "“K” en John Rippon's <cite>Selections of Hymns</cite>, 1787",
+      "tune_sources": "Melodía folclórica norteamericana"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "225",
+      "title": "Objeto de mi fe",
+      "tune": "OLIVET",
+      "authors": "Roy Palmer; T. Westrup",
+      "composers": "Lowell Mason",
+      "meter": "6.6.4.6.6.6.4"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "226",
+      "title": "Renacer para una esperanza viva",
+      "tune": "RENACER",
+      "text_sources": "Equipo de Liturgia CLAI-Río de la Plata",
+      "tune_sources": "Equipo de Liturgia CLAI-Río de la Plata"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "227",
+      "title": "Fe santa que nos dio Jesús",
+      "tune": "ST. CATHERINE",
+      "authors": "Frederick W. Faber; George P. Simmonds",
+      "composers": "Henri F. Hemy; James G. Walton",
+      "meter": "8.8.8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "228",
+      "title": "Nuevos comienzos",
+      "tune": "BEGINNINGS",
+      "authors": "Brian Wren; Alberto Merubia; J. Alfonso Lockward",
+      "composers": "Carlton R. Young"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "229",
+      "title": "La palabra del Señor (Righteous and just)",
+      "tune": "NELSON",
+      "authors": "Juan Luis García; George Lockwood",
+      "composers": "Juan Luis García",
+      "text_sources": "Paráfrasis del Salmo 33:4-11"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "230",
+      "title": "Esa palabra en la vida",
+      "tune": "SIMEI",
+      "authors": "Simei Monteiro; Jorge Rodríguez",
+      "composers": "Simei Monteiro",
+      "meter": "8.8.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "231",
+      "title": "La palabra del Señor",
+      "tune": "DANIEL",
+      "composers": "Daniel Fernández"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "232",
+      "title": "¡Oh! cantádmelas otra vez",
+      "tune": "WORDS OF LIFE",
+      "authors": "Philip P. Bliss; Julia A. Butler",
+      "composers": "Philip P. Bliss"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "233",
+      "title": "Tu Palabra es, oh Señor",
+      "tune": "MADRID",
+      "authors": "John Burton; Pedro Castro",
+      "composers": "Henry R. Bishop; Benjamin Carr; David Evans",
+      "meter": "7.7.7.7.7.7",
+      "tune_sources": "Melodía de España"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "234",
+      "title": "¡Oh, Verbo encarnado!",
+      "tune": "MUNICH",
+      "authors": "William W. How; Angel Arroyo Rivera",
+      "composers": "Felix Mendelssohn-Bartholdy",
+      "meter": "7.6.7.6 D",
+      "tune_sources": "<cite>Gesangbuch</cite>, Meiningen"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "235",
+      "title": "Agua, Dios nuestro",
+      "tune": "MANANTIAL",
+      "authors": "Alberto Merubia",
+      "composers": "Roberto Milano",
+      "meter": "10.10.10.10"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "236",
+      "title": "Quien cree y bautiszado es",
+      "tune": "ALLEIN GOTT IN DER HÖH",
+      "authors": "Thomas Kingo; Juan Burghi",
+      "meter": "8.7.8.7.8.8.7",
+      "tune_sources": "Melodía alemana, 1539"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "237",
+      "title": "Venimos hoy a ti, Señor",
+      "tune": "MASSACHUSETTS",
+      "authors": "Alan D. Tyree; Barbara Mink",
+      "composers": "Katherine K. Davis",
+      "meter": "14.14.14.14"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "238",
+      "title": "Oh Dios de amor y de bondad",
+      "tune": "ST. FLAVIAN",
+      "authors": "Anónimo",
+      "meter": "8.6.8.6",
+      "tune_sources": "Melodía del Day's <cite>Psalter</cite>."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "239",
+      "title": "Yo te ofrezco, mi Dios, hoy la vida",
+      "tune": "LANDEROS",
+      "authors": "Rubén Landeros",
+      "composers": "Pedro Landeros"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "240",
+      "title": "Los que somos bautizados",
+      "tune": "NETTLETON",
+      "authors": "George P. Simmonds",
+      "meter": "8.7.8.7 D",
+      "tune_sources": "Melodía tradiciona americana; Wyeth's <cite> Repository of Sacred Music</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "241",
+      "title": "Este capullo de rosa",
+      "tune": "CAPULLO DE ROSA",
+      "authors": "María Antonieta Torres",
+      "composers": "Barbara Mink",
+      "meter": "8.7.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "242",
+      "title": "Venimos aquí a buscarte",
+      "tune": "MINK",
+      "authors": "Barbara Mink",
+      "composers": "Barbara Mink"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "243",
+      "title": "Una espiga (Sheaves of summer)",
+      "tune": "UNA ESPIGA",
+      "authors": "Cesáreo Gabaráin; George Lockwood",
+      "composers": "Cesáreo Gabaráin; Skinner Chávez-Melo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "244",
+      "title": "¡Aleluya! ¡Aleluya! (Oh Hijo amado)",
+      "tune": "CANTO DE COMUNIÓN",
+      "authors": "Anónimo",
+      "composers": "Anónimo; Luis Olivieri",
+      "meter": "Irregular",
+      "tune_sources": "Puerto Rico"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "245",
+      "title": "De rodillas partamos hoy el pan",
+      "tune": "LET US BREAK BREAD",
+      "authors": "Federico J. Pagura",
+      "composers": "David Hurd",
+      "text_sources": "Espiritual áfrico-americano",
+      "tune_sources": "Espiritual áfrico-americano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "246",
+      "title": "Te ofrecemos, Padre nuestro",
+      "tune": "OFERTORIO",
+      "authors": "Carlos Mejía Godoy",
+      "composers": "Carlos Mejía Godoy; Alvin Schutmaat"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "247",
+      "title": "La fuente de la unidad",
+      "tune": "ST. LUCIA",
+      "authors": "Alisson O. Carter; George Lockwood; Luis Olivieri",
+      "composers": "Jean Mathurin",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "248",
+      "title": "Toma mi mano, hermano",
+      "tune": "VEN A LA MESA",
+      "authors": "Waldino Suárez; Osvaldo Catena",
+      "composers": "Waldino Suárez; Osvaldo Catena; Luis Olivieri"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "249",
+      "title": "¡Oh, buen Jesús!",
+      "tune": "SACRUM CONVIVIUM",
+      "authors": "Anónimo",
+      "composers": "H. León de Jesús",
+      "meter": "11.10.11.10.10"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "250",
+      "title": "Te den gracias",
+      "tune": "TE DEN GRACIAS",
+      "authors": "Eduardo de Sayas",
+      "composers": "Eduardo de Sayas; Roberto Milano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "251",
+      "title": "Unidos por el amor de Cristo",
+      "tune": "SCHAFFER",
+      "authors": "Robert Shaffer; Juan Luis García",
+      "composers": "Robert Shaffer"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "252",
+      "title": "Somos pueblo que camina",
+      "tune": "SOMOS PUEBLO",
+      "meter": "8.7.8.7",
+      "text_sources": "Misa Popular Nicaragüense",
+      "tune_sources": "Misa Popular Nicaragüense"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "253",
+      "title": "El Señor nos ama hoy",
+      "tune": "BY AND BY",
+      "authors": "Anónimo",
+      "composers": "Charles Albert Tindley; Skinner Chávez-Melo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "254",
+      "title": "Alegres tomamos el vino y el pan",
+      "tune": "UNIVERSITARIA",
+      "authors": "Anónimo",
+      "composers": "Anónimo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "255",
+      "title": "Vamos pronto",
+      "tune": "LITURGIA CRIOLLA",
+      "authors": "Heber Romero",
+      "composers": "Heber Romero"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "256",
+      "title": "En memoria de mí",
+      "tune": "IN REMEMBRANCE",
+      "authors": "Ragan Courtney; Rafael Enrique Urdaneta",
+      "composers": "Buryl Red",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "257",
+      "title": "Cristo, nuestra pascua",
+      "tune": "PASCHAM NOSTRA ",
+      "authors": "Juan Luis García",
+      "composers": "Juan Luis García",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "258",
+      "title": "Arriba los corazones",
+      "tune": "PANAMÁ",
+      "authors": "Anónimo",
+      "composers": "Anónimo",
+      "text_sources": "Panameño",
+      "tune_sources": "Panameño"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "259",
+      "title": "Hoy venimos cual creyentes",
+      "tune": "IN MEMORIAM",
+      "authors": "M. N. Hutchinson",
+      "composers": "Barbara Mink",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "260",
+      "title": "Que esta cena, Señor",
+      "tune": "LA CENA",
+      "authors": "Eseario Sosa Rodríguez",
+      "composers": "Eseario Sosa Rodríguez",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "261",
+      "title": "Acepta hoy, Señor Jesús",
+      "tune": "IN NAMEN DES HERRN",
+      "authors": "Heinrich von Bruininck; A. V. de Soggin",
+      "meter": "8.8.8.8",
+      "tune_sources": "Görlitz"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "262",
+      "title": "Espíritu de Dios",
+      "tune": "FELICIANO",
+      "authors": "Francisco A. Feliciano",
+      "composers": "Raquel Mora Martínez; Francisco A. Feliciano",
+      "meter": "11.10.11.10"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "263",
+      "title": "Jesús, he prometido",
+      "tune": "ANGEL'S STORY",
+      "authors": "John E. Bode; Juan B. Cabrera",
+      "composers": "Arthur H. Mann",
+      "meter": "7.6.7.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "264",
+      "title": "Que el sentir de Jesucristo",
+      "tune": "TRANQUILITY",
+      "authors": "Kate B. Wilkinson; Esther López de Cajas; Rosa Bolaños de Arce",
+      "composers": "James Mountain"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "265",
+      "title": "Profetiza, Pueblo mío (You shall prophesy)",
+      "tune": "PROFETIZA",
+      "authors": "Rosa Martha Zárate Macías",
+      "composers": "Rosa Martha Zárate Macías; Raquel Gutiérrez-Achón",
+      "text_sources": "Trad. at inglés, <cite>The New Century Hymnal</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "266",
+      "title": "Antes que te formaras",
+      "tune": "EL PROFETA",
+      "authors": "Anónimo",
+      "composers": "Anónimo",
+      "text_sources": "Basado en Jeremías 1:1-8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "267",
+      "title": "Manda tu Espíritu, Señor",
+      "tune": "HAMBURG",
+      "authors": "Anónimo",
+      "composers": "Lowell Mason",
+      "meter": "8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "268",
+      "title": "Oh, háblame y hablaré",
+      "tune": "CANONBURY",
+      "authors": "Frances Havergal; Jaime Clifford",
+      "composers": "Robert Schumann",
+      "meter": "8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "269",
+      "title": "Mensajeros del Maestro",
+      "tune": "MENSAJEROS",
+      "authors": "Vicente Mendoza",
+      "composers": "George F. Handel",
+      "meter": "8.7.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "270",
+      "title": "Cuando leo en la Biblia",
+      "tune": "SWEET STORY",
+      "authors": "Jemima T. Luke; Sebastián Cruellas",
+      "composers": "William Bradbury",
+      "tune_sources": "Canto folclórica griego"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "271",
+      "title": "Cristo me ama",
+      "tune": "WARNER",
+      "authors": "Anna B. Warner; Anónimo",
+      "composers": "William Bradbury"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "272",
+      "title": "Cuando las bases de este mundo",
+      "tune": "VALDERRAMA",
+      "authors": "Federico J. Pagura",
+      "composers": "W. F. Valderrama",
+      "meter": "11.10.11.10"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "273",
+      "title": "Oh Dios, que de un piadoso hogar",
+      "tune": "KINGSFOLD",
+      "authors": "Harry Emerson Fosdick; F. J. Pagura",
+      "composers": "Ralph Vaughan Williams",
+      "meter": "8.6.8.6 D",
+      "tune_sources": "Melodía tradicional inglesa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "274",
+      "title": "Padre y eterno Dios",
+      "tune": "O PERFECT LOVE",
+      "authors": "Isabel G. V. de Rodríguez",
+      "composers": "Joseph Barnby",
+      "meter": "11.10.11.10"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "275",
+      "title": "Oh, Dios, por nuestros padres",
+      "tune": "AURELIA",
+      "authors": "George P. Simmonds",
+      "composers": "Samuel S. Wesley",
+      "meter": "7.6.7.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "276",
+      "title": "Los niños y niñas de toda región",
+      "tune": "DE TODA REGIÓN",
+      "authors": "Margaret Coote Brown; Effie Chastain de Naylor",
+      "tune_sources": "Melodía tradicional inglesa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "277",
+      "title": "Dios bendiga las almas unidas",
+      "tune": "PUEBLA",
+      "authors": "Daniel Hall",
+      "tune_sources": "Colección Española"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "278",
+      "title": "Escucha ¡oh Dios! la oración",
+      "tune": "WINCHESTER",
+      "authors": "Anónimo",
+      "meter": "8.6.8.6",
+      "text_sources": "Himno latino, siglo XVII",
+      "tune_sources": "Salterio de Este"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "279",
+      "title": "El amor",
+      "tune": "GRULLÓN",
+      "authors": "Rafael D. Grullón",
+      "composers": "Rafael D. Grullón; Jorge Lockward",
+      "meter": "Irregular",
+      "text_sources": "Basado en 1 Cor. 13"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "280",
+      "title": "En tu templo, Padre Dios",
+      "tune": "MADRID",
+      "authors": "George P. Simmonds",
+      "composers": "Benjamin Carr",
+      "meter": "7.7.7.7.7.7",
+      "tune_sources": "Melodía tradicional española"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "281",
+      "title": "Jesús bendice a los niños",
+      "tune": "JESÚS BENDICE",
+      "authors": "Pablo Fernández-Badillo",
+      "composers": "Pablo Fernández-Badillo",
+      "text_sources": "Basado en Lucas 18:15-17"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "282",
+      "title": "Pues si vivimos, para Él vivimos",
+      "tune": "SOMOS DEL SEÑOR",
+      "authors": "Anónimo; Roberto Escamilla",
+      "composers": "Anónimo; B. C. M.",
+      "meter": "Irregular",
+      "text_sources": "Basado en Romanos 14:8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "283",
+      "title": "Ya, el morir es resucitar",
+      "tune": "ANGELUS",
+      "authors": "Anónimo; Luis Olivieri",
+      "composers": "Georg Joseph",
+      "meter": "8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "284",
+      "title": "Roca de la eternidad",
+      "tune": "TOPLADY",
+      "authors": "Augustus M. Toplady; T. M. Westrup",
+      "composers": "Thomas Hastings",
+      "meter": "7.7.7.7.7.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "285",
+      "title": "Cerca de ti, Señor",
+      "tune": "BETHANY",
+      "authors": "Sarah F. Adams; T. M. Westrup",
+      "composers": "Lowell Mason",
+      "meter": "6.4.6.4.6.6.6.4"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "286",
+      "title": "Aramos nuestros campos",
+      "tune": "SAN FERNANDO",
+      "authors": "Mathias Claudius; Ernesto Barocio",
+      "composers": "Luis Olivieri",
+      "meter": "7.6.7.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "287",
+      "title": "Con alegría",
+      "tune": "PORQUE AQUÍ TU VIVES",
+      "authors": "Heber Romero",
+      "composers": "Heber Romero",
+      "meter": "11.11.11.11.11.11",
+      "text_sources": "Liturgia criolla",
+      "tune_sources": "Liturgia criolla"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "288",
+      "title": "Cantad y gracias dad",
+      "tune": "MARION",
+      "authors": "Edward Hayes Plumptre; Lorenzo Álvarez",
+      "composers": "Arthur Henry Messiter"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "289",
+      "title": "Corazones te ofrecemos",
+      "tune": "HOLY MANNA",
+      "authors": "Maurilio López",
+      "meter": "8.7.8.7 D",
+      "text_sources": "Basado en el Salmo 65",
+      "tune_sources": "William Moore's <cite>Columbian Harmony</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "290",
+      "title": "Gracias por el amor",
+      "tune": "ACCIÓN DE GRACIAS",
+      "authors": "Anónimo",
+      "composers": "Anónimo; Roberto Milano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "291",
+      "title": "Las flores y los pájaros ",
+      "tune": "FLORES Y PÁJAROS",
+      "authors": "Cecil Frances Alexander; Oscar L. Rodríguez",
+      "composers": "Carmelia de la Paz",
+      "tune_sources": "Adaptado de un canto folclórico danés"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "292",
+      "title": "De boca y corazón",
+      "tune": "NUN DANKET",
+      "authors": "Martin Rinkart; Fritz Fliedner",
+      "composers": "Johann Crüger; Felix Mendelssohn",
+      "meter": "6.7.6.7.6.6.6.6"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "293",
+      "title": "Nos hemos reunido en tu nombre de Cristo",
+      "tune": "KREMSER",
+      "authors": "J. R. de Balloch",
+      "composers": "Edward Kremser",
+      "meter": "12.11.12.12",
+      "text_sources": "Del holandés",
+      "tune_sources": "Canción folclórica holandesa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "294",
+      "title": "Quiero cantarte con ríos de alabanza",
+      "tune": "RÍOS",
+      "authors": "Lony Rodríguez-Ordóñez",
+      "composers": "Carmelia de la Paz"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "295",
+      "title": "Por la excelsa majestad",
+      "tune": "DIX",
+      "authors": "Folliott S. Pierpoint; Federico J. Pagura",
+      "composers": "Conrad Kocher; W.H. Monk"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "296",
+      "title": "Por mi niñez bendecida",
+      "tune": "GRATITUD",
+      "authors": "K. L. Brown; Eveyln Robert-Olivieri",
+      "composers": "Braulio Dueño Colón",
+      "meter": "8.9.8.9.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "297",
+      "title": "Dios eterno, en tu presencia",
+      "tune": "CUERNAVACA",
+      "authors": "Juan B. Cabrera",
+      "composers": "Samuel Pascoe",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "298",
+      "title": "Al umbral de un nuevo año",
+      "tune": "AGAPE",
+      "authors": "Isabel G. V. de Rodríguez; Luis Olivieri",
+      "composers": "Charles J. Dickinson",
+      "meter": "8.7.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "299",
+      "title": "Mi espíritu, alma y cuerpo",
+      "tune": "THE CROSS OF JESUS",
+      "authors": "Mary D. James; H. C. E.",
+      "composers": "Ira D. Sankey"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "300",
+      "title": "Del Señor el pueblo somos",
+      "tune": "AUSTRIAN HYMN",
+      "authors": "Thomas A. Jackson; Daniel Díaz R.",
+      "composers": "Franz J. Haydn",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "301",
+      "title": "Lamente, santo Dios, damos a ti",
+      "tune": "HALL",
+      "authors": "William H. Foulkes; G.P. Simmonds; Luis Olivieri",
+      "composers": "Calvin W. Laufer",
+      "meter": "10.10.10.10"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "302",
+      "title": "Que mi vida entera esté",
+      "tune": "HOLLINGSIDE",
+      "authors": "F. R. Havergal; Vicente Mendoza",
+      "composers": "John B. Dykes",
+      "meter": "7.7.7.7.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "303",
+      "title": "He decidido seguir a Cristo",
+      "tune": "ASSAM",
+      "authors": "Anónimo",
+      "meter": "10.10.10.8",
+      "tune_sources": "Melodía folclórica de la India"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "304",
+      "title": "Padre te adoro",
+      "tune": "MARANATHA",
+      "authors": "Terrye Coelho; Anónimo",
+      "composers": "Terrye Coelho"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "305",
+      "title": "Fuera con nuestro temor",
+      "tune": "PERERA",
+      "authors": "Homero R. Perera",
+      "composers": "Homero R. Perera"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "306",
+      "title": "Yo, el Dios de cielo y mar",
+      "tune": "HERE I AM, LORD",
+      "authors": "Dan Schutte; Evelyn Robert-Olivieri",
+      "composers": "Dan Schutte; Carlton R. Young"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "307",
+      "title": "Te ofrecemos nuestros dones",
+      "tune": "TALLER",
+      "authors": "Walter Vivares",
+      "composers": "Edwin Mora",
+      "meter": "8.8.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "308",
+      "title": "Satúranos, Señor",
+      "tune": "SATÚRAME",
+      "authors": "Anónimo",
+      "composers": "Anónimo; Samuel Pascoe",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "309",
+      "title": "Libertador de Nazaret",
+      "tune": "LIBERTADOR",
+      "composers": "Carmelo Erdozain"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "310",
+      "title": "Haz lo que quieras, Señor, de mí",
+      "tune": "ADELAIDE",
+      "authors": "Adelaide A. Pollard; Ernesto Barocio",
+      "composers": "George C. Stebbins",
+      "meter": "9.9.9.9"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "311",
+      "title": "Abram, ¿por qué te vas lejos?",
+      "tune": "ABRAM",
+      "authors": "Emilio Monti",
+      "composers": "Homero R. Perera",
+      "meter": "8.7.8.7.8.7",
+      "text_sources": "Basado en Génesis 12:1-4"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "312",
+      "title": "A este santo templo",
+      "tune": "CARNAVALITO",
+      "authors": "Mortimer Arias",
+      "composers": "Antonio Auza P."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "313",
+      "title": "Tú has venido a la orilla (You have come down)",
+      "tune": "PESCADOR",
+      "authors": "Cesáreo Gabaráin; Madeleine F. Marshall",
+      "composers": "Cesáreo Gabaráin; Skinner Chávez-Melo",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "314",
+      "title": "Canto de alegría",
+      "tune": "ARGENTINA",
+      "authors": "Anónimo; Luis Olivieri",
+      "composers": "Anónimo; Skinner Chávez-Melo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "315",
+      "title": "Canto un nuevo canto en el mundo",
+      "tune": "NOVA CANÇAO",
+      "authors": "Simei Monteiro",
+      "composers": "Simei Monteiro",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "316",
+      "title": "Del más lejano oriente",
+      "tune": "TEMIXCO",
+      "authors": "Juan B. Cabrera",
+      "composers": "Samuel Pascoe"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "317",
+      "title": "Caminemos a la luz de Dios",
+      "tune": "SIYAHAMBA",
+      "authors": "Anónimo",
+      "composers": "Anónimo",
+      "text_sources": "Basado en Salmo 89:15",
+      "tune_sources": "Canto sud-africano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "318",
+      "title": "No basta sólo una mano",
+      "tune": "CHACARERA",
+      "authors": "Juan Damián",
+      "composers": "Irene S. de Álvarez"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "319",
+      "title": "Enviado soy de Dios",
+      "tune": "ENVIADO",
+      "authors": "Anónimo",
+      "tune_sources": "Canto de Nicaragua"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "320",
+      "title": "La gente de nuestro tiempo",
+      "tune": "AMOR ES",
+      "authors": "Jorge Clark Ramírez",
+      "composers": "Jorge Clark Ramírez; Elena Cortéz de Guzmán; Betty N. de Alexander"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "321",
+      "title": "Dios hoy nos llama (God calls his people now)",
+      "tune": "MOMENTO NOVO",
+      "authors": "Ernesto Barocio Cardoso; Pablo Sosa; Sonya Ingwersen",
+      "composers": "Ernesto Barocio Cardoso",
+      "text_sources": "y otros (Brasil)",
+      "tune_sources": "y otros (Brasil)"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "322",
+      "title": "Sois la semilla",
+      "tune": "ID Y ENSEÑAD",
+      "authors": "Cesáreo Gabaráin",
+      "composers": "Cesáreo Gabaráin; Skinner Chávez-Melo",
+      "text_sources": "Basado en Mateo 5 y 6"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "323",
+      "title": "Y andaremos por el mundo",
+      "tune": "FE Y ESPERANZA VIVA",
+      "authors": "Eseario Sosa Rodríguez",
+      "composers": "Eseario Sosa Rodríguez"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "324",
+      "title": "Yo soy sal de mi tierra",
+      "tune": "YO SOY SAL",
+      "authors": "Anónimo",
+      "composers": "Anónimo",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "325",
+      "title": "Entre el vaivén de la ciudad",
+      "tune": "GERMANY",
+      "authors": "Frank Mason North; Anónimo",
+      "composers": "William Gardiner",
+      "meter": "8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "326",
+      "title": "Dios santísimo que en gloria",
+      "tune": "DULCE CARMEN",
+      "authors": "Germán Díaz Pérez",
+      "composers": "J. M. Haydn",
+      "meter": "8.7.8.7.8.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "327",
+      "title": "Cristo te necesita para amar",
+      "tune": "CRISTO TE NECESITA",
+      "authors": "Cesáreo Gabaráin",
+      "composers": "Cesáreo Gabaráin; Roberto Milano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "328",
+      "title": "Cristo está buscando obreros",
+      "tune": "OBREROS",
+      "authors": "J. O. Thompson; Vicente Mendoza",
+      "composers": "J. B. Clemm"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "329",
+      "title": "Amarte sólo a ti, Señor",
+      "tune": "AMARTE",
+      "authors": "Anónimo",
+      "composers": "Anónimo",
+      "meter": "8.6.8.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "330",
+      "title": "Jesús trae una noticia",
+      "tune": "JETRA",
+      "authors": "Alejandro Zorzín",
+      "composers": "Alejandro Zorzín",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "331",
+      "title": "Por Cristo y por su reino",
+      "tune": "MILANO",
+      "authors": "Federico J. Pagura",
+      "composers": "Roberto Milano",
+      "meter": "7.6.7.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "332",
+      "title": "¿Quieres tú seguir a Cristo?",
+      "tune": "BEACON HILL",
+      "authors": "Earl Marlatt; S. D. Athans",
+      "composers": "Harry S. Mason"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "333",
+      "title": "Corre el viento",
+      "tune": "PERDÓN, SEÑOR",
+      "authors": "Homero Perera",
+      "composers": "Homero Perera"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "334",
+      "title": "Tocando a tu puerta están",
+      "tune": "SOMEBODY'S KNOCKING",
+      "authors": "Evelyn Robert-Olivieri",
+      "composers": "Joy F. Patterson",
+      "meter": "Irregular",
+      "text_sources": "Espiritual áfrico-americano",
+      "tune_sources": "Espiritual áfrico-americano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "335",
+      "title": "En el hambre de nuestra ignorancia",
+      "tune": "ZAMBA DE CONFESIÓN",
+      "authors": "Hugo Armand Pilón; Alvaro Michelin Salomón",
+      "composers": "Hugo Armand Pilón; Alvaro Michelin Salomón"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "336",
+      "title": "Cuan lejano el occidente",
+      "tune": "URDANETA",
+      "authors": "Rafael Enrique Urdaneta",
+      "composers": "Rafael Enrique Urdaneta",
+      "meter": "Irregular",
+      "text_sources": "Basado en Salmo 103:12-14"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "337",
+      "title": "A ti, Señor, te pedimos",
+      "tune": "CHILE",
+      "authors": "Ulises Torres",
+      "meter": "8.8.8.8",
+      "tune_sources": "Melodía popular chilena"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "338",
+      "title": "Si fui motivo de dolor, Señor",
+      "tune": "CAMACUÁ",
+      "authors": "C. M. Battersby; Sara M. de Hall",
+      "composers": "Pablo D. Sosa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "339",
+      "title": "Como el ciervo al agua va",
+      "tune": "MEJÍA",
+      "authors": "Alejandro Mejía",
+      "composers": "Alejandro Mejía; Delbert Asay"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "340",
+      "title": "Bienaventurados los pobres",
+      "tune": "PICARDY",
+      "authors": "Alberto Taulé",
+      "tune_sources": "Melodía tradicional francesa; S. XVII"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "341",
+      "title": "Grande gozo hoy en mi alma hoy",
+      "tune": "SUNSHINE",
+      "authors": "Eliza E. Hewitt; Anónimo",
+      "composers": "John R. Sweney"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "342",
+      "title": "En Jesucristo, puerto de paz",
+      "tune": "ASSURANCE",
+      "authors": "Fanny Crosby; E. A. Monfort Díaz",
+      "composers": "Phoebe Knapp"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "343",
+      "title": "Después, Señor, de haber tenido aquí",
+      "tune": "ELLERS",
+      "authors": "John Ellerton; Vicente Mendoza",
+      "composers": "Edward J. Hopkins",
+      "meter": "10.10 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "344",
+      "title": "El Señor es mi fuerza",
+      "tune": "FUERZA Y ROCA",
+      "authors": "Juan Antonio Espinosa",
+      "composers": "Juan Antonio Espinosa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "345",
+      "title": "Bálsamo de amor hay en Galaad",
+      "tune": "BALM IN GILEAD",
+      "authors": "Evelyn Robert-Olivieri; Oscar Rodríguez",
+      "meter": "Irregular",
+      "text_sources": "Espiritual áfrico-americano",
+      "tune_sources": "Espiritual áfrico-americano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "346",
+      "title": "Si dejas tú que Dios te guíe",
+      "tune": "WER NUR DEN LIEBEN GOTT",
+      "authors": "Georg Neumark; Catherine Winkworth; Adolfo Robelto",
+      "composers": "Georg Neumark",
+      "meter": "9.8.9.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "347",
+      "title": "Dulce comunión",
+      "tune": "SHOWALTER",
+      "authors": "Elisha A. Hoffman; Pedro Grado",
+      "composers": "Anthony J. Showalter"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "348",
+      "title": "¡Oh! Amor, que no me dejarás",
+      "tune": "ST. MARGARET",
+      "authors": "George Matheson; Vicente Mendoza",
+      "composers": "Albert L. Peace",
+      "meter": "8.8.8.8.6"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "349",
+      "title": "¡Oh, qué amigo nos es Cristo!",
+      "tune": "CONVERSE",
+      "authors": "Joseph Scriven; Leandro Garza Mora",
+      "composers": "Charles C. Converse",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "350",
+      "title": "Sobre las alas de las águilas",
+      "tune": "ON EAGLE'S WINGS",
+      "authors": "Michael Joncas; Luis Olivieri",
+      "composers": "Michael Joncas; Carlton R. Young",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "351",
+      "title": "Oh, Dios de mi alma",
+      "tune": "SLANE",
+      "authors": "Anónimo; Mary E. Byne; E. Hull; Federico J. Pagura",
+      "composers": "Anónimo",
+      "meter": "10.10.9.10",
+      "text_sources": "Anónimo irlandés",
+      "tune_sources": "Melodía tradicional irlandesa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "352",
+      "title": "Del alba al despuntar",
+      "tune": "LAUDES DOMINI",
+      "authors": "Edward Caswall; Anónimo",
+      "composers": "Joseph Barnby",
+      "meter": "6.6.6.6.6.6",
+      "text_sources": "<cite>Katolisches Gesangbuch</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "353",
+      "title": "Si se cae la esperanza",
+      "tune": "CALEB",
+      "authors": "Eseario Sosa Rodríguez; Carlos Ruiz",
+      "composers": "Eseario Sosa Rodríguez; Carlos Ruiz; Emanuel Olivieri",
+      "meter": "Irregular",
+      "text_sources": "Basado en un canción de Carlos Ruiz"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "354",
+      "title": "No os afanéis",
+      "tune": "NO OS AFANÉIS",
+      "composers": "Pablo Fernández Badillo",
+      "meter": "Irregular",
+      "text_sources": "Basado en San Mateo 6:25-34"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "355",
+      "title": "En medió de la vida",
+      "tune": "BOLIVIANO",
+      "authors": "Mortimer Arias",
+      "composers": "Antonio Auza; Homero Perera"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "356",
+      "title": "Día y noche",
+      "tune": "DAY AND NIGHT",
+      "authors": "Anónimo; Evelyn Robert-Olivieri",
+      "composers": "Luigi Zanginelli",
+      "tune_sources": "Espiritual áfrico-americano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "357",
+      "title": "Cuando vienen a la vida, sombras",
+      "tune": "RODNEY",
+      "authors": "Shirley Erena Murray; Raquel Gutiérrez-Achón; George Lockwood",
+      "composers": "Carlton R. Young",
+      "meter": "8.7.8.7.8.7.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "358",
+      "title": "Conmigo vaya mi buen Jesús",
+      "tune": "SOJOURNER",
+      "authors": "Oscar L. Rodríguez",
+      "meter": "Irregular",
+      "text_sources": "Espiritual áfrico-americano",
+      "tune_sources": "Espiritual áfrico-americano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "359",
+      "title": "¿Cómo podré estar triste?",
+      "tune": "SPARROW",
+      "authors": "Civilla D. Martin; Vicente Mendoza",
+      "composers": "Charles H. Gabriel"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "360",
+      "title": "Todas las promesas",
+      "tune": "PROMISES",
+      "authors": "R. Kelso Carter; Vicente Mendoza",
+      "composers": "R. Kelso Carter"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "361",
+      "title": "Castillo fuerte es nuestro Dios",
+      "tune": "EIN' FESTE BURG",
+      "authors": "Martín Lutero; F. H. Hedge; J. B. Cabrera",
+      "composers": "Martín Lutero",
+      "meter": "8.7.8.7.6.6.6.6.7"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "362",
+      "title": "Nada te turbe",
+      "tune": "ÁVILA",
+      "authors": "Santa Teresa de Jesús (Ávila)",
+      "composers": "Jacques Berthier",
+      "tune_sources": "Cantos de Taizé"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "363",
+      "title": "Bellas tus moradas son",
+      "tune": "MAIDSTONE",
+      "authors": "Henry Francis Lyte; Anónimo",
+      "composers": "W. B. Gilbert",
+      "meter": "7.7.7.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "364",
+      "title": "Busca primero el reino de Dios",
+      "tune": "SEEK YE",
+      "authors": "Karen Lafferty; Anónimo; Anónimo",
+      "composers": "Karen Lafferty",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "365",
+      "title": "Yahvé, justicia mía",
+      "tune": "JUSTICIA MIA",
+      "authors": "Anónimo; Luis Olivieri",
+      "composers": "Anónimo; Luis F. del Pilar; Emanuel Olivieri",
+      "text_sources": "Basado en Hebreos 8:10-11"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "366",
+      "title": "A ti, Señor, omnipotente Dios",
+      "tune": "NATIONAL HYMN",
+      "authors": "Daniel C. Roberts; Juanita R. de Balloch",
+      "composers": "George W. Warren",
+      "meter": "10.10.10.10"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "367",
+      "title": "Nuestra esperanza y protección",
+      "tune": "ST. ANNE",
+      "authors": "Isaac Watts; Federico J. Pagura",
+      "composers": "William Croft",
+      "meter": "8.6.8.6",
+      "text_sources": "Paráfrasis del Salmo 90"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "368",
+      "title": "A cualquiera parte",
+      "tune": "ANYWHERE",
+      "authors": "Jessie H. Brown; Anónimo",
+      "composers": "D. B. Towner"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "369",
+      "title": "Oh Dios de lo creado",
+      "tune": "LLANGLOFFAN",
+      "authors": "Jane Parker Huber; Ana Inés Braulio-Corchado",
+      "meter": "7.6.7.6 D",
+      "tune_sources": "Melodía folclórica galesa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "370",
+      "title": "¡Qué lindo! ¡Cuánta belleza, oh Dios!",
+      "tune": "MUNDO BELLO",
+      "authors": "Juan A. Gattinoni",
+      "composers": "Juan A. Gattinoni"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "371",
+      "title": "Dios hizo al agua cristalina",
+      "tune": "ECOLOGÍA",
+      "authors": "Olov Hartman; Pablo D. Sosa",
+      "composers": "Bertil Hallin"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "372",
+      "title": "Dios nos hizo mayordomos",
+      "tune": "MAYORDOMÍA",
+      "authors": "Lois C. Kroehler",
+      "composers": "Lois C. Kroehler",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "373",
+      "title": "El mundo es de Dios",
+      "tune": "TERRA BEATA",
+      "authors": "Maltbie D. Babcock; Luis Olivieri; George P. Simmonds",
+      "composers": "Franklin L. Sheppard",
+      "meter": "6.6.8.6 D",
+      "tune_sources": "Melodía tradicional inglesa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "374",
+      "title": "Para esta tierra sin luz",
+      "tune": "NACE EL SEÑOR",
+      "authors": "Juan Antonio Espinosa",
+      "composers": "Juan Antonio Espinosa; Jorge Lockward",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "375",
+      "title": "Su nombre es “El Señor”",
+      "tune": "CON NOSOTROS ESTÁ",
+      "authors": "José A. Olivar",
+      "composers": "Miguel Manzano; M. Martínez"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "376",
+      "title": "Por esta vida",
+      "tune": "HARLING",
+      "authors": "Per Harling; Juan Gattinoni",
+      "composers": "Per Harling; Carlton R. Young",
+      "meter": "11.10.11.10"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "377",
+      "title": "Bienaventurados seremos",
+      "tune": "BIENAVENTURADOS",
+      "authors": "Emilio Vicente Mateu",
+      "composers": "Emilio Vicente Mateu",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "378",
+      "title": "Cuando el pobre nada tiene",
+      "tune": "EL CAMINO",
+      "authors": "J. A. Olivar; Miguel Manzano",
+      "composers": "J. A. Olivar; Miguel Manzano; Alvin Schutmaat",
+      "meter": "12.11.12.11.11"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "379",
+      "title": "Danos un corazón",
+      "tune": "GENTE NUEVA",
+      "authors": "Juan A. Espinosa",
+      "composers": "Juan A. Espinosa; Samuel Pascoe"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "380",
+      "title": "Libertad",
+      "tune": "LIBERTAD",
+      "authors": "Mabel García",
+      "meter": "Irregular",
+      "text_sources": "Campamento de Jóvenes Metodistas, Ing. Maschwitz, Buenos Aires",
+      "tune_sources": "Campamento de Jóvenes Metodistas, Ing. Maschwitz, Buenos Aires"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "381",
+      "title": "La mano de Dios",
+      "tune": "MANO DE DIOS",
+      "authors": "Patrick Prescod; Lois C. Kroehler",
+      "composers": "Noel Dexter",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "382",
+      "title": "En nuestra tierra bendita",
+      "tune": "TAKIRARI",
+      "authors": "Germán Arakaky; Dehissy Arakaky",
+      "composers": "Germán Arakaky; Dehissy Arakaky",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "383",
+      "title": "Hazme un instrumento de tu paz",
+      "tune": "SAN FRANCISCO",
+      "authors": "Sebastian Temple; San Francisco de Asís; Anónimo",
+      "composers": "Sebastian Temple",
+      "meter": "Irregular",
+      "text_sources": "Peoma original de San Francisco de Asís"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "384",
+      "title": "¡Aleluya! ¡Aleluya! Viene a nosotros",
+      "tune": "TRIANA",
+      "composers": "Clara Luz Ajo Lázaro",
+      "text_sources": "De La Misa Cubana"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "385",
+      "title": "Hemos de triunfar",
+      "tune": "MARTIN",
+      "authors": "Anónimo",
+      "meter": "Irregular",
+      "text_sources": "Tradicional áfrico-americano",
+      "tune_sources": "Tradicional áfrico-americano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "386",
+      "title": "Vienen con alegría",
+      "tune": "GABARAÍN",
+      "authors": "Cesáreo Gabaráin",
+      "composers": "Cesáreo Gabaráin; Samuel Pascoe"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "387",
+      "title": "Vos sos el Dios de los pobres",
+      "tune": "GODOY",
+      "authors": "Carlos Mejía Godoy",
+      "meter": "Irregular",
+      "tune_sources": "Misa Campesina Nicaragüense"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "388",
+      "title": "Hoy en grandes ciudades vivimos",
+      "tune": "MEGALÓPOLIS",
+      "authors": "João Dias; Federico J. Pagura",
+      "composers": "João Faustini",
+      "meter": "10.9.10.9."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "389",
+      "title": "Cuando se va la esperanza",
+      "tune": "ESPERANZA",
+      "authors": "Esther Cámac",
+      "composers": "Edwin Mora Guevara; Samuel Pascoe"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "390",
+      "title": "No se turbe vuestro corazón",
+      "tune": "SIGUATEPEQUE",
+      "composers": "René Castillo; Wyatt Sutton P.",
+      "text_sources": "Basado en Juan 14:1"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "391",
+      "title": "El botón es flor mañana",
+      "tune": "PROMISE",
+      "authors": "Natalie Sleeth; Oscar L. Rodríguez",
+      "composers": "Natalie Sleeth",
+      "meter": "8.7.8.7 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "392",
+      "title": "Oh, ven, carroza",
+      "tune": "SWING LOW",
+      "authors": "George P. Simmonds",
+      "composers": "George P. Simmonds",
+      "meter": "Irregular",
+      "tune_sources": "Espiritual áfrico-americano"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "393",
+      "title": "Gloriosos ángeles, alzad",
+      "tune": "LASST UNS ERFREUEN",
+      "authors": "Athleson Laurie Riley; Anónimo",
+      "tune_sources": "Geistliche Kirchengesang, Cologne, 1623"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "394",
+      "title": "¡Alzad la Cruz!",
+      "tune": "CRUCIFER",
+      "authors": "George W. Kitchin; Michael R. Newbolt; Skinner Chávez-Melo",
+      "composers": "Sidney H. Nicholson"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "395",
+      "title": "Ven Tú, ¡oh Rey eterno!",
+      "tune": "LANCASHIRE",
+      "authors": "Ernest W. Shurtleff; Angel Archilla Cabrera",
+      "composers": "Henry Thomas Smart",
+      "meter": "7.6.7.6 D"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "396",
+      "title": "Cuando el Señor nos libre",
+      "tune": "MARASCHIN",
+      "authors": "Jaci C. Maraschin; José A. Valenzuela",
+      "composers": "Jaci C. Maraschin"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "397",
+      "title": "Porqué Él entró en el mundo",
+      "tune": "TENEMOS ESPERANZA",
+      "authors": "Federico J. Pagura",
+      "composers": "Homero R. Perera"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "398",
+      "title": "¡Oh Cristo de infinito amor!",
+      "tune": "MELITA",
+      "authors": "Frank Mason North; Federico J. Pagura; Federico J. Pagura",
+      "composers": "John B. Dykes",
+      "meter": "8.8.8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "399",
+      "title": "Los designios de nuestro Dios",
+      "tune": "PURPOSE",
+      "authors": "Arthur Campbell Ainger; Federico J. Pagura",
+      "composers": "Martin Shaw",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "400",
+      "title": "De los cuatro rincones del mundo",
+      "tune": "QUINIENTOS AÑOS",
+      "authors": "Justo L. González; George Lockwood",
+      "composers": "George Lockwood"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "401",
+      "title": "Un poco después del presente",
+      "tune": "ESPERANZA DEL MUNDO",
+      "authors": "Silvio Meincke; Pablo D. Sosa",
+      "composers": "João Carlos Gottinari; Edmundo Reinhardt; Jorge A. Lockward",
+      "text_sources": "Portugués"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "402",
+      "title": "¡Qué tremendos, decisivos!",
+      "tune": "BLAENHAFREN",
+      "authors": "Arthur C. Coxe; Federico J. Pagura",
+      "meter": "8.7.8.7 D",
+      "tune_sources": "Melodía galesa anónima"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "403",
+      "title": "Sobre estas tierras",
+      "tune": "PERÚ",
+      "authors": "Federico J. Pagura",
+      "composers": "Alejandro Nuñez Allauca; Alvin Schutmaat"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "404",
+      "title": "Una historia diremos al mundo",
+      "tune": "MESSAGE",
+      "authors": "H. Ernest Nichol; Juanita R. de Balloch; Maxine C. Wight",
+      "composers": "H. Ernest Nichol"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "405",
+      "title": "Salmo 1–Es como el árbol de ausubo",
+      "tune": "SALMO 1",
+      "composers": "William Loperena; Pedro Flores",
+      "tune_sources": "Basada en un motive melódico de Pedro Flores"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "406",
+      "title": "Salmo 5–Escucha, oh Dios, Tú, mis palabras",
+      "tune": "AUX PAROLES",
+      "authors": "Clément Marot; Valentin Conrart; A. V. de Soggin",
+      "composers": "Louis Bourgeois",
+      "meter": "9.8.8.9.5"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "407",
+      "title": "Salmo 8–Muchas y grandes tus obras",
+      "tune": "SALMO 8",
+      "authors": "Joseph R. Renville; Philip Frazier; Alberto Merubia",
+      "composers": "Richard Proulx",
+      "tune_sources": "Antigua melodía norteamericana"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "408",
+      "title": "Salmo 15–¿Quién, mi Señor, habitará?",
+      "tune": "NIGHTFALL",
+      "authors": "Juan Bautista Cabrera",
+      "composers": "Joseph Barnby",
+      "meter": "11.11.11.5"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "409",
+      "title": "Salmo 19–Los cielos cuentan las obras",
+      "tune": "SALMO 19",
+      "composers": "Franz Joseph Haydn",
+      "text_sources": "Texto bíblicos de la Santa Biblia Versión Reina-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "410",
+      "title": "Salmo 22–Dios mío, Dios mío",
+      "tune": "SALMO 22",
+      "composers": "John Schiavone",
+      "text_sources": "Texto bíblicos de la Santa Biblia Versión Reina-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "411",
+      "title": "Salmo 23–El Señor es mi Pastor",
+      "tune": "GELINEAU",
+      "composers": "Joseph Gelineau",
+      "meter": "Irregular",
+      "text_sources": "De 42 Salmos de Cantar"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "412",
+      "title": "Salmo 23–Es Yahvé mi Pastor",
+      "tune": "GUAJIRA",
+      "composers": "Alfredo Morales",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "413",
+      "title": "Salmo 23–El Señor es mi Pastor",
+      "tune": "BOLIVIA",
+      "authors": "Ricardo Villaroel",
+      "composers": "Ricardo Villaroel",
+      "text_sources": "Basado en el Salmo 23"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "414",
+      "title": "Salmo 23–Es el Señor mi buen pastor",
+      "tune": "MAROSA",
+      "authors": "Federico J. Pagura",
+      "composers": "James L. M. Blain",
+      "meter": "8.6.8.6.8.6",
+      "text_sources": "Salterio Escocés; Basado en el Salmo 23"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "415",
+      "title": "Salmo 25:1, 4-9–A ti, Señor",
+      "tune": "SALMO 25",
+      "text_sources": "Texto bíblicos de la Santa Biblia Versión Reina-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "416",
+      "title": "Salmo 27–El Señor es mi luz",
+      "tune": "CARTFORD",
+      "composers": "Gerhard Cartford; Anónimo",
+      "text_sources": "Salmo 27, adapt."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "417",
+      "title": "Salmo 31–Haz resplanecer tu rostro",
+      "tune": "GLÁUCIA",
+      "composers": "Jay Wilkey",
+      "text_sources": "Texto bíblicos de la Santa Biblia Versión Reina-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "418",
+      "title": "Salmo 34–Bendeciré al Señor",
+      "tune": "BENDECIRÉ AL SEÑOR",
+      "composers": "Anónimo; Felipe Blycker"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "419",
+      "title": "Salmo 37–Los que esperan en Jehová",
+      "tune": "SALMO 37",
+      "composers": "Felicia Fina",
+      "text_sources": "Texto bíblicos de la Santa Biblia Versión Reina-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "420",
+      "title": "Salmo 42–Como el ciervo ansioso brama",
+      "tune": "PSALM 42",
+      "authors": "Théodore de Bèze; M. Gutiérrez Marín; F.J. Pagura",
+      "composers": "Louis Bourgeois",
+      "meter": "8.7.8.7.7.7.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "421",
+      "title": "Salmo 42–Mi alma tiene sed de Dios",
+      "tune": "DOMINICOS",
+      "authors": "Luis Olivieri",
+      "composers": "William Loperena; Luis Olivieri; Roberto Milano",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "422",
+      "title": "Salmo 43–Envía tu luz tu verdad",
+      "tune": "SALMO 43",
+      "composers": "Joseph Gelineau; E.G.A.",
+      "text_sources": "Texto bíblicos de la Santa Biblia Versión Reina-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "423",
+      "title": "Salmo 46–Dios es nuestro amparo",
+      "tune": "[Dios es nuestro amparo y fortaleza]",
+      "authors": "Martín Lutero; Juan Bautista Cabrera",
+      "composers": "Martín Lutero",
+      "text_sources": "Textos bíblicos de la Santa Biblia Versión-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "423",
+      "title": "Salmo 46–Dios es nuestro amparo",
+      "tune": "SALMO 46",
+      "composers": "Desconocido",
+      "text_sources": "Textos bíblicos de la Santa Biblia Versión-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "424",
+      "title": "Salmo 51:1-12–Misericordia, Señor",
+      "tune": "SALMO 51",
+      "composers": "John Schiavone",
+      "text_sources": "Textos bíblicos de la Santa Biblia Versión-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "425",
+      "title": "Salmos 65–Nuestra alabanza, Dios, aceptas",
+      "tune": "O DIEU! C'EST DANS TA SION",
+      "authors": "Théodore de Bèze; I. J. de Ribeiro",
+      "composers": "Louis Bourgeois"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "426",
+      "title": "Salmo 66–Canten a Dios con alegría",
+      "tune": "SALMO 66",
+      "composers": "Pedro Escabí",
+      "text_sources": "Textos bíblicos de la Santa Biblia Versión-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "427",
+      "title": "Salmo 72–Están en tu mano, Señor",
+      "tune": "HERMANAS JESÚS MEDIADOR",
+      "authors": "Luis Olivieri",
+      "composers": "Pedro Escabí",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "428",
+      "title": "Salmo 6:1-6 Cuenten a todos los pueblos",
+      "tune": "SALMO 96",
+      "composers": "Manuel F. García; Craig Kingsbury"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "429",
+      "title": "Salmo 98–Cantad a Jehová un cántico nuevo",
+      "tune": "SALMO 98",
+      "composers": "Luis Olivieri; Pedro Escabí",
+      "text_sources": "Textos bíblicos de la Santa Biblia Versión-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "430",
+      "title": "Salmo 100–Celebrad con júbilo al Señor",
+      "tune": "SALMO 100 (FAUSTINI)",
+      "composers": "João Wilson Faustini",
+      "text_sources": "Textos bíblicos de la Santa Biblia Versión-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "431",
+      "title": "Salmo 100–Venid ante el Señor",
+      "tune": "SALMO 100 (GELINEAU)",
+      "composers": "Joseph Gelineau",
+      "text_sources": "Textos bíblicos de la Santa Biblia Versión-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "432",
+      "title": "Salmo 103–El Señor es compasivo",
+      "tune": "SALMO 103",
+      "composers": "John Schiavone",
+      "text_sources": "Textos bíblicos de la Santa Biblia Versión-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "433",
+      "title": "Salmo 116:13–¿Qué daré yo al Señor?",
+      "tune": "MI OFERTORIO",
+      "composers": "Carmelo Ruta",
+      "meter": "Irregular",
+      "tune_sources": "Liturgia Luterana Provisional"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "434",
+      "title": "Salmo 110:1-16–Me alegré con tus leyes",
+      "tune": "SALMO 119",
+      "composers": "Pedro Flores; William Loperena",
+      "tune_sources": "Basado en un motivo melódico de Pedro Flores"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "435",
+      "title": "Salmo 121–Alzaré mis ojos a los montes",
+      "tune": "MI SOCORRO",
+      "composers": "Anónimo",
+      "tune_sources": "Arr. Casa Bautista de Publicaciones"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "436",
+      "title": "Salmo 130–En Dios pongo mi esperanza",
+      "tune": "SALMO 130",
+      "composers": "Joseph Gelineau",
+      "text_sources": "Textos bíblicos de la Santa Biblia Versión-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "437",
+      "title": "Salmo 138:4-6–Te alabarán, oh Jehová",
+      "tune": "QUISQUEYA",
+      "composers": "Jorge Lockward",
+      "text_sources": "Basado en Salmo 138:4-6",
+      "tune_sources": "Tradicional latinoamericana"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "438",
+      "title": "Salmo 148–Te alabamos, Dios",
+      "tune": "SALMO 148",
+      "composers": "Leon Roberts; Jeffrey Radford",
+      "text_sources": "Textos bíblicos de la Santa Biblia Versión-Valera Revisión de 1995."
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "439",
+      "title": "Salmo 150–Alabad a Dios en su santuario",
+      "tune": "SANTUARIO",
+      "authors": "Anónimo",
+      "composers": "Anónimo",
+      "meter": "Irregular",
+      "text_sources": "Basado en Salmo 150"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "440",
+      "title": "Salmo 150–¡Aleluya, aleluya, aleluya!",
+      "tune": "PROEZAS",
+      "composers": "Juan Luis García",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "441",
+      "title": "Salmo 150–Lo que respira alabe a Jehová",
+      "tune": "ALABADLE",
+      "authors": "Anónimo",
+      "composers": "Anónimo",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "442",
+      "title": "Bendito sea Dios",
+      "tune": "VENTURA",
+      "composers": "Ventura Romero",
+      "text_sources": "Apocalipsis 4:86"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "443",
+      "title": "Señor, ten piedad",
+      "tune": "CLARA LUZ",
+      "composers": "Clara Luz Ajo Lázaro; Pedro Triana",
+      "text_sources": "Canto litúrgico, Kyrie"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "444",
+      "title": "Señor, ten piedad",
+      "tune": "ORÉ PORIAJUVEREKÓ ÑANDEYARA",
+      "composers": "Anónimo",
+      "text_sources": "Canto litúrgico",
+      "tune_sources": "Paraguay"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "445",
+      "title": "Señor, ten piedad de nosotros",
+      "tune": "PANAMÁ",
+      "composers": "Toño Robira",
+      "text_sources": "Basado en el Salmo 51:1"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "446",
+      "title": "Señor, ten piedad",
+      "tune": "OLIVIERI",
+      "composers": "Luis Olivieri",
+      "text_sources": "Canto litúrgico, Kyrie"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "447",
+      "title": "Señor, ten piedad",
+      "tune": "KYRIE",
+      "composers": "Juan Luis García",
+      "text_sources": "Canto litúrgico, Kyrie"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "448",
+      "title": "Santo, Santo Dios",
+      "tune": "OLIVIERI",
+      "composers": "Carlos O. Morales",
+      "text_sources": "Canto litúrgico"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "449",
+      "title": "Gloria a Dios en el cielo",
+      "tune": "PLANAS-RUTA",
+      "composers": "D. Planas; Carmelo Ruta",
+      "text_sources": "Gloria in Excelsis Deo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "450",
+      "title": "Gloria a Dios en el cielo",
+      "tune": "XOCHIPILLI (GLORIA)",
+      "composers": "Skinner Chávez-Melo",
+      "text_sources": "Gloria in Excelsis Deo, de la “Misa Xochipilli.”"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "451",
+      "title": "Gloria a Dios en el cielo",
+      "tune": "ELSA",
+      "composers": "Pedro C. Escabí",
+      "text_sources": "Gloria in Excelsis Deo",
+      "tune_sources": "de la Misa en La Menor"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "452",
+      "title": "Gloria a Dios en las alturas",
+      "tune": "DANZA",
+      "composers": "José Antonio Ruiz",
+      "text_sources": "Gloria in Excelsis Deo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "453",
+      "title": "Creo en Dios",
+      "tune": "CREO EN DIOS",
+      "authors": "William Loperena",
+      "composers": "William Loperena",
+      "meter": "Irregular",
+      "tune_sources": "Folclore de Puerto Rico"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "454",
+      "title": "Santo",
+      "tune": "SANCTUS",
+      "composers": "Juan Luis García",
+      "text_sources": "Canto litúrgico, Sanctus"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "455",
+      "title": "Santo",
+      "tune": "SANCTUS (XOCHIPILLI)",
+      "composers": "Skinner Chávez-Melo",
+      "text_sources": "Canto litúrgico, Sanctus"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "456",
+      "title": "Santo",
+      "tune": "PLENERA",
+      "composers": "Luis Olivieri",
+      "text_sources": "Canto litúrgico, Sanctus"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "457",
+      "title": "Santo",
+      "tune": "REZA",
+      "composers": "Mary F. Reza; Joseph H. Abell",
+      "text_sources": "Canto litúrgico, Sanctus"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "458",
+      "title": "Santo",
+      "tune": "SAN JUAN BAUTISTA",
+      "composers": "Roberto Milano",
+      "text_sources": "Canto litúrgico, Sanctus"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "459",
+      "title": "Cristo ha muerto, Christo ha resucitado",
+      "tune": "ANÁMNESIS III",
+      "composers": "Juan Luis García",
+      "text_sources": "Canto litúrgico basado en Apocalipsis 22"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "460",
+      "title": "Padre nuestro",
+      "tune": "CHÁVEZ",
+      "composers": "Skinner Chávez-Melo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "461",
+      "title": "Padre nuestro",
+      "tune": "ESPINOSA",
+      "composers": "J. A. Espinosa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "462",
+      "title": "Padre nuestro",
+      "tune": "ESCABÍ",
+      "composers": "Pedro C. Escabí"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "463",
+      "title": "Padre nuestro",
+      "tune": "NIEVA",
+      "composers": "Ignacio Morales Nieva"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "464",
+      "title": "Cordero de Dios",
+      "tune": "PANAMERICANA",
+      "composers": "Vicente Bianchi",
+      "meter": "Irregular",
+      "text_sources": "Canto litúrgico, Agnus Dei"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "465",
+      "title": "Cordero de Dios",
+      "tune": "ARENAL",
+      "composers": "Skinner Chávez-Melo",
+      "meter": "Irregular",
+      "text_sources": "Canto litúrgico, Agnus Dei"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "466",
+      "title": "Cordero de Dios",
+      "tune": "GARCÍA",
+      "composers": "Juan Luis García",
+      "meter": "Irregular",
+      "text_sources": "Canto litúrgico, Agnus Dei"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "467",
+      "title": "Cordero de Dios",
+      "tune": "MEJORANA",
+      "composers": "Toño Robira",
+      "meter": "Irregular",
+      "text_sources": "Canto litúrgico, Agnus Dei",
+      "tune_sources": "<cite>La Santa Misa Criolla Panameña</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "468",
+      "title": "Cordero de Dios",
+      "tune": "RUIZ",
+      "composers": "José A. Ruiz",
+      "meter": "Irregular",
+      "text_sources": "Canto litúrgico, Agnus Dei"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "469",
+      "title": "Aleluya",
+      "tune": "INDIA",
+      "authors": "Anónimo; Pablo D. Sosa",
+      "composers": "Anónimo",
+      "text_sources": "India"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "470",
+      "title": "Aleluya, gloria a Dios",
+      "tune": "BOMBA",
+      "composers": "Rafael Cortijo",
+      "meter": "Irregular",
+      "text_sources": "Liturgia cristiana",
+      "tune_sources": "Arr. comité editorial de Himnario"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "471",
+      "title": "Ale, ale, ¡aleluya!",
+      "tune": "CARIBBEAN",
+      "meter": "Irregular",
+      "text_sources": "Tradicional litúrgico",
+      "tune_sources": "Tradicional del Caribe"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "472",
+      "title": "Alabemos al Señor",
+      "tune": "MUNGAKA",
+      "authors": "Pablo Sosa",
+      "text_sources": "Mungaka",
+      "tune_sources": "Melodía de Camerún"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "473",
+      "title": "Gloria al Padre Gloria Patri)",
+      "tune": "GREATOREX",
+      "composers": "Henry W. Greatorex",
+      "meter": "Irregular",
+      "text_sources": "Canto litúrgico, Gloria Patri"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "474",
+      "title": "Gloria sea al Padre–Gloria Patri",
+      "tune": "AGUINALDESCO",
+      "composers": "José A. Ruiz",
+      "meter": "Irregular",
+      "text_sources": "Canto litúrgico, Gloria Patri"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "475",
+      "title": "Gloria demos al Padre–Gloria Patri",
+      "tune": "MEINEKE",
+      "composers": "Charles Meineke",
+      "meter": "Irregular",
+      "text_sources": "Canto litúrgico, Gloria Patri"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "476",
+      "title": "A la divina Trinidad",
+      "tune": "AMARO",
+      "authors": "Anónimo",
+      "composers": "Benito Amaro"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "477",
+      "title": "A Jesús pertenecemos",
+      "tune": "LOWE",
+      "composers": "A. Lowe",
+      "text_sources": "Basado en Juan 15:10"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "478",
+      "title": "Gloria a Dios, el Creador–Doxologia",
+      "tune": "COUNTRY CLUB",
+      "composers": "Luis Olivieri",
+      "meter": "Irregular",
+      "text_sources": "Liitúrgico"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "479",
+      "title": "A Dios, el Padre celestial",
+      "tune": "OLD 100TH",
+      "authors": "Thomas Ken",
+      "composers": "Louis Bourgeois",
+      "meter": "8.8.8.8"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "480",
+      "title": "Eben-ezer",
+      "tune": "EBEN-EZER",
+      "authors": "anónimo",
+      "composers": "aAónimo"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "481",
+      "title": "Salgamos en nombre de Cristo",
+      "tune": "DESPEDIDA",
+      "composers": "Carlos O. Morales",
+      "meter": "Irregular",
+      "text_sources": "<cite>Libro de Oración Común</cite>"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "482",
+      "title": "Vamos, vamos a ofrendar (To the altar)",
+      "tune": "OFRENDA",
+      "authors": "Mary G. Pérez; Dimas Planas-Belfort",
+      "composers": "Mary G. Pérez; Angel M. Mattos, Hijo",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "483",
+      "title": "Mi alma glorifica al Señor mi Dios",
+      "tune": "CÁNTICO DE MARÍA",
+      "authors": "Francisco Palazón",
+      "composers": "Francisco Palazón; John Eggert",
+      "text_sources": "Magnificat (Lucas 1:47-55)"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "484",
+      "title": "Ahora, oh Dios, despide",
+      "tune": "NUNC DIMITTIS",
+      "composers": "Luis Olivieri",
+      "meter": "Irregular",
+      "text_sources": "Canto litúrgico, Nunc Dimittis"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "485",
+      "title": "Bendito el Señor y Dios",
+      "tune": "JE CHANTERAI, SEIGNEUR",
+      "authors": "B. Pictet; I. J. de Ribeiro",
+      "meter": "12.12.13.13",
+      "text_sources": "Cántico de Zacarías",
+      "tune_sources": "Salterio de Ginebra, 1562"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "486",
+      "title": "Amén",
+      "tune": "DANISH",
+      "tune_sources": "danesa"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "487",
+      "title": "Amén",
+      "tune": "DRESDEN",
+      "tune_sources": "alemana"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "488",
+      "title": "Amén",
+      "tune": "GREEK",
+      "tune_sources": "griega"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "489",
+      "title": "Compadécete de nosotros",
+      "tune": "COMPADÉCETE",
+      "authors": "Clara Luz Ajo Lázaro",
+      "composers": "Clara Luz Ajo Lázaro; Jorge Lockward"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "490",
+      "title": "Señor, apiádate de nosotros",
+      "tune": "SEÑOR, APIÁDATE",
+      "authors": "Anónimo",
+      "meter": "Irregular",
+      "tune_sources": "Melodía tradicional de Colombia"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "491",
+      "title": "Gloria, gloria",
+      "tune": "GLORIA CANON",
+      "composers": "Jacques Berthier"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "492",
+      "title": "Gloria a Dios (Glory to God)",
+      "tune": "MACHU-PICHU",
+      "composers": "Anónimo",
+      "text_sources": "Canto litúrgico"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "493",
+      "title": "¡Gloria en las alturas!",
+      "tune": "COMERÍA",
+      "authors": "William Loperena",
+      "composers": "William Loperena",
+      "meter": "Irregular",
+      "text_sources": "Basado en el Gloria in Excelsis",
+      "tune_sources": "Folclórica de Puerto Rico"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "494",
+      "title": "Gloria por siempre al Cordero de Dios",
+      "tune": "GLORIA AL CORDERO",
+      "composers": "Andrés Torres",
+      "meter": "Irregular"
+    },
+    {
+      "source": "ElHimnario",
+      "copyright_restriction": true,
+      "number": "495",
+      "title": "¡Gloria, gloria, gloria!",
+      "tune": "CUECA",
+      "composers": "Pablo D. Sosa"
+    }
+  ]
+}
