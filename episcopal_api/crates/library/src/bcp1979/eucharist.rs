@@ -2,7 +2,15 @@ use lazy_static::lazy_static;
 use liturgy::*;
 
 lazy_static! {
-    pub static ref PRAYERS_OF_THE_PEOPLE: Vec<Document> = vec![pop::FORM_I.clone()];
+    pub static ref PRAYERS_OF_THE_PEOPLE: Vec<Document> = vec![
+        pop::FORM_I.clone(),
+        pop::FORM_II.clone(),
+        pop::FORM_III.clone(),
+        pop::FORM_IV.clone(),
+        pop::FORM_V.clone(),
+        pop::FORM_V_KYRIE.clone(),
+        pop::FORM_VI.clone()
+    ];
 }
 
 mod pop {
@@ -201,5 +209,50 @@ mod pop {
             Document::from(Rubric::from("The Celebrant adds a concluding Collect, or the following Doxology")),
             Document::from(Text::from("For yours is the majesty, O Father, Son, and Holy Spirit; yours is the kingdom and the power and the glory, now and for ever.").response("Amen."))
         ])).version_label("Form V (Kyrie, eleison.)");
+
+        pub static ref FORM_VI: Document = Document::from(Series::from(vec![
+            Document::from(Heading::from((HeadingLevel::Heading3, "Form VI"))),
+            Document::from(Rubric::from("The Leader and People pray responsively")),
+            Document::from(Text::from("In peace, we pray to you, Lord God.")),
+            Document::from(Rubric::from("Silence")),
+            Document::from(ResponsivePrayer::from([
+                "For all people in their daily life and work;",
+                "For our families, friends, and neighbors, and for those who are alone.\n ",
+                "For this community, the nation, and the world;",
+                "For all who work for justice, freedom, and peace.\n ",
+                "For the just and proper use of your creation;",
+                "For the victims of hunger, fear, injustice, and oppression.\n ",
+                "For all who are in danger, sorrow, or any kind of trouble;",
+                "For those who minister to the sick, the friendless, and the needy.\n ",
+                "For the peace and unity of the Church of God;",
+                "For all who proclaim the Gospel, and all who seek the Truth.\n ",
+                "For [N. our Presiding Bishop, and N. (N.) our Bishop(s); and for] all bishops and other ministers;",
+                "For all who serve God in his Church.\n "
+            ])),
+            Document::from(Text::from("For the special needs and concerns of this congregation.")),
+            Document::from(Rubric::from("Silence\n\nThe People may add their own petitions")),
+            Document::from(ResponsivePrayer::from([
+                "Hear us, Lord;",
+                "For your mercy is great."
+            ])),
+            Document::from(Text::from("We thank you, Lord, for all the blessings of this life.")),
+            Document::from(Rubric::from("Silence\n\nThe People may add their own thanksgivings")),
+            Document::from(ResponsivePrayer::from([
+                "We will exalt you, O God our King;",
+                "And praise your Name for ever and ever."
+            ])),
+            Document::from(Text::from("We pray for all who have died, that they may have a place in your eternal kingdom.")),
+            Document::from(Rubric::from("Silence\n\nThe People may add their own petitions")),
+            Document::from(ResponsivePrayer::from([
+                "Lord, let your loving-kindness be upon them;",
+                "Who put their trust in you."
+            ])),
+            Document::from(Series::from(vec![
+                Document::from(Text::from("We pray to you also for the forgiveness of our sins.")),
+                Document::from(Rubric::from("Silence may be kept.\n\nLeader and People")),
+                Document::from(Text::from("Have mercy upon us, most merciful Father;\nin your compassion forgive us our sins,\nknown and unknown,\nthings done and left undone;\nand so uphold us by your Spirit\nthat we may live and serve you in newness of life,\nto the honor and glory of your Name;\nthrough Jesus Christ our Lord.").response("Amen.").display_format(DisplayFormat::Unison))
+            ])).optional(),
+            Document::from(Rubric::from("The Celebrant concludes with an absolution or a suitable Collect."))
+        ]));
     }
 }
