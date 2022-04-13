@@ -15,7 +15,7 @@ use actix_web::{
 use episcopal_api::{
     api::summary::DailySummary,
     calendar::Date,
-    hymnal::{HymnNumber, Hymnal, Hymnals, HYMNAL_1982, LEVAS, WLP},
+    hymnal::{HymnNumber, Hymnal, Hymnals, HYMNAL_1982, LEVAS, WLP, EL_HIMNARIO},
     liturgy::Document,
 };
 use lazy_static::lazy_static;
@@ -152,6 +152,7 @@ async fn hymnal_search_api(
         .map(|number| (Hymnals::Hymnal1982, number))
         .chain(LEVAS.search(search).map(|number| (Hymnals::LEVAS, number)))
         .chain(WLP.search(search).map(|number| (Hymnals::WLP, number)))
+        .chain(EL_HIMNARIO.search(search).map(|number| (Hymnals::ElHimnario, number)))
         .collect();
 
     web::Json(matches)

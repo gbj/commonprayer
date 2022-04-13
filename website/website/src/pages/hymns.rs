@@ -100,6 +100,7 @@ pub fn hydration_state(
                         .map(|number| (Hymnals::Hymnal1982, number))
                         .chain(LEVAS.search(&search).map(|number| (Hymnals::LEVAS, number)))
                         .chain(WLP.search(&search).map(|number| (Hymnals::WLP, number)))
+                        .chain(EL_HIMNARIO.search(&search).map(|number| (Hymnals::ElHimnario, number)))
                         .collect(),
                     search,
                 )
@@ -196,6 +197,7 @@ pub fn hymnal_body(
             (Some(Hymnals::Hymnal1982), t!("hymnal.h82_abbrev"), None),
             (Some(Hymnals::LEVAS), t!("hymnal.levas_abbrev"), None),
             (Some(Hymnals::WLP), t!("hymnal.wlp_abbrev"), None),
+            (Some(Hymnals::ElHimnario), t!("hymnal.el_himnario"), None),
         ],
         if hymnals.len() == 1 {
             hymnals.get(0).map(|h| h.id)
