@@ -686,10 +686,11 @@ fn edit_responsive_prayer(
             move |(idx, line)| {
                 view! {
                     <div>
-                        <dyn:input type="text"
-                            value={dyn_attr_once(&line)}
+                        <dyn:textarea type="text"
                             on:change=update_nth_item_in_vec!(root_doc, content, ResponsivePrayer, idx, |line: &mut String, val: String| *line = val)
-                        />
+                        >
+                            {line}
+                        </dyn:textarea>
                         <dyn:button
                             on:click=update_field!(root_doc, content, |content| {content.remove_at_index(idx); })
                         >

@@ -1,10 +1,12 @@
 use std::{convert::TryFrom, fmt::Display, str::FromStr};
-use strum_macros::{Display, EnumIter, EnumString};
+use strum_macros::{EnumIter, IntoStaticStr};
 
 use serde::{Deserialize, Serialize};
 
 /// Different versions that a liturgical [Document](crate::Document) could be (e.g., Rite I, Rite II, EOW)
-#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize, EnumIter)]
+#[derive(
+    Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize, EnumIter, IntoStaticStr,
+)]
 pub enum Version {
     /// 1979 Book of Common Prayer
     BCP1979,
@@ -86,6 +88,7 @@ impl TryFrom<&str> for Version {
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
+            "BCP1979" => Ok(Self::BCP1979),
             "1979" => Ok(Self::BCP1979),
             "RiteI" => Ok(Self::RiteI),
             "Rite I" => Ok(Self::RiteI),
@@ -93,8 +96,10 @@ impl TryFrom<&str> for Version {
             "Rite II" => Ok(Self::RiteII),
             "EOW" => Ok(Self::EOW),
             "BOS" => Ok(Self::BOS),
+            "LibroDeOracionComun" => Ok(Self::LibroDeOracionComun),
             "LOC" => Ok(Self::LibroDeOracionComun),
             "Expansive" => Ok(Self::Expansive),
+            "NRSVAE" => Ok(Self::NRSVAE),
             "NRSV" => Ok(Self::NRSV),
             "ESV" => Ok(Self::ESV),
             "KJV" => Ok(Self::KJV),

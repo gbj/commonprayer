@@ -2,11 +2,11 @@ Website Todos
 =============
 
 - [ ] Editor (to speed up liturgy creation)
-  - [x] Conversions
-  - [x] Choice
-  - [x] Litany
+  - [ ] Lectionary readings
+  - [ ] Preferences
   - [x] Rust code export
     - [ ] finish for additional types as needed
+    - [ ] export conditions
 - [x] Baptism
   - [ ] Add preferences
 - [ ] Hymnals

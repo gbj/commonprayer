@@ -6,6 +6,7 @@ use language::Language;
 use leptos::*;
 use liturgy::*;
 use serde::{Deserialize, Serialize};
+use status::Status;
 use std::str::FromStr;
 use strum::IntoEnumIterator;
 use to_rust_code::ToRustCode;
@@ -205,6 +206,32 @@ struct PathAndDocument {
     document: Document,
 }
 
+macro_rules! enum_metadata_field {
+    ($label:expr, $doc:expr, $enum_type:ty, $update:expr) => {
+        view! {
+            <label>
+                $label
+                <dyn:select
+                    on:change={
+                        let doc = $doc.clone();
+                        let update_value = $update;
+                        move |ev| {
+                            let v = $enum_type::from_str(&event_target_value(ev)).unwrap();
+                            doc.update(|doc| update_value(doc, v) );
+                        }
+                    }
+                >
+                    {View::Fragment(
+                        $enum_type::iter()
+                            .map(|variant| view! { <option>{variant.to_string()}</option> })
+                            .collect()
+                    )}
+                </dyn:select>
+            </label>
+        }
+    };
+}
+
 impl EditableDocument {
     pub fn view(&self) -> View {
         let metadata_open = Behavior::new(false);
@@ -251,7 +278,7 @@ impl EditableDocument {
                 }
                 on:dragover=|ev: Event| {
                     let ev: DragEvent = ev.unchecked_into();
-                    //ev.prevent_default();
+                    ev.prevent_default();
                 }
                 on:drop={
                     let path = self.path.clone();
@@ -264,8 +291,10 @@ impl EditableDocument {
                             if let Ok(start_path) = data_transfer.get_data("application/json") {
                                 if let Some(dest_path) = path.get() {
                                     let start_path: Vec<usize> = serde_json::from_str(&start_path).unwrap();
+                                    log(&format!("received move from {:?} to {:?}", start_path, dest_path));
                                     root_doc.update(|doc| {
-                                        doc.move_subdocument(&start_path, &dest_path);
+                                        let res = doc.move_subdocument(&start_path, &dest_path);
+                                        log(&format!("drop result = {:#?}", res))
                                     });
                                 }
                             }
@@ -363,43 +392,8 @@ impl EditableDocument {
                         />
                     </label>
 
-                     <label>
-                        "Language"
-                        <dyn:input type={dyn_attr_once("text")}
-                            on:change={
-                                let doc = self.document.clone();
-                                move |ev| {
-                                    let v = event_target_value(ev);
-                                    doc.update(move |doc| {
-                                        if v.is_empty() {
-                                            doc.subtitle = None;
-                                        } else {
-                                            doc.subtitle = Some(v.clone());
-                                        }
-                                    })
-                                }
-                            }
-                        />
-                        <dyn:select
-                            on:change={
-                                let doc = self.document.clone();
-                                move |ev| {
-                                    let v = Language::from_str(&event_target_value(ev)).unwrap();
-                                    doc.update(move |doc| {
-                                        doc.language = v;
-                                    })
-                                }
-                            }
-                        >
-                            {View::Fragment(
-                                Language::iter()
-                                    .map(|variant| view! { <option>{variant.to_string()}</option> })
-                                    .collect()
-                            )}
-                        </dyn:select>
-                    </label>
+                    {enum_metadata_field!("Language", self.document, Language, move |doc: &mut Document, value| { doc.language = value; })}
 
-                    // TODO: Source
                     <div class="source">
                         <label>
                             "Source"
@@ -450,32 +444,10 @@ impl EditableDocument {
                         </label>
                     </div>
                     // TODO: alternate_sources
-                    // TODO: Status
 
-                    // Display
-                    <label>
-                        "Display"
-                        <dyn:select on:change={
-                            let doc = self.document.clone();
-                            move |ev: Event| {
-                                let v = event_target_value(ev);
-                                doc.update(move |doc| match v.as_str() {
-                                    "Always" => doc.display = Show::Always,
-                                    "Hidden" => doc.display = Show::Hidden,
-                                    "TemplateOnly" => doc.display = Show::TemplateOnly,
-                                    "CompiledOnly" => doc.display = Show::CompiledOnly,
-                                    _ => doc.display = Show::Always
-                                });
-                            }
-                        }>
-                            <option>"Always"</option>
-                            <option>"Hidden"</option>
-                            <option>"TemplateOnly"</option>
-                            <option>"CompiledOnly"</option>
-                        </dyn:select>
-                    </label>
-
-                    // TODO: Version
+                    {enum_metadata_field!("Status", self.document, Status, move |doc: &mut Document, value| { doc.status = value; })}
+                    {enum_metadata_field!("Display", self.document, Show, move |doc: &mut Document, value| { doc.display = value; })}
+                    {enum_metadata_field!("Version", self.document, Version, move |doc: &mut Document, value| { doc.version = value; })}
 
                     // Version Label
                     <label>

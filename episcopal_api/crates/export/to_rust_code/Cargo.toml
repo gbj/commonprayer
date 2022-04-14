@@ -7,3 +7,6 @@ edition = "2021"
 language = { path = "../../language" }
 liturgy = { path = "../../liturgy" }
 status = { path = "../../status" }
+
+[dev-dependencies]
+calendar = { path = "../../calendar" }

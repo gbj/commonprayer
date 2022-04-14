@@ -10,8 +10,11 @@ pub trait ToRustCode {
 
 impl ToRustCode for Document {
     fn to_rust_code(&self, start_tabs: usize) -> String {
-        // TODO condition
-        let condition = String::new();
+        let condition = self
+            .condition
+            .as_ref()
+            .map(|cond| format!(".condition({})", cond.to_rust_code(start_tabs)))
+            .unwrap_or_default();
 
         // Metadata
         let label = self
@@ -86,7 +89,8 @@ impl ToRustCode for Document {
         let version = if Version::is_default(&self.version) {
             String::default()
         } else {
-            format!("\t.version(Version::{})", self.version)
+            let s: &'static str = self.version.into();
+            format!("\t.version(Version::{})", s)
         };
         let optional = if self.optional { "\t.optional()" } else { "" }.to_string();
         let tags = if self.tags.is_empty() {
@@ -124,7 +128,7 @@ impl ToRustCode for Document {
         let tabs = (0..start_tabs).map(|_| '\t').collect::<String>();
 
         if metadata.is_empty() {
-            format!("{tabs}Document::from({content})")
+            format!("{tabs}Document::from({content}){condition}")
         } else {
             format!("{tabs}Document::new(){condition}{metadata}\n\t.content({content})")
         }
@@ -298,5 +302,80 @@ impl ToRustCode for Content {
                 format!("Sentence::from({:?}){}", content.text, citation)
             }
         }
+    }
+}
+
+impl ToRustCode for Condition {
+    #![allow(clippy::tabs_in_doc_comments)]
+    /// Converts a [Condition](liturgy::Condition) into a `String` consisting of compileable Rust code
+    /// ```
+    /// # use liturgy::Condition;
+    /// # use calendar::Season;
+    /// # use crate::to_rust_code::ToRustCode;
+    /// let cond = Condition::Any(vec![
+    ///     Condition::Season(Season::Easter),
+    ///     Condition::Season(Season::Ascension),
+    ///     Condition::Season(Season::Pentecost)
+    /// ]);
+    /// let cond_str = r#"Condition::Any(vec![
+    /// 	Condition::Season(Season::Easter),
+    /// 	Condition::Season(Season::Ascension),
+    /// 	Condition::Season(Season::Pentecost)
+    /// ])"#;
+    /// assert_eq!(&cond.to_rust_code(0), cond_str)
+    /// ```
+    fn to_rust_code(&self, start_tabs: usize) -> String {
+        let c = match self {
+            Condition::Day(_) => todo!(),
+            Condition::Feast(feast) => format!("Feast(Feast::{})", feast),
+            Condition::Season(season) => format!("Season(Season::{})", season),
+            Condition::ObservedSeason(season) => format!("ObservedSeason(Season::{})", season),
+            Condition::Week(week) => format!("Week(LiturgicalWeek::{})", week),
+            Condition::Weekday(weekday) => format!("Weekday(Weekday::{})", weekday),
+            Condition::Evening => "Evening".to_string(),
+            Condition::RankGte(rank) => format!("RankGte(Rank::{rank})"),
+            Condition::DateLt(m, d) => format!("DateLt({m}, {d})"),
+            Condition::DateLte(m, d) => format!("DateLte({m}, {d})"),
+            Condition::DateGt(m, d) => format!("DateGt({m}, {d})"),
+            Condition::DateGte(m, d) => format!("DateGte({m}, {d})"),
+            Condition::DayOfMonth(d) => format!("DayOfMonth({d})"),
+            Condition::Preference(_, _) => todo!(),
+            Condition::Not(cond) => format!("Not(Box::new({}))", cond.to_rust_code(0)),
+            Condition::And(a, b) => format!(
+                "And(Box::new({}), Box::new({}))",
+                a.to_rust_code(0),
+                b.to_rust_code(0)
+            ),
+            Condition::Or(a, b) => format!(
+                "Or(Box::new({}), Box::new({}))",
+                a.to_rust_code(0),
+                b.to_rust_code(0)
+            ),
+            Condition::Any(conds) => {
+                let conds = conds
+                    .iter()
+                    .map(|cond| cond.to_rust_code(start_tabs + 1))
+                    .intersperse_with(|| ",\n\t".to_string())
+                    .collect::<String>();
+                format!("Any(vec![\n\t{conds}\n])")
+            }
+            Condition::All(conds) => {
+                let conds = conds
+                    .iter()
+                    .map(|cond| cond.to_rust_code(start_tabs + 1))
+                    .intersperse_with(|| ",\n\t".to_string())
+                    .collect::<String>();
+                format!("All(vec![\n\t{conds}\n])")
+            }
+            Condition::None(conds) => {
+                let conds = conds
+                    .iter()
+                    .map(|cond| cond.to_rust_code(start_tabs + 1))
+                    .intersperse_with(|| ",\n\t".to_string())
+                    .collect::<String>();
+                format!("None(vec![\n\t{conds}\n])")
+            }
+        };
+        format!("Condition::{c}")
     }
 }
