@@ -1,5 +1,6 @@
 #![feature(iter_intersperse)]
 
+use calendar::LiturgicalDayId;
 use language::Language;
 use liturgy::*;
 use status::Status;
@@ -326,7 +327,7 @@ impl ToRustCode for Condition {
     /// ```
     fn to_rust_code(&self, start_tabs: usize) -> String {
         let c = match self {
-            Condition::Day(_) => todo!(),
+            Condition::Day(day) => format!("Day({})", day.to_rust_code(0)),
             Condition::Feast(feast) => format!("Feast(Feast::{})", feast),
             Condition::Season(season) => format!("Season(Season::{})", season),
             Condition::ObservedSeason(season) => format!("ObservedSeason(Season::{})", season),
@@ -339,7 +340,11 @@ impl ToRustCode for Condition {
             Condition::DateGt(m, d) => format!("DateGt({m}, {d})"),
             Condition::DateGte(m, d) => format!("DateGte({m}, {d})"),
             Condition::DayOfMonth(d) => format!("DayOfMonth({d})"),
-            Condition::Preference(_, _) => todo!(),
+            Condition::Preference(key, value) => format!(
+                "Preference({}, {})",
+                key.to_rust_code(0),
+                value.to_rust_code(0)
+            ),
             Condition::Not(cond) => format!("Not(Box::new({}))", cond.to_rust_code(0)),
             Condition::And(a, b) => format!(
                 "And(Box::new({}), Box::new({}))",
@@ -377,5 +382,52 @@ impl ToRustCode for Condition {
             }
         };
         format!("Condition::{c}")
+    }
+}
+
+impl ToRustCode for LiturgicalDayId {
+    fn to_rust_code(&self, _start_tabs: usize) -> String {
+        match self {
+            LiturgicalDayId::Feast(feast) => format!("LiturgicalDayId::Feast(Feast::{feast})"),
+            LiturgicalDayId::WeekAndDay(w, d) => {
+                format!("LiturgicalDayId::WeekAndDay(LiturgicalWeek::{w}, Weekday::{d})")
+            }
+            LiturgicalDayId::ProperAndDay(p, d) => {
+                format!("LiturgicalDayId::ProperAndDay(Proper::{p}, Weekday::{d})")
+            }
+            LiturgicalDayId::TransferredFeast(feast) => {
+                format!("LiturgicalDayId::TransferredFeast(Feast::{feast})")
+            }
+            LiturgicalDayId::DayOfMonth(d) => format!("LiturgicalDayId::DayOfMonth({d})"),
+            LiturgicalDayId::VariousOccasions(o) => {
+                format!("LiturgicalDayId::VariousOccasions(VariousOccasions::{o})")
+            }
+        }
+    }
+}
+
+impl ToRustCode for PreferenceKey {
+    fn to_rust_code(&self, _start_tabs: usize) -> String {
+        match self {
+            PreferenceKey::Global(g) => {
+                let s: &'static str = g.into();
+                format!("PreferenceKey::Global(GlobalPref::{s})")
+            }
+            PreferenceKey::Local(l) => format!("PreferenceKey::Local({:?}.to_string())", l),
+        }
+    }
+}
+
+impl ToRustCode for PreferenceValue {
+    fn to_rust_code(&self, _start_tabs: usize) -> String {
+        match self {
+            PreferenceValue::Language(val) => format!("PreferenceValue::Language({val})"),
+            PreferenceValue::Version(val) => format!("PreferenceValue::Version({val})"),
+            PreferenceValue::Lectionary(val) => format!("PreferenceValue::Lectionary({val})"),
+            PreferenceValue::CanticleTable(val) => format!("PreferenceValue::CanticleTable({val})"),
+            PreferenceValue::ReadingType(val) => format!("PreferenceValue::ReadingType({val})"),
+            PreferenceValue::Local(val) => format!("PreferenceValue::Local({:?}.to_string())", val),
+            PreferenceValue::Bool(val) => format!("PreferenceValue::Bool({val})"),
+        }
     }
 }

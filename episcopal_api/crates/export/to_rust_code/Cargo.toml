@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+calendar = { path = "../../calendar" }
 language = { path = "../../language" }
 liturgy = { path = "../../liturgy" }
 status = { path = "../../status" }
