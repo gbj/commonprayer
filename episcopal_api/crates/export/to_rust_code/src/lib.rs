@@ -283,7 +283,39 @@ impl ToRustCode for Content {
             }
             Content::HymnLink(_) => String::new(),
             Content::Invitatory(_) => String::new(),
-            Content::LectionaryReading(_) => String::new(),
+            Content::LectionaryReading(content) => {
+                let reading_type = match &content.reading_type {
+                    ReadingTypeTable::Preference(key) => {
+                        format!("ReadingTypeTable::Preference({})", key.to_rust_code(0))
+                    }
+                    ReadingTypeTable::Selected(reading_type) => {
+                        format!("ReadingTypeTable::Selected(ReadingType::{reading_type})")
+                    }
+                };
+                let override_ty = match &content.reading_type_overridden_by {
+                    None => "None".into(),
+                    Some(reading_type) => format!("Some(ReadingType::{reading_type})"),
+                };
+                let lectionary = match &content.lectionary {
+                    LectionaryTableChoice::Preference(key) => {
+                        format!("LectionaryTableChoice::Preference({})", key.to_rust_code(0))
+                    }
+                    LectionaryTableChoice::Selected(lectionary) => {
+                        format!("LectionaryTableChoice::Selected({lectionary})")
+                    }
+                };
+                let intro = match &content.intro {
+                    None => "None".into(),
+                    Some(template) => {
+                        let doc: Document = template.clone().into();
+                        format!(
+                            "Some(BiblicalReadingIntroTemplate::from({}))",
+                            doc.to_rust_code(0)
+                        )
+                    }
+                };
+                format!("LectionaryReading {{\n\treading_type: {reading_type},\n\treading_type_overridden_by: {override_ty},\n\tlectionary: {lectionary},\n\tintro: {intro}\n}}")
+            }
             Content::Preces(content) => {
                 let children = content
                     .iter()

@@ -1,6 +1,7 @@
 use crate::EditableDocument;
 use crate::{dyn_attr_once, dyn_class_once};
 use futures::StreamExt;
+use lectionary::ReadingType;
 use leptos::*;
 use liturgy::*;
 use std::str::FromStr;
@@ -20,6 +21,7 @@ pub fn content_editing_view(
         Content::BiblicalCitation(content) => edit_biblical_citation(path, doc, content),
         Content::Choice(content) => edit_choice(root_doc, path, doc, content),
         Content::Heading(content) => edit_heading(path, doc, content),
+        Content::LectionaryReading(content) => edit_lectionary_reading(path, doc, content),
         Content::Litany(content) => edit_litany(path, doc, content),
         Content::Liturgy(content) => edit_liturgy(root_doc, path, doc, content),
         Content::Preces(content) => edit_preces(path, doc, content),
@@ -100,7 +102,7 @@ fn swap_content(doc: &Behavior<Document>, new_type: &str) -> Content {
         "Heading" => Content::Heading(Heading::from(curr)),
         //"Hymn Link" => Content::HymnLink(Hymn Link::from(curr)),
         //"Invitatory" => Content::Invitatory(Invitatory::from(curr)),
-        //"Lectionary Reading" => Content::LectionaryReading(LectionaryReading::from(curr)),
+        "Lectionary Reading" => Content::LectionaryReading(LectionaryReading::default()),
         "Litany" => Content::Litany(Litany::from(curr)),
         "Liturgy" => Content::Liturgy(Liturgy::from(curr)),
         "Parallel" => Content::Parallel(Parallel::from(curr)),
@@ -250,7 +252,7 @@ fn edit_biblical_citation(
     let intro = if let Some(intro) = &content.intro {
         EditableDocument::from(Document::from(intro.clone()))
     } else {
-        EditableDocument::from(Document::from(""))
+        EditableDocument::from(Document::from("A Reading from _____."))
     };
 
     let content = Behavior::new(content.clone());
@@ -294,11 +296,14 @@ fn edit_biblical_citation(
                     on:change={
                         let doc = doc.clone();
                         let show_intro = show_intro.clone();
+                        let intro_doc = intro.document.clone();
                         move |ev: Event| {
                             let checked = event_target_checked(ev);
                             show_intro.set(checked);
                             if !checked {
                                 set_intro(&doc, &content, None);
+                            } else {
+                                set_intro(&doc, &content, Some(intro_doc.get().into()));
                             }
                         }
                     }
@@ -526,6 +531,212 @@ fn edit_litany(path: &[usize], root_doc: &Behavior<Document>, content: &Litany) 
     }
 }
 
+fn edit_lectionary_reading(
+    path: &[usize],
+    doc: &Behavior<Document>,
+    content: &LectionaryReading,
+) -> View {
+    fn set_intro(
+        doc: &Behavior<Document>,
+        content: &Behavior<LectionaryReading>,
+        intro: Option<BiblicalReadingIntroTemplate>,
+    ) {
+        content.update(move |content| {
+            content.intro = intro.clone();
+        });
+        let new_content = content.get();
+        doc.update(move |doc| doc.content = Content::LectionaryReading(new_content.clone()));
+    }
+
+    let show_intro = Behavior::new(content.intro.is_some());
+    let intro = if let Some(intro) = &content.intro {
+        EditableDocument::from(Document::from(intro.clone()))
+    } else {
+        EditableDocument::from(Document::from("A Reading from {{long_name}}."))
+    };
+
+    let content = Behavior::new(content.clone());
+
+    intro.document.stream().skip(1).create_effect({
+        let doc = doc.clone();
+        let content = content.clone();
+        move |intro_doc| {
+            set_intro(
+                &doc,
+                &content,
+                Some(BiblicalReadingIntroTemplate::from(intro_doc)),
+            )
+        }
+    });
+
+    view! {
+        <>
+            <fieldset class="horizontal-50">
+                <legend>"Reading Type"</legend>
+                <label>
+                    "Selected Reading Type"
+                    <dyn:select
+                        prop:value={content.stream().map(|content| if let ReadingTypeTable::Selected(val) = content.reading_type { Some(val.to_string()) } else { None }).boxed_local()}
+                        on:change={
+                            let content = content.clone();
+                            let doc = doc.clone();
+                            move |ev: Event| {
+                                let v = ReadingType::from_str(&event_target_value(ev)).unwrap();
+                                content.update(|content| content.reading_type = ReadingTypeTable::Selected(v));
+                                let new_content = content.get();
+                                doc.update(move |doc| doc.content = Content::from(new_content.clone()));
+                            }
+                        }
+                    >
+                        {View::Fragment(
+                            ReadingType::iter()
+                                .map(|variant| view! { <option>{variant.to_string()}</option> })
+                                .collect()
+                        )}
+                    </dyn:select>
+                </label>
+                <label>
+                    "From Reading Preference"
+                    <dyn:select
+                        prop:value={content.stream()
+                            .map(|content| {
+                                let v = match content.reading_type {
+                                    ReadingTypeTable::Preference(PreferenceKey::Global(GlobalPref::ReadingA)) => "ReadingA",
+                                    ReadingTypeTable::Preference(PreferenceKey::Global(GlobalPref::ReadingB)) => "ReadingB",
+                                    ReadingTypeTable::Preference(PreferenceKey::Global(GlobalPref::ReadingC)) => "ReadingC",
+                                    _ => "—"
+                                };
+                                Some(v.to_string())
+                            })
+                            .boxed_local()
+                        }
+                        on:change={
+                            let content = content.clone();
+                            let doc = doc.clone();
+                            move |ev: Event| {
+                                let v = event_target_value(ev);
+                                let v = if v == "—" {
+                                    ReadingTypeTable::Selected(ReadingType::FirstReading)
+                                } else {
+                                    ReadingTypeTable::Preference(PreferenceKey::from(GlobalPref::from_str(&v).unwrap()))
+                                };
+                                content.update(|content| content.reading_type = v.clone());
+                                let new_content = content.get();
+                                doc.update(move |doc| doc.content = Content::from(new_content.clone()));
+                            }
+                        }
+                    >
+                        <option>"—"</option>
+                        <option>"ReadingA"</option>
+                        <option>"ReadingB"</option>
+                        <option>"ReadingC"</option>
+                    </dyn:select>
+                </label>
+                <label>
+                    "Overridden by this reading type, if it exists"
+                    <dyn:select
+                        prop:value={content.stream().map(|content| if let Some(val) = content.reading_type_overridden_by { Some(val.to_string()) } else { Some("—".to_string()) }).boxed_local()}
+                        on:change={
+                            let content = content.clone();
+                            let doc = doc.clone();
+                            move |ev: Event| {
+                                let v = event_target_value(ev);
+                                let v = if v == "—" {
+                                    None
+                                } else {
+                                    Some(ReadingType::from_str(&v).unwrap())
+                                };
+                                content.update(|content| content.reading_type_overridden_by = v);
+                                let new_content = content.get();
+                                doc.update(move |doc| doc.content = Content::from(new_content.clone()));
+                            }
+                        }
+                    >
+                        <option>"—"</option>
+                        {View::Fragment(
+                            ReadingType::iter()
+                                .map(|variant| view! { <option>{variant.to_string()}</option> })
+                                .collect()
+                        )}
+                    </dyn:select>
+                </label>
+            </fieldset>
+            <fieldset class="horizontal-50">
+                <legend>"Lectionary"</legend>
+                <label>
+                    "Selected Lectionary"
+                    <dyn:select
+                        prop:value={content.stream().map(|content| if let LectionaryTableChoice::Selected(val) = content.lectionary { Some(val.to_string()) } else { None }).boxed_local()}
+                        on:change={
+                            let content = content.clone();
+                            let doc = doc.clone();
+                            move |ev: Event| {
+                                let v = Lectionaries::from_str(&event_target_value(ev)).unwrap();
+                                content.update(|content| content.lectionary = LectionaryTableChoice::Selected(v));
+                                let new_content = content.get();
+                                doc.update(move |doc| doc.content = Content::from(new_content.clone()));
+                            }
+                        }
+                    >
+                        {View::Fragment(
+                            Lectionaries::iter()
+                                .map(|variant| view! { <option>{variant.to_string()}</option> })
+                                .collect()
+                        )}
+                    </dyn:select>
+                </label>
+                <label>
+                    "From Lectionary Preference"
+                    <dyn:input type={dyn_attr_once("checkbox")}
+                        prop:checked={content.stream().map(|content| if let LectionaryTableChoice::Preference(_) = content.lectionary { Some("checked".to_string()) } else { None }).boxed_local()}
+                        on:change={
+                            let doc = doc.clone();
+                            let content = content.clone();
+                            move |ev: Event| {
+                                let checked = event_target_checked(ev);
+                                let new_value = if checked {
+                                    LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary))
+                                } else {
+                                    LectionaryTableChoice::Selected(Lectionaries::RCLTrack2)
+                                };
+                                content.update(|content| content.lectionary = new_value.clone());
+                                let new_content = content.get();
+                                doc.update(move |doc| doc.content = Content::from(new_content.clone()));
+                            }
+                        }
+                    />
+                </label>
+            </fieldset>
+            <fieldset>
+                <legend>"Introduction"</legend>
+                <label class="horizontal">
+                    "Introduction"
+                    <dyn:input type={dyn_attr_once("checkbox")}
+                        prop:checked={show_intro.stream().map(|checked| if checked { Some("checked".to_string())} else { None }).boxed_local()}
+                        on:change={
+                            let doc = doc.clone();
+                            let show_intro = show_intro.clone();
+                            let intro_doc = intro.document.clone();
+                            move |ev: Event| {
+                                let checked = event_target_checked(ev);
+                                show_intro.set(checked);
+                                if !checked {
+                                    set_intro(&doc, &content, None);
+                                } else {
+                                    set_intro(&doc, &content, Some(intro_doc.get().into()));
+                                }
+                            }
+                        }
+                    />
+                </label>
+                <dyn:div class:intro={dyn_class_once()} class:hidden={show_intro.stream().map(|show| !show).boxed_local()}>
+                    {intro.view()}
+                </dyn:div>
+            </fieldset>
+        </>
+    }
+}
+
 fn edit_liturgy(
     root_doc: &Behavior<Document>,
     path: &[usize],
@@ -584,6 +795,23 @@ fn edit_rubric(path: &[usize], doc: &Behavior<Document>, content: &Rubric) -> Vi
         >
             {content.get().to_string()}
         </dyn:textarea>
+        <label class="horizontal">
+            "Long"
+            <dyn:input type={dyn_attr_once("checkbox")}
+                prop:checked={content.stream().map(|rubric| if rubric.long { Some("checked".to_string())} else { None }).boxed_local()}
+                on:change={
+                    let doc = doc.clone();
+                    move |ev: Event| {
+                        let checked = event_target_checked(ev);
+                        content.update(move |rubric| {
+                            rubric.long = checked;
+                        });
+                        let new_content = content.get();
+                        doc.update(|doc| doc.content = Content::Rubric(new_content.clone()));
+                    }
+                }
+            />
+        </label>
     }
 }
 
