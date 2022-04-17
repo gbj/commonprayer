@@ -996,6 +996,7 @@ pub fn heading(locale: &str, heading: &Heading) -> HeaderAndMain {
 
 pub fn hymn_link(locale: &str, content: &HymnLink) -> HeaderAndMain {
     let href = match content {
+        HymnLink::Hymnals => format!("/{}/hymnal", locale),
         HymnLink::Hymnal(hymnal_id) => format!("/{}/hymnal/{:#?}", locale, hymnal_id),
         HymnLink::Hymn(hymnal_id, number) => {
             format!("/{}/hymnal/{:#?}/{}", locale, hymnal_id, number)
@@ -1004,6 +1005,7 @@ pub fn hymn_link(locale: &str, content: &HymnLink) -> HeaderAndMain {
     };
 
     let label = match content {
+        HymnLink::Hymnals => t!("menu.hymnal"),
         HymnLink::Hymnal(hymnal_id) => hymnal_id.to_string(),
         HymnLink::Hymn(hymnal_id, number) => {
             format!("{} {}", hymnal_id, number)
