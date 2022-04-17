@@ -161,6 +161,7 @@ a.source-link > span {
   color: var(--rubric-color);
   font-style: italic;
   font-size: var(--rubric-size);
+  white-space: pre-wrap;
 }
 
 .rubric-long {
