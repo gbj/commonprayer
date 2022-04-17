@@ -2,16 +2,15 @@ Website Todos
 =============
 
 - [ ] Editor (to speed up liturgy creation)
-  - [ ] Lectionary readings
+  - [x] Lectionary readings
   - [ ] Preferences
   - [x] Rust code export
     - [ ] finish for additional types as needed
     - [ ] export conditions
 - [x] Baptism
   - [ ] Add preferences
-- [ ] Hymnals
-  - [ ] El Himnario
 - Eucharist
+  - [ ] Commented todos
   - [ ] Prayers of the People
     - [ ] link to these in renaming service 
   - [ ] Eucharistic Prayers
