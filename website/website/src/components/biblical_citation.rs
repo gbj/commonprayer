@@ -5,6 +5,7 @@ use crate::{
 };
 use futures::StreamExt;
 use leptos::*;
+use liturgy::Content;
 use serde::Deserialize;
 use {
     liturgy::{
@@ -51,6 +52,7 @@ pub fn biblical_citation(
                 },
                 FetchStatus::Success(reading) => {
                     let reading = reading.api_data_to_biblical_reading(&citation);
+                    controller.update_content_at_path(path.clone(), Content::from(reading.clone()));
                     biblical_reading(&locale, &controller, path.clone(), &reading).1
                 }
             }
