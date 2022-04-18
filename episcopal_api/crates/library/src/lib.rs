@@ -710,6 +710,9 @@ impl Library for CommonPrayer {
             (Categories::ClosingSentences, Version::RiteII | Version::BCP1979) => {
                 rite2::office::CLOSING_SENTENCES.clone()
             }
+            (Categories::OffertorySentences, Version::RiteII | Version::BCP1979) => {
+                rite2::eucharist::OFFERTORY_SENTENCES_II.clone()
+            }
             _ => Vec::new(),
         }
     }

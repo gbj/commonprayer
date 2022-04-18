@@ -99,7 +99,7 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                         {make_link(locale, "document/baptism", "toc.holy_baptism", false)}
                     </li>
                     <li>
-                        {make_link(locale, "document/eucharist", "toc.holy_eucharist", true)}
+                        {make_link(locale, "document/eucharist", "toc.holy_eucharist", false)}
                     </li>
                     <li>
                         {t!("toc.pastoral_offices")}

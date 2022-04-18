@@ -166,7 +166,9 @@ lazy_static! {
             PageType::Document("additional-directions", &*library::bcp1979::baptism::ADDITIONAL_DIRECTIONS),
         ],
         ("eucharist", None) => vec![
-            PageType::Category("pop", Version::BCP1979, library::bcp1979::eucharist::PRAYERS_OF_THE_PEOPLE.clone()),
+            PageType::Document("holy-eucharist", &*library::rite2::eucharist::HOLY_EUCHARIST_II),
+            PageType::Category("Prayers of the People", Version::BCP1979, library::bcp1979::eucharist::PRAYERS_OF_THE_PEOPLE.clone()),
+            PageType::Category("Offertory Sentences", Version::RiteII, library::rite2::eucharist::OFFERTORY_SENTENCES_II.clone()),
         ],
         ("marriage", None) => vec![
             // Parallels
