@@ -2,7 +2,7 @@ use std::io::{Seek, Write};
 use thiserror::Error;
 
 use docx_rs::{
-    AlignmentType, BreakType, DocumentChild, Docx, Header, Paragraph, Run, Table, TableCell,
+    AlignmentType, BreakType, DocumentChild, Docx, PageMargin, Paragraph, Run, Table, TableCell,
     TableRow,
 };
 use liturgy::*;
@@ -12,6 +12,10 @@ pub use styles::*;
 
 pub struct DocxDocument(Docx);
 
+// Docx uses "TWIPS" (twentieth of a point, where a point = 1/72 of an inch) as its basic measure
+const ONE_INCH: u32 = 72 * 20;
+const HALF_INCH: u32 = 36 * 20;
+
 #[derive(Error, Debug)]
 pub enum DocxError {
     #[error("error writing DOCX file")]
@@ -19,7 +23,7 @@ pub enum DocxError {
 }
 
 impl DocxDocument {
-    pub fn write<W>(mut self, w: W) -> Result<(), DocxError>
+    pub fn write<W>(self, w: W) -> Result<(), DocxError>
     where
         W: Write + Seek,
     {
@@ -29,7 +33,16 @@ impl DocxDocument {
 
 impl From<Document> for DocxDocument {
     fn from(doc: Document) -> Self {
-        let docx = Docx::new().inject_styles();
+        let docx = Docx::new()
+            .inject_styles()
+            .page_size(17 * HALF_INCH, 11 * ONE_INCH)
+            .page_margin(
+                PageMargin::new()
+                    .top(ONE_INCH)
+                    .left(ONE_INCH)
+                    .bottom(ONE_INCH)
+                    .right(ONE_INCH),
+            );
 
         Self(add_content(docx, &doc))
     }
@@ -50,7 +63,7 @@ fn add_content(docx: Docx, doc: &Document) -> Docx {
                         .into_iter()
                         .fold(TableCell::new(), |cell, child| {
                             if let DocumentChild::Paragraph(paragraph) = child {
-                                cell.add_paragraph(paragraph)
+                                cell.add_paragraph(*paragraph)
                             } else {
                                 cell
                             }
