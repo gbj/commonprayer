@@ -603,7 +603,11 @@ lazy_static! {
             ])).tags([CONSENT_CONGREGATION]),
 
             Document::from(Rubric::from("If there is to be a presentation or a giving in marriage, it takes place at this time.")).tags([PRESENTATION_RUBRIC]),
-            Document::from(Content::DocumentLink(Version::Expansive, "Additional Directions".into(), "marriage".into(), "additional-directions".into())).tags([ADDITIONAL_DIRECTIONS_PARALLEL]),
+            Document::from(Content::DocumentLink {
+                label: "Additional Directions".into(),
+                path: vec![Slug::Marriage, Slug::AdditionalDirections, Slug::Version(Version::Expansive)],
+                rotate: false
+            }).tags([ADDITIONAL_DIRECTIONS_PARALLEL]),
 
             Document::from(Series::from(vec![
                 Document::from(Rubric::from("A hymn, psalm, or anthem may follow.")),
@@ -715,7 +719,11 @@ lazy_static! {
             Document::from(Series::from(vec![
                 Document::from(Heading::from((HeadingLevel::Heading2, "At the Eucharist"))).tags([AT_THE_EUCHARIST]),
                 Document::from(Rubric::from("The liturgy continues with the Offertory, at which the newly married couple may present the offerings of bread and wine.")).tags([OFFERTORY_RUBRIC]),
-                Document::from(Content::DocumentLink(Version::RiteII, "Preface of Marriage".into(), "eucharist".into(), "proper-preface#marriage".into())).tags([PROPER_PREFACE]),
+                Document::from(Content::DocumentLink {
+                    label: "Preface of Marriage".into(),
+                    path: vec![Slug::Eucharist, Slug::ProperPrefaces, Slug::Marriage],
+                    rotate: false
+                }).tags([PROPER_PREFACE]),
                 Document::from(Rubric::from("At the Communion, it is appropriate that the newly married couple receive Communion first, after the ministers.")).tags([POST_PREFACE_RUBRIC]),
                 Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")).tags([POSTCOMMUNION_PRAYER]),
                 Document::from(Text::from("O God, the giver of all that is true and lovely and gracious:\nWe give you thanks for binding us together\nin these holy mysteries of the Body and Blood \nof your Son Jesus Christ.\nGrant that by your Holy Spirit,\n*N.* and *N.*, now joined in Holy Matrimony, \nmay become one in heart and soul,\nlive in fidelity and peace,\nand obtain those eternal joys prepared for all who love you; \nfor the sake of Jesus Christ our Lord.").response("Amen.").display_format(DisplayFormat::Unison)).tags(["Postcommunion Prayer", POSTCOMMUNION_PRAYER]),
@@ -739,8 +747,16 @@ lazy_static! {
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "The Blessing\nof a Civil Marriage"))),
             Document::from(Rubric::from("The rite begins as prescribed for celebrations of the Holy Eucharist, using the Collect and Lessons appointed in the Marriage service.")),
-            Document::from(Content::DocumentLink(Version::Expansive, "Holy Eucharist".into(), "eucharist".into(), "holy-eucharist".into())),
-            Document::from(Content::DocumentLink(Version::Expansive, "Marriage Service".into(), "marriage".into(), "celebration-and-blessing-of-a-marriage-2".into())),
+            Document::from(Content::DocumentLink {
+                label: "Holy Eucharist".into(),
+                path: vec![Slug::Eucharist],
+                rotate: false
+            }),
+            Document::from(Content::DocumentLink {
+                label: "Marriage Service".into(),
+                path: vec![Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)],
+                rotate: false
+            }),
 
             // Consent
             Document::from(Rubric::from("After the Gospel (and homily), the couple stand before the Celebrant, who addresses them in these or similar words")),
@@ -768,7 +784,11 @@ lazy_static! {
             ])),
 
             Document::from(Rubric::from("The service continues with The Prayers on page 104 [in the marriage service].")),
-            Document::from(Content::DocumentLink(Version::Expansive, "Marriage Service".into(), "marriage".into(), "celebration-and-blessing-of-a-marriage-2".into()))
+            Document::from(Content::DocumentLink {
+                label: "Marriage Service".into(),
+                path: vec![Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)],
+                rotate: false
+            }),
         ])
     )));
 
@@ -783,7 +803,11 @@ lazy_static! {
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "An Order for Marriage"))),
             Document::from(Rubric::from("If it is desired to celebrate a marriage otherwise than as provided on pages 76-85 of “Liturgical Resources 1: The Witnessing and Blessing of a Lifelong Covenant (revised and expanded),” this Order is used.")),
-            Document::from(Content::DocumentLink(Version::Expansive, "Marriage Service".into(), "marriage".into(), "celebration-and-blessing-of-a-marriage-2".into())),
+            Document::from(Content::DocumentLink {
+                label: "Marriage Service".into(),
+                path: vec![Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)],
+                rotate: false
+            }),
             Document::from(Rubric::from("Normally, the celebrant is a priest or bishop. Where permitted by civil law, and when no priest or bishop is available, a deacon may function as celebrant, but does not pronounce a nuptial blessing.\n\nThe laws of the State having been complied with, the couple, together with their witnesses, families, and friends assemble in the church or in some other convenient place.")),
             Document::from(Rubric::from("1. The teaching of the Church concerning Holy Matrimony, as it is declared in the formularies, is briefly stated.\n\n2. The intention of the two to enter the state of matrimony, and their free consent, is publicly ascertained.\n\n3. One or more Readings, one of which is always from Holy Scripture, may precede the exchange of vows. If there is to be a Communion, a Reading from the Gospel is always included.\n\n4. The vows are exchanged, using the following form").long()),
             Document::from(Choice::from(vec![
@@ -791,6 +815,10 @@ lazy_static! {
                 Document::from("I, *N.*, take thee *N.*, to my wedded *wife/husband/spouse*, \nto have and to hold from this day forward,\nfor better for worse, for richer for poorer,\nin sickness and in health, to love and to cherish,\ntill death us do part, according to God’s holy ordinance; \nand thereto I plight [*or* give] thee my troth.")
             ])),
             Document::from(Rubric::from("5. The Celebrant declares the union of the couple, in the Name of the Father, and of the Son, and of the Holy Spirit.\n\n6. Prayers are offered for the couple, for their life together, for the Christian community, and for the world.\n\n7. A priest or bishop pronounces a solemn blessing upon the couple.\n\n8. If there is no Communion, the service concludes with the Peace, the couple first greeting each other. The Peace may be exchanged throughout the assembly.\n\n9. If there is to be a Communion, the service continues with the Peace and the Offertory. The Holy Eucharist may be celebrated either according to Rite One or Rite Two, or according to the Order on page 401 of the Book of Common Prayer 1979.").long()),
-            Document::from(Content::DocumentLink(Version::BCP1979, "Holy Eucharist".into(), "eucharist".into(), "holy-eucharist".into())),
+            Document::from(Content::DocumentLink {
+                label: "Holy Eucharist".into(),
+                path: vec![Slug::Eucharist],
+                rotate: false
+            }),
         ]))));
 }

@@ -360,12 +360,13 @@ pub fn localize_day_name(
             calendar.feast_name(*feast, language).map(String::from)
         }
         _ => calendar.week_name(day.week, language).map(|name| {
+            let weekday_name = day.weekday.to_string();
             if day.weekday == Weekday::Sun {
                 name.to_string()
             } else {
                 format!(
                     "{} {} {}",
-                    language.i18n(&day.weekday.to_string()),
+                    language.i18n(&weekday_name),
                     language.i18n("after"),
                     name.replace("The", "the")
                 )

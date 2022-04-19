@@ -9,8 +9,16 @@ lazy_static! {
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "The Blessing\nof a Civil Marriage"))),
             Document::from(Rubric::from("The Rite begins as prescribed for celebrations of the Holy Eucharist, using the Collect and Lessons appointed in the Marriage service.")),
-            Document::from(Content::DocumentLink(Version::BCP1979, "Holy Eucharist".into(), "eucharist".into(), "holy-eucharist".into())),
-            Document::from(Content::DocumentLink(Version::BCP1979, "Marriage Service".into(), "marriage".into(), "celebration-and-blessing-of-a-marriage".into())),
+            Document::from(Content::DocumentLink {
+                label: "Holy Eucharist".into(),
+                path: vec![Slug::Eucharist],
+                rotate: false
+            }),
+            Document::from(Content::DocumentLink {
+                label: "Marriage Service".into(),
+                path: vec![Slug::Marriage, Slug::CelebrationAndBlessing],
+                rotate: false
+            }),
 
             // Consent
             Document::from(Rubric::from("After the Gospel (and homily), the husband and wife stand before the Celebrant, who addresses them in these or similar words")),
@@ -41,7 +49,11 @@ lazy_static! {
             Document::from(Text::from("").response("Amen.")),
 
             Document::from(Rubric::from("The service continues with The Prayers on page 428 [in the marriage service].")),
-            Document::from(Content::DocumentLink(Version::BCP1979, "Marriage Service".into(), "marriage".into(), "celebration-and-blessing-of-a-marriage".into()))
+            Document::from(Content::DocumentLink {
+                label: "Marriage Service".into(),
+                path: vec![Slug::Marriage, Slug::CelebrationAndBlessing],
+                rotate: false
+            }),
         ])
     )));
 }

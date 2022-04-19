@@ -5,10 +5,9 @@ use language::Language;
 use lectionary::{rcl_readings, Lectionary, RCLTrack, Reading, ReadingType};
 use liturgy::*;
 use loc::collects::COLECTAS;
-use psalter::{bcp1979::BCP1979_PSALTER, Psalter};
+use psalter::Psalter;
 
 use rite1::GLORIA_PATRI_TRADITIONAL;
-use serde::{Deserialize, Serialize};
 
 use crate::{
     lff2018::collects::{LFF_COLLECTS_CONTEMPORARY, LFF_COLLECTS_TRADITIONAL},
@@ -22,6 +21,8 @@ extern crate lazy_static;
 pub mod bcp1979;
 pub mod bos;
 pub mod collect;
+mod common_prayer;
+pub use common_prayer::*;
 pub mod conditions;
 pub mod eow;
 pub mod lff2018;
@@ -30,13 +31,9 @@ pub mod marriage_alternatives;
 pub mod rite1;
 pub mod rite2;
 pub mod summary;
+mod table_of_contents;
 pub use collect::*;
-
-#[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
-pub enum CommonPrayerLiturgies {
-    NoondayPrayer,
-    Compline,
-}
+pub use table_of_contents::*;
 
 pub trait Library {
     fn psalter(psalter: Version) -> &'static Psalter<'static>;
@@ -47,7 +44,7 @@ pub trait Library {
 
     fn canticle(canticle: CanticleId, version: Version) -> Option<Document>;
 
-    fn category(category: Categories, version: Version) -> Vec<Document>;
+    fn contents<'a>() -> TableOfContents<'a>;
 
     fn compile(
         mut document: Document,
@@ -72,17 +69,21 @@ pub trait Library {
             None
         } else {
             match &document.content {
-                // Category Lookup
-                Content::Category(category) => {
-                    let category_docs = Self::category(category.name, document.version);
+                // Document Link Lookup
+                Content::DocumentLink { path, rotate, .. } => {
+                    let contents = Self::contents().contents_at_path(path)?;
+                    let docs = contents.as_documents();
+                    let mut docs = docs.cloned();
 
-                    Document::choice_or_document(&mut category_docs.into_iter())
+                    Document::choice_or_document(&mut docs)
                         .and_then(|docs| {
                             Self::compile(docs, calendar, day, observed, prefs, liturgy_prefs)
                         })
                         .map(|mut doc| {
                             if let Content::Choice(ref mut choice) = doc.content {
-                                choice.rotate(&day.date);
+                                if *rotate {
+                                    choice.rotate(&day.date);
+                                }
                             }
                             doc
                         })
@@ -259,9 +260,10 @@ pub trait Library {
                                 if day.weekday == Weekday::Sun {
                                     name.to_string()
                                 } else {
+                                    let weekday_name = day.weekday.to_string();
                                     format!(
                                         "{} {} {}",
-                                        document.language.i18n(&day.weekday.to_string()),
+                                        document.language.i18n(&weekday_name),
                                         document.language.i18n("after"),
                                         name.replace("The", "the")
                                     )
@@ -312,9 +314,11 @@ pub trait Library {
                 Content::Invitatory(invitatory) => match invitatory.antiphon {
                     SeasonalAntiphon::Insert => {
                         if let Some(antiphon) = Self::compile(
-                            Document::from(Content::Category(Category::from(
-                                Categories::InvitatoryAntiphons,
-                            ))),
+                            Document::from(Content::DocumentLink {
+                                label: String::new(),
+                                path: vec![Slug::Office, Slug::InvitatoryAntiphons],
+                                rotate: true,
+                            }),
                             calendar,
                             day,
                             observed,
@@ -617,103 +621,6 @@ pub trait Library {
                 // Every else just passes through as is
                 _ => Some(document),
             }
-        }
-    }
-}
-
-pub struct CommonPrayer {}
-
-impl Library for CommonPrayer {
-    fn psalter(_psalter: Version) -> &'static Psalter<'static> {
-        &BCP1979_PSALTER
-    }
-
-    fn lectionary(lectionary: Lectionaries) -> &'static Lectionary {
-        match lectionary {
-            Lectionaries::BCP1979DailyOffice => &lectionary::BCP1979_DAILY_OFFICE_LECTIONARY,
-            Lectionaries::BCP1979DailyOfficePsalms => &lectionary::BCP1979_DAILY_OFFICE_PSALTER,
-            Lectionaries::BCP1979ThirtyDayPsalms => &lectionary::BCP1979_30_DAY_PSALTER,
-            Lectionaries::RCLTrack1 => &lectionary::RCL_TRACK_1,
-            Lectionaries::RCLTrack2 => &lectionary::RCL_TRACK_2,
-        }
-    }
-
-    fn canticle_table(table: CanticleTables) -> &'static CanticleTable {
-        match table {
-            CanticleTables::BCP1979RiteI => &canticle_table::bcp1979::BCP1979_CANTICLE_TABLE_RITE_I,
-            CanticleTables::BCP1979RiteII => {
-                &canticle_table::bcp1979::BCP1979_CANTICLE_TABLE_RITE_II
-            }
-            CanticleTables::EOW => &canticle_table::eow::EOW_CANTICLE_TABLE,
-            CanticleTables::Classical => todo!(),
-        }
-    }
-
-    fn canticle(canticle: CanticleId, version: Version) -> Option<Document> {
-        match (canticle, version) {
-            (CanticleId::Canticle1, _) => Some(rite1::CANTICLE_1.clone()),
-            (CanticleId::Canticle2, _) => Some(rite1::CANTICLE_2.clone()),
-            (CanticleId::Canticle3, _) => Some(rite1::CANTICLE_3.clone()),
-            (CanticleId::Canticle4, _) => Some(rite1::CANTICLE_4.clone()),
-            (CanticleId::Canticle5, _) => Some(rite1::CANTICLE_5.clone()),
-            (CanticleId::Canticle6, _) => Some(rite1::CANTICLE_6.clone()),
-            (CanticleId::Canticle7, _) => Some(rite1::CANTICLE_7.clone()),
-            (CanticleId::Canticle8, _) => Some(rite2::CANTICLE_8.clone()),
-            (CanticleId::Canticle9, _) => Some(rite2::CANTICLE_9.clone()),
-            (CanticleId::Canticle10, _) => Some(rite2::CANTICLE_10.clone()),
-            (CanticleId::Canticle11, _) => Some(rite2::CANTICLE_11.clone()),
-            (CanticleId::Canticle12, Version::EOW) => Some(eow::CANTICLE_12_EOW.clone()),
-            (CanticleId::Canticle12, _) => Some(rite2::CANTICLE_12.clone()),
-            (CanticleId::Canticle13, _) => Some(rite2::CANTICLE_13.clone()),
-            (CanticleId::Canticle14, _) => Some(rite2::CANTICLE_14.clone()),
-            (CanticleId::Canticle15, Version::EOW) => Some(eow::CANTICLE_15_EOW.clone()),
-            (CanticleId::Canticle15, _) => Some(rite2::CANTICLE_15.clone()),
-            (CanticleId::Canticle16, Version::EOW) => Some(eow::CANTICLE_16_EOW.clone()),
-            (CanticleId::Canticle16, _) => Some(rite2::CANTICLE_16.clone()),
-            (CanticleId::Canticle17, _) => Some(rite2::CANTICLE_17.clone()),
-            (CanticleId::Canticle18, Version::EOW) => Some(eow::CANTICLE_18_EOW.clone()),
-            (CanticleId::Canticle18, _) => Some(rite2::CANTICLE_18.clone()),
-            (CanticleId::Canticle19, _) => Some(rite2::CANTICLE_19.clone()),
-            (CanticleId::Canticle20, _) => Some(rite2::CANTICLE_20.clone()),
-            (CanticleId::Canticle21, Version::EOW) => Some(eow::CANTICLE_21_EOW.clone()),
-            (CanticleId::Canticle21, _) => Some(rite2::CANTICLE_21.clone()),
-            (CanticleId::CanticleA, _) => Some(eow::CANTICLE_A.clone()),
-            (CanticleId::CanticleB, _) => Some(eow::CANTICLE_B.clone()),
-            (CanticleId::CanticleC, _) => Some(eow::CANTICLE_C.clone()),
-            (CanticleId::CanticleD, _) => Some(eow::CANTICLE_D.clone()),
-            (CanticleId::CanticleE, _) => Some(eow::CANTICLE_E.clone()),
-            (CanticleId::CanticleF, _) => Some(eow::CANTICLE_F.clone()),
-            (CanticleId::CanticleG, _) => Some(eow::CANTICLE_G.clone()),
-            (CanticleId::CanticleH, _) => Some(eow::CANTICLE_H.clone()),
-            (CanticleId::CanticleI, _) => Some(eow::CANTICLE_I.clone()),
-            (CanticleId::CanticleJ, _) => Some(eow::CANTICLE_J.clone()),
-            (CanticleId::CanticleK, _) => Some(eow::CANTICLE_K.clone()),
-            (CanticleId::CanticleL, _) => Some(eow::CANTICLE_L.clone()),
-            (CanticleId::CanticleM, _) => Some(eow::CANTICLE_M.clone()),
-            (CanticleId::CanticleN, _) => Some(eow::CANTICLE_N.clone()),
-            (CanticleId::CanticleO, _) => Some(eow::CANTICLE_O.clone()),
-            (CanticleId::CanticleP, _) => Some(eow::CANTICLE_P.clone()),
-            (CanticleId::CanticleQ, _) => Some(eow::CANTICLE_Q.clone()),
-            (CanticleId::CanticleR, _) => Some(eow::CANTICLE_R.clone()),
-            (CanticleId::CanticleS, _) => Some(eow::CANTICLE_S.clone()),
-        }
-    }
-
-    fn category(category: Categories, version: Version) -> Vec<Document> {
-        match (category, version) {
-            (Categories::OpeningSentences, Version::RiteII | Version::BCP1979) => {
-                rite2::office::OPENING_SENTENCES.clone()
-            }
-            (Categories::InvitatoryAntiphons, Version::RiteII | Version::BCP1979) => {
-                rite2::office::INVITATORY_ANTIPHONS.clone()
-            }
-            (Categories::ClosingSentences, Version::RiteII | Version::BCP1979) => {
-                rite2::office::CLOSING_SENTENCES.clone()
-            }
-            (Categories::OffertorySentences, Version::RiteII | Version::BCP1979) => {
-                rite2::eucharist::OFFERTORY_SENTENCES_II.clone()
-            }
-            _ => Vec::new(),
         }
     }
 }

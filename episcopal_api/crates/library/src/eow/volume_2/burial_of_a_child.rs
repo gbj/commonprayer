@@ -217,7 +217,7 @@ lazy_static! {
                 Document::from(Text::from("God, you have loved us into being. Hear our cries at our loss of *N.* Move us from the shadow of death into the light of your love and peace in the name of Mary’s child, Jesus the risen one.").response("Amen."))
             ])).tags([COMMITTAL_PRAYERS]),
             Document::from(Rubric::from("Here one or more of the additional prayers may be said. Then the Lord’s Prayer may be said.")).tags([COMMITTAL_PRAYERS]),
-            Document::from(Categories::AdditionalPrayers).version(Version::EOW).tags([COMMITTAL_PRAYERS]),
+            Document::from(Content::DocumentLink { label: "Additional Prayers".into(), path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::EOW)], rotate: false }).tags([COMMITTAL_PRAYERS]),
             Document::from(Choice::from(vec![
                 Document::from(Series::from(vec![
                     Document::from(Text::from("As our Savior Christ\nhas taught us,\nwe now pray,\n")),
@@ -243,7 +243,7 @@ lazy_static! {
 
             Document::from(Series::from(vec![
                 Document::from(Heading::from((HeadingLevel::Heading2, "Additional Prayers"))),
-                Document::from(Categories::AdditionalPrayers).version(Version::EOW)
+                Document::from(Content::DocumentLink { label: "Additional Prayers".into(), path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::EOW)], rotate: false })
             ])).tags([ADDITIONAL_PRAYERS]),
 
             Document::from(Series::from(vec![

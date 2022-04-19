@@ -216,7 +216,11 @@ lazy_static! {
             Document::from(Heading::from((HeadingLevel::Heading2, "Reflections or Sermon"))),
             Document::from(Rubric::from("The candidate may be prepared to offer brief reflections here in place of a Sermon. Depending on the occasion, it may be appropriate to invite others to speak.")),
             Document::from(Rubric::from("On Sundays and other Major Feasts, the Nicene Creed follows the sermon, all standing.")),
-            Document::from(Content::DocumentLink(Version::RiteII, "Nicene Creed".into(), "common".into(), "nicene-creed".into())),
+            Document::from(Content::DocumentLink {
+                label: "Nicene Creed".into(),
+                path: vec![Slug::NiceneCreed],
+                rotate: false
+            }),
 
             Document::from(Heading::from((HeadingLevel::Heading2, "Prayers of the People"))),
             Document::from(Rubric::from("Prayers of the People or a Litany created for the occasion are offered, according to the directions at page 359 in the Book of Common Prayer.")),
@@ -263,7 +267,11 @@ lazy_static! {
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "Burial of One Who Does Not Profess the Christian Faith"))).tags([TITLE]),
             Document::from(Rubric::from("This anthem; and any of the following Psalms, Lessons, and Prayers; and the form of Committal given below may be used with the Order for Burial on page 506 of the Prayer Book.")).tags([OPENING_RUBRIC]),
-            Document::from(Content::DocumentLink(Version::BCP1979, "An Order for Burial".into(), "burial".into(), "an-order-for-burial".into())),
+            Document::from(Content::DocumentLink {
+                label: "An Order for Burial".into(),
+                path: vec![Slug::Burial, Slug::Order],
+                rotate: false
+            }),
             Document::from(Heading::from((HeadingLevel::Heading2, "Opening Anthem"))).tags([OPENING_RUBRIC]),
             Document::from(Text::from("The steadfast love of the Lord never ceases, \nhis mercies never come to an end;\nthey are new every morning; \ngreat is his faithfulness.\nThe Lord will not cast off forever.\nThough he cause grief, he will have compassion \naccording to the abundance of his steadfast love;\nThe Lord does not willingly afflict or grieve his children.")).tags([ANTHEMS]),
             Document::from(Heading::from((HeadingLevel::Heading2, "Lessons and Psalms"))).tags([LESSONS_HEADING]),

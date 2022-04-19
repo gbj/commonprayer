@@ -1,11 +1,7 @@
 use crate::conditions::{EASTER_SEASON, NOT_INSERT_GLORIA, NOT_LENT};
 use crate::rite2::{CANTICLE_17, GLORIA_PATRI, LORDS_PRAYER_ABBREV};
 use calendar::Weekday;
-use liturgy::{
-    Antiphon, Categories, Choice, Condition, DisplayFormat, Document, Heading, HeadingLevel,
-    HymnLink, Liturgy, Preces, Reference, ResponsivePrayer, Rubric, Sentence, Series, Text,
-    Version,
-};
+use liturgy::*;
 use psalter::bcp1979::{PSALM_134, PSALM_31, PSALM_4, PSALM_91};
 
 lazy_static! {
@@ -116,7 +112,7 @@ lazy_static! {
 
         Document::from(Rubric::from("Silence may be kept, and free intercessions and thanksgivings may be offered.\n")),
 
-        Document::from(Categories::PrayersAndThanksgivings),
+        Document::from(Content::DocumentLink { label: "Prayers and Thanksgivings".into(), path: vec![Slug::PrayersAndThanksgivings], rotate: false }),
 
         Document::from(Rubric::from("The service concludes with the Song of Simeon with this Antiphon, which is sung or said by all")),
         Document::from(Antiphon::from("Guide us waking, O Lord, and guard us sleeping; that awake we may watch with Christ, and asleep we may rest in peace.")),

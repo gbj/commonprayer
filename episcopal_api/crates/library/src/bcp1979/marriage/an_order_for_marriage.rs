@@ -11,7 +11,11 @@ lazy_static! {
         .content(Content::Liturgy(Liturgy::from(Series::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading1, "An Order for Marriage"))).tags([TITLE]),
             Document::from(Rubric::from("If it is desired to celebrate a marriage otherwise than as provided on page 423 of this Book [The Celebration and Blessing of a Marriage], this Order is used.")),
-            Document::from(Content::DocumentLink(Version::BCP1979, "Marriage Service".into(), "marriage".into(), "celebration-and-blessing-of-a-marriage".into())),
+            Document::from(Content::DocumentLink {
+                label: "Marriage Service".into(),
+                path: vec![Slug::Marriage, Slug::CelebrationAndBlessing],
+                rotate: false
+            }),
             Document::from(Rubric::from("Normally, the celebrant is a priest or bishop. Where permitted by civil law, and when no priest or bishop is available, a deacon may function as celebrant, but does not pronounce a nuptial blessing.")),
             Document::from(Rubric::from("The laws of the State and the canons of this Church having been complied with, the man and the woman, together with their witnesses, families, and friends assemble in the church or in some other convenient place.")).tags([PROCESSION_RUBRIC]),
             Document::from(Rubric::from("1. The teaching of the Church concerning Holy Matrimony, as it is declared in the formularies and canons of this Church, is briefly stated.").long()).tags([OPENING_ADDRESS]),
@@ -27,6 +31,10 @@ lazy_static! {
             Document::from(Rubric::from("7. A priest or bishop pronounces a solemn blessing upon the couple.").long()).tags([BLESSING_OF_THE_MARRIAGE]),
             Document::from(Rubric::from("8. If there is no Communion, the service concludes with the Peace, the husband and wife first greeting each other. The Peace may be exchanged throughout the assembly.").long()).tags([THE_PEACE]),
             Document::from(Rubric::from("9. If there is to be a Communion, the service continues with the Peace and the Offertory. The Holy Eucharist may be celebrated either according to Rite One or Rite Two in this Book, or according to the Order on page 401 [An Order for Celebrating the Holy Eucharist].").long()).tags([AT_THE_EUCHARIST]),
-            Document::from(Content::DocumentLink(Version::BCP1979, "Holy Eucharist".into(), "eucharist".into(), "holy-eucharist".into())).tags([AT_THE_EUCHARIST]),
+            Document::from(Content::DocumentLink {
+                label: "Holy Eucharist".into(),
+                path: vec![Slug::Eucharist],
+                rotate: false
+            }).tags([AT_THE_EUCHARIST]),
         ]))));
 }

@@ -17,7 +17,11 @@ lazy_static! {
                 "Concerning the Service"
             ))),
             Document::from(Rubric::from("Holy Baptism is full initiation by water and the Holy Spirit into Christ’s Body the Church. The bond which God establishes in Baptism is indissoluble.\n\nHoly Baptism is appropriately administered within the Eucharist as the chief service on a Sunday or other feast.\n\nThe bishop, when present, is the celebrant; and is expected to preach the Word and preside at Baptism and the Eucharist. At Baptism, the bishop officiates at the Presentation and Examination of the Candidates; says the Thanksgiving over the Water; [consecrates the Chrism;] reads the prayer, “Heavenly Father, we thank you that by water and the Holy Spirit;” and officiates at what follows.\n\nIn the absence of a bishop, a priest is the celebrant and presides at the service. If a priest uses Chrism in signing the newly baptized, it must have been previously consecrated by the bishop.\n\nEach candidate for Holy Baptism is to be sponsored by one or more baptized persons.\n\nSponsors of adults and older children present their candidates and thereby signify their endorsement of the candidates and their intention to support them by prayer and example in their Christian life. Sponsors of infants, commonly called godparents, present their candidates, make promises in their own names, and also take vows on behalf of their candidates.\n\nIt is fitting that parents be included among the godparents of their own children. Parents and godparents are to be instructed in the meaning of Baptism, in their duties to help the new Christians grow in the knowledge and love of God, and in their responsibilities as members of his Church").long()),
-            Document::from(Content::DocumentLink(Version::BCP1979, "Additional Directions".into(), "baptism".into(), "additional-directions".into()))
+            Document::from(Content::DocumentLink {
+                label: "Additional Directions".into(),
+                path: vec![Slug::Baptism, Slug::AdditionalDirections],
+                rotate: false
+            }),
         ]))));
 
     pub static ref HOLY_BAPTISM: Document = Document::new()
@@ -54,7 +58,11 @@ lazy_static! {
             Document::from(Heading::from((HeadingLevel::Heading2, "The Collect of the Day"))),
             Document::from(Content::CollectOfTheDay { allow_multiple: false }),
             Document::from(Rubric::from("At the principal service on a Sunday or other feast, the Collect and Lessons are properly those of the Day. On other occasions they are selected from “At Baptism.” (See Additional Directions, page 312.)")),
-            Document::from(Content::DocumentLink(Version::BCP1979, "Additional Directions".into(), "baptism".into(), "additional-directions".into())).display(Show::TemplateOnly),
+            Document::from(Content::DocumentLink {
+                label: "Additional Directions".into(),
+                path: vec![Slug::Baptism, Slug::AdditionalDirections],
+                rotate: false
+            }),
 
             Document::from(Heading::from((HeadingLevel::Heading2, "The Lessons"))),
 

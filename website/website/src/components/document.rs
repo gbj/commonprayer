@@ -193,13 +193,10 @@ pub fn document_view(
             Content::Text(content) => text(content),
             Content::Choice(content) => choice(locale, &controller.clone(), path, content),
             Content::Parallel(content) => parallel(locale, controller, path, content),
-            Content::Category(content) => category(locale, content, doc.version),
             Content::CollectOfTheDay { allow_multiple } => {
                 collect_of_the_day(locale, *allow_multiple, doc.version)
             }
-            Content::DocumentLink(version, label, category, slug) => {
-                document_link(locale, version, label, category, slug)
-            }
+            Content::DocumentLink { label, path, .. } => document_link(locale, label, path),
             Content::Empty => empty(),
             Content::Error(content) => error(content),
             Content::Antiphon(content) => antiphon(content),
@@ -662,22 +659,6 @@ pub fn canticle(
     )
 }
 
-pub fn category(locale: &str, content: &Category, version: Version) -> HeaderAndMain {
-    let name = t!(&format!("category.{:#?}", content.name));
-    let href = lookup_links(
-        locale,
-        &LookupType::Category(content.name, version, name.clone()),
-    );
-    (
-        None,
-        view! {
-            <main class="lookup category">
-                <a href={href}>{name}</a>
-            </main>
-        },
-    )
-}
-
 pub fn choice(
     locale: &str,
     controller: &DocumentController,
@@ -873,14 +854,13 @@ pub fn document_class(doc: &Document) -> String {
     )
 }
 
-pub fn document_link(
-    locale: &str,
-    version: &Version,
-    label: &str,
-    category: &str,
-    slug: &str,
-) -> HeaderAndMain {
-    let href = format!("/{}/document/{}/{}/{:#?}", locale, category, slug, version);
+pub fn document_link(locale: &str, label: &str, path: &[Slug]) -> HeaderAndMain {
+    let path = path
+        .iter()
+        .map(Slug::slugify)
+        .intersperse_with(|| String::from("/"))
+        .collect::<String>();
+    let href = format!("/{locale}/document/{path}");
     (
         None,
         view! {

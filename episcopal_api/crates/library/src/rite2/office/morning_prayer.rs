@@ -21,7 +21,7 @@ lazy_static! {
                 // Fore-Office -- optionally omitted with "omitForeOffice" preference
                 Document::from(Series::from([
                     Document::from(Rubric::from("The Officiant begins the service with one or more of these sentences of Scripture, or with the versicle “Lord, open our lips.”")).page(75),
-                    Document::from(Categories::OpeningSentences),
+                    Document::from(Content::DocumentLink { label: "Opening Sentences".into(), path: vec![Slug::Office, Slug::OpeningSentences, Slug::Version(Version::RiteII)], rotate: false }),
                     Document::from(Rubric::from("The following Confession of Sin may then be said; or the Office may continue at once with “Lord, open our lips.”")).page(79),
                     Document::from(Heading::from((HeadingLevel::Heading3, "Confession of Sin"))),
                     Document::from(Rubric::from("The Officiant says to the people")),
@@ -55,7 +55,7 @@ lazy_static! {
                 Document::from(Rubric::from("Then follows one of the Invitatory Psalms, Venite or Jubilate.")),
 
                 Document::from(Rubric::from("One of the following Antiphons may be sung or said with the Invitatory Psalm")).display(Show::TemplateOnly),
-                Document::from(Categories::InvitatoryAntiphons)
+                Document::from(Content::DocumentLink { label: "Invitatory Antiphons".into(), path: vec![Slug::Office, Slug::InvitatoryAntiphons, Slug::Version(Version::RiteII)], rotate: false })
                     .version(Version::RiteII)
                     .display(Show::TemplateOnly),
 
@@ -388,7 +388,7 @@ lazy_static! {
 
             Document::from(Rubric::from("Authorized intercessions and thanksgivings may follow.")),
 
-            Document::from(Categories::PrayersAndThanksgivings),
+            Document::from(Content::DocumentLink { label: "Prayers and Thanksgivings".into(), path: vec![Slug::PrayersAndThanksgivings], rotate: false }),
 
             Document::from(Rubric::from("Before the close of the Office one or both of the following may be used")),
             Document::from(Text::from("Almighty God, Father of all mercies,\nwe your unworthy servants give you humble thanks\nfor all your goodness and loving-kindness\nto us and to all whom you have made.\nWe bless you for our creation, preservation,\nand all the blessings of this life;\nbut above all for your immeasurable love\nin the redemption of the world by our Lord Jesus Christ;\nfor the means of grace, and for the hope of glory.\n\nAnd, we pray, give us such an awareness of your mercies,\nthat with truly thankful hearts we may show forth your praise,\nnot only with our lips, but in our lives,\nby giving up our selves to your service,\nand by walking before you\nin holiness and righteousness all our days;\nthrough Jesus Christ our Lord,\nto whom, with you and the Holy Spirit,\nbe honor and glory throughout all ages. ")
@@ -417,7 +417,7 @@ lazy_static! {
                 .display(Show::CompiledOnly),
             Document::from(Rubric::from("The Officiant may then conclude with one of the following")),
 
-            Document::from(Categories::ClosingSentences),
+            Document::from(Content::DocumentLink { label: "Closing Sentences".into(), path: vec![Slug::Office, Slug::ClosingSentences, Slug::Version(Version::RiteII)], rotate: false }),
 
             // Possible location #3 for sermon
             Document::from(Heading::from((HeadingLevel::Heading3, "The Sermon")))

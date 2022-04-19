@@ -148,7 +148,11 @@ lazy_static! {
 
             Document::from(Heading::from((HeadingLevel::Heading3, "The Prayers of the People"))),
             Document::from(Rubric::from("Prayer is offered with intercession for\nThe Universal Church, its members, and its mission\nThe Nation and all in authority\nThe welfare of the world\nThe concerns of the local community\nThose who suffer and those in any trouble\nThe departed (with commemoration of a saint when appropriate)\nSee the forms beginning on page 383.")),
-            Document::from(Content::DocumentLink(Version::BCP1979, "Prayers of the People".into(), "eucharist".into(), "pop".into())),
+            Document::from(Content::DocumentLink {
+                label: "Prayers of the People".into(),
+                path: vec![Slug::Eucharist, Slug::PrayersOfThePeople],
+                rotate: false
+            }),
 
             Document::from(Rubric::from("If there is no celebration of the Communion, or if a priest is not available, the service is concluded as directed on page 406.")),
             Document::from(Heading::from((HeadingLevel::Heading3, "Confession of Sin"))),
@@ -171,7 +175,11 @@ lazy_static! {
             Document::from(Heading::from((HeadingLevel::Heading2, "The Holy Communion"))),
             Document::from(Rubric::from("The Celebrant may begin the Offertory with one of the sentences on page 376, or with some other sentence of Scripture.")),
 
-            Document::from(Category::from(Categories::OffertorySentences)).version(Version::RiteII),
+            Document::from(Content::DocumentLink {
+                label: "Offertory Sentences".into(),
+                path: vec![Slug::Eucharist, Slug::OffertorySentences, Slug::Version(Version::RiteII)],
+                rotate: false
+            }).version(Version::RiteII),
 
             Document::from(Rubric::from("During the Offertory, a hymn, psalm, or anthem may be sung.")),
             Document::from(Content::HymnLink(HymnLink::Hymnals)),

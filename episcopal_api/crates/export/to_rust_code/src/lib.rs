@@ -240,10 +240,6 @@ impl ToRustCode for Content {
                 let long = if content.long { ".long()" } else { "" };
                 format!("Rubric::from({:?}){}", content.text, long)
             }
-            Content::Category(content) => {
-                let rotate = if content.rotate { ".rotate()" } else { "" };
-                format!("Category::from(Categories::{}){}", content.name, rotate)
-            }
             Content::CollectOfTheDay { allow_multiple } => format!(
                 "Content::CollectOfTheDay {{ allow_multiple: {} }}",
                 allow_multiple
@@ -269,7 +265,7 @@ impl ToRustCode for Content {
             Content::BiblicalReading(_) => String::new(),
             Content::Canticle(_) => String::new(),
             Content::CanticleTableEntry(_) => String::new(),
-            Content::DocumentLink(_, _, _, _) => String::new(),
+            Content::DocumentLink { .. } => String::new(),
             Content::GloriaPatri(content) => {
                 let display_format = if content.display_format.is_default() {
                     String::new()

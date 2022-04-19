@@ -728,13 +728,21 @@ lazy_static! {
 
             Document::from(Series::from(vec![
                 Document::from(Rubric::from("The Apostles’ Creed may be said, all standing.")),
-                Document::from(Content::DocumentLink(Version::RiteI, "Apostles’ Creed".into(), "common".into(), "apostles-creed".into())).display(Show::TemplateOnly)
+                Document::from(Content::DocumentLink{
+                    label: "Apostles’ Creed".into(),
+                    path: vec![Slug::ApostlesCreed, Slug::Version(Version::RiteI)],
+                    rotate: false
+                }).display(Show::TemplateOnly)
             ])).tags([CREED]),
             APOSTLES_CREED_TRADITIONAL.clone().display(Show::CompiledOnly),
 
             // Prayers
             Document::from(Rubric::from("If there is not to be a Communion, the Lord’s Prayer is said here, and the service continues with the following prayer of intercession, or with one or more suitable prayers (see pages 487-489).\n\nWhen there is a Communion, the following serves for the Prayers of the People.")).tags([RUBRIC_BEFORE_PRAYERS]),
-            Document::from(Categories::AdditionalPrayers).version(Version::RiteI).tags([RUBRIC_BEFORE_PRAYERS]),
+            Document::from(Content::DocumentLink {
+                label: "Additional Prayers".into(),
+                path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteI)],
+                rotate: false
+            }).version(Version::RiteI).tags([RUBRIC_BEFORE_PRAYERS]),
 
             Document::from(Rubric::from("The People respond to every petition with Amen.\n\nThe Deacon or other leader says")).tags([PRAYERS_RUBRIC]),
             Document::from(Series::from(vec![
@@ -759,7 +767,11 @@ lazy_static! {
 
             Document::from(Heading::from((HeadingLevel::Heading2, "At the Eucharist."))).tags([AT_THE_EUCHARIST_TITLE]),
             Document::from(Rubric::from("The service continues with the Peace and the Offertory.")).tags([AT_THE_EUCHARIST]),
-            Document::from(Content::DocumentLink(Version::RiteI, "Preface of the Commemoration of the Dead".into(), "eucharist".into(), "proper-preface#commemoration-of-the-dead".into())).tags([PROPER_PREFACE]),
+            Document::from(Content::DocumentLink {
+                label: "Preface of the Commemoration of the Dead".into(),
+                path: vec![Slug::Eucharist, Slug::ProperPrefaces, Slug::Burial, Slug::Version(Version::RiteI)],
+                rotate: false
+            }).tags([PROPER_PREFACE]),
             Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")).tags([POSTCOMMUNION_PRAYER]),
             Document::from(Text::from("Almighty God, we thank thee that in thy great love thou hast fed us with the spiritual food and drink of the Body and Blood of thy Son Jesus Christ, and hast given unto us a foretaste of thy heavenly banquet. Grant that this Sacrament may be unto us a comfort in affliction, and a pledge of our inheritance in that kingdom where there is no death, neither sorrow nor crying, but the fullness of joy with all thy saints; through Jesus Christ our Savior.").response("Amen.").display_format(DisplayFormat::Unison)).tags([POSTCOMMUNION_PRAYER]),
 
@@ -815,7 +827,11 @@ lazy_static! {
 
             Document::from(Text::from("O Almighty God, the God of the spirits of all flesh, who by a voice from heaven didst proclaim, Blessed are the dead who die in the Lord: Multiply, we beseech thee, to those who rest in Jesus the manifold blessings of thy love, that the good work which thou didst begin in them may be made perfect unto the day of Jesus Christ. And of thy mercy, O heavenly Father, grant that we, who now serve thee on earth, may at last, together with them, be partakers of the inheritance of the saints in light; for the sake of thy Son Jesus Christ our Lord.").response("Amen.")).tags([COMMITTAL_PRAYERS_2]),
             Document::from(Rubric::from("In place of this prayer, or in addition to it, the Celebrant may use any of the Additional Prayers.")).tags([COMMITTAL_PRAYERS_2]),
-            Document::from(Categories::AdditionalPrayers).version(Version::RiteI).tags([COMMITTAL_PRAYERS_2]),
+            Document::from(Content::DocumentLink {
+                label: "Additional Prayers".into(),
+                path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteI)],
+                rotate: false
+            }).version(Version::RiteI).tags([COMMITTAL_PRAYERS_2]),
 
             Document::from(Rubric::from("Then may be said.")).tags([COMMITTAL_PRAYERS_2]),
             Document::from(ResponsivePrayer::from([
@@ -834,16 +850,20 @@ lazy_static! {
 
             Document::from(Series::from(vec![
                 Document::from(Heading::from((HeadingLevel::Heading2, "Additional Prayers"))),
-                Document::from(Categories::AdditionalPrayers).version(Version::RiteI)
+                Document::from(Content::DocumentLink {
+                    label: "Additional Prayers".into(),
+                    path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteI)],
+                    rotate: false
+                }).version(Version::RiteI)
             ])).tags([ADDITIONAL_PRAYERS])
         ]))));
 
-	pub static ref ADDITIONAL_PRAYERS_BURIAL_I: Vec<Document> = vec![
+    pub static ref ADDITIONAL_PRAYERS_BURIAL_I: Vec<Document> = vec![
         Document::from(Text::from("Almighty and everlasting God, we yield unto thee most high praise and hearty thanks for the wonderful grace and virtue declared in all thy saints, who have been the choice vessels of thy grace, and the lights of the world in their several generations; most humbly beseeching thee to give us grace so to follow the example of their steadfastness in thy faith, and obedience to thy holy commandments, that at the day of the general resurrection, we, with all those who are of the mystical body of thy Son, may be set on his right hand, and hear that his most joyful voice: “Come, ye blessed of my Father, inherit the kingdom prepared for you from the foundation of the world.” Grant this, O Father, for the sake of the same thy Son Jesus Christ, our only Mediator and Advocate.").response("Amen.")).page(487),
         Document::from(Text::from("Almighty God, with whom do live the spirits of those who depart hence in the Lord, and with whom the souls of the faithful, after they are delivered from the burden of the flesh, are in joy and felicity: We give thee hearty thanks for the good examples of all those thy servants, who, having finished their course in faith, do now rest from their labors. And we beseech thee that we, with all those who are departed in the true faith of thy holy Name, may have our perfect consummation and bliss, both in body and soul, in thy eternal and everlasting glory; through Jesus Christ our Lord.").response("Amen.")).page(488),
         Document::from(Text::from("Into thy hands, O Lord, we commend thy servant *N.*, our dear *brother*, as into the hands of a faithful Creator and most merciful Savior, beseeching thee that *he* may be precious in thy sight. Wash *him*, we pray thee, in the blood of that immaculate Lamb that was slain to take away the sins of the world; that, whatsoever defilements *he* may have contracted in the midst of this earthly life being purged and done away, *he* may be presented pure and without spot before thee; through the merits of Jesus Christ thine only Son our Lord.").response("Amen.")).page(488),
         Document::from(Text::from("Remember thy servant, O Lord, according to the favor which thou bearest unto thy people; and grant that, increasing in knowledge and love of thee, *he* may go from strength to strength in the life of perfect service in thy heavenly kingdom; through Jesus Christ our Lord.").response("Amen.")).page(488),
-		Document::from(Text::from("Almighty God, our heavenly Father, in whose hands are the living and the dead: We give thee thanks for all thy servants who have laid down their lives in the service of our country. Grant to them thy mercy and the light of thy presence; and give us such a lively sense of thy righteous will, that the work which thou hast begun in them may be perfected; through Jesus Christ thy Son our Lord.").response("Amen.")).page(488),
+        Document::from(Text::from("Almighty God, our heavenly Father, in whose hands are the living and the dead: We give thee thanks for all thy servants who have laid down their lives in the service of our country. Grant to them thy mercy and the light of thy presence; and give us such a lively sense of thy righteous will, that the work which thou hast begun in them may be perfected; through Jesus Christ thy Son our Lord.").response("Amen.")).page(488),
         Document::from(Text::from("O God, whose days are without end, and whose mercies cannot be numbered: Make us, we beseech thee, deeply sensible of the shortness and uncertainty of life; and let thy Holy Spirit lead us in holiness and righteousness all our days; that, when we shall have served thee in our generation, we may be gathered unto our fathers, having the testimony of a good conscience; in the communion of the Catholic Church; in the confidence of a certain faith; in the comfort of a reasonable, religious, and holy hope; in favor with thee our God; and in perfect charity with the world. All which we ask through Jesus Christ our Lord.").response("Amen.")).page(489),
         Document::from(Text::from("O God, the King of saints, we praise and magnify thy holy Name for all thy servants who have finished their course in thy faith and fear; for the blessed Virgin Mary; for the holy patriarchs, prophets, apostles, and martyrs; and for all other thy righteous servants, known to us and unknown; and we beseech thee that, encouraged by their examples, aided by their prayers, and strengthened by their fellowship, we also may be partakers of the inheritance of the saints in light through the merits of thy Son Jesus Christ our Lord.").response("Amen.")).page(489),
         Document::from(Text::from("O Lord Jesus Christ, Son of the living God, we pray thee to set thy passion, cross, and death, between thy judgment and our souls, now and in the hour of our death. Give mercy and grace to the living, pardon and rest to the dead, to thy holy Church peace and concord, and to us sinners everlasting life and glory; who with the Father and the Holy Spirit livest and reignest, one God, now and for ever.").response("Amen.")).page(489),

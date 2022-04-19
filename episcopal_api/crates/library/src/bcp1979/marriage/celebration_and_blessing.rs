@@ -132,8 +132,11 @@ lazy_static! {
 
 
             Document::from(Rubric::from("If there is to be a presentation or a giving in marriage, it takes place at this time.")).tags([PRESENTATION_RUBRIC]),
-            Document::from(Content::DocumentLink(Version::BCP1979, "Additional Directions".into(), "marriage".into(), "additional-directions".into())).tags([ADDITIONAL_DIRECTIONS_PARALLEL]),
-
+            Document::from(Content::DocumentLink {
+                label: "Additional Directions".into(),
+                path: vec![Slug::Marriage, Slug::AdditionalDirections],
+                rotate: false
+            }).tags([ADDITIONAL_DIRECTIONS_PARALLEL]),
             Document::from(Series::from(vec![
                 Document::from(Rubric::from("A hymn, psalm, or anthem may follow.")),
                 Document::from(HymnLink::Tag("Marriage".into())),
@@ -245,7 +248,11 @@ lazy_static! {
             Document::from(Series::from(vec![
                 Document::from(Heading::from((HeadingLevel::Heading2, "At the Eucharist"))).tags([AT_THE_EUCHARIST]),
                 Document::from(Rubric::from("The liturgy continues with the Offertory, at which the newly married couple may present the offerings of bread and wine.")).tags([OFFERTORY_RUBRIC]),
-                Document::from(Content::DocumentLink(Version::RiteII, "Preface of Marriage".into(), "eucharist".into(), "proper-preface#marriage".into())).tags([PROPER_PREFACE]),
+                Document::from(Content::DocumentLink {
+                    label: "Preface of Marriage".into(),
+                    path: vec![Slug::Eucharist, Slug::ProperPrefaces, Slug::Marriage],
+                    rotate: false
+                }).tags([PROPER_PREFACE]),
                 Document::from(Rubric::from("At the Communion, it is appropriate that the newly married couple receive Communion first, after the ministers.")).tags([POST_PREFACE_RUBRIC]),
                 Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")).tags([POSTCOMMUNION_PRAYER]),
                 Document::from(Text::from("O God, the giver of all that is true and lovely and gracious: We give you thanks for binding us together in these holy mysteries of the Body and Blood of your Son Jesus Christ. Grant that by your Holy Spirit, *N.* and *N.*, now joined in Holy Matrimony, may become one in heart and soul, live in fidelity and peace, and obtain those eternal joys prepared for all who love you; for the sake of Jesus Christ our Lord.").response("Amen.").display_format(DisplayFormat::Unison)).tags(["Postcommunion Prayer", POSTCOMMUNION_PRAYER]),

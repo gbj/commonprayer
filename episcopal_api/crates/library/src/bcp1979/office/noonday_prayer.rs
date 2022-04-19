@@ -1,9 +1,6 @@
 use crate::conditions::{NOT_INSERT_GLORIA, NOT_LENT};
 use crate::rite2::{GLORIA_PATRI, LORDS_PRAYER_ABBREV};
-use liturgy::{
-    Categories, Choice, Content, DisplayFormat, Document, Heading, HeadingLevel, HymnLink, Liturgy,
-    Preces, Reference, ResponsivePrayer, Rubric, Sentence, Series, Show, Source, Text, Version,
-};
+use liturgy::*;
 use psalter::bcp1979::{PSALM_119, PSALM_121, PSALM_126};
 
 lazy_static! {
@@ -99,7 +96,7 @@ lazy_static! {
                 // Closing
                 Document::from(Rubric::from("Free intercessions may be offered.")),
 
-                Document::from(Categories::PrayersAndThanksgivings),
+                Document::from(Content::DocumentLink { label: "Prayers and Thanksgivings".into(), path: vec![Slug::PrayersAndThanksgivings], rotate: false }),
 
                 Document::from(Rubric::from("The service concludes as follows")),
                 Document::from(Preces::from([

@@ -165,7 +165,11 @@ lazy_static! {
 
             // Prayers
             Document::from(Rubric::from("If there is not to be a Communion, the Lord’s Prayer is said here, and the service continues with the Prayers of the People, or with one or more suitable prayers (see pages 503-505).\n\nWhen there is a Communion, the following form of the Prayers of the People is used, or else the form on page 465 or 480.")).tags([RUBRIC_BEFORE_PRAYERS]),
-            Document::from(Categories::AdditionalPrayers).version(Version::RiteII).tags([RUBRIC_BEFORE_PRAYERS]),
+            Document::from(Content::DocumentLink {
+                label: "Additional Prayers".into(),
+                path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteII)],
+                rotate: false
+            }).version(Version::RiteII).tags([RUBRIC_BEFORE_PRAYERS]),
             Document::from(Series::from(vec![
                 Document::from(Litany::from((
                     "Hear us, Lord.",
@@ -191,7 +195,11 @@ lazy_static! {
 
             Document::from(Heading::from((HeadingLevel::Heading2, "At the Eucharist."))).tags([AT_THE_EUCHARIST_TITLE]),
             Document::from(Rubric::from("The service continues with the Peace and the Offertory.")).tags([AT_THE_EUCHARIST]),
-            Document::from(Content::DocumentLink(Version::RiteII, "Preface of the Commemoration of the Dead".into(), "eucharist".into(), "proper-preface#commemoration-of-the-dead".into())).tags([PROPER_PREFACE]),
+            Document::from(Content::DocumentLink {
+                label: "Preface of the Commemoration of the Dead".into(),
+                path: vec![Slug::Eucharist, Slug::ProperPrefaces, Slug::Burial, Slug::Version(Version::RiteII)],
+                rotate: false
+            }).tags([PROPER_PREFACE]),
             Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")).tags([POSTCOMMUNION_PRAYER]),
             Document::from(Text::from("Almighty God, we thank you that in your great love you have fed us with the spiritual food and drink of the Body and Blood of your Son Jesus Christ, and have given us a foretaste of your heavenly banquet. Grant that this Sacrament may be to us a comfort in affliction, and a pledge of our inheritance in that kingdom where there is no death, neither sorrow nor crying, but the fullness of joy with all your saints; through Jesus Christ our Savior.").response("Amen.").display_format(DisplayFormat::Unison)).tags([POSTCOMMUNION_PRAYER]),
 
@@ -244,7 +252,11 @@ lazy_static! {
                 Document::from(Text::from(LORDS_PRAYER_TRADITIONAL_TEXT).response("Amen.").display_format(DisplayFormat::Unison)).version_label("Traditional"),
             ])).tags([COMMITTAL_LORDS_PRAYER]),
             Document::from(Rubric::from("Other prayers may be added.")).tags([COMMITTAL_PRAYERS_2]),
-            Document::from(Categories::AdditionalPrayers).version(Version::RiteII).tags([COMMITTAL_PRAYERS_2]),
+            Document::from(Content::DocumentLink {
+                label: "Additional Prayers".into(),
+                path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteII)],
+                rotate: false
+            }).version(Version::RiteII).tags([COMMITTAL_PRAYERS_2]),
             Document::from(Rubric::from("Then may be said.")).tags([COMMITTAL_PRAYERS_2]),
             Document::from(ResponsivePrayer::from([
                 "Rest eternal grant to *him*, O Lord;",
@@ -270,7 +282,11 @@ lazy_static! {
 
             Document::from(Series::from(vec![
                 Document::from(Heading::from((HeadingLevel::Heading2, "Additional Prayers"))),
-                Document::from(Categories::AdditionalPrayers).version(Version::RiteII)
+                Document::from(Content::DocumentLink {
+                    label: "Additional Prayers".into(),
+                    path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteII)],
+                    rotate: false
+                }).version(Version::RiteII)
             ])).tags([ADDITIONAL_PRAYERS])
         ]))));
 

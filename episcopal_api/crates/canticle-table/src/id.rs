@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub enum CanticleId {
+    None,
     Canticle1,
     Canticle2,
     Canticle3,
@@ -46,12 +47,19 @@ pub enum CanticleId {
     CanticleS,
 }
 
+impl Default for CanticleId {
+    fn default() -> Self {
+        Self::None
+    }
+}
+
 impl Display for CanticleId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
             "{}",
             match self {
+                CanticleId::None => "None",
                 CanticleId::Canticle1 => "1",
                 CanticleId::Canticle2 => "2",
                 CanticleId::Canticle3 => "3",

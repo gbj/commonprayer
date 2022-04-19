@@ -78,11 +78,10 @@ fn add_content(docx: Docx, doc: &Document) -> Docx {
                 docx
             }
         }
-        Content::Category(content) => content.add_to_docx(docx),
         Content::CollectOfTheDay { allow_multiple: _ } => {
             docx.add_paragraph(paragraph_with_text("The Collect of the Day").style(HEADING_3))
         }
-        Content::DocumentLink(..) => docx,
+        Content::DocumentLink { .. } => docx,
         Content::Empty => docx,
         Content::Error(content) => content.add_to_docx(docx),
         Content::Antiphon(content) => content.add_to_docx(docx),
@@ -123,12 +122,6 @@ fn paragraph_with_text(text: impl std::fmt::Display) -> Paragraph {
 }
 trait AddToDocx {
     fn add_to_docx(&self, docx: Docx) -> Docx;
-}
-
-impl AddToDocx for Category {
-    fn add_to_docx(&self, docx: Docx) -> Docx {
-        docx
-    }
 }
 
 impl AddToDocx for DocumentError {

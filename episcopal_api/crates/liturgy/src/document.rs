@@ -561,8 +561,6 @@ pub enum Content {
     /// A set of multiple [Document]s, which are mutually-exclusive choices
     Choice(Choice),
     /// # Lookup Fields
-    /// Inserts all documents filed under this category in the library.
-    Category(Category),
     /// Inserts the Collect of the Day
     CollectOfTheDay { allow_multiple: bool },
     /// # Content Variants
@@ -581,8 +579,15 @@ pub enum Content {
     Canticle(Canticle),
     /// An entry that can be looked up from a [CanticleTable](canticle_table::CanticleTable).
     CanticleTableEntry(CanticleTableEntry),
-    /// A link to another document by its version and label and its category and slug in the table of contents
-    DocumentLink(Version, String, String, String),
+    /// A link to another document in the table of contents
+    DocumentLink {
+        label: String,
+        path: Vec<Slug>,
+        /// If `true`, the compiler will only show one [Document](crate::Document),
+        /// rotating by day in a deterministic way. If `false`, it will show them all
+        /// as a [Choice](crate::Choice).
+        rotate: bool
+    },
     /// The Gloria Patri is formatted such that it is broken into four lines rather than two if necessary
     GloriaPatri(GloriaPatri),
     /// A title, subtitle, label, or other heading
@@ -623,7 +628,6 @@ impl Content {
             Content::Series(docs) => docs.iter().any(|doc| doc.contains(text)),
             Content::Parallel(docs) => docs.iter().any(|doc| doc.contains(text)),
             Content::Choice(docs) => docs.options.iter().any(|doc| doc.contains(text)),
-            Content::Category(_) => false,
             Content::CollectOfTheDay { allow_multiple: _ } => false,
             Content::Empty => false,
             Content::Error(_) => false,
@@ -654,7 +658,7 @@ impl Content {
                 })
             }
             Content::CanticleTableEntry(_) => false,
-            Content::DocumentLink(..) => false, 
+            Content::DocumentLink { .. } => false, 
             Content::GloriaPatri(gloria) => gloria.text.0.contains(text) || gloria.text.1.contains(text) || gloria.text.2.contains(text) || gloria.text.3.contains(text),
             Content::Heading(heading) => match heading {
                 Heading::Date(s) => s.contains(text),
@@ -686,7 +690,6 @@ impl Content {
             Content::Series(docs) => docs.iter().any(|doc| doc.contains_case_insensitive(text)),
             Content::Parallel(docs) => docs.iter().any(|doc| doc.contains_case_insensitive(text)),
             Content::Choice(docs) => docs.options.iter().any(|doc| doc.contains_case_insensitive(text)),
-            Content::Category(_) => false,
             Content::CollectOfTheDay { allow_multiple: _ } => false,
             Content::Empty => false,
             Content::Error(_) => false,
@@ -717,7 +720,7 @@ impl Content {
                 })
             }
             Content::CanticleTableEntry(_) => false,
-            Content::DocumentLink(..) => false,
+            Content::DocumentLink { .. } => false,
             Content::GloriaPatri(gloria) => gloria.text.0.to_lowercase().contains(text) || gloria.text.1.to_lowercase().contains(text) || gloria.text.2.to_lowercase().contains(text) || gloria.text.3.to_lowercase().contains(text),
             Content::Heading(heading) => match heading {
                 Heading::Date(s) => s.to_lowercase().contains(text),
@@ -795,18 +798,6 @@ impl From<BiblicalReading> for Document {
 impl From<Canticle> for Document {
     fn from(content: Canticle) -> Self {
         Self::from(Content::Canticle(content))
-    }
-}
-
-impl From<Category> for Document {
-    fn from(content: Category) -> Self {
-        Self::from(Content::Category(content))
-    }
-}
-
-impl From<Categories> for Document {
-    fn from(category: Categories) -> Self {
-        Self::from(Category::from(category))
     }
 }
 
@@ -939,12 +930,6 @@ impl From<Parallel> for Content {
 impl From<Choice> for Content {
 	fn from(content: Choice) -> Self {
         Self::Choice(content)
-    }
-}
-
-impl From<Category> for Content {
-	fn from(content: Category) -> Self {
-        Self::Category(content)
     }
 }
 
