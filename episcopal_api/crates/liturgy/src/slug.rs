@@ -16,6 +16,8 @@ pub enum Slug {
     AdditionalDirections,
     AdditionalPrayers,
     Order,
+    Readings,
+    Parallels,
     // Daily Office
     Office,
     MorningPrayer,
@@ -31,6 +33,8 @@ pub enum Slug {
     Canticle(CanticleId),
     // Litany
     GreatLitany,
+    // Collects
+    Collects,
     // Baptism
     Baptism,
     // Eucharist
@@ -40,13 +44,24 @@ pub enum Slug {
     ProperPrefaces,
     // P&Ts
     PrayersAndThanksgivings,
+    // Pastoral Offices
+    PastoralOffices,
     // Marriage
     Marriage,
     CelebrationAndBlessing,
+    CivilMarriage,
     WitnessingAndBlessing,
+    WitnessingAndBlessingLifelongCovenant,
     // Burial
     Burial,
-    // Shared
+    BurialOfAChild,
+    BurialOfANonChristian,
+    // Occasional Services
+    OccasionalServices,
+    Guadalupe,
+    Renaming,
+    // Creeds
+    Creeds,
     ApostlesCreed,
     NiceneCreed,
 }

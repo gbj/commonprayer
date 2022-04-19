@@ -1,9 +1,15 @@
 use canticle_table::{CanticleId, CanticleTable};
 use lectionary::Lectionary;
-use liturgy::{CanticleTables, Document, Lectionaries, Version};
+use liturgy::{
+    parallel_table::build_parallel_table, CanticleTables, Document, Lectionaries, Version,
+};
 use psalter::{bcp1979::BCP1979_PSALTER, Psalter};
 
-use crate::{bcp1979, eow, rite1, rite2, Contents, Library, Section, Slug, TableOfContents};
+use crate::{
+    bcp1979, bos, eow, loc,
+    marriage_alternatives::{self, parallels::MARRIAGE_PARALLEL_TAGS},
+    rite1, rite2, Contents, Library, Section, Slug, TableOfContents,
+};
 
 pub struct CommonPrayer {}
 
@@ -360,6 +366,35 @@ impl Library for CommonPrayer {
                 Contents::Document(&*bcp1979::THE_GREAT_LITANY),
             ),
             (
+                Slug::Collects,
+                Contents::Category {
+                    label: "The Collects".into(),
+                    contents: vec![
+                        (
+                            Slug::Version(Version::RiteI),
+                            Contents::from((
+                                "The Collects: Traditional".to_string(),
+                                &*rite1::collects::COLLECTS_TRADITIONAL.as_slice(),
+                            )),
+                        ),
+                        (
+                            Slug::Version(Version::RiteII),
+                            Contents::from((
+                                "The Collects: Contemporary".to_string(),
+                                &*rite2::collects::COLLECTS_CONTEMPORARY.as_slice(),
+                            )),
+                        ),
+                        (
+                            Slug::Version(Version::LibroDeOracionComun),
+                            Contents::from((
+                                "Las Colectas".to_string(),
+                                &*loc::collects::COLECTAS.as_slice(),
+                            )),
+                        ),
+                    ],
+                },
+            ),
+            (
                 Slug::PrayersAndThanksgivings,
                 Contents::MultiDocument {
                     label: "Prayers and Thanksgivings".into(),
@@ -416,6 +451,216 @@ impl Library for CommonPrayer {
                                 hidden_in_toc: true,
                             },
                         ),
+                    ],
+                },
+            ),
+            (
+                Slug::PastoralOffices,
+                Contents::Category {
+                    label: "Pastoral Offices".into(),
+                    contents: vec![
+                        (
+                            Slug::Marriage,
+                            Contents::Sections {
+                                label: "Marriage".into(),
+                                contents: vec![
+                                    Section {
+                                        label: Some("Parallels".into()),
+                                        contents: vec![(
+                                            Slug::Readings,
+                                            Contents::Document(
+                                                &*marriage_alternatives::parallels::PARALLEL_READINGS,
+                                            ),
+                                        ), (
+                                            Slug::Parallels,
+                                            Contents::Parallels {
+                                                intro: "In addition to the marriage service in the Book of Common Prayer (1979), the Episcopal Church has authorized several alternative marriage services, mainly in response to the need for gender-neutral language to describe the couple following the approval of same-sex marriage. This page is intended to show the parallels between the various authorized marriage services, noting differences as they arise.\n\nNote: “The Witnessing and Blessing of a Marriage,” as its own rite, differs in structure from the other services. Its prayers are here presented as alternatives to the traditional prayers, but the layout on this page does not reflect the exact order of materials in that rite.".into(),
+                                                parallels: build_parallel_table(
+                                                    "marriage",
+                                                    MARRIAGE_PARALLEL_TAGS,
+                                                    &[
+                                                        ("celebration-and-blessing-of-a-marriage", &*bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE),
+                                                        ("celebration-and-blessing-of-a-marriage-2", &*marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2),
+                                                        ("witnessing-and-blessing-marriage", &*marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE),
+                                                        ("an-order-for-marriage", &*bcp1979::marriage::AN_ORDER_FOR_MARRIAGE)
+                                                    ]
+                                                )
+                                            },
+                                        )],
+                                    },
+                                    Section {
+                                        label: Some("Marriage Services".into()),
+                                        contents: vec![
+                                            (Slug::ConcerningTheService, Contents::Document(&*bcp1979::marriage::CONCERNING_THE_SERVICE)),
+                                            (
+                                                Slug::CelebrationAndBlessing,
+                                                Contents::ByVersion {
+                                                    label: "The Celebration and Blessing of a Marriage".into(),
+                                                    documents: vec![
+                                                        &*bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE,
+                                                        &*marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2
+                                                    ]
+                                                }
+                                            ),
+                                            (Slug::WitnessingAndBlessing, Contents::Document(&*marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE)),
+                                            (Slug::WitnessingAndBlessingLifelongCovenant, Contents::Document(&*marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_LIFELONG_COVENANT)),
+                                            (
+                                                Slug::CivilMarriage,
+                                                Contents::ByVersion {
+                                                    label: "The Blessing of a Civil Marriage".into(),
+                                                    documents: vec![
+                                                        &*bcp1979::marriage::BLESSING_OF_A_CIVIL_MARRIAGE,
+                                                        &*marriage_alternatives::liturgical_resources_1::BLESSING_OF_A_CIVIL_MARRIAGE
+                                                    ]
+                                                }
+                                            ),
+                                            (
+                                                Slug::Order,
+                                                Contents::ByVersion {
+                                                    label: "An Order for Marriage".into(),
+                                                    documents: vec![
+                                                        &*bcp1979::marriage::AN_ORDER_FOR_MARRIAGE,
+                                                        &*marriage_alternatives::liturgical_resources_1::AN_ORDER_FOR_MARRIAGE,
+                                                        &*marriage_alternatives::liturgical_resources_2::AN_ORDER_FOR_MARRIAGE_2
+                                                    ]
+                                                }
+                                            ),
+                                            (
+                                                Slug::AdditionalDirections,
+                                                Contents::ByVersion {
+                                                    label: "Additional Directions".into(),
+                                                    documents: vec![
+                                                        &*bcp1979::marriage::ADDITIONAL_DIRECTIONS,
+                                                        &*marriage_alternatives::liturgical_resources_1::ADDITIONAL_DIRECTIONS
+                                                    ]
+                                                }
+                                            ),
+                                        ]
+                                    }
+                                ],
+                            },
+                        ),
+                        (
+                            Slug::Burial,
+                            Contents::Sections {
+                                label: "The Burial of the Dead".into(),
+                                contents: vec![
+                                    Section {
+                                        label: Some("Parallels".into()),
+                                        contents: vec![
+                                            (Slug::Readings, Contents::Document(&*bcp1979::burial::parallels::PARALLEL_READINGS)),
+                                            (
+                                                Slug::Parallels,
+                                                Contents::Parallels {
+                                                    intro: "".into(),
+                                                    parallels: build_parallel_table(
+                                                        "burial",
+                                                        bcp1979::burial::parallels::BURIAL_PARALLEL_TAGS,
+                                                        &[
+                                                            ("burial", &*rite2::burial::BURIAL_RITE_II),
+                                                            ("burial-of-a-child", &*eow::volume_2::burial_of_a_child::BURIAL_OF_A_CHILD),
+                                                            ("burial-of-a-non-christian", &*bos::BURIAL_OF_A_NON_CHRISTIAN),
+                                                            ("an-order-for-burial", &*bcp1979::burial::AN_ORDER_FOR_BURIAL)
+                                                        ]
+                                                    )
+                                                }
+                                            )
+                                        ]
+                                    },
+                                    Section {
+                                        label: Some("Book of Common Prayer (1979)".into()),
+                                        contents: vec![
+                                            (Slug::ConcerningTheService, Contents::Document(&*bcp1979::burial::CONCERNING_THE_BURIAL_SERVICE)),
+                                            (Slug::Burial, Contents::ByVersion {
+                                                label: "The Burial of the Dead".into(),
+                                                documents: vec![
+                                                    &*rite1::burial::BURIAL_RITE_I,
+                                                    &*rite2::burial::BURIAL_RITE_II
+                                                ]
+                                            }),
+                                            (Slug::Order, Contents::Document(&*bcp1979::burial::AN_ORDER_FOR_BURIAL))
+                                        ]
+                                    },
+                                    Section {
+                                        label: Some("Enriching Our Worship 2 (2000)".into()),
+                                        contents: vec![
+                                            (Slug::BurialOfAChild, Contents::Document(&*eow::volume_2::burial_of_a_child::BURIAL_OF_A_CHILD)),
+                                        ]
+                                    },
+                                    Section {
+                                        label: Some("Book of Occasional Services (2018)".into()),
+                                        contents: vec![
+                                            (Slug::BurialOfANonChristian, Contents::Document(&*bos::BURIAL_OF_A_NON_CHRISTIAN))
+                                        ]
+                                    },
+                                    Section {
+                                        label: Some("Additional Prayers".into()),
+                                        contents: vec![
+                                            (
+                                                Slug::Version(Version::RiteI),
+                                                    Contents::MultiDocument {
+                                                    label: "Rite I".into(),
+                                                    documents: rite1::burial::ADDITIONAL_PRAYERS_BURIAL_I.to_vec(),
+                                                    hidden_in_toc: false
+                                                }
+                                            ),
+                                            (
+                                                Slug::Version(Version::RiteII),
+                                                    Contents::MultiDocument {
+                                                    label: "Rite II".into(),
+                                                    documents: rite2::burial::ADDITIONAL_PRAYERS_BURIAL.to_vec(),
+                                                    hidden_in_toc: false
+                                                }
+                                            ),
+                                            (
+                                                Slug::Version(Version::EOW),
+                                                    Contents::MultiDocument {
+                                                    label: "For the Burial of a Child".into(),
+                                                    documents: eow::volume_2::burial_of_a_child::ADDITIONAL_PRAYERS_BURIAL_OF_A_CHILD.to_vec(),
+                                                    hidden_in_toc: false
+                                                }
+                                            )
+                                        ]
+                                    }
+                                ]
+                            },
+                        ),
+                        (
+                            Slug::OccasionalServices,
+                            Contents::Category {
+                                label: "Occasional Services".into(),
+                                contents: vec![
+                                    (Slug::Guadalupe, Contents::Document(&*bos::OUR_LADY_OF_GUADALUPE)),
+                                    (Slug::Renaming, Contents::Document(&*bos::A_SERVICE_OF_RENAMING))
+                                ]
+                            }
+                        ),
+                        (
+                            Slug::Creeds,
+                            Contents::Category {
+                                label: "Creeds".into(),
+                                contents: vec![
+                                    (
+                                        Slug::ApostlesCreed,
+                                        Contents::ByVersion {
+                                            label: "Apostles’ Creed".into(),
+                                            documents: vec![
+                                                &*rite1::APOSTLES_CREED_TRADITIONAL
+                                            ]
+                                        }
+                                    ),
+                                    (
+                                        Slug::NiceneCreed,
+                                        Contents::ByVersion {
+                                            label: "Nicene Creed".into(),
+                                            documents: vec![
+                                                &*rite2::eucharist::NICENE_CREED_II
+                                            ]
+                                        }
+                                    ),
+                                ]
+                            }
+                        )
                     ],
                 },
             ),
