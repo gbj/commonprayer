@@ -1,4 +1,7 @@
-use liturgy::{Document, Slug};
+use itertools::Itertools;
+use liturgy::{parallel_table::ParallelDocument, *};
+
+use crate::{CollectData, CollectId};
 
 pub struct TableOfContents<'a>(Vec<(Slug, Contents<'a>)>);
 
@@ -63,6 +66,11 @@ pub enum Contents<'a> {
         documents: Vec<Document>,
         hidden_in_toc: bool,
     },
+    /// Information to build a page of parallels
+    Parallels {
+        intro: String,
+        parallels: Vec<Vec<(ParallelDocument, usize)>>,
+    },
     /// A static page in the website, which can be ignored for other purposes
     Page(&'static str),
 }
@@ -70,7 +78,7 @@ pub enum Contents<'a> {
 impl<'a> Contents<'a> {
     pub fn as_documents(&self) -> impl Iterator<Item = &Document> {
         match self {
-            Contents::Page(_) => {
+            Contents::Page(_) | Contents::Parallels { .. } => {
                 Box::new(std::iter::empty()) as Box<dyn Iterator<Item = &Document>>
             }
             Contents::Category { contents, .. } => Box::new(
@@ -106,7 +114,6 @@ impl<'a> Contents<'a> {
                     .and_then(|(_, contents)| contents.contents_at_path(&path[1..]))
             }),
             Contents::ByVersion { documents, .. } => {
-                eprintln!("path = {:#?}", path);
                 if let Some(Slug::Version(version)) = path.get(0) {
                     documents
                         .iter()
@@ -137,7 +144,9 @@ impl<'a> Contents<'a> {
                 }
             }
             // No children to be sorted these leaf-node variants, so simply return this leaf
-            Contents::Page(_) | Contents::Document(_) => Some(self.clone()),
+            Contents::Page(_) | Contents::Document(_) | Contents::Parallels { .. } => {
+                Some(self.clone())
+            }
         }
     }
 }
@@ -146,4 +155,51 @@ impl<'a> Contents<'a> {
 pub struct Section<'a> {
     pub label: Option<String>,
     pub contents: Vec<(Slug, Contents<'a>)>,
+}
+
+impl<'a> From<(String, &[(CollectId, CollectData)])> for Contents<'a> {
+    fn from((label, collects): (String, &[(CollectId, CollectData)])) -> Self {
+        let grouped_by_category = collects
+            .iter()
+            .group_by(|(_, data)| data.document.tags.get(0));
+        let documents = grouped_by_category
+            .into_iter()
+            .flat_map(|(category, data)| {
+                std::iter::once(Document::from(Heading::from((
+                    HeadingLevel::Heading2,
+                    category.cloned().unwrap_or_default(),
+                ))))
+                .chain(data.dedup_by(|a, b| a.1.document == b.1.document).map(
+                    |(_, data)| {
+                        let mut pieces = Vec::new();
+
+                        if let Some(text) = &data.rubric_before {
+                            pieces.push(Document::from(Rubric::from(text.clone())))
+                        }
+                        pieces.push(Document {
+                            label: None,
+                            subtitle: None,
+                            ..data.document.clone()
+                        });
+                        if !data.preface.is_empty() {
+                            pieces.push(Document::from(Rubric::from(data.preface.clone())));
+                        }
+                        if let Some(text) = &data.rubric_after {
+                            pieces.push(Document::from(Rubric::from(text.clone())))
+                        }
+
+                        let mut series = Document::from(Series::from(pieces));
+                        series.label = data.document.label.clone();
+                        series.subtitle = data.document.subtitle.clone();
+                        series
+                    },
+                ))
+            })
+            .collect();
+        Contents::MultiDocument {
+            label,
+            documents,
+            hidden_in_toc: false,
+        }
+    }
 }
