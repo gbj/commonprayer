@@ -11,12 +11,12 @@ lazy_static! {
             Document::from(Rubric::from("The Rite begins as prescribed for celebrations of the Holy Eucharist, using the Collect and Lessons appointed in the Marriage service.")),
             Document::from(Content::DocumentLink {
                 label: "Holy Eucharist".into(),
-                path: vec![Slug::Eucharist],
+                path: SlugPath::from([Slug::Eucharist]),
                 rotate: false
             }),
             Document::from(Content::DocumentLink {
                 label: "Marriage Service".into(),
-                path: vec![Slug::Marriage, Slug::CelebrationAndBlessing],
+                path: SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing]),
                 rotate: false
             }),
 
@@ -51,7 +51,7 @@ lazy_static! {
             Document::from(Rubric::from("The service continues with The Prayers on page 428 [in the marriage service].")),
             Document::from(Content::DocumentLink {
                 label: "Marriage Service".into(),
-                path: vec![Slug::Marriage, Slug::CelebrationAndBlessing],
+                path: SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing]),
                 rotate: false
             }),
         ])

@@ -1,7 +1,6 @@
 use crate::{
     components::*,
     preferences::{self, StorageError},
-    table_of_contents::TOCLiturgy,
     utils::preferences::*,
 };
 use futures::StreamExt;
@@ -10,7 +9,8 @@ use leptos::*;
 use library::bcp1979::{COMPLINE, NOONDAY_PRAYER};
 use library::rite2::{EVENING_PRAYER_II, MORNING_PRAYER_II};
 use liturgy::{
-    GlobalPref, Lectionaries, LiturgyPreferences, PreferenceKey, PreferenceValue, Version,
+    GlobalPref, Lectionaries, LiturgyPreferences, PreferenceKey, PreferenceValue, Slug, SlugPath,
+    Version,
 };
 use rust_i18n::t;
 use serde::{Deserialize, Serialize};
@@ -238,13 +238,33 @@ fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
         "liturgy",
         None,
         [
-            (TOCLiturgy::MP, t!("toc.morning_prayer"), None),
-            (TOCLiturgy::NP, t!("toc.noonday_prayer"), None),
-            (TOCLiturgy::EP, t!("toc.evening_prayer"), None),
-            (TOCLiturgy::Compline, t!("toc.compline"), None),
-            (TOCLiturgy::Eucharist, t!("toc.holy_eucharist"), None),
+            (
+                SlugPath::from([Slug::Office, Slug::MorningPrayer]),
+                t!("toc.morning_prayer"),
+                None,
+            ),
+            (
+                SlugPath::from([Slug::Office, Slug::NoondayPrayer]),
+                t!("toc.noonday_prayer"),
+                None,
+            ),
+            (
+                SlugPath::from([Slug::Office, Slug::EveningPrayer]),
+                t!("toc.evening_prayer"),
+                None,
+            ),
+            (
+                SlugPath::from([Slug::Office, Slug::Compline]),
+                t!("toc.compline"),
+                None,
+            ),
+            (
+                SlugPath::from([Slug::Office, Slug::Eucharist]),
+                t!("toc.holy_eucharist"),
+                None,
+            ),
         ],
-        TOCLiturgy::MP,
+        SlugPath::from([Slug::Office, Slug::MorningPrayer]),
     );
 
     // hold combined liturgy/version in a new behavior
@@ -282,34 +302,34 @@ fn body(locale: &str, props: &SettingsPageProps, _render_state: &()) -> View {
                 <h2>{t!("settings.liturgy")}</h2>
                 <dyn:view view={liturgy_picker.view()} />
                 <dyn:section
-                    class:hidden={liturgy_and_version.stream().map(|(liturgy, contemporary)| liturgy != TOCLiturgy::MP || contemporary).boxed_local()}
+                    class:hidden={liturgy_and_version.stream().map(|(liturgy, contemporary)| liturgy != SlugPath::from([Slug::Office, Slug::MorningPrayer]) || contemporary).boxed_local()}
                 >
-                    <dyn:view view={liturgy_preferences_view(&status, TOCLiturgy::MP, Language::En, Version::RiteI, &props.mp_1_prefs)} />
+                    <dyn:view view={liturgy_preferences_view(&status, &SlugPath::from([Slug::Office, Slug::MorningPrayer]), Language::En, Version::RiteI, &props.mp_1_prefs)} />
                 </dyn:section>
                 <dyn:section
-                    class:hidden={liturgy_and_version.stream().map(|(liturgy, contemporary)| liturgy != TOCLiturgy::MP || !contemporary).boxed_local()}
+                    class:hidden={liturgy_and_version.stream().map(|(liturgy, contemporary)| liturgy != SlugPath::from([Slug::Office, Slug::MorningPrayer]) || !contemporary).boxed_local()}
                 >
-                    <dyn:view view={liturgy_preferences_view(&status, TOCLiturgy::MP, Language::En, Version::RiteII, &props.mp_2_prefs)} />
+                    <dyn:view view={liturgy_preferences_view(&status, &SlugPath::from([Slug::Office, Slug::MorningPrayer]), Language::En, Version::RiteII, &props.mp_2_prefs)} />
                 </dyn:section>
                 <dyn:section
-                    class:hidden={liturgy_and_version.stream().map(|(liturgy, _)| liturgy != TOCLiturgy::NP).boxed_local()}
+                    class:hidden={liturgy_and_version.stream().map(|(liturgy, _)| liturgy != SlugPath::from([Slug::Office, Slug::NoondayPrayer])).boxed_local()}
                 >
-                    <dyn:view view={liturgy_preferences_view(&status, TOCLiturgy::NP, Language::En, Version::BCP1979, &props.np_prefs)} />
+                    <dyn:view view={liturgy_preferences_view(&status, &SlugPath::from([Slug::Office, Slug::NoondayPrayer]), Language::En, Version::BCP1979, &props.np_prefs)} />
                 </dyn:section>
                 <dyn:section
-                    class:hidden={liturgy_and_version.stream().map(|(liturgy, contemporary)| liturgy != TOCLiturgy::EP || contemporary).boxed_local()}
+                    class:hidden={liturgy_and_version.stream().map(|(liturgy, contemporary)| liturgy != SlugPath::from([Slug::Office, Slug::EveningPrayer]) || contemporary).boxed_local()}
                 >
-                    <dyn:view view={liturgy_preferences_view(&status, TOCLiturgy::EP, Language::En, Version::RiteI, &props.ep_1_prefs)} />
+                    <dyn:view view={liturgy_preferences_view(&status, &SlugPath::from([Slug::Office, Slug::EveningPrayer]), Language::En, Version::RiteI, &props.ep_1_prefs)} />
                 </dyn:section>
                 <dyn:section
-                    class:hidden={liturgy_and_version.stream().map(|(liturgy, contemporary)| liturgy != TOCLiturgy::EP || !contemporary).boxed_local()}
+                    class:hidden={liturgy_and_version.stream().map(|(liturgy, contemporary)| liturgy != SlugPath::from([Slug::Office, Slug::EveningPrayer]) || !contemporary).boxed_local()}
                 >
-                    <dyn:view view={liturgy_preferences_view(&status, TOCLiturgy::EP, Language::En, Version::RiteII, &props.ep_2_prefs)} />
+                    <dyn:view view={liturgy_preferences_view(&status, &SlugPath::from([Slug::Office, Slug::EveningPrayer]), Language::En, Version::RiteII, &props.ep_2_prefs)} />
                 </dyn:section>
                 <dyn:section
-                    class:hidden={liturgy_and_version.stream().map(|(liturgy, _)| liturgy != TOCLiturgy::Compline).boxed_local()}
+                    class:hidden={liturgy_and_version.stream().map(|(liturgy, _)| liturgy != SlugPath::from([Slug::Office, Slug::Compline])).boxed_local()}
                 >
-                    <dyn:view view={liturgy_preferences_view(&status, TOCLiturgy::Compline, Language::En, Version::BCP1979, &props.cp_prefs)} />
+                    <dyn:view view={liturgy_preferences_view(&status, &SlugPath::from([Slug::Office, Slug::Compline]), Language::En, Version::BCP1979, &props.cp_prefs)} />
                 </dyn:section>
 
                 <h2>{t!("settings.advanced")}</h2>

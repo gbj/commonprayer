@@ -605,7 +605,7 @@ lazy_static! {
             Document::from(Rubric::from("If there is to be a presentation or a giving in marriage, it takes place at this time.")).tags([PRESENTATION_RUBRIC]),
             Document::from(Content::DocumentLink {
                 label: "Additional Directions".into(),
-                path: vec![Slug::Marriage, Slug::AdditionalDirections, Slug::Version(Version::Expansive)],
+                path: SlugPath::from([Slug::Marriage, Slug::AdditionalDirections, Slug::Version(Version::Expansive)]),
                 rotate: false
             }).tags([ADDITIONAL_DIRECTIONS_PARALLEL]),
 
@@ -721,7 +721,7 @@ lazy_static! {
                 Document::from(Rubric::from("The liturgy continues with the Offertory, at which the newly married couple may present the offerings of bread and wine.")).tags([OFFERTORY_RUBRIC]),
                 Document::from(Content::DocumentLink {
                     label: "Preface of Marriage".into(),
-                    path: vec![Slug::Eucharist, Slug::ProperPrefaces, Slug::Marriage],
+                    path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Marriage]),
                     rotate: false
                 }).tags([PROPER_PREFACE]),
                 Document::from(Rubric::from("At the Communion, it is appropriate that the newly married couple receive Communion first, after the ministers.")).tags([POST_PREFACE_RUBRIC]),
@@ -749,12 +749,12 @@ lazy_static! {
             Document::from(Rubric::from("The rite begins as prescribed for celebrations of the Holy Eucharist, using the Collect and Lessons appointed in the Marriage service.")),
             Document::from(Content::DocumentLink {
                 label: "Holy Eucharist".into(),
-                path: vec![Slug::Eucharist],
+                path: SlugPath::from([Slug::Eucharist]),
                 rotate: false
             }),
             Document::from(Content::DocumentLink {
                 label: "Marriage Service".into(),
-                path: vec![Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)],
+                path: SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)]),
                 rotate: false
             }),
 
@@ -786,7 +786,7 @@ lazy_static! {
             Document::from(Rubric::from("The service continues with The Prayers on page 104 [in the marriage service].")),
             Document::from(Content::DocumentLink {
                 label: "Marriage Service".into(),
-                path: vec![Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)],
+                path: SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)]),
                 rotate: false
             }),
         ])
@@ -805,7 +805,7 @@ lazy_static! {
             Document::from(Rubric::from("If it is desired to celebrate a marriage otherwise than as provided on pages 76-85 of “Liturgical Resources 1: The Witnessing and Blessing of a Lifelong Covenant (revised and expanded),” this Order is used.")),
             Document::from(Content::DocumentLink {
                 label: "Marriage Service".into(),
-                path: vec![Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)],
+                path: SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)]),
                 rotate: false
             }),
             Document::from(Rubric::from("Normally, the celebrant is a priest or bishop. Where permitted by civil law, and when no priest or bishop is available, a deacon may function as celebrant, but does not pronounce a nuptial blessing.\n\nThe laws of the State having been complied with, the couple, together with their witnesses, families, and friends assemble in the church or in some other convenient place.")),
@@ -817,7 +817,7 @@ lazy_static! {
             Document::from(Rubric::from("5. The Celebrant declares the union of the couple, in the Name of the Father, and of the Son, and of the Holy Spirit.\n\n6. Prayers are offered for the couple, for their life together, for the Christian community, and for the world.\n\n7. A priest or bishop pronounces a solemn blessing upon the couple.\n\n8. If there is no Communion, the service concludes with the Peace, the couple first greeting each other. The Peace may be exchanged throughout the assembly.\n\n9. If there is to be a Communion, the service continues with the Peace and the Offertory. The Holy Eucharist may be celebrated either according to Rite One or Rite Two, or according to the Order on page 401 of the Book of Common Prayer 1979.").long()),
             Document::from(Content::DocumentLink {
                 label: "Holy Eucharist".into(),
-                path: vec![Slug::Eucharist],
+                path: SlugPath::from([Slug::Eucharist]),
                 rotate: false
             }),
         ]))));

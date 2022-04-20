@@ -582,7 +582,7 @@ pub enum Content {
     /// A link to another document in the table of contents
     DocumentLink {
         label: String,
-        path: Vec<Slug>,
+        path: SlugPath,
         /// If `true`, the compiler will only show one [Document](crate::Document),
         /// rotating by day in a deterministic way. If `false`, it will show them all
         /// as a [Choice](crate::Choice).

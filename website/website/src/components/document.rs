@@ -854,9 +854,9 @@ pub fn document_class(doc: &Document) -> String {
     )
 }
 
-pub fn document_link(locale: &str, label: &str, path: &[Slug]) -> HeaderAndMain {
+pub fn document_link(locale: &str, label: &str, path: &SlugPath) -> HeaderAndMain {
     let path = path
-        .iter()
+        .into_iter()
         .map(Slug::slugify)
         .intersperse_with(|| String::from("/"))
         .collect::<String>();

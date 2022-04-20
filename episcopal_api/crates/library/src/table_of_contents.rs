@@ -15,25 +15,32 @@ impl<'a> TableOfContents<'a> {
     /// Finds the content of the table of contents by traversing the tree
     /// and searching for each part of the path in sequence.
     /// ```
-    /// # use library::{Library, CommonPrayer, Contents, Slug};
+    /// # use library::{Library, CommonPrayer, Contents, Slug, SlugPath};
     /// # use library::bcp1979::office::NOONDAY_PRAYER;
     /// # use library::rite2::office::MORNING_PRAYER_II;
     /// # use liturgy::Version;
     /// let toc = CommonPrayer::contents();
-    /// assert_eq!(toc.contents_at_path(&[Slug::Office, Slug::NoondayPrayer]), Some(Contents::Document(&*NOONDAY_PRAYER)));
-    /// let mp2 = toc.contents_at_path(&[Slug::Office, Slug::MorningPrayer, Slug::Version(Version::RiteII)]);
+    /// assert_eq!(toc.contents_at_path(&SlugPath::from([Slug::Office, Slug::NoondayPrayer]), Some(Contents::Document(&*NOONDAY_PRAYER)));
+    /// let mp2 = toc.contents_at_path(&SlugPath::from([Slug::Office, Slug::MorningPrayer, Slug::Version(Version::RiteII)]);
     /// match mp2 {
     ///     Some(Contents::Document(doc)) => assert_eq!(doc.label, Some("Morning Prayer".to_string())),
     ///     _ => panic!("did not find Document node at [Slug::Office, Slug::MorningPrayer, Slug::Version(Version::RiteII)]\n\n{:#?}", mp2)
     /// }
     /// ```
-    pub fn contents_at_path(&self, path: &[Slug]) -> Option<Contents<'a>> {
+    pub fn contents_at_path(&self, path: &SlugPath) -> Option<Contents<'a>> {
+        let path = path.as_slice();
         let first_path_part = path.get(0)?;
         let (_, content_at_first_path_part) = self
             .0
             .iter()
             .find(|(s_slug, _)| s_slug == first_path_part)?;
         content_at_first_path_part.contents_at_path(&path[1..])
+    }
+
+    pub fn flatten(&self) -> impl Iterator<Item = (SlugPath, Contents<'_>)> {
+        self.0
+            .iter()
+            .flat_map(|(slug, contents)| contents.flatten_with_starting_path(&[*slug]))
     }
 }
 
@@ -68,6 +75,7 @@ pub enum Contents<'a> {
     },
     /// Information to build a page of parallels
     Parallels {
+        label: String,
         intro: String,
         parallels: Vec<Vec<(ParallelDocument, usize)>>,
     },
@@ -99,55 +107,118 @@ impl<'a> Contents<'a> {
     }
 
     pub fn contents_at_path(&self, path: &[Slug]) -> Option<Contents<'a>> {
-        match self {
-            Contents::Category { contents, .. } => path.get(0).and_then(|slug| {
-                contents
-                    .iter()
-                    .find(|(s_slug, _)| s_slug == slug)
-                    .and_then(|(_, contents)| contents.contents_at_path(&path[1..]))
-            }),
-            Contents::Sections { contents, .. } => path.get(0).and_then(|slug| {
-                contents
-                    .iter()
-                    .flat_map(|section| section.contents.iter())
-                    .find(|(s_slug, _)| s_slug == slug)
-                    .and_then(|(_, contents)| contents.contents_at_path(&path[1..]))
-            }),
-            Contents::ByVersion { documents, .. } => {
-                if let Some(Slug::Version(version)) = path.get(0) {
-                    documents
+        if path.is_empty() {
+            Some(self.clone())
+        } else {
+            match self {
+                Contents::Category { contents, .. } => path.get(0).and_then(|slug| {
+                    contents
                         .iter()
-                        .find(|doc| doc.version == *version)
-                        .copied()
-                        .map(Contents::Document)
-                } else {
-                    Some(self.clone())
-                }
-            }
-            Contents::MultiDocument {
-                label,
-                documents,
-                hidden_in_toc,
-            } => {
-                if let Some(Slug::Version(version)) = path.get(0) {
-                    Some(Contents::MultiDocument {
-                        label: label.clone(),
-                        hidden_in_toc: *hidden_in_toc,
-                        documents: documents
+                        .find(|(s_slug, _)| s_slug == slug)
+                        .and_then(|(_, contents)| contents.contents_at_path(&path[1..]))
+                }),
+                Contents::Sections { contents, .. } => path.get(0).and_then(|slug| {
+                    contents
+                        .iter()
+                        .flat_map(|section| section.contents.iter())
+                        .find(|(s_slug, _)| s_slug == slug)
+                        .and_then(|(_, contents)| contents.contents_at_path(&path[1..]))
+                }),
+                Contents::ByVersion { documents, .. } => {
+                    if let Some(Slug::Version(version)) = path.get(0) {
+                        documents
                             .iter()
-                            .filter(|doc| doc.version == *version)
-                            .cloned()
-                            .collect(),
-                    })
-                } else {
+                            .find(|doc| doc.version == *version)
+                            .copied()
+                            .map(Contents::Document)
+                    } else {
+                        Some(self.clone())
+                    }
+                }
+                Contents::MultiDocument {
+                    label,
+                    documents,
+                    hidden_in_toc,
+                } => {
+                    if let Some(Slug::Version(version)) = path.get(0) {
+                        Some(Contents::MultiDocument {
+                            label: label.clone(),
+                            hidden_in_toc: *hidden_in_toc,
+                            documents: documents
+                                .iter()
+                                .filter(|doc| doc.version == *version)
+                                .cloned()
+                                .collect(),
+                        })
+                    } else {
+                        Some(self.clone())
+                    }
+                }
+                // No children to be sorted these leaf-node variants, so simply return this leaf
+                Contents::Page(_) | Contents::Document(_) | Contents::Parallels { .. } => {
                     Some(self.clone())
                 }
-            }
-            // No children to be sorted these leaf-node variants, so simply return this leaf
-            Contents::Page(_) | Contents::Document(_) | Contents::Parallels { .. } => {
-                Some(self.clone())
             }
         }
+    }
+
+    pub fn label(&self) -> Option<String> {
+        match self {
+            Contents::Category { label, .. } => Some(label.clone()),
+            Contents::Sections { label, .. } => Some(label.clone()),
+            Contents::Document(doc) => doc.label.as_ref().cloned(),
+            Contents::ByVersion { label, .. } => Some(label.clone()),
+            Contents::MultiDocument { label, .. } => Some(label.clone()),
+            Contents::Parallels { .. } => None,
+            Contents::Page(_) => None,
+        }
+    }
+
+    fn flatten_with_starting_path(
+        &self,
+        starting_path: &[Slug],
+    ) -> impl Iterator<Item = (SlugPath, Contents)> {
+        let children: Box<dyn Iterator<Item = (SlugPath, Contents)>> = match self {
+            Contents::Category { contents, .. } => Box::new(contents.iter().flat_map({
+                let starting_path = starting_path.to_vec();
+                move |(slug, contents)| {
+                    let mut starting_path = starting_path.clone();
+                    starting_path.push(*slug);
+                    std::iter::once((SlugPath::from(starting_path.clone()), contents.clone()))
+                        .chain(contents.flatten_with_starting_path(&starting_path))
+                }
+            })),
+            Contents::Sections { contents, .. } => Box::new(contents.iter().flat_map({
+                let starting_path = starting_path.to_vec();
+                move |section| {
+                    section.contents.iter().flat_map({
+                        let starting_path = starting_path.clone();
+                        move |(slug, contents)| {
+                            let mut starting_path = starting_path.clone();
+                            starting_path.push(*slug);
+                            std::iter::once((
+                                SlugPath::from(starting_path.clone()),
+                                contents.clone(),
+                            ))
+                            .chain(contents.flatten_with_starting_path(&starting_path))
+                        }
+                    })
+                }
+            })),
+            Contents::ByVersion { documents, .. } => Box::new(documents.iter().map({
+                let starting_path = starting_path.to_vec();
+                move |document| {
+                    let mut starting_path = starting_path.clone();
+                    starting_path.push(Slug::Version(document.version));
+                    (SlugPath::from(starting_path), Contents::Document(document))
+                }
+            })),
+            Contents::Page(_)
+            | Contents::Document(_)
+            | Contents::Parallels { .. }
+            | Contents::MultiDocument { .. } => Box::new(std::iter::empty()),
+        };
+        std::iter::once((SlugPath::from(starting_path.to_vec()), self.clone())).chain(children)
     }
 }
 

@@ -2,10 +2,8 @@ use std::collections::HashMap;
 
 use language::Language;
 use leptos::{is_server, log, window};
-use liturgy::{GlobalPref, PreferenceKey, PreferenceValue, Version};
+use liturgy::{GlobalPref, PreferenceKey, PreferenceValue, SlugPath, Version};
 use serde::{Deserialize, Serialize};
-
-use crate::table_of_contents::TOCLiturgy;
 
 #[derive(Default, Copy, Clone, PartialEq, Eq, Debug, Deserialize, Serialize)]
 pub struct DisplaySettings {
@@ -117,23 +115,23 @@ pub fn clear_display_settings() -> Result<(), StorageError> {
     clear_raw(DISPLAY_SETTINGS_KEY)
 }
 
-fn liturgy_key(liturgy: TOCLiturgy, language: Language, version: Version) -> String {
+fn liturgy_key(liturgy: &SlugPath, language: Language, version: Version) -> String {
     format!("{}-{:#?}-{:#?}", liturgy, language, version)
 }
 
 pub fn set_prefs_for_liturgy(
-    liturgy: TOCLiturgy,
+    liturgy: SlugPath,
     language: Language,
     version: Version,
     prefs: HashMap<PreferenceKey, PreferenceValue>,
 ) -> Result<(), StorageError> {
     // serde_json can't handle HashMaps with non-String keys
     let vectorized = prefs.into_iter().collect::<Vec<_>>();
-    set_localstorage(&liturgy_key(liturgy, language, version), vectorized)
+    set_localstorage(&liturgy_key(&liturgy, language, version), vectorized)
 }
 
 pub fn get_prefs_for_liturgy(
-    liturgy: TOCLiturgy,
+    liturgy: &SlugPath,
     language: Language,
     version: Version,
 ) -> HashMap<PreferenceKey, PreferenceValue> {

@@ -316,7 +316,7 @@ pub trait Library {
                         if let Some(antiphon) = Self::compile(
                             Document::from(Content::DocumentLink {
                                 label: String::new(),
-                                path: vec![Slug::Office, Slug::InvitatoryAntiphons],
+                                path: SlugPath::from([Slug::Office, Slug::InvitatoryAntiphons]),
                                 rotate: true,
                             }),
                             calendar,

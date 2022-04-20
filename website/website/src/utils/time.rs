@@ -1,6 +1,5 @@
 use calendar::Date;
-
-use crate::table_of_contents::TOCLiturgy;
+use liturgy::{Slug, SlugPath};
 
 #[cfg(target_arch = "wasm32")]
 pub fn current_hour() -> u32 {
@@ -80,17 +79,17 @@ pub const DEFAULT_OFFICE_TIMES: OfficeTimeRanges = OfficeTimeRanges {
     night: OfficeTimeRange((20, 0), (3, 0)),
 };
 
-pub fn current_preferred_liturgy(ranges: &OfficeTimeRanges) -> TOCLiturgy {
+pub fn current_preferred_liturgy(ranges: &OfficeTimeRanges) -> SlugPath {
     let (hour, minute) = now();
     if ranges.morning.includes(hour, minute) {
-        TOCLiturgy::MP
+        SlugPath::from([Slug::Office, Slug::MorningPrayer])
     } else if ranges.noon.includes(hour, minute) {
-        TOCLiturgy::NP
+        SlugPath::from([Slug::Office, Slug::NoondayPrayer])
     } else if ranges.evening.includes(hour, minute) {
-        TOCLiturgy::EP
+        SlugPath::from([Slug::Office, Slug::EveningPrayer])
     } else if ranges.night.includes(hour, minute) {
-        TOCLiturgy::Compline
+        SlugPath::from([Slug::Office, Slug::Compline])
     } else {
-        TOCLiturgy::NotFound
+        SlugPath::from([Slug::Office])
     }
 }

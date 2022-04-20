@@ -167,7 +167,7 @@ lazy_static! {
             Document::from(Rubric::from("If there is not to be a Communion, the Lord’s Prayer is said here, and the service continues with the Prayers of the People, or with one or more suitable prayers (see pages 503-505).\n\nWhen there is a Communion, the following form of the Prayers of the People is used, or else the form on page 465 or 480.")).tags([RUBRIC_BEFORE_PRAYERS]),
             Document::from(Content::DocumentLink {
                 label: "Additional Prayers".into(),
-                path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteII)],
+                path: SlugPath::from([Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteII)]),
                 rotate: false
             }).version(Version::RiteII).tags([RUBRIC_BEFORE_PRAYERS]),
             Document::from(Series::from(vec![
@@ -197,7 +197,7 @@ lazy_static! {
             Document::from(Rubric::from("The service continues with the Peace and the Offertory.")).tags([AT_THE_EUCHARIST]),
             Document::from(Content::DocumentLink {
                 label: "Preface of the Commemoration of the Dead".into(),
-                path: vec![Slug::Eucharist, Slug::ProperPrefaces, Slug::Burial, Slug::Version(Version::RiteII)],
+                path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Burial, Slug::Version(Version::RiteII)]),
                 rotate: false
             }).tags([PROPER_PREFACE]),
             Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")).tags([POSTCOMMUNION_PRAYER]),
@@ -254,7 +254,7 @@ lazy_static! {
             Document::from(Rubric::from("Other prayers may be added.")).tags([COMMITTAL_PRAYERS_2]),
             Document::from(Content::DocumentLink {
                 label: "Additional Prayers".into(),
-                path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteII)],
+                path: SlugPath::from([Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteII)]),
                 rotate: false
             }).version(Version::RiteII).tags([COMMITTAL_PRAYERS_2]),
             Document::from(Rubric::from("Then may be said.")).tags([COMMITTAL_PRAYERS_2]),
@@ -284,7 +284,7 @@ lazy_static! {
                 Document::from(Heading::from((HeadingLevel::Heading2, "Additional Prayers"))),
                 Document::from(Content::DocumentLink {
                     label: "Additional Prayers".into(),
-                    path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteII)],
+                    path: SlugPath::from([Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteII)]),
                     rotate: false
                 }).version(Version::RiteII)
             ])).tags([ADDITIONAL_PRAYERS])

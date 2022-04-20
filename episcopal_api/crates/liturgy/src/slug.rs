@@ -1,12 +1,93 @@
 use canticle_table::CanticleId;
-use serde::{Deserialize, Serialize};
+use serde::{
+    de::{Error, Unexpected},
+    Deserialize, Serialize,
+};
 use std::{convert::TryFrom, str::FromStr};
 use strum_macros::{Display, EnumString};
 
 use crate::Version;
 
-#[derive(Clone, Debug, Hash)]
+#[derive(Clone, Debug, Hash, PartialEq, Eq)]
 pub struct SlugPath(Vec<Slug>);
+
+impl SlugPath {
+    pub fn as_slice(&self) -> &[Slug] {
+        self.0.as_slice()
+    }
+
+    pub fn push(&mut self, next: Slug) {
+        self.0.push(next)
+    }
+}
+
+impl<T> From<T> for SlugPath
+where
+    T: IntoIterator<Item = Slug>,
+{
+    fn from(path: T) -> Self {
+        Self(path.into_iter().collect())
+    }
+}
+
+impl<'a> IntoIterator for &'a SlugPath {
+    type Item = &'a Slug;
+    type IntoIter = std::slice::Iter<'a, Slug>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        (&self.0).iter()
+    }
+}
+
+impl FromStr for SlugPath {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut path = Vec::new();
+        for part in s.split('/') {
+            if let Some(slug) = Slug::unslugify(part) {
+                path.push(slug);
+            } else {
+                return Err(());
+            }
+        }
+        Ok(SlugPath(path))
+    }
+}
+
+impl std::fmt::Display for SlugPath {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{}",
+            self.0
+                .iter()
+                .map(Slug::slugify)
+                .intersperse_with(|| String::from('/'))
+                .collect::<String>()
+        )
+    }
+}
+
+impl Serialize for SlugPath {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(&self.to_string())
+    }
+}
+
+impl<'de> Deserialize<'de> for SlugPath {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let s = String::deserialize(deserializer)?;
+        SlugPath::from_str(&s)
+            .map_err(|_| D::Error::invalid_value(Unexpected::Str(&s), &"a valid Slug in the path"))
+    }
+}
 
 #[derive(Copy, Clone, Debug, Hash, PartialEq, Eq, Serialize, Deserialize, Display, EnumString)]
 pub enum Slug {

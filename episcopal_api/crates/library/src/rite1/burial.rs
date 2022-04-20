@@ -730,7 +730,7 @@ lazy_static! {
                 Document::from(Rubric::from("The Apostles’ Creed may be said, all standing.")),
                 Document::from(Content::DocumentLink{
                     label: "Apostles’ Creed".into(),
-                    path: vec![Slug::ApostlesCreed, Slug::Version(Version::RiteI)],
+                    path: SlugPath::from([Slug::ApostlesCreed, Slug::Version(Version::RiteI)]),
                     rotate: false
                 }).display(Show::TemplateOnly)
             ])).tags([CREED]),
@@ -740,7 +740,7 @@ lazy_static! {
             Document::from(Rubric::from("If there is not to be a Communion, the Lord’s Prayer is said here, and the service continues with the following prayer of intercession, or with one or more suitable prayers (see pages 487-489).\n\nWhen there is a Communion, the following serves for the Prayers of the People.")).tags([RUBRIC_BEFORE_PRAYERS]),
             Document::from(Content::DocumentLink {
                 label: "Additional Prayers".into(),
-                path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteI)],
+                path: SlugPath::from([Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteI)]),
                 rotate: false
             }).version(Version::RiteI).tags([RUBRIC_BEFORE_PRAYERS]),
 
@@ -769,7 +769,7 @@ lazy_static! {
             Document::from(Rubric::from("The service continues with the Peace and the Offertory.")).tags([AT_THE_EUCHARIST]),
             Document::from(Content::DocumentLink {
                 label: "Preface of the Commemoration of the Dead".into(),
-                path: vec![Slug::Eucharist, Slug::ProperPrefaces, Slug::Burial, Slug::Version(Version::RiteI)],
+                path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Burial, Slug::Version(Version::RiteI)]),
                 rotate: false
             }).tags([PROPER_PREFACE]),
             Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")).tags([POSTCOMMUNION_PRAYER]),
@@ -829,7 +829,7 @@ lazy_static! {
             Document::from(Rubric::from("In place of this prayer, or in addition to it, the Celebrant may use any of the Additional Prayers.")).tags([COMMITTAL_PRAYERS_2]),
             Document::from(Content::DocumentLink {
                 label: "Additional Prayers".into(),
-                path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteI)],
+                path: SlugPath::from([Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteI)]),
                 rotate: false
             }).version(Version::RiteI).tags([COMMITTAL_PRAYERS_2]),
 
@@ -852,7 +852,7 @@ lazy_static! {
                 Document::from(Heading::from((HeadingLevel::Heading2, "Additional Prayers"))),
                 Document::from(Content::DocumentLink {
                     label: "Additional Prayers".into(),
-                    path: vec![Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteI)],
+                    path: SlugPath::from([Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteI)]),
                     rotate: false
                 }).version(Version::RiteI)
             ])).tags([ADDITIONAL_PRAYERS])

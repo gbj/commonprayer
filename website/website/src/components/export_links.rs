@@ -2,7 +2,7 @@ use std::{collections::HashMap, time::Duration};
 
 use futures::{Stream, StreamExt};
 use leptos::*;
-use liturgy::{Content, Document};
+use liturgy::{Content, Document, SlugPath};
 
 use crate::{components::Toggle, pages::DocumentPageProps, utils::share};
 
@@ -16,7 +16,7 @@ enum Status {
 }
 
 pub fn export_links(props: &DocumentPageProps, document_controller: &DocumentController) -> View {
-    let slug = props.slug.clone().unwrap_or_else(|| String::from("export"));
+    let slug = props.slug.to_string();
 
     let status = Behavior::new(Status::Idle);
 

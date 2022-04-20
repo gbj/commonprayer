@@ -474,6 +474,7 @@ impl Library for CommonPrayer {
                                         ), (
                                             Slug::Parallels,
                                             Contents::Parallels {
+                                                label: "Marriage Service Parallels".into(),
                                                 intro: "In addition to the marriage service in the Book of Common Prayer (1979), the Episcopal Church has authorized several alternative marriage services, mainly in response to the need for gender-neutral language to describe the couple following the approval of same-sex marriage. This page is intended to show the parallels between the various authorized marriage services, noting differences as they arise.\n\nNote: “The Witnessing and Blessing of a Marriage,” as its own rite, differs in structure from the other services. Its prayers are here presented as alternatives to the traditional prayers, but the layout on this page does not reflect the exact order of materials in that rite.".into(),
                                                 parallels: build_parallel_table(
                                                     "marriage",
@@ -552,6 +553,7 @@ impl Library for CommonPrayer {
                                             (
                                                 Slug::Parallels,
                                                 Contents::Parallels {
+                                                    label: "Burial Service Parallels".into(),
                                                     intro: "".into(),
                                                     parallels: build_parallel_table(
                                                         "burial",
@@ -625,7 +627,10 @@ impl Library for CommonPrayer {
                                 ]
                             },
                         ),
-                        (
+                    ],
+                },
+            ),
+             (
                             Slug::OccasionalServices,
                             Contents::Category {
                                 label: "Occasional Services".into(),
@@ -661,9 +666,6 @@ impl Library for CommonPrayer {
                                 ]
                             }
                         )
-                    ],
-                },
-            ),
         ])
     }
 }

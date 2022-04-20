@@ -9,7 +9,7 @@ use liturgy::parallel_table::{build_parallel_table, ParallelDocument};
 use liturgy::{Document, Heading, HeadingLevel, Rubric, Series, Version};
 use serde::{Deserialize, Serialize};
 
-#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+/* #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum TOCLiturgy {
     MP,
     NP,
@@ -53,11 +53,11 @@ impl std::fmt::Display for TOCLiturgy {
 }
 
 macro_rules! hash_map {
-	($( $key: expr => $val: expr ),*) => {{
-		 let mut map = ::std::collections::HashMap::new();
-		 $( map.insert($key, $val); )*
-		 map
-	}}
+    ($( $key: expr => $val: expr ),*) => {{
+         let mut map = ::std::collections::HashMap::new();
+         $( map.insert($key, $val); )*
+         map
+    }}
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -283,3 +283,4 @@ fn from_collects<'a>(
         })
         .collect()
 }
+ */

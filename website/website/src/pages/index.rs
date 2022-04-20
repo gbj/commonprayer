@@ -57,7 +57,7 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                                 </ul>
                             </li>
                             <li>
-                                {make_link(locale, "document/office/noonday-prayer/RiteII", "toc.noonday_prayer", false)}
+                                {make_link(locale, "document/office/noonday-prayer", "toc.noonday_prayer", false)}
                             </li>
                             <li>
                                 {t!("toc.evening_prayer")}
@@ -71,7 +71,7 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                                 </ul>
                             </li>
                             <li>
-                                {make_link(locale, "document/office/compline/RiteII", "toc.compline", false)}
+                                {make_link(locale, "document/office/compline", "toc.compline", false)}
                             </li>
                             <li>
                                 {make_link(locale, "canticle-table", "toc.canticle_table", false)}
@@ -79,7 +79,7 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                         </ul>
                     </li>
                     <li>
-                        {make_link(locale, "document/litany", "toc.great_litany", false)}
+                        {make_link(locale, "document/great-litany", "toc.great_litany", false)}
                     </li>
                     <li>
                         {make_link(locale, "document/collects", "collects", false)}
@@ -105,10 +105,10 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                         {t!("toc.pastoral_offices")}
                         <ul>
                             <li>
-                                {make_link(locale, "document/marriage", "toc.marriage", false)}
+                                {make_link(locale, "document/pastoral-offices/marriage", "toc.marriage", false)}
                             </li>
                             <li>
-                                {make_link(locale, "document/burial", "toc.burial", false)}
+                                {make_link(locale, "document/pastoral-offices/burial", "toc.burial", false)}
                             </li>
                         </ul>
                     </li>

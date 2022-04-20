@@ -150,7 +150,7 @@ lazy_static! {
             Document::from(Rubric::from("Prayer is offered with intercession for\nThe Universal Church, its members, and its mission\nThe Nation and all in authority\nThe welfare of the world\nThe concerns of the local community\nThose who suffer and those in any trouble\nThe departed (with commemoration of a saint when appropriate)\nSee the forms beginning on page 383.")),
             Document::from(Content::DocumentLink {
                 label: "Prayers of the People".into(),
-                path: vec![Slug::Eucharist, Slug::PrayersOfThePeople],
+                path: SlugPath::from([Slug::Eucharist, Slug::PrayersOfThePeople]),
                 rotate: false
             }),
 
@@ -177,7 +177,7 @@ lazy_static! {
 
             Document::from(Content::DocumentLink {
                 label: "Offertory Sentences".into(),
-                path: vec![Slug::Eucharist, Slug::OffertorySentences, Slug::Version(Version::RiteII)],
+                path: SlugPath::from([Slug::Eucharist, Slug::OffertorySentences, Slug::Version(Version::RiteII)]),
                 rotate: false
             }).version(Version::RiteII),
 

@@ -60,7 +60,7 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
             })
             .unwrap_or_else(|| "bcp1979".to_string());
 
-        let prefs = preferences::get_prefs_for_liturgy(office, language, version);
+        let prefs = preferences::get_prefs_for_liturgy(&office, language, version);
 
         // convert HashMap<K, V> to Vec<(K, V)> because serde_json can't serialize a HashMap with enum keys to a JSON map
         let serialized_prefs =

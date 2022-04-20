@@ -134,7 +134,7 @@ lazy_static! {
             Document::from(Rubric::from("If there is to be a presentation or a giving in marriage, it takes place at this time.")).tags([PRESENTATION_RUBRIC]),
             Document::from(Content::DocumentLink {
                 label: "Additional Directions".into(),
-                path: vec![Slug::Marriage, Slug::AdditionalDirections],
+                path: SlugPath::from([Slug::Marriage, Slug::AdditionalDirections]),
                 rotate: false
             }).tags([ADDITIONAL_DIRECTIONS_PARALLEL]),
             Document::from(Series::from(vec![
@@ -250,7 +250,7 @@ lazy_static! {
                 Document::from(Rubric::from("The liturgy continues with the Offertory, at which the newly married couple may present the offerings of bread and wine.")).tags([OFFERTORY_RUBRIC]),
                 Document::from(Content::DocumentLink {
                     label: "Preface of Marriage".into(),
-                    path: vec![Slug::Eucharist, Slug::ProperPrefaces, Slug::Marriage],
+                    path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Marriage]),
                     rotate: false
                 }).tags([PROPER_PREFACE]),
                 Document::from(Rubric::from("At the Communion, it is appropriate that the newly married couple receive Communion first, after the ministers.")).tags([POST_PREFACE_RUBRIC]),

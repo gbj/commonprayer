@@ -218,7 +218,7 @@ lazy_static! {
             Document::from(Rubric::from("On Sundays and other Major Feasts, the Nicene Creed follows the sermon, all standing.")),
             Document::from(Content::DocumentLink {
                 label: "Nicene Creed".into(),
-                path: vec![Slug::NiceneCreed],
+                path: SlugPath::from([Slug::NiceneCreed]),
                 rotate: false
             }),
 
@@ -269,7 +269,7 @@ lazy_static! {
             Document::from(Rubric::from("This anthem; and any of the following Psalms, Lessons, and Prayers; and the form of Committal given below may be used with the Order for Burial on page 506 of the Prayer Book.")).tags([OPENING_RUBRIC]),
             Document::from(Content::DocumentLink {
                 label: "An Order for Burial".into(),
-                path: vec![Slug::Burial, Slug::Order],
+                path: SlugPath::from([Slug::Burial, Slug::Order]),
                 rotate: false
             }),
             Document::from(Heading::from((HeadingLevel::Heading2, "Opening Anthem"))).tags([OPENING_RUBRIC]),

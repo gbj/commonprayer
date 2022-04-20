@@ -4,8 +4,9 @@ use {liturgy::{PreferenceKey, PreferenceValue, Version, LiturgyPreferences, Cont
 use futures::StreamExt;
 use leptos::*;
 use itertools::Itertools;
+use liturgy::SlugPath;
 
-use crate::{preferences::{self, StorageError}, TOCLiturgy};
+use crate::{preferences::{self, StorageError}};
 
 #[derive(Copy, Clone, PartialEq, Eq)]
 pub enum Status {
@@ -75,7 +76,7 @@ pub fn liturgy_to_preferences(document: &Document) -> Option<(String, LiturgyPre
 
 pub fn liturgy_preferences_view(
     status: &Behavior<Status>,
-    liturgy: TOCLiturgy,
+    liturgy: &SlugPath,
     language: Language,
     version: Version,
     prefs: &Option<(String, LiturgyPreferences)>,
@@ -83,7 +84,7 @@ pub fn liturgy_preferences_view(
     let client_prefs = if is_server!() {
         HashMap::new()
     } else {
-        preferences::get_prefs_for_liturgy(liturgy, language, version)
+        preferences::get_prefs_for_liturgy(&liturgy, language, version)
     };
 
     if let Some((label, prefs)) = prefs.as_ref() {
@@ -112,6 +113,7 @@ pub fn liturgy_preferences_view(
                                     let on_change = {
                                         let pref = pref.clone();
                                         let status = status.clone();
+                                        let liturgy = liturgy.clone();
                                         move |ev: Event| {
                                             let value = event_target_value(ev);
                                             log(&format!("on_change called for {:#?}", pref.key));
@@ -119,10 +121,13 @@ pub fn liturgy_preferences_view(
                                                 if let Some(option) =
                                                     pref.choices().nth(selected_idx)
                                                 {
-                                                    let mut current_prefs = preferences::get_prefs_for_liturgy(liturgy, language, version);
+                                                    let mut current_prefs = preferences::get_prefs_for_liturgy(&liturgy, language, version);
                                                     current_prefs.insert(pref.key.clone(), option.value.clone());
-                                                    preference_effect(&status, move || 
-                                                        preferences::set_prefs_for_liturgy(liturgy, language, version, current_prefs)
+                                                    preference_effect(&status, {
+                                                        let liturgy = liturgy.clone();
+                                                        move || 
+                                                            preferences::set_prefs_for_liturgy(liturgy, language, version, current_prefs)
+                                                        }
                                                     );
                                                 }
                                             }

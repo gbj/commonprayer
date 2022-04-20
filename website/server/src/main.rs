@@ -16,15 +16,14 @@ use episcopal_api::{
     api::summary::DailySummary,
     calendar::Date,
     hymnal::{HymnNumber, Hymnal, Hymnals, HYMNAL_1982, LEVAS, WLP, EL_HIMNARIO},
-    liturgy::Document,
+    liturgy::{Document, SlugPath, Slug}, library::{CommonPrayer, Contents, Library},
 };
 use lazy_static::lazy_static;
 use leptos::{view, Page};
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use tempfile::tempdir;
 use website::{
-    api::bing::BingSearchResult, pages::*, utils::language::locale_to_language, PageType,
-    TABLE_OF_CONTENTS,
+    api::bing::BingSearchResult, pages::*, utils::language::locale_to_language
 };
 
 mod bing;
@@ -47,8 +46,8 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::FormConfig::default().limit(256 * 1024)) // increase max form size for DOCX export
             .service(daily_summary)
             .service(export_docx)
-            .service(export_ldf_json)
-            .service(export_json)
+            /* .service(export_ldf_json)
+            .service(export_json) */
             .service(canticle_list_api)
             .service(hymnal_api)
             .service(hymnal_search_api)
@@ -115,17 +114,11 @@ async fn daily_summary(params: web::Path<(String, String)>) -> Result<web::Json<
 // Canticle List API
 #[get("/api/canticles.json")]
 async fn canticle_list_api() -> Result<web::Json<Vec<Document>>> {
-    let canticles = TABLE_OF_CONTENTS
-        .get(&("canticle", None))
+    let canticles = CommonPrayer::contents()
+        .contents_at_path(&SlugPath::from([Slug::Office, Slug::Canticles]))
         .unwrap()
-        .iter()
-        .filter_map(|page_type| {
-            if let PageType::Document(_, doc) = page_type {
-                Some((*doc).clone())
-            } else {
-                None
-            }
-        })
+        .as_documents()
+        .cloned()
         .collect();
     Ok(web::Json(canticles))
 }
@@ -216,7 +209,7 @@ async fn export_docx(data: web::Form<DocxExportFormData>) -> Result<NamedFile> {
     Ok(NamedFile::open(path)?)
 }
 
-#[get("/api/doc/{category}/{version}/{date}/{calendar}/{prefs}/{alternate}/{slug}.ldf.json")]
+/* #[get("/api/doc/{category}/{version}/{date}/{calendar}/{prefs}/{alternate}/{slug}.ldf.json")]
 async fn export_ldf_json(params: web::Path<DocumentPageParams>) -> Option<web::Json<serde_json::Value>> {
     document::hydration_state("en", "", &params.into_inner())
         .and_then(|state| if let document::DocumentPageType::Document(_, doc) = state.page_type {
@@ -237,7 +230,7 @@ async fn export_json(params: web::Path<DocumentPageParams>) -> Option<web::Json<
             None
         })
         .map(web::Json)
-}
+} */
 
 // Add additional pages, defined programmatically
 fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {

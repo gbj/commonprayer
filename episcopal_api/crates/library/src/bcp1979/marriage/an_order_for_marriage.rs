@@ -13,7 +13,7 @@ lazy_static! {
             Document::from(Rubric::from("If it is desired to celebrate a marriage otherwise than as provided on page 423 of this Book [The Celebration and Blessing of a Marriage], this Order is used.")),
             Document::from(Content::DocumentLink {
                 label: "Marriage Service".into(),
-                path: vec![Slug::Marriage, Slug::CelebrationAndBlessing],
+                path: SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing]),
                 rotate: false
             }),
             Document::from(Rubric::from("Normally, the celebrant is a priest or bishop. Where permitted by civil law, and when no priest or bishop is available, a deacon may function as celebrant, but does not pronounce a nuptial blessing.")),
@@ -33,7 +33,7 @@ lazy_static! {
             Document::from(Rubric::from("9. If there is to be a Communion, the service continues with the Peace and the Offertory. The Holy Eucharist may be celebrated either according to Rite One or Rite Two in this Book, or according to the Order on page 401 [An Order for Celebrating the Holy Eucharist].").long()).tags([AT_THE_EUCHARIST]),
             Document::from(Content::DocumentLink {
                 label: "Holy Eucharist".into(),
-                path: vec![Slug::Eucharist],
+                path: SlugPath::from([Slug::Eucharist]),
                 rotate: false
             }).tags([AT_THE_EUCHARIST]),
         ]))));

@@ -1,6 +1,5 @@
 use leptos::{document, is_server, window};
-use wasm_bindgen::JsCast;
-use web_sys::{Event, ScrollToOptions};
+use web_sys::ScrollToOptions;
 
 pub mod fetch;
 pub mod language;
