@@ -2,25 +2,19 @@ use std::fmt::Display;
 
 use serde::{Deserialize, Serialize};
 
-use crate::{Content, Document, Reference, Version};
+use crate::{Content, Document, Reference, SlugPath};
 
 #[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
 pub enum ParallelDocument {
     Source(Option<Reference>),
-    Link {
-        label: String,
-        version: Version,
-        category: String,
-        slug: String,
-    },
+    Link { label: String, slug: SlugPath },
     Explainer(Option<String>),
     Document(Box<Document>),
 }
 
 pub fn build_parallel_table<T, U>(
-    category: &str,
     parallel_tags: T,
-    docs: &[(&str, &Document)],
+    docs: &[(&SlugPath, &Document)],
 ) -> Vec<Vec<(ParallelDocument, usize)>>
 where
     T: IntoIterator<Item = U>,
@@ -42,9 +36,7 @@ where
                 (
                     ParallelDocument::Link {
                         label: doc.label.clone().unwrap_or_default(),
-                        version: doc.version,
-                        category: category.to_string(),
-                        slug: slug.to_string(),
+                        slug: (*slug).clone(),
                     },
                     1,
                 )

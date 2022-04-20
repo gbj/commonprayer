@@ -671,3 +671,16 @@ a.source-link > span {
   margin-top: 0.5rem;
   padding-left: 0.5rem;
 }
+
+/* Breadcrumb navigation */
+.breadcrumb ol {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 0;
+}
+
+.breadcrumb li:not(:last-child)::after {
+  content: " 〉";
+}

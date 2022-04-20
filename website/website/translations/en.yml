@@ -327,3 +327,47 @@ en:
     gospel: Gospel
     no_readings: There were no readings found for this date in the Revised Common Lectionary. Would you like to look at the 
     no_readings_end: "?"
+
+  slug:
+    Version: Version
+    ConcerningTheService: Concerning the Service
+    AdditionalDirections: Additional Directions
+    AdditionalPrayers: Additional Prayers
+    Order: Order
+    Readings: Readings
+    Parallels: Parallels
+    Office: Daily Office
+    MorningPrayer: Morning Prayer
+    NoondayPrayer: Noonday Prayer
+    ServiceOfLight: Service of Light
+    EveningPrayer: Evening Prayer
+    Compline: Compline
+    Canticles: Canticles
+    SuggestedCanticles: Suggested Canticles
+    OpeningSentences: Opening Sentences
+    InvitatoryAntiphons: Invitatory Antiphons
+    ClosingSentences: Closing Sentences
+    Canticle: Canticle
+    GreatLitany: GreatLitany
+    Collects: Collects
+    Baptism: Baptism
+    Eucharist: Eucharist
+    PrayersOfThePeople: Prayers of the People
+    OffertorySentences: Offertory Sentences
+    ProperPrefaces: Proper Prefaces
+    PrayersAndThanksgivings: Prayers and Thanksgivings
+    PastoralOffices: Pastoral Offices
+    Marriage: Marriage
+    CelebrationAndBlessing: Celebration and Blessing of a Marriage
+    CivilMarriage: Blessing of a Civil Marriage
+    WitnessingAndBlessing: Witnessing and Blessing of a Marriage
+    WitnessingAndBlessingLifelongCovenant: Witnessing and Blessing of a Lifelong Covenant
+    Burial: Burial
+    BurialOfAChild: Burial of aChild
+    BurialOfANonChristian: Burial of a Non-Christian
+    OccasionalServices: Occasional Services
+    Guadalupe: Our Lady of Guadalupe
+    Renaming: Renaming
+    Creeds: Creeds
+    ApostlesCreed: Apostles’ Creed
+    NiceneCreed: Nicene Creed

@@ -5,10 +5,7 @@ pub mod api;
 pub mod components;
 pub mod pages;
 pub mod preferences;
-mod table_of_contents;
 pub mod utils;
-
-pub use table_of_contents::*;
 
 // Load I18n macro, for allow you use `t!` macro in anywhere.
 #[macro_use]

@@ -1,7 +1,7 @@
 use canticle_table::{CanticleId, CanticleTable};
 use lectionary::Lectionary;
 use liturgy::{
-    parallel_table::build_parallel_table, CanticleTables, Document, Lectionaries, Version,
+    parallel_table::build_parallel_table, CanticleTables, Document, Lectionaries, SlugPath, Version,
 };
 use psalter::{bcp1979::BCP1979_PSALTER, Psalter};
 
@@ -127,7 +127,7 @@ impl Library for CommonPrayer {
                         Section {
                             label: None,
                             contents: vec![
-                                (Slug::SuggestedCanticles, Contents::Page("canticle-table")),
+                                (Slug::SuggestedCanticles, Contents::Page { label: "Table of Suggested Canticles".into(), url: "canticle-table".into() }),
                                 (
                                     Slug::Canticles,
                                     Contents::Category {
@@ -477,13 +477,12 @@ impl Library for CommonPrayer {
                                                 label: "Marriage Service Parallels".into(),
                                                 intro: "In addition to the marriage service in the Book of Common Prayer (1979), the Episcopal Church has authorized several alternative marriage services, mainly in response to the need for gender-neutral language to describe the couple following the approval of same-sex marriage. This page is intended to show the parallels between the various authorized marriage services, noting differences as they arise.\n\nNote: “The Witnessing and Blessing of a Marriage,” as its own rite, differs in structure from the other services. Its prayers are here presented as alternatives to the traditional prayers, but the layout on this page does not reflect the exact order of materials in that rite.".into(),
                                                 parallels: build_parallel_table(
-                                                    "marriage",
                                                     MARRIAGE_PARALLEL_TAGS,
                                                     &[
-                                                        ("celebration-and-blessing-of-a-marriage", &*bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE),
-                                                        ("celebration-and-blessing-of-a-marriage-2", &*marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2),
-                                                        ("witnessing-and-blessing-marriage", &*marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE),
-                                                        ("an-order-for-marriage", &*bcp1979::marriage::AN_ORDER_FOR_MARRIAGE)
+                                                        (&SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::RiteII)]), &*bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE),
+                                                        (&SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)]), &*marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2),
+                                                        (&SlugPath::from([Slug::Marriage, Slug::WitnessingAndBlessing]), &*marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE),
+                                                        (&SlugPath::from([Slug::Marriage, Slug::Order]), &*bcp1979::marriage::AN_ORDER_FOR_MARRIAGE)
                                                     ]
                                                 )
                                             },
@@ -556,13 +555,12 @@ impl Library for CommonPrayer {
                                                     label: "Burial Service Parallels".into(),
                                                     intro: "".into(),
                                                     parallels: build_parallel_table(
-                                                        "burial",
                                                         bcp1979::burial::parallels::BURIAL_PARALLEL_TAGS,
                                                         &[
-                                                            ("burial", &*rite2::burial::BURIAL_RITE_II),
-                                                            ("burial-of-a-child", &*eow::volume_2::burial_of_a_child::BURIAL_OF_A_CHILD),
-                                                            ("burial-of-a-non-christian", &*bos::BURIAL_OF_A_NON_CHRISTIAN),
-                                                            ("an-order-for-burial", &*bcp1979::burial::AN_ORDER_FOR_BURIAL)
+                                                            (&SlugPath::from([Slug::Burial, Slug::Burial]), &*rite2::burial::BURIAL_RITE_II),
+                                                            (&SlugPath::from([Slug::Burial, Slug::BurialOfAChild]), &*eow::volume_2::burial_of_a_child::BURIAL_OF_A_CHILD),
+                                                            (&SlugPath::from([Slug::Burial, Slug::BurialOfANonChristian]), &*bos::BURIAL_OF_A_NON_CHRISTIAN),
+                                                            (&SlugPath::from([Slug::Burial, Slug::Order]), &*bcp1979::burial::AN_ORDER_FOR_BURIAL)
                                                         ]
                                                     )
                                                 }

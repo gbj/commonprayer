@@ -80,13 +80,13 @@ pub enum Contents<'a> {
         parallels: Vec<Vec<(ParallelDocument, usize)>>,
     },
     /// A static page in the website, which can be ignored for other purposes
-    Page(&'static str),
+    Page { label: String, url: String },
 }
 
 impl<'a> Contents<'a> {
     pub fn as_documents(&self) -> impl Iterator<Item = &Document> {
         match self {
-            Contents::Page(_) | Contents::Parallels { .. } => {
+            Contents::Page { .. } | Contents::Parallels { .. } => {
                 Box::new(std::iter::empty()) as Box<dyn Iterator<Item = &Document>>
             }
             Contents::Category { contents, .. } => Box::new(
@@ -155,7 +155,7 @@ impl<'a> Contents<'a> {
                     }
                 }
                 // No children to be sorted these leaf-node variants, so simply return this leaf
-                Contents::Page(_) | Contents::Document(_) | Contents::Parallels { .. } => {
+                Contents::Page { .. } | Contents::Document(_) | Contents::Parallels { .. } => {
                     Some(self.clone())
                 }
             }
@@ -169,8 +169,8 @@ impl<'a> Contents<'a> {
             Contents::Document(doc) => doc.label.as_ref().cloned(),
             Contents::ByVersion { label, .. } => Some(label.clone()),
             Contents::MultiDocument { label, .. } => Some(label.clone()),
-            Contents::Parallels { .. } => None,
-            Contents::Page(_) => None,
+            Contents::Parallels { label, .. } => Some(label.clone()),
+            Contents::Page { label, url } => Some(label.clone()),
         }
     }
 
@@ -213,7 +213,7 @@ impl<'a> Contents<'a> {
                     (SlugPath::from(starting_path), Contents::Document(document))
                 }
             })),
-            Contents::Page(_)
+            Contents::Page { .. }
             | Contents::Document(_)
             | Contents::Parallels { .. }
             | Contents::MultiDocument { .. } => Box::new(std::iter::empty()),

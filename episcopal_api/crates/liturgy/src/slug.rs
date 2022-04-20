@@ -19,6 +19,16 @@ impl SlugPath {
     pub fn push(&mut self, next: Slug) {
         self.0.push(next)
     }
+
+    #[must_use]
+    pub fn len(&self) -> usize {
+        self.0.len()
+    }
+
+    #[must_use]
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
 }
 
 impl<T> From<T> for SlugPath
