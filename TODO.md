@@ -13,8 +13,12 @@ Website Todos
   - [ ] Add preferences
 - Eucharist
   - [ ] Commented todos
-  - [ ] Prayers of the People
+  - [x] Prayers of the People
     - [ ] link to these in renaming service 
+  - [ ] Penitential Order
+    - [x] Penitential Sentences
+    - [x] Offertory Sentences
+    - [x] Form for consecrating additional bread and wine
   - [ ] Eucharistic Prayers
     - [ ] A
     - [ ] B

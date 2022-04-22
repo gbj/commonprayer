@@ -132,7 +132,15 @@ pub enum Slug {
     Eucharist,
     PrayersOfThePeople,
     OffertorySentences,
+    GreatThanksgiving,
     ProperPrefaces,
+    PenitentialOrder,
+    PenitentialSentences,
+    ConsecratingAdditional,
+    PrayerA,
+    PrayerB,
+    PrayerC,
+    PrayerD,
     // P&Ts
     PrayersAndThanksgivings,
     // Pastoral Offices

@@ -11,6 +11,12 @@ lazy_static! {
         pop::FORM_V_KYRIE.clone(),
         pop::FORM_VI.clone()
     ];
+
+    pub static ref CONSECRATING_ADDITIONAL: Document = Document::from(Series::from(vec![
+        Document::from(Rubric::from("If the consecrated Bread or Wine does not suffice for the number of communicants, the celebrant is to return to the Holy Table, and consecrate more of either or both, by saying").long()),
+        Document::from(Text::from("Hear us, O heavenly Father, and with thy (your) Word and Holy Spirit bless and sanctify this bread (wine) that it, also, may be the Sacrament of the precious Body (Blood) of thy (your) Son Jesus Christ our Lord, who took bread (the cup) and said, “This is my Body (Blood).”").response("Amen.")),
+        Document::from(Rubric::from("or else the celebrant may consecrate more of both kinds, saying again the words of the Eucharistic Prayer, beginning with the words which follow the Sanctus, and ending with the Invocation (in the case of Eucharistic Prayer C, ending with the narrative of the Institution).").long())
+    ])).label("Form for Consecrating Additional Bread and Wine");
 }
 
 mod pop {

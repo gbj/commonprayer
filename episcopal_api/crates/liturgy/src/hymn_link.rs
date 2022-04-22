@@ -8,4 +8,5 @@ pub enum HymnLink {
     Hymnal(Hymnals),
     Hymn(Hymnals, HymnNumber),
     Tag(String),
+    TagWithLabel(String, String)
 }

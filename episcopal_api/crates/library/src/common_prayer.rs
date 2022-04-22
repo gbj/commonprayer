@@ -439,33 +439,87 @@ impl Library for CommonPrayer {
             ),
             (
                 Slug::Eucharist,
-                Contents::Category {
+                Contents::Sections {
                     label: "Eucharist".into(),
                     contents: vec![
-                        (
-                            Slug::Eucharist,
-                            Contents::ByVersion {
-                                label: "Holy Eucharist".into(),
-                                documents: vec![&*rite2::eucharist::HOLY_EUCHARIST_II],
-                            },
-                        ),
-                        (
-                            Slug::PrayersOfThePeople,
-                            Contents::MultiDocument {
-                                label: "Prayers of the People".into(),
-                                documents: bcp1979::eucharist::PRAYERS_OF_THE_PEOPLE.to_vec(),
-                                hidden_in_toc: false,
-                            },
-                        ),
-                        // Hidden
-                        (
-                            Slug::OffertorySentences,
-                            Contents::MultiDocument {
-                                label: "Offertory Sentences".into(),
-                                documents: rite2::eucharist::OFFERTORY_SENTENCES_II.to_vec(),
-                                hidden_in_toc: true,
-                            },
-                        ),
+                        Section {
+                            label: None,
+                            contents: vec![
+                                (
+                                    Slug::Eucharist,
+                                    Contents::ByVersion {
+                                        label: "Holy Eucharist".into(),
+                                        documents: vec![&*rite2::eucharist::HOLY_EUCHARIST_II],
+                                    },
+                                ),
+                                (
+                                    Slug::PrayersOfThePeople,
+                                    Contents::MultiDocument {
+                                        label: "Prayers of the People".into(),
+                                        documents: bcp1979::eucharist::PRAYERS_OF_THE_PEOPLE.to_vec(),
+                                        hidden_in_toc: false,
+                                    },
+                                ),
+                                (
+                                    Slug::GreatThanksgiving,
+                                    Contents::Category {
+                                        label: "The Great Thanksgiving (Eucharistic Prayers)".into(),
+                                        contents: vec![
+                                            (
+                                                Slug::Version(Version::RiteII),
+                                                Contents::Category {
+                                                    label: "Rite II".into(),
+                                                    contents: vec![
+                                                        (Slug::PrayerA, Contents::Document(&*rite2::eucharist::PRAYER_A)),
+                                                        (Slug::PrayerB, Contents::Document(&*rite2::eucharist::PRAYER_B)),
+                                                        (Slug::PrayerC, Contents::Document(&*rite2::eucharist::PRAYER_C)),
+                                                        (Slug::PrayerD, Contents::Document(&*rite2::eucharist::PRAYER_D)),
+                                                    ]
+                                                }
+                                            )
+                                        ]
+                                    }
+                                )
+                            ]
+                        },
+                        Section {
+                            label: None,
+                            contents: vec![
+                                (
+                                    Slug::OffertorySentences,
+                                    Contents::Category {
+                                        label: "Offertory Sentences".into(),
+                                        contents: vec![
+                                            (
+                                                Slug::Version(Version::RiteII),
+                                                Contents::MultiDocument {
+                                                    label: "Rite II".into(),
+                                                    documents: rite2::eucharist::OFFERTORY_SENTENCES_II.to_vec(),
+                                                    hidden_in_toc: false,
+                                                }
+                                            )
+                                        ]
+                                    }
+                                ),
+                                (
+                                    Slug::PenitentialSentences,
+                                    Contents::Category {
+                                        label: "Penitential Sentences".into(),
+                                        contents: vec![
+                                            (
+                                                Slug::Version(Version::RiteII),
+                                                Contents::MultiDocument {
+                                                    label: "Rite II".into(),
+                                                    documents: rite2::eucharist::PENITENTIAL_SENTENCES_II.to_vec(),
+                                                    hidden_in_toc: false,
+                                                }
+                                            )
+                                        ]
+                                    }
+                                ),
+                                (Slug::ConsecratingAdditional, Contents::Document(&*bcp1979::eucharist::CONSECRATING_ADDITIONAL))        
+                            ]
+                        }                        
                     ],
                 },
             ),
