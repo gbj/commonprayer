@@ -124,7 +124,6 @@ fn content_type_as_str(content: &Content) -> &'static str {
         Content::Series(_) => "Series",
         Content::Parallel(_) => "Parallel",
         Content::Choice(_) => "Choice",
-        Content::Category(_) => "Category",
         Content::CollectOfTheDay { .. } => "Collect of the Day",
         Content::Empty => "Empty",
         Content::Error(_) => "Error",
@@ -133,7 +132,7 @@ fn content_type_as_str(content: &Content) -> &'static str {
         Content::BiblicalReading(_) => "Biblical Reading",
         Content::Canticle(_) => "Canticle",
         Content::CanticleTableEntry(_) => "Canticle Table Entry",
-        Content::DocumentLink(_, _, _, _) => "Document Link",
+        Content::DocumentLink { .. } => "Document Link",
         Content::GloriaPatri(_) => "Gloria Patri",
         Content::Heading(_) => "Heading",
         Content::HymnLink(_) => "Hymn Link",
@@ -1088,7 +1087,7 @@ fn edit_text(path: &[usize], doc: &Behavior<Document>, text: &Text) -> View {
                         } else {
                             None
                         };
-                        let new_text = text.text.replace("Amen.", "").replace("Amén.", "").replace("\n", " ");
+                        let new_text = text.text.replace("\n\n", "<p>").replace("Amen.", "").replace("Amén.", "").replace("\n", " ").replace("<p>", "\n\n");
                         let new_text = new_text.trim();
                         content.update(move |text| {
                             text.text = new_text.to_string();

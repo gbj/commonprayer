@@ -463,21 +463,22 @@ impl Library for CommonPrayer {
                                 (
                                     Slug::GreatThanksgiving,
                                     Contents::Category {
-                                        label: "The Great Thanksgiving (Eucharistic Prayers)".into(),
+                                        label: "Eucharistic Prayers".into(),
                                         contents: vec![
-                                            (
-                                                Slug::Version(Version::RiteII),
-                                                Contents::Category {
-                                                    label: "Rite II".into(),
-                                                    contents: vec![
-                                                        (Slug::PrayerA, Contents::Document(&*rite2::eucharist::PRAYER_A)),
-                                                        (Slug::PrayerB, Contents::Document(&*rite2::eucharist::PRAYER_B)),
-                                                        (Slug::PrayerC, Contents::Document(&*rite2::eucharist::PRAYER_C)),
-                                                        (Slug::PrayerD, Contents::Document(&*rite2::eucharist::PRAYER_D)),
-                                                    ]
-                                                }
-                                            )
+                                            (Slug::PrayerA, Contents::Document(&*rite2::eucharist::PRAYER_A)),
+                                            (Slug::PrayerB, Contents::Document(&*rite2::eucharist::PRAYER_B)),
+                                            (Slug::PrayerC, Contents::Document(&*rite2::eucharist::PRAYER_C)),
+                                            (Slug::PrayerD, Contents::Document(&*rite2::eucharist::PRAYER_D))
                                         ]
+                                    }
+                                ),
+                                (
+                                    Slug::ProperPrefaces,
+                                    Contents::MultiDocument { 
+                                        label: "Proper Prefaces".into(),
+                                        documents: vec![
+                                        ],
+                                        hidden_in_toc: false
                                     }
                                 )
                             ]

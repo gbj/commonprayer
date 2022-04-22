@@ -1,29 +1,20 @@
 Website Todos
 =============
 
-- [ ] New Slug-based system for organizing liturgies
-  - [ ] Test various parts of tree
 - [ ] Editor (to speed up liturgy creation)
-  - [x] Lectionary readings
   - [ ] Preferences
-  - [x] Rust code export
-    - [ ] finish for additional types as needed
-    - [ ] export conditions
 - [x] Baptism
   - [ ] Add preferences
 - Eucharist
   - [ ] Commented todos
   - [x] Prayers of the People
     - [ ] link to these in renaming service 
-  - [ ] Penitential Order
-    - [x] Penitential Sentences
-    - [x] Offertory Sentences
-    - [x] Form for consecrating additional bread and wine
+  - [ ] Proper Prefaces
   - [ ] Eucharistic Prayers
-    - [ ] A
-    - [ ] B
-    - [ ] C
-    - [ ] D
+    - [x] A
+    - [x] B
+    - [x] C
+    - [x] D
     - [ ] 1
     - [ ] 2
     - [ ] A (Expansive)
@@ -32,6 +23,7 @@ Website Todos
     - [ ] EOW 1
     - [ ] EOW 2
     - [ ] EOW 3
+  - [ ] Penitential Order
   - [ ] Eucharistic Liturgies
     - [ ] Rite 2
     - [ ] Rite 1

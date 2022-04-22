@@ -195,29 +195,24 @@ const UPPERCASE: [char; 26] = [
 
 fn slugify(unslugged: &str) -> String {
     let mut splits = unslugged.split_inclusive(UPPERCASE).enumerate().peekable();
+
     let mut buffer = String::new();
+
     while let Some((i, part)) = splits.next() {
         let is_first = i == 0;
         let len = part.len();
-        let cased = part.chars().enumerate().map(move |(j, c)| {
-            if j == len - 1 {
-                c.to_ascii_lowercase()
-            } else {
-                c
-            }
-        });
+        
         if is_first {
-            for ch in cased {
-                buffer.push(ch)
-            }
+            buffer.push_str(&part.to_ascii_lowercase())
         } else {
             let is_last = splits.peek().is_none();
-            for (j, ch) in cased.enumerate() {
-                if j == len - 1 && !is_last {
+            for (j, ch) in part.chars().enumerate() {
+                if j == len - 1 && (!is_last || ch.is_ascii_uppercase()) {
                     buffer.push('-');
-                    buffer.push(ch);
-                } else {
-                    buffer.push(ch);
+                    buffer.push(ch.to_ascii_lowercase());
+                } 
+                else {
+                    buffer.push(ch.to_ascii_lowercase());
                 }
             }
         }
@@ -244,12 +239,14 @@ mod tests {
 
     #[test]
     fn slugify_test() {
+        assert_eq!(slugify("PrayerA"), "prayer-a");
         assert_eq!(slugify("NiceneCreed"), "nicene-creed");
         assert_eq!(slugify("WitnessingAndBlessing"), "witnessing-and-blessing");
     }
 
     #[test]
     fn unslugify_test() {
+        assert_eq!(unslugify("prayer-a"), "PrayerA");
         assert_eq!(
             unslugify("prayers-and-thanksgivings"),
             "PrayersAndThanksgivings"

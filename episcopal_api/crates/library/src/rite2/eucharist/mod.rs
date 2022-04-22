@@ -236,7 +236,7 @@ lazy_static! {
             Document::from(Heading::from((HeadingLevel::Heading3, "The Great Thanksgiving"))),
             Document::from(Content::DocumentLink {
                 label: "Eucharistic Prayers".into(),
-                path: SlugPath::from([Slug::Eucharist, Slug::GreatThanksgiving, Slug::Version(Version::RiteII)]),
+                path: SlugPath::from([Slug::Eucharist, Slug::GreatThanksgiving]),
                 rotate: false
             }),
             Document::from(Choice::from(vec![
@@ -372,8 +372,143 @@ lazy_static! {
         Document::from(Sentence::from("Since we have a great high priest who has passed through the heavens, Jesus, the Son of God, let us with confidence draw near to the throne of grace, that we may receive mercy and find grace to help in time of need.").citation("Hebrews 4:14, 16")),
     ];
 
-    pub static ref PRAYER_A: Document = Document::new();
-    pub static ref PRAYER_B: Document = Document::new();
-    pub static ref PRAYER_C: Document = Document::new();
-    pub static ref PRAYER_D: Document = Document::new();
+    pub static ref PRAYER_A: Document = Document::new()
+        .label("Eucharistic Prayer A")
+        .version_label("Prayer A")
+        .page(361)
+        .version(Version::RiteII)
+        .content(Series::from(vec![
+            Document::from(Rubric::from("The people remain standing. The Celebrant, whether bishop or priest, faces them and sings or says")),
+            Document::from(Preces::from([
+                ("", "The Lord be with you."),
+                ("People", "And also with you."),
+                ("Celebrant", "Lift up your hearts."),
+                ("People", "We lift them to the Lord."),
+                ("Celebrant", "Let us give thanks to the Lord our God."),
+                ("People", "It is right to give him thanks and praise.")
+            ])),
+            Document::from(Rubric::from("Then, facing the Holy Table, the Celebrant proceeds")),
+            Document::from(Text::from("It is right, and a good and joyful thing, always and everywhere to give thanks to you, Father Almighty, Creator of heaven and earth.")),
+            Document::from(Rubric::from("Here a Proper Preface is sung or said on all Sundays, and on other occasions as appointed.")),
+            Document::from(Content::DocumentLink {
+                label: "Proper Prefaces".into(),
+                path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Version(Version::RiteII)]),
+                rotate: true
+            }),
+            Document::from(Text::from("Therefore we praise you, joining our voices with Angels and Archangels and with all the company of heaven, who for ever sing this hymn to proclaim the glory of your Name:")),
+            Document::from(Rubric::from("Celebrant and People")),
+            Document::from(Text::from("Holy, holy, holy Lord, God of power and might,\nheaven and earth are full of your glory.\n\tHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\n\tHosanna in the highest. ").display_format(DisplayFormat::Unison)),
+            Document::from(Rubric::from("The people stand or kneel.\n\nThen the Celebrant continues")),
+            Document::from(Text::from("Holy and gracious Father: In your infinite love you made us for yourself; and, when we had fallen into sin and become subject to evil and death, you, in your mercy, sent Jesus Christ, your only and eternal Son, to share our human nature, to live and die as one of us, to reconcile us to you, the God and Father of all.\n\nHe stretched out his arms upon the cross, and offered himself in obedience to your will, a perfect sacrifice for the whole world.")),
+            Document::from(Rubric::from("At the following words concerning the bread, the Celebrant is to hold it or lay a hand upon it; and at the words concerning the cup, to hold or place a hand upon the cup and any other vessel containing wine to be consecrated.")),
+            Document::from(Text::from("On the night he was handed over to suffering and death, our Lord Jesus Christ took bread; and when he had given thanks to you, he broke it, and gave it to his disciples, and said, “Take, eat: This is my Body, which is given for you. Do this for the remembrance of me.”\n\nAfter supper he took the cup of wine; and when he had given thanks, he gave it to them, and said, “Drink this, all of you: This is my Blood of the new Covenant, which is shed for you and for many for the forgiveness of sins. Whenever you drink it, do this for the remembrance of me.”\n\nTherefore we proclaim the mystery of faith:")),
+            Document::from(Rubric::from("Celebrant and People")),
+            Document::from(Text::from("Christ has died.\nChrist is risen.\nChrist will come again.").display_format(DisplayFormat::Unison)),
+            Document::from(Rubric::from("The Celebrant continues")),
+            Document::from(Text::from("We celebrate the memorial of our redemption, O Father, in this sacrifice of praise and thanksgiving. Recalling his death, resurrection, and ascension, we offer you these gifts.\n\nSanctify them by your Holy Spirit to be for your people the Body and Blood of your Son, the holy food and drink of new and unending life in him. Sanctify us also that we may faithfully receive this holy Sacrament, and serve you in unity, constancy, and peace; and at the last day bring us with all your saints into the joy of your eternal kingdom.\n\nAll this we ask through your Son Jesus Christ. By him, and with him, and in him, in the unity of the Holy Spirit all honor and glory is yours, Almighty Father, now and for ever.").response("AMEN."))
+    ]));
+
+    pub static ref PRAYER_B: Document = Document::new()	.label("Eucharistic Prayer B")
+        .version_label("Prayer B")
+        .page(367)
+        .version(Version::RiteII)
+        .content(Series::from(vec![
+            Document::from(Rubric::from("The people remain standing. The Celebrant, whether bishop or priest, faces them and sings or says")),
+            Document::from(Preces::from([
+                ("", "The Lord be with you."),
+                ("People", "And also with you."),
+                ("Celebrant", "Lift up your hearts."),
+                ("People", "We lift them to the Lord."),
+                ("Celebrant", "Let us give thanks to the Lord our God."),
+                ("People", "It is right to give him thanks and praise.")
+            ])),
+            Document::from(Rubric::from("Then, facing the Holy Table, the Celebrant proceeds")),
+            Document::from(Text::from("It is right, and a good and joyful thing, always and everywhere to give thanks to you, Father Almighty, Creator of heaven and earth.")),
+            Document::from(Rubric::from("Here a Proper Preface is sung or said on all Sundays, and on other occasions as appointed.")),
+            Document::from(Content::DocumentLink {
+                label: "Proper Prefaces".into(),
+                path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Version(Version::RiteII)]),
+                rotate: true
+            }),
+            Document::from(Text::from("Therefore we praise you, joining our voices with Angels and Archangels and with all the company of heaven, who for ever sing this hymn to proclaim the glory of your Name:")),
+            Document::from(Rubric::from("Celebrant and People")),
+            Document::from(Text::from("Holy, holy, holy Lord, God of power and might,\nheaven and earth are full of your glory.\n\tHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\n\tHosanna in the highest. ").display_format(DisplayFormat::Unison)),
+            Document::from(Rubric::from("The people stand or kneel.\n\nThen the Celebrant continues")),
+            Document::from(Text::from("We give thanks to you, O God, for the goodness and love which you have made known to us in creation; in the calling of Israel to be your people; in your Word spoken through the prophets; and above all in the Word made flesh, Jesus, your Son. For in these last days you sent him to be incarnate from the Virgin Mary, to be the Savior and Redeemer of the world. In him, you have delivered us from evil, and made us worthy to stand before you. In him, you have brought us out of error into truth, out of sin into righteousness, out of death into life.")),
+            Document::from(Rubric::from("At the following words concerning the bread, the Celebrant is to hold it or lay a hand upon it; and at the words concerning the cup, to hold or place a hand upon the cup and any other vessel containing wine to be consecrated.")),
+            Document::from(Text::from("On the night before he died for us, our Lord Jesus Christ took bread; and when he had given thanks to you, he broke it, and gave it to his disciples, and said, “Take, eat: This is my Body, which is given for you. Do this for the remembrance of me.”\n\nAfter supper he took the cup of wine; and when he had given thanks, he gave it to them, and said, “Drink this, all of you: This is my Blood of the new Covenant, which is shed for you and for many for the forgiveness of sins. Whenever you drink it, do this for the remembrance of me.”\n\nTherefore, according to his command, O Father,")),
+            Document::from(Rubric::from("Celebrant and People")),
+            Document::from(Text::from("We remember his death,\nWe proclaim his resurrection,\nWe await his coming in glory.").display_format(DisplayFormat::Unison)),
+            Document::from(Rubric::from("The Celebrant continues")),
+            Document::from(Text::from("And we offer our sacrifice of praise and thanksgiving to you, O Lord of all; presenting to you, from your creation, this bread and this wine.\n\nWe pray you, gracious God, to send your Holy Spirit upon these gifts that they may be the Sacrament of the Body of Christ and his Blood of the new Covenant. Unite us to your Son in his sacrifice, that we may be acceptable through him, being sanctified by the Holy Spirit. In the fullness of time, put all things in subjection under your Christ, and bring us to that heavenly country where, with [ ___________ and] all your saints, we may enter the everlasting heritage of your sons and daughters; through Jesus Christ our Lord, the firstborn of all creation, the head of the Church, and the author of our salvation.\n\nBy him, and with him, and in him, in the unity of the Holy Spirit all honor and glory is yours, Almighty Father, now and for ever.").response("AMEN."))
+    ]));
+
+    pub static ref PRAYER_C: Document = Document::new()
+        .version(Version::RiteII)
+        .label("Eucharistic Prayer C")
+        .version_label("Prayer C")
+        .page(369)
+        .content(Series::from(vec![
+            Document::from(Rubric::from("In this prayer, the lines in italics are spoken by the People.")),
+            Document::from(Rubric::from("The Celebrant, whether bishop or priest, faces them and sings or says")),
+            Document::from(ResponsivePrayer::from([
+                "The Lord be with you.",
+                "And also with you.\n",
+                "Lift up your hearts.",
+                "We lift them to the Lord.\n",
+                "Let us give thanks to the Lord our God.",
+                "It is right to give him thanks and praise.\n"
+            ])),
+            Document::from(Rubric::from("Then, facing the Holy Table, the Celebrant proceeds")),
+            Document::from(ResponsivePrayer::from([
+                "God of all power, Ruler of the Universe, you are worthy of glory and praise.",
+                "Glory to you for ever and ever.\n",
+                "At your command all things came to be: the vast expanse of interstellar space, galaxies, suns, the planets in their courses, and this fragile earth, our island home.",
+                "By your will they were created and have their being.\n",
+                "From the primal elements you brought forth the human race, and blessed us with memory, reason, and skill. You made us the rulers of creation. But we turned against you, and betrayed your trust; and we turned against one another.",
+                "Have mercy, Lord, for we are sinners in your sight.\n",
+                "Again and again, you called us to return. Through prophets and sages you revealed your righteous Law. And in the fullness of time you sent your only Son, born of a woman, to fulfill your Law, to open for us the way of freedom and peace.",
+                "By his blood, he reconciled us.\nBy his wounds, we are healed.\n",
+                "And therefore we praise you, joining with the heavenly chorus, with prophets, apostles, and martyrs, and with all those in every generation who have looked to you in hope, to proclaim with them your glory, in their unending hymn:"
+            ])),
+            Document::from(Rubric::from("Celebrant and People")),
+            Document::from(Text::from("Holy, holy, holy Lord, God of power and might,\nheaven and earth are full of your glory.\n\tHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\n\tHosanna in the highest.").display_format(DisplayFormat::Unison)),
+            Document::from(Rubric::from("The Celebrant continues")),
+            Document::from(Text::from("And so, Father, we who have been redeemed by him, and\nmade a new people by water and the Spirit, now bring before\nyou these gifts. Sanctify them by your Holy Spirit to be the\nBody and Blood of Jesus Christ our Lord.")),
+            Document::from(Rubric::from("At the following words concerning the bread, the Celebrant is to hold it,\nor lay a hand upon it; and at the words concerning the cup, to hold or\nplace a hand upon the cup and any other vessel containing wine to be\nconsecrated.")),
+            Document::from(Text::from("On the night he was betrayed he took bread, said the\nblessing, broke the bread, and gave it to his friends, and\nsaid, “Take, eat: This is my Body, which is given for you. Do\nthis for the remembrance of me.”\n\nAfter supper, he took the cup of wine, gave thanks, and\nsaid, “Drink this, all of you: This is my Blood of the new\nCovenant, which is shed for you and for many for the\nforgiveness of sins. Whenever you drink it, do this for the\nremembrance of me.”")),
+            Document::from(ResponsivePrayer::from([
+                "Remembering now his work of redemption, and offering to\nyou this sacrifice of thank",
+                "We celebrate his death and resurrection,\nas we await the day of his coming."
+            ])),
+            Document::from(Text::from("Lord God of our Fathers; God of Abraham, Isaac, and\nJacob; God and Father of our Lord Jesus Christ: Open our\neyes to see your hand at work in the world about us. Deliver\nus from the presumption of coming to this Table for solace\nonly, and not for strength; for pardon only, and not for\nrenewal. Let the grace of this Holy Communion make us one\nbody, one spirit in Christ, that we may worthily serve the\nworld in his name.\n\nRisen Lord, be known to us in the breaking of the Bread.\nAccept these prayers and praises, Father, through Jesus\nChrist our great High Priest, to whom, with you and the\nHoly Spirit, your Church gives honor, glory, and worship,\nfrom generation to generation.").response("AMEN."))
+    ]));
+    pub static ref PRAYER_D: Document = Document::new()
+        .label("Eucharistic Prayer D")
+        .version_label("Prayer D")
+        .page(372)
+        .version(Version::RiteII)
+        .content(Series::from(vec![
+            Document::from(Rubric::from("The people remain standing. The Celebrant, whether bishop or priest, faces them and sings or says")),
+            Document::from(Preces::from([
+                ("", "The Lord be with you."),
+                ("People", "And also with you."),
+                ("Celebrant", "Lift up your hearts."),
+                ("People", "We lift them to the Lord."),
+                ("Celebrant", "Let us give thanks to the Lord our God."),
+                ("People", "It is right to give him thanks and praise.")
+            ])),
+            Document::from(Rubric::from("Then, facing the Holy Table, the Celebrant proceeds")),
+            Document::from(Text::from("It is truly right to glorify you, Father, and to give you thanks; for you alone are God, living and true, dwelling in light inaccessible from before time and for ever.\n\nFountain of life and source of all goodness, you made all things and fill them with your blessing; you created them to rejoice in the splendor of your radiance.\n\nCountless throngs of angels stand before you to serve you night and day; and, beholding the glory of your presence, they offer you unceasing praise. Joining with them, and giving voice to every creature under heaven, we acclaim you, and glorify your Name, as we sing (say),")),
+            Document::from(Rubric::from("Celebrant and People")),
+            Document::from(Text::from("Holy, holy, holy Lord, God of power and might,\nheaven and earth are full of your glory.\n\tHosanna in the highest.\nBlessed is he who comes in the name of the Lord.\n\tHosanna in the highest.").display_format(DisplayFormat::Unison)),
+            Document::from(Rubric::from("The people stand or kneel.\n\nThen the Celebrant continues")),
+            Document::from(Text::from("We acclaim you, holy Lord, glorious in power. Your mighty works reveal your wisdom and love. You formed us in your own image, giving the whole world into our care, so that, in obedience to you, our Creator, we might rule and serve all your creatures. When our disobedience took us far from you, you did not abandon us to the power of death. In your mercy you came to our help, so that in seeking you we might find you. Again and again you called us into covenant with you, and through the prophets you taught us to hope for salvation.\n\nFather, you loved the world so much that in the fullness of time you sent your only Son to be our Savior. Incarnate by the Holy Spirit, born of the Virgin Mary, he lived as one of us, yet without sin. To the poor he proclaimed the good news of salvation; to prisoners, freedom; to the sorrowful, joy. To fulfill your purpose he gave himself up to death; and, rising from the grave, destroyed death, and made the whole creation new.\n\nAnd, that we might live no longer for ourselves, but for him who died and rose for us, he sent the Holy Spirit, his own first gift for those who believe, to complete his work in the world, and to bring to fulfillment the sanctification of all.")),
+            Document::from(Rubric::from("At the following words concerning the bread, the Celebrant is to hold it or lay a hand upon it; and at the words concerning the cup, to hold or place a hand upon the cup and any other vessel containing wine to be consecrated.")),
+            Document::from(Text::from("When the hour had come for him to be glorified by you, his heavenly Father, having loved his own who were in the world, he loved them to the end; at supper with them he took bread, and when he had given thanks to you, he broke it, and gave it to his disciples, and said, “Take, eat: This is my Body, which is given for you. Do this for the remembrance of me.”\n\nAfter supper he took the cup of wine; and when he had given thanks, he gave it to them, and said, “Drink this, all of you. This is my Blood of the new Covenant, which is shed for you and for many for the forgiveness of sins. Whenever you drink it, do this for the remembrance of me.”\n\nFather, we now celebrate this memorial of our redemption. Recalling Christ’s death and his descent among the dead, proclaiming his resurrection and ascension to your right hand, awaiting his coming in glory; and offering to you, from the gifts you have given us, this bread and this cup, we praise you and we bless you.")),
+            Document::from(Rubric::from("Celebrant and People")),
+            Document::from(Text::from("We praise you, we bless you,\nwe give thanks to you,\nand we pray to you, Lord our God.").display_format(DisplayFormat::Unison)),
+            Document::from(Rubric::from("The Celebrant continues")),
+            Document::from(Text::from("Lord, we pray that in your goodness and mercy your Holy Spirit may descend upon us, and upon these gifts, sanctifying them and showing them to be holy gifts for your holy people, the bread of life and the cup of salvation, the Body and Blood of your Son Jesus Christ.\n\nGrant that all who share this bread and cup may become one body and one spirit, a living sacrifice in Christ, to the praise of your Name.\n\nRemember, Lord, your one holy catholic and apostolic Church, redeemed by the blood of your Christ. Reveal its unity, guard its faith, and preserve it in peace.\n\n[Remember (*NN.* and) all who minister in your Church.]\n[Remember all your people, and those who seek your truth.]\n[Remember ___________.]\n[Remember all who have died in the peace of Christ, and\nthose whose faith is known to you alone; bring them into\nthe place of eternal joy and light.]\n\nAnd grant that we may find our inheritance with [the Blessed Virgin Mary, with patriarchs, prophets, apostles, and martyrs, (with _________) and] all the saints who have found favor with you in ages past. We praise you in union with them and give you glory through your Son Jesus Christ our Lord.\n\nThrough Christ, and with Christ, and in Christ, all honor and glory are yours, Almighty God and Father, in the unity of the Holy Spirit, for ever and ever.").response("AMEN."))
+    ]));
 }
