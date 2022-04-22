@@ -21,11 +21,11 @@ use wasm_bindgen::UnwrapThrowExt;
 pub enum DocumentPageType {
     Category {
         label: String,
-        contents: Vec<(Slug, String)>,
+        contents: Vec<(NavType, String)>,
     },
     Sections {
         label: String,
-        contents: Vec<(String, Vec<(Slug, String)>)>,
+        contents: Vec<(String, Vec<(NavType, String)>)>,
     },
     Document(DocumentPageParams, Box<Document>),
     ByVersion {
@@ -42,6 +42,12 @@ pub enum DocumentPageType {
         intro: String,
         parallels: Vec<Vec<(ParallelDocument, usize)>>,
     },
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+pub enum NavType {
+    Slug(Slug),
+    Url(String),
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -123,7 +129,16 @@ pub fn hydration_state(
                     label,
                     contents: contents
                         .into_iter()
-                        .map(|(slug, contents)| (slug, contents.label().unwrap_or_default()))
+                        .map(|(slug, contents)| {
+                            (
+                                if let Contents::Page { url, .. } = &contents {
+                                    NavType::Url(url.to_string())
+                                } else {
+                                    NavType::Slug(slug)
+                                },
+                                contents.label().unwrap_or_default(),
+                            )
+                        })
                         .collect(),
                 }),
                 Contents::Sections { label, contents } => Some(DocumentPageType::Sections {
@@ -137,7 +152,14 @@ pub fn hydration_state(
                                     .contents
                                     .into_iter()
                                     .map(|(slug, contents)| {
-                                        (slug, contents.label().unwrap_or_default())
+                                        (
+                                            if let Contents::Page { url, .. } = &contents {
+                                                NavType::Url(url.to_string())
+                                            } else {
+                                                NavType::Slug(slug)
+                                            },
+                                            contents.label().unwrap_or_default(),
+                                        )
                                     })
                                     .collect(),
                             )
@@ -318,15 +340,21 @@ fn category_body(
     locale: &str,
     base_slug: &SlugPath,
     title: &str,
-    pages: &[(Slug, String)],
+    pages: &[(NavType, String)],
 ) -> View {
     let pages = View::Fragment(
         pages
             .iter()
-            .map(|(slug, label)| {
+            .map(|(nav_type, label)| {
+                let href = match nav_type {
+                    NavType::Slug(slug) => {
+                        format!("/{}/document/{}/{}", locale, base_slug, slug.slugify())
+                    }
+                    NavType::Url(url) => format!("/{}/{}", locale, url),
+                };
                 view! {
                     <li>
-                        <a href={format!("/{}/document/{}/{}", locale, base_slug, slug.slugify())}>{label}</a>
+                        <a href={href}>{label}</a>
                     </li>
                 }
             })
@@ -349,7 +377,7 @@ fn section_body(
     locale: &str,
     base_slug: &SlugPath,
     title: &str,
-    pages: &[(String, Vec<(Slug, String)>)],
+    pages: &[(String, Vec<(NavType, String)>)],
 ) -> View {
     let sections = View::Fragment(
         pages
@@ -358,10 +386,16 @@ fn section_body(
                 let pages = View::Fragment(
                     pages
                         .iter()
-                        .map(|(slug, label)| {
+                        .map(|(nav_type, label)| {
+                            let href = match nav_type {
+                                NavType::Slug(slug) => {
+                                    format!("/{}/document/{}/{}", locale, base_slug, slug.slugify())
+                                }
+                                NavType::Url(url) => format!("/{}/{}", locale, url),
+                            };
                             view! {
                                 <li>
-                                    <a href={format!("/{}/document/{}/{}", locale, base_slug, slug.slugify())}>{label}</a>
+                                    <a href={href}>{label}</a>
                                 </li>
                             }
                         })
@@ -639,7 +673,7 @@ fn multidocument_body(locale: &str, base_slug: &SlugPath, title: &str, docs: &[D
 
     view! {
         <>
-            {header(locale, &title)}
+            {header(locale, title)}
             <main>
                 {breadcrumbs(locale, base_slug)}
                 <dyn:view view={search.view()} />
