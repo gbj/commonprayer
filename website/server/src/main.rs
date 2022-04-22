@@ -199,7 +199,6 @@ async fn export_docx(data: web::Form<DocxExportFormData>) -> Result<NamedFile> {
         format!("{}.docx", slug)
     };
     let dir = tempdir()?;
-    eprintln!("file_name = {}", file_name);
     let path = dir.path().join(file_name);
     let file = File::create(&path)?;
 
