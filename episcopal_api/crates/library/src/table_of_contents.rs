@@ -174,6 +174,13 @@ impl<'a> Contents<'a> {
         }
     }
 
+    pub fn hidden_in_toc(&self) -> bool {
+        match self {
+            Contents::MultiDocument { hidden_in_toc, .. } => *hidden_in_toc,
+            _ => false,
+        }
+    }
+
     fn flatten_with_starting_path(
         &self,
         starting_path: &[Slug],

@@ -1,3 +1,10 @@
+.section-summary, .section-summary ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
 /* Styles for Episcopal API documents that have been rendered into HTML */
 .psalm-verses-hidden {
   --psalm-number-display: none;
@@ -683,4 +690,9 @@ a.source-link > span {
 
 .breadcrumb li:not(:last-child)::after {
   content: " 〉";
+}
+
+.breadcrumb a {
+  font: var(--ui-font);
+  text-decoration: none;
 }

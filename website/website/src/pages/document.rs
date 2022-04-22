@@ -129,15 +129,19 @@ pub fn hydration_state(
                     label,
                     contents: contents
                         .into_iter()
-                        .map(|(slug, contents)| {
-                            (
-                                if let Contents::Page { url, .. } = &contents {
-                                    NavType::Url(url.to_string())
-                                } else {
-                                    NavType::Slug(slug)
-                                },
-                                contents.label().unwrap_or_default(),
-                            )
+                        .filter_map(|(slug, contents)| {
+                            if contents.hidden_in_toc() {
+                                None
+                            } else {
+                                Some((
+                                    if let Contents::Page { url, .. } = &contents {
+                                        NavType::Url(url.to_string())
+                                    } else {
+                                        NavType::Slug(slug)
+                                    },
+                                    contents.label().unwrap_or_default(),
+                                ))
+                            }
                         })
                         .collect(),
                 }),
@@ -151,15 +155,19 @@ pub fn hydration_state(
                                 section
                                     .contents
                                     .into_iter()
-                                    .map(|(slug, contents)| {
-                                        (
-                                            if let Contents::Page { url, .. } = &contents {
-                                                NavType::Url(url.to_string())
-                                            } else {
-                                                NavType::Slug(slug)
-                                            },
-                                            contents.label().unwrap_or_default(),
-                                        )
+                                    .filter_map(|(slug, contents)| {
+                                        if contents.hidden_in_toc() {
+                                            None
+                                        } else {
+                                            Some((
+                                                if let Contents::Page { url, .. } = &contents {
+                                                    NavType::Url(url.to_string())
+                                                } else {
+                                                    NavType::Slug(slug)
+                                                },
+                                                contents.label().unwrap_or_default(),
+                                            ))
+                                        }
                                     })
                                     .collect(),
                             )

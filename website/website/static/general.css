@@ -523,9 +523,7 @@ ul.reading-links,
   background: var(--background);
   min-width: 200px;
   width: 100%;
-  font-family: sans-serif;
-  font-size: 1rem;
-  font-weight: lighter;
+  font: var(--ui-font);
   padding: 0.5rem 0;
 }
 

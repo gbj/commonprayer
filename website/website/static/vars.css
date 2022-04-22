@@ -50,6 +50,9 @@
 
 	/* Source links */
 	--source-link-background: #d9d9d9;
+
+	/* UI elements */
+	--ui-font: lighter 1rem;
 }
 
 a {

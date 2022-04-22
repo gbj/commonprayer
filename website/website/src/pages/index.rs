@@ -43,8 +43,9 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
                         </ul>
                     </li>
                     <li>
-                        {make_link(locale, "daily-office", "toc.daily_office", false)}
+                        {make_link(locale, "document/office", "toc.daily_office", false)}
                         <ul>
+                            <li>{make_link(locale, "daily-office", "toc.pray_daily_office", false)}</li>
                             <li>
                                 {t!("toc.morning_prayer")}
                                 <ul>
