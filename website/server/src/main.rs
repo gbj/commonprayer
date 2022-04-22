@@ -192,12 +192,14 @@ async fn export_docx(data: web::Form<DocxExportFormData>) -> Result<NamedFile> {
     let data = data.into_inner();
     let doc: Document = serde_json::from_str(&data.doc)?;
 
+    let slug = data.liturgy.replace('/', "-");
     let file_name = if !data.date.is_empty() {
-        format!("{}-{}.docx", data.liturgy, data.date)
+        format!("{}-{}.docx", slug, data.date)
     } else {
-        format!("{}.docx", data.liturgy)
+        format!("{}.docx", slug)
     };
     let dir = tempdir()?;
+    eprintln!("file_name = {}", file_name);
     let path = dir.path().join(file_name);
     let file = File::create(&path)?;
 
