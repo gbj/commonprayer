@@ -494,10 +494,10 @@ impl Library for CommonPrayer {
                                                 parallels: build_parallel_table(
                                                     MARRIAGE_PARALLEL_TAGS,
                                                     &[
-                                                        (&SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::RiteII)]), &*bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE),
-                                                        (&SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)]), &*marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2),
-                                                        (&SlugPath::from([Slug::Marriage, Slug::WitnessingAndBlessing]), &*marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE),
-                                                        (&SlugPath::from([Slug::Marriage, Slug::Order]), &*bcp1979::marriage::AN_ORDER_FOR_MARRIAGE)
+                                                        (&SlugPath::from([Slug::PastoralOffices, Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::BCP1979)]), &*bcp1979::marriage::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE),
+                                                        (&SlugPath::from([Slug::PastoralOffices, Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)]), &*marriage_alternatives::liturgical_resources_1::CELEBRATION_AND_BLESSING_OF_A_MARRIAGE_2),
+                                                        (&SlugPath::from([Slug::PastoralOffices, Slug::Marriage, Slug::WitnessingAndBlessing]), &*marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE),
+                                                        (&SlugPath::from([Slug::PastoralOffices, Slug::Marriage, Slug::Order]), &*bcp1979::marriage::AN_ORDER_FOR_MARRIAGE)
                                                     ]
                                                 )
                                             },
@@ -507,6 +507,11 @@ impl Library for CommonPrayer {
                                         label: Some("Marriage Services".into()),
                                         contents: vec![
                                             (Slug::ConcerningTheService, Contents::Document(&*bcp1979::marriage::CONCERNING_THE_SERVICE)),
+                                        ]
+                                    },
+                                    Section {
+                                        label: None,
+                                        contents: vec![
                                             (
                                                 Slug::CelebrationAndBlessing,
                                                 Contents::ByVersion {
@@ -519,6 +524,11 @@ impl Library for CommonPrayer {
                                             ),
                                             (Slug::WitnessingAndBlessing, Contents::Document(&*marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_MARRIAGE)),
                                             (Slug::WitnessingAndBlessingLifelongCovenant, Contents::Document(&*marriage_alternatives::liturgical_resources_1::WITNESSING_AND_BLESSING_OF_A_LIFELONG_COVENANT)),
+                                        ]
+                                    },
+                                    Section {
+                                        label: None,
+                                        contents: vec![
                                             (
                                                 Slug::CivilMarriage,
                                                 Contents::ByVersion {
@@ -529,6 +539,11 @@ impl Library for CommonPrayer {
                                                     ]
                                                 }
                                             ),
+                                        ]
+                                    },
+                                    Section {
+                                        label: None,
+                                        contents: vec![
                                             (
                                                 Slug::Order,
                                                 Contents::ByVersion {
