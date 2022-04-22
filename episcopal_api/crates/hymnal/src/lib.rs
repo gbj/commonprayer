@@ -153,7 +153,7 @@ fn is_zero(number: &u16) -> bool {
 }
 
 fn is_false(b: &bool) -> bool {
-    *b == false
+    !(*b)
 }
 
 #[derive(Copy, Clone, Debug, PartialOrd, Ord, PartialEq, Eq, Hash)]

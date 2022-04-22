@@ -84,7 +84,7 @@ pub fn liturgy_preferences_view(
     let client_prefs = if is_server!() {
         HashMap::new()
     } else {
-        preferences::get_prefs_for_liturgy(&liturgy, language, version)
+        preferences::get_prefs_for_liturgy(liturgy, language, version)
     };
 
     if let Some((label, prefs)) = prefs.as_ref() {

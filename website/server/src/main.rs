@@ -16,7 +16,7 @@ use episcopal_api::{
     api::summary::DailySummary,
     calendar::Date,
     hymnal::{HymnNumber, Hymnal, Hymnals, HYMNAL_1982, LEVAS, WLP, EL_HIMNARIO},
-    liturgy::{Document, SlugPath, Slug}, library::{CommonPrayer, Contents, Library},
+    liturgy::{Document, SlugPath, Slug}, library::{CommonPrayer, Library},
 };
 use lazy_static::lazy_static;
 use leptos::{view, Page};

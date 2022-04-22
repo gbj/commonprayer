@@ -862,7 +862,6 @@ fn document_body(
             let language = document.language;
             let version = document.version;
             let locale = locale.to_string();
-            let base_slug = base_slug.clone();
             move |date| {
                 if let Some(date) = date {
                     let mut params = params.clone();
@@ -906,7 +905,6 @@ fn document_body(
             <dyn:button
                 on:click={
                     let params = params.clone();
-                    let props = props.clone();
                     let language = document.language;
                     let version = document.version;
                     let status = display_settings_menu.status.clone();

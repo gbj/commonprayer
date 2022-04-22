@@ -2,7 +2,7 @@ use std::{collections::HashMap, time::Duration};
 
 use futures::{Stream, StreamExt};
 use leptos::*;
-use liturgy::{Content, Document, SlugPath};
+use liturgy::{Content, Document};
 
 use crate::{components::Toggle, pages::DocumentPageProps, utils::share};
 

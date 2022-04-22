@@ -8,10 +8,6 @@ pub enum LookupType {
     Lectionary(LectionaryTableChoice),
 }
 
-pub fn slugify(s: &str) -> String {
-    s.to_lowercase().replace([' '], "-")
-}
-
 pub fn lookup_links(locale: &str, lookup_type: &LookupType) -> String {
     match lookup_type {
         LookupType::Canticle(_) => format!("/{}/canticle-table", locale),
