@@ -684,12 +684,22 @@ a.source-link > span {
   list-style: none;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   padding-left: 0;
 }
 
-.breadcrumb li:not(:last-child)::after {
-  content: " 〉";
+.breadcrumb li {
+  display: flex;
+  flex-direction: row;
+}
+
+.breadcrumb li a {
+  margin-right: 0.25rem;
+  max-width: 20vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .breadcrumb a {
