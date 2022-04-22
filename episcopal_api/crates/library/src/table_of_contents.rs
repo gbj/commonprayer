@@ -166,11 +166,11 @@ impl<'a> Contents<'a> {
         match self {
             Contents::Category { label, .. } => Some(label.clone()),
             Contents::Sections { label, .. } => Some(label.clone()),
-            Contents::Document(doc) => doc.label.as_ref().cloned(),
+            Contents::Document(doc) => doc.best_label(),
             Contents::ByVersion { label, .. } => Some(label.clone()),
             Contents::MultiDocument { label, .. } => Some(label.clone()),
             Contents::Parallels { label, .. } => Some(label.clone()),
-            Contents::Page { label, url } => Some(label.clone()),
+            Contents::Page { label, .. } => Some(label.clone()),
         }
     }
 

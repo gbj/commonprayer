@@ -543,6 +543,17 @@ impl Document {
         };
         iterator
     }
+
+    pub fn best_label(&self) -> Option<String> {
+        if self.label.is_none() {
+            match &self.content {
+                Content::Canticle(canticle) => Some(format!("{}. {}", canticle.number, canticle.local_name)),
+                _ => None
+            }
+        } else {
+            self.label.clone()
+        }
+    }
 }
 
 impl Default for Document {

@@ -130,199 +130,214 @@ impl Library for CommonPrayer {
                                 (Slug::SuggestedCanticles, Contents::Page { label: "Table of Suggested Canticles".into(), url: "canticle-table".into() }),
                                 (
                                     Slug::Canticles,
-                                    Contents::Category {
+                                    Contents::Sections {
                                         label: "Canticles".into(),
                                         contents: vec![
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle1),
-                                                Contents::Document(&*rite1::canticles::CANTICLE_1),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle2),
-                                                Contents::Document(&*rite1::canticles::CANTICLE_2),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle3),
-                                                Contents::Document(&*rite1::canticles::CANTICLE_3),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle4),
-                                                Contents::Document(&*rite1::canticles::CANTICLE_4),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle5),
-                                                Contents::Document(&*rite1::canticles::CANTICLE_5),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle6),
-                                                Contents::Document(&*rite1::canticles::CANTICLE_6),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle7),
-                                                Contents::Document(&*rite1::canticles::CANTICLE_7),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle8),
-                                                Contents::Document(&*rite2::canticles::CANTICLE_8),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle9),
-                                                Contents::Document(&*rite2::canticles::CANTICLE_9),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle10),
-                                                Contents::Document(&*rite2::canticles::CANTICLE_10),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle11),
-                                                Contents::Document(&*rite2::canticles::CANTICLE_11),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle12),
-                                                Contents::ByVersion {
-                                                    label: "Canticle 12".into(),
-                                                    documents: vec![
-                                                        &*rite2::canticles::CANTICLE_12,
-                                                        &*eow::canticles::CANTICLE_12_EOW,
-                                                    ],
-                                                },
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle13),
-                                                Contents::Document(&*rite2::canticles::CANTICLE_13),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle14),
-                                                Contents::Document(&*rite2::canticles::CANTICLE_14),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle15),
-                                                Contents::ByVersion {
-                                                    label: "Canticle 15".into(),
-                                                    documents: vec![
-                                                        &*rite2::canticles::CANTICLE_15,
-                                                        &*eow::canticles::CANTICLE_15_EOW,
-                                                    ],
-                                                },
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle16),
-                                                Contents::ByVersion {
-                                                    label: "Canticle 16".into(),
-                                                    documents: vec![
-                                                        &*rite2::canticles::CANTICLE_16,
-                                                        &*eow::canticles::CANTICLE_16_EOW,
-                                                    ],
-                                                },
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle17),
-                                                Contents::Document(&*rite2::canticles::CANTICLE_17),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle18),
-                                                Contents::ByVersion {
-                                                    label: "Canticle 18".into(),
-                                                    documents: vec![
-                                                        &*rite2::canticles::CANTICLE_18,
-                                                        &*eow::canticles::CANTICLE_18_EOW,
-                                                    ],
-                                                },
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle19),
-                                                Contents::Document(&*rite2::canticles::CANTICLE_19),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle20),
-                                                Contents::Document(&*rite2::canticles::CANTICLE_20),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::Canticle21),
-                                                Contents::ByVersion {
-                                                    label: "Canticle 21".into(),
-                                                    documents: vec![
-                                                        &*rite2::canticles::CANTICLE_21,
-                                                        &*eow::canticles::CANTICLE_21_EOW,
-                                                    ],
-                                                },
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleA),
-                                                Contents::Document(&*eow::canticles::CANTICLE_A),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleB),
-                                                Contents::Document(&*eow::canticles::CANTICLE_B),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleC),
-                                                Contents::Document(&*eow::canticles::CANTICLE_C),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleD),
-                                                Contents::Document(&*eow::canticles::CANTICLE_D),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleE),
-                                                Contents::Document(&*eow::canticles::CANTICLE_E),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleF),
-                                                Contents::Document(&*eow::canticles::CANTICLE_F),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleG),
-                                                Contents::Document(&*eow::canticles::CANTICLE_G),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleH),
-                                                Contents::Document(&*eow::canticles::CANTICLE_H),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleI),
-                                                Contents::Document(&*eow::canticles::CANTICLE_I),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleJ),
-                                                Contents::Document(&*eow::canticles::CANTICLE_J),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleK),
-                                                Contents::Document(&*eow::canticles::CANTICLE_K),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleL),
-                                                Contents::Document(&*eow::canticles::CANTICLE_L),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleM),
-                                                Contents::Document(&*eow::canticles::CANTICLE_M),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleN),
-                                                Contents::Document(&*eow::canticles::CANTICLE_N),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleO),
-                                                Contents::Document(&*eow::canticles::CANTICLE_O),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleP),
-                                                Contents::Document(&*eow::canticles::CANTICLE_P),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleQ),
-                                                Contents::Document(&*eow::canticles::CANTICLE_Q),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleR),
-                                                Contents::Document(&*eow::canticles::CANTICLE_R),
-                                            ),
-                                            (
-                                                Slug::Canticle(CanticleId::CanticleS),
-                                                Contents::Document(&*eow::canticles::CANTICLE_S),
-                                            ),
+                                            Section {
+                                                label: Some("Rite I".into()),
+                                                contents: vec![
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle1),
+                                                        Contents::Document(&*rite1::canticles::CANTICLE_1),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle2),
+                                                        Contents::Document(&*rite1::canticles::CANTICLE_2),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle3),
+                                                        Contents::Document(&*rite1::canticles::CANTICLE_3),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle4),
+                                                        Contents::Document(&*rite1::canticles::CANTICLE_4),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle5),
+                                                        Contents::Document(&*rite1::canticles::CANTICLE_5),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle6),
+                                                        Contents::Document(&*rite1::canticles::CANTICLE_6),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle7),
+                                                        Contents::Document(&*rite1::canticles::CANTICLE_7),
+                                                    ),
+                                                ]
+                                            },
+                                            Section {
+                                                label: Some("Rite II".into()),
+                                                contents: vec![
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle8),
+                                                        Contents::Document(&*rite2::canticles::CANTICLE_8),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle9),
+                                                        Contents::Document(&*rite2::canticles::CANTICLE_9),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle10),
+                                                        Contents::Document(&*rite2::canticles::CANTICLE_10),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle11),
+                                                        Contents::Document(&*rite2::canticles::CANTICLE_11),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle12),
+                                                        Contents::ByVersion {
+                                                            label: "12. A Song of Creation".into(),
+                                                            documents: vec![
+                                                                &*rite2::canticles::CANTICLE_12,
+                                                                &*eow::canticles::CANTICLE_12_EOW,
+                                                            ],
+                                                        },
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle13),
+                                                        Contents::Document(&*rite2::canticles::CANTICLE_13),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle14),
+                                                        Contents::Document(&*rite2::canticles::CANTICLE_14),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle15),
+                                                        Contents::ByVersion {
+                                                            label: "15. The Song of Mary".into(),
+                                                            documents: vec![
+                                                                &*rite2::canticles::CANTICLE_15,
+                                                                &*eow::canticles::CANTICLE_15_EOW,
+                                                            ],
+                                                        },
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle16),
+                                                        Contents::ByVersion {
+                                                            label: "16. The Song of Zechariah".into(),
+                                                            documents: vec![
+                                                                &*rite2::canticles::CANTICLE_16,
+                                                                &*eow::canticles::CANTICLE_16_EOW,
+                                                            ],
+                                                        },
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle17),
+                                                        Contents::Document(&*rite2::canticles::CANTICLE_17),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle18),
+                                                        Contents::ByVersion {
+                                                            label: "18. A Song to the Lamb".into(),
+                                                            documents: vec![
+                                                                &*rite2::canticles::CANTICLE_18,
+                                                                &*eow::canticles::CANTICLE_18_EOW,
+                                                            ],
+                                                        },
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle19),
+                                                        Contents::Document(&*rite2::canticles::CANTICLE_19),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle20),
+                                                        Contents::Document(&*rite2::canticles::CANTICLE_20),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::Canticle21),
+                                                        Contents::ByVersion {
+                                                            label: "21. You are God".into(),
+                                                            documents: vec![
+                                                                &*rite2::canticles::CANTICLE_21,
+                                                                &*eow::canticles::CANTICLE_21_EOW,
+                                                            ],
+                                                        },
+                                                    ),
+                                                ]
+                                            },
+                                            Section {
+                                                label: Some("Enriching our Worship 1".into()),
+                                                contents: vec![
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleA),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_A),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleB),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_B),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleC),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_C),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleD),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_D),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleE),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_E),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleF),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_F),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleG),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_G),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleH),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_H),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleI),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_I),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleJ),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_J),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleK),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_K),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleL),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_L),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleM),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_M),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleN),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_N),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleO),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_O),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleP),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_P),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleQ),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_Q),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleR),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_R),
+                                                    ),
+                                                    (
+                                                        Slug::Canticle(CanticleId::CanticleS),
+                                                        Contents::Document(&*eow::canticles::CANTICLE_S),
+                                                    ),
+                                                ]
+                                            }
                                         ],
                                     },
                                 ),
