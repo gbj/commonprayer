@@ -46,8 +46,6 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::FormConfig::default().limit(256 * 1024)) // increase max form size for DOCX export
             .service(daily_summary)
             .service(export_docx)
-            /* .service(export_ldf_json)
-            .service(export_json) */
             .service(canticle_list_api)
             .service(hymnal_api)
             .service(hymnal_search_api)
@@ -208,29 +206,6 @@ async fn export_docx(data: web::Form<DocxExportFormData>) -> Result<NamedFile> {
         .map_err(|e| error::InternalError::new(e.to_string(), StatusCode::INTERNAL_SERVER_ERROR))?;
     Ok(NamedFile::open(path)?)
 }
-
-/* #[get("/api/doc/{category}/{version}/{date}/{calendar}/{prefs}/{alternate}/{slug}.ldf.json")]
-async fn export_ldf_json(params: web::Path<DocumentPageParams>) -> Option<web::Json<serde_json::Value>> {
-    document::hydration_state("en", "", &params.into_inner())
-        .and_then(|state| if let document::DocumentPageType::Document(_, doc) = state.page_type {
-            Some(*doc)
-        } else {
-            None
-        })
-        .map(|doc| episcopal_api::ldf::LdfJson::from(doc).into_inner())
-        .map(web::Json)
-}
-
-#[get("/api/doc/{category}/{version}/{date}/{calendar}/{prefs}/{alternate}/{slug}.json")]
-async fn export_json(params: web::Path<DocumentPageParams>) -> Option<web::Json<Document>> {
-    document::hydration_state("en", "", &params.into_inner())
-        .and_then(|state| if let document::DocumentPageType::Document(_, doc) = state.page_type {
-            Some(*doc)
-        } else {
-            None
-        })
-        .map(web::Json)
-} */
 
 // Add additional pages, defined programmatically
 fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
