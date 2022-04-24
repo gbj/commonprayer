@@ -1,6 +1,7 @@
 pub mod burial;
 pub mod canticles;
 pub mod collects;
+pub mod eucharist;
 
 pub use canticles::*;
 use liturgy::*;

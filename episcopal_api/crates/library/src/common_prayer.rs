@@ -462,13 +462,25 @@ impl Library for CommonPrayer {
                                 ),
                                 (
                                     Slug::GreatThanksgiving,
-                                    Contents::Category {
+                                    Contents::Sections {
                                         label: "Eucharistic Prayers".into(),
                                         contents: vec![
-                                            (Slug::PrayerA, Contents::Document(&*rite2::eucharist::PRAYER_A)),
-                                            (Slug::PrayerB, Contents::Document(&*rite2::eucharist::PRAYER_B)),
-                                            (Slug::PrayerC, Contents::Document(&*rite2::eucharist::PRAYER_C)),
-                                            (Slug::PrayerD, Contents::Document(&*rite2::eucharist::PRAYER_D))
+                                            Section {
+                                                label: Some("Rite I".into()),
+                                                contents: vec![
+                                                    (Slug::PrayerI, Contents::Document(&*rite1::eucharist::PRAYER_I)),
+                                                    (Slug::PrayerII, Contents::Document(&*rite1::eucharist::PRAYER_II)),
+                                                ]
+                                            },
+                                            Section {
+                                                label: Some("Rite II".into()),
+                                                contents: vec![
+                                                    (Slug::PrayerA, Contents::Document(&*rite2::eucharist::PRAYER_A)),
+                                                    (Slug::PrayerB, Contents::Document(&*rite2::eucharist::PRAYER_B)),
+                                                    (Slug::PrayerC, Contents::Document(&*rite2::eucharist::PRAYER_C)),
+                                                    (Slug::PrayerD, Contents::Document(&*rite2::eucharist::PRAYER_D))
+                                                ]
+                                            }
                                         ]
                                     }
                                 ),

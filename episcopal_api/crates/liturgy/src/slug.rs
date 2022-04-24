@@ -141,6 +141,11 @@ pub enum Slug {
     PrayerB,
     PrayerC,
     PrayerD,
+    PrayerI,
+    PrayerII,
+    Prayer1,
+    Prayer2,
+    Prayer3,
     // P&Ts
     PrayersAndThanksgivings,
     // Pastoral Offices
@@ -201,7 +206,7 @@ fn slugify(unslugged: &str) -> String {
     while let Some((i, part)) = splits.next() {
         let is_first = i == 0;
         let len = part.len();
-        
+
         if is_first {
             buffer.push_str(&part.to_ascii_lowercase())
         } else {
@@ -210,8 +215,7 @@ fn slugify(unslugged: &str) -> String {
                 if j == len - 1 && (!is_last || ch.is_ascii_uppercase()) {
                     buffer.push('-');
                     buffer.push(ch.to_ascii_lowercase());
-                } 
-                else {
+                } else {
                     buffer.push(ch.to_ascii_lowercase());
                 }
             }
