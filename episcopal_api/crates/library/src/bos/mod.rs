@@ -13,9 +13,9 @@ lazy_static! {
         .label("Our Lady of Guadalupe")
         .version(Version::BOS)
         .source(Reference {
-                    source: Source::BookOfOccasionalServices2018,
-                    page: 27
-                })
+            source: Source::BookOfOccasionalServices2018,
+            page: 27
+        })
         .content(Liturgy::from(vec![
             Document::from(Heading::from((HeadingLevel::Heading2, "Concerning the Service"))),
             Document::from(Rubric::from("The Feast of La Virgen de Guadalupe is celebrated on Decemeber 12 throughout Mexico and increasingly in the Episcopal Church.\n\nAccording to tradition, an indigenous man named Juan Diego Cuauhtlatoatzin saw la Virgen on two separate occasions, on December 9 and December 12, 1531. In his vision, she told Juan Diego to ask the archbishop to build a church on the hill of Tepeyac, located in today’s Mexico City. Unconvinced by an uneducated, indigenous person, the bishop asked for proof of La Virgen’s appearance. When Juan Diego returned to Tepeyac, he found roses growing. He gathered the roses in his tilma (cloak) and took them to show to the bishop. Roses spilled out when he unfolded the tilma, and it revealed an image of La Virgen, a dark- skinned indigenous woman, head bowed in prayer. The bishop, convinced by the miracle, built a church.\n\nThe image of La Virgen de Guadelupe permeates Latino cultures. She serves as a rallying point for people’s hopes of liberation and justice revealed in Jesus Christ. The popularity of the feast continues to grow and is attached to many cultural observances. On the day of the feast, people process through towns and cities, offering their songs of love and joy. The procession is followed by a celebration of the Holy Eucharist that may feature dancers, drummers, banners, and mariachis.")),
