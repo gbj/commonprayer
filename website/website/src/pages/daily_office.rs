@@ -67,7 +67,7 @@ fn body(locale: &str, _props: &(), _render_state: &()) -> View {
             serde_json::to_string(&prefs.iter().collect::<Vec<_>>()).unwrap_or_default();
 
         let url = format!(
-            "/{}/document/office/{}/{:#?}/{}/{}/{}",
+            "/{}/document/{}/{:#?}/{}/{}/{}",
             locale, office, version, date, calendar, serialized_prefs,
         );
         location().set_href(&url).unwrap_throw();
