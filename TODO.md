@@ -3,6 +3,7 @@ Website Todos
 
 - [ ] Editor (to speed up liturgy creation)
   - [ ] Preferences
+  - [ ] Source is broken
 - [x] Baptism
   - [ ] Add preferences
 - Eucharist
@@ -11,18 +12,9 @@ Website Todos
     - [ ] link to these in renaming service 
   - [ ] Proper Prefaces
   - [ ] Eucharistic Prayers
-    - [x] A
-    - [x] B
-    - [x] C
-    - [x] D
-    - [ ] 1
-    - [ ] 2
     - [ ] A (Expansive)
-    - [ ] B (Expansive)2
+    - [ ] B (Expansive)
     - [ ] D (Expansive)
-    - [ ] EOW 1
-    - [ ] EOW 2
-    - [ ] EOW 3
   - [ ] Penitential Order
   - [ ] Eucharistic Liturgies
     - [ ] Rite 2

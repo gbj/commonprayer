@@ -1,6 +1,7 @@
 pub mod canticles;
 
 pub use canticles::*;
+pub mod eucharist;
 pub mod volume_2;
 use liturgy::Text;
 

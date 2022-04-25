@@ -480,6 +480,14 @@ impl Library for CommonPrayer {
                                                     (Slug::PrayerC, Contents::Document(&*rite2::eucharist::PRAYER_C)),
                                                     (Slug::PrayerD, Contents::Document(&*rite2::eucharist::PRAYER_D))
                                                 ]
+                                            },
+                                            Section {
+                                                label: Some("Enriching Our Worship".into()),
+                                                contents: vec![
+                                                    (Slug::Prayer1, Contents::Document(&*eow::eucharist::PRAYER_1)),
+                                                    (Slug::Prayer2, Contents::Document(&*eow::eucharist::PRAYER_2)),
+                                                    (Slug::Prayer3, Contents::Document(&*eow::eucharist::PRAYER_3)),
+                                                ]
                                             }
                                         ]
                                     }
