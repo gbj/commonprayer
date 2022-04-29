@@ -488,7 +488,7 @@ fn multidocument_body(locale: &str, base_slug: &SlugPath, title: &str, docs: &[D
         .iter()
         .group_by(|doc| doc.tags.get(0))
         .into_iter()
-        .map(|(category, docs_with_category)| {
+        .map(move |(category, docs_with_category)| {
             (
                 category,
                 docs_with_category
@@ -525,8 +525,24 @@ fn multidocument_body(locale: &str, base_slug: &SlugPath, title: &str, docs: &[D
                                     let labels = if docs_with_subcategory.len() > 1 {
                                         View::Fragment(docs_with_subcategory
                                             .iter()
-                                            .map(|(label, _)| view! {
-                                                <li> <a href={format!("#{}", label.cloned().unwrap_or_default())}>{label.cloned().unwrap_or_default()}</a></li>
+                                            .map(|(label, docs)| {
+                                                let hidden = search
+                                                            .value
+                                                            .stream()
+                                                            .map({
+                                                                let docs = docs.iter().map(|doc| (*doc).clone()).collect::<Vec<_>>();
+                                                                move |search| {
+                                                                    !search.is_empty()
+                                                                        && !docs.iter().any(|doc| doc.contains_case_insensitive(&search))
+                                                                }
+                                                            })
+                                                            .boxed_local();
+
+                                                view! {
+                                                    <dyn:li class:hidden={hidden}>
+                                                        <a href={format!("#{}", label.cloned().unwrap_or_default())}>{label.cloned().unwrap_or_default()}</a>
+                                                    </dyn:li>
+                                                }
                                             })
                                             .collect()
                                         )
@@ -534,11 +550,22 @@ fn multidocument_body(locale: &str, base_slug: &SlugPath, title: &str, docs: &[D
                                         View::Empty
                                     };
 
+                                    let docs = docs_with_subcategory.iter()
+                                        .flat_map(|(_, docs)| docs.iter())
+                                        .map(|doc| (*doc).clone()).collect::<Vec<_>>();
+                                    let hidden = search.value
+                                        .stream()
+                                        .map(move |search| {
+                                            !search.is_empty()
+                                                && !docs.iter().any(|doc| doc.contains_case_insensitive(&search))
+                                        })
+                                        .boxed_local();
+
                                     view! {
-                                        <li>
+                                        <dyn:li class:hidden={hidden}>
                                              <a href={format!("#{}", subcategory.cloned().unwrap_or_default())}>{subcategory.cloned().unwrap_or_default()}</a>
                                             <ul>{labels}</ul>
-                                        </li>
+                                        </dyn:li>
                                     }
                                 })
                                 .collect(),
@@ -547,11 +574,22 @@ fn multidocument_body(locale: &str, base_slug: &SlugPath, title: &str, docs: &[D
                         View::Empty
                     };
 
+                    let docs = docs_with_category.iter()
+                        .flat_map(|(_, docs)| docs.iter().flat_map(|(_, docs)| docs.iter()))
+                        .map(|doc| (*doc).clone()).collect::<Vec<_>>();
+                    let hidden = search.value
+                        .stream()
+                        .map(move |search| {
+                            !search.is_empty()
+                                && !docs.iter().any(|doc| doc.contains_case_insensitive(&search))
+                        })
+                        .boxed_local();
+
                     view! {
-                        <li>
+                        <dyn:li class:hidden={hidden}>
                             <a href={format!("#{}", category.cloned().unwrap_or_default())}>{category.cloned().unwrap_or_default()}</a>
                             <ul>{subcategories}</ul>
-                        </li>
+                        </dyn:li>
                     }
                 })
                 .collect(),
@@ -570,10 +608,33 @@ fn multidocument_body(locale: &str, base_slug: &SlugPath, title: &str, docs: &[D
     let categories = View::Fragment(
         tree.iter()
             .map(|(category, subcategories)| {
+                let docs = subcategories.iter()
+                    .flat_map(|(_, docs)| docs.iter().flat_map(|(_, docs)| docs.iter()))
+                    .map(|doc| (*doc).clone()).collect::<Vec<_>>();
+                let hidden = search.value
+                    .stream()
+                    .map(move |search| {
+                        !search.is_empty()
+                            && !docs.iter().any(|doc| doc.contains_case_insensitive(&search))
+                    })
+                    .boxed_local();
+
                 let subcategories = View::Fragment(
                     subcategories
                         .iter()
                         .map(|(subcategory, docs_with_subcategory)| {
+                            let docs = docs_with_subcategory.iter()
+                                .flat_map(|(_, docs)| docs.iter())
+                                .map(|doc| (*doc).clone())
+                                .collect::<Vec<_>>();
+                            let hidden = search.value
+                                .stream()
+                                .map(move |search| {
+                                    !search.is_empty()
+                                        && !docs.iter().any(|doc| doc.contains_case_insensitive(&search))
+                                })
+                                .boxed_local();
+
                             let labels = View::Fragment(docs_with_subcategory.iter().map(|(label, docs_with_label)| {
                                         let docs = docs_with_label.iter().cloned().cloned().collect::<Vec<_>>();
                                         let subtitle =
@@ -659,7 +720,7 @@ fn multidocument_body(locale: &str, base_slug: &SlugPath, title: &str, docs: &[D
                                         view! {
                                             <>
                                                 <a id={subcategory.to_string()}></a>
-                                                <h3>{subcategory.to_string()}</h3>
+                                                <dyn:h3 class:hidden={hidden}>{subcategory.to_string()}</dyn:h3>
                                             </>
                                         }
                                     } else {
@@ -678,7 +739,7 @@ fn multidocument_body(locale: &str, base_slug: &SlugPath, title: &str, docs: &[D
                             view! {
                                 <>
                                     <a id={category.to_string()}></a>
-                                    <h2>{category.to_string()}</h2>
+                                    <dyn:h2 class:hidden={hidden}>{category.to_string()}</dyn:h2>
                                 </>
                             }
                         } else {
@@ -799,7 +860,7 @@ fn parallels_body(
         },
     );
 
-    let alert = Alert::new(parallel_exports(&parallels, &parallel_selections));
+    let alert = Alert::new(parallel_exports(parallels, &parallel_selections));
 
     let select_button = {
         view! {
