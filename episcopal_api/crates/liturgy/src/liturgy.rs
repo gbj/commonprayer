@@ -64,6 +64,10 @@ impl LiturgyPreferences {
         self.0.iter()
     }
 
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
+    }
+
     // allow this because if we try to actually implement IntoIter, it causes a conflict with the `From` implementation
     #[allow(clippy::should_implement_trait)]
     pub fn into_iter(self) -> impl Iterator<Item = LiturgyPreference> {

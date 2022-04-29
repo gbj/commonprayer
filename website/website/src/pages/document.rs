@@ -80,22 +80,33 @@ pub fn get_static_paths() -> Vec<String> {
         .flatten()
         .dedup_by(|a, b| a.0 == b.0)
         .flat_map(|(slug, contents)| {
-            if matches!(contents, Contents::Document(_)) {
-                Box::new(
-                    [
-                        slug.to_string(),
-                        format!("{slug}/"),
-                        format!("{slug}/{{date}}"),
-                        format!("{slug}/{{date}}/"),
-                        format!("{slug}/{{date}}/{{calendar}}"),
-                        format!("{slug}/{{date}}/{{calendar}}/"),
-                        format!("{slug}/{{date}}/{{calendar}}/{{prefs}}"),
-                        format!("{slug}/{{date}}/{{calendar}}/{{prefs}}/"),
-                        format!("{slug}/{{date}}/{{calendar}}/{{prefs}}/{{alternate}}"),
-                        format!("{slug}/{{date}}/{{calendar}}/{{prefs}}/{{alternate}}/"),
-                    ]
-                    .into_iter(),
-                ) as Box<dyn Iterator<Item = String>>
+            if let Contents::Document(doc) = contents {
+                let has_date_condition = doc.has_date_condition();
+                let has_preferences = if let Content::Liturgy(liturgy) = &doc.content {
+                    !liturgy.preferences.is_empty()
+                } else {
+                    false
+                };
+
+                if has_date_condition || has_preferences {
+                    Box::new(
+                        [
+                            slug.to_string(),
+                            format!("{slug}/"),
+                            format!("{slug}/{{date}}"),
+                            format!("{slug}/{{date}}/"),
+                            format!("{slug}/{{date}}/{{calendar}}"),
+                            format!("{slug}/{{date}}/{{calendar}}/"),
+                            format!("{slug}/{{date}}/{{calendar}}/{{prefs}}"),
+                            format!("{slug}/{{date}}/{{calendar}}/{{prefs}}/"),
+                            format!("{slug}/{{date}}/{{calendar}}/{{prefs}}/{{alternate}}"),
+                            format!("{slug}/{{date}}/{{calendar}}/{{prefs}}/{{alternate}}/"),
+                        ]
+                        .into_iter(),
+                    ) as Box<dyn Iterator<Item = String>>
+                } else {
+                    Box::new(std::iter::once(slug.to_string())) as Box<dyn Iterator<Item = String>>
+                }
             } else {
                 Box::new([slug.to_string(), format!("{slug}/")].into_iter())
                     as Box<dyn Iterator<Item = String>>
