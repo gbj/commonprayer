@@ -135,6 +135,7 @@ a.source-link > span {
 
 .parallel > .document {
   margin-right: 1rem;
+  flex: 1;
 }
 
 /* Error */

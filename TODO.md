@@ -20,6 +20,13 @@ Website Todos
     - [ ] Rite 2
     - [ ] Rite 1
     - [ ] EOW
+  - [ ] LOC Eucharist
+    - [ ] Prayer B
+    - [ ] Prayer C
+    - [ ] Prayer D
+    - [ ] Prayer 1
+    - [ ] Prayer 2
+    - [ ] Prayers of the People
 - [ ] Audio export
 - Burial Services
   - [ ] Integrate Additional Prayers into Prayers & THanksgivings

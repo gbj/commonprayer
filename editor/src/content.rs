@@ -956,13 +956,13 @@ macro_rules! quick_edit_button {
                             // remove text from textarea
                             if let Some(textarea) = textarea.get() {
                                 let textarea: web_sys::HtmlTextAreaElement = textarea.unchecked_into();
-                                let selection_start = textarea.selection_start().unwrap().unwrap_or(0) as usize;
-                                let selection_end = textarea.selection_end().unwrap().unwrap_or(0) as usize;
-                                let value = textarea.value();
+                                let selection_start = textarea.selection_start().unwrap().unwrap_or(0);
+                                let selection_end = textarea.selection_end().unwrap().unwrap_or(0);
+                                let value = js_sys::JsString::from(textarea.value());
 
                                 // clear textarea
-                                let before_selection = value[0..selection_start].to_string();
-                                let after_selection = value[selection_end..].to_string();
+                                let before_selection = value.slice(0, selection_start).as_string().unwrap();
+                                let after_selection = value.slice(selection_end, value.length()).as_string().unwrap();
                                 let new_value = format!("{before_selection}{after_selection}");
                                 let new_value = new_value.trim();
                                 textarea.set_value(&new_value);
@@ -970,7 +970,7 @@ macro_rules! quick_edit_button {
                                 quick_edit.set(new_value.to_string());
 
                                 // update content
-                                let text = value[selection_start..selection_end].to_string();
+                                let text = value.slice(selection_start, selection_end).as_string().unwrap();
                                 content.update(move |content| content.push(Document::from(<$content_type>::from(Text::from(text.clone())))));
                                 let new_content = content.get();
                                 root.update(|root_doc| root_doc.content = Content::from(new_content.clone()));
@@ -1072,8 +1072,29 @@ fn edit_series(
 
 fn edit_text(path: &[usize], doc: &Behavior<Document>, text: &Text) -> View {
     let content = Behavior::new(text.clone());
+    let textarea: Behavior<Option<web_sys::Element>> = Behavior::new(None);
+
     view! {
         <>
+        <dyn:button
+                on:click={
+                    let textarea = textarea.clone();
+                    move |ev: Event| {
+                        if let Some(textarea) = textarea.get() {
+                            ev.prevent_default();
+                            let textarea: web_sys::HtmlTextAreaElement = textarea.unchecked_into();
+                            let selection_start = textarea.selection_start().unwrap().unwrap_or(0) as usize;
+                            let mut value = textarea.value();
+
+                            // clear textarea
+                            value.insert(selection_start, '\t');
+                            textarea.set_value(&value);
+                        }
+                    }
+                }
+            >
+                "\\t"
+            </dyn:button>
             <dyn:button
                 on:click={
                     let content = content.clone();
@@ -1109,6 +1130,7 @@ fn edit_text(path: &[usize], doc: &Behavior<Document>, text: &Text) -> View {
                 )
                 on:keyup=autogrow_textarea
                 on:focus=autogrow_textarea
+                dom:ref={&textarea}
             >
                 {content.get().text}
             </dyn:textarea>

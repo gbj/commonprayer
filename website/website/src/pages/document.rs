@@ -716,7 +716,7 @@ fn parallels_body(
         Behavior::new(HashMap::new());
 
     // convert table into view
-    let parallels = View::Fragment(
+    let parallels_view = View::Fragment(
         parallels
             .iter()
             .enumerate()
@@ -799,7 +799,7 @@ fn parallels_body(
         },
     );
 
-    let alert = Alert::new(parallel_exports(&parallel_selections));
+    let alert = Alert::new(parallel_exports(&parallels, &parallel_selections));
 
     let select_button = {
         view! {
@@ -847,7 +847,7 @@ fn parallels_body(
                 {breadcrumbs(locale, base_slug)}
                 {initial_text}
                 <table>
-                    {parallels}
+                    {parallels_view}
                 </table>
             </dyn:main>
         </>
@@ -960,11 +960,18 @@ fn document_body(
         }
     };
 
+    let contains_parallels = document.contains_parallels();
+
     view! {
         <>
             {header_with_side_menu_and_buttons(locale, &document.label.clone().unwrap_or_default(), side_menu, [export_button])}
             <dyn:main
-                class={display_settings_menu.current_settings().stream().map(|settings| settings.to_class()).boxed_local()}
+                class={display_settings_menu
+                    .current_settings()
+                    .stream()
+                    .map(move |settings| format!("{}{}", settings.to_class(), if contains_parallels { " parallels" } else {""}))
+                    .boxed_local()
+                }
             >
                 {breadcrumbs(locale, base_slug)}
                 <dyn:view view={document_controller.view(locale)}/>

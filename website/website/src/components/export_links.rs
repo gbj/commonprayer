@@ -2,7 +2,8 @@ use std::{collections::HashMap, time::Duration};
 
 use futures::{Stream, StreamExt};
 use leptos::*;
-use liturgy::{Content, Document};
+use library::rite2::eucharist::parallel;
+use liturgy::{parallel_table::ParallelDocument, Content, Document, Parallel, Series};
 
 use crate::{components::Toggle, pages::DocumentPageProps, utils::share};
 
@@ -168,27 +169,54 @@ pub fn export_links(props: &DocumentPageProps, document_controller: &DocumentCon
     }
 }
 
-pub fn parallel_exports(selections: &Behavior<HashMap<(usize, usize), Document>>) -> View {
-    fn selections_to_doc(selections: HashMap<(usize, usize), Document>) -> Document {
-        let mut pairs = selections.into_iter().collect::<Vec<_>>();
-        pairs.sort_by_key(|(key, _)| *key);
-        Document::series_or_document(&mut pairs.into_iter().map(|(_, doc)| doc))
-            .unwrap_or_else(|| Document::from(Content::Empty))
+pub fn parallel_exports(
+    parallels: &[Vec<(ParallelDocument, usize)>],
+    selections: &Behavior<HashMap<(usize, usize), Document>>,
+) -> View {
+    fn selections_to_doc(
+        parallels: &[Vec<(ParallelDocument, usize)>],
+        selections: HashMap<(usize, usize), Document>,
+    ) -> Document {
+        if selections.is_empty() {
+            let rows = parallels
+                .iter()
+                .map(|row| {
+                    let docs = row
+                        .iter()
+                        .filter_map(|(doc, _)| match doc {
+                            ParallelDocument::Document(doc) => Some((**doc).clone()),
+                            _ => None,
+                        })
+                        .collect::<Vec<_>>();
+                    Document::from(Parallel::from(docs))
+                })
+                .collect::<Vec<_>>();
+            Document::from(Series::from(rows))
+        } else {
+            let mut pairs = selections.into_iter().collect::<Vec<_>>();
+            pairs.sort_by_key(|(key, _)| *key);
+            Document::series_or_document(&mut pairs.into_iter().map(|(_, doc)| doc))
+                .unwrap_or_else(|| Document::from(Content::Empty))
+        }
     }
 
     fn doc_stream(
+        parallels: &[Vec<(ParallelDocument, usize)>],
         selections: &Behavior<HashMap<(usize, usize), Document>>,
     ) -> impl Stream<Item = Document> {
-        selections.stream().map(selections_to_doc)
+        let parallels = parallels.to_vec();
+        selections
+            .stream()
+            .map(move |selections| selections_to_doc(&parallels, selections))
     }
 
     let status = Behavior::new(Status::Idle);
 
-    let serialized_doc_stream = doc_stream(selections)
+    let serialized_doc_stream = doc_stream(parallels, selections)
         .map(|doc| serde_json::to_string(&doc).unwrap())
         .boxed_local();
 
-    let json_link_stream = doc_stream(selections)
+    let json_link_stream = doc_stream(parallels, selections)
         .map(|doc| {
             let json = serde_json::to_string(&doc).unwrap();
             format!("data:application/json,{}", js_sys::encode_uri(&json))
@@ -225,8 +253,9 @@ pub fn parallel_exports(selections: &Behavior<HashMap<(usize, usize), Document>>
                     <dyn:button class="link venite" on:click={
                         let status = status.clone();
                         let selections = selections.clone();
+                        let parallels = parallels.to_vec();
                         move |_ev: Event| {
-                            let doc = selections_to_doc(selections.get());
+                            let doc = selections_to_doc(&parallels, selections.get());
                             let json = ldf::LdfJson::from(doc);
                             copy(serde_json::to_string(&json.into_inner()), &status);
                         }

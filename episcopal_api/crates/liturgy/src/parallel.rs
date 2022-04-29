@@ -1,6 +1,8 @@
+use std::fmt::format;
+
 use serde::{Deserialize, Serialize};
 
-use crate::{Choice, Content, Document, Liturgy, Series};
+use crate::{version, Choice, Content, Document, Liturgy, Series};
 
 /// Multiple [Document](crate::Document)s that are displayed side by side.
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
@@ -74,5 +76,71 @@ impl From<Series> for Parallel {
 impl From<Choice> for Parallel {
     fn from(choice: Choice) -> Self {
         Self::from(choice.options)
+    }
+}
+
+pub fn parallelize(doc_a: &Document, doc_b: &Document) -> Document {
+    match (&doc_a.content, &doc_b.content) {
+        (Content::Liturgy(content_a), Content::Liturgy(content_b)) => {
+            let docs = content_a
+                .body
+                .iter()
+                .zip(content_b.body.iter())
+                .map(|(a, b)| if a == b { a.clone() } else { parallelize(a, b) });
+            let content = Liturgy {
+                body: Series::from(docs),
+                ..content_a.clone()
+            };
+            Document {
+                content: Content::Liturgy(content),
+                ..doc_a.clone()
+            }
+        }
+        (Content::Series(content_a), Content::Series(content_b)) => {
+            let docs = content_a.iter().zip(content_b.iter()).map(|(a, b)| {
+                if a == b {
+                    a.clone()
+                } else {
+                    parallelize(a, b)
+                }
+            });
+            Document {
+                content: Content::Series(Series::from(docs)),
+                ..doc_a.clone()
+            }
+        }
+        (Content::Choice(content_a), Content::Choice(content_b)) => {
+            let options = content_a
+                .options
+                .iter()
+                .enumerate()
+                .zip(content_b.options.iter().enumerate())
+                .map(|((a_idx, a), (b_idx, b))| {
+                    let version_label_a = content_a.option_label(a, a_idx);
+                    let version_label_b = content_b.option_label(b, b_idx);
+                    let version_label = if version_label_a == version_label_b {
+                        version_label_a
+                    } else {
+                        format!("{version_label_a}/{version_label_b}")
+                    };
+
+                    if a.content == b.content {
+                        a.clone()
+                    } else {
+                        parallelize(a, b)
+                    }
+                    .version_label(version_label)
+                })
+                .collect();
+            let content = Choice {
+                options,
+                ..content_a.clone()
+            };
+            Document {
+                content: Content::Choice(content),
+                ..doc_a.clone()
+            }
+        }
+        _ => Document::from(Parallel::from(vec![doc_a.clone(), doc_b.clone()])),
     }
 }

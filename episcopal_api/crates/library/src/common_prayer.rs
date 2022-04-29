@@ -449,7 +449,10 @@ impl Library for CommonPrayer {
                                     Slug::Eucharist,
                                     Contents::ByVersion {
                                         label: "Holy Eucharist".into(),
-                                        documents: vec![&*rite2::eucharist::HOLY_EUCHARIST_II],
+                                        documents: vec![
+                                            &*rite2::eucharist::HOLY_EUCHARIST_II,
+                                            &*loc::eucharist::HOLY_EUCHARIST_II
+                                        ],
                                     },
                                 ),
                                 (
@@ -518,6 +521,14 @@ impl Library for CommonPrayer {
                                                     documents: rite2::eucharist::OFFERTORY_SENTENCES_II.to_vec(),
                                                     hidden_in_toc: false,
                                                 }
+                                            ),
+                                            (
+                                                Slug::Version(Version::LibroDeOracionComun),
+                                                Contents::MultiDocument {
+                                                    label: "Libro de Oración Común".into(),
+                                                    documents: loc::eucharist::OFFERTORY_SENTENCES_LOC.to_vec(),
+                                                    hidden_in_toc: false,
+                                                }
                                             )
                                         ]
                                     }
@@ -534,13 +545,36 @@ impl Library for CommonPrayer {
                                                     documents: rite2::eucharist::PENITENTIAL_SENTENCES_II.to_vec(),
                                                     hidden_in_toc: false,
                                                 }
+                                            ),
+                                            (
+                                                Slug::Version(Version::LibroDeOracionComun),
+                                                Contents::MultiDocument {
+                                                    label: "Libro de Oración Común".into(),
+                                                    documents: loc::eucharist::PENITENTIAL_SENTENCES_LOC.to_vec(),
+                                                    hidden_in_toc: false,
+                                                }
                                             )
                                         ]
                                     }
                                 ),
                                 (Slug::ConsecratingAdditional, Contents::Document(&*bcp1979::eucharist::CONSECRATING_ADDITIONAL))        
                             ]
-                        }                        
+                        },
+                        Section {
+                            label: None,
+                            contents: vec![(
+                                Slug::Parallels,
+                                Contents::Category {
+                                    label: "Parallels".into(),
+                                    contents: vec![
+                                        (
+                                            Slug::Version(Version::LibroDeOracionComun),
+                                            Contents::Document(&*loc::eucharist::RITE_II_LOC_EUCHARIST_PARALLEL)
+                                        )
+                                    ]
+                                }
+                            )]
+                        }                       
                     ],
                 },
             ),

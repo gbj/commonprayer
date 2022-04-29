@@ -2,6 +2,8 @@ use calendar::Season;
 use lazy_static::lazy_static;
 use lectionary::ReadingType;
 use liturgy::*;
+pub mod parallel;
+use parallel::*;
 
 lazy_static! {
     pub static ref GLORIA_IN_EXCELSIS: Text = Text::from("Glory to God in the highest,\n\tand peace to his people on earth. \n\nLord God, heavenly King,\nalmighty God and Father,\n\twe worship you, we give you thanks,\n\twe praise you for your glory. \n\nLord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\nyou take away the sin of the world:\n\thave mercy on us;\nyou are seated at the right hand of the Father:\n\treceive our prayer. \n\nFor you alone are the Holy One,\nyou alone are the Lord,\nyou alone are the Most High,\n\tJesus Christ,\n\twith the Holy Spirit,\n\tin the glory of God the Father. Amen.");
@@ -11,12 +13,12 @@ lazy_static! {
             "Lord, have mercy.",
             "Christ, have mercy.",
             "Lord, have mercy."
-        ])),
+        ])).version_label("Lord, have mercy."),
         Document::from(ResponsivePrayer::from([
             "Kyrie eleison.",
             "Christe eleison.",
             "Kyrie eleison."
-        ]))
+        ])).version_label("Kyrie eleison.")
     ]);
 
     pub static ref TRISAGION: ResponsivePrayer = ResponsivePrayer::from([
@@ -31,15 +33,15 @@ lazy_static! {
         .page(355)
         .version(Version::RiteII)
         .content(Liturgy::from(vec![
-            Document::from(Heading::from((HeadingLevel::Heading1, "The Holy Eucharist:\nRite Two"))),
+            Document::from(Heading::from((HeadingLevel::Heading1, "The Holy Eucharist:\nRite Two"))).tags([TITLE]),
             Document::from(Heading::InsertDate),
             Document::from(Heading::InsertDay),
 
-            Document::from(Heading::from((HeadingLevel::Heading2, "The Word of God"))),
-            Document::from(Rubric::from("A hymn, psalm, or anthem may be sung.")),
-            Document::from(HymnLink::Hymnals),
+            Document::from(Heading::from((HeadingLevel::Heading2, "The Word of God"))).tags([WORD_OF_GOD]),
+            Document::from(Rubric::from("A hymn, psalm, or anthem may be sung.")).tags([OPENING_HYMN]),
+            Document::from(HymnLink::Hymnals).tags([OPENING_HYMN]),
 
-            Document::from(Rubric::from("The people standing, the Celebrant says")),
+            Document::from(Rubric::from("The people standing, the Celebrant says")).tags([OPENING_ACCLAMATION]),
             Document::from(Preces::from([
                 ("", "Blessed be God: Father, Son, and Holy Spirit."),
                 ("People", "And blessed be his kingdom, now and for ever.\nAmen.")
@@ -49,11 +51,12 @@ lazy_static! {
                 Condition::Season(Season::Easter),
                 Condition::Season(Season::Ascension),
                 Condition::Season(Season::Pentecost)
-            ])),
+            ])).tags([OPENING_ACCLAMATION]),
 
             Document::new()
                 .display(Show::TemplateOnly)
-                .content(Rubric::from("In place of the above, from Easter Day through the Day of Pentecost")),
+                .content(Rubric::from("In place of the above, from Easter Day through the Day of Pentecost"))
+                .tags([OPENING_ACCLAMATION_EASTER]),
             Document::from(Preces::from([
                 ("Celebrant", "Alleluia. Christ is risen."),
                 ("People", "The Lord is risen indeed. Alleluia.")
@@ -61,25 +64,26 @@ lazy_static! {
                 Condition::Season(Season::Easter),
                 Condition::Season(Season::Ascension),
                 Condition::Season(Season::Pentecost)
-            ])),
+            ])).tags([OPENING_ACCLAMATION_EASTER]),
             Document::new().display(Show::TemplateOnly)
-                .content(Rubric::from("In Lent and on other penitential occasions")),
+                .content(Rubric::from("In Lent and on other penitential occasions"))
+                .tags([OPENING_ACCLAMATION_LENT]),
             Document::from(Preces::from([
                 ("Celebrant", "Bless the Lord who forgives all our sins."),
                 ("People", "His mercy endures for ever.")
             ])).condition(Condition::Any(vec![
                 Condition::Season(Season::Lent),
                 Condition::Season(Season::HolyWeek)
-            ])),
+            ])).tags([OPENING_ACCLAMATION_LENT]),
 
-            Document::from(Rubric::from("The Celebrant may say")),
-            Document::from(Text::from("Almighty God, to you all hearts are open, all desires known, and from you no secrets are hid: Cleanse the thoughts of our hearts by the inspiration of your Holy Spirit, that we may perfectly love you, and worthily magnify your holy Name; through Christ our Lord.").response("Amen.")),
+            Document::from(Rubric::from("The Celebrant may say")).tags([COLLECT_FOR_PURITY]),
+            Document::from(Text::from("Almighty God, to you all hearts are open, all desires known, and from you no secrets are hid: Cleanse the thoughts of our hearts by the inspiration of your Holy Spirit, that we may perfectly love you, and worthily magnify your holy Name; through Christ our Lord.").response("Amen.")).tags([COLLECT_FOR_PURITY]),
 
             Document::from(Choice::from(vec![
                 Document::from(Series::from(vec![
                     Document::from(Rubric::from("When appointed, the following hymn or some other song of praise is sung or said, all standing")),
-                    Document::from(Text::from("Glory to God in the highest,\n\tand peace to his people on earth.\n\nLord God, heavenly King,\nalmighty God and Father,\n\twe worship you, we give you thanks,\n\twe praise you for your glory.\n\nLord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\nyou take away the sin of the world:\n\thave mercy on us;\nyou are seated at the right hand of the Father:\n\treceive our prayer.\n\nFor you alone are the Holy One,\nyou alone are the Lord,\nyou alone are the Most High,\n\tJesus Christ,\n\twith the Holy Spirit,\n\tin the glory of God the Father. Amen.")),
-                ])).version_label("Gloria"),
+                    Document::from(GLORIA_IN_EXCELSIS.clone()),
+                ])).version_label("Gloria").tags([GLORIA_IN_EXCELSIS_TAG]),
                 Document::from(Series::from(vec![
                     Document::from(Rubric::from("On other occasions the following is used")),
                     Document::from(ResponsivePrayer::from([
@@ -87,7 +91,7 @@ lazy_static! {
                         "Christ, have mercy.",
                         "Lord, have mercy."
                     ]))
-                ])).version_label("Kyrie"),
+                ])).version_label("Kyrie (“Lord, have mercy.”)").tags([KYRIE_TAG]),
                 Document::from(Series::from(vec![
                     Document::from(Rubric::from("On other occasions the following is used")),
                     Document::from(ResponsivePrayer::from([
@@ -95,31 +99,29 @@ lazy_static! {
                         "Christe eleison.",
                         "Kyrie eleison."
                     ]))
-                ])).version_label("Kyrie (Greek)"),
+                ])).version_label("Kyrie (“Kyrie eleison.”)").tags([KYRIE_TAG]),
                 Document::from(Series::from(vec![
                     Document::from(Rubric::from("or this")),
-                    Document::from(ResponsivePrayer::from([
-                        "Holy God,\nHoly and Mighty,\nHoly Immortal One,",
-                        "Have mercy upon us."
-                    ]))
-                ])).version_label("Trisagion")
-            ])),
-            Document::from(Heading::from((HeadingLevel::Heading3, "The Collect of the Day"))),
-            Document::from(Rubric::from("The Celebrant says to the people")),
+                    Document::from(TRISAGION.clone())
+                ])).version_label("Trisagion").tags([TRISAGION_TAG])
+            ])).tags([GLORIA_SECTION_TAG]),
+            Document::from(Heading::from((HeadingLevel::Heading3, "The Collect of the Day"))).tags([COLLECT_OF_THE_DAY]),
+            Document::from(Rubric::from("The Celebrant says to the people")).tags([COLLECT_OF_THE_DAY]),
             Document::from(Preces::from([
                 ("", "The Lord be with you."),
                 ("People", "And also with you."),
                 ("Celebrant", "Let us pray.")
-            ])),
-            Document::from(Rubric::from("The Celebrant says the Collect.")),
+            ])).tags([COLLECT_OF_THE_DAY]),
+            Document::from(Rubric::from("The Celebrant says the Collect.")).tags([COLLECT_OF_THE_DAY]),
             Document::new().version(Version::RiteII)
-                .content(Content::CollectOfTheDay { allow_multiple: false }),
+                .content(Content::CollectOfTheDay { allow_multiple: false })
+                .tags([COLLECT_OF_THE_DAY]),
             Document::new().display(Show::TemplateOnly)
                 .content(Preces::from([
                 ("", ""),
                 ("People", "Amen.")
-            ])),
-            Document::from(Heading::from((HeadingLevel::Heading3, "The Lessons"))),
+            ])).tags([COLLECT_OF_THE_DAY]),
+            Document::from(Heading::from((HeadingLevel::Heading3, "The Lessons"))).tags([THE_LESSONS]),
             Document::new().display(Show::TemplateOnly)
                 .content(Series::from(vec![
                     Document::from(Rubric::from("The people sit. One or two Lessons, as appointed, are read, the Reader first saying")),
@@ -150,179 +152,215 @@ lazy_static! {
                         reading_type_overridden_by: None,
                         lectionary: LectionaryTableChoice::Selected(Lectionaries::RCLTrack2),
                         intro: None,
-                    })
-            ])),
+                    }),
+                    Document::from(Rubric::from("After the Gospel, the Reader says")),
+                    Document::from(Preces::from([
+                        ("", "The Gospel of the Lord."),
+                        ("People", "Praise to you, Lord Christ.")
+                    ])),
+            ])).tags([LESSONS_RUBRICS]),
             Document::new().display(Show::CompiledOnly)
                 .content(Series::from(vec![
-                            Document::from(Rubric::from("The people sit.")),
-                            Document::new().label("The First Lesson")
-                                .content(LectionaryReading {
-                                reading_type: ReadingTypeTable::Preference(PreferenceKey::Global(GlobalPref::ReadingA)),
-                                reading_type_overridden_by: None,
-                                lectionary: LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary)),
-                                intro: Some(BiblicalReadingIntroTemplate::from(Document::from(Text::from("A Reading from {{long_name}}."))))
-                            }),
-                            Document::from(LectionaryReading {
-                                reading_type: ReadingTypeTable::Selected(ReadingType::Psalm),
-                                reading_type_overridden_by: None,
-                                lectionary: LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary)),
-                                intro: None
-                            }),
-                            Document::new().label("The Second Lesson")
-                                .content(LectionaryReading {
-                                reading_type: ReadingTypeTable::Preference(PreferenceKey::Global(GlobalPref::ReadingB)),
-                                reading_type_overridden_by: None,
-                                lectionary: LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary)),
-                                intro: Some(BiblicalReadingIntroTemplate::from(Document::from(Text::from("A Reading from {{long_name}}."))))
-                            }),
-                            Document::new().label("The Gospel")
-                                .content(LectionaryReading {
-                                reading_type: ReadingTypeTable::Selected(ReadingType::Gospel),
-                                reading_type_overridden_by: None,
-                                lectionary: LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary)),
-                                intro: Some(BiblicalReadingIntroTemplate::from(Document::from(Preces::from([
-                                ("", "The Holy Gospel of our Lord Jesus Christ according to {{short_name}}."),
-                                ("People", "Glory to you, Lord Christ.")
-                            ]))))
-                            })
+                    Document::from(Rubric::from("The people sit.")).tags([LESSONS_RUBRICS]),
+                    // TODO insert responses for these
+                    Document::new().label("The First Lesson")
+                        .content(LectionaryReading {
+                        reading_type: ReadingTypeTable::Preference(PreferenceKey::Global(GlobalPref::ReadingA)),
+                        reading_type_overridden_by: None,
+                        lectionary: LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary)),
+                        intro: Some(BiblicalReadingIntroTemplate::from(Document::from(Text::from("A Reading from {{long_name}}."))))
+                    }).tags([FIRST_LESSON]),
+                    Document::from(LectionaryReading {
+                        reading_type: ReadingTypeTable::Selected(ReadingType::Psalm),
+                        reading_type_overridden_by: None,
+                        lectionary: LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary)),
+                        intro: None
+                    }).tags([PSALM]),
+                    Document::new().label("The Second Lesson")
+                        .content(LectionaryReading {
+                        reading_type: ReadingTypeTable::Preference(PreferenceKey::Global(GlobalPref::ReadingB)),
+                        reading_type_overridden_by: None,
+                        lectionary: LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary)),
+                        intro: Some(BiblicalReadingIntroTemplate::from(Document::from(Text::from("A Reading from {{long_name}}."))))
+                    }).tags([SECOND_LESSON]),
+                    Document::new().label("The Gospel")
+                        .content(LectionaryReading {
+                        reading_type: ReadingTypeTable::Selected(ReadingType::Gospel),
+                        reading_type_overridden_by: None,
+                        lectionary: LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary)),
+                        intro: Some(BiblicalReadingIntroTemplate::from(Document::from(Preces::from([
+                        ("", "The Holy Gospel of our Lord Jesus Christ according to {{short_name}}."),
+                        ("People", "Glory to you, Lord Christ.")
+                    ]))))
+                }).tags([GOSPEL])
             ])),
-            Document::from(Heading::from((HeadingLevel::Heading3, "The Sermon"))),
-            Document::from(Rubric::from("On Sundays and other Major Feasts there follows, all standing")),
-            NICENE_CREED_II.clone(),
+            Document::from(Heading::from((HeadingLevel::Heading3, "The Sermon"))).tags([SERMON]),
+            Document::from(Rubric::from("On Sundays and other Major Feasts there follows, all standing")).tags([NICENE_CREED]),
+            NICENE_CREED_II.clone().tags([NICENE_CREED]),
 
-            Document::from(Heading::from((HeadingLevel::Heading3, "The Prayers of the People"))),
-            Document::from(Rubric::from("Prayer is offered with intercession for\nThe Universal Church, its members, and its mission\nThe Nation and all in authority\nThe welfare of the world\nThe concerns of the local community\nThose who suffer and those in any trouble\nThe departed (with commemoration of a saint when appropriate)\nSee the forms beginning on page 383.")),
+            Document::from(Heading::from((HeadingLevel::Heading3, "The Prayers of the People"))).tags([PRAYERS_OF_THE_PEOPLE]),
+            Document::from(Rubric::from("Prayer is offered with intercession for\n\nThe Universal Church, its members, and its mission\nThe Nation and all in authority\nThe welfare of the world\nThe concerns of the local community\nThose who suffer and those in any trouble\nThe departed (with commemoration of a saint when appropriate)\n\nSee the forms beginning on page 383.")).tags([POP_RUBRIC]),
             Document::from(Content::DocumentLink {
                 label: "Prayers of the People".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::PrayersOfThePeople]),
                 rotate: false
-            }),
+            }).tags([POP_FORMS]),
 
-            Document::from(Rubric::from("If there is no celebration of the Communion, or if a priest is not available, the service is concluded as directed on page 406.")),
-            Document::from(Heading::from((HeadingLevel::Heading3, "Confession of Sin"))),
-            Document::from(Rubric::from("A Confession of Sin is said here if it has not been said earlier. On occasion, the Confession may be omitted.")),
-            Document::from(Rubric::from("One of the sentences from the Penitential Order on page 351 may be said.")),
+            Document::from(Rubric::from("If there is no celebration of the Communion, or if a priest is not available, the service is concluded as directed on page 406.")).tags([NO_COMMUNION_RUBRIC]),
+            Document::from(Heading::from((HeadingLevel::Heading3, "Confession of Sin"))).tags([CONFESSION]),
+            Document::from(Rubric::from("A Confession of Sin is said here if it has not been said earlier. On occasion, the Confession may be omitted.")).tags([CONFESSION]),
+            Document::from(Rubric::from("One of the sentences from the Penitential Order on page 351 may be said.")).tags([CONFESSION]),
             Document::from(Content::DocumentLink {
                 label: "Penitential Sentences".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::PenitentialSentences, Slug::Version(Version::RiteII)]),
                 rotate: false
-            }),
-            Document::from(Rubric::from("The Deacon or Celebrant says")),
-            Document::from(Text::from("Let us confess our sins against God and our neighbor.")),
-            Document::from(Rubric::from("Silence may be kept.")),
-            Document::from(Rubric::from("Minister and People")),
-            Document::from(Text::from("Most merciful God,\nwe confess that we have sinned against you\nin thought, word, and deed,\nby what we have done,\nand by what we have left undone.\nWe have not loved you with our whole heart;\nwe have not loved our neighbors as ourselves.\nWe are truly sorry and we humbly repent.\nFor the sake of your Son Jesus Christ,\nhave mercy on us and forgive us;\nthat we may delight in your will,\nand walk in your ways,\nto the glory of your Name. Amen.").display_format(DisplayFormat::Unison)),
-            Document::from(Rubric::from("The Bishop when present, or the Priest, stands and says")),
-            Document::from(Text::from("Almighty God have mercy on you, forgive you all your sins through our Lord Jesus Christ, strengthen you in all goodness, and by the power of the Holy Spirit keep you in eternal life.").response("Amen.")),
-            Document::from(Heading::from((HeadingLevel::Heading3, "The Peace"))),
-            Document::from(Rubric::from("All stand. The Celebrant says to the people")),
+            }).tags([CONFESSION]),
+            Document::from(Rubric::from("The Deacon or Celebrant says")).tags([CONFESSION]),
+            Document::from(Text::from("Let us confess our sins against God and our neighbor.")).tags([CONFESSION]),
+            Document::from(Rubric::from("Silence may be kept.")).tags([CONFESSION]),
+            Document::from(Rubric::from("Minister and People")).tags([CONFESSION]),
+            Document::from(Text::from("Most merciful God,\nwe confess that we have sinned against you\nin thought, word, and deed,\nby what we have done,\nand by what we have left undone.\nWe have not loved you with our whole heart;\nwe have not loved our neighbors as ourselves.\nWe are truly sorry and we humbly repent.\nFor the sake of your Son Jesus Christ,\nhave mercy on us and forgive us;\nthat we may delight in your will,\nand walk in your ways,\nto the glory of your Name. Amen.").display_format(DisplayFormat::Unison)).tags([CONFESSION]),
+            Document::from(Rubric::from("The Bishop when present, or the Priest, stands and says")).tags([CONFESSION]),
+            Document::from(Text::from("Almighty God have mercy on you, forgive you all your sins through our Lord Jesus Christ, strengthen you in all goodness, and by the power of the Holy Spirit keep you in eternal life.").response("Amen.")).tags([CONFESSION]),
+            Document::from(Heading::from((HeadingLevel::Heading3, "The Peace"))).tags([THE_PEACE]),
+            Document::from(Rubric::from("All stand. The Celebrant says to the people")).tags([THE_PEACE]),
             Document::from(Preces::from([
                 ("", "The peace of the Lord be always with you."),
                 ("People", "And also with you.")
-            ])),
-            Document::from(Rubric::from("Then the Ministers and People may greet one another in the name of the Lord.")),
-            Document::from(Heading::from((HeadingLevel::Heading2, "The Holy Communion"))),
-            Document::from(Rubric::from("The Celebrant may begin the Offertory with one of the sentences on page 376, or with some other sentence of Scripture.")),
+            ])).tags([THE_PEACE]),
+            Document::from(Rubric::from("Then the Ministers and People may greet one another in the name of the Lord.")).tags([THE_PEACE]),
+            Document::from(Heading::from((HeadingLevel::Heading2, "The Holy Communion"))).tags([HOLY_COMMUNION]),
+            Document::from(Rubric::from("The Celebrant may begin the Offertory with one of the sentences on page 376, or with some other sentence of Scripture.")).tags([OFFERTORY]),
 
             Document::from(Content::DocumentLink {
                 label: "Offertory Sentences".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::OffertorySentences, Slug::Version(Version::RiteII)]),
                 rotate: false
-            }).version(Version::RiteII),
+            }).version(Version::RiteII).tags([OFFERTORY]),
 
-            Document::from(Rubric::from("During the Offertory, a hymn, psalm, or anthem may be sung.")),
-            Document::from(Content::HymnLink(HymnLink::Hymnals)),
+            Document::from(Rubric::from("During the Offertory, a hymn, psalm, or anthem may be sung.")).tags([OFFERTORY_HYMN]),
+            Document::from(Content::HymnLink(HymnLink::Hymnals)).tags([OFFERTORY_HYMN]),
+            Document::from(Rubric::from("Representatives of the congregation bring the people’s offerings of bread and wine, and money or other gifts, to the deacon or celebrant. \n\nThe people stand while the offerings are presented and placed on the Altar.")).tags([OFFERTORY_RUBRIC_2]),
 
-            Document::from(Heading::from((HeadingLevel::Heading3, "The Great Thanksgiving"))),
+            Document::from(Heading::from((HeadingLevel::Heading3, "The Great Thanksgiving"))).tags([GREAT_THANKSGIVING_HEADER]),
             Document::from(Content::DocumentLink {
                 label: "Eucharistic Prayers".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::GreatThanksgiving]),
                 rotate: false
-            }),
+            }).tags([EUCHARISTIC_PRAYERS]).display(Show::TemplateOnly),
             Document::from(Choice::from(vec![
                 PRAYER_A.clone(),
                 PRAYER_B.clone(),
                 PRAYER_C.clone(),
                 PRAYER_D.clone()
-            ])),
+            ])).tags([EUCHARISTIC_PRAYERS]),
 
-            Document::from(Rubric::from("Representatives of the congregation bring the people’s offerings of bread and wine, and money or other gifts, to the deacon or celebrant. \n\nThe people stand while the offerings are presented and placed on the Altar.")),
             Document::from(Choice::from(vec![
-                        Document::new().version_label("Traditional")
-                            .content(Series::from(vec![
-                                            Document::from(Text::from("")),
-                                            Document::from(Text::from("And now, as our Savior\nChrist has taught us,\nwe are bold to say,")),
-                                            Document::from(Text::from("Our Father, who art in heaven,\n\thallowed be thy Name,\n\tthy kingdom come,\n\tthy will be done,\n\t\ton earth as it is in heaven.\nGive us this day our daily bread.\nAnd forgive us our trespasses,\n\tas we forgive those\n\t\twho trespass against us.\nAnd lead us not into temptation,\n\tbut deliver us from evil.\nFor thine is the kingdom,\n\tand the power, and the glory,\n\tfor ever and ever. Amen.").display_format(DisplayFormat::Unison))
-                        ])),
-                        Document::new().version_label("Contemporary")
-                            .content(Series::from(vec![
-                                            Document::new().version_label("Contemporary")
-                                                .content(Text::from("As our Savior Christ\nhas taught us,\nwe now pray,")),
-                                            Document::from(Text::from("Our Father in heaven,\n\thallowed be your Name,\n\tyour kingdom come,\n\tyour will be done,\n\t\ton earth as in heaven.\nGive us today our daily bread.\nForgive us our sins\n\tas we forgive those\n\t\twho sin against us.\nSave us from the time of trial,\n\tand deliver us from evil.\nFor the kingdom, the power,\n\tand the glory are yours,\n\tnow and for ever. Amen.").display_format(DisplayFormat::Unison))
-                        ]))
-            ])),
-            Document::from(Heading::from((HeadingLevel::Heading3, "The Breaking of the Bread"))),
-            Document::from(Rubric::from("The Celebrant breaks the consecrated Bread.\n\nA period of silence is kept.\n\nThen may be sung or said")),
+                Document::new().version_label("Traditional")
+                    .content(Series::from(vec![
+                        Document::from(Text::from("And now, as our Savior\nChrist has taught us,\nwe are bold to say,")),
+                        Document::from(Rubric::from("People and Celebrant")),
+                        Document::from(Text::from("Our Father, who art in heaven,\n\thallowed be thy Name,\n\tthy kingdom come,\n\tthy will be done,\n\t\ton earth as it is in heaven.\nGive us this day our daily bread.\nAnd forgive us our trespasses,\n\tas we forgive those\n\t\twho trespass against us.\nAnd lead us not into temptation,\n\tbut deliver us from evil.\nFor thine is the kingdom,\n\tand the power, and the glory,\n\tfor ever and ever. Amen.").display_format(DisplayFormat::Unison))
+                ])),
+                Document::new().version_label("Contemporary")
+                    .content(Series::from(vec![
+                        Document::from(Text::from("As our Savior Christ\nhas taught us,\nwe now pray,")),
+                        Document::from(Rubric::from("People and Celebrant")),
+                        Document::from(Text::from("Our Father in heaven,\n\thallowed be your Name,\n\tyour kingdom come,\n\tyour will be done,\n\t\ton earth as in heaven.\nGive us today our daily bread.\nForgive us our sins\n\tas we forgive those\n\t\twho sin against us.\nSave us from the time of trial,\n\tand deliver us from evil.\nFor the kingdom, the power,\n\tand the glory are yours,\n\tnow and for ever. Amen.").display_format(DisplayFormat::Unison))
+                ]))
+            ])).tags([LORDS_PRAYER_TAG]),
+            Document::from(Heading::from((HeadingLevel::Heading3, "The Breaking of the Bread"))).tags([FRACTION]),
+            Document::from(Rubric::from("The Celebrant breaks the consecrated Bread.\n\nA period of silence is kept.\n\nThen may be sung or said")).tags([FRACTION]),
             Document::from(ResponsivePrayer::from([
                 "[Alleluia.] Christ our Passover is sacrificed for us;",
                 "Therefore let us keep the feast. [Alleluia.]"
-            ])),
-            Document::from(Rubric::from("In Lent, Alleluia is omitted, and may be omitted at other times except during Easter Season.\n\nIn place of, or in addition to, the preceding, some other suitable anthem may be used.")),
-            Document::from(HymnLink::TagWithLabel("Fraction".into(), "Fraction Anthems".into())),
-            Document::from(Rubric::from("Facing the people, the Celebrant says the following Invitation")),
-            Document::from(Text::from("The Gifts of God for the People of God.")),
-            Document::from(Rubric::from("and may add")),
-            Document::from(Text::from("Take them in remembrance that Christ died for you, and feed on him in your hearts by faith, with thanksgiving.")),
-            Document::from(Rubric::from("The ministers receive the Sacrament in both kinds, and then immediately deliver it to the people.")),
-            Document::from(Rubric::from("The Bread and the Cup are given to the communicants with these words")),
+            ]))
+                .tags([FRACTION_ANTHEM])
+                .condition(Condition::None(vec![
+                    Condition::Season(Season::Lent),
+                    Condition::Season(Season::HolyWeek),
+                    Condition::Season(Season::Easter),
+                    Condition::Season(Season::Ascension),
+                    Condition::Season(Season::Pentecost),
+                ])),
+            Document::from(ResponsivePrayer::from([
+                "Alleluia. Christ our Passover is sacrificed for us;",
+                "Therefore let us keep the feast. Alleluia."
+            ]))
+                .display(Show::CompiledOnly)
+                .tags([FRACTION_ANTHEM])
+                .condition(Condition::Any(vec![
+                    Condition::Season(Season::Easter),
+                    Condition::Season(Season::Ascension),
+                    Condition::Season(Season::Pentecost),
+                ])),
+            Document::from(ResponsivePrayer::from([
+                "Christ our Passover is sacrificed for us;",
+                "Therefore let us keep the feast."
+            ]))
+                .display(Show::CompiledOnly)
+                .tags([FRACTION_ANTHEM])
+                .condition(Condition::Any(vec![
+                    Condition::Season(Season::Lent),
+                    Condition::Season(Season::HolyWeek),
+                ])),
+            Document::from(Rubric::from("In Lent, Alleluia is omitted, and may be omitted at other times except during Easter Season.")).display(Show::TemplateOnly).tags([FRACTION_ANTHEM_RUBRIC]),
+            Document::from(Rubric::from("In place of, or in addition to, the preceding, some other suitable anthem may be used.")).tags([FRACTION_ANTHEM_RUBRIC]),
+            Document::from(HymnLink::TagWithLabel("Fraction".into(), "Fraction Anthems".into())).tags([FRACTION_ANTHEM_RUBRIC]),
+            Document::from(Rubric::from("Facing the people, the Celebrant says the following Invitation")).tags([COMMUNION_INVITATION]),
+            Document::from(Text::from("The Gifts of God for the People of God.")).tags([COMMUNION_INVITATION]),
+            Document::from(Rubric::from("and may add")).tags([COMMUNION_INVITATION]),
+            Document::from(Text::from("Take them in remembrance that Christ died for you, and feed on him in your hearts by faith, with thanksgiving.")).tags([COMMUNION_INVITATION]),
+            Document::from(Rubric::from("The ministers receive the Sacrament in both kinds, and then immediately deliver it to the people.")).tags([DISTRIBUTION_RUBRIC]),
+            Document::from(Rubric::from("The Bread and the Cup are given to the communicants with these words")).tags([DISTRIBUTION_RUBRIC]),
             Document::from(Choice::from(vec![
-                        Document::from(Text::from("The Body (Blood) of our Lord Jesus Christ keep you in\neverlasting life.").response("[Amen.]")),
-                        Document::from(Series::from(vec![
-                                            Document::from(Text::from("The Body of Christ, the bread of heaven.").response("[Amen.]")),
-                                            Document::from(Text::from("The Blood of Christ, the cup of salvation.").response("[Amen.]"))
-                        ]))
-            ])),
-            Document::from(Rubric::from("During the ministration of Communion, hymns, psalms, or anthems may be sung.")),
-            Document::from(Content::HymnLink(HymnLink::Hymnals)),
-            Document::from(Rubric::from("When necessary, the Celebrant consecrates additional bread and wine, using the form on page 408.")),
+                Document::from(Text::from("The Body (Blood) of our Lord Jesus Christ keep you in everlasting life.").response("[Amen.]")),
+                Document::from(Series::from(vec![
+                    Document::from(Text::from("The Body of Christ, the bread of heaven.").response("[Amen.]")),
+                    Document::from(Text::from("The Blood of Christ, the cup of salvation.").response("[Amen.]"))
+                ]))
+            ])).tags([DISTRIBUTION_RUBRIC]),
+            Document::from(Rubric::from("During the ministration of Communion, hymns, psalms, or anthems may be sung.")).tags([COMMUNION_HYMN]),
+            Document::from(Content::HymnLink(HymnLink::Hymnals)).tags([COMMUNION_HYMN]),
+            Document::from(Rubric::from("When necessary, the Celebrant consecrates additional bread and wine, using the form on page 408.")).tags([ADDITIONAL_CONSECRATION_TAG]),
             Document::from(Content::DocumentLink {
                 label: "Form for Consecrating Additional Bread and Wine".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::ConsecratingAdditional]),
                 rotate: false
-            }),
-            Document::from(Rubric::from("After Communion, the Celebrant says")),
-            Document::from(Text::from("Let us pray.")),
-            Document::from(Rubric::from("Celebrant and People")),
+            }).tags([ADDITIONAL_CONSECRATION_TAG]),
+            Document::from(Rubric::from("After Communion, the Celebrant says")).tags([POSTCOMMUNION_PRAYER_TAG]),
+            Document::from(Text::from("Let us pray.")).tags([POSTCOMMUNION_PRAYER_TAG]),
+            Document::from(Rubric::from("Celebrant and People")).tags([POSTCOMMUNION_PRAYER_TAG]),
             Document::from(Choice::from(vec![
-                        Document::new().page(365)
-                            .content(Text::from("Eternal God, heavenly Father,\nyou have graciously accepted us as living members\nof your Son our Savior Jesus Christ,\nand you have fed us with spiritual food\nin the Sacrament of his Body and Blood.\nSend us now into the world in peace,\nand grant us strength and courage\nto love and serve you\nwith gladness and singleness of heart;\nthrough Christ our Lord. Amen.").display_format(DisplayFormat::Unison)),
-                        Document::new().page(366)
-                            .content(Text::from("Almighty and everliving God,\nwe thank you for feeding us with the spiritual food\nof the most precious Body and Blood\nof your Son our Savior Jesus Christ;\nand for assuring us in these holy mysteries\nthat we are living members of the Body of your Son,\nand heirs of your eternal kingdom.\nAnd now, Father, send us out\nto do the work you have given us to do,\nto love and serve you\nas faithful witnesses of Christ our Lord.\nTo him, to you, and to the Holy Spirit,\nbe honor and glory, now and for ever. Amen.").display_format(DisplayFormat::Unison))
-            ])),
-            Document::from(Rubric::from("The Bishop when present, or the Priest, may bless the people.")),
-            Document::from(Rubric::from("The Deacon, or the Celebrant, dismisses them with these words")),
+                Document::new().page(365)
+                    .content(Text::from("Eternal God, heavenly Father,\nyou have graciously accepted us as living members\nof your Son our Savior Jesus Christ,\nand you have fed us with spiritual food\nin the Sacrament of his Body and Blood.\nSend us now into the world in peace,\nand grant us strength and courage\nto love and serve you\nwith gladness and singleness of heart;\nthrough Christ our Lord. Amen.").display_format(DisplayFormat::Unison)),
+                Document::new().page(366)
+                    .content(Text::from("Almighty and everliving God,\nwe thank you for feeding us with the spiritual food\nof the most precious Body and Blood\nof your Son our Savior Jesus Christ;\nand for assuring us in these holy mysteries\nthat we are living members of the Body of your Son,\nand heirs of your eternal kingdom.\nAnd now, Father, send us out\nto do the work you have given us to do,\nto love and serve you\nas faithful witnesses of Christ our Lord.\nTo him, to you, and to the Holy Spirit,\nbe honor and glory, now and for ever. Amen.").display_format(DisplayFormat::Unison))
+            ])).tags([POSTCOMMUNION_PRAYER_TAG]),
+            Document::from(Rubric::from("The Bishop when present, or the Priest, may bless the people.")).tags([BLESSING]),
+            Document::from(Rubric::from("The Deacon, or the Celebrant, dismisses them with these words")).tags([DISMISSAL_RUBRIC]),
             Document::from(Choice::from(vec![
-                        Document::from(Preces::from([
-                            ("", "Let us go forth in the name of Christ."),
-                            ("People", "Thanks be to God.")
-                        ])),
-                        Document::from(Preces::from([
-                            ("Deacon", "Go in peace to love and serve the Lord."),
-                            ("People", "Thanks be to God.")
-                        ])),
-                        Document::from(Preces::from([
-                            ("Deacon", "Let us go forth into the world, rejoicing in the power of the Spirit."),
-                            ("People", "Thanks be to God.")
-                        ])),
-                        Document::from(Preces::from([
-                            ("Deacon", "Let us bless the Lord."),
-                            ("People", "Thanks be to God.")
-                        ]))
+                Document::from(Preces::from([
+                    ("", "Let us go forth in the name of Christ."),
+                    ("People", "Thanks be to God.")
+                ])),
+                Document::from(Preces::from([
+                    ("Deacon", "Go in peace to love and serve the Lord."),
+                    ("People", "Thanks be to God.")
+                ])),
+                Document::from(Preces::from([
+                    ("Deacon", "Let us go forth into the world, rejoicing in the power of the Spirit."),
+                    ("People", "Thanks be to God.")
+                ])),
+                Document::from(Preces::from([
+                    ("Deacon", "Let us bless the Lord."),
+                    ("People", "Thanks be to God.")
+                ]))
             ])).condition(Condition::None(vec![
                 Condition::Season(Season::Easter),
                 Condition::Season(Season::Ascension),
                 Condition::Season(Season::Pentecost)
-            ])),
+            ])).tags([DISMISSAL]),
             Document::from(Choice::from(vec![
                 Document::from(Preces::from([
                     ("", "Let us go forth in the name of Christ. Alleluia, alleluia."),
@@ -344,14 +382,15 @@ lazy_static! {
                 Condition::Season(Season::Easter),
                 Condition::Season(Season::Ascension),
                 Condition::Season(Season::Pentecost)
-            ])).display(Show::CompiledOnly),
+            ])).display(Show::CompiledOnly).tags([DISMISSAL]),
             Document::new().display(Show::TemplateOnly)
-                .content(Rubric::from("From the Easter Vigil through the Day of Pentecost “Alleluia, alleluia” may be added to any of the dismissals.")),
+                .content(Rubric::from("From the Easter Vigil through the Day of Pentecost “Alleluia, alleluia” may be added to any of the dismissals."))
+                .tags([DISMISSAL_RUBRIC_2]),
             Document::new().display(Show::TemplateOnly)
                 .content(Preces::from([
                 ("", ""),
                 ("The People respond", "Thanks be to God. Alleluia, alleluia.")
-            ]))
+            ])).tags([DISMISSAL_EASTER])
         ]));
 
     pub static ref OFFERTORY_SENTENCES_II: Vec<Document> = vec![
