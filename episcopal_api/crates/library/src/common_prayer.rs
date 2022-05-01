@@ -465,33 +465,54 @@ impl Library for CommonPrayer {
                                 ),
                                 (
                                     Slug::GreatThanksgiving,
-                                    Contents::Sections {
+                                    Contents::Category {
                                         label: "Eucharistic Prayers".into(),
                                         contents: vec![
-                                            Section {
-                                                label: Some("Rite I".into()),
-                                                contents: vec![
-                                                    (Slug::PrayerI, Contents::Document(&*rite1::eucharist::PRAYER_I)),
-                                                    (Slug::PrayerII, Contents::Document(&*rite1::eucharist::PRAYER_II)),
-                                                ]
-                                            },
-                                            Section {
-                                                label: Some("Rite II".into()),
-                                                contents: vec![
-                                                    (Slug::PrayerA, Contents::Document(&*rite2::eucharist::PRAYER_A)),
-                                                    (Slug::PrayerB, Contents::Document(&*rite2::eucharist::PRAYER_B)),
-                                                    (Slug::PrayerC, Contents::Document(&*rite2::eucharist::PRAYER_C)),
-                                                    (Slug::PrayerD, Contents::Document(&*rite2::eucharist::PRAYER_D))
-                                                ]
-                                            },
-                                            Section {
-                                                label: Some("Enriching Our Worship".into()),
-                                                contents: vec![
-                                                    (Slug::Prayer1, Contents::Document(&*eow::eucharist::PRAYER_1)),
-                                                    (Slug::Prayer2, Contents::Document(&*eow::eucharist::PRAYER_2)),
-                                                    (Slug::Prayer3, Contents::Document(&*eow::eucharist::PRAYER_3)),
-                                                ]
-                                            }
+                                            (
+                                                Slug::Version(Version::RiteI),
+                                                Contents::Category {
+                                                    label: "Rite I".into(),
+                                                    contents: vec![
+                                                        (Slug::PrayerI, Contents::Document(&*rite1::eucharist::PRAYER_I)),
+                                                        (Slug::PrayerII, Contents::Document(&*rite1::eucharist::PRAYER_II)),
+                                                    ]
+                                                }
+                                            ),
+                                            (
+                                                Slug::Version(Version::RiteII),
+                                                Contents::Category {
+                                                    label: "Rite II".into(),
+                                                    contents: vec![
+                                                        (Slug::PrayerA, Contents::Document(&*rite2::eucharist::PRAYER_A)),
+                                                        (Slug::PrayerB, Contents::Document(&*rite2::eucharist::PRAYER_B)),
+                                                        (Slug::PrayerC, Contents::Document(&*rite2::eucharist::PRAYER_C)),
+                                                        (Slug::PrayerD, Contents::Document(&*rite2::eucharist::PRAYER_D))
+                                                    ]
+                                                }
+                                            ),
+                                            (
+                                                Slug::Version(Version::EOW),
+                                                Contents::Category {
+                                                    label: "Enriching Our Worship".into(),
+                                                    contents: vec![
+                                                        (Slug::Prayer1, Contents::Document(&*eow::eucharist::PRAYER_1)),
+                                                        (Slug::Prayer2, Contents::Document(&*eow::eucharist::PRAYER_2)),
+                                                        (Slug::Prayer3, Contents::Document(&*eow::eucharist::PRAYER_3)),
+                                                    ]
+                                                }
+                                            ),
+                                            (
+                                                Slug::Version(Version::LibroDeOracionComun),
+                                                Contents::Category {
+                                                    label: "Libro de Oración Común".into(),
+                                                    contents: vec![
+                                                        (Slug::PrayerA, Contents::Document(&*loc::eucharist::PRAYER_A)),
+                                                        (Slug::PrayerB, Contents::Document(&*loc::eucharist::PRAYER_B)),
+                                                        (Slug::PrayerC, Contents::Document(&*loc::eucharist::PRAYER_C)),
+                                                        (Slug::PrayerD, Contents::Document(&*loc::eucharist::PRAYER_D))
+                                                    ]
+                                                }
+                                            ),
                                         ]
                                     }
                                 ),

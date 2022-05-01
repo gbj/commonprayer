@@ -267,7 +267,7 @@ lazy_static! {
             Document::from(Heading::from((HeadingLevel::Heading3, "La Gran Plegaria Eucarística"))).tags([GREAT_THANKSGIVING_HEADER]),
             Document::from(Content::DocumentLink {
                 label: "Plegarias Eucarísticas".into(),
-                path: SlugPath::from([Slug::Eucharist, Slug::GreatThanksgiving]),
+                path: SlugPath::from([Slug::Eucharist, Slug::GreatThanksgiving, Slug::Version(Version::LibroDeOracionComun)]),
                 rotate: false
             }).tags([EUCHARISTIC_PRAYERS]).display(Show::TemplateOnly),
             Document::from(Choice::from(vec![
