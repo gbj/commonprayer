@@ -1,4 +1,7 @@
-use crate::rite2::eucharist::parallel::*;
+use crate::{
+    loc,
+    rite2::eucharist::parallel::{self, *},
+};
 use calendar::Season;
 use language::*;
 use lazy_static::lazy_static;
@@ -192,6 +195,10 @@ lazy_static! {
                         lectionary: LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary)),
                         intro: Some(BiblicalReadingIntroTemplate::from(Document::from(Text::from("Lectura de {{long_name}}."))))
                     }).tags([FIRST_LESSON]),
+                    Document::from(Preces::from([
+                        ("", "Palabra del Señor."),
+                        ("Pueblo", "Demos gracias a Dios.")
+                    ])),
                     Document::from(LectionaryReading {
                         reading_type: ReadingTypeTable::Selected(ReadingType::Psalm),
                         reading_type_overridden_by: None,
@@ -205,6 +212,10 @@ lazy_static! {
                         lectionary: LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary)),
                         intro: Some(BiblicalReadingIntroTemplate::from(Document::from(Text::from("Lectura de {{long_name}}."))))
                     }).tags([SECOND_LESSON]),
+                    Document::from(Preces::from([
+                        ("", "Palabra del Señor."),
+                        ("Pueblo", "Demos gracias a Dios.")
+                    ])).condition(Condition::Not(Box::new(Condition::Preference(PreferenceKey::from(GlobalPref::ReadingB), PreferenceValue::from(ReadingType::Empty))))),
                     Document::new().label("Evangelio")
                         .content(LectionaryReading {
                         reading_type: ReadingTypeTable::Selected(ReadingType::Gospel),
@@ -213,20 +224,25 @@ lazy_static! {
                         intro: Some(BiblicalReadingIntroTemplate::from(Document::from(Preces::from([
                         ("", "Santo Evangelio de nuestro Señor Jesucristo, según"),
                         ("Pueblo", "¡Gloria a ti, Cristo Señor!")
-                    ]))))
-                }).tags([GOSPEL])
+                    ])))),
+                }).tags([GOSPEL]),
+                Document::from(Preces::from([
+                    ("", "El Evangelio del Señor."),
+                    ("Pueblo", "Te alabamos, Cristo Señor.")
+                ])),
             ])),
             Document::from(Heading::from((HeadingLevel::Heading3, "Sermón"))).tags([SERMON]),
             Document::from(Rubric::from("Los domingos, y en otras Fiestas Mayores, todos de pie, dicen:")).tags([NICENE_CREED]),
             NICENE_CREED_ES.clone().tags([NICENE_CREED]),
 
-            Document::from(Heading::from((HeadingLevel::Heading3, "Oración de los Fieles"))).tags([PRAYERS_OF_THE_PEOPLE]),
+            Document::from(Heading::from((HeadingLevel::Heading3, "Oración de los Fieles"))).tags([parallel::PRAYERS_OF_THE_PEOPLE]),
             Document::from(Rubric::from("La oración se ofrece con intercesiones por:\n\nLa Iglesia Universal, sus miembros y su misión\nLa Nación y sus autoridades\nEl bienestar del mundo\nLos intereses de la comunidad local\nLos que sufren y los atribulados\nLos difuntos (con la conmemoración de un santo cuando sea apropiado).\n\nVéanse las fórmulas que comienzan en la página 305.")).tags([POP_RUBRIC]),
             Document::from(Content::DocumentLink {
                 label: "Oración de los Fieles".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::PrayersOfThePeople, Slug::Version(Version::LibroDeOracionComun)]),
                 rotate: false
             }).tags([POP_FORMS]),
+            Document::from(Choice::from(loc::eucharist::PRAYERS_OF_THE_PEOPLE.clone())),
 
             Document::from(Rubric::from("Si no hay celebración de la Comunión, o si no hay sacerdote, el rito concluye como se indica en la página 329.")).tags([NO_COMMUNION_RUBRIC]),
             Document::from(Heading::from((HeadingLevel::Heading3, "Confesión de Pecado"))).tags([CONFESSION]),
@@ -320,7 +336,7 @@ lazy_static! {
                 ])),
             Document::from(Rubric::from("Durante la Cuaresma se omite el ¡Aleluya! y también puede omitirse en otras ocasiones, excepto durante la Estación de Pascua.")).display(Show::TemplateOnly).tags([FRACTION_ANTHEM_RUBRIC]),
             Document::from(Rubric::from("En lugar de, o además de, lo precedente puede usarse cualquier otra antífona apropiada.")).tags([FRACTION_ANTHEM_RUBRIC]),
-            Document::from(HymnLink::TagWithLabel("Antífonas".into(), "Fraction Anthems".into())).tags([FRACTION_ANTHEM_RUBRIC]),
+            Document::from(HymnLink::TagWithLabel("Fraction".into(), "Antífonas".into())).tags([FRACTION_ANTHEM_RUBRIC]),
             Document::from(Rubric::from("De cara al pueblo, el Celebrante hace la siguiente Invitación:")).tags([COMMUNION_INVITATION]),
             Document::from(Text::from("Los Dones de Dios para el Pueblo de Dios.")).tags([COMMUNION_INVITATION]),
             Document::from(Rubric::from("y puede añadir:")).tags([COMMUNION_INVITATION]),
@@ -413,6 +429,36 @@ lazy_static! {
                 ("", ""),
                 ("El Pueblo responde:", "Demos gracias a Dios. ¡Aleluya, aleluya!")
             ])).tags([DISMISSAL_EASTER])
+        ]).preferences([
+            // Translations
+            LiturgyPreference::from((
+                PreferenceKey::from(GlobalPref::BibleVersion),
+                "Bible Version",
+                [
+                    LiturgyPreferenceOption::from(Version::NRSV),
+                    LiturgyPreferenceOption::from(Version::CEB),
+                    LiturgyPreferenceOption::from(Version::ESV),
+                    LiturgyPreferenceOption::from(Version::KJV)
+                ]
+            )).category("Translations"),
+
+            // Readings
+            LiturgyPreference::from((
+                PreferenceKey::from(GlobalPref::ReadingA),
+                "First Lesson",
+                [
+                    LiturgyPreferenceOption::from(("First Lesson", PreferenceValue::from(ReadingType::FirstReading))),
+                    LiturgyPreferenceOption::from(("Second Lesson", PreferenceValue::from(ReadingType::SecondReading))),
+                ]
+            )).default_value(PreferenceValue::from(ReadingType::FirstReading)).category("Lessons"),
+            LiturgyPreference::from((
+                PreferenceKey::from(GlobalPref::ReadingB),
+                "Second Lesson",
+                [
+                    LiturgyPreferenceOption::from(("—", PreferenceValue::from(ReadingType::Empty))),
+                    LiturgyPreferenceOption::from(("Second Lesson", PreferenceValue::from(ReadingType::SecondReading))),
+                ]
+            )).default_value(PreferenceValue::from(ReadingType::SecondReading)).category("Lessons"),
         ]));
 
     pub static ref OFFERTORY_SENTENCES_LOC: Vec<Document> = vec![
@@ -594,4 +640,311 @@ lazy_static! {
             Document::from(Rubric::from("El Celebrante continúa:")),
             Document::from(Text::from("Señor, te rogamos que en tu bondad y misericordia, tu Espíritu Santo descienda sobre nosotros y sobre estos dones, santificándolos y mostrando que son dones santos para tu pueblo santo, el pan de vida y el cáliz de salvación, el Cuerpo y la Sangre de tu Hijo Jesucristo.\n\nConcede que todos los que compartan este pan y este cáliz sean un solo cuerpo y un solo espíritu, un sacrificio vivo en Cristo, para alabanza de tu Nombre.\n\nRecuerda, Señor, a tu Iglesia, una, santa, católica y apostólica, redimida por la sangre de tu Cristo. Manifiesta su unidad, guarda su fe y presérvala en paz.\n\n[Recuerda a (*NN.* y) todos los que ministran en tu Iglesia.]\n[Recuerda a todo tu pueblo y a aquéllos que buscan tu verdad.]\n[Recuerda a ______.]\n[Recuerda a todos los que han muerto en la paz de Cristo y a aquéllos cuya fe sólo tu conoces; llévalos al lugar de eterno gozo y luz.]\n\nY concede que alcancemos nuestra herencia con [la Bendita Virgen María, con los patriarcas, profetas, apóstoles y mártires, (con _______) y] todos los santos que han encontrado favor contigo en tiempos pasados. Junto con ellos te alabamos y te damos gloria, por tu Hijo Jesucristo nuestro Señor.\n\nPor Cristo, y con Cristo y en Cristo, tuyos son el honor y la gloria, omnipotente Dios y Padre, en la unidad del Espíritu Santo, por los siglos de los siglos.").response("AMEN."))
     ]));
+
+    pub static ref PRAYERS_OF_THE_PEOPLE: Vec<Document> = vec![
+        pop::FORM_I.clone(),
+        pop::FORM_II.clone(),
+        pop::FORM_III.clone(),
+        pop::FORM_IV.clone(),
+        pop::FORM_V.clone(),
+        pop::FORM_V_KYRIE.clone(),
+        pop::FORM_VI.clone()
+    ];
+}
+
+mod pop {
+    use language::Language;
+    use liturgy::*;
+
+    lazy_static! {
+        pub static ref FORM_I: Document = Document::new()
+            .label("Fórmula I")
+            .language(Language::Es)
+            .source(Reference {
+                source: Source::LibroDeOracionComun,
+                page: 305
+            })
+            .version(Version::LibroDeOracionComun)
+            .content(Series::from(vec![
+                Document::from(Rubric::from("El Diácono u otra persona:")),
+                Document::from(Text::from("Con todo el corazón y con toda la mente, oremos al Señor, diciendo: “Señor, ten piedad.”")),
+                Document::from(Litany::from((
+                    "Señor, ten piedad.",
+                    [
+                        "| Por la paz de lo alto, por la misericordia de Dios y por la salvación de nuestras almas, oremos al Señor.",
+                        "Por la paz del mundo, por el bienestar de la santa Iglesia de Dios y por la unidad de todos los pue blos, oremos al Señor.",
+                        "Por nuestro Obispo, y por todos los clérigos y laicos, oremos al Señor.",
+                        "Por nuestro Presidente, por los gobernantes de las naciones y por todas las autoridades, oremos al Señor.",
+                        "Por esta ciudad (pueblo, aldea, _______), por todas las ciudades y comunidades, y por los que viven en ellas, oremos al Señor.",
+                        "| Por un clima apacible y por la abundancia de los frutos de la tierra, oremos al Señor.",
+                        "Por la buena tierra que Dios nos ha dado, y por la sabiduría y el deseo de conservarla, oremos al Señor.",
+                        "| Por todos los que viajan por tierra, mar o aire [o el espacio], oremos al Señor.",
+                        "Por los ancianos e inváli dos, los viudos y huérfanos, por los enfermos y los que yacen en el lecho del dolor, oremos al Señor.",
+                        "| Por ______, oremos al Señor.",
+                        "Por los pobres y oprimidos, por los desempleados e indigentes, por los encarcelados y cautivos, y por todos los que se acuerdan y cuidan de ellos, oremos al Señor.",
+                        "Por todos los que han muerto en la esperanza de la resurrección y por todos los difuntos, oremos al Señor.",
+                        "Por la liberación de todo peligro, violencia, opresión y degradación, oremos al Señor.",
+                        "| Por la absolución y remisión de nuestros pecados y ofensas, oremos al Señor.",
+                        "Para que terminemos nuestra vida en fe y esperanza, sin sufrimiento ni reproche, oremos al Señor.",
+                        "| Defiéndenos, líbranos, y en tu compasión protégenos, oh Señor, por medio de tu gracia."
+                    ]
+                ))),
+                Document::from(ResponsivePrayer::from([
+                    "En la comunión de [____ y de todos] los santos, encomendémonos los unos a los otros, y toda nuestra vida a Cristo nuestro Dios.",
+                    "A ti, Señor nuestro Dios."
+                ])),
+                Document::from(Rubric::from("Silencio")),
+                Document::from(Rubric::from("El Celebrante añade una Colecta final."))
+        ]));
+
+        pub static ref FORM_II: Document = Document::new()
+            .label("Fórmula II")
+            .language(Language::Es)
+            .source(Reference {
+                source: Source::LibroDeOracionComun,
+                page: 307
+            })
+            .version(Version::LibroDeOracionComun)
+            .content(Series::from(vec![
+                Document::from(Rubric::from("Durante la pausa que sigue a cada invitación, el Pueblo ofrece sus propias peticiones en silencio o en voz alta.")),
+                Document::from(Text::from("Pido sus oraciones por el pueblo de Dios esparcido por todo el mundo; por ______, nuestro(s) Obispo(s); por esta asamblea; y por todos los ministros y fieles.\nOren por la Iglesia.")),
+                Document::from(Rubric::from("Pausa")),
+                Document::from(Text::from("Pido sus oraciones por la paz; por la concordia entre las naciones y por el bienestar de todos los pueblos.\nOren por la justicia y la paz.")),
+                Document::from(Rubric::from("Pausa")),
+                Document::from(Text::from("Pido sus oraciones por los pobres, los enfermos, los hambrientos, los oprimidos y los prisioneros.\nOren por los que se hallan en necesidad o tribulación.")),
+                Document::from(Rubric::from("Pausa")),
+                Document::from(Text::from("Pido sus oraciones por cuantos buscan a Dios o un conocimiento más profundo de él.\nOren para que le encuentren y sean encontrados por él.")),
+                Document::from(Rubric::from("Pausa")),
+                Document::from(Text::from("Pido sus oraciones por los que han partido de esta vid. [especialmente por _________].\nOren por los difuntos.")),
+                Document::from(Rubric::from("Pausa")),
+                Document::new()
+                    .optional()
+                    .content(Series::from(vec![
+                        Document::from(Rubric::from("Los miembros de la congregación pueden pedir a los presentes oraciones o acciones de gracias.")),
+                        Document::from(Text::from("Pido sus oraciones por _________.\nPido que den gracias por ________.")),
+                        Document::from(Rubric::from("Pausa"))
+                    ])),
+                Document::from(Text::from("Alaben a Dios por aquéllos de todas las generaciones en quienes Cristo ha sido glorificado [especialmente _____________, a quien recordamos hoy].\nOren para que también nosotros recibamos la gracia de glorificar a Cristo en nuestro tiempo.")),
+                Document::from(Rubric::from("Pausa")),
+                Document::from(Rubric::from("El Celebrante añade una Colecta final.")),
+        ]));
+
+        pub static ref FORM_III: Document = Document::new()
+            .label("Fórmula III")
+            .language(Language::Es)
+            .source(Reference {
+                source: Source::LibroDeOracionComun,
+                page: 309
+            })
+            .version(Version::LibroDeOracionComun)
+            .content(Series::from(vec![
+                Document::from(Rubric::from("El que dirige y el Pueblo oran en forma dialogada.")),
+                Document::from(ResponsivePrayer::from([
+                    "Padre, te suplicamos por tu santa Iglesia Católica.",
+                    "Que todos seamos uno.\n",
+                    "Concede que todos los miembros de la Iglesia te sirvan en verdad y humildad.",
+                    "Que tu Nombre sea glorificado por todo el género humano.\n",
+                    "Te pedimos por todos los obispos, presbíteros y diáconos.",
+                    "Que sean fieles ministros de tu Palabra y Sacramentos.\n",
+                    "Te pedimos por cuantos gobiernan y ejercen autoridad en todas las naciones del mundo.",
+                    "Que haya justicia y paz en la tierra.\n",
+                    "Danos gracia para hacer tu voluntad en todo cuanto emprendamos.",
+                    "Que nuestras obras sean agradables a tus ojos.\n",
+                    "Ten compasión de los que sufren de dolor o angustia.",
+                    "Que sean librados de sus aflicciones.\n",
+                    "Otorga descanso eterno a los difuntos.",
+                    "Que sobre ellos resplandezca la luz perpetua.\n",
+                    "Te alabamos por tus santos que han entrado en el gozo del Señor.",
+                    "Que también nosotros tengamos parte en tu reino celestial."
+                ])),
+                Document::from(Text::from("Oremos por nuestras necesidades y las necesidades de los demás.")),
+                Document::from(Rubric::from("Pausa\n\nEl Pueblo puede añadir sus propias peticiones.\n\nEl Celebrante añade una Colecta final."))
+        ]));
+
+        pub static ref FORM_IV: Document = Document::new()
+            .label("Fórmula IV")
+            .language(Language::Es)
+            .source(Reference {
+                source: Source::LibroDeOracionComun,
+                page: 310
+            })
+            .version(Version::LibroDeOracionComun)
+            .content(Series::from(vec![
+                Document::from(Rubric::from("El Diácono u otra persona:")),
+                Document::from(Text::from("Oremos por la Iglesia y por el mundo.")),
+                Document::from(Text::from("Omnipotente Dios, concede que cuantos confesamos tu Nombre estemos unidos en tu verdad, vivamos unánimes en tu amor y manifestemos tu gloria en el mundo.")),
+                Document::from(Rubric::from("Silencio")),
+                Document::from(ResponsivePrayer::from([
+                    "Señor, en tu misericordia",
+                    "atiende nuestra súplica."
+                ])),
+                Document::from(Text::from("Dirige al pueblo de este país y de todas las naciones por caminos de justicia y paz, para que nos respetemos unos a otros y procuremos el bien común.")),
+                Document::from(Rubric::from("Silencio")),
+                Document::from(ResponsivePrayer::from([
+                    "Señor, en tu misericordia",
+                    "atiende nuestra súplica."
+                ])),
+                Document::from(Text::from("Danos reverencia por la tierra, que es creación tuya, para que utilicemos debidamente sus recursos en servicio de los demás y para tu honra y gloria.")),
+                Document::from(Rubric::from("Silencio")),
+                Document::from(ResponsivePrayer::from([
+                    "Señor, en tu misericordia",
+                    "Atiende nuestra súplica."
+                ])),
+                Document::from(Text::from("Bendice a aquéllos cuyas vidas están unidas a las nuestras, y concede que sirvamos a Cristo en ellos y nos amemos unos a otros, así como él nos ama.")),
+                Document::from(Rubric::from("Silencio")),
+                Document::from(ResponsivePrayer::from([
+                    "Señor, en tu misericordia",
+                    "Atiende nuestra súplica."
+                ])),
+                Document::from(Text::from("Consuela y sana a todos aquéllos que sufren en cuerpo, mente o espíritu; en sus tribulaciones dales valor y esperanza, y llévalos al gozo de tu salvación.")),
+                Document::from(Rubric::from("Silencio")),
+                Document::from(ResponsivePrayer::from([
+                    "Señor, en tu misericordia",
+                    "Atiende nuestra súplica."
+                ])),
+                Document::from(Text::from("Encomendamos a tu misericordia a todos los difuntos, para que tu voluntad se cumpla en ellos; y te pedimos que nos hagas partícipes con todos tus santos de tu reino eterno.")),
+                Document::from(Rubric::from("Silencio")),
+                Document::from(ResponsivePrayer::from([
+                    "Señor, en tu misericordia",
+                    "Atiende nuestra súplica."
+                ])),
+                Document::from(Rubric::from("El Celebrante añade una Colecta final."))
+        ]));
+
+        pub static ref FORM_V: Document = Document::new()
+            .label("Fórmula V")
+            .language(Language::Es)
+            .source(Reference {
+                source: Source::LibroDeOracionComun,
+                page: 312
+            })
+            .version(Version::LibroDeOracionComun)
+            .content(Series::from(vec![
+                Document::from(Rubric::from("El Diácono u otra persona:")),
+                Document::from(Text::from("En paz oremos al Señor, diciendo: “Señor, ten piedad.”")),
+                Document::from(Litany::from((
+                    "Señor, ten piedad.",
+                    [
+                        "Por la santa Iglesia de Dios, para que esté llena de verdad y amor y se halle sin mancha en el día de tu venida, te suplicamos Señor. ",
+                        "Por N. nuestro Primado, por N.(N.) nuestro (s) Obispo (s), por todos los obispos y demás ministros, y por todo el pueblo santo de Dios, te suplicamos Señor.",
+                        "Por cuantos temen a Dios y creen en ti, Cristo Señor, para que cesen nuestras divisiones y todos seamos uno, como tú y el Padre son uno, te suplicamos Señor.",
+                        "Por la misión de la Iglesia, para que en testimonio fiel proclame el Evangelio hasta los confines de la tierra, te suplicamos Señor.",
+                        "| Por los que aún no creen y por los que han perdido la fe, para que reciban la luz del Evangelio, te suplicamos Señor.",
+                        "Por la paz del mundo, para que entre las naciones y los pueblos crezca un espíritu de respeto y comprensión, te suplicamos Señor.",
+                        "Por los que tienen cargos de responsabilidad pública [especialmente ______], para que sirvan a la justicia y promuevan la dignidad y la libertad de toda persona, te suplicamos Señor.",
+                        "| Por todos los que viven y trabajan en esta comunidad [especialmente ______ ], te suplicamos Señor.",
+                        "| Por tu bendición sobre todo trabajo humano y por el uso debido de las riquezas de la creación, para que el mundo sea librado de la pobreza, el hambre y el desastre, te suplicamos Señor.",
+                        "Por los pobres, los perseguidos, los enfermos y todos cuantos sufren; por los refugiados, los prisioneros y por todos los que están en peligr o, para que hallen alivio y protección, te suplicamos Señor.",
+                        "Por esta congregación [por los presentes y los ausentes], para que nos libres de dureza de corazón y manifestemos tu gloria en todo lo que hagamos, te suplicamos Señor.",
+                        "| Por nuestros enemigos y por cuantos nos desean el mal; y por aquéllos a quienes hemos agraviado u ofendido, te suplicamos Señor.",
+                        "| Por nosotros, por el perdón de nuestros pecados y por la gracia del Espíritu Santo para enmendar nuestras vidas, te suplicamos Señor.",
+                        "Por todos los que se han encomendado a nuestras oraciones; por nuestras familias, amigos y vecinos, para que, libres de ansiedad, vivan en gozo, paz y salud, te suplicamos Señor.",
+                        "| Por ______, te suplicamos Señor.",
+                        "Por cuantos han muerto en la comunión de tu Iglesia, y por aquéllos cuya fe sólo tú conoces, para que con todos tus santos tengan descanso en ese lugar donde no hay dolor ni tristeza, sino vida eterna, te suplicamos Señor."
+                    ]
+                ))),
+                Document::from(ResponsivePrayer::from([
+                    "Gozándonos en la comunión de [la siempre Bendita Virgen María, (*del bienaventurado N.*) y] todos los santos, encomendémonos los unos a los otros, y toda nuestra vida, a Cristo nuestro Dios.",
+                    "A ti, Señor nuestro Dios."
+                ])),
+                Document::from(Rubric::from("Silencio")),
+                Document::from(Rubric::from("El Celebrante añade una Colecta final o la siguiente Doxología:")),
+                Document::from(Text::from("Porque tuya es la majestad, Padre, Hijo y Esp íritu Santo; tuyo es el reino y el poder y la gloria, ahora y por siempre.").response("Amén."))
+        ]));
+
+        pub static ref FORM_V_KYRIE: Document = Document::new()
+            .label("Fórmula V")
+            .language(Language::Es)
+            .source(Reference {
+                source: Source::LibroDeOracionComun,
+                page: 312
+            })
+            .version(Version::LibroDeOracionComun)
+            .version_label("Fórmula V (“Kyrie eleison”)")
+            .content(Series::from(vec![
+                Document::from(Rubric::from("El Diácono u otra persona:")),
+                Document::from(Text::from("En paz oremos al Señor, diciendo: “Señor, ten piedad.”")),
+                Document::from(Litany::from((
+                    "Kyrie eleison.",
+                    [
+                        "Por la santa Iglesia de Dios, para que esté llena de verdad y amor y se halle sin mancha en el día de tu venida, te suplicamos Señor. ",
+                        "Por N. nuestro Primado, por N.(N.) nuestro (s) Obispo (s), por todos los obispos y demás ministros, y por todo el pueblo santo de Dios, te suplicamos Señor.",
+                        "Por cuantos temen a Dios y creen en ti, Cristo Señor, para que cesen nuestras divisiones y todos seamos uno, como tú y el Padre son uno, te suplicamos Señor.",
+                        "Por la misión de la Iglesia, para que en testimonio fiel proclame el Evangelio hasta los confines de la tierra, te suplicamos Señor.",
+                        "| Por los que aún no creen y por los que han perdido la fe, para que reciban la luz del Evangelio, te suplicamos Señor.",
+                        "Por la paz del mundo, para que entre las naciones y los pueblos crezca un espíritu de respeto y comprensión, te suplicamos Señor.",
+                        "Por los que tienen cargos de responsabilidad pública [especialmente ______], para que sirvan a la justicia y promuevan la dignidad y la libertad de toda persona, te suplicamos Señor.",
+                        "| Por todos los que viven y trabajan en esta comunidad [especialmente ______ ], te suplicamos Señor.",
+                        "| Por tu bendición sobre todo trabajo humano y por el uso debido de las riquezas de la creación, para que el mundo sea librado de la pobreza, el hambre y el desastre, te suplicamos Señor.",
+                        "Por los pobres, los perseguidos, los enfermos y todos cuantos sufren; por los refugiados, los prisioneros y por todos los que están en peligr o, para que hallen alivio y protección, te suplicamos Señor.",
+                        "Por esta congregación [por los presentes y los ausentes], para que nos libres de dureza de corazón y manifestemos tu gloria en todo lo que hagamos, te suplicamos Señor.",
+                        "| Por nuestros enemigos y por cuantos nos desean el mal; y por aquéllos a quienes hemos agraviado u ofendido, te suplicamos Señor.",
+                        "| Por nosotros, por el perdón de nuestros pecados y por la gracia del Espíritu Santo para enmendar nuestras vidas, te suplicamos Señor.",
+                        "Por todos los que se han encomendado a nuestras oraciones; por nuestras familias, amigos y vecinos, para que, libres de ansiedad, vivan en gozo, paz y salud, te suplicamos Señor.",
+                        "| Por ______, te suplicamos Señor.",
+                        "Por cuantos han muerto en la comunión de tu Iglesia, y por aquéllos cuya fe sólo tú conoces, para que con todos tus santos tengan descanso en ese lugar donde no hay dolor ni tristeza, sino vida eterna, te suplicamos Señor."
+                    ]
+                ))),
+                Document::from(ResponsivePrayer::from([
+                    "Gozándonos en la comunión de [la siempre Bendita Virgen María, (*del bienaventurado N.*) y] todos los santos, encomendémonos los unos a los otros, y toda nuestra vida, a Cristo nuestro Dios.",
+                    "A ti, Señor nuestro Dios."
+                ])),
+                Document::from(Rubric::from("Silencio")),
+                Document::from(Rubric::from("El Celebrante añade una Colecta final o la siguiente Doxología:")),
+                Document::from(Text::from("Porque tuya es la majestad, Padre, Hijo y Esp íritu Santo; tuyo es el reino y el poder y la gloria, ahora y por siempre.").response("Amén."))
+        ]));
+
+        pub static ref FORM_VI: Document = Document::new()
+            .label("Fórmula VI")
+            .source(Reference {
+                source: Source::LibroDeOracionComun,
+                page: 314
+            })
+            .version(Version::LibroDeOracionComun)
+            .content(Series::from(vec![
+                Document::from(Rubric::from("El que dirige y el Pueblo oran en forma dialogada.")),
+                Document::from(Text::from("En paz oramos a ti, Señor Dios.")),
+                Document::from(Rubric::from("Silencio")),
+                Document::from(ResponsivePrayer::from([
+                    "Por todos los seres humanos en su vida y trabajo diarios;",
+                    "Por nuestras familias, amigos y vecinos, y por los que están solos.\n",
+                    "Por esta comunidad, por esta nación, y por el mundo entero;",
+                    "Por cuantos trabajan por la justicia, la libertad y la paz.\n",
+                    "Por el uso justo y adecuado de tu creación;",
+                    "Por las víctimas del hambre, el temor, la injusticia y la opresión.\n",
+                    "Por cuantos se hallan en peligro, tristeza, o cualquier otra adversidad;",
+                    "Por los que ministran a los enfermos, a los desamparados y a los necesitados.\n",
+                    "Por la paz y unidad de la Iglesia de Dios;",
+                    "Por todos los que proclaman el Evangelio, y cuantos buscan la Verdad.\n",
+                    "Por [N. nuestro Primado, y por N. (N.) nuestro(s) obispo(s), y por] todos los obispos y demás ministros;",
+                    "Por todos los que sirven a Dios en su Iglesia."
+                ])),
+                Document::from(Text::from("Por las necesidades e intereses especiales de esta\ncongregación.")),
+                Document::from(Rubric::from("Pausa\n\nEl Pueblo puede añadir sus propias peticiones.")),
+                Document::from(ResponsivePrayer::from([
+                    "Atiéndenos, Señor;",
+                    "Porque grande es tu misericordia."
+                ])),
+                Document::from(Text::from("Te damos gracias, Señor, por todas las bendiciones de esta vida.")),
+                Document::from(Rubric::from("Pausa\n\nEl Pueblo puede añadir sus propias acciones de gracias.")),
+                Document::from(ResponsivePrayer::from([
+                    "Te exaltaremos, oh Dios nuestro Rey;",
+                    "Y alabaremos tu Nombre para siempre."
+                ])),
+                Document::from(Text::from("Te pedimos por todos los que han muerto, para que\ntengan un lugar en tu reino eterno.")),
+                Document::from(Rubric::from("Pausa\n\nEl Pueblo puede añadir sus propias peticiones.")),
+                Document::from(ResponsivePrayer::from([
+                    "Señor, concédeles tu misericordia;",
+                    "Porque en ti han confiado."
+                ])),
+                Document::new()
+                    .optional()
+                    .content(Series::from(vec![
+                        Document::from(Text::from("También te pedimos por el perdón de nuestros pecados.")),
+                        Document::from(Rubric::from("Se puede guardar un período de silencio.\n\nEl que dirige y el Pueblo:")),
+                        Document::from(Text::from("Ten misericordia de nosotros, Padre de toda bondad;\nen tu compasión perdona nuestros pecados,\nlos conocidos y los desconocidos;\nlo que hemos hecho y lo que hemos dejado de hacer.\nSustenta a tus siervos con tu Espíritu,\npara que vivamos y te sirvamos en novedad de vida,\npara honra y gloria de tu Nombre;\npor Jesucristo nuestro Señor. Amén.").display_format(DisplayFormat::Unison)),
+                ])),
+                Document::from(Rubric::from("El Celebrante concluye con una absolución o con una Colecta adecuada."))
+        ]));
+    }
 }

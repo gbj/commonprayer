@@ -457,11 +457,28 @@ impl Library for CommonPrayer {
                                 ),
                                 (
                                     Slug::PrayersOfThePeople,
-                                    Contents::MultiDocument {
+                                    Contents::Category {
                                         label: "Prayers of the People".into(),
-                                        documents: bcp1979::eucharist::PRAYERS_OF_THE_PEOPLE.to_vec(),
-                                        hidden_in_toc: false,
-                                    },
+                                        contents: vec![
+                                            (
+                                                Slug::Version(Version::BCP1979),
+                                                Contents::MultiDocument {
+                                                    label: "Book of Common Prayer (1979)".into(),
+                                                    documents: bcp1979::eucharist::PRAYERS_OF_THE_PEOPLE.to_vec(),
+                                                    hidden_in_toc: false,
+                                                },
+                                            ),
+                                            (
+                                                Slug::Version(Version::LibroDeOracionComun),
+                                                Contents::MultiDocument {
+                                                    label: "Libro de Oración Común".into(),
+                                                    documents: loc::eucharist::PRAYERS_OF_THE_PEOPLE.to_vec(),
+                                                    hidden_in_toc: false,
+                                                },
+                                            )
+                                        ]
+                                    }
+                                    
                                 ),
                                 (
                                     Slug::GreatThanksgiving,

@@ -5,6 +5,8 @@ use liturgy::*;
 pub mod parallel;
 use parallel::*;
 
+use crate::bcp1979;
+
 lazy_static! {
     pub static ref GLORIA_IN_EXCELSIS: Text = Text::from("Glory to God in the highest,\n\tand peace to his people on earth. \n\nLord God, heavenly King,\nalmighty God and Father,\n\twe worship you, we give you thanks,\n\twe praise you for your glory. \n\nLord Jesus Christ, only Son of the Father,\nLord God, Lamb of God,\nyou take away the sin of the world:\n\thave mercy on us;\nyou are seated at the right hand of the Father:\n\treceive our prayer. \n\nFor you alone are the Holy One,\nyou alone are the Lord,\nyou alone are the Most High,\n\tJesus Christ,\n\twith the Holy Spirit,\n\tin the glory of God the Father. Amen.");
 
@@ -162,7 +164,6 @@ lazy_static! {
             Document::new().display(Show::CompiledOnly)
                 .content(Series::from(vec![
                     Document::from(Rubric::from("The people sit.")).tags([LESSONS_RUBRICS]),
-                    // TODO insert responses for these
                     Document::new().label("The First Lesson")
                         .content(LectionaryReading {
                         reading_type: ReadingTypeTable::Preference(PreferenceKey::Global(GlobalPref::ReadingA)),
@@ -170,6 +171,10 @@ lazy_static! {
                         lectionary: LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary)),
                         intro: Some(BiblicalReadingIntroTemplate::from(Document::from(Text::from("A Reading from {{long_name}}."))))
                     }).tags([FIRST_LESSON]),
+                    Document::from(Preces::from([
+                        ("", "The Word of the Lord."),
+                        ("People", "Thanks be to God.")
+                    ])),
                     Document::from(LectionaryReading {
                         reading_type: ReadingTypeTable::Selected(ReadingType::Psalm),
                         reading_type_overridden_by: None,
@@ -183,6 +188,10 @@ lazy_static! {
                         lectionary: LectionaryTableChoice::Preference(PreferenceKey::Global(GlobalPref::Lectionary)),
                         intro: Some(BiblicalReadingIntroTemplate::from(Document::from(Text::from("A Reading from {{long_name}}."))))
                     }).tags([SECOND_LESSON]),
+                    Document::from(Preces::from([
+                        ("", "The Word of the Lord."),
+                        ("People", "Thanks be to God.")
+                    ])).condition(Condition::Not(Box::new(Condition::Preference(PreferenceKey::from(GlobalPref::ReadingB), PreferenceValue::from(ReadingType::Empty))))),
                     Document::new().label("The Gospel")
                         .content(LectionaryReading {
                         reading_type: ReadingTypeTable::Selected(ReadingType::Gospel),
@@ -192,7 +201,11 @@ lazy_static! {
                         ("", "The Holy Gospel of our Lord Jesus Christ according to {{short_name}}."),
                         ("People", "Glory to you, Lord Christ.")
                     ]))))
-                }).tags([GOSPEL])
+                }).tags([GOSPEL]),
+                Document::from(Preces::from([
+                    ("", "The Gospel of the Lord."),
+                    ("People", "Praise to you, Lord Christ.")
+                ])),
             ])),
             Document::from(Heading::from((HeadingLevel::Heading3, "The Sermon"))).tags([SERMON]),
             Document::from(Rubric::from("On Sundays and other Major Feasts there follows, all standing")).tags([NICENE_CREED]),
@@ -202,9 +215,10 @@ lazy_static! {
             Document::from(Rubric::from("Prayer is offered with intercession for\n\nThe Universal Church, its members, and its mission\nThe Nation and all in authority\nThe welfare of the world\nThe concerns of the local community\nThose who suffer and those in any trouble\nThe departed (with commemoration of a saint when appropriate)\n\nSee the forms beginning on page 383.")).tags([POP_RUBRIC]),
             Document::from(Content::DocumentLink {
                 label: "Prayers of the People".into(),
-                path: SlugPath::from([Slug::Eucharist, Slug::PrayersOfThePeople]),
+                path: SlugPath::from([Slug::Eucharist, Slug::PrayersOfThePeople, Slug::Version(Version::BCP1979)]),
                 rotate: false
-            }).tags([POP_FORMS]),
+            }).tags([POP_FORMS]).display(Show::TemplateOnly),
+            Document::from(Choice::from(bcp1979::eucharist::PRAYERS_OF_THE_PEOPLE.clone(),)),
 
             Document::from(Rubric::from("If there is no celebration of the Communion, or if a priest is not available, the service is concluded as directed on page 406.")).tags([NO_COMMUNION_RUBRIC]),
             Document::from(Heading::from((HeadingLevel::Heading3, "Confession of Sin"))).tags([CONFESSION]),
@@ -391,6 +405,36 @@ lazy_static! {
                 ("", ""),
                 ("The People respond", "Thanks be to God. Alleluia, alleluia.")
             ])).tags([DISMISSAL_EASTER])
+        ]).preferences([
+            // Translations
+            LiturgyPreference::from((
+                PreferenceKey::from(GlobalPref::BibleVersion),
+                "Bible Version",
+                [
+                    LiturgyPreferenceOption::from(Version::NRSV),
+                    LiturgyPreferenceOption::from(Version::CEB),
+                    LiturgyPreferenceOption::from(Version::ESV),
+                    LiturgyPreferenceOption::from(Version::KJV)
+                ]
+            )).category("Translations"),
+
+            // Readings
+            LiturgyPreference::from((
+                PreferenceKey::from(GlobalPref::ReadingA),
+                "First Lesson",
+                [
+                    LiturgyPreferenceOption::from(("First Lesson", PreferenceValue::from(ReadingType::FirstReading))),
+                    LiturgyPreferenceOption::from(("Second Lesson", PreferenceValue::from(ReadingType::SecondReading))),
+                ]
+            )).default_value(PreferenceValue::from(ReadingType::FirstReading)).category("Lessons"),
+            LiturgyPreference::from((
+                PreferenceKey::from(GlobalPref::ReadingB),
+                "Second Lesson",
+                [
+                    LiturgyPreferenceOption::from(("—", PreferenceValue::from(ReadingType::Empty))),
+                    LiturgyPreferenceOption::from(("Second Lesson", PreferenceValue::from(ReadingType::SecondReading))),
+                ]
+            )).default_value(PreferenceValue::from(ReadingType::SecondReading)).category("Lessons"),
         ]));
 
     pub static ref OFFERTORY_SENTENCES_II: Vec<Document> = vec![

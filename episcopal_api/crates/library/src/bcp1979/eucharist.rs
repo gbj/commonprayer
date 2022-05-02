@@ -19,12 +19,13 @@ lazy_static! {
     ])).label("Form for Consecrating Additional Bread and Wine");
 }
 
-mod pop {
+pub mod pop {
     use liturgy::*;
 
     lazy_static! {
-        pub static ref FORM_I: Document = Document::from(Series::from(vec![
-            Document::from(Heading::from((HeadingLevel::Heading3, "Form I"))),
+        pub static ref FORM_I: Document = Document::new()
+            .label("Form I")
+            .content(Content::Series(Series::from(vec![
             Document::from(Rubric::from("Deacon or other leader")),
             Document::from("With all our heart and with all our mind, let us pray to the Lord, saying, “Lord, have mercy.”"),
             Document::from(Litany::from((
@@ -54,11 +55,12 @@ mod pop {
             ))),
             Document::from(Rubric::from("Silence")),
             Document::from(Rubric::from("The Celebrant adds a concluding Collect."))
-        ,]))
+        ])))
         .page(383);
 
-        pub static ref FORM_II: Document = Document::from(Series::from(vec![
-            Document::from(Heading::from((HeadingLevel::Heading3, "Form II"))),
+        pub static ref FORM_II: Document = Document::new()
+            .label("Form II")
+            .content(Content::Series(Series::from(vec![
             Document::from(Rubric::from("In the course of the silence after each bidding, the People offer their own prayers, either silently or aloud.")),
             Document::from("I ask your prayers for God’s people throughout the world; for our Bishop(s) ___________ ; for this gathering; and for all ministers and people.\nPray for the Church."),
             Document::from(Rubric::from("Silence")),
@@ -69,6 +71,7 @@ mod pop {
             Document::from("I ask your prayers for all who seek God, or a deeper knowledge of him.\nPray that they may find and be found by him."),
             Document::from(Rubric::from("Silence")),
             Document::from("I ask your prayers for the departed [especially __________ ].\nPray for those who have died."),
+            Document::from(Rubric::from("Silence")),
             Document::from(Series::from(vec![
                 Document::from(Rubric::from("Members of the congregation may ask the prayers or the thanksgivings of those present")),
                 Document::from("I ask your prayers for ____________.\n\nI ask your thanksgiving for _____________."),
@@ -77,36 +80,37 @@ mod pop {
             Document::from("Praise God for those in every generation in whom Christ has been honored [especially ____________whom we remember today].\nPray that we may have grace to glorify Christ in our own day."),
             Document::from(Rubric::from("Silence")),
             Document::from(Rubric::from("The Celebrant adds a concluding Collect."))
-        ])).page(385);
+        ]))).page(385);
 
-        pub static ref FORM_III: Document = Document::from(Series::from(vec![
-            Document::from(Heading::from((HeadingLevel::Heading3, "Form III"))),
+        pub static ref FORM_III: Document = Document::new()
+            .label("Form III")
+            .content(Content::Series(Series::from(vec![
             Document::from(Rubric::from("The Leader and People pray responsively")),
             Document::from(ResponsivePrayer::from([
                 "Father, we pray for your holy Catholic Church;",
-                "That we all may be one.",
+                "That we all may be one.\n",
                 "Grant that every member of the Church may truly and humbly serve you;",
-                "That your Name may be glorified by all people.",
+                "That your Name may be glorified by all people.\n",
                 "We pray for all bishops, priests, and deacons;",
-                "That they may be faithful ministers of your Word and Sacraments.",
+                "That they may be faithful ministers of your Word and Sacraments.\n",
                 "We pray for all who govern and hold authority in the nations of the world;",
-                "That there may be justice and peace on the earth.",
+                "That there may be justice and peace on the earth.\n",
                 "Give us grace to do your will in all that we undertake;",
-                "That our works may find favor in your sight.",
+                "That our works may find favor in your sight.\n",
                 "Have compassion on those who suffer from any grief or trouble;",
-                "That they may be delivered from their distress.",
+                "That they may be delivered from their distress.\n",
                 "Give to the departed eternal rest;",
-                "Let light perpetual shine upon them.",
+                "Let light perpetual shine upon them.\n",
                 "We praise you for your saints who have entered into joy;",
                 "May we also come to share in your heavenly kingdom."
             ])),
             Document::from(Text::from("Let us pray for our own needs and those of others.")),
-            Document::from(Rubric::from("Silence\n\nThe People may add their own petitions.")),
-            Document::from(Rubric::from("The Celebrant adds a concluding Collect"))
-        ])).page(387);
+            Document::from(Rubric::from("Silence\n\nThe People may add their own petitions.\n\nThe Celebrant adds a concluding Collect")),
+        ]))).page(387);
 
-        pub static ref FORM_IV: Document = Document::from(Series::from(vec![
-            Document::from(Heading::from((HeadingLevel::Heading3, "Form IV"))),
+        pub static ref FORM_IV: Document = Document::new()
+            .label("Form IV")
+            .content(Content::Series(Series::from(vec![
             Document::from(Rubric::from("Deacon or other leader")),
             Document::from(Text::from("Let us pray for the Church and for the world.")),
             Document::from(Text::from("Grant, Almighty God, that all who confess your Name may be united in your truth, live together in your love, and reveal your glory in the world.")),
@@ -146,10 +150,11 @@ mod pop {
                 "Hear our prayer."
             ])),
             Document::from(Rubric::from("The Celebrant adds a concluding Collect."))
-        ])).page(388);
+        ]))).page(388);
 
-        pub static ref FORM_V: Document = Document::from(Series::from(vec![
-            Document::from(Heading::from((HeadingLevel::Heading3, "Form V"))),
+        pub static ref FORM_V: Document = Document::new()
+            .label("Form V")
+            .content(Content::Series(Series::from(vec![
             Document::from(Rubric::from("Deacon or other leader")),
             Document::from(Text::from("In peace, let us pray to the Lord, saying, “Lord, have mercy.”")),
             Document::from(Litany::from((
@@ -180,10 +185,11 @@ mod pop {
             Document::from(Rubric::from("Silence")),
             Document::from(Rubric::from("The Celebrant adds a concluding Collect, or the following Doxology")),
             Document::from(Text::from("For yours is the majesty, O Father, Son, and Holy Spirit; yours is the kingdom and the power and the glory, now and for ever.").response("Amen."))
-        ])).version_label("Form V (Lord, have mercy.)");
+        ]))).version_label("Form V (Lord, have mercy.)");
 
-        pub static ref FORM_V_KYRIE: Document = Document::from(Series::from(vec![
-            Document::from(Heading::from((HeadingLevel::Heading3, "Form V"))),
+        pub static ref FORM_V_KYRIE: Document = Document::new()
+            .label("Form V")
+            .content(Content::Series(Series::from(vec![
             Document::from(Rubric::from("Deacon or other leader")),
             Document::from(Text::from("In peace, let us pray to the Lord, saying, Kyrie, eleison.”")),
             Document::from(Litany::from((
@@ -214,10 +220,11 @@ mod pop {
             Document::from(Rubric::from("Silence")),
             Document::from(Rubric::from("The Celebrant adds a concluding Collect, or the following Doxology")),
             Document::from(Text::from("For yours is the majesty, O Father, Son, and Holy Spirit; yours is the kingdom and the power and the glory, now and for ever.").response("Amen."))
-        ])).version_label("Form V (Kyrie, eleison.)");
+        ]))).version_label("Form V (Kyrie, eleison.)");
 
-        pub static ref FORM_VI: Document = Document::from(Series::from(vec![
-            Document::from(Heading::from((HeadingLevel::Heading3, "Form VI"))),
+        pub static ref FORM_VI: Document = Document::new()
+            .label("Form VI")
+            .content(Content::Series(Series::from(vec![
             Document::from(Rubric::from("The Leader and People pray responsively")),
             Document::from(Text::from("In peace, we pray to you, Lord God.")),
             Document::from(Rubric::from("Silence")),
@@ -259,6 +266,6 @@ mod pop {
                 Document::from(Text::from("Have mercy upon us, most merciful Father;\nin your compassion forgive us our sins,\nknown and unknown,\nthings done and left undone;\nand so uphold us by your Spirit\nthat we may live and serve you in newness of life,\nto the honor and glory of your Name;\nthrough Jesus Christ our Lord.").response("Amen.").display_format(DisplayFormat::Unison))
             ])).optional(),
             Document::from(Rubric::from("The Celebrant concludes with an absolution or a suitable Collect."))
-        ]));
+        ])));
     }
 }

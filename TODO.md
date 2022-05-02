@@ -21,12 +21,10 @@ Website Todos
     - [ ] Rite 1
     - [ ] EOW
   - [ ] LOC Eucharist
-    - [ ] Prayer B
-    - [ ] Prayer C
-    - [ ] Prayer D
     - [ ] Prayer 1
     - [ ] Prayer 2
-    - [ ] Prayers of the People
+    - [ ] Proper Prefaces
+    - [ ] Spanish Bible readings
 - [ ] Audio export
 - Burial Services
   - [ ] Integrate Additional Prayers into Prayers & THanksgivings
