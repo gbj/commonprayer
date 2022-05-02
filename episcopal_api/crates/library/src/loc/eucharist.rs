@@ -138,7 +138,7 @@ lazy_static! {
                 ("Celebrante", "Oremos.")
             ])).tags([COLLECT_OF_THE_DAY]),
             Document::from(Rubric::from("El Celebrante dice la Colecta.")).tags([COLLECT_OF_THE_DAY]),
-            Document::new().version(Version::LibroDeOracionComun)
+            Document::new().language(Language::Es).version(Version::LibroDeOracionComun)
                 .content(Content::CollectOfTheDay { allow_multiple: false })
                 .tags([COLLECT_OF_THE_DAY]),
             Document::new().display(Show::TemplateOnly)
@@ -187,7 +187,6 @@ lazy_static! {
             Document::new().display(Show::CompiledOnly)
                 .content(Series::from(vec![
                     Document::from(Rubric::from("El pueblo se sienta.")).tags([LESSONS_RUBRICS]),
-                    // TODO insert responses for these
                     Document::new().label("Primera Lectura")
                         .content(LectionaryReading {
                         reading_type: ReadingTypeTable::Preference(PreferenceKey::Global(GlobalPref::ReadingA)),
