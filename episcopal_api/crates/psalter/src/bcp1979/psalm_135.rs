@@ -64,8 +64,8 @@ lazy_static! {
                   },
                 PsalmVerse {
                       number: 11,
-                      a: String::from("Sihon, king of the Amorites,\nand Og, the kingdoms of Bashan, *"),
-                      b: String::from("and all the kings of Canaan.")
+                      a: String::from("Sihon, king of the Amorites,\nand Og, the kings of Bashan, *"),
+                      b: String::from("and all the kingdoms of Canaan.")
                   },
                 PsalmVerse {
                       number: 12,
