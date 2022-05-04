@@ -418,6 +418,16 @@ lazy_static! {
                 ]
             )).category("Translations"),
 
+            // Lectionary
+            LiturgyPreference::from((
+                PreferenceKey::from(GlobalPref::Lectionary),
+                "Lectionary",
+                [
+                    LiturgyPreferenceOption::from(("RCL (Track 1)", PreferenceValue::from(Lectionaries::RCLTrack1))),
+                    LiturgyPreferenceOption::from(("RCL (Track 2)", PreferenceValue::from(Lectionaries::RCLTrack2)))
+                ]
+            )).category("Lectionary"),
+
             // Readings
             LiturgyPreference::from((
                 PreferenceKey::from(GlobalPref::ReadingA),

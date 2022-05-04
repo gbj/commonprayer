@@ -4,6 +4,10 @@ Website Todos
 - [ ] USX Bibles
   - [x] Spanish
   - [ ] KJV
+- [ ] Building Rezoom
+  - [ ] EventDispatcher ID architecture
+  - [ ] Suspend + Resume components (by EventDispatcher ID)
+  - [ ] Pages
 - [ ] Editor (to speed up liturgy creation)
   - [ ] Preferences
   - [ ] Source is broken
