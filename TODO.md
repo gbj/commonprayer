@@ -32,7 +32,8 @@ Website Todos
     - [ ] Prayer 1
     - [ ] Prayer 2
     - [ ] Proper Prefaces
-    - [ ] Spanish Bible readings
+    - [ ] Translate preferences
+
 - [ ] Audio export
 - Burial Services
   - [ ] Integrate Additional Prayers into Prayers & THanksgivings
