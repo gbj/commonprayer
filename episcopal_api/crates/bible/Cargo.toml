@@ -1,0 +1,11 @@
+[package]
+name = "bible"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+liturgy = { path = "../liturgy" }
+roxmltree = "0.14"
+reference-parser = { path = "../reference-parser" }
+thiserror = "1"
+lazy_static = "1"

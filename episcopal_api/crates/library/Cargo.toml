@@ -8,6 +8,7 @@ serde = { version = "1", features = ["derive"]}
 lazy_static = '1.0'
 itertools = "0.10"
 api = { path = "../api" }
+bible = { path = "../bible" }
 hymnal = { path = "../hymnal" }
 language = { path = "../language" }
 lectionary = { path = "../lectionary" }

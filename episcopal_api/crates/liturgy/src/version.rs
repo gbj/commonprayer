@@ -1,3 +1,4 @@
+use language::Language;
 use std::{convert::TryFrom, fmt::Display, str::FromStr};
 use strum_macros::{EnumIter, IntoStaticStr};
 
@@ -34,6 +35,8 @@ pub enum Version {
     KJV,
     /// The Common English Bible
     CEB,
+    /// The Reina-Valera (1909)
+    RV09,
 }
 
 impl Version {
@@ -71,6 +74,7 @@ impl Display for Version {
             Version::ESV => "ESV",
             Version::KJV => "KJV",
             Version::CEB => "CEB",
+            Version::RV09 => "Reina-Valera",
             Version::Parallel => "Parallels",
         };
         write!(f, "{}", label)
@@ -106,6 +110,9 @@ impl TryFrom<&str> for Version {
             "CEB" => Ok(Self::CEB),
             "Parallels" => Ok(Self::Parallel),
             "Parallel" => Ok(Self::Parallel),
+            "Reina-Valera" => Ok(Self::RV09),
+            "RV" => Ok(Self::RV09),
+            "RV09" => Ok(Self::RV09),
             _ => Err(()),
         }
     }
@@ -116,5 +123,14 @@ impl FromStr for Version {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Self::try_from(s)
+    }
+}
+
+impl From<Version> for Language {
+    fn from(version: Version) -> Self {
+        match version {
+            Version::LibroDeOracionComun | Version::RV09 => Language::Es,
+            _ => Language::En,
+        }
     }
 }

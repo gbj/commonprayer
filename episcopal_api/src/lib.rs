@@ -1,4 +1,5 @@
 pub use api;
+pub use bible;
 pub use calendar;
 pub use canticle_table;
 pub use docx;

@@ -1,3 +1,4 @@
+use bible::OfflineBible;
 use calendar::{Calendar, LiturgicalDay, LiturgicalDayId, Rank, Weekday};
 use canticle_table::{CanticleId, CanticleTable};
 use itertools::Itertools;
@@ -148,20 +149,14 @@ pub trait Library {
                                 let intro = lectionary_reading.intro.as_ref().map(|intro| {
                                     BiblicalReadingIntro::from(intro.compile(&reading.citation))
                                 });
-                                Document {
-                                    content: Content::BiblicalCitation(BiblicalCitation {
-                                        citation: reading.citation,
-                                        intro,
-                                    }),
-                                    version: prefs
-                                        .value(&PreferenceKey::from(GlobalPref::BibleVersion))
-                                        .and_then(|value| match value {
-                                            PreferenceValue::Version(version) => Some(*version),
-                                            _ => None,
-                                        })
-                                        .unwrap_or(Version::NRSV),
-                                    ..document.clone()
-                                }
+                                let version = prefs
+                                    .value(&PreferenceKey::from(GlobalPref::BibleVersion))
+                                    .and_then(|value| match value {
+                                        PreferenceValue::Version(version) => Some(*version),
+                                        _ => None,
+                                    })
+                                    .unwrap_or(Version::NRSV);
+                                biblical_reading(&document, &reading.citation, intro, version)
                             }
                         });
 
@@ -621,6 +616,32 @@ pub trait Library {
                 // Every else just passes through as is
                 _ => Some(document),
             }
+        }
+    }
+}
+
+fn biblical_reading(
+    document: &Document,
+    citation: &str,
+    intro: Option<BiblicalReadingIntro>,
+    version: Version,
+) -> Document {
+    let language = Language::from(version);
+    // Versions that are available offline => BiblicalReading with content loaded synchronously
+    if version == Version::RV09 {
+        bible::ReinaValera::get_citation(citation)
+            .unwrap_or_else(|e| Document::from(DocumentError::from(e.to_string())))
+    }
+    // Other versions get a BiblicalCitation and are loaded asynchronously
+    else {
+        Document {
+            content: Content::BiblicalCitation(BiblicalCitation {
+                citation: citation.to_string(),
+                intro,
+            }),
+            version,
+            language,
+            ..document.clone()
         }
     }
 }

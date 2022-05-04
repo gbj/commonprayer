@@ -1,6 +1,9 @@
 Website Todos
 =============
 
+- [ ] USX Bibles
+  - [x] Spanish
+  - [ ] KJV
 - [ ] Editor (to speed up liturgy creation)
   - [ ] Preferences
   - [ ] Source is broken
@@ -8,6 +11,7 @@ Website Todos
   - [ ] Add preferences
 - Eucharist
   - [ ] Commented todos
+  - [ ] Word export broken in parallels
   - [x] Prayers of the People
     - [ ] link to these in renaming service 
   - [ ] Proper Prefaces

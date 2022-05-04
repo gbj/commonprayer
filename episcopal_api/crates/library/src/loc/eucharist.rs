@@ -434,6 +434,7 @@ lazy_static! {
                 PreferenceKey::from(GlobalPref::BibleVersion),
                 "Bible Version",
                 [
+                    LiturgyPreferenceOption::from(Version::RV09),
                     LiturgyPreferenceOption::from(Version::NRSV),
                     LiturgyPreferenceOption::from(Version::CEB),
                     LiturgyPreferenceOption::from(Version::ESV),

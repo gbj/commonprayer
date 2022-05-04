@@ -9,6 +9,7 @@ edition = "2018"
 
 [dependencies]
 api = { path = "crates/api" }
+bible = { path = "crates/bible" }
 calendar = { path = "crates/calendar" }
 canticle-table = { path = "crates/canticle-table" }
 docx = { path = "crates/export/docx" }
