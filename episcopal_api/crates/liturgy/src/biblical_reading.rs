@@ -19,6 +19,12 @@ pub type BiblicalReadingText = Vec<(BibleVerse, String)>;
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct BiblicalReadingIntro(Box<Document>);
 
+impl BiblicalReadingIntro {
+    pub fn as_document(&self) -> &Document {
+        &self.0
+    }
+}
+
 impl From<Document> for BiblicalReadingIntro {
     fn from(document: Document) -> Self {
         Self(Box::new(document))

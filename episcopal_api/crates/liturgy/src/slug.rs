@@ -8,10 +8,14 @@ use strum_macros::{Display, EnumString};
 
 use crate::Version;
 
-#[derive(Clone, Debug, Hash, PartialEq, Eq)]
+#[derive(Clone, Default, Debug, Hash, PartialEq, Eq)]
 pub struct SlugPath(Vec<Slug>);
 
 impl SlugPath {
+    pub fn new() -> Self {
+        Self::default()
+    }
+
     pub fn as_slice(&self) -> &[Slug] {
         self.0.as_slice()
     }

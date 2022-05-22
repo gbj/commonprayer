@@ -6,7 +6,7 @@ use crate::{Choice, Content, Document, Liturgy, Parallel};
 #[derive(Clone, Debug, Default, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Series {
     children: Vec<Document>,
-    #[serde(skip_serializing_if = "crate::is_false", default)]
+    //#[serde(skip_serializing_if = "crate::is_false", default)]
     indivisible: bool,
 }
 

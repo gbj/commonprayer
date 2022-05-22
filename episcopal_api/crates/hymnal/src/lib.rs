@@ -1,7 +1,10 @@
+use std::str::FromStr;
+
 use serde::{
     de::{Error, Unexpected},
     Deserialize, Serialize,
 };
+use thiserror::Error;
 
 mod el_himnario;
 mod h82;
@@ -36,6 +39,28 @@ impl std::fmt::Display for Hymnals {
     }
 }
 
+#[derive(Copy, Clone, Error, Debug, PartialEq, Eq, Hash)]
+pub enum HymnalFromStrError {
+    #[error("could not find hymnal")]
+    NotFound
+}
+
+impl FromStr for Hymnals {
+    type Err = HymnalFromStrError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "H82" => Ok(Hymnals::Hymnal1982),
+            "Hymnal1982" => Ok(Hymnals::Hymnal1982),
+            "LEVAS" => Ok(Hymnals::LEVAS),
+            "WLP" => Ok(Hymnals::WLP),
+            "El Himnario" => Ok(Hymnals::ElHimnario),
+            "ElHimnario" => Ok(Hymnals::ElHimnario),
+            _ => Err(HymnalFromStrError::NotFound)
+        }
+    }
+}
+
 impl From<Hymnals> for Hymnal {
     fn from(h: Hymnals) -> Self {
         match h {
@@ -59,7 +84,7 @@ impl Hymnals {
     }
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Hymnal {
     pub id: Hymnals,
     pub title: String,
@@ -71,6 +96,13 @@ pub struct Hymnal {
 }
 
 impl Hymnal {
+    pub fn to_metadata(&self) -> Self {
+        Self {
+            hymns: Vec::new(),
+            ..self.clone()
+        }
+    }
+
     pub fn search(&self, search: &str) -> impl Iterator<Item = HymnNumber> + '_ {
         let orig_search = search.to_string();
         let search = orig_search.clone();
@@ -119,7 +151,7 @@ fn strip_non_word_characters(original: &str) -> String {
         || ('0'..='9').contains(ch)).collect()
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Hymn {
     #[serde(skip_serializing_if = "Hymnals::is_default", default)]
     pub source: Hymnals,
@@ -148,6 +180,34 @@ pub struct Hymn {
     pub tags: Vec<String>,
 }
 
+impl Hymn {
+    pub fn to_metadata(&self) -> HymnMetadata {
+        let text_empty = self.text.is_empty();
+        let Hymn { title, tune, copyright_restriction, authors, composers, meter, tags, .. } = self.clone();
+        HymnMetadata { title, tune, copyright_restriction, text_empty, authors, composers, meter, tags }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct HymnMetadata {
+    #[serde(skip_serializing_if = "String::is_empty", default)]
+    pub title: String,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
+    pub tune: String,
+    #[serde(skip_serializing_if = "is_false", default)]
+    pub copyright_restriction: bool,
+    #[serde(skip_serializing_if = "is_false", default)]
+    pub text_empty: bool,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
+    pub authors: String,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
+    pub composers: String,
+    #[serde(skip_serializing_if = "String::is_empty", default)]
+    pub meter: String,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub tags: Vec<String>,
+}
+
 fn is_zero(number: &u16) -> bool {
     *number == 0
 }
@@ -168,6 +228,48 @@ impl std::fmt::Display for HymnNumber {
             HymnNumber::S(n) => write!(f, "S{}", n),
             HymnNumber::H(n) => write!(f, "{}", n),
         }
+    }
+}
+
+#[derive(Clone, Error, Debug, PartialEq, Eq, Hash)]
+pub enum HymnNumberFromStrError {
+    #[error("could not parse hymn number")]
+    InvalidNumber(String)
+}
+
+
+impl FromStr for HymnNumber {
+    type Err = HymnNumberFromStrError;
+
+    fn from_str(st: &str) -> Result<Self, Self::Err> {
+        let s = st.starts_with('S') || st.starts_with("#S");
+        let n = st
+            .replace('#', "")
+            // strip out S-whatever to get plain number
+            .replace("S-", "")
+            .replace("S ", "")
+            .replace('S', "")
+            // strip out alternates/parts
+            .replace('a', "")
+            .replace('b', "")
+            .replace('c', "")
+            .replace('d', "")
+            .replace('e', "")
+            .parse::<u16>()
+            .map_err(|_| {
+                HymnNumberFromStrError::InvalidNumber(st.to_string())
+            })?;
+        if s {
+            Ok(HymnNumber::S(n))
+        } else {
+            Ok(HymnNumber::H(n))
+        }
+    }
+}
+
+impl Default for HymnNumber {
+    fn default() -> Self {
+        HymnNumber::H(1)
     }
 }
 

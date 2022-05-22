@@ -1,0 +1,39 @@
+.subtitle {
+  font-style: italic;
+  font-weight: normal;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.email,
+.github {
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  background-origin: content-box;
+  background-position: left center;
+  background-repeat: no-repeat;
+  margin-right: 1rem;
+}
+
+.email > *,
+.github > * {
+  margin-left: 2rem;
+}
+
+.github,
+.github:visited {
+  background-image: url("/static/icons/tabler-icon-brand-github.svg");
+  background-color: rgb(37, 41, 46);
+  color: #f0f0f0;
+}
+
+.email,
+.email:visited {
+  background-image: url("/static/icons/tabler-icon-mail.svg");
+  background-color: var(--link-color);
+  color: var(--background);
+}

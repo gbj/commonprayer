@@ -1,0 +1,699 @@
+.section-summary, .section-summary ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+/* Styles for Episcopal API documents that have been rendered into HTML */
+.psalm-verses-hidden {
+  --psalm-number-display: none;
+  --psalm-grid-display: block;
+  --psalm-verse-grid: "a a" "spacing b";
+  --psalm-verse-grid-template-columns: 1.5rem 1fr;
+}
+
+/* Utility Classes */
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.lord {
+  font-variant: small-caps;
+}
+
+/** Document Header (label, citation, etc.) */
+.document h3,
+.document h4 {
+  font-size: 1rem;
+}
+
+.document > header,
+.psalm > section > header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: middle;
+}
+
+.document > header > *,
+.psalm > section > header > * {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+a.reference {
+  display: block;
+  margin-left: auto;
+  font-size: var(--rubric-size);
+}
+
+.source-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 0 2rem;
+}
+
+a.source-link {
+  text-decoration: none;
+  color: inherit;
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  background-color: var(--source-link-background);
+  max-width: 8rem;
+  text-align: center;
+  display: block;
+  margin: auto;
+}
+
+a.source-link > span {
+  display: block;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.document > header .citation {
+  font-weight: normal;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+/* Label/Subtitle */
+.label-and-subtitle {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.label-and-subtitle.hidden {
+  display: none;
+}
+
+.label-and-subtitle h3 {
+  display: inline-block;
+}
+
+.label-and-subtitle > * {
+  padding: 0.5rem 0;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.subtitle {
+  display: inline-block;
+  font-weight: normal;
+  margin-left: 2rem;
+  font-style: italic;
+}
+
+/** Document Content Types */
+
+/* Margin after each document in a series */
+.series > .document {
+  margin-bottom: 1rem;
+}
+
+.series > .document > .lookup {
+  margin-top: 1rem;
+}
+
+/* Parallels */
+.parallel {
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  justify-content: left;
+}
+
+.parallel > .document {
+  margin-right: 1rem;
+  flex: 1;
+}
+
+/* Error */
+.document.error {
+  color: var(--rubric-color);
+}
+
+/* Heading */
+.heading > h1 {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.heading > .date,
+.heading.day > * {
+  text-align: center;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.heading.day ul,
+.heading.day li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Rubric */
+.rubric {
+  color: var(--rubric-color);
+  font-style: italic;
+  font-size: var(--rubric-size);
+  white-space: pre-wrap;
+}
+
+.rubric-long {
+  font-size: 0.9rem;
+}
+
+/* Preces */
+.preces {
+  display: table;
+  margin-top: 1rem;
+}
+
+.preces > .line {
+  display: table-row;
+}
+
+.preces > .line > .label,
+.preces > .line > .text {
+  display: table-cell;
+  white-space: pre-wrap;
+}
+
+.preces > .line > .label {
+  padding-right: 0.5rem;
+}
+
+/* Responses to things */
+.response,
+.preces > .line:nth-child(2n) .text,
+.unison {
+  font-weight: var(--response-weight);
+  font-style: var(--response-style);
+}
+
+/* Gloria */
+.gloria-patri p {
+  font-style: inherit;
+  margin-bottom: 0;
+  margin: 0;
+}
+
+.gloria-patri br {
+  display: none;
+}
+
+.gloria-patri .a,
+.gloria-patri .b,
+.gloria-patri .c,
+.gloria-patri .d {
+  display: block;
+}
+
+.gloria-patri .b,
+.gloria-patri .d {
+  margin-left: 1rem;
+}
+
+.gloria-patri .a::after,
+.gloria-patri .c::after {
+  content: " * ";
+}
+
+@media (min-width: 450px) {
+  .gloria-patri {
+    margin-left: 2rem;
+    text-indent: -2rem;
+  }
+
+  .gloria-patri br {
+    display: block;
+  }
+
+  .gloria-patri .a,
+  .gloria-patri .b,
+  .gloria-patri .c,
+  .gloria-patri .d {
+    display: inline;
+  }
+
+  .gloria-patri .b,
+  .gloria-patri .d {
+    margin-left: 0;
+  }
+
+  .gloria-patri .a::after,
+  .gloria-patri .c::after {
+    content: " ";
+  }
+
+  .gloria-patri .b::after {
+    content: " * ";
+  }
+}
+
+/* Invitatory */
+.document > header.invitatory-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0.5rem 0;
+  justify-content: start;
+}
+
+.document > header.invitatory-header > * {
+  margin: 0;
+}
+
+.document > header.invitatory-header .local-name,
+.document > header.invitatory-header .citation {
+  margin-right: 3rem;
+}
+
+.document > header.invitatory-header .citation,
+.document > header.invitatory-header .latin-name {
+  display: inline-block;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.invitatory section {
+  margin: 0.5rem 0;
+}
+
+/* Antiphons */
+.antiphon {
+  font-style: italic;
+}
+
+.repeat-antiphon {
+  display: none;
+}
+
+/* Psalm */
+.psalm > section > header,
+.psalm > section > main {
+  margin-bottom: 1rem;
+}
+
+.psalm > section > main > .verse > sup.number {
+  display: var(--psalm-number-display);
+  grid-area: number;
+  margin-right: 1em;
+}
+
+.psalm > section > main > .verse,
+.invitatory > section > main > .verse {
+  display: grid;
+  grid-template-rows: auto;
+  margin: 0;
+}
+
+.psalm > section > main > .verse {
+  grid-template-columns: var(
+    --psalm-verse-grid-template-columns,
+    1.5rem 1.5rem 1fr
+  );
+  grid-template-areas: var(
+    --psalm-verse-grid,
+    "number a a" "spacing spacing b"
+  );
+}
+
+.invitatory > section > main > .verse {
+  grid-template-columns: 1.5rem 1fr;
+  grid-template-areas: "a a" "spacing b";
+}
+
+.psalm > section > main > .verse > .a,
+.invitatory > section > main > .verse > .a {
+  display: block;
+  grid-area: a;
+  white-space: pre-wrap;
+}
+.psalm > section > main > .verse > .b,
+.invitatory > section > main > .verse > .b {
+  grid-area: b;
+  white-space: pre-wrap;
+}
+
+/* Psalm/Canticle */
+.document header.psalm-header,
+.document header.canticle-header {
+  display: grid;
+  margin: 1rem 0;
+}
+
+.document header.psalm-header > * {
+  margin: 0;
+  padding: 0;
+}
+
+.document header.psalm-header {
+  grid-template-areas: "number blank blank" "number latin reference";
+  grid-template-columns: 5rem 0.5fr 0.5fr;
+}
+
+.document header.psalm-header .latin-name {
+  padding-bottom: 0.25rem;
+}
+
+.document header.psalm-header.with-local-name {
+  grid-template-columns: 5rem 0.5fr 0.5fr;
+  grid-template-areas: "number number reference" "local latin latin";
+}
+
+.document header.psalm-header.section.with-local-name {
+  grid-template-columns: 5rem 1fr;
+  grid-template-areas: "local latin";
+}
+
+.document header.psalm-header .local-name {
+  grid-area: local;
+  font-size: 1rem;
+}
+
+.document header.with-local-name .local-name,
+.document header.with-local-name .latin-name {
+  padding: 0;
+}
+
+.document header.psalm-header .latin-name {
+  grid-area: latin;
+}
+
+.document header.psalm-header .reference {
+  grid-area: reference;
+  text-align: right;
+}
+
+.psalm-header .psalm-number,
+.canticle-header .canticle-number {
+  margin: 0;
+  padding: 0;
+  grid-area: number;
+  font-size: 2.5rem;
+  margin-top: -0.25rem;
+}
+
+.psalm-header {
+  vertical-align: bottom;
+}
+
+/* Canticle */
+.document .canticle-swap-menu {
+  display: flex;
+  justify-content: right;
+}
+
+.document .canticle-swap-menu .menu-content.shown {
+  background: var(--background);
+  height: 450px;
+  width: 450px;
+  max-height: calc(90vh - 2rem);
+  max-width: calc(90vw - 2rem);
+  overflow-y: scroll;
+}
+
+.document .canticle-swap-menu .menu-content header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.document .canticle-swap-menu .menu-content main ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.document .canticle-swap-menu .menu-content main ul li {
+  margin: 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.document .canticle-swap-menu .menu-content main ul li:hover {
+  cursor: pointer;
+  background: var(--border-color);
+}
+
+.document .canticle-swap-menu button {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.25rem;
+  border: 0;
+  color: var(--link-color);
+  background: var(--background);
+  margin-left: auto; /* only for Safari's benefit... */
+  font-size: 1rem;
+}
+
+.document .canticle-swap-menu button img {
+  filter: var(--link-color-filter);
+}
+
+.canticle-swap-menu button:hover {
+  cursor: pointer;
+}
+
+.document .canticle-swap-menu img {
+  height: 1rem;
+  width: auto;
+  margin-right: 0.25rem;
+}
+
+.document header.canticle-header {
+  grid-template-areas: "number local latin" "number citation citation";
+  grid-template-columns: 4rem 0.5fr 0.5fr 3rem;
+}
+
+.canticle-header h4.local-name {
+  margin: 0;
+  padding: 0;
+  grid-area: local;
+  line-height: 1.25rem;
+}
+
+.canticle-header .latin-name {
+  grid-area: latin;
+  line-height: 1.25rem;
+}
+
+.canticle-header .citation {
+  font-style: italic;
+  grid-area: citation;
+  line-height: 1.25rem;
+}
+
+.canticle section main .verse {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: var(--psalm-verse-grid, "a a" "spacing b");
+  margin: 0;
+}
+
+.canticle section {
+  margin-bottom: 1rem;
+}
+
+.canticle section main .verse .a {
+  display: block;
+  grid-area: a;
+  white-space: pre-wrap;
+}
+.canticle section main .verse .b {
+  grid-area: b;
+  white-space: pre-wrap;
+}
+
+.canticle .canticle-section-title {
+  font-weight: normal;
+  font-style: italic;
+  margin: 1rem 0;
+}
+
+.canticle .rubric {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* Choice */
+l-choice-view > div {
+  display: none;
+}
+
+l-choice-view input[type=radio]:checked+label+div {
+  display: block;
+}
+
+/* Text */
+.text p {
+  white-space: pre-wrap;
+}
+
+/* Sentence */
+.sentence .citation {
+  font-style: italic;
+  font-size: var(--rubric-size);
+  margin-left: 2rem;
+}
+
+/* Biblical Reading */
+.biblical-reading {
+  white-space: pre-wrap;
+}
+
+.biblical-reading sup.verse-number {
+  margin-right: 0.25rem;
+  font-size: 0.6rem;
+}
+
+.biblical-reading .reading-intro {
+  margin-bottom: 1rem;
+}
+
+.bible-verses-hidden sup.verse-number {
+  display: none;
+}
+
+/* Litany */
+.litany span {
+  white-space: pre-wrap;
+}
+
+.litany .optional {
+  border-left: 2px solid var(--color);
+  padding-left: 0.5rem;
+}
+
+/* Lookups */
+.lookup {
+  border-radius: var(--border-radius);
+  font-style: italic;
+  margin: 0.5rem 0;
+}
+
+.lookup a,
+.lookup a:visited {
+  display: block;
+  color: inherit;
+  padding: 0.5rem;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.lookup.collect-of-the-day {
+  background-color: #ccff66;
+  color: black;
+}
+
+.lookup.category {
+  background-color: #fba5a5;
+  color: black;
+}
+
+.lookup.canticle-table-entry {
+  background-color: #bd8fec;
+  color: black;
+}
+
+.lookup.document {
+  background-color: #febfb7;
+  color: black;
+}
+
+.lookup.hymnal {
+  background-color: #b8c9f1;
+  color: black;
+}
+
+.lookup.lectionary {
+  background-color: #f1e8b8;
+  color: black;
+}
+
+/* Liturgy Preference Menu */
+@media (min-width: 400px) {
+  .liturgy-preferences label {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .liturgy-preferences label > * {
+    width: 50%;
+  }
+
+  .liturgy-preferences select {
+    text-align: center;
+  }
+}
+
+.document:not(.selected) {
+  margin: -1px;
+  padding: 1px;
+}
+
+.document.selected {
+  background: var(--selected-background);
+  border: 1px solid var(--selected-border);
+  margin: -1px;
+}
+
+.manual-select {
+  display: block;
+  float: right;
+}
+
+.manual-select.hidden {
+  display: none;
+}
+
+.document.optional {
+  border-left: 2px solid var(--color);
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+/* Breadcrumb navigation */
+.breadcrumb ol {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-left: 0;
+}
+
+.breadcrumb li {
+  display: flex;
+  flex-direction: row;
+}
+
+.breadcrumb li a {
+  margin-right: 0.25rem;
+  max-width: 20vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.breadcrumb a {
+  font: var(--ui-font);
+  text-decoration: none;
+}

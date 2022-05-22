@@ -1,0 +1,67 @@
+main {
+  display: block;
+  margin: auto;
+  max-width: calc(100vw - calc(2 * var(--page-padding)));
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+h2.day-name {
+  font-style: italic;
+  font-weight: normal;
+}
+
+.black-letter-days {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.black-letter-days.hidden {
+  display: none;
+}
+
+.toggle.no-observance {
+  visibility: hidden;
+}
+
+.reading-link-table {
+  display: flex;
+  flex-direction: row;
+}
+
+.reading-link-table.hidden {
+  display: none;
+}
+
+.reading-link-table table {
+  width: 100%;
+}
+
+.reading-link-table tr {
+  vertical-align: top;
+}
+
+.reading-link-table td {
+  text-align: center;
+}
+
+.reading-link-table ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.redirect-links {
+  margin-top: 2rem;
+  text-align: center;
+  font-style: italic;
+}

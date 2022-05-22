@@ -1,0 +1,3 @@
+::slotted(input[type=radio]) {
+	display: none;
+}

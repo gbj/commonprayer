@@ -1,0 +1,114 @@
+/* Mobile/phone-size: calendar as rows */
+.weekday-label {
+  display: none;
+}
+
+.month {
+  display: flex;
+  flex-direction: column;
+}
+
+.day.sunday > * {
+  font-weight: bold;
+  padding-top: 1rem;
+}
+
+.day > .month-number {
+  padding-right: 0.5rem;
+}
+
+.month {
+  display: table;
+}
+
+.day {
+  display: table-row;
+  vertical-align: top;
+}
+
+.day > * {
+  display: table-cell;
+}
+
+a.alternative {
+  margin-top: 0.5rem;
+}
+
+ul.other-notes {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  display: block;
+  margin-left: auto;
+  font-size: 0.9rem;
+  font-variant: small-caps;
+}
+
+/* Tablet/desktop: true calendar view */
+@media (min-width: 767px) {
+  :root {
+    --main-width: min(1000px, 100vw);
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .day,
+  .padding,
+  .weekday-label {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 0.5rem;
+    width: calc((var(--main-width) / 7) - 2px - 2rem);
+  }
+
+  .day.sunday > *,
+  .day > .month-number {
+    padding: 0;
+  }
+
+  .weekday-label {
+    text-align: center;
+    font-weight: bold;
+    margin: 1px;
+  }
+
+  .day,
+  .padding {
+    min-height: calc((var(--main-width) / 7) - 2px - 2rem);
+  }
+
+  .padding {
+    margin: 1px;
+  }
+
+  .day {
+    border: 1px solid var(--border-color);
+  }
+
+  .month {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  body > main.lectionary.calendar {
+    width: var(--main-width);
+  }
+
+  ul.other-notes {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: block;
+    margin-top: auto;
+    padding-top: 1rem;
+    font-size: 0.9rem;
+    font-variant: small-caps;
+  }
+}
