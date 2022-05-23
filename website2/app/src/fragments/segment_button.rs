@@ -37,37 +37,20 @@ where
                     None => view! { <p></p> },
                 };
 
-                if value == self.value {
-                    view! {
-                        <>
-                            <input
-                                type="radio"
-                                id={&id}
-                                name={&self.name}
-                                value={idx}
-                                checked
-                                on:change={let msg_fn = self.msg_fn.clone(); move |_| (msg_fn)(&value)}
-                            />
-                            <label for={&id}>
-                                {label}
-                            </label>
-                        </>
-                    }
-                } else {
-                    view! {
-                        <>
-                            <input
-                                type="radio"
-                                id={&id}
-                                name={&self.name}
-                                value={idx}
-                                on:change={let msg_fn = self.msg_fn.clone(); move |_| (msg_fn)(&value)}
-                            />
-                            <label for={&id}>
-                                {label}
-                            </label>
-                        </>
-                    }
+                view! {
+                    <>
+                        <input
+                            type="radio"
+                            id={&id}
+                            name={&self.name}
+                            value={idx}
+                            on:change={let msg_fn = self.msg_fn.clone(); move |_| (msg_fn)(&value)}
+                            prop:checked={self.value == value}
+                        />
+                        <label for={&id}>
+                            {label}
+                        </label>
+                    </>
                 }
             })
             .collect::<Vec<_>>();
