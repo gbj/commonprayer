@@ -103,42 +103,46 @@ impl Hymnal {
         }
     }
 
-    pub fn search(&self, search: &str) -> impl Iterator<Item = HymnNumber> + '_ {
-        let orig_search = search.to_string();
-        let search = orig_search.clone();
-
-        let tag = if search.starts_with("tag:") {
-            Some(search.replace("tag:", ""))
+    pub fn search(&self, search: &str) -> impl Iterator<Item = HymnMetadata> + '_ {
+        if search.is_empty() {
+            Box::new(self.hymns.iter().map(Hymn::to_metadata)) as Box<dyn Iterator<Item = HymnMetadata>>
         } else {
-            None
-        };
+            let orig_search = search.to_string();
+            let search = orig_search.clone();
 
-        self
-            .hymns
-            .iter()
-            .filter(move |hymn| {
-                if let Some(tag) = &tag {
-                    hymn.tags.contains(tag)
-                } else {
-                    let search = strip_non_word_characters(&search.to_lowercase());
-                    let number = strip_non_word_characters(&hymn.number.to_string().to_lowercase());
-                    let title = strip_non_word_characters(&hymn.title.to_lowercase());
-                    let tune = strip_non_word_characters(&hymn.tune.to_lowercase());
-                    let authors = strip_non_word_characters(&hymn.authors.to_lowercase());
-                    let composers = strip_non_word_characters(&hymn.composers.to_lowercase());
-                    let text = strip_non_word_characters(&hymn.text.to_lowercase());
+            let tag = if search.starts_with("tag:") {
+                Some(search.replace("tag:", ""))
+            } else {
+                None
+            };
 
-                    number.contains(&search)
-                        || title.contains(&search)
-                        || tune.contains(&search)
-                        || authors.contains(&search)
-                        || composers.contains(&search)
-                        || hymn.meter.contains(&orig_search)
-                        || text.contains(&search)
-                }
-            })
-            .map(|hymn| hymn.number)
-        }
+            Box::new(self
+                .hymns
+                .iter()
+                .filter(move |hymn| {
+                    if let Some(tag) = &tag {
+                        hymn.tags.contains(tag)
+                    } else {
+                        let search = strip_non_word_characters(&search.to_lowercase());
+                        let number = strip_non_word_characters(&hymn.number.to_string().to_lowercase());
+                        let title = strip_non_word_characters(&hymn.title.to_lowercase());
+                        let tune = strip_non_word_characters(&hymn.tune.to_lowercase());
+                        let authors = strip_non_word_characters(&hymn.authors.to_lowercase());
+                        let composers = strip_non_word_characters(&hymn.composers.to_lowercase());
+                        let text = strip_non_word_characters(&hymn.text.to_lowercase());
+
+                        number.contains(&search)
+                            || title.contains(&search)
+                            || tune.contains(&search)
+                            || authors.contains(&search)
+                            || composers.contains(&search)
+                            || hymn.meter.contains(&orig_search)
+                            || text.contains(&search)
+                    }
+                })
+                .map(|hymn| hymn.to_metadata()))
+            }
+    }
 }
 
 fn strip_non_word_characters(original: &str) -> String {
@@ -183,13 +187,16 @@ pub struct Hymn {
 impl Hymn {
     pub fn to_metadata(&self) -> HymnMetadata {
         let text_empty = self.text.is_empty();
-        let Hymn { title, tune, copyright_restriction, authors, composers, meter, tags, .. } = self.clone();
-        HymnMetadata { title, tune, copyright_restriction, text_empty, authors, composers, meter, tags }
+        let Hymn { source, number, title, tune, copyright_restriction, authors, composers, meter, tags, .. } = self.clone();
+        HymnMetadata { source, number, title, tune, copyright_restriction, text_empty, authors, composers, meter, tags }
     }
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct HymnMetadata {
+    #[serde(skip_serializing_if = "Hymnals::is_default", default)]
+    pub source: Hymnals,
+    pub number: HymnNumber,
     #[serde(skip_serializing_if = "String::is_empty", default)]
     pub title: String,
     #[serde(skip_serializing_if = "String::is_empty", default)]
@@ -198,11 +205,11 @@ pub struct HymnMetadata {
     pub copyright_restriction: bool,
     #[serde(skip_serializing_if = "is_false", default)]
     pub text_empty: bool,
-    #[serde(skip_serializing_if = "String::is_empty", default)]
+   // #[serde(skip_serializing_if = "String::is_empty", default)]
     pub authors: String,
-    #[serde(skip_serializing_if = "String::is_empty", default)]
+   // #[serde(skip_serializing_if = "String::is_empty", default)]
     pub composers: String,
-    #[serde(skip_serializing_if = "String::is_empty", default)]
+   // #[serde(skip_serializing_if = "String::is_empty", default)]
     pub meter: String,
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub tags: Vec<String>,
