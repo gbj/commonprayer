@@ -28,7 +28,6 @@ export function make_custom_element(
         for (const propertyName of observedProperties) {
           Object.defineProperty(this, propertyName, {
             set(value) {
-              console.log("trying to set", propertyName, "to", value);
               return this._setProperty(propertyName, value);
             }
           });
@@ -36,7 +35,6 @@ export function make_custom_element(
       }
 
       attributeChangedCallback(name, oldValue, newValue) {
-        console.log(this.tagName, name, oldValue, newValue);
         this._attributeChangedCallback(this, name, oldValue || "", newValue);
       }
 
