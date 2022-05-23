@@ -3,98 +3,6 @@ main {
     Times New Roman, serif;
 }
 
-.hymn-listing {
-  display: flex;
-  flex-direction: column;
-  margin: 0.5rem 0;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.hymn-listing .primary {
-  display: flex;
-  flex-direction: row;
-  align-items: top;
-}
-
-.hymn-listing .secondary {
-  display: flex;
-  flex-direction: row;
-}
-
-.hymn-listing .secondary > * {
-  display: flex;
-  flex-direction: column;
-  padding-left: 2rem;
-  justify-content: space-between;
-}
-
-.hymn-listing .tag-list {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: right;
-  flex-wrap: wrap;
-  padding: 0.25rem;
-  padding-left: 2rem;
-  margin: 0;
-  margin-bottom: 0.5rem;
-}
-
-.hymn-listing .tag-list li {
-  list-style-type: none;
-  margin-left: 0.5rem;
-}
-
-.hymn-listing .tag-list li a::before {
-  content: "#";
-}
-
-.hymn-listing .tag-list li a,
-.hymn-listing .tag-list li a:visited {
-  border-radius: 0.5rem;
-  color: var(--link-color);
-  padding: 0.25rem;
-  font-size: 0.8rem;
-  text-decoration: none;
-}
-
-.hymn-listing.hidden {
-  display: none;
-}
-
-.hymn-listing img {
-  height: 1rem;
-}
-
-.hymn-listing .music-available {
-  width: 1rem;
-}
-
-.hymn-listing .text-available {
-  width: 1rem;
-}
-
-.hymn-listing .number {
-  width: 2.5rem;
-}
-
-.hymn-listing .label {
-  font-variant: small-caps;
-}
-
-.hymn-listing .meter {
-  text-align: right;
-  display: block;
-  margin-left: auto;
-  font-variant: small-caps;
-}
-
-.hymn-listing .composer,
-.hymn-listing .author,
-.hymn-listing .meter {
-  font-size: 0.9rem;
-}
-
 h2,
 h3,
 h4 {
@@ -116,11 +24,6 @@ td {
 
 .tune {
   font-variant: small-caps;
-}
-
-.hymn-listing .tune {
-  text-align: right;
-  margin-left: auto;
 }
 
 dt {

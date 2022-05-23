@@ -259,7 +259,7 @@ impl Component for HymnMedia {
 impl HymnMedia {
     fn videos(&self) -> Node {
         match &self.video_results {
-            FetchStatus::Idle => text(""),
+            FetchStatus::Idle => text(t!("loading")),
             FetchStatus::Loading => text(t!("loading")),
             FetchStatus::Error(_) => view! {
                 <p class="error">{t!("hymnal.video_error")}</p>
