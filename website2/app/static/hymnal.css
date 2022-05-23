@@ -160,6 +160,7 @@ main footer {
   font-style: italic;
 }
 
-l-hymnal-search article:first-of-type {
-  padding-top: 100px;
+l-hymnal-search {
+  display: block;
+  height: 8rem;
 }

@@ -4,6 +4,7 @@
 // - search already given from server side
 // - hashtags for categories
 
+mod hymn_wrapper;
 mod hymnal_search;
 
 use std::collections::HashSet;
@@ -15,6 +16,7 @@ use leptos2::*;
 use crate::views::*;
 use hymnal::{HymnMetadata, HymnNumber, Hymnal, Hymnals};
 
+pub use hymn_wrapper::HymnWrapper;
 pub use hymnal_search::HymnalSearch;
 
 #[derive(Clone, Deserialize)]
@@ -170,16 +172,14 @@ pub fn body(locale: &str, props: &HymnalPageState) -> Vec<Node> {
             <main>
                 <HymnalSearch
                     locale={locale}
-                    hymnal-count={hymnals.len()}
                     search={search_results.as_ref().map(|(_, search)| search).cloned().unwrap_or_default()}
-                    //prop:latest-search-results={ser_attr!(search_results.as_ref().map(|(res, _)| res).cloned())}
-                    prop:hymns={Box::new(hymns_toc)}
-                    prop:metadata={Box::new(metadata)}
                 >
-                {
-                    hymns_full.iter().map(|(hymnal, number, hymn_data)| hymn(locale, *hymnal, *number, hymn_data)).collect::<Vec<_>>()
-                }
                 </HymnalSearch>
+                {
+                    hymns_full.iter()
+                        .map(|(hymnal, number, hymn_data)| hymn(locale, *hymnal, *number, hymn_data))
+                        .collect::<Vec<_>>()
+                }
             </main>
         </>
     }
@@ -201,61 +201,63 @@ fn hymn(locale: &str, hymnal: Hymnals, number: HymnNumber, hymn: &HymnMetadata) 
     .to_lowercase();
 
     view! {
-            <article class="hymn-listing" slot="hymns"> //data-id={ser_attr!((hymnal, number))}>
-            <a id={&format!("{:#?}-{}", hymnal, number_str)}></a>
-            <div class="primary">
-                <span class="music-available">
-                    {if hymn.copyright_restriction {
-                        None
-                    } else {
-                        Some(view! { <img src={Icon::Music.to_string()} alt={t!("hymnal.music_available")}/> })
-                    }}
-                </span>
-                <span class="text-available">
-                    {if hymn.text_empty {
-                        ""
-                    } else {
-                        "T"
-                    }}
-                </span>
-                <a class="number" href={&link}>{number_str}</a>
-                <a class="title" href={&link}>{&hymn.title}</a>
-                <span class="tune">{&tune_name}</span>
-            </div>
-            <div class="secondary">
-                <div>
-                    {if hymn.authors.is_empty() {
-                        None
-                    } else {
-                        Some(view! {
-                            <span class="list-field author">
-                                <span class="label">{t!("hymnal.text")} ": "</span>
-                                {&hymn.authors}
-                            </span>
-                    })}}
-                    {if hymn.composers.is_empty() {
-                        None
-                    } else {
-                        Some(view! {
-                            <span class="list-field composer">
-                                <span class="label">{t!("hymnal.music")} ": "</span>
-                                {&hymn.composers}
-                            </span>
-                    })}}
+        <HymnWrapper hymnal={hymnal} number={number}>
+            <article class="hymn-listing"> //data-id={ser_attr!((hymnal, number))}>
+                <a id={&format!("{:#?}-{}", hymnal, number_str)}></a>
+                <div class="primary">
+                    <span class="music-available">
+                        {if hymn.copyright_restriction {
+                            None
+                        } else {
+                            Some(view! { <img src={Icon::Music.to_string()} alt={t!("hymnal.music_available")}/> })
+                        }}
+                    </span>
+                    <span class="text-available">
+                        {if hymn.text_empty {
+                            ""
+                        } else {
+                            "T"
+                        }}
+                    </span>
+                    <a class="number" href={&link}>{number_str}</a>
+                    <a class="title" href={&link}>{&hymn.title}</a>
+                    <span class="tune">{&tune_name}</span>
                 </div>
-                <span class="list-field meter">{&hymn.meter}</span>
-            </div>
-            <ul class="tag-list">
-                {hymn.tags
-                        .iter()
-                        .map(|tag| view! {
-                            <li>
-                                <a href=&format!("#q=tag:{}", tag)>{tag}</a>
-                            </li>
-                        })
-                        .collect::<Vec<_>>()
-                }
-            </ul>
-        </article>
+                <div class="secondary">
+                    <div>
+                        {if hymn.authors.is_empty() {
+                            None
+                        } else {
+                            Some(view! {
+                                <span class="list-field author">
+                                    <span class="label">{t!("hymnal.text")} ": "</span>
+                                    {&hymn.authors}
+                                </span>
+                        })}}
+                        {if hymn.composers.is_empty() {
+                            None
+                        } else {
+                            Some(view! {
+                                <span class="list-field composer">
+                                    <span class="label">{t!("hymnal.music")} ": "</span>
+                                    {&hymn.composers}
+                                </span>
+                        })}}
+                    </div>
+                    <span class="list-field meter">{&hymn.meter}</span>
+                </div>
+                <ul class="tag-list">
+                    {hymn.tags
+                            .iter()
+                            .map(|tag| view! {
+                                <li>
+                                    <a href=&format!("#q=tag:{}", tag)>{tag}</a>
+                                </li>
+                            })
+                            .collect::<Vec<_>>()
+                    }
+                </ul>
+            </article>
+        </HymnWrapper>
     }
 }

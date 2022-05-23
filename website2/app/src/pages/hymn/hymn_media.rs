@@ -67,7 +67,7 @@ impl Component for HymnMedia {
         }
     }
 
-    fn update(&mut self, msg: &Self::Msg) -> Option<Self::Cmd> {
+    fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>) {
         match msg {
             HymnMediaMsg::ChangeMode(mode) => {
                 let mode = match mode.as_str() {
@@ -78,7 +78,10 @@ impl Component for HymnMedia {
                 };
                 self.mode = mode;
                 if self.video_results == FetchStatus::Idle && self.mode == HymnMediaShowing::Video {
-                    return Some(HymnMediaCmd::FetchVideos(self.hymnal, self.number));
+                    return (
+                        true,
+                        Some(HymnMediaCmd::FetchVideos(self.hymnal, self.number)),
+                    );
                 }
             }
             HymnMediaMsg::PageScanBack => {
@@ -108,11 +111,11 @@ impl Component for HymnMedia {
                 };
                 self.video_player_embed_code = embed.cloned();
                 if embed.is_some() {
-                    return Some(HymnMediaCmd::ScrollToVideoPlayer);
+                    return (true, Some(HymnMediaCmd::ScrollToVideoPlayer));
                 }
             }
         }
-        None
+        (true, None)
     }
 
     async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg> {
@@ -324,7 +327,7 @@ impl HymnMedia {
             .and_then(|embed_code| {
                 web_sys::DomParser::new()
                     .and_then(|parser| {
-                        parser.parse_from_string(&embed_code, web_sys::SupportedType::TextHtml)
+                        parser.parse_from_string(embed_code, web_sys::SupportedType::TextHtml)
                     })
                     .and_then(|tree| tree.query_selector("iframe"))
                     .ok()
