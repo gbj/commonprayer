@@ -1,10 +1,9 @@
 // TODO
-// - filter based on hymnal toggle
-// - individual hymnal pages
 // - search already given from server side
 // - hashtags for categories
 
 mod hymn_wrapper;
+mod hymnal_metadata;
 mod hymnal_search;
 
 use std::collections::HashSet;
@@ -17,6 +16,7 @@ use crate::views::*;
 use hymnal::{HymnMetadata, HymnNumber, Hymnal, Hymnals};
 
 pub use hymn_wrapper::HymnWrapper;
+pub use hymnal_metadata::HymnalMetadataWrapper;
 pub use hymnal_search::HymnalSearch;
 
 #[derive(Clone, Deserialize)]
@@ -147,23 +147,22 @@ pub fn body(locale: &str, props: &HymnalPageState) -> Vec<Node> {
     let search_results = &props.search_results;
     let hymnals = &props.hymnals;
 
-    let hymns_full = hymnals
+    let hymns_listed = hymnals
         .iter()
-        .flat_map(|hymnal| {
-            hymnal
+        .map(|hymnal| {
+            let metadata = hymnal_metadata(hymnal);
+            let hymns = hymnal
                 .hymns
                 .iter()
-                .map(|hymn| (hymnal.id, hymn.number, hymn.to_metadata()))
+                .map(|hymn| hymn_metadata(locale, hymnal.id, hymn.number, &hymn.to_metadata()))
+                .collect::<Vec<_>>();
+            view! {
+                <section>
+                    {metadata}
+                    {hymns}
+                </section>
+            }
         })
-        .collect::<Vec<_>>();
-    let hymns_toc = hymnals
-        .iter()
-        .flat_map(|hymnal| hymnal.hymns.iter().map(|hymn| (hymnal.id, hymn.number)))
-        .collect::<Vec<_>>();
-
-    let metadata = hymnals
-        .iter()
-        .map(|hymnal| hymnal.to_metadata())
         .collect::<Vec<_>>();
 
     view! {
@@ -175,17 +174,34 @@ pub fn body(locale: &str, props: &HymnalPageState) -> Vec<Node> {
                     search={search_results.as_ref().map(|(_, search)| search).cloned().unwrap_or_default()}
                 >
                 </HymnalSearch>
-                {
-                    hymns_full.iter()
-                        .map(|(hymnal, number, hymn_data)| hymn(locale, *hymnal, *number, hymn_data))
-                        .collect::<Vec<_>>()
-                }
+                {hymns_listed}
             </main>
         </>
     }
 }
 
-fn hymn(locale: &str, hymnal: Hymnals, number: HymnNumber, hymn: &HymnMetadata) -> Node {
+fn hymnal_metadata(hymnal: &Hymnal) -> Node {
+    let title = view! { <h2>{&hymnal.title}</h2> };
+    let subtitle = if !hymnal.subtitle.is_empty() {
+        Some(view! { <h3>{&hymnal.subtitle}</h3> })
+    } else {
+        None
+    };
+
+    let copyright = view! { <p class="copyright">{&hymnal.copyright}</p> };
+
+    view! {
+        <HymnalMetadataWrapper hymnal={hymnal.id}>
+            <article class="hymnal">
+                {title}
+                {subtitle}
+                {copyright}
+            </article>
+        </HymnalMetadataWrapper>
+    }
+}
+
+fn hymn_metadata(locale: &str, hymnal: Hymnals, number: HymnNumber, hymn: &HymnMetadata) -> Node {
     let link = format!("/{}/hymn/{:#?}/{}", locale, hymnal, number);
 
     let number_str = match number {

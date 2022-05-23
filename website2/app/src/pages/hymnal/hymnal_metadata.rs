@@ -5,29 +5,28 @@ use hymnal::{HymnNumber, Hymnals};
 use leptos2::*;
 
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize, WebComponent)]
-pub struct HymnWrapper {
+pub struct HymnalMetadataWrapper {
     pub hymnal: Hymnals,
-    pub number: HymnNumber,
     hidden: bool,
     search_results: HashSet<(Hymnals, HymnNumber)>,
     chosen_hymnal: Option<Hymnals>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub enum HymnWrapperMsg {
+pub enum HymnalMetadataMsg {
     SetResults(HashSet<(Hymnals, HymnNumber)>),
     SetChosenHymnal(Option<Hymnals>),
 }
 
 #[async_trait(?Send)]
-impl Component for HymnWrapper {
-    type Msg = HymnWrapperMsg;
+impl Component for HymnalMetadataWrapper {
+    type Msg = HymnalMetadataMsg;
     type Cmd = ();
 
     fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>) {
         match msg {
-            HymnWrapperMsg::SetResults(res) => self.search_results = res.clone(),
-            HymnWrapperMsg::SetChosenHymnal(hymnal) => self.chosen_hymnal = *hymnal,
+            HymnalMetadataMsg::SetResults(res) => self.search_results = res.clone(),
+            HymnalMetadataMsg::SetChosenHymnal(hymnal) => self.chosen_hymnal = *hymnal,
         }
         (true, None)
     }
@@ -37,8 +36,6 @@ impl Component for HymnWrapper {
     }
 
     fn view(&self) -> Host {
-        let hymnal = self.hymnal;
-        let number = self.number;
         let handle_search_results = move |ev: web_sys::Event| {
             let ev: CustomEvent<HashSet<(Hymnals, HymnNumber)>> = ev.into();
             Self::Msg::SetResults(ev.detail.unwrap_or_default())
@@ -48,9 +45,12 @@ impl Component for HymnWrapper {
             Self::Msg::SetChosenHymnal(ev.detail.unwrap_or_default())
         };
 
-        let in_search =
-            self.search_results.is_empty() || self.search_results.contains(&(hymnal, number));
-        let in_hymnal = self.chosen_hymnal.is_none() || self.chosen_hymnal == Some(hymnal);
+        let in_search = self.search_results.is_empty()
+            || self
+                .search_results
+                .iter()
+                .any(|(hymnal, _)| *hymnal == self.hymnal);
+        let in_hymnal = self.chosen_hymnal.is_none() || self.chosen_hymnal == Some(self.hymnal);
 
         view! {
             <Host class:hidden={!(in_search && in_hymnal)}
