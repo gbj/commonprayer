@@ -40,12 +40,15 @@ impl Component for Toggle {
     type Msg = bool;
     type Cmd = ToggleEventDetail;
 
-    fn update(&mut self, msg: &Self::Msg) -> Option<Self::Cmd> {
+    fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>) {
         self.toggled = *msg;
-        Some(ToggleEventDetail {
-            name: self.name.to_string(),
-            toggled: *msg,
-        })
+        (
+            true,
+            Some(ToggleEventDetail {
+                name: self.name.to_string(),
+                toggled: *msg,
+            }),
+        )
     }
 
     async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg> {

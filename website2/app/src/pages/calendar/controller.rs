@@ -50,8 +50,8 @@ impl Component for CalendarController {
         }
     }
 
-    fn update(&mut self, msg: &Self::Msg) -> Option<Self::Cmd> {
-        match msg {
+    fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>) {
+        let cmd = match msg {
             CalendarPageMsg::UseLff(lff) => {
                 self.lff = *lff;
                 Some(CalendarPageCmd::ScrollTo {
@@ -78,7 +78,8 @@ impl Component for CalendarController {
                 None
             }
             CalendarPageMsg::Noop => None,
-        }
+        };
+        (true, cmd)
     }
 
     async fn cmd(cmd: Self::Cmd, _host: web_sys::HtmlElement) -> Option<Self::Msg> {

@@ -22,9 +22,9 @@ impl Component for DatePicker {
     type Msg = Option<Date>;
     type Cmd = Option<Date>;
 
-    fn update(&mut self, msg: &Self::Msg) -> Option<Self::Cmd> {
+    fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>) {
         self.date = *msg;
-        Some(*msg)
+        (true, Some(*msg))
     }
 
     async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg> {

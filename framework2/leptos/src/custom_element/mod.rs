@@ -95,11 +95,11 @@ where
                             while let Some(msg) = rx.next().await {
                                 // Some(T::Msg) means a message was sent; we need to update the state and then update the view
                                 // None means that an attribute was changed, so state has already been changed; we only update the view
-                                if let Some(msg) = msg {
+                                let should_render = if let Some(msg) = msg {
                                     // [UPDATE] apply the change to
                                     // 1) mutate the state and
                                     // 2) get any Cmd output from the update fn
-                                    let cmd = state.borrow_mut().update(&msg);
+                                    let (should_render, cmd) = state.borrow_mut().update(&msg);
 
                                     // handle any async commands here, so the Cmd type doesn't leak
                                     // out of the component up to the ComponentInstance
@@ -118,24 +118,31 @@ where
                                             }
                                         });
                                     }
+                                    should_render
                                 }
+                                // if an attribute or prop change, always render
+                                else {
+                                    true
+                                };
 
-                                // apply updated state to view
+                                if should_render {
+                                    // apply updated state to view
 
-                                // generate new view tree
-                                let new_view = state.borrow().view();
+                                    // generate new view tree
+                                    let new_view = state.borrow().view();
 
-                                // reconcile the DOM to the new tree
-                                patch_host(
-                                    &host,
-                                    &host.shadow_root().unwrap(),
-                                    &current_view,
-                                    &new_view,
-                                    &link,
-                                );
+                                    // reconcile the DOM to the new tree
+                                    patch_host(
+                                        &host,
+                                        &host.shadow_root().unwrap(),
+                                        &current_view,
+                                        &new_view,
+                                        &link,
+                                    );
 
-                                // store the new tree for future diffing
-                                current_view = new_view;
+                                    // store the new tree for future diffing
+                                    current_view = new_view;
+                                }
                             }
                         }
                     })
