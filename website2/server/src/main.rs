@@ -16,7 +16,7 @@ use actix_web::{
 use episcopal_api::{
     api::summary::DailySummary,
     calendar::Date,
-    hymnal::{HymnNumber, Hymnal, Hymnals, HYMNAL_1982, LEVAS, WLP, EL_HIMNARIO},
+    hymnal::{HymnNumber, Hymnal, Hymnals, HYMNAL_1982, LEVAS, WLP, EL_HIMNARIO, HymnMetadata},
     liturgy::{Document, SlugPath, Slug}, library::{CommonPrayer, Library},
 };
 use lazy_static::lazy_static;
@@ -51,6 +51,7 @@ async fn main() -> std::io::Result<()> {
             .service(canticle_list_api)
             .service(hymnal_api)
             .service(hymnal_search_api)
+            .service(hymnal_search_api_with_metadata)
             .service(video_search_api)
             .service(hymnal_word_cloud)
             /* .service(Files::new("/pkg", &format!(
@@ -146,14 +147,30 @@ async fn hymnal_search_api(
     let search = &params.q;
     let matches = HYMNAL_1982
         .search(search)
-        .map(|number| (Hymnals::Hymnal1982, number))
-        .chain(LEVAS.search(search).map(|number| (Hymnals::LEVAS, number)))
-        .chain(WLP.search(search).map(|number| (Hymnals::WLP, number)))
-        .chain(EL_HIMNARIO.search(search).map(|number| (Hymnals::ElHimnario, number)))
+        .map(|hymn| (Hymnals::Hymnal1982, hymn.number))
+        .chain(LEVAS.search(search).map(|hymn| (Hymnals::LEVAS, hymn.number)))
+        .chain(WLP.search(search).map(|hymn| (Hymnals::WLP, hymn.number)))
+        .chain(EL_HIMNARIO.search(search).map(|hymn| (Hymnals::ElHimnario, hymn.number)))
         .collect();
 
     web::Json(matches)
 }
+
+#[get("/api/hymnal/search_with_metadata")]
+async fn hymnal_search_api_with_metadata(
+    params: Query<HymnalSearchParams>,
+) -> web::Json<Vec<HymnMetadata>> {
+    let search = &params.q;
+    let matches = HYMNAL_1982
+        .search(search)
+        .chain(LEVAS.search(search))
+        .chain(WLP.search(search))
+        .chain(EL_HIMNARIO.search(search))
+        .collect();
+
+    web::Json(matches)
+}
+
 
 // Hymn Video API
 #[derive(Deserialize, Debug)]
