@@ -1,4 +1,3 @@
-use std::collections::HashSet;
 use std::rc::Rc;
 
 use crate::utils::fetch::fetch;
@@ -12,7 +11,6 @@ use web_sys::AbortController;
 #[derive(Clone, Debug, Default, WebComponent)]
 pub struct HymnalSearch {
     pub locale: String,
-    pub hymnal_count: usize,
     #[prop]
     pub hymnal: Option<Hymnals>,
     pub search: String,
@@ -28,7 +26,6 @@ pub struct HymnalSearch {
 impl PartialEq for HymnalSearch {
     fn eq(&self, other: &Self) -> bool {
         self.locale == other.locale
-            && self.hymnal_count == other.hymnal_count
             && self.hymnal == other.hymnal
             && self.search == other.search
             && self.loading == other.loading
@@ -39,18 +36,15 @@ impl PartialEq for HymnalSearch {
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum HymnalSearchMsg {
-    SetHymnal(Option<Hymnals>),
-    SearchChanged(String),
+    Search(String, Option<Hymnals>),
     SearchSuccess(Vec<HymnMetadata>),
     SearchError(FetchError),
 }
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum HymnalSearchCmd {
-    FetchSearch(String, Option<AbortController>),
-    CancelSearch(AbortController, String),
-    //EmitResults(HashSet<(Hymnals, HymnNumber)>),
-    EmitHymnal(Option<Hymnals>),
+    FetchSearch(String, Option<Hymnals>, Option<AbortController>),
+    CancelSearch(AbortController, String, Option<Hymnals>),
 }
 
 #[async_trait(?Send)]
@@ -60,34 +54,25 @@ impl Component for HymnalSearch {
 
     fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>) {
         match msg {
-            HymnalSearchMsg::SetHymnal(hymnal) => {
-                self.hymnal = *hymnal;
-                (true, Some(HymnalSearchCmd::EmitHymnal(self.hymnal)))
-            }
-            HymnalSearchMsg::SearchChanged(search) => {
+            HymnalSearchMsg::Search(search, hymnal) => {
                 self.search = search.to_string();
+                self.hymnal = *hymnal;
                 let cmd = if self.loading {
                     self.loading = false;
-                    self.search_abort_controller
-                        .as_ref()
-                        .map(|ac| HymnalSearchCmd::CancelSearch(ac.clone(), self.search.clone()))
+                    self.search_abort_controller.as_ref().map(|ac| {
+                        HymnalSearchCmd::CancelSearch(ac.clone(), self.search.clone(), self.hymnal)
+                    })
                 } else {
                     let abort_controller = AbortController::new().ok();
                     self.search_abort_controller = abort_controller.clone();
                     self.search_error = None;
+                    self.loading = true;
 
-                    if self.search.is_empty() {
-                        self.loading = false;
-                        self.results = Vec::new();
-                        None
-                        //Some(HymnalSearchCmd::EmitResults(HashSet::new()))
-                    } else {
-                        self.loading = true;
-                        Some(HymnalSearchCmd::FetchSearch(
-                            self.search.clone(),
-                            abort_controller,
-                        ))
-                    }
+                    Some(HymnalSearchCmd::FetchSearch(
+                        self.search.clone(),
+                        self.hymnal,
+                        abort_controller,
+                    ))
                 };
                 (false, cmd)
             }
@@ -105,11 +90,18 @@ impl Component for HymnalSearch {
         }
     }
 
-    async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg> {
+    async fn cmd(cmd: Self::Cmd, _host: web_sys::HtmlElement) -> Option<Self::Msg> {
         match &cmd {
-            HymnalSearchCmd::FetchSearch(search, controller) => {
+            HymnalSearchCmd::FetchSearch(search, hymnal, controller) => {
+                let hymnal_query = hymnal
+                    .map(|hymnal| format!("&hymnal={:?}", hymnal))
+                    .unwrap_or_default();
+
                 match fetch::<Vec<HymnMetadata>>(
-                    &format!("/api/hymnal/search_with_metadata?q={}", search),
+                    &format!(
+                        "/api/hymnal/search_with_metadata?q={}{}",
+                        search, hymnal_query
+                    ),
                     controller.as_ref().map(|ac| ac.signal()).as_ref(),
                 )
                 .await
@@ -118,19 +110,9 @@ impl Component for HymnalSearch {
                     Err(e) => Some(HymnalSearchMsg::SearchError(e)),
                 }
             }
-            HymnalSearchCmd::CancelSearch(controller, new_search) => {
+            HymnalSearchCmd::CancelSearch(controller, new_search, hymnal) => {
                 controller.abort();
-                Some(HymnalSearchMsg::SearchChanged(new_search.to_string()))
-            }
-            /* HymnalSearchCmd::EmitResults(res) => {
-                let event_emitter = EventEmitter::new(&host);
-                event_emitter.emit(CustomEvent::new("search").bubbles().detail(res.clone()));
-                None
-            } */
-            HymnalSearchCmd::EmitHymnal(hymnal) => {
-                let event_emitter = EventEmitter::new(&host);
-                event_emitter.emit(CustomEvent::new("hymnal").bubbles().detail(*hymnal));
-                None
+                Some(HymnalSearchMsg::Search(new_search.to_string(), *hymnal))
             }
         }
     }
@@ -163,6 +145,8 @@ impl Component for HymnalSearch {
             })
             .collect::<Vec<_>>();
 
+        let current_hymnal = self.hymnal.clone();
+
         view! {
             <Host>
                 <style>
@@ -170,7 +154,7 @@ impl Component for HymnalSearch {
                 {include_str!("./hymnal_search.css")}
                 </style>
                 // Choose a hymnal
-                {if self.hymnal_count == 1 {
+                {if self.hymnals.len() == 1 {
                     None
                 } else {
                     {Some(self.choose_hymnal().to_node())}
@@ -183,7 +167,7 @@ impl Component for HymnalSearch {
                         type="search"
                         value={&self.search}
                         prop:value={self.search.clone()}
-                        on:input=|ev| HymnalSearchMsg::SearchChanged(event_target_value(&ev))
+                        on:input=move |ev| HymnalSearchMsg::Search(event_target_value(&ev), current_hymnal)
                     />
                 </label>
 
@@ -197,6 +181,8 @@ impl Component for HymnalSearch {
 
 impl HymnalSearch {
     fn choose_hymnal(&self) -> SegmentButton<Option<Hymnals>, HymnalSearchMsg> {
+        let current_search = self.search.clone();
+
         SegmentButton {
             name: "search-hymnal".to_string(),
             legend: t!("menu.hymnal"),
@@ -208,7 +194,7 @@ impl HymnalSearch {
                 (Some(Hymnals::ElHimnario), t!("hymnal.el_himnario"), None),
             ],
             value: self.hymnal,
-            msg_fn: Rc::new(|val| HymnalSearchMsg::SetHymnal(*val)),
+            msg_fn: Rc::new(move |val| HymnalSearchMsg::Search(current_search.clone(), *val)),
         }
     }
 }
@@ -297,7 +283,7 @@ fn hymn_metadata(locale: &str, hymn: &HymnMetadata) -> Node {
                         .iter()
                         .map(|tag| view! {
                             <li>
-                                <a href=&format!("#q=tag:{}", tag)>{tag}</a>
+                                <a href=&format!("?q=tag:{}", tag)>{tag}</a>
                             </li>
                         })
                         .collect::<Vec<_>>()

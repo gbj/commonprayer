@@ -9,7 +9,5 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 #[wasm_bindgen]
 pub fn define_custom_elements() {
     // hymnal
-    HymnalMetadataWrapper::define();
     HymnalSearch::define();
-    HymnWrapper::define();
 }

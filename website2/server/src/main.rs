@@ -135,9 +135,10 @@ async fn hymnal_api(path: web::Path<Hymnals>) -> Result<web::Json<Hymnal>> {
 }
 
 // Hymnal Search API
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
 struct HymnalSearchParams {
     q: String,
+    hymnal: Option<Hymnals>
 }
 
 #[get("/api/hymnal/search")]
@@ -145,13 +146,17 @@ async fn hymnal_search_api(
     params: Query<HymnalSearchParams>,
 ) -> web::Json<HashSet<(Hymnals, HymnNumber)>> {
     let search = &params.q;
-    let matches = HYMNAL_1982
+    let matches = if let Some(hymnal) = &params.hymnal {
+        let hymnal = Hymnal::from(*hymnal);
+        hymnal.search(search).map(|hymn| (hymnal.id, hymn.number)).collect()
+    } else {HYMNAL_1982
         .search(search)
         .map(|hymn| (Hymnals::Hymnal1982, hymn.number))
         .chain(LEVAS.search(search).map(|hymn| (Hymnals::LEVAS, hymn.number)))
         .chain(WLP.search(search).map(|hymn| (Hymnals::WLP, hymn.number)))
         .chain(EL_HIMNARIO.search(search).map(|hymn| (Hymnals::ElHimnario, hymn.number)))
-        .collect();
+        .collect()
+    };
 
     web::Json(matches)
 }
@@ -161,12 +166,17 @@ async fn hymnal_search_api_with_metadata(
     params: Query<HymnalSearchParams>,
 ) -> web::Json<Vec<HymnMetadata>> {
     let search = &params.q;
-    let matches = HYMNAL_1982
-        .search(search)
-        .chain(LEVAS.search(search))
-        .chain(WLP.search(search))
-        .chain(EL_HIMNARIO.search(search))
-        .collect();
+    let matches = if let Some(hymnal) = &params.hymnal {
+        let hymnal = Hymnal::from(*hymnal);
+        hymnal.search(search).collect()
+    } else {
+        HYMNAL_1982
+            .search(search)
+            .chain(LEVAS.search(search))
+            .chain(WLP.search(search))
+            .chain(EL_HIMNARIO.search(search))
+            .collect()
+    };
 
     web::Json(matches)
 }
