@@ -153,14 +153,18 @@ fn write_class(f: &mut std::fmt::Formatter<'_>, attrs: &[Attribute]) -> std::fmt
     Ok(())
 }
 
-pub fn serialize_props(tree: &[Node]) -> String {
+pub fn serialize_props(tree: &[Node]) -> Option<String> {
     let mut buf = String::new();
     let mut cid = 0;
     for node in tree {
         node.serialize_properties_with_property_id(&mut buf, &mut cid);
     }
-    buf.push_str("\n}");
-    buf
+    if buf.is_empty() {
+        None
+    } else {
+        buf.push_str("\n}");
+        Some(buf)
+    }
 }
 
 impl Node {
