@@ -8,6 +8,7 @@ use actix_files::{Files, NamedFile};
 use actix_web::{
     error, get,
     http::StatusCode,
+    middleware,
     post,
     web::{self, Path, Query},
     App, HttpRequest, HttpResponse, HttpServer, ResponseError, Result,
@@ -42,6 +43,7 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
+            .wrap(middleware::Compress::default())
             .wrap(Cors::permissive())
             .app_data(web::FormConfig::default().limit(256 * 1024)) // increase max form size for DOCX export
             .service(daily_summary)
