@@ -6,7 +6,6 @@ pub use async_trait::async_trait;
 pub use leptos_macro2::*;
 pub use serde::{Deserialize, Serialize};
 pub use serde_json;
-pub use serde_wasm_bindgen;
 
 mod component;
 mod custom_element;
@@ -46,13 +45,13 @@ where
 #[macro_export]
 macro_rules! ser_attr {
     ($val:expr) => {
-        serde_wasm_bindgen::to_value(&$val).unwrap()
+        wasm_bindgen::JsValue::from_serde(&$val).unwrap()
     };
 }
 
 #[macro_export]
 macro_rules! de_attr {
     ($val:expr) => {
-        serde_wasm_bindgen::from_value(&$val).unwrap()
+        wasm_bindgen::JsValue::to_serde(&$val).unwrap()
     };
 }

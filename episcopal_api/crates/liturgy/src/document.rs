@@ -9,34 +9,34 @@ use crate::*;
 
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Document {
-    //#[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub condition: Option<Condition>,
-    //#[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub label: Option<String>,
-    //#[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub subtitle: Option<String>,
-    //#[serde(skip_serializing_if = "Language::is_default", default)]
+    #[serde(skip_serializing_if = "Language::is_default", default)]
     pub language: Language,
-    //#[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub source: Option<Reference>,
-    //#[serde(skip_serializing_if = "Vec::is_empty", default)]
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub alternate_sources: Vec<Reference>,
-    //#[serde(skip_serializing_if = "Status::is_default", default)]
+    #[serde(skip_serializing_if = "Status::is_default", default)]
     pub status: Status,
-    //#[serde(skip_serializing_if = "Show::is_default", default)]
+    #[serde(skip_serializing_if = "Show::is_default", default)]
     pub display: Show,
-    //#[serde(skip_serializing_if = "Version::is_default", default)]
+    #[serde(skip_serializing_if = "Version::is_default", default)]
     pub version: Version,
-    //#[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub version_label: Option<String>,
-    //#[serde(skip_serializing_if = "crate::is_false", default)]
+    #[serde(skip_serializing_if = "crate::is_false", default)]
     pub optional: bool,
     pub content: Content,
-    //#[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub explainer: Option<String>,
-    //#[serde(skip_serializing, skip_deserializing)]
+    #[serde(skip_serializing, skip_deserializing)]
     pub is_compiled: bool,
-    //#[serde(skip_serializing_if = "Vec::is_empty", default)]
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub tags: Vec<String>,
 }
 

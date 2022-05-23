@@ -358,7 +358,7 @@ fn impl_wc(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
 
             quote::quote! {
                 #attr_name => {
-                    match serde_wasm_bindgen::from_value::<#ty>(new_value) {
+                    match wasm_bindgen::JsValue::into_serde::<#ty>(&new_value) {
                         Ok(val) => {
                             self.#ident = val;
                         },
@@ -396,6 +396,8 @@ fn impl_wc(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
                 )
             }
         } else {
+            let ty = &field.ty;
+
             quote::quote! {
                 leptos2::attribute(
                     #attr_name,

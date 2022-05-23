@@ -43,7 +43,7 @@ where
     T: Serialize + Debug,
 {
     fn to_property(&self) -> Option<JsValue> {
-        serde_wasm_bindgen::to_value(&self).ok()
+        JsValue::from_serde(&self).ok()
     }
 
     fn serialize(&self) -> String {
