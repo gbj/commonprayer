@@ -145,9 +145,10 @@ where
         let name = self.name.replace('-', "_");
         let hydration_js = format!(
             r#"
-                import init, {{ define_custom_elements }} from '/pkg/{}/{}_client.js';
-                await init();
-                define_custom_elements();
+                import("/pkg/{}/{}_client.js").then(async pkg => {{
+                    await pkg.default();
+                    pkg.define_custom_elements();
+                }});
                 "#,
             &name, &name,
         );
@@ -157,7 +158,11 @@ where
             .map(|body_fn| (body_fn)(locale, &state))
             .unwrap_or_default();
 
-        let serialized_props = serialize_props(&body);
+        let serialized_props = serialize_props(&body).map(|props| {
+            view! {
+                <script>"var _PROPS = " {props}";"</script>
+            }
+        });
 
         Ok(view! {
             <html lang={locale}>
@@ -174,7 +179,8 @@ where
                     {global_body_code.unwrap_or_else(|| text(""))}
 
                     // serialized state
-                    <script>"var _PROPS = " {serialized_props}";"</script>
+                    {serialized_props}
+
                     // custom element code
                     {if self.static_page {
                         text("")
