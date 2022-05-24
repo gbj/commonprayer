@@ -68,12 +68,28 @@ fn write_node(
 
             write_class(f, &element.attrs)?;
 
+            // note that it needs to hydrate, not mount, if shadow DOM is present
+            if element.shadow_root.is_some() {
+                f.write_str(" data-leptos-hydrate")?;
+            }
+
             // children
             if element.is_self_closing() {
                 f.write_str("/>")?;
             } else {
                 f.write_char('>')?;
 
+                // Shadow DOM, if present
+                if let Some(root_fn) = &element.shadow_root {
+                    let host = (root_fn)();
+                    f.write_str("<template shadowroot=\"open\">")?;
+                    for child in &host.children {
+                        write_node(f, child, property_id)?;
+                    }
+                    f.write_str("</template>")?;
+                }
+
+                // children
                 for child in &element.children {
                     write_node(f, child, property_id)?;
                 }

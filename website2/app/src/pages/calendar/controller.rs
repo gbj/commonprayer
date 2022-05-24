@@ -138,7 +138,7 @@ impl Component for CalendarController {
                         slot="content"
                         id="calendar-date"
                         label=t!("date")
-                        date={initial_date}
+                        date={&initial_date}
                         on:change=|ev: Event| {
                             let ev: CustomEvent<Option<Date>> = ev.into();
                             CalendarPageMsg::SetDate(ev.detail.flatten())

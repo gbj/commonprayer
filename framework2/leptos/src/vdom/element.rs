@@ -1,16 +1,19 @@
+use std::rc::Rc;
+
 use serde::{Deserialize, Serialize};
 
-use crate::{Attribute, IntoChildren, Node};
+use crate::{Attribute, Host, IntoChildren, Node};
 
 use super::event::EventListener;
 
-#[derive(Clone, PartialEq, Debug)]
+#[derive(Clone)]
 pub struct Element {
     pub tag: String,
     pub key: Option<String>,
     pub attrs: Vec<Attribute>,
     pub listeners: Vec<EventListener>,
     pub children: Vec<Node>,
+    pub shadow_root: Option<Rc<dyn Fn() -> Host>>,
 }
 
 impl Element {
@@ -21,6 +24,7 @@ impl Element {
             attrs: Vec::new(),
             listeners: Vec::new(),
             children: Vec::new(),
+            shadow_root: None,
         }
     }
 
@@ -59,5 +63,31 @@ impl Element {
             self.children.push(child);
         }
         self
+    }
+}
+
+impl PartialEq for Element {
+    fn eq(&self, other: &Self) -> bool {
+        self.tag == other.tag
+            && self.key == other.key
+            && self.attrs == other.attrs
+            && self.listeners == other.listeners
+            && self.children == other.children
+            && match (&self.shadow_root, &other.shadow_root) {
+                (Some(lhs), Some(rhs)) => (lhs)() == (rhs)(),
+                _ => false,
+            }
+    }
+}
+
+impl std::fmt::Debug for Element {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Element")
+            .field("tag", &self.tag)
+            .field("key", &self.key)
+            .field("attrs", &self.attrs)
+            .field("listeners", &self.listeners)
+            .field("children", &self.children)
+            .finish()
     }
 }

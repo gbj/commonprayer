@@ -107,7 +107,7 @@ pub fn body(locale: &str, props: &HymnalPageState) -> Vec<Node> {
             <main>
                 <HymnalSearch
                     locale={locale}
-                    search={props.search.clone()}
+                    search={&props.search}
                     prop:results={props.search_results.clone()}
                     prop:hymnals={props.hymnals.clone()}
                 >
