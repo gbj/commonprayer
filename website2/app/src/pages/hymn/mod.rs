@@ -52,8 +52,8 @@ pub fn head(_locale: &str, props: &HymnPageState) -> Vec<Node> {
             <title>{title} " – " {t!("common_prayer")}</title>
             <link rel="stylesheet" href="/static/vars.css"/>
             <link rel="stylesheet" href="/static/general.css"/>
-            <link rel="stylesheet" href="/static/hymnal.css"/>
             <link rel="stylesheet" href="/static/document.css"/>
+            <style>{include_str!("hymn.css")}</style>
         </>
     }
 }
