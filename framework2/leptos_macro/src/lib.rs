@@ -186,26 +186,29 @@ fn element_node(node: &Node) -> Option<TokenStream> {
                 }
             });
 
-            // TODO only on server
-            quote! {{
-                Some({
-                    let component_attrs = #component_name::attributes();
+            quote! {
+                if is_server!() {
+                    Some({
+                        let component_attrs = #component_name::attributes();
 
-                    let mut host = #component_name::default();
-                    for attr in [#(#attrs,)*] {
-                        if let leptos2::Attribute::Attribute(name, value) = attr {
-                            host.set_attribute(name, value);
+                        let mut host = #component_name::default();
+                        for attr in [#(#attrs,)*] {
+                            if let leptos2::Attribute::Attribute(name, value) = attr {
+                                host.set_attribute(name, value);
+                            }
                         }
-                    }
 
-                    #(#props;)*
+                        #(#props;)*
 
-                    (std::rc::Rc::new(move || {
-                        leptos2::warn(&format!("rendering host = {:#?}", host));
-                        host.view()
-                    }) as std::rc::Rc<dyn Fn() -> leptos2::Host>)
-                })
-            }}
+                        (std::rc::Rc::new(move || {
+                            leptos2::warn(&format!("rendering host = {:#?}", host));
+                            host.view()
+                        }) as std::rc::Rc<dyn Fn() -> leptos2::Host>)
+                    })
+                } else {
+                    None
+                }
+            }
         } else {
             quote! { None }
         };

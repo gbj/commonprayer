@@ -46,7 +46,6 @@ impl Component for ExportLinks {
                 self.modal_open = *modal_open;
             }
             ExportLinksMsg::ChoiceChanged(content) => {
-                leptos2::warn(&format!("choice changed = {}", content));
                 let mut parts = content.split('#');
                 let path = parts.next();
                 let selected = parts.next();

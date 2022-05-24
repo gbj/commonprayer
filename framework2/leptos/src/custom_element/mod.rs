@@ -48,7 +48,6 @@ where
                 if let Some(reference) = this.get_attribute(&format!("data-leptos-prop-{}", prop)) {
                     if let Ok(value) = js_sys::Reflect::get(&PROPS, &JsValue::from_str(&reference))
                     {
-                        crate::warn(&format!("found initial value for {}", prop));
                         initial_state.set_property(prop.to_string(), value);
                     }
                 }

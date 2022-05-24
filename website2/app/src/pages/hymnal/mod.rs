@@ -1,7 +1,3 @@
-// TODO
-// - search already given from server side
-// - hashtags for categories
-
 mod hymnal_search;
 
 use crate::utils::decode_uri;
