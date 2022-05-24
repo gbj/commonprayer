@@ -95,10 +95,12 @@ where
                                 // Some(T::Msg) means a message was sent; we need to update the state and then update the view
                                 // None means that an attribute was changed, so state has already been changed; we only update the view
                                 let should_render = if let Some(msg) = msg {
+                                    let should_render = state.borrow().should_render(&msg);
+
                                     // [UPDATE] apply the change to
                                     // 1) mutate the state and
                                     // 2) get any Cmd output from the update fn
-                                    let (should_render, cmd) = state.borrow_mut().update(&msg);
+                                    let cmd = state.borrow_mut().update(msg);
 
                                     // handle any async commands here, so the Cmd type doesn't leak
                                     // out of the component up to the ComponentInstance
@@ -117,6 +119,7 @@ where
                                             }
                                         });
                                     }
+
                                     should_render
                                 }
                                 // if an attribute or prop change, always render

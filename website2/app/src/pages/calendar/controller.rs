@@ -50,12 +50,12 @@ impl Component for CalendarController {
         }
     }
 
-    fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>) {
+    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
         let cmd = match msg {
             CalendarPageMsg::UseLff(lff) => {
-                self.lff = *lff;
+                self.lff = lff;
                 Some(CalendarPageCmd::ScrollTo {
-                    lff: *lff,
+                    lff,
                     date_hash: self.date.clone(),
                 })
             }
@@ -74,12 +74,12 @@ impl Component for CalendarController {
                 })
             }
             CalendarPageMsg::OpenMenu(open) => {
-                self.menu_open = *open;
+                self.menu_open = open;
                 None
             }
             CalendarPageMsg::Noop => None,
         };
-        (true, cmd)
+        cmd
     }
 
     async fn cmd(cmd: Self::Cmd, _host: web_sys::HtmlElement) -> Option<Self::Msg> {

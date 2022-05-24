@@ -11,9 +11,9 @@ impl Component for ChoiceView {
     type Msg = usize;
     type Cmd = ();
 
-    fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>) {
-        self.selection = *msg;
-        (true, None)
+    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
+        self.selection = msg;
+        None
     }
 
     async fn cmd(_cmd: Self::Cmd, _host: web_sys::HtmlElement) -> Option<Self::Msg> {

@@ -1,8 +1,6 @@
 use leptos2::*;
 use serde::{Deserialize, Serialize};
 
-use crate::events::Events;
-
 #[derive(Clone, Debug, Default, PartialEq, Deserialize, Serialize, WebComponent)]
 pub struct Modal {
     #[prop]
@@ -20,12 +18,12 @@ impl Component for Modal {
     type Msg = ModalMsg;
     type Cmd = bool;
 
-    fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>) {
+    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
         match msg {
             ModalMsg::Open => self.open = true,
             ModalMsg::Close => self.open = false,
         };
-        (true, Some(self.open))
+        Some(self.open)
     }
 
     async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg> {

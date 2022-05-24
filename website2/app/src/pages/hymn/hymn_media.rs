@@ -67,7 +67,7 @@ impl Component for HymnMedia {
         }
     }
 
-    fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>) {
+    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
         match msg {
             HymnMediaMsg::ChangeMode(mode) => {
                 let mode = match mode.as_str() {
@@ -78,10 +78,7 @@ impl Component for HymnMedia {
                 };
                 self.mode = mode;
                 if self.video_results == FetchStatus::Idle && self.mode == HymnMediaShowing::Video {
-                    return (
-                        true,
-                        Some(HymnMediaCmd::FetchVideos(self.hymnal, self.number)),
-                    );
+                    return Some(HymnMediaCmd::FetchVideos(self.hymnal, self.number));
                 }
             }
             HymnMediaMsg::PageScanBack => {
@@ -97,13 +94,13 @@ impl Component for HymnMedia {
             HymnMediaMsg::LoadVideosSuccess(result) => {
                 self.video_results = FetchStatus::Success(Box::new(result.clone()))
             }
-            HymnMediaMsg::LoadVideoError(error) => self.video_results = FetchStatus::Error(*error),
+            HymnMediaMsg::LoadVideoError(error) => self.video_results = FetchStatus::Error(error),
             HymnMediaMsg::SetEmbedCode(idx) => {
                 let embed = match &self.video_results {
                     FetchStatus::Success(res) => match &**res {
                         BingSearchResult::Videos(videos) => videos
                             .value
-                            .get(*idx)
+                            .get(idx)
                             .and_then(|video| video.embed_html.as_ref()),
                         BingSearchResult::ErrorResponse(_) => None,
                     },
@@ -111,11 +108,11 @@ impl Component for HymnMedia {
                 };
                 self.video_player_embed_code = embed.cloned();
                 if embed.is_some() {
-                    return (true, Some(HymnMediaCmd::ScrollToVideoPlayer));
+                    return Some(HymnMediaCmd::ScrollToVideoPlayer);
                 }
             }
         }
-        (true, None)
+        None
     }
 
     async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg> {
@@ -341,103 +338,3 @@ impl HymnMedia {
             })
     }
 }
-
-/* {if hymn.text.is_empty() {
-    Vec::new()
-} else {
-    view! {
-        <>
-            <input class="toggle" type="radio" id="text-view" name="view-mode" checked/>
-            <label class="toggle" for="text-view">{t!("hymnal.text_view")}</label>
-        </>
-    }
-}}
-{if hymn.copyright_restriction {
-    Vec::new()
-} else {
-    view! {
-        <>
-            <input class="toggle" type="radio" id="image-view" name="view-mode"/>
-            <label class="toggle" for="image-view">{t!("hymnal.music_view")}</label>
-        </>
-    }
-}}
-<input class="toggle" type="radio" id="video-view" name="view-mode"
-    on:change=move |_ev: Event| video_state.send()
-/>
-<label class="toggle" for="video-view" id="video-view-label">{t!("hymnal.video_view")}</label>
-
-// Hymn text
-{if hymn.text.is_empty() {
-    None
-} else {
-    Some(view! {
-        <div class="text-view">{Text::from(hymn.text.clone()).view()}</div>
-    })
-}}
-
-// Hymn image
-{if hymn.copyright_restriction {
-    None
-} else {
-    Some(view! {
-        <div class="image-view">
-            <div class="overlay"
-                class:expanded={image_expanded.stream().boxed_local()}
-                on:click={
-                    let image_expanded = image_expanded.clone();
-                    move |_ev: Event| image_expanded.set(!image_expanded.get())
-                }
-            ></div>
-
-            <div class="page-scan-controls"
-                class:expanded={image_expanded.stream().boxed_local()}
-            >
-                <button
-                    class="page-left"
-                    on:click={
-                        let page_scan_offset = page_scan_offset.clone();
-                        move |_ev: Event| {
-                            let current_offset = page_scan_offset.get();
-                            let current_page = initial_page + current_offset;
-                            if current_page > 1 {
-                                page_scan_offset.set(current_offset - 1);
-                            }
-                        }
-                    }
-                >
-                    <img src={Icon::Left.to_string()} alt={t!("hymnal.page_back")}/>
-                </button>
-                <p class="page-scan-number">
-                    {page_scan_offset.stream().map(move |offset| t!("hymnal.page_n", number = &(initial_page + offset).to_string() )).boxed_local()}
-                </p>
-                <button
-                    class="page-left"
-                    on:click=move |_ev: Event| page_scan_offset.set(page_scan_offset.get() + 1)
-                >
-                    <img src={Icon::Right.to_string()} alt={t!("hymnal.page_forward")}/>
-                </button>
-            </div>
-
-            {if hymn.copyright_restriction {
-                view! {
-                    <p class="page-scan">{t!("hymnal.copyright_restriction")}</p>
-                }
-            } else {
-                view! {
-                    <img
-                        src={page_scan_url}
-                        alt={t!("hymnal.alt_text")}
-                        class="page-scan"
-                        class:expanded={image_expanded.stream().boxed_local()}
-                        on:click=move |_ev: Event| image_expanded.set(!image_expanded.get())
-                    />
-                }
-            }}
-        </div>
-    })
-}}
-
-<div class={if hymn.copyright_restriction && hymn.text.is_empty() { "video-view force" } else { "video-view" }}>
-    {video_view}
-</div> */

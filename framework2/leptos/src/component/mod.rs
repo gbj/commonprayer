@@ -1,7 +1,7 @@
 use async_trait::async_trait;
 use std::fmt::Debug;
 
-use crate::{EventEmitter, Host};
+use crate::Host;
 
 pub mod link;
 
@@ -17,9 +17,13 @@ where
         None
     }
 
-    fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>);
+    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd>;
 
     async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg>;
 
     fn view(&self) -> Host;
+
+    fn should_render(&self, msg: &Self::Msg) -> bool {
+        true
+    }
 }

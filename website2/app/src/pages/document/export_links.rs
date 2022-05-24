@@ -40,10 +40,10 @@ impl Component for ExportLinks {
     type Msg = ExportLinksMsg;
     type Cmd = ExportLinksCmd;
 
-    fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>) {
+    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
         match msg {
             ExportLinksMsg::ModalOpen(modal_open) => {
-                self.modal_open = *modal_open;
+                self.modal_open = modal_open;
             }
             ExportLinksMsg::ChoiceChanged(content) => {
                 let mut parts = content.split('#');
@@ -69,10 +69,10 @@ impl Component for ExportLinks {
                 }
             }
         }
-        (true, None)
+        None
     }
 
-    async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg> {
+    async fn cmd(_cmd: Self::Cmd, _host: web_sys::HtmlElement) -> Option<Self::Msg> {
         None
     }
 

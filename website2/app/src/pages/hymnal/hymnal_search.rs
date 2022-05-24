@@ -52,11 +52,11 @@ impl Component for HymnalSearch {
     type Msg = HymnalSearchMsg;
     type Cmd = HymnalSearchCmd;
 
-    fn update(&mut self, msg: &Self::Msg) -> (bool, Option<Self::Cmd>) {
+    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
         match msg {
             HymnalSearchMsg::Search(search, hymnal) => {
                 self.search = search.to_string();
-                self.hymnal = *hymnal;
+                self.hymnal = hymnal;
                 let cmd = if self.loading {
                     self.loading = false;
                     self.search_abort_controller.as_ref().map(|ac| {
@@ -74,19 +74,25 @@ impl Component for HymnalSearch {
                         abort_controller,
                     ))
                 };
-                (false, cmd)
+                cmd
             }
             HymnalSearchMsg::SearchSuccess(res) => {
                 self.loading = false;
                 self.results = res.clone();
-                (true, None)
-                //(true, Some(HymnalSearchCmd::EmitResults(res.clone())))
+                None
             }
             HymnalSearchMsg::SearchError(e) => {
-                self.search_error = Some(*e);
+                self.search_error = Some(e);
                 leptos2::warn(&format!("[HymnalSearch] {}", e));
-                (true, None)
+                None
             }
+        }
+    }
+
+    fn should_render(&self, msg: &Self::Msg) -> bool {
+        match msg {
+            HymnalSearchMsg::Search(..) => false,
+            _ => true,
         }
     }
 
