@@ -11,12 +11,13 @@ use web_sys::HtmlElement;
 use crate::{
     debug_warn,
     link::{ComponentLink, Link},
-    patch_host, request_animation_frame, AsAny, Attribute, Component, EventEmitter,
+    patch_host, request_animation_frame, AsAny, Attribute, Component, EventEmitter, ParentWaker,
+    State, StateSender,
 };
 
 pub trait WebComponent
 where
-    Self: Component + Default,
+    Self: State + Component + Default,
     Self::Msg: Clone,
 {
     fn tag() -> &'static str;
@@ -55,7 +56,8 @@ where
 
             // set up event cycle
             let (tx, mut rx) = unbounded::<Option<Self::Msg>>();
-            let link: ComponentLink<Self> = ComponentLink::from(tx);
+
+            let link: ComponentLink<Self> = ComponentLink::from(tx.clone());
             let state = Rc::new(RefCell::new(initial_state));
 
             let inject_children = Closure::once({
@@ -68,6 +70,16 @@ where
                         current_view.hydrate(&host, &host.shadow_root().unwrap(), &link);
                     } else {
                         current_view.mount(&host, &host.shadow_root().unwrap(), &link);
+                    }
+
+                    // start nested state machines
+                    for nested_state in state.borrow_mut().nested_states() {
+                        nested_state.set_host_and_parent(
+                            Rc::new(StateSender::<Self>::new(tx.clone())),
+                            &host,
+                        );
+                        crate::warn("running nested machine");
+                        nested_state.run();
                     }
 
                     // check for an initial command

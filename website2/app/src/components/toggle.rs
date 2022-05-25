@@ -36,7 +36,7 @@ impl Toggle {
 }
 
 #[async_trait(?Send)]
-impl Component for Toggle {
+impl State for Toggle {
     type Msg = bool;
     type Cmd = ToggleEventDetail;
 
@@ -53,7 +53,9 @@ impl Component for Toggle {
         event_emitter.emit(CustomEvent::new("change").detail(cmd));
         None
     }
+}
 
+impl Component for Toggle {
     fn view(&self) -> Host {
         let id_off = format!("{}-off", self.name);
         let id_on = format!("{}-on", self.name);

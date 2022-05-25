@@ -1,6 +1,9 @@
 mod hymnal_search;
 
-use crate::utils::decode_uri;
+use crate::utils::{
+    decode_uri,
+    fetch::{Fetch, FetchStatus},
+};
 use hymnal::*;
 use leptos2::*;
 
@@ -14,11 +17,11 @@ pub struct HymnalPageParams {
     hymnal: Option<Hymnals>,
 }
 
-#[derive(Clone, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct HymnalPageState {
     search: String,
     search_results: Vec<HymnMetadata>,
-    hymnals: Vec<(Hymnal)>,
+    hymnals: Vec<Hymnal>,
 }
 
 #[derive(Default, Clone)]
@@ -74,7 +77,7 @@ pub fn state(_locale: &str, path: &str, params: &HymnalPageParams) -> Option<Hym
 
     let search = decode_uri(search_parts.next().unwrap_or_default());
 
-    Some(match params.hymnal {
+    let s = Some(match params.hymnal {
         None => HymnalPageState {
             search_results: HYMNAL_1982
                 .search(&search)
@@ -93,10 +96,21 @@ pub fn state(_locale: &str, path: &str, params: &HymnalPageParams) -> Option<Hym
                 search,
             }
         }
-    })
+    });
+    println!("{:#?}", s.as_ref().map(|s| s.search_results.clone()));
+    s
 }
 
 pub fn body(locale: &str, props: &HymnalPageState) -> Vec<Node> {
+    let results_query_status = if props.search_results.is_empty() {
+        FetchStatus::Idle
+    } else {
+        FetchStatus::Success(Box::new(props.search_results.clone()))
+    };
+    let results_query_state = NestedState::new(Fetch::with_status(results_query_status));
+
+    leptos2::warn(&format!("results len = {}", props.search_results.len()));
+
     view! {
         <>
             {Header::new(locale, &t!("menu.hymnal")).to_node()}
@@ -104,7 +118,7 @@ pub fn body(locale: &str, props: &HymnalPageState) -> Vec<Node> {
                 <HymnalSearch
                     locale={locale}
                     search={&props.search}
-                    prop:results={props.search_results.clone()}
+                    prop:state={results_query_state}
                     prop:hymnals={props.hymnals.clone()}
                 >
                 </HymnalSearch>

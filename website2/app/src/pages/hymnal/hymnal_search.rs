@@ -1,44 +1,34 @@
 use std::rc::Rc;
 
-use crate::utils::fetch::fetch;
+use crate::fragments::SegmentButton;
+use crate::utils::fetch::{Fetch, FetchMsg, FetchStatus};
 use crate::views::Icon;
-use crate::{fragments::SegmentButton, utils::fetch::FetchError};
 use hymnal::{HymnMetadata, HymnNumber, Hymnal, Hymnals};
 use itertools::Itertools;
 use leptos2::*;
 use web_sys::AbortController;
 
-#[derive(Clone, Debug, Default, WebComponent)]
+#[derive(Debug, Default, WebComponent)]
 pub struct HymnalSearch {
     pub locale: String,
-    #[prop]
-    pub hymnal: Option<Hymnals>,
     pub search: String,
     #[prop]
-    pub results: Vec<HymnMetadata>,
-    #[prop]
     pub hymnals: Vec<Hymnal>,
-    loading: bool,
-    search_error: Option<FetchError>,
-    search_abort_controller: Option<AbortController>,
+    #[prop]
+    pub hymnal: Option<Hymnals>,
+    #[prop]
+    pub state: NestedState<Fetch<Vec<HymnMetadata>>>,
 }
 
 impl PartialEq for HymnalSearch {
     fn eq(&self, other: &Self) -> bool {
-        self.locale == other.locale
-            && self.hymnal == other.hymnal
-            && self.search == other.search
-            && self.loading == other.loading
-            && self.search_error == other.search_error
-            && self.search_abort_controller == other.search_abort_controller
+        self.locale == other.locale && self.hymnal == other.hymnal && self.search == other.search
     }
 }
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum HymnalSearchMsg {
     Search(String, Option<Hymnals>),
-    SearchSuccess(Vec<HymnMetadata>),
-    SearchError(FetchError),
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -48,108 +38,86 @@ pub enum HymnalSearchCmd {
 }
 
 #[async_trait(?Send)]
-impl Component for HymnalSearch {
+impl State for HymnalSearch {
     type Msg = HymnalSearchMsg;
-    type Cmd = HymnalSearchCmd;
+    type Cmd = ();
 
     fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
         match msg {
             HymnalSearchMsg::Search(search, hymnal) => {
-                self.search = search.to_string();
-                self.hymnal = hymnal;
-                let cmd = if self.loading {
-                    self.loading = false;
-                    self.search_abort_controller.as_ref().map(|ac| {
-                        HymnalSearchCmd::CancelSearch(ac.clone(), self.search.clone(), self.hymnal)
-                    })
-                } else {
-                    let abort_controller = AbortController::new().ok();
-                    self.search_abort_controller = abort_controller.clone();
-                    self.search_error = None;
-                    self.loading = true;
+                let hymnal_query = hymnal
+                    .map(|hymnal| format!("&hymnal={}", hymnal))
+                    .unwrap_or_default();
 
-                    Some(HymnalSearchCmd::FetchSearch(
-                        self.search.clone(),
-                        self.hymnal,
-                        abort_controller,
-                    ))
-                };
-                cmd
-            }
-            HymnalSearchMsg::SearchSuccess(res) => {
-                self.loading = false;
-                self.results = res.clone();
-                None
-            }
-            HymnalSearchMsg::SearchError(e) => {
-                self.search_error = Some(e);
-                leptos2::warn(&format!("[HymnalSearch] {}", e));
-                None
+                self.state.send(FetchMsg::SetUrlAndGet(format!(
+                    "/api/hymnal/search_with_metadata?q={}{}",
+                    search, hymnal_query
+                )));
             }
         }
-    }
-
-    fn should_render(&self, msg: &Self::Msg) -> bool {
-        match msg {
-            HymnalSearchMsg::Search(..) => false,
-            _ => true,
-        }
+        None
     }
 
     async fn cmd(cmd: Self::Cmd, _host: web_sys::HtmlElement) -> Option<Self::Msg> {
-        match &cmd {
-            HymnalSearchCmd::FetchSearch(search, hymnal, controller) => {
-                let hymnal_query = hymnal
-                    .map(|hymnal| format!("&hymnal={:?}", hymnal))
-                    .unwrap_or_default();
+        None
+    }
 
-                match fetch::<Vec<HymnMetadata>>(
-                    &format!(
-                        "/api/hymnal/search_with_metadata?q={}{}",
-                        search, hymnal_query
-                    ),
-                    controller.as_ref().map(|ac| ac.signal()).as_ref(),
-                )
-                .await
-                {
-                    Ok(res) => Some(HymnalSearchMsg::SearchSuccess(res)),
-                    Err(e) => Some(HymnalSearchMsg::SearchError(e)),
-                }
-            }
-            HymnalSearchCmd::CancelSearch(controller, new_search, hymnal) => {
-                controller.abort();
-                Some(HymnalSearchMsg::Search(new_search.to_string(), *hymnal))
-            }
-        }
+    fn nested_states(&mut self) -> Vec<&mut dyn StateMachine> {
+        vec![&mut self.state]
+    }
+}
+
+impl Component for HymnalSearch {
+    fn should_render(&self, _msg: &Self::Msg) -> bool {
+        // HymnalSearch only has one event
+        // the nested fetch state will cause a rerender when it changes
+        // the event itself should never cause a rerender
+        false
     }
 
     fn view(&self) -> Host {
-        let hymns = self
-            .results
-            .iter()
-            .group_by(|hymn| hymn.source)
-            .into_iter()
-            .flat_map(|(hymnal_id, hymns)| {
-                let hymnal = self
-                    .hymnals
+        let state = self.state.with(|state| match &state.status {
+            FetchStatus::Idle => view! {
+                <p class="idle search-state">{t!("hymnal.search_instruction")}</p>
+            },
+            FetchStatus::Loading => view! {
+                <p class="loading search-state">{t!("loading")}</p>
+            },
+            FetchStatus::Error(e) => view! {
+                <p class="error search-state">{e.to_string()}</p>
+            },
+            FetchStatus::Success(hymns) => {
+                let hymns = hymns
                     .iter()
-                    .find(|s_hymnal| {
-                        s_hymnal.id == hymnal_id
-                            && (self.hymnal.is_none() || self.hymnal == Some(hymnal_id))
+                    .group_by(|hymn| hymn.source)
+                    .into_iter()
+                    .flat_map(|(hymnal_id, hymns)| {
+                        let hymnal = self
+                            .hymnals
+                            .iter()
+                            .find(|s_hymnal| {
+                                s_hymnal.id == hymnal_id
+                                    && (self.hymnal.is_none() || self.hymnal == Some(hymnal_id))
+                            })
+                            .map(hymnal_metadata);
+
+                        let hymns = hymns.into_iter().filter_map(|hymn| {
+                            if self.hymnal.is_none() || self.hymnal == Some(hymn.source) {
+                                Some(hymn_metadata(&self.locale, hymn))
+                            } else {
+                                None
+                            }
+                        });
+
+                        hymnal.into_iter().chain(hymns)
                     })
-                    .map(hymnal_metadata);
+                    .collect::<Vec<_>>();
 
-                let hymns = hymns.into_iter().filter_map(|hymn| {
-                    if self.hymnal.is_none() || self.hymnal == Some(hymn.source) {
-                        Some(hymn_metadata(&self.locale, hymn))
-                    } else {
-                        None
-                    }
-                });
-
-                hymnal.into_iter().chain(hymns)
-            })
-            .collect::<Vec<_>>();
+                view! {
+                    <section>{hymns}</section>
+                }
+            }
+        });
 
         let current_hymnal = self.hymnal.clone();
 
@@ -177,15 +145,17 @@ impl Component for HymnalSearch {
                     />
                 </label>
 
-                <p class="loading search-state" class:hidden={!self.loading}>{t!("loading")}</p>
-
-                {hymns}
+                {state}
             </Host>
         }
     }
 }
 
 impl HymnalSearch {
+    fn is_loading(&self) -> bool {
+        self.state.with(|state| state.is_loading())
+    }
+
     fn choose_hymnal(&self) -> SegmentButton<Option<Hymnals>, HymnalSearchMsg> {
         let current_search = self.search.clone();
 

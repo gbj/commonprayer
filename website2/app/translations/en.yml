@@ -57,6 +57,7 @@ en:
     more_results: Click here for more search results.
     category_lookup: "%{category} Hymns"
     search_by_bing: Search results provided by the Bing Video Search API.
+    search_instruction: Begin by searching for a hymn.
 
   liturgy: Liturgy
   date: Date

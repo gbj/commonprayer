@@ -30,7 +30,7 @@ pub enum CalendarPageCmd {
 }
 
 #[async_trait(?Send)]
-impl Component for CalendarController {
+impl State for CalendarController {
     type Msg = CalendarPageMsg;
     type Cmd = CalendarPageCmd;
 
@@ -93,7 +93,9 @@ impl Component for CalendarController {
         }
         None
     }
+}
 
+impl Component for CalendarController {
     fn view(&self) -> Host {
         let initial_date = if is_server!() { None } else { location_hash() }.and_then(|hash| {
             let today = today();

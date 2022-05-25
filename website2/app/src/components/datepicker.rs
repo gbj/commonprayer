@@ -18,7 +18,7 @@ impl DatePicker {
 }
 
 #[async_trait(?Send)]
-impl Component for DatePicker {
+impl State for DatePicker {
     type Msg = Option<Date>;
     type Cmd = Option<Date>;
 
@@ -32,7 +32,9 @@ impl Component for DatePicker {
         event_emitter.emit(CustomEvent::new("change").detail(cmd));
         None
     }
+}
 
+impl Component for DatePicker {
     fn view(&self) -> Host {
         view! {
             <Host>

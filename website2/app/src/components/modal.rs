@@ -14,7 +14,7 @@ pub enum ModalMsg {
 }
 
 #[async_trait(?Send)]
-impl Component for Modal {
+impl State for Modal {
     type Msg = ModalMsg;
     type Cmd = bool;
 
@@ -35,7 +35,9 @@ impl Component for Modal {
         }
         None
     }
+}
 
+impl Component for Modal {
     fn view(&self) -> Host {
         view! {
             <Host>

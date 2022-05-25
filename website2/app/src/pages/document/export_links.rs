@@ -1,4 +1,5 @@
 use crate::components::Modal;
+use crate::utils::encode_uri;
 use crate::views::Icon;
 use leptos2::*;
 use liturgy::{Content, Document};
@@ -36,7 +37,7 @@ pub enum ExportLinksMsg {
 pub enum ExportLinksCmd {}
 
 #[async_trait(?Send)]
-impl Component for ExportLinks {
+impl State for ExportLinks {
     type Msg = ExportLinksMsg;
     type Cmd = ExportLinksCmd;
 
@@ -75,7 +76,9 @@ impl Component for ExportLinks {
     async fn cmd(_cmd: Self::Cmd, _host: web_sys::HtmlElement) -> Option<Self::Msg> {
         None
     }
+}
 
+impl Component for ExportLinks {
     fn view(&self) -> Host {
         // TODO selections
         let text_to_copy = "TODO text to copy";
@@ -136,7 +139,7 @@ impl Component for ExportLinks {
                                 class="json"
                                 download={&format!("{}{}{}.json", self.slug, if self.date.is_empty() { "" } else { "-" }, self.date)}
                                 // TODO selection vs. whole doc
-                                href={format!("data:application/json,{}", js_sys::encode_uri(&json))}
+                                href={format!("data:application/json,{}", encode_uri(&json))}
                             >
                                 <img src="/static/icons/tabler-icon-download.svg"/>
                                 {t!("export.json")}

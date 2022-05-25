@@ -1,6 +1,6 @@
 use proc_macro2::TokenStream;
 use quote::{quote, quote_spanned};
-use syn::Expr;
+use syn::{spanned::Spanned, Expr};
 use syn_rsx::{parse, Node, NodeType};
 
 #[proc_macro]
@@ -116,15 +116,17 @@ fn element_node(node: &Node) -> Option<TokenStream> {
             }
         })
         .collect::<Vec<_>>();
-    let attributes = quote! {
-        vec![
+
+    let span = node.name_span().unwrap();
+
+    let attributes = quote_spanned! {
+        span => vec![
              #(#attributes,)*
              #(#classes,)*
         ]
     };
 
     let tag = node.name_as_string().unwrap();
-    let span = node.name_span().unwrap();
 
     let children = node
         .children
@@ -165,7 +167,8 @@ fn element_node(node: &Node) -> Option<TokenStream> {
                 .filter_map(
                     |attr| match (attr.name_as_string(), attr.value_as_block()) {
                         (Some(name), Some(value)) => {
-                            Some(quote! { #value.to_attribute(#name.to_string()) })
+                            let span = attr.name_span().unwrap();
+                            Some(quote_spanned! { span => #value.to_attribute(#name.to_string()) })
                         }
                         _ => None,
                     },
@@ -176,9 +179,11 @@ fn element_node(node: &Node) -> Option<TokenStream> {
                     let prop_name = attr_name.replace("prop:", "");
                     let prop_name = prop_name.parse::<TokenStream>().unwrap();
 
+                    let span = attr.name_span().unwrap();
+
                     attr.value.as_ref().map(|value| {
-                        quote! {
-                            host.#prop_name = #value;
+                        quote_spanned! {
+                            span => host.#prop_name = #value;
                         }
                     })
                 } else {
@@ -186,8 +191,10 @@ fn element_node(node: &Node) -> Option<TokenStream> {
                 }
             });
 
-            quote! {
-                if is_server!() {
+            let span = node.name_span().unwrap();
+
+            quote_spanned! {
+                span => if is_server!() {
                     Some({
                         let component_attrs = #component_name::attributes();
 
@@ -210,15 +217,16 @@ fn element_node(node: &Node) -> Option<TokenStream> {
                 }
             }
         } else {
-            quote! { None }
+            quote_spanned! { span => None }
         };
 
         // element tag
         let tag = if is_component {
             let component_name: TokenStream = tag.parse().unwrap();
-            quote! { #component_name::tag() }
+            let span = node.name_span().unwrap();
+            quote_spanned! { span => #component_name::tag() }
         } else {
-            quote! { #tag.to_string() }
+            quote_spanned! { span => #tag.to_string() }
         };
 
         // key attr
@@ -233,7 +241,7 @@ fn element_node(node: &Node) -> Option<TokenStream> {
                 span => Some(#value.to_string())
             }
         } else {
-            quote! { None }
+            quote_spanned! { span => None }
         };
 
         Some(quote_spanned! {
@@ -281,11 +289,14 @@ fn listeners_from_node(node: &Node, starting_phrase: &str) -> proc_macro2::Token
             }
         })
         .collect::<Vec<_>>();
+
+    let span = node.name_span().unwrap();
+
     if listeners.is_empty() {
-        quote! { Vec::new() }
+        quote_spanned! { span => Vec::new() }
     } else {
-        quote! {
-            leptos2::vdom::build_listeners(leptos2::vdom::Listeners::from([
+        quote_spanned! {
+            span => leptos2::vdom::build_listeners(leptos2::vdom::Listeners::from([
                 #(#listeners,)*
             ]))
         }
@@ -323,11 +334,14 @@ fn foreign_listeners_from_node(node: &Node) -> proc_macro2::TokenStream {
             }
         })
         .collect::<Vec<_>>();
+
+    let span = node.name_span().unwrap();
+
     if listeners.is_empty() {
-        quote! { Vec::new() }
+        quote_spanned! { span => Vec::new() }
     } else {
-        quote! {
-            leptos2::vdom::build_foreign_listeners(vec![
+        quote_spanned! {
+            span => leptos2::vdom::build_foreign_listeners(vec![
                 #(#listeners,)*
             ])
         }
@@ -392,9 +406,10 @@ fn impl_wc(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
             let attr_name = slugify(&field.ident.as_ref().unwrap().to_string());
             let ident = &field.ident;
             let ty = &field.ty;
+            let span = field.span().unwrap();
 
-            quote! {
-                #attr_name => {
+            quote_spanned! {
+                span.into() => #attr_name => {
                     if let Some(#ident) = new_value.and_then(|value| value.parse::<#ty>().ok()) {
                         self.#ident = #ident;
                     }
@@ -403,11 +418,13 @@ fn impl_wc(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
         })
         .collect::<Vec<_>>();
 
+    let span = name.span();
+
     let set_attribute = if set_attribute.is_empty() {
-        quote! { {} }
+        quote_spanned! { span => {} }
     } else {
-        quote! {
-            match attr_name.as_str() {
+        quote_spanned! {
+            span => match attr_name.as_str() {
                 #(#set_attribute,)*
                 _ => {}
             }
@@ -426,8 +443,10 @@ fn impl_wc(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
             let ident = &field.ident;
             let ty = &field.ty;
 
-            quote! {
-                #attr_name => {
+            let span = field.span().unwrap();
+
+            quote_spanned! {
+                span.into() => #attr_name => {
                     match wasm_bindgen::JsValue::into_serde::<#ty>(&new_value) {
                         Ok(val) => {
                             self.#ident = val;
@@ -440,10 +459,10 @@ fn impl_wc(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
         .collect::<Vec<_>>();
 
     let set_property = if set_property.is_empty() {
-        quote! { {} }
+        quote_spanned! { span => {} }
     } else {
-        quote! {
-            match prop_name.as_str() {
+        quote_spanned! {
+            span => match prop_name.as_str() {
                 #(#set_property,)*
                 _ => {}
             }
@@ -458,16 +477,18 @@ fn impl_wc(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
             attr.path.get_ident().map(|ident| ident.to_string()) == Some("prop".to_string())
         });
 
+        let span = field.span();
+
         if prop {
-            quote! {
-                leptos2::property(
+            quote_spanned! {
+                span => leptos2::property(
                     #attr_name,
                     Box::new(self.#ident.clone())
                 )
             }
         } else {
-            quote! {
-                leptos2::attribute(
+            quote_spanned! {
+                span => leptos2::attribute(
                     #attr_name,
                     self.#ident.to_string()
                 )

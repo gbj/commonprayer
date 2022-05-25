@@ -34,20 +34,28 @@ impl Element {
     }
 
     pub fn hydrate(&self, parent: &web_sys::Element, idx: usize, link: &Link) {
-        let el = parent.children().item(idx as u32).unwrap();
-        add_listeners(el.unchecked_ref(), &self.listeners, link);
+        if let Some(el) = parent.children().item(idx as u32) {
+            add_listeners(el.unchecked_ref(), &self.listeners, link);
 
-        // append children
-        for (idx, child) in self
-            .children
-            .iter()
-            .filter_map(|node| match node {
-                Node::Element(el) => Some(el),
-                Node::Text(_) => None,
-            })
-            .enumerate()
-        {
-            child.hydrate(&el, idx, link);
+            // append children
+            for (idx, child) in self
+                .children
+                .iter()
+                .filter_map(|node| match node {
+                    Node::Element(el) => Some(el),
+                    Node::Text(_) => None,
+                })
+                .enumerate()
+            {
+                child.hydrate(&el, idx, link);
+            }
+        } else {
+            debug_warn(&format!(
+                "could not find child #{} on {}\n\nchild node was {:#?}",
+                idx,
+                parent.outer_html(),
+                self
+            ))
         }
     }
 }

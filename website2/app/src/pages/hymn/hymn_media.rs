@@ -55,7 +55,7 @@ pub enum HymnMediaCmd {
 }
 
 #[async_trait(?Send)]
-impl Component for HymnMedia {
+impl State for HymnMedia {
     type Msg = HymnMediaMsg;
     type Cmd = HymnMediaCmd;
 
@@ -138,7 +138,9 @@ impl Component for HymnMedia {
             }
         }
     }
+}
 
+impl Component for HymnMedia {
     fn view(&self) -> Host {
         let hymnary_hymnal_id = match self.hymnal {
             Hymnals::Hymnal1982 => "EH1982",

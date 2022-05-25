@@ -14,6 +14,7 @@ mod error;
 mod event_emitter;
 mod page;
 pub mod ssr;
+mod state;
 pub mod vdom;
 
 use std::any::Any;
@@ -25,6 +26,7 @@ pub use error::*;
 pub use event_emitter::*;
 pub use page::*;
 pub use ssr::*;
+pub use state::*;
 pub use vdom::*;
 
 pub use web_sys::Event;

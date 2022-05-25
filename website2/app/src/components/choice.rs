@@ -7,7 +7,7 @@ pub struct ChoiceView {
 }
 
 #[async_trait(?Send)]
-impl Component for ChoiceView {
+impl State for ChoiceView {
     type Msg = usize;
     type Cmd = ();
 
@@ -19,7 +19,9 @@ impl Component for ChoiceView {
     async fn cmd(_cmd: Self::Cmd, _host: web_sys::HtmlElement) -> Option<Self::Msg> {
         None
     }
+}
 
+impl Component for ChoiceView {
     fn view(&self) -> Host {
         view! {
             <Host>
