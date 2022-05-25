@@ -45,6 +45,7 @@ where
                             name={&self.name}
                             value={idx}
                             on:change={let msg_fn = self.msg_fn.clone(); move |_| (msg_fn)(&value)}
+                            checked={self.value == value}
                             prop:checked={self.value == value}
                         />
                         <label for={&id}>
