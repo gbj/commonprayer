@@ -78,7 +78,6 @@ where
                             Rc::new(StateSender::<Self>::new(tx.clone())),
                             &host,
                         );
-                        crate::warn("running nested machine");
                         nested_state.run();
                     }
 
