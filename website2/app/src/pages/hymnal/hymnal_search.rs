@@ -46,7 +46,7 @@ impl State for HymnalSearch {
         match msg {
             HymnalSearchMsg::Search(search, hymnal) => {
                 let hymnal_query = hymnal
-                    .map(|hymnal| format!("&hymnal={}", hymnal))
+                    .map(|hymnal| format!("&hymnal={:?}", hymnal))
                     .unwrap_or_default();
 
                 self.state.send(FetchMsg::SetUrlAndGet(format!(
