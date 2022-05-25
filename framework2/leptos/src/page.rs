@@ -191,6 +191,7 @@ where
                             </script>
                         }
                     }}
+                    <script>{include_str!("./polyfills/declarative_shadow_dom.js")}</script>
                 </body>
             </html>
         })
