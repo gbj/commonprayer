@@ -107,9 +107,8 @@ pub fn body(locale: &str, props: &HymnalPageState) -> Vec<Node> {
     } else {
         FetchStatus::Success(Box::new(props.search_results.clone()))
     };
-    let results_query_state = NestedState::new(Fetch::with_status(results_query_status));
 
-    leptos2::warn(&format!("results len = {}", props.search_results.len()));
+    let results_query_state = NestedState::new(Fetch::with_status(results_query_status));
 
     view! {
         <>
@@ -118,7 +117,7 @@ pub fn body(locale: &str, props: &HymnalPageState) -> Vec<Node> {
                 <HymnalSearch
                     locale={locale}
                     search={&props.search}
-                    prop:state={results_query_state}
+                    prop:state={results_query_state.clone()}
                     prop:hymnals={props.hymnals.clone()}
                 >
                 </HymnalSearch>

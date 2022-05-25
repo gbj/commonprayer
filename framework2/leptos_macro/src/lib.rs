@@ -92,7 +92,7 @@ fn element_node(node: &Node) -> Option<TokenStream> {
         .iter()
         .filter_map(|attr| {
             let attr_name = attr.name_as_string().unwrap();
-            if true_attr(attr) {
+            if true_attr(attr) || attr_name.starts_with("prop:") {
                 let real_attr_name = if attr_name.starts_with("prop:") {
                     attr_name.replace("prop:", "")
                 } else {
@@ -201,14 +201,15 @@ fn element_node(node: &Node) -> Option<TokenStream> {
                         let mut host = #component_name::default();
                         for attr in [#(#attrs,)*] {
                             if let leptos2::Attribute::Attribute(name, value) = attr {
-                                host.set_attribute(name, value);
+                                if component_attrs.contains(&name.as_str()) {
+                                    host.set_attribute(name, value);
+                                }
                             }
                         }
 
                         #(#props;)*
 
                         (std::rc::Rc::new(move || {
-                            leptos2::warn(&format!("rendering host = {:#?}", host));
                             host.view()
                         }) as std::rc::Rc<dyn Fn() -> leptos2::Host>)
                     })
@@ -251,7 +252,7 @@ fn element_node(node: &Node) -> Option<TokenStream> {
                 attrs: #attributes,
                 listeners: #listeners,
                 children: vec![],
-                shadow_root: #shadow_root
+                shadow_root: #shadow_root,
             }
             #(.child(#children))*)
         })
