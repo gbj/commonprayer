@@ -178,9 +178,6 @@ where
                     // additional code to be injected -- can be specified by server
                     {global_body_code.unwrap_or_else(|| text(""))}
 
-                    // serialized state
-                    {serialized_props}
-
                     // custom element code
                     {if self.static_page {
                         text("")
@@ -191,6 +188,8 @@ where
                             </script>
                         }
                     }}
+                    // serialized state
+                    {serialized_props}
                     <script>{include_str!("./polyfills/declarative_shadow_dom.js")}</script>
                 </body>
             </html>
