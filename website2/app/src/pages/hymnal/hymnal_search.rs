@@ -31,12 +31,6 @@ pub enum HymnalSearchMsg {
     Search(String, Option<Hymnals>),
 }
 
-#[derive(Clone, Debug, PartialEq)]
-pub enum HymnalSearchCmd {
-    FetchSearch(String, Option<Hymnals>, Option<AbortController>),
-    CancelSearch(AbortController, String, Option<Hymnals>),
-}
-
 #[async_trait(?Send)]
 impl State for HymnalSearch {
     type Msg = HymnalSearchMsg;
@@ -152,10 +146,6 @@ impl Component for HymnalSearch {
 }
 
 impl HymnalSearch {
-    fn is_loading(&self) -> bool {
-        self.state.with(|state| state.is_loading())
-    }
-
     fn choose_hymnal(&self) -> SegmentButton<Option<Hymnals>, HymnalSearchMsg> {
         let current_search = self.search.clone();
 
