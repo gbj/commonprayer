@@ -5,6 +5,13 @@ use serde::{Deserialize, Serialize};
 pub enum BingSearchResult {
     Videos(Videos),
     ErrorResponse(ErrorResponse),
+    Empty,
+}
+
+impl Default for BingSearchResult {
+    fn default() -> Self {
+        Self::Empty
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]

@@ -50,6 +50,15 @@ where
     host: Option<web_sys::HtmlElement>,
 }
 
+impl<T> PartialEq for NestedState<T>
+where
+    T: State + PartialEq,
+{
+    fn eq(&self, other: &Self) -> bool {
+        self.state == other.state && self.host == other.host
+    }
+}
+
 impl<T> Serialize for NestedState<T>
 where
     T: State + Serialize,

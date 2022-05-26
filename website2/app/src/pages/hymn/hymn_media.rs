@@ -1,4 +1,7 @@
-use crate::WebView;
+use crate::{
+    utils::fetch::{Fetch, FetchMsg},
+    WebView,
+};
 use hymnal::{HymnNumber, Hymnals};
 use leptos2::*;
 use liturgy::Text;
@@ -20,7 +23,7 @@ pub struct HymnMedia {
     pub mode: HymnMediaShowing,
     pub page: u32,
     page_scan_expanded: bool,
-    video_results: FetchStatus<BingSearchResult>,
+    video_results: NestedState<Fetch<BingSearchResult>>,
     video_player_embed_code: Option<String>,
 }
 
@@ -43,14 +46,11 @@ pub enum HymnMediaMsg {
     PageScanBack,
     PageScanForward,
     PageScanExpandedToggle,
-    LoadVideosSuccess(BingSearchResult),
-    LoadVideoError(FetchError),
     SetEmbedCode(usize),
 }
 
 #[derive(Copy, Clone, Debug, Deserialize, Serialize)]
 pub enum HymnMediaCmd {
-    FetchVideos(Hymnals, HymnNumber),
     ScrollToVideoPlayer,
 }
 
@@ -58,14 +58,6 @@ pub enum HymnMediaCmd {
 impl State for HymnMedia {
     type Msg = HymnMediaMsg;
     type Cmd = HymnMediaCmd;
-
-    fn init(&self) -> Option<Self::Cmd> {
-        if self.mode == HymnMediaShowing::Video {
-            Some(HymnMediaCmd::FetchVideos(self.hymnal, self.number))
-        } else {
-            None
-        }
-    }
 
     fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
         match msg {
@@ -77,8 +69,8 @@ impl State for HymnMedia {
                     _ => HymnMediaShowing::Text,
                 };
                 self.mode = mode;
-                if self.video_results == FetchStatus::Idle && self.mode == HymnMediaShowing::Video {
-                    return Some(HymnMediaCmd::FetchVideos(self.hymnal, self.number));
+                if self.mode == HymnMediaShowing::Video {
+                    self.fetch_videos();
                 }
             }
             HymnMediaMsg::PageScanBack => {
@@ -91,23 +83,21 @@ impl State for HymnMedia {
             HymnMediaMsg::PageScanExpandedToggle => {
                 self.page_scan_expanded = !self.page_scan_expanded
             }
-            HymnMediaMsg::LoadVideosSuccess(result) => {
-                self.video_results = FetchStatus::Success(Box::new(result.clone()))
-            }
-            HymnMediaMsg::LoadVideoError(error) => self.video_results = FetchStatus::Error(error),
             HymnMediaMsg::SetEmbedCode(idx) => {
-                let embed = match &self.video_results {
+                let embed = self.video_results.with(|res| match &res.status {
                     FetchStatus::Success(res) => match &**res {
                         BingSearchResult::Videos(videos) => videos
                             .value
                             .get(idx)
-                            .and_then(|video| video.embed_html.as_ref()),
+                            .and_then(|video| video.embed_html.clone()),
                         BingSearchResult::ErrorResponse(_) => None,
+                        BingSearchResult::Empty => None,
                     },
                     _ => None,
-                };
-                self.video_player_embed_code = embed.cloned();
-                if embed.is_some() {
+                });
+                let has_video = embed.is_some();
+                self.video_player_embed_code = embed;
+                if has_video {
                     return Some(HymnMediaCmd::ScrollToVideoPlayer);
                 }
             }
@@ -117,16 +107,6 @@ impl State for HymnMedia {
 
     async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg> {
         match cmd {
-            HymnMediaCmd::FetchVideos(hymnal, hymn_number) => {
-                let url = format!(
-                    "/api/hymnal/videos?hymnal={:#?}&number={}",
-                    hymnal, hymn_number
-                );
-                match fetch(&url, None).await {
-                    Ok(result) => Some(HymnMediaMsg::LoadVideosSuccess(result)),
-                    Err(err) => Some(HymnMediaMsg::LoadVideoError(err)),
-                }
-            }
             HymnMediaCmd::ScrollToVideoPlayer => {
                 let video_view = host
                     .shadow_root()
@@ -137,6 +117,27 @@ impl State for HymnMedia {
                 None
             }
         }
+    }
+
+    fn nested_states(&mut self) -> Vec<&mut dyn StateMachine> {
+        vec![&mut self.video_results]
+    }
+}
+
+impl HymnMedia {
+    fn fetch_videos(&self) {
+        if self.videos_idle() {
+            let url = format!(
+                "/api/hymnal/videos?hymnal={:#?}&number={}",
+                self.hymnal, self.number
+            );
+            self.video_results.send(FetchMsg::SetUrlAndGet(url));
+        }
+    }
+
+    fn videos_idle(&self) -> bool {
+        self.video_results
+            .with(|state| state.status == FetchStatus::Idle)
     }
 }
 
@@ -257,13 +258,14 @@ impl Component for HymnMedia {
 
 impl HymnMedia {
     fn videos(&self) -> Node {
-        match &self.video_results {
+        self.video_results.with(|state| match &state.status {
             FetchStatus::Idle => text(t!("loading")),
             FetchStatus::Loading => text(t!("loading")),
             FetchStatus::Error(_) => view! {
                 <p class="error">{t!("hymnal.video_error")}</p>
             },
             FetchStatus::Success(result) => match &**result {
+                BingSearchResult::Empty => { view! { <p></p> }}
                 BingSearchResult::ErrorResponse(_) => {
                     view! { <p class="error">{t!("hymnal.video_error")}</p> }
                 }
@@ -317,7 +319,7 @@ impl HymnMedia {
                     }
                 }
             },
-        }
+        })
     }
 
     fn video_player(&self) -> Option<Node> {

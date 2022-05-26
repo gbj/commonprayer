@@ -2,6 +2,10 @@
 	display: none;
 }
 
+a {
+	color: var(--link-color);
+}
+
 /* Page Scan */
 .overlay.expanded {
 	opacity: 0.25;
