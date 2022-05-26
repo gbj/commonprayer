@@ -188,9 +188,9 @@ where
                             </script>
                         }
                     }}
+                    <script>{include_str!("./polyfills/declarative_shadow_dom.js")}</script>
                     // serialized state
                     {serialized_props}
-                    <script>{include_str!("./polyfills/declarative_shadow_dom.js")}</script>
                 </body>
             </html>
         })
