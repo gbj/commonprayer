@@ -1,3 +1,5 @@
+use std::convert::TryFrom;
+
 use bible::OfflineBible;
 use calendar::{Calendar, LiturgicalDay, LiturgicalDayId, Rank, Weekday};
 use canticle_table::{CanticleId, CanticleTable};
@@ -135,7 +137,16 @@ pub trait Library {
                         };
 
                         let mut docs = readings.map(|reading| {
-                            if reading_type.is_psalm() {
+                            if reading.citation.starts_with("canticle-")
+                                || reading.citation.starts_with("Canticle ")
+                                || reading.citation.starts_with("Cántico")
+                            {
+                                let id = CanticleId::try_from(reading.citation.as_str()).ok();
+                                id.and_then(|id| Self::canticle(id, document.version))
+                                    .unwrap_or_else(|| {
+                                        Document::from(DocumentError::from(reading.citation))
+                                    })
+                            } else if reading_type.is_psalm() {
                                 Self::compile(
                                     Document::from(PsalmCitation::from(reading.citation)),
                                     calendar,

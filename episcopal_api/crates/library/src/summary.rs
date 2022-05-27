@@ -46,8 +46,6 @@ impl CommonPrayer {
             day.observed = LiturgicalDayId::Feast(alternate);
         }
 
-        println!("{:#?}", alternate);
-
         let observed = summarize_eucharistic_observance(&day, &day.observed, language, psalter);
         let alternate = day
             .alternate
@@ -201,7 +199,7 @@ fn psalm_citation_to_documents<L: Library>(
     canticle_version: Version,
     citation: &str,
 ) -> Vec<Document> {
-    if citation.starts_with("Canticle") {
+    if citation.starts_with("Canticle") || citation.starts_with("canticle-") {
         if let Some(doc) = CanticleId::try_from(citation)
             .ok()
             .and_then(|id| L::canticle(id, canticle_version))

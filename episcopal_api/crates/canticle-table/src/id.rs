@@ -109,7 +109,8 @@ impl TryFrom<&str> for CanticleId {
     type Error = ();
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
-        let without_citation = value.replace("Canticle", "");
+        let without_citation = value.replace("canticle-", "");
+        let without_citation = without_citation.replace("Canticle", "");
         let without_citation = without_citation.replace("Cántico", "");
         let without_citation = without_citation.trim();
         match without_citation {
