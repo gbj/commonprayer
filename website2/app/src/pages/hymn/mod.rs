@@ -5,136 +5,131 @@ use crate::views::*;
 use hymnal::{Hymn, HymnNumber, Hymnal, Hymnals};
 use leptos2::*;
 
-#[derive(Clone, Deserialize)]
+#[derive(Deserialize)]
 pub struct HymnPageParams {
     hymnal: Hymnals,
     number: HymnNumber,
 }
 
-#[derive(Clone, Deserialize, Serialize)]
-pub struct HymnPageState {
+pub struct HymnPage {
     hymnal: Hymnal,
     hymn: Hymn,
 }
 
-pub fn hymn() -> Page<HymnPageState, HymnPageParams> {
-    Page::new("hymn")
-        .build_paths_fn(get_static_paths)
-        .head_fn(head)
-        .body_fn(body)
-        .state(state)
-        .incremental_generation()
-}
+impl Page for HymnPage {
+    type Params = HymnPageParams;
 
-pub fn get_static_paths() -> Vec<String> {
-    vec!["{hymnal}/{number}".into()]
-}
-
-pub fn state(_locale: &str, path: &str, params: &HymnPageParams) -> Option<HymnPageState> {
-    let mut search_parts = path.split("?q=");
-    search_parts.next();
-
-    let hymnal: Hymnal = params.hymnal.into();
-    let hymn = hymnal
-        .hymns
-        .iter()
-        .find(|s_hymn| s_hymn.number == params.number)?
-        .clone();
-
-    Some(HymnPageState { hymnal, hymn })
-}
-
-pub fn head(_locale: &str, props: &HymnPageState) -> Vec<Node> {
-    let title = format!("{} {}", props.hymn.number, props.hymn.title);
-
-    view! {
-        <>
-            <title>{title} " – " {t!("common_prayer")}</title>
-            <link rel="stylesheet" href="/static/vars.css"/>
-            <link rel="stylesheet" href="/static/general.css"/>
-            <link rel="stylesheet" href="/static/document.css"/>
-            <style>{include_str!("hymn.css")}</style>
-        </>
+    fn name() -> &'static str {
+        "hymn"
     }
-}
 
-pub fn body(locale: &str, props: &HymnPageState) -> Vec<Node> {
-    let hymnal = &props.hymnal;
-    let hymn = &props.hymn;
+    fn paths() -> Vec<String> {
+        vec!["{hymnal}/{number}".into()]
+    }
 
-    let hymnary_hymnal_id = match hymnal.id {
-        Hymnals::Hymnal1982 => "EH1982",
-        Hymnals::LEVAS => "LEVS1993",
-        Hymnals::WLP => "WLP1997",
-        Hymnals::ElHimnario => "EH1998",
-    };
-    let hymnary_hymn_link = format!(
-        "https://hymnary.org/hymn/{}/{}",
-        &hymnary_hymnal_id, hymn.number
-    );
+    fn build_state(_locale: &str, path: &str, params: Self::Params) -> Option<Self> {
+        let hymnal: Hymnal = params.hymnal.into();
+        let hymn = hymnal
+            .hymns
+            .iter()
+            .find(|s_hymn| s_hymn.number == params.number)?
+            .clone();
 
-    view! {
-        <>
-            {Header::new(locale, &format!("{} {}", hymn.number, hymn.title)).to_node()}
-            <main>
-                <h2>
-                    <a href={&format!("/{}/hymnal/{:#?}", locale, hymnal.id)}>
-                        {&hymnal.title}
-                    </a>
-                    " "
-                    {hymn.number.to_string()}
-                </h2>
+        Some(HymnPage { hymnal, hymn })
+    }
 
-                // Hymn metadata
-                <h3>{&hymn.title}</h3>
+    fn head(&self, _locale: &str) -> Vec<Node> {
+        let title = format!("{} {}", self.hymn.number, self.hymn.title);
 
-                <dl>
-                    <dt>{t!("hymnal.tune")}</dt>
-                    <dd class="tune">{hymn.tune.to_lowercase()}</dd>
-                    {possible_field(&t!("hymnal.authors"), &hymn.authors)}
-                    {possible_field(&t!("hymnal.composers"), &hymn.composers)}
-                    {possible_field(&t!("hymnal.meter"), &hymn.meter)}
-                    {possible_field(&t!("hymnal.text_sources"), &hymn.text_sources)}
-                    {possible_field(&t!("hymnal.tune_sources"), &hymn.tune_sources)}
-                </dl>
+        view! {
+            <>
+                <title>{title} " – " {t!("common_prayer")}</title>
+                <link rel="stylesheet" href="/static/vars.css"/>
+                <link rel="stylesheet" href="/static/general.css"/>
+                <link rel="stylesheet" href="/static/document.css"/>
+                <style>{include_str!("hymn.css")}</style>
+            </>
+        }
+    }
 
-                // Links to RiteSong and Hymnary
-                <p class="hymnary-link">
-                    {t!("hymnal.more_info")}
-                    " "
-                    {rite_song_link(&hymn.source, &hymn.number).map(|link| view! {
-                        <span>
-                            <a class="hymnary-link" href={link} target="_blank">"ritesong"</a>
-                            " "
-                            {t!("or")}
-                            " "
-                        </span>
-                    })}
-                    <a class="hymnary-link" href={hymnary_hymn_link} target="_blank">"Hymnary.org"</a>
-                    "."
-                </p>
+    fn body(&self, locale: &str) -> Vec<Node> {
+        let hymnal = &self.hymnal;
+        let hymn = &self.hymn;
 
-                <HymnMedia
-                    hymnal={hymnal.id}
-                    number={hymn.number}
-                    text={&hymn.text}
-                    copyright={hymn.copyright_restriction}
-                    page={hymn.page_number}
-                    mode={if !hymn.text.is_empty() {
-                        HymnMediaShowing::Text
-                    } else if !hymn.copyright_restriction {
-                        HymnMediaShowing::PageScan
-                    } else {
-                        HymnMediaShowing::Video
-                    }}
-                />
+        let hymnary_hymnal_id = match hymnal.id {
+            Hymnals::Hymnal1982 => "EH1982",
+            Hymnals::LEVAS => "LEVS1993",
+            Hymnals::WLP => "WLP1997",
+            Hymnals::ElHimnario => "EH1998",
+        };
+        let hymnary_hymn_link = format!(
+            "https://hymnary.org/hymn/{}/{}",
+            &hymnary_hymnal_id, hymn.number
+        );
 
-                // Copyright notice in footer
-                <footer>
-                    {t!("hymnal.copyright_footer")}
-                </footer>
-            </main>
-        </>
+        view! {
+            <>
+                {Header::new(locale, &format!("{} {}", hymn.number, hymn.title)).to_node()}
+                <main>
+                    <h2>
+                        <a href={&format!("/{}/hymnal/{:#?}", locale, hymnal.id)}>
+                            {&hymnal.title}
+                        </a>
+                        " "
+                        {hymn.number.to_string()}
+                    </h2>
+
+                    // Hymn metadata
+                    <h3>{&hymn.title}</h3>
+
+                    <dl>
+                        <dt>{t!("hymnal.tune")}</dt>
+                        <dd class="tune">{hymn.tune.to_lowercase()}</dd>
+                        {possible_field(&t!("hymnal.authors"), &hymn.authors)}
+                        {possible_field(&t!("hymnal.composers"), &hymn.composers)}
+                        {possible_field(&t!("hymnal.meter"), &hymn.meter)}
+                        {possible_field(&t!("hymnal.text_sources"), &hymn.text_sources)}
+                        {possible_field(&t!("hymnal.tune_sources"), &hymn.tune_sources)}
+                    </dl>
+
+                    // Links to RiteSong and Hymnary
+                    <p class="hymnary-link">
+                        {t!("hymnal.more_info")}
+                        " "
+                        {rite_song_link(&hymn.source, &hymn.number).map(|link| view! {
+                            <span>
+                                <a class="hymnary-link" href={link} target="_blank">"ritesong"</a>
+                                " "
+                                {t!("or")}
+                                " "
+                            </span>
+                        })}
+                        <a class="hymnary-link" href={hymnary_hymn_link} target="_blank">"Hymnary.org"</a>
+                        "."
+                    </p>
+
+                    <HymnMedia
+                        hymnal={hymnal.id}
+                        number={hymn.number}
+                        text={&hymn.text}
+                        copyright={hymn.copyright_restriction}
+                        page={hymn.page_number}
+                        mode={if !hymn.text.is_empty() {
+                            HymnMediaShowing::Text
+                        } else if !hymn.copyright_restriction {
+                            HymnMediaShowing::PageScan
+                        } else {
+                            HymnMediaShowing::Video
+                        }}
+                    />
+
+                    // Copyright notice in footer
+                    <footer>
+                        {t!("hymnal.copyright_footer")}
+                    </footer>
+                </main>
+            </>
+        }
     }
 }
 

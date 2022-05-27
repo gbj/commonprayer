@@ -1,5 +1,5 @@
 use super::breadcrumbs::breadcrumbs;
-use super::{DocumentPageParams, DocumentPageProps, ExportLinks};
+use super::{DocumentPage, DocumentPageParams, ExportLinks};
 use crate::views::document::DocumentView;
 use crate::{
     components::DatePicker,
@@ -13,7 +13,7 @@ pub fn document_body(
     locale: &str,
     base_slug: &SlugPath,
     document: &Document,
-    props: &DocumentPageProps,
+    props: &DocumentPage,
     params: &DocumentPageParams,
 ) -> Vec<Node> {
     /* let date_picker = DatePicker::new(t!("date"), None);

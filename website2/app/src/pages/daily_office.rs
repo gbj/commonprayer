@@ -8,31 +8,40 @@ use crate::{
     utils::time::{current_preferred_liturgy, today, DEFAULT_OFFICE_TIMES},
 };
 
-pub fn daily_office() -> Page<(), ()> {
-    Page::new("daily-office")
-        .head_fn(head)
-        .body_fn(body)
-        .state(|_, _, _| Some(()))
-        .build_paths_fn(build_paths_fn)
-        .incremental_generation()
-}
+pub struct DailyOfficePage {}
 
-fn build_paths_fn() -> Vec<String> {
-    vec!["".into()]
-}
+impl Page for DailyOfficePage {
+    type Params = ();
 
-fn head(_locale: &str, _props: &()) -> Vec<Node> {
-    let title = format!("{} – {}", t!("toc.daily_office"), t!("common_prayer"));
-
-    view! {
-        <>
-            <title>{title}</title>
-        </>
+    fn name() -> &'static str {
+        "daily-office"
     }
-}
 
-fn body(_locale: &str, _props: &()) -> Vec<Node> {
-    vec![]
+    fn build_state(locale: &str, path: &str, params: Self::Params) -> Option<Self> {
+        Some(Self {})
+    }
+
+    fn paths() -> Vec<String> {
+        vec!["".to_string()]
+    }
+
+    fn head(&self, locale: &str) -> Vec<Node> {
+        let title = format!("{} – {}", t!("toc.daily_office"), t!("common_prayer"));
+
+        view! {
+            <>
+                <title>{title}</title>
+            </>
+        }
+    }
+
+    fn body(&self, locale: &str) -> Vec<Node> {
+        vec![]
+    }
+
+    fn on_load() {
+        daily_office_redirect();
+    }
 }
 
 pub fn daily_office_redirect() {

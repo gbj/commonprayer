@@ -1,5 +1,5 @@
-use app::pages::*;
-use leptos2::Page;
+use app::{components::*, pages::*};
+use leptos2::WebComponent;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 // Use `wee_alloc` as the global allocator.
@@ -7,9 +7,8 @@ use wasm_bindgen::prelude::wasm_bindgen;
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen]
-pub fn define_custom_elements() {}
-
-#[wasm_bindgen]
-pub fn on_load() {
-    DailyOfficePage::on_load();
+pub fn define_custom_elements() {
+    // holy-day
+    BiblicalCitationLoader::define();
+    ChoiceView::define();
 }

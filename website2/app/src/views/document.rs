@@ -1,6 +1,6 @@
 use liturgy::*;
 
-use crate::components::ChoiceView;
+use crate::components::{BiblicalCitationLoader, ChoiceView};
 use crate::WebView;
 use leptos2::*;
 
@@ -53,10 +53,9 @@ impl<'a> WebView for DocumentView<'a> {
                 Content::Empty => empty(),
                 Content::Error(content) => error(content),
                 Content::Antiphon(content) => antiphon(content),
-                Content::BiblicalCitation(content) => (
-                    None,
-                    biblical_citation(locale, path, content, self.doc.version),
-                ),
+                Content::BiblicalCitation(content) => {
+                    biblical_citation(locale, path, content, self.doc.version)
+                }
                 Content::BiblicalReading(content) => biblical_reading(locale, path, content),
                 Content::Canticle(content) => canticle(content, self.doc.version, path),
                 Content::CanticleTableEntry(content) => canticle_table_entry(locale, content),
@@ -219,8 +218,32 @@ pub fn biblical_citation(
     path: Vec<usize>,
     citation: &BiblicalCitation,
     version: Version,
-) -> Node {
-    view! { <pre>"TODO biblical_citation"</pre> }
+) -> HeaderAndMain {
+    let header = view! {
+        <h3 class="citation">{&citation.citation}</h3>
+    };
+
+    let intro = citation.intro.as_ref().map(|intro| {
+        view! {
+            <section class="reading-intro">
+                {DocumentView { doc: intro.as_document(), path: path.clone() }.view(locale)}
+            </section>
+        }
+    });
+
+    let main = view! {
+        <main class="biblical-reading">
+            {intro}
+            <BiblicalCitationLoader
+                locale={locale}
+                prop:citation={citation.clone()}
+                version={version}
+                prop:path={path.clone()}
+            />
+        </main>
+    };
+
+    (Some(header), main)
 }
 
 pub fn biblical_reading(
@@ -240,16 +263,7 @@ pub fn biblical_reading(
         <h3 class="citation">{&reading.citation}</h3>
     };
 
-    let verses = reading
-        .text
-        .iter()
-        .map(|(verse, verse_text)| {
-            view! {
-                <sup class="verse-number">{verse.verse.to_string()}</sup>
-                <span>{small_capify(verse_text)}</span>
-            }
-        })
-        .collect::<Vec<_>>();
+    let verses = biblical_reading_verses(reading);
 
     let main = view! {
         <main class="biblical-reading">
@@ -259,6 +273,21 @@ pub fn biblical_reading(
     };
 
     (Some(header), main)
+}
+
+pub fn biblical_reading_verses(reading: &BiblicalReading) -> Vec<Node> {
+    reading
+        .text
+        .iter()
+        .flat_map(|(verse, verse_text)| {
+            view! {
+                <>
+                    <sup class="verse-number">{verse.verse.to_string()} " "</sup>
+                    <span>{small_capify(verse_text)}</span>
+                </>
+            }
+        })
+        .collect::<Vec<_>>()
 }
 
 pub fn canticle(content: &Canticle, default_version: Version, path: Vec<usize>) -> HeaderAndMain {

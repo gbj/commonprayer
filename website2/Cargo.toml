@@ -4,6 +4,7 @@ members = [
 	"client/calendar",
 	"client/daily_office",
 	"client/document",
+	"client/holy_day",
 	"client/hymn",
 	"client/hymnal",
 	"server",

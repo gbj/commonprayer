@@ -16,28 +16,99 @@ use liturgy::{GlobalPref, PreferenceKey, PreferenceValue};
 use rust_i18n::t;
 use serde_derive::{Deserialize, Serialize};
 
-pub fn calendar() -> Page<CalendarPageProps, ()> {
-    Page::new("calendar")
-        .head_fn(head)
-        .body_fn(body)
-        .state(hydration_state)
-        .build_paths_fn(get_static_paths)
-        .incremental_generation()
+pub struct CalendarPage {
+    default_calendar: CalendarChoice,
+    bcp1979: CalendarListing,
+    lff2018: CalendarListing,
 }
 
-pub fn head(_locale: &str, _props: &CalendarPageProps) -> Vec<Node> {
-    view! {
-        <>
-            <title>{t!("menu.calendar")} " – " {t!("common_prayer")}</title>
-            <link rel="stylesheet" href="/static/vars.css"/>
-            <link rel="stylesheet" href="/static/general.css"/>
-            <link rel="stylesheet" href="/static/calendar.css"/>
-        </>
+impl Page for CalendarPage {
+    type Params = ();
+
+    fn name() -> &'static str {
+        "calendar"
     }
-}
 
-pub fn get_static_paths() -> Vec<String> {
-    vec!["".into(), "bcp1979".into(), "lff2018".into()]
+    fn paths() -> Vec<String> {
+        vec!["".into(), "bcp1979".into(), "lff2018".into()]
+    }
+
+    fn build_state(locale: &str, path: &str, params: Self::Params) -> Option<Self> {
+        let language = locale_to_language(locale);
+
+        let default_calendar = if path.ends_with("lff2018") {
+            CalendarChoice::LFF2018
+        } else if path.ends_with("bcp1979") {
+            CalendarChoice::BCP1979
+        } else {
+            CalendarChoice::None
+        };
+        let bcp1979 = summarize_calendar(
+            language,
+            &BCP1979_CALENDAR,
+            BCP1979_CALENDAR.holy_days.iter().cloned(),
+        );
+        let lff2018 = summarize_calendar(
+            language,
+            &LFF2018_CALENDAR,
+            LFF2018_CALENDAR.holy_days.iter().cloned(),
+        );
+
+        Some(CalendarPage {
+            default_calendar,
+            bcp1979,
+            lff2018,
+        })
+    }
+
+    fn head(&self, locale: &str) -> Vec<Node> {
+        view! {
+            <>
+                <title>{t!("menu.calendar")} " – " {t!("common_prayer")}</title>
+                <link rel="stylesheet" href="/static/vars.css"/>
+                <link rel="stylesheet" href="/static/general.css"/>
+                <link rel="stylesheet" href="/static/calendar.css"/>
+            </>
+        }
+    }
+
+    fn body(&self, locale: &str) -> Vec<Node> {
+        // Render BCP and LFF calendars and choose between them
+        let bcp = calendar_view(CalendarChoice::BCP1979, locale, &self.bcp1979);
+        let lff = calendar_view(CalendarChoice::LFF2018, locale, &self.lff2018);
+
+        let initial_toggle_value = match self.default_calendar {
+            CalendarChoice::BCP1979 => false,
+            CalendarChoice::LFF2018 => true,
+            CalendarChoice::None => preferences::is(
+                &PreferenceKey::from(GlobalPref::Calendar),
+                &PreferenceValue::Local("lff2018".into()),
+            ),
+        };
+
+        let button = view! {
+            <button id="modalOpen">
+                <img src={Icon::Calendar} alt={t!("calendar.settings")}/>
+            </button>
+        };
+
+        // Main view
+        view! {
+            <>
+                {Header::new_with_additional_buttons(locale, &t!("menu.calendar"), vec![button]).to_node()}
+                <main>
+                    <CalendarController
+                        lff={self.default_calendar == CalendarChoice::LFF2018}
+                    >
+                        <h2 slot="bcp-title">{t!("bcp_1979")}</h2>
+                        <h2 slot="lff-title">{t!("lff_2018")}</h2>
+                        <section slot="bcp-content">{bcp}</section>
+                        <section slot="lff-content">{lff}</section>
+                    </CalendarController>
+                </main>
+            </>
+        }
+    }
 }
 
 #[derive(Copy, Clone, Debug, Hash, PartialEq, Eq, Serialize, Deserialize)]
@@ -130,44 +201,6 @@ const MONTHS: [(u8, u8); 12] = [
     (11, 30),
     (12, 31),
 ];
-
-pub fn body(locale: &str, props: &CalendarPageProps) -> Vec<Node> {
-    // Render BCP and LFF calendars and choose between them
-    let bcp = calendar_view(CalendarChoice::BCP1979, locale, &props.bcp1979);
-    let lff = calendar_view(CalendarChoice::LFF2018, locale, &props.lff2018);
-
-    let initial_toggle_value = match props.default_calendar {
-        CalendarChoice::BCP1979 => false,
-        CalendarChoice::LFF2018 => true,
-        CalendarChoice::None => preferences::is(
-            &PreferenceKey::from(GlobalPref::Calendar),
-            &PreferenceValue::Local("lff2018".into()),
-        ),
-    };
-
-    let button = view! {
-        <button id="modalOpen">
-            <img src={Icon::Calendar} alt={t!("calendar.settings")}/>
-        </button>
-    };
-
-    // Main view
-    view! {
-        <>
-            {Header::new_with_additional_buttons(locale, &t!("menu.calendar"), vec![button]).to_node()}
-            <main>
-                <CalendarController
-                    lff={props.default_calendar == CalendarChoice::LFF2018}
-                >
-                    <h2 slot="bcp-title">{t!("bcp_1979")}</h2>
-                    <h2 slot="lff-title">{t!("lff_2018")}</h2>
-                    <section slot="bcp-content">{bcp}</section>
-                    <section slot="lff-content">{lff}</section>
-                </CalendarController>
-            </main>
-        </>
-    }
-}
 
 pub fn root_id(use_lff: bool) -> &'static str {
     if use_lff {

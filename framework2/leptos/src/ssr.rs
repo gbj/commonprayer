@@ -31,7 +31,7 @@ fn write_host(
     write_class(f, &host.host_attrs)?;
 
     // note that this has been rendered and initial state needs to be hydrated, not mounted
-    f.write_str(" data-leptos-hydrate")?;
+    f.write_str(" data-leptos-hydrate=\"hydrate\"")?;
 
     f.write_char('>')?;
 

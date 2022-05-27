@@ -14,4 +14,5 @@ pub fn define_custom_elements() {
     // document
     ChoiceView::define();
     ExportLinks::define();
+    BiblicalCitationLoader::define();
 }

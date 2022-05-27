@@ -21,7 +21,7 @@ use episcopal_api::{
 };
 use lazy_static::lazy_static;
 use leptos2::*;
-use serde::{de::DeserializeOwned, Deserialize, Serialize};
+use serde::{Deserialize};
 use tempfile::tempdir;
 use app::{
     api::bing::BingSearchResult, pages::*, utils::language::locale_to_language
@@ -258,38 +258,39 @@ fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
     // add pages
     for locale in locales {
         //add_page(cfg, locale, about());
-        add_page(cfg, locale, calendar());
-        add_page(cfg, locale, canticle_table());
-        add_page(cfg, locale, daily_office());
         //add_page(cfg, locale, readings());
-        add_page(cfg, locale, app::pages::document());
         //add_page(cfg, locale, holy_day());
-        add_page(cfg, locale, hymn());
-        add_page(cfg, locale, hymnal());
-        add_page(cfg, locale, index());
+        add_page::<CalendarPage>(cfg, locale);
+        add_page::<CanticleTablePage>(cfg, locale);
+        add_page::<DailyOfficePage>(cfg, locale);
+        add_page::<DocumentPage>(cfg, locale);
+        add_page::<HolyDayPage>(cfg, locale);
+        add_page::<HymnPage>(cfg, locale);
+        add_page::<HymnalPage>(cfg, locale);
+        add_page::<Index>(cfg, locale);
+        add_page::<PsalterPage>(cfg, locale);
         //add_page(cfg, locale, lectionary());
         //add_page(cfg, locale, psalter());
         //add_page(cfg, locale, settings());
     }
 }
 
-fn add_page<T, P>(cfg: &mut web::ServiceConfig, locale: &str, page: Page<T, P>)
+fn add_page<P>(cfg: &mut web::ServiceConfig, locale: &str)
 where
-    T: Serialize + DeserializeOwned + Clone + 'static,
-    P: DeserializeOwned + Clone + 'static,
+    P: Page
 {
-    println!("{}", page.name);
+    println!("{}", P::name());
 
     // JS/WASM routes for the page
-    if !page.static_page {
-        let name = page.name.replace('-', "_");
+    if !P::static_page() {
+        let name = P::name().replace('-', "_");
         cfg.service(Files::new(&format!("/pkg/{}", name), &format!(
             "{}/client/{}/pkg",
             *PROJECT_ROOT, name
         )));
     }
 
-    for path in page.get_absolute_paths() {
+    for path in P::get_absolute_paths() {
         // "index" is special case that uses / instead
         let localized_path = if path == "index" {
             locale.to_string()
@@ -325,10 +326,8 @@ where
         // The page
         cfg.service(web::resource(&localized_path).route(web::get().to({
             let locale = locale.to_string();
-            let page = page.clone();
 
-            move |req: HttpRequest, params: Path<P>| {
-                let page = page.clone();
+            move |req: HttpRequest, params: Path<P::Params>| {
                 let locale = locale.to_string();
                 
                 async move {
@@ -342,7 +341,7 @@ where
                     };
 
                     // if incremental generation, check if page has already been created and serve that file if it has
-                    if page.incremental_generation {
+                    if P::pure() {
                         let build_artifact_dir = [(*PROJECT_ROOT).clone(), "artifacts".to_string()].into_iter().chain(path.split('/').map(String::from)).collect::<Vec<_>>().join("/");
                         let mut build_artifact_path = build_artifact_dir.clone();
                         build_artifact_path.push_str(".html");
@@ -359,8 +358,9 @@ where
                             }
 
                             let mut file = File::create(build_artifact_path).expect("could not create static file");
-                            match &page.build(&locale, &path, params.into_inner(), Some(analytics_injection)) {
-                                Ok(view) => {
+                            match P::build_state(&locale, &path, params.into_inner()) {
+                                Some(page) => {
+                                    let view = page.render(&locale, Some(analytics_injection));
                                     let html = format!("<!DOCTYPE html>{}", view);
                                     match file.write(html.as_bytes()) {
                                         Ok(_) => println!("\t\t\tgenerated static file at {}", path),
@@ -368,23 +368,25 @@ where
                                     };
                                     HttpResponse::Ok().body(html)
                                 },
-                                Err(leptos2::PageRenderError::NotFound) => {
-                                    let not_found = not_found_404().build(&locale, &path, (), None).unwrap();
+                                None => {
+                                    let not_found = NotFound { path: path.to_string() }.render(&locale, None);
                                     HttpResponse::Ok().body(not_found.to_string())
                                 }
-                                Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
                             }
                         }
                     }
                     // otherwise, just render and serve the page
                     else {
-                        match &page.build(&locale, &path, params.into_inner(), Some(analytics_injection)) {
-                            Ok(view) => HttpResponse::Ok().body(view.to_string()),
-                            Err(leptos2::PageRenderError::NotFound) => {
-                                let not_found = not_found_404().build(&locale, &path, (), None).unwrap();
+                        match P::build_state(&locale, &path, params.into_inner()) {
+                            Some(page) => {
+                                let view = page.render(&locale, Some(analytics_injection));
+                                let html = format!("<!DOCTYPE html>{}", view);
+                                HttpResponse::Ok().body(html)
+                            },
+                            None => {
+                                let not_found = NotFound { path: path.to_string() }.render(&locale, None);
                                 HttpResponse::Ok().body(not_found.to_string())
                             }
-                            Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
                         }
                     }
                 }
