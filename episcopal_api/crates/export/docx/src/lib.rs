@@ -13,8 +13,8 @@ pub use styles::*;
 pub struct DocxDocument(Docx);
 
 // Docx uses "TWIPS" (twentieth of a point, where a point = 1/72 of an inch) as its basic measure
-const ONE_INCH: u32 = 72 * 20;
-const HALF_INCH: u32 = 36 * 20;
+const ONE_INCH: i32 = 72 * 20;
+const HALF_INCH: i32 = 36 * 20;
 
 #[derive(Error, Debug)]
 pub enum DocxError {
