@@ -38,10 +38,10 @@ impl From<Document> for DocxDocument {
             .page_size(17 * HALF_INCH, 11 * ONE_INCH)
             .page_margin(
                 PageMargin::new()
-                    .top(ONE_INCH)
-                    .left(ONE_INCH)
-                    .bottom(ONE_INCH)
-                    .right(ONE_INCH),
+                    .top(ONE_INCH.try_into().unwrap())
+                    .left(ONE_INCH.try_into().unwrap())
+                    .bottom(ONE_INCH.try_into().unwrap())
+                    .right(ONE_INCH.try_into().unwrap()),
             );
 
         Self(add_content(docx, &doc))
