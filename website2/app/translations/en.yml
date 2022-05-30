@@ -388,3 +388,14 @@ en:
     Creeds: Creeds
     ApostlesCreed: Apostles’ Creed
     NiceneCreed: Nicene Creed
+  
+  meditation:
+    title: Meditation
+    minutes: Minutes
+    seconds: Seconds
+    use_bell: Play bell sound to begin and end meditation.
+    begin: Begin
+    pause: Pause
+    resume: Resume
+    bell_error: Error while trying to play audio.
+    interval_error: Error while trying to set timer.
