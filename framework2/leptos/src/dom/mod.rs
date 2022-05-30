@@ -1,5 +1,7 @@
 pub mod operations;
+
 pub use operations::*;
+use web_sys::Event;
 
 use crate::{link::Link, Element, EventListener, Node};
 use wasm_bindgen::{prelude::Closure, JsCast, UnwrapThrowExt};
@@ -62,23 +64,30 @@ impl Element {
 
 pub fn add_listeners(node: &web_sys::Node, listeners: &[EventListener], link: &Link) {
     for listener in listeners {
-        if let Some(handler) = &listener.handler {
-            let link = link.clone();
-            let handler = handler.clone();
-            let event_handler = move |ev: web_sys::Event| {
-                let e = handler.invoke(ev);
-                if let Err(e) = link.send(e.as_any()) {
-                    debug_warn(&format!("[add_listeners] {}", e));
-                }
-            };
-            node.add_event_listener_with_callback(
-                &listener.event_name,
-                Closure::wrap(Box::new(event_handler) as Box<dyn Fn(_)>)
-                    .into_js_value()
-                    .unchecked_ref(),
-            )
+        add_listener(listener, node, link);
+    }
+}
+
+pub fn add_listener(listener: &EventListener, node: &web_sys::Node, link: &Link) {
+    if let Some(handler) = &listener.handler {
+        let link = link.clone();
+        let handler = handler.clone();
+        let event_handler = move |ev: web_sys::Event| {
+            let e = handler.invoke(ev);
+            if let Err(e) = link.send(e.as_any()) {
+                debug_warn(&format!("[add_listeners] {}", e));
+            }
+        };
+        let js_closure = Closure::wrap(Box::new(event_handler) as Box<dyn Fn(_)>).into_js_value();
+        node.add_event_listener_with_callback(&listener.event_name, js_closure.unchecked_ref())
             .unwrap_throw();
-        }
+        *listener.js_callback.borrow_mut() = Some(js_closure);
+    }
+}
+
+pub fn remove_listener(listener: &EventListener, node: &web_sys::Node) {
+    if let Some(js_callback) = listener.js_callback.borrow().clone() {
+        node.remove_event_listener_with_callback(&listener.event_name, js_callback.unchecked_ref());
     }
 }
 
@@ -105,13 +114,11 @@ pub fn add_foreign_listeners(
                     }
                 }
             };
-            node.add_event_listener_with_callback(
-                &listener.event_name,
-                Closure::wrap(Box::new(event_handler) as Box<dyn Fn(_)>)
-                    .into_js_value()
-                    .unchecked_ref(),
-            )
-            .unwrap_throw();
+            let js_closure =
+                Closure::wrap(Box::new(event_handler) as Box<dyn Fn(_)>).into_js_value();
+            node.add_event_listener_with_callback(&listener.event_name, js_closure.unchecked_ref())
+                .unwrap_throw();
+            *listener.js_callback.borrow_mut() = Some(js_closure);
         }
     }
 }
