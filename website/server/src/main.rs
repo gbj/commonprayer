@@ -140,10 +140,10 @@ async fn hymnal_search_api(
     let search = &params.q;
     let matches = HYMNAL_1982
         .search(search)
-        .map(|number| (Hymnals::Hymnal1982, number))
-        .chain(LEVAS.search(search).map(|number| (Hymnals::LEVAS, number)))
-        .chain(WLP.search(search).map(|number| (Hymnals::WLP, number)))
-        .chain(EL_HIMNARIO.search(search).map(|number| (Hymnals::ElHimnario, number)))
+        .map(|hymn| (Hymnals::Hymnal1982, hymn.number))
+        .chain(LEVAS.search(search).map(|hymn| (Hymnals::LEVAS, hymn.number)))
+        .chain(WLP.search(search).map(|hymn| (Hymnals::WLP, hymn.number)))
+        .chain(EL_HIMNARIO.search(search).map(|hymn| (Hymnals::ElHimnario, hymn.number)))
         .collect();
 
     web::Json(matches)
