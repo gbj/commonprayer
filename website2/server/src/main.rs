@@ -268,6 +268,7 @@ fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
         add_page::<HymnPage>(cfg, locale);
         add_page::<HymnalPage>(cfg, locale);
         add_page::<Index>(cfg, locale);
+        add_page::<MeditationPage>(cfg, locale);
         add_page::<PsalterPage>(cfg, locale);
         //add_page(cfg, locale, lectionary());
         //add_page(cfg, locale, psalter());

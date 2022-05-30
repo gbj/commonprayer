@@ -52,7 +52,11 @@ impl State for BiblicalCitationLoader {
         None
     }
 
-    async fn cmd(cmd: Self::Cmd, _host: web_sys::HtmlElement) -> Option<Self::Msg> {
+    async fn cmd(
+        cmd: Self::Cmd,
+        _host: web_sys::HtmlElement,
+        _link: StateLink<Self>,
+    ) -> Option<Self::Msg> {
         match cmd {
             BiblicalCitationCmd::Init => Some(Self::Msg::LoadReading),
             BiblicalCitationCmd::LoadReading(citation, version) => {

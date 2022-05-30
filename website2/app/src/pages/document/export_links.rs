@@ -73,7 +73,11 @@ impl State for ExportLinks {
         None
     }
 
-    async fn cmd(_cmd: Self::Cmd, _host: web_sys::HtmlElement) -> Option<Self::Msg> {
+    async fn cmd(
+        _cmd: Self::Cmd,
+        _host: web_sys::HtmlElement,
+        _link: StateLink<Self>,
+    ) -> Option<Self::Msg> {
         None
     }
 }

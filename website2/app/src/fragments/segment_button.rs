@@ -36,6 +36,7 @@ where
                     Some(desc) => view! { <p class="description">{desc}</p> },
                     None => view! { <p></p> },
                 };
+                let msg_fn = self.msg_fn.clone();
 
                 view! {
                     <>
@@ -44,7 +45,7 @@ where
                             id={&id}
                             name={&self.name}
                             value={idx}
-                            on:change={let msg_fn = self.msg_fn.clone(); move |_| (msg_fn)(&value)}
+                            on:change=move |_| (msg_fn)(&value)
                             checked={self.value == value}
                             prop:checked={self.value == value}
                         />

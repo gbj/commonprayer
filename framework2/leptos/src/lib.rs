@@ -1,6 +1,7 @@
 #![allow(unused_braces)]
 #![feature(negative_impls)]
 #![feature(auto_traits)]
+#![feature(type_name_of_val)]
 
 pub use async_trait::async_trait;
 pub use leptos_macro2::*;
@@ -24,6 +25,7 @@ pub use custom_element::*;
 pub use dom::*;
 pub use error::*;
 pub use event_emitter::*;
+pub use link::*;
 pub use page::*;
 pub use ssr::*;
 pub use state::*;

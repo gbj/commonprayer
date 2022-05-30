@@ -105,7 +105,11 @@ impl State for HymnMedia {
         None
     }
 
-    async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg> {
+    async fn cmd(
+        cmd: Self::Cmd,
+        host: web_sys::HtmlElement,
+        _link: StateLink<Self>,
+    ) -> Option<Self::Msg> {
         match cmd {
             HymnMediaCmd::ScrollToVideoPlayer => {
                 let video_view = host
@@ -278,12 +282,10 @@ impl HymnMedia {
                                 view! {
                                     <li>
                                         <div class="thumbnail">
-                                            <a on:click={
-                                                move |ev: Event| {
+                                            <a on:click=move |ev: Event| {
                                                     ev.prevent_default();
                                                     HymnMediaMsg::SetEmbedCode(idx)
-                                                }
-                                            }>
+                                                }>
                                                 <img
                                                     alt=""
                                                     src={video.thumbnail_url.clone().unwrap_or_else(|| "/static/assets/icons/tabler-icon-x.svg".to_string())}

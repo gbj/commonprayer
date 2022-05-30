@@ -1,6 +1,6 @@
 use std::fmt::{Debug, Display};
 
-use leptos2::{async_trait, is_server, Deserialize, Serialize, State};
+use leptos2::{async_trait, is_server, Deserialize, Serialize, State, StateLink};
 use reqwasm::http::Request;
 use serde::de::DeserializeOwned;
 use thiserror::Error;
@@ -116,7 +116,11 @@ where
         !matches!(msg, FetchMsg::Abort | FetchMsg::Noop)
     }
 
-    async fn cmd(cmd: Self::Cmd, _host: web_sys::HtmlElement) -> Option<Self::Msg> {
+    async fn cmd(
+        cmd: Self::Cmd,
+        _host: web_sys::HtmlElement,
+        _link: StateLink<Self>,
+    ) -> Option<Self::Msg> {
         match cmd {
             FetchCmd::Get(url, controller) => {
                 let abort_signal = controller.as_ref().map(|ac| ac.signal());

@@ -82,7 +82,11 @@ impl State for CalendarController {
         cmd
     }
 
-    async fn cmd(cmd: Self::Cmd, _host: web_sys::HtmlElement) -> Option<Self::Msg> {
+    async fn cmd(
+        cmd: Self::Cmd,
+        _host: web_sys::HtmlElement,
+        _link: StateLink<Self>,
+    ) -> Option<Self::Msg> {
         match cmd {
             CalendarPageCmd::ScrollTo { lff, date_hash } => {
                 scroll_to_row(lff, &date_hash);

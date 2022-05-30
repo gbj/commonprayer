@@ -10,9 +10,8 @@ use web_sys::HtmlElement;
 
 use crate::{
     debug_warn,
-    link::{ComponentLink, Link},
-    patch_host, request_animation_frame, AsAny, Attribute, Component, EventEmitter, ParentWaker,
-    State, StateSender,
+    link::{Link, StateLink},
+    patch_host, request_animation_frame, AsAny, Attribute, Component, State, StateSender,
 };
 
 pub trait WebComponent
@@ -57,15 +56,15 @@ where
             // set up event cycle
             let (tx, mut rx) = unbounded::<Option<Self::Msg>>();
 
-            let link: ComponentLink<Self> = ComponentLink::from(tx.clone());
+            let link: StateLink<Self> = StateLink::from(tx.clone());
             let state = Rc::new(RefCell::new(initial_state));
 
             let inject_children = Closure::once({
                 let state = state.clone();
-                let link = link.clone();
+                let state_link = link.clone();
                 move |host, hydrate: bool| {
                     let mut current_view = state.borrow().view();
-                    let link = Link::from(link.clone());
+                    let link = Link::from(state_link.clone());
                     if hydrate {
                         current_view.hydrate(&host, &host.shadow_root().unwrap(), &link);
                     } else {
@@ -84,7 +83,7 @@ where
                     // check for an initial command
                     let init = state.borrow().init();
                     if let Some(cmd) = init {
-                        let cmd = Self::cmd(cmd, host.clone());
+                        let cmd = Self::cmd(cmd, host.clone(), state_link.clone());
                         let link = link.clone();
                         spawn_local(async move {
                             let msg = cmd.await;
@@ -116,7 +115,7 @@ where
                                     // handle any async commands here, so the Cmd type doesn't leak
                                     // out of the component up to the ComponentInstance
                                     if let Some(cmd) = cmd {
-                                        let cmd = Self::cmd(cmd, host.clone());
+                                        let cmd = Self::cmd(cmd, host.clone(), state_link.clone());
                                         let link = link.clone();
                                         spawn_local(async move {
                                             let msg = cmd.await;
@@ -142,14 +141,14 @@ where
                                     // apply updated state to view
 
                                     // generate new view tree
-                                    let new_view = state.borrow().view();
+                                    let mut new_view = state.borrow().view();
 
                                     // reconcile the DOM to the new tree
                                     patch_host(
                                         &host,
                                         &host.shadow_root().unwrap(),
                                         &current_view,
-                                        &new_view,
+                                        &mut new_view,
                                         &link,
                                     );
 

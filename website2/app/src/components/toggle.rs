@@ -48,7 +48,11 @@ impl State for Toggle {
         })
     }
 
-    async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg> {
+    async fn cmd(
+        cmd: Self::Cmd,
+        host: web_sys::HtmlElement,
+        _link: StateLink<Self>,
+    ) -> Option<Self::Msg> {
         let event_emitter = EventEmitter::new(&host);
         event_emitter.emit(CustomEvent::new("change").detail(cmd));
         None

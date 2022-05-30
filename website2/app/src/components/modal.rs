@@ -26,7 +26,11 @@ impl State for Modal {
         Some(self.open)
     }
 
-    async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg> {
+    async fn cmd(
+        cmd: Self::Cmd,
+        host: web_sys::HtmlElement,
+        _link: StateLink<Self>,
+    ) -> Option<Self::Msg> {
         let event_emitter = EventEmitter::new(&host);
         if !cmd {
             event_emitter.emit(CustomEvent::<()>::new("close").detail(()));

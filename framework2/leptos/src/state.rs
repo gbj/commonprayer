@@ -6,7 +6,11 @@ use futures::{
 use serde::{Deserialize, Serialize};
 use std::{cell::RefCell, fmt::Debug, rc::Rc};
 
-use crate::{debug_warn, spawn_local};
+use crate::{
+    debug_warn,
+    link::{Link, StateLink},
+    spawn_local,
+};
 
 #[async_trait(?Send)]
 pub trait State
@@ -22,7 +26,11 @@ where
 
     fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd>;
 
-    async fn cmd(cmd: Self::Cmd, host: web_sys::HtmlElement) -> Option<Self::Msg>;
+    async fn cmd(
+        cmd: Self::Cmd,
+        host: web_sys::HtmlElement,
+        link: StateLink<Self>,
+    ) -> Option<Self::Msg>;
 
     fn nested_states(&mut self) -> Vec<&mut dyn StateMachine> {
         Vec::new()
@@ -43,16 +51,18 @@ pub trait StateMachine {
 pub struct NestedState<T>
 where
     T: State,
+    T::Msg: Clone,
 {
     state: Rc<RefCell<T>>,
     parent_link: Option<Rc<dyn ParentWaker>>,
-    own_tx: Rc<RefCell<Option<UnboundedSender<T::Msg>>>>,
+    own_tx: Rc<RefCell<Option<UnboundedSender<Option<T::Msg>>>>>,
     host: Option<web_sys::HtmlElement>,
 }
 
 impl<T> PartialEq for NestedState<T>
 where
     T: State + PartialEq,
+    T::Msg: Clone,
 {
     fn eq(&self, other: &Self) -> bool {
         self.state == other.state && self.host == other.host
@@ -62,6 +72,7 @@ where
 impl<T> Serialize for NestedState<T>
 where
     T: State + Serialize,
+    T::Msg: Clone,
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -74,6 +85,7 @@ where
 impl<'de, T> Deserialize<'de> for NestedState<T>
 where
     T: State + Deserialize<'de>,
+    T::Msg: Clone,
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -87,6 +99,7 @@ where
 impl<T> Debug for NestedState<T>
 where
     T: State + Debug,
+    T::Msg: Clone,
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("NestedState")
@@ -125,6 +138,7 @@ where
 impl<T> NestedState<T>
 where
     T: State,
+    T::Msg: Clone,
 {
     pub fn new(state: T) -> Self {
         Self {
@@ -145,7 +159,7 @@ where
 
     pub fn send(&self, msg: T::Msg) {
         if let Some(tx) = self.own_tx.borrow().as_ref() {
-            tx.unbounded_send(msg);
+            tx.unbounded_send(Some(msg));
         }
     }
 
@@ -154,18 +168,19 @@ where
     }
 
     pub fn run_machine(&self) {
-        let (tx, mut rx) = unbounded::<T::Msg>();
+        let (tx, mut rx) = unbounded::<Option<T::Msg>>();
         *self.own_tx.borrow_mut() = Some(tx.clone());
 
         // init
         let init = self.state.borrow().init();
         if let (Some(cmd), Some(host)) = (init, self.host.clone()) {
-            let cmd = T::cmd(cmd, host);
+            let link = StateLink::<T>::from(tx.clone());
+            let cmd = T::cmd(cmd, host, link);
             let tx = tx.clone();
             spawn_local(async move {
                 let msg = cmd.await;
                 if let Some(msg) = msg {
-                    if let Err(e) = tx.unbounded_send(msg) {
+                    if let Err(e) = tx.unbounded_send(Some(msg)) {
                         debug_warn(&format!("[StateMachine::run] init cmd error {}", e));
                     }
                 }
@@ -178,7 +193,7 @@ where
         let tx = self.own_tx.borrow().clone();
         let parent_link = self.parent_link.clone();
         spawn_local(async move {
-            while let Some(msg) = rx.next().await {
+            while let Some(Some(msg)) = rx.next().await {
                 let should_notify = state.borrow().should_notify_parents(&msg);
 
                 let cmd = state.borrow_mut().update(msg);
@@ -189,11 +204,12 @@ where
                 }
 
                 if let (Some(cmd), Some(host), Some(tx)) = (cmd, &host, tx.clone()) {
-                    let cmd = T::cmd(cmd, host.clone());
+                    let link = StateLink::<T>::from(tx.clone());
+                    let cmd = T::cmd(cmd, host.clone(), link.clone());
                     spawn_local(async move {
                         let msg = cmd.await;
                         if let Some(msg) = msg {
-                            tx.unbounded_send(msg);
+                            tx.unbounded_send(Some(msg));
                         }
                     });
                 }
@@ -205,6 +221,7 @@ where
 impl<T> StateMachine for NestedState<T>
 where
     T: State,
+    T::Msg: Clone,
 {
     fn run(&self) {
         self.run_machine()
