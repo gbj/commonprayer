@@ -184,14 +184,25 @@ pub fn set_timeout(cb: impl Fn() + 'static, duration: Duration) {
         .unwrap_throw();
 }
 
-pub fn set_interval(cb: impl Fn() + 'static, duration: Duration) {
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
+pub struct IntervalHandle(i32);
+
+impl IntervalHandle {
+    pub fn clear(&self) {
+        window().clear_interval_with_handle(self.0);
+    }
+}
+
+pub fn set_interval(
+    cb: impl Fn() + 'static,
+    duration: Duration,
+) -> Result<IntervalHandle, JsValue> {
     let cb = Closure::wrap(Box::new(cb) as Box<dyn Fn()>).into_js_value();
-    window()
-        .set_interval_with_callback_and_timeout_and_arguments_0(
-            cb.as_ref().unchecked_ref(),
-            duration.as_millis().try_into().unwrap_throw(),
-        )
-        .unwrap_throw();
+    let handle = window().set_interval_with_callback_and_timeout_and_arguments_0(
+        cb.as_ref().unchecked_ref(),
+        duration.as_millis().try_into().unwrap_throw(),
+    )?;
+    Ok(IntervalHandle(handle))
 }
 
 // Hydration operations to find text and comment nodes
@@ -252,4 +263,9 @@ where
 {
     // noop for now; useful for ignoring any async tasks on the server side
     // could be replaced with a Tokio dependency
+}
+
+pub fn remove_event_listeners(el: &web_sys::Element) {
+    let clone = el.clone_node().unwrap_throw();
+    replace_with(el, clone.unchecked_ref());
 }

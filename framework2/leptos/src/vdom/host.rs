@@ -27,7 +27,7 @@ impl Host {
     }
 
     pub fn mount(
-        &self,
+        &mut self,
         host: &web_sys::HtmlElement,
         shadow_root: &web_sys::ShadowRoot,
         link: &Link,
@@ -36,43 +36,51 @@ impl Host {
             attr.set(host);
         }
 
-        add_listeners(host.unchecked_ref(), &self.listeners, link);
+        add_listeners(host.unchecked_ref(), &mut self.listeners, link);
         if !self.window_listeners.is_empty() {
-            add_listeners(window().unchecked_ref(), &self.window_listeners, link);
+            add_listeners(window().unchecked_ref(), &mut self.window_listeners, link);
         }
         if !self.document_listeners.is_empty() {
-            add_listeners(document().unchecked_ref(), &self.document_listeners, link);
+            add_listeners(
+                document().unchecked_ref(),
+                &mut self.document_listeners,
+                link,
+            );
         }
         if !self.foreign_listeners.is_empty() {
-            add_foreign_listeners(window().unchecked_ref(), &self.foreign_listeners, link);
+            add_foreign_listeners(window().unchecked_ref(), &mut self.foreign_listeners, link);
         }
 
-        for child in &self.children {
+        for child in &mut self.children {
             let child = child.to_node(link);
             append_child(shadow_root.unchecked_ref(), &child);
         }
     }
 
     pub fn hydrate(
-        &self,
+        &mut self,
         host: &web_sys::HtmlElement,
         shadow_root: &web_sys::ShadowRoot,
         link: &Link,
     ) {
-        add_listeners(host.unchecked_ref(), &self.listeners, link);
+        add_listeners(host.unchecked_ref(), &mut self.listeners, link);
         if !self.window_listeners.is_empty() {
-            add_listeners(window().unchecked_ref(), &self.window_listeners, link);
+            add_listeners(window().unchecked_ref(), &mut self.window_listeners, link);
         }
         if !self.document_listeners.is_empty() {
-            add_listeners(document().unchecked_ref(), &self.document_listeners, link);
+            add_listeners(
+                document().unchecked_ref(),
+                &mut self.document_listeners,
+                link,
+            );
         }
         if !self.foreign_listeners.is_empty() {
-            add_foreign_listeners(window().unchecked_ref(), &self.foreign_listeners, link);
+            add_foreign_listeners(window().unchecked_ref(), &mut self.foreign_listeners, link);
         }
 
         for (idx, child) in self
             .children
-            .iter()
+            .iter_mut()
             .filter_map(|node| match node {
                 Node::Element(el) => Some(el),
                 Node::Text(_) => None,

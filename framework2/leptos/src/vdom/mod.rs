@@ -33,7 +33,7 @@ impl Node {
         }
     }
 
-    pub fn mount(&self, parent: &web_sys::HtmlElement, link: &Link) {
+    pub fn mount(&mut self, parent: &web_sys::HtmlElement, link: &Link) {
         let child = self.to_node(link);
         append_child(parent, &child);
     }

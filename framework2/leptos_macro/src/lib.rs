@@ -282,7 +282,7 @@ fn listeners_from_node(node: &Node, starting_phrase: &str) -> proc_macro2::Token
                 let span = attr.name_span().unwrap();
                 handler.map(|handler| {
                     quote_spanned! {
-                        span => (#event_name, std::rc::Rc::new(#handler) as std::rc::Rc<dyn Fn(_) -> _>)
+                        span => (#event_name, std::panic::Location::caller(), std::rc::Rc::new( #handler) as std::rc::Rc<dyn Fn(_) -> _>)
                     }
                 })
             } else {
@@ -327,6 +327,7 @@ fn foreign_listeners_from_node(node: &Node) -> proc_macro2::TokenStream {
                     span => (
                         #event_name.to_string(),
                         #selector.to_string(),
+                        std::panic::Location::caller(),
                         std::rc::Rc::new(#handler) as std::rc::Rc<dyn Fn(_) -> _>
                     )
                 })
