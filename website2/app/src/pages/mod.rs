@@ -1,4 +1,4 @@
-//mod about;
+mod about;
 mod calendar;
 mod canticle_table;
 mod daily_office;
@@ -16,10 +16,10 @@ mod psalter;
 
 //pub use self::calendar::*;
 //pub use self::lectionary::*;
-pub use self::psalter::*;
-//pub use about::*;
 pub use self::calendar::*;
 pub use self::hymnal::*;
+pub use self::psalter::*;
+pub use about::*;
 pub use canticle_table::*;
 pub use daily_office::*;
 pub use document::*;

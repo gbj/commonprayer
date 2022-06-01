@@ -13,27 +13,34 @@
   border-radius: var(--border-radius);
   padding: 0.5rem 1rem;
   text-decoration: none;
-  background-origin: content-box;
-  background-position: left center;
-  background-repeat: no-repeat;
   margin-right: 1rem;
-}
-
-.email > *,
-.github > * {
-  margin-left: 2rem;
 }
 
 .github,
 .github:visited {
-  background-image: url("/static/icons/tabler-icon-brand-github.svg");
   background-color: rgb(37, 41, 46);
   color: #f0f0f0;
 }
 
+.github span::before, .email span::before {
+  content: "";
+  background-origin: content-box;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: var(--button-filter-light);
+  padding: 0 1rem 0 0.75rem;
+}
+
+.github span::before {
+    background-image: url("/static/icons/tabler-icon-brand-github.svg");
+}
+
+.email span::before {
+  background-image: url("/static/icons/tabler-icon-mail.svg");
+}
+
 .email,
 .email:visited {
-  background-image: url("/static/icons/tabler-icon-mail.svg");
   background-color: var(--link-color);
   color: var(--background);
 }

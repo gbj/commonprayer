@@ -1,7 +1,6 @@
 pub mod operations;
 
 pub use operations::*;
-use web_sys::Event;
 
 use crate::{link::Link, Element, EventListener, Node};
 use wasm_bindgen::{prelude::Closure, JsCast, UnwrapThrowExt};
@@ -26,10 +25,14 @@ impl Element {
 
         add_listeners(el.unchecked_ref(), &self.listeners, link);
 
-        // append children
-        for child in &self.children {
-            let child_node = child.to_node(link);
-            append_child(&el, &child_node);
+        // set innerHTML or append children
+        if let Some(html) = &self.inner_html {
+            el.set_inner_html(html);
+        } else {
+            for child in &self.children {
+                let child_node = child.to_node(link);
+                append_child(&el, &child_node);
+            }
         }
 
         el.unchecked_into()

@@ -253,6 +253,7 @@ fn element_node(node: &Node) -> Option<TokenStream> {
                 listeners: #listeners,
                 children: vec![],
                 shadow_root: #shadow_root,
+                inner_html: None
             }
             #(.child(#children))*)
         })

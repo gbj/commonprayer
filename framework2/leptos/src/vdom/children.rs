@@ -1,4 +1,4 @@
-use crate::{text, Node, StaticView};
+use crate::{text, Element, Node, StaticView};
 
 pub trait IntoChildren {
     fn into_children(self) -> Box<dyn Iterator<Item = Node>>;
@@ -7,6 +7,12 @@ pub trait IntoChildren {
 impl IntoChildren for Node {
     fn into_children(self) -> Box<dyn Iterator<Item = Node>> {
         Box::new(std::iter::once(self))
+    }
+}
+
+impl IntoChildren for Element {
+    fn into_children(self) -> Box<dyn Iterator<Item = Node>> {
+        Box::new(std::iter::once(Node::Element(self)))
     }
 }
 

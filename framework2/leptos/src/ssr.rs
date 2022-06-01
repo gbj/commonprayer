@@ -89,9 +89,13 @@ fn write_node(
                     f.write_str("</template>")?;
                 }
 
-                // children
-                for child in &element.children {
-                    write_node(f, child, property_id)?;
+                // innerHTML or children
+                if let Some(html) = &element.inner_html {
+                    f.write_str(html)?;
+                } else {
+                    for child in &element.children {
+                        write_node(f, child, property_id)?;
+                    }
                 }
 
                 // closing tag name

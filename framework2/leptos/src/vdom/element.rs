@@ -1,7 +1,5 @@
 use std::rc::Rc;
 
-use serde::{Deserialize, Serialize};
-
 use crate::{Attribute, Host, IntoChildren, Node};
 
 use super::event::EventListener;
@@ -14,10 +12,11 @@ pub struct Element {
     pub listeners: Vec<EventListener>,
     pub children: Vec<Node>,
     pub shadow_root: Option<Rc<dyn Fn() -> Host>>,
+    pub inner_html: Option<String>,
 }
 
 impl Element {
-    pub fn new(&self, tag: &str) -> Self {
+    pub fn new(tag: impl std::fmt::Display) -> Self {
         Self {
             tag: tag.to_string(),
             key: None,
@@ -25,6 +24,7 @@ impl Element {
             listeners: Vec::new(),
             children: Vec::new(),
             shadow_root: None,
+            inner_html: None,
         }
     }
 
@@ -62,6 +62,11 @@ impl Element {
         for child in child.into_children() {
             self.children.push(child);
         }
+        self
+    }
+
+    pub fn inner_html(mut self, html: String) -> Self {
+        self.inner_html = Some(html);
         self
     }
 }
