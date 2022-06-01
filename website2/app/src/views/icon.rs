@@ -8,9 +8,11 @@ pub enum Icon {
     Left,
     Link,
     Music,
+    Pause,
     Play,
     Right,
     Settings,
+    Stop,
     Swap,
 }
 
@@ -28,9 +30,11 @@ impl std::fmt::Display for Icon {
                 Icon::Left => "/static/icons/tabler-icon-arrow-left.svg",
                 Icon::Link => "/static/icons/tabler-icon-link.svg",
                 Icon::Music => "/static/icons/tabler-icon-music.svg",
+                Icon::Pause => "/static/icons/tabler-icon-player-pause.svg",
                 Icon::Play => "/static/icons/tabler-icon-player-play.svg",
                 Icon::Right => "/static/icons/tabler-icon-arrow-right.svg",
                 Icon::Settings => "/static/icons/tabler-icon-settings.svg",
+                Icon::Stop => "/static/icons/tabler-icon-player-stop.svg",
                 Icon::Swap => "/static/icons/tabler-icon-arrows-left-right.svg",
             }
         )

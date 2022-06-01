@@ -39,7 +39,9 @@ export function make_custom_element(
       }
 
       connectedCallback() {
-        this._injectChildren(this, this.dataset.leptosHydrate == "hydrate");
+        if (this._injectChildren) {
+          this._injectChildren(this, this.dataset.leptosHydrate == "hydrate");
+        }
       }
     },
     superclassTag ? { extends: superclassTag } : undefined

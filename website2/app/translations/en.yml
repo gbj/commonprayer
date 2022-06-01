@@ -397,5 +397,6 @@ en:
     begin: Begin
     pause: Pause
     resume: Resume
+    stop: Finish
     bell_error: Error while trying to play audio.
     interval_error: Error while trying to set timer.

@@ -1,4 +1,5 @@
-use crate::views::Header;
+use crate::components::MediaSession;
+use crate::views::{Header, Icon};
 use leptos2::*;
 use std::time::Duration;
 
@@ -41,48 +42,43 @@ impl Page for MeditationPage {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq, WebComponent)]
+#[derive(Clone, Debug, PartialEq, WebComponent)]
 pub struct MeditationTimer {
+    /// URL of the bell audio file
+    pub bell: String,
+    total_time: Duration,
+    elapsed_time: Duration,
     state: MeditationTimerState,
+    audio: Option<web_sys::HtmlAudioElement>,
+    error: Option<MeditationTimerError>,
+}
+
+impl Default for MeditationTimer {
+    fn default() -> Self {
+        // total time defaults to 5 mins
+        let total_time = Duration::from_secs(5 * 60);
+        let elapsed_time = Duration::from_secs(0);
+        Self {
+            bell: "/static/audio/singing-bowl.mp3".to_string(),
+            total_time,
+            elapsed_time,
+            audio: None,
+            state: MeditationTimerState::Setup { bell: true },
+            error: None,
+        }
+    }
 }
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum MeditationTimerState {
     Setup {
-        minutes: u16,
-        seconds: u16,
         bell: bool,
     },
     Playing {
-        initial: Duration,
-        remaining: Duration,
         interval_handle: Option<IntervalHandle>,
-        audio: Option<web_sys::HtmlAudioElement>,
-        bell: bool,
     },
-    Paused {
-        initial: Duration,
-        remaining: Duration,
-        audio: Option<web_sys::HtmlAudioElement>,
-        bell: bool,
-    },
-    Complete {
-        remaining: Duration,
-        audio: Option<web_sys::HtmlAudioElement>,
-    },
-    Error {
-        error: MeditationTimerError,
-    },
-}
-
-impl Default for MeditationTimerState {
-    fn default() -> Self {
-        MeditationTimerState::Setup {
-            minutes: 5,
-            seconds: 0,
-            bell: true,
-        }
-    }
+    Paused,
+    Finished,
 }
 
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -96,12 +92,14 @@ pub enum MeditationTimerMsg {
     Edit,
     Pause,
     Resume,
+    Stop,
     Error(MeditationTimerError),
 }
 
 #[derive(Clone, Debug)]
 pub enum MeditationTimerCmd {
     StartTimer,
+    UpdateMediaSession(Duration, Duration),
 }
 
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -118,136 +116,94 @@ impl State for MeditationTimer {
     fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
         leptos2::warn(&format!("[MeditationTimer::update] {:#?}", msg));
         match (&mut self.state, msg) {
-            // Error handling
-            (_, Self::Msg::Error(error)) => self.state = MeditationTimerState::Error { error },
-
             // Setup: Change initial settings
-            (MeditationTimerState::Setup { minutes, .. }, Self::Msg::SetMinutes(m)) => *minutes = m,
-            (MeditationTimerState::Setup { seconds, .. }, Self::Msg::SetSeconds(s)) => *seconds = s,
+            (MeditationTimerState::Setup { .. }, Self::Msg::SetMinutes(new_minutes)) => {
+                let current_secs = self.total_time.as_secs() % 60;
+                self.total_time = Duration::from_secs((new_minutes as u64) * 60 + current_secs);
+            }
+            (MeditationTimerState::Setup { .. }, Self::Msg::SetSeconds(new_seconds)) => {
+                let current_mins = self.total_time.as_secs() / 60;
+                self.total_time = Duration::from_secs(current_mins * 60 + (new_seconds as u64));
+            }
             (MeditationTimerState::Setup { bell, .. }, Self::Msg::SetBell(b)) => *bell = b,
 
-            // Playing: tick decrements the total remaining
-            (
-                MeditationTimerState::Playing {
-                    remaining,
-                    audio,
-                    bell,
-                    ..
-                },
-                Self::Msg::Tick,
-            ) => {
-                let secs_remaining = remaining.as_secs();
-                if secs_remaining == 1 {
-                    if *bell {
-                        play_bell();
-                    }
-                    self.state = MeditationTimerState::Complete {
-                        remaining: Duration::from_secs(0),
-                        audio: audio.clone(),
-                    };
-                } else {
-                    *remaining = Duration::from_secs(secs_remaining - 1);
-                }
-            }
-
             // Transition from setup to playing
-            (
-                MeditationTimerState::Setup {
-                    minutes,
-                    seconds,
-                    bell,
-                },
-                Self::Msg::Start,
-            ) => {
-                let initial = Duration::from_secs(*minutes as u64 * 60 + *seconds as u64);
-
-                // create audio element and, if it can't be created, transition to an error state
-                let audio = if *bell {
-                    if let Ok(audio) = play_bell() {
+            (MeditationTimerState::Setup { bell }, Self::Msg::Start) => {
+                // create audio element and, if it can't be created, note that error
+                self.audio = if *bell {
+                    if let Ok(audio) = self.create_bell() {
                         Some(audio)
                     } else {
-                        self.state = MeditationTimerState::Error {
-                            error: MeditationTimerError::Bell,
-                        };
-                        return None;
+                        self.error = Some(MeditationTimerError::Bell);
+                        None
                     }
                 } else {
                     None
                 };
 
+                // this will do nothing if we've chosen not to use the bell, or have an error
+                self.play_bell();
+
+                // interval handle will be created by the command below
                 self.state = MeditationTimerState::Playing {
-                    initial,
-                    remaining: initial,
                     interval_handle: None,
-                    audio,
-                    bell: *bell,
                 };
 
                 return Some(MeditationTimerCmd::StartTimer);
             }
 
+            // Playing: tick decrements the total remaining
+            (MeditationTimerState::Playing { .. }, Self::Msg::Tick) => {
+                // increment elapsed time
+                self.elapsed_time += Duration::from_secs(1);
+
+                // if full time has elapsed, play bell and transition
+                if self.elapsed_time >= self.total_time {
+                    self.play_bell();
+                }
+
+                return Some(Self::Cmd::UpdateMediaSession(
+                    self.total_time,
+                    self.elapsed_time,
+                ));
+            }
+
             // Pause playing
-            (
-                MeditationTimerState::Playing {
-                    initial,
-                    interval_handle,
-                    remaining,
-                    audio,
-                    bell,
-                    ..
-                },
-                Self::Msg::Pause,
-            ) => {
+            (MeditationTimerState::Playing { interval_handle }, Self::Msg::Pause) => {
                 // clear timer
                 if let Some(handle) = interval_handle.take() {
                     handle.clear();
                 }
 
-                // pause audio
-                if let Some(audio) = audio {
-                    audio.pause();
-                }
+                self.pause_bell();
 
-                self.state = MeditationTimerState::Paused {
-                    initial: *initial,
-                    remaining: *remaining,
-                    audio: audio.clone(),
-                    bell: *bell,
-                }
+                self.state = MeditationTimerState::Paused;
             }
 
             // Resume playing
-            (
-                MeditationTimerState::Paused {
-                    initial,
-                    remaining,
-                    audio,
-                    bell,
-                    ..
-                },
-                Self::Msg::Resume,
-            ) => {
-                // pause audio
-                if let Some(audio) = audio {
-                    audio.play();
-                }
+            (MeditationTimerState::Paused, Self::Msg::Resume) => {
+                self.play_bell();
 
+                // interval handle created by command
                 self.state = MeditationTimerState::Playing {
                     interval_handle: None,
-                    initial: *initial,
-                    remaining: *remaining,
-                    audio: audio.clone(),
-                    bell: *bell,
                 };
 
                 return Some(MeditationTimerCmd::StartTimer);
             }
 
+            // Finish session
+            (MeditationTimerState::Playing { interval_handle }, Self::Msg::Stop) => {
+                // clear timer
+                if let Some(handle) = interval_handle.take() {
+                    handle.clear();
+                }
+                self.state = MeditationTimerState::Finished;
+            }
+
             // Set interval handle, which has been returned by the command
             (
-                MeditationTimerState::Playing {
-                    interval_handle, ..
-                },
+                MeditationTimerState::Playing { interval_handle },
                 Self::Msg::SetIntervalHandle(handle),
             ) => *interval_handle = Some(handle),
             _ => {}
@@ -261,93 +217,67 @@ impl State for MeditationTimer {
         link: StateLink<Self>,
     ) -> Option<Self::Msg> {
         match cmd {
-            MeditationTimerCmd::StartTimer => {
-                match set_interval(
-                    move || {
-                        link.send(&MeditationTimerMsg::Tick);
-                    },
-                    Duration::from_secs(1),
-                ) {
-                    Ok(handle) => Some(MeditationTimerMsg::SetIntervalHandle(handle)),
-                    Err(_) => Some(MeditationTimerMsg::Error(MeditationTimerError::Interval)),
-                }
-            }
+            MeditationTimerCmd::StartTimer => start_timer(link),
+            MeditationTimerCmd::UpdateMediaSession(total_time, elapsed_time) => None,
         }
     }
 }
 
 impl Component for MeditationTimer {
     fn view(&self) -> Host {
-        let state = if let MeditationTimerState::Setup {
-            minutes,
-            seconds,
-            bell,
-        } = &self.state
-        {
-            self.form(*minutes, *seconds, *bell)
+        let state = if let MeditationTimerState::Setup { bell } = &self.state {
+            self.form(*bell)
         } else {
             // action buttons (Begin/Pause/Resume)
             let action_button = match &self.state {
-                MeditationTimerState::Playing { .. } => Some(view! {
-                    <input
-                        type="button"
-                        value={t!("meditation.pause")}
-                        on:click=|_| MeditationTimerMsg::Pause
-                    />
-                }),
-                MeditationTimerState::Paused { .. } => Some(view! {
-                    <input
-                        type="button"
-                        value={t!("meditation.resume")}
-                        on:click=|_| MeditationTimerMsg::Resume
-                    />
+                MeditationTimerState::Playing { .. } if self.elapsed_time <= self.total_time => {
+                    Some(view! {
+                        <button on:click=|_| MeditationTimerMsg::Pause>
+                            <img src={Icon::Pause} alt=""/>
+                            {t!("meditation.pause")}
+                        </button>
+                    })
+                }
+                MeditationTimerState::Playing { .. } if self.elapsed_time > self.total_time => {
+                    Some(view! {
+                        <button on:click=|_| MeditationTimerMsg::Stop>
+                            <img src={Icon::Stop} alt=""/>
+                            {t!("meditation.stop")}
+                        </button>
+                    })
+                }
+                MeditationTimerState::Paused => Some(view! {
+                    <button on:click=|_| MeditationTimerMsg::Resume>
+                        <img src={Icon::Play} alt=""/>
+                        {t!("meditation.resume")}
+                    </button>
                 }),
                 _ => None,
             };
 
-            // wheel calculations
-            let initial = self.initial_secs().unwrap_or_default();
-            let remaining = self.remaining_secs().unwrap_or_default();
-            let progress_amount = if initial == 0.0 {
-                0.0
+            let remaining = if self.elapsed_time > self.total_time {
+                self.elapsed_time - self.total_time
             } else {
-                remaining / initial
-            };
-            let progress_percent = progress_amount * 100f32;
-            let percent_remaining = 100f32 - progress_percent;
+                self.total_time - self.elapsed_time
+            }
+            .as_secs();
+            let minutes = remaining / 60;
+            let seconds = remaining % 60;
+            let progress_percent = self.percent_progress();
+            let remaining_percent = 100.0 - progress_percent;
 
-            let seconds = match &self.state {
-                MeditationTimerState::Setup { .. } => None,
-                MeditationTimerState::Playing { remaining, .. }
-                | MeditationTimerState::Paused { remaining, .. }
-                | MeditationTimerState::Complete { remaining, .. } => {
-                    let minutes = remaining.as_secs() / 60;
-                    let seconds = remaining.as_secs() % 60;
-                    Some(view! {
-                        <div class="seconds">
-                            {minutes}
-                            ":"
-                            {format!("{:0>2}", seconds)}
-                        </div>
-                    })
-                }
-                MeditationTimerState::Error { error } => {
-                    let error_text = match error {
-                        MeditationTimerError::Bell => t!("meditation.bell_error"),
-                        MeditationTimerError::Interval => t!("meditation.interval_error"),
-                    };
-                    Some(view! {
-                        <div class="error">{error_text}</div>
-                    })
-                }
-            };
             view! {
                 <div class="progress-circle-container">
                     <div class="progress-circle"
-                        style={format!("background: conic-gradient(var(--link-color) {}%, 0, #ecf0f1 {}%)", percent_remaining, progress_percent)}
+                        style={format!("background: conic-gradient(var(--link-color) {}%, 0, #ecf0f1 {}%)", progress_percent, remaining_percent)}
                     >
                         <div class="circle-overlay">
-                            {seconds}
+                            <div class="seconds">
+                                {if self.elapsed_time > self.total_time { "+" } else { "" }}
+                                {minutes}
+                                ":"
+                                {format!("{:0>2}", seconds)}
+                            </div>
                             <div class="controls">
                                 {action_button}
                             </div>
@@ -361,38 +291,61 @@ impl Component for MeditationTimer {
             <Host>
                 <style>{include_str!("meditation_timer.css")}</style>
                 {state}
+                <MediaSession
+                    active={matches!(self.state, MeditationTimerState::Playing { .. } | MeditationTimerState::Paused { .. })}
+                    actions={"play,pause"}
+                    title={t!("meditation.title")}
+                    artist={t!("common_prayer")}
+                    duration={self.total_time.as_secs()}
+                    position={self.elapsed_time.as_secs()}
+                    playback-rate={1.0}
+                    playback-state={if matches!(self.state, MeditationTimerState::Playing { .. }) { "playing" } else if self.state == MeditationTimerState::Paused { "paused" } else { "none" }}
+                    on:play=|_| Self::Msg::Resume
+                    on:pause=|_| Self::Msg::Pause
+                    on:stop=|_| Self::Msg::Stop
+                />
             </Host>
         }
     }
 }
 
-fn play_bell() -> Result<web_sys::HtmlAudioElement, MeditationTimerError> {
-    let audio = web_sys::HtmlAudioElement::new_with_src("/static/audio/singing-bowl.mp3")
-        .map_err(|_| MeditationTimerError::Bell)?;
-    audio.play().map_err(|_| MeditationTimerError::Bell)?;
-    Ok(audio)
-}
-
 impl MeditationTimer {
-    pub fn remaining_secs(&self) -> Option<f32> {
-        match self.state {
-            MeditationTimerState::Playing { remaining, .. }
-            | MeditationTimerState::Paused { remaining, .. } => Some(remaining.as_secs_f32()),
-            MeditationTimerState::Complete { .. } => Some(0.0),
-            _ => None,
+    pub fn create_bell(&self) -> Result<web_sys::HtmlAudioElement, MeditationTimerError> {
+        let audio = web_sys::HtmlAudioElement::new_with_src(&self.bell)
+            .map_err(|_| MeditationTimerError::Bell)?;
+        Ok(audio)
+    }
+
+    pub fn play_bell(&self) {
+        if let Some(audio) = &self.audio {
+            audio.play();
         }
     }
 
-    pub fn initial_secs(&self) -> Option<f32> {
-        match self.state {
-            MeditationTimerState::Playing { initial, .. }
-            | MeditationTimerState::Paused { initial, .. } => Some(initial.as_secs_f32()),
-            MeditationTimerState::Complete { .. } => Some(1.0),
-            _ => None,
+    pub fn pause_bell(&self) {
+        if let Some(audio) = &self.audio {
+            audio.pause();
         }
     }
 
-    pub fn form(&self, minutes: u16, seconds: u16, bell: bool) -> Node {
+    pub fn percent_progress(&self) -> f32 {
+        let initial = self.total_time.as_secs_f32();
+        let elapsed = self.elapsed_time.as_secs_f32();
+        let progress_amount = if initial == 0.0 {
+            0.0
+        } else {
+            elapsed / initial
+        };
+        progress_amount * 100f32
+    }
+
+    pub fn form(&self, bell: bool) -> Node {
+        // storing these both in the total_time field rather than as separate
+        // minutes and seconds values has the convenient side effect of automatically
+        // translating seconds > 60 into minutes + seconds
+        let minutes = self.total_time.as_secs() / 60;
+        let seconds = self.total_time.as_secs() % 60;
+
         view! {
             <form
                 on:submit=|_| MeditationTimerMsg::Start
@@ -442,5 +395,19 @@ impl MeditationTimer {
                 />
             </form>
         }
+    }
+}
+
+// Utility functions
+
+fn start_timer(link: StateLink<MeditationTimer>) -> Option<MeditationTimerMsg> {
+    match set_interval(
+        move || {
+            link.send(&MeditationTimerMsg::Tick);
+        },
+        Duration::from_secs(1),
+    ) {
+        Ok(handle) => Some(MeditationTimerMsg::SetIntervalHandle(handle)),
+        Err(_) => Some(MeditationTimerMsg::Error(MeditationTimerError::Interval)),
     }
 }

@@ -9,9 +9,10 @@ use wasm_bindgen_futures::spawn_local;
 use web_sys::HtmlElement;
 
 use crate::{
-    debug_warn,
+    self as leptos2, debug_warn,
     link::{Link, StateLink},
-    patch_host, request_animation_frame, AsAny, Attribute, Component, State, StateSender,
+    patch_host, request_animation_frame, view, AsAny, Attribute, Component, Host, Node, State,
+    StateSender,
 };
 
 pub trait WebComponent
@@ -245,6 +246,123 @@ where
 
     fn shadow() -> bool {
         true
+    }
+}
+
+pub trait DeclarativeWebApi
+where
+    Self: Default + 'static,
+{
+    fn tag() -> &'static str;
+
+    fn attributes() -> &'static [&'static str];
+
+    fn properties() -> &'static [&'static str];
+
+    fn set_attribute(&mut self, attr_name: String, new_value: Option<String>);
+
+    fn set_property(&mut self, attr_name: String, new_value: JsValue);
+
+    fn state_to_attributes(&self) -> Vec<Attribute>;
+
+    fn superclass() -> (Option<&'static str>, &'static js_sys::Function) {
+        (None, &HTML_ELEMENT_CONSTRUCTOR)
+    }
+
+    fn shadow() -> bool {
+        true
+    }
+
+    fn view(&self) -> Host {
+        view! { <Host></Host> }
+    }
+
+    fn init(&mut self, host: HtmlElement) {}
+
+    fn define() {
+        // constructor function will be called for each new instance of the component
+        let constructor = Closure::wrap(Box::new(move |this: HtmlElement| {
+            // start with the default
+            let mut initial_state = Self::default();
+            initial_state.init(this.clone());
+
+            // load initial state from attributes and props
+            for attr in Self::attributes() {
+                if let Some(value) = this.get_attribute(attr) {
+                    initial_state.set_attribute(attr.to_string(), Some(value));
+                }
+            }
+
+            for prop in Self::properties() {
+                if let Some(reference) = this.get_attribute(&format!("data-leptos-prop-{}", prop)) {
+                    if let Ok(value) = js_sys::Reflect::get(&PROPS, &JsValue::from_str(&reference))
+                    {
+                        initial_state.set_property(prop.to_string(), value);
+                    }
+                }
+            }
+
+            let state = Rc::new(RefCell::new(initial_state));
+
+            // attributeChangedCallback
+            let attribute_changed = Closure::wrap(Box::new({
+                let state = state.clone();
+                move |_el, name: String, _old_value, new_value: Option<String>| {
+                    state.borrow_mut().set_attribute(name, new_value);
+                }
+            })
+                as Box<dyn FnMut(HtmlElement, String, Option<String>, Option<String>)>);
+            js_sys::Reflect::set(
+                &this,
+                &JsValue::from_str("_attributeChangedCallback"),
+                &attribute_changed.into_js_value(),
+            )
+            .unwrap_throw();
+
+            // callback when properties are changed
+            let set_property = Closure::wrap(Box::new({
+                let state = state.clone();
+                move |name: String, new_value: JsValue| {
+                    let state = state.clone();
+                    state.borrow_mut().set_property(name, new_value);
+                }
+            }) as Box<dyn FnMut(String, JsValue)>);
+            js_sys::Reflect::set(
+                &this,
+                &JsValue::from_str("_setProperty"),
+                &set_property.into_js_value(),
+            )
+            .unwrap_throw();
+        }) as Box<dyn Fn(HtmlElement)>);
+
+        // observedAttributes is static and needs to be known when the class is defined
+        let attributes = Self::attributes();
+        let observed_attributes = JsValue::from(
+            attributes
+                .iter()
+                .map(|attr| JsValue::from_str(attr))
+                .collect::<js_sys::Array>(),
+        );
+
+        let properties = Self::properties();
+        let observed_properties = JsValue::from(
+            properties
+                .iter()
+                .map(|attr| JsValue::from_str(attr))
+                .collect::<js_sys::Array>(),
+        );
+
+        // call out to JS to define the Custom Element
+        let (super_tag, super_constructor) = Self::superclass();
+        make_custom_element(
+            super_constructor,
+            Self::tag(),
+            Self::shadow(),
+            constructor.into_js_value(),
+            observed_attributes,
+            observed_properties,
+            super_tag,
+        );
     }
 }
 

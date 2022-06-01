@@ -11,6 +11,7 @@ form {
 }
 
 input[type=number] {
+	border: none;
 	font-size: 2rem;
 	max-width: 4rem;
 	font-feature-settings: "tnum";
@@ -54,6 +55,24 @@ fieldset.time label {
 
 input {
 	text-align: center;
+}
+
+button {
+	align-items: center;
+	background: none;
+	border: none;
+	color: var(--link-color);
+	cursor: pointer;
+	display: flex;
+	font-size: 1rem;
+	filter: var(--link-color-filter);
+	margin-top: 1rem;
+	width: 5rem;
+}
+
+button > img {
+	height: 1.25rem;
+	margin-right: 0.25rem;
 }
 
 @media (min-width: 767px) {
