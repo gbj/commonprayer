@@ -205,6 +205,13 @@ pub fn set_interval(
     Ok(IntervalHandle(handle))
 }
 
+pub fn window_event_listener(event_name: &str, cb: impl Fn(web_sys::Event) + 'static) {
+    let cb = Closure::wrap(Box::new(cb) as Box<dyn Fn(web_sys::Event)>).into_js_value();
+    window()
+        .add_event_listener_with_callback(event_name, cb.unchecked_ref())
+        .unwrap_throw();
+}
+
 // Hydration operations to find text and comment nodes
 pub fn pick_up_comment_node(
     parent: &web_sys::HtmlElement,
