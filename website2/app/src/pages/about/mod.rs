@@ -14,7 +14,7 @@ impl Page for AboutPage {
         vec!["".into()]
     }
 
-    fn build_state(locale: &str, path: &str, params: Self::Params) -> Option<Self> {
+    fn build_state(_locale: &str, _path: &str, _params: Self::Params) -> Option<Self> {
         Some(Self {})
     }
 
@@ -22,7 +22,7 @@ impl Page for AboutPage {
         true
     }
 
-    fn head(&self, locale: &str) -> Vec<Node> {
+    fn head(&self, _locale: &str) -> Vec<Node> {
         view! {
             <>
                 <title>{t!("menu.about")} " – " {t!("common_prayer")}</title>
