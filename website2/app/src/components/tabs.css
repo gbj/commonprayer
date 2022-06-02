@@ -1,0 +1,64 @@
+[role="tablist"] {
+	text-align: right;
+}
+
+[role="tab"],
+[role="tab"]:focus,
+[role="tab"]:hover {
+	background: none;
+	cursor: pointer;
+	position: relative;
+	z-index: 2;
+	top: 2px;
+	margin: 0;
+	margin-top: 4px;
+	padding: 3px 3px 4px;
+	border: none;
+	border-radius: 5px 5px 0 0;
+	overflow: visible;
+	outline: none;
+	font-weight: bold;
+}
+
+[role="tab"][aria-selected="true"] {
+	background: var(--background);
+	border-bottom: 0.2rem solid var(--link-color);
+	color: var(--link-color);
+}
+
+[role="tab"] span.focus {
+	display: inline-block;
+	padding: 2px 0.5rem;
+}
+
+[role="tab"]:hover
+[role="tab"]:focus
+[role="tab"]:active {
+  background: blue;
+}
+
+[role="tab"]:hover span.focus,
+[role="tab"]:focus span.focus,
+[role="tab"]:active span.focus {
+  color: var(--link-color-light);
+}
+
+[role="tab"]:focus span.focus {
+	border: 2px solid var(--link-color-light);
+}
+
+[role="tabpanel"] {
+	padding: 5px;
+	border-radius: 0 5px 5px;
+	min-height: 10em;
+	min-width: 550px;
+	overflow: auto;
+}
+
+.hidden {
+	display: none;
+}
+
+[role="tabpanel"] p {
+	margin: 0;
+}

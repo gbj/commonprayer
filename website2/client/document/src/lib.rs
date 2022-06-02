@@ -12,7 +12,7 @@ pub fn define_custom_elements() {
     Modal::define();
 
     // document
-    ChoiceView::define();
+    Tabs::define();
     ExportLinks::define();
     BiblicalCitationLoader::define();
 }

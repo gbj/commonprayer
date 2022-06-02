@@ -1,8 +1,9 @@
-use crate::components::Modal;
+use crate::components::{Modal, Tabs};
 use crate::utils::encode_uri;
 use crate::views::Icon;
 use leptos2::*;
 use liturgy::{Content, Document};
+use wasm_bindgen::JsCast;
 
 #[derive(Clone, Debug, Default, PartialEq, Deserialize, Serialize, WebComponent)]
 pub struct ExportLinks {
@@ -47,10 +48,12 @@ impl State for ExportLinks {
                 self.modal_open = modal_open;
             }
             ExportLinksMsg::ChoiceChanged(content) => {
+                leptos2::warn(&format!("choice changed to {}", content));
                 let mut parts = content.split('#');
                 let path = parts.next();
                 let selected = parts.next();
                 if let (Some(path), Some(selected)) = (path, selected) {
+                    leptos2::warn(&format!("setting choice {} to {}", path, selected));
                     let path = path.split('-').flat_map(|val| val.parse::<usize>());
                     match self.document.at_path_mut(path) {
                         Ok(document) => {
@@ -60,7 +63,10 @@ impl State for ExportLinks {
                                 }
                             }
                         }
-                        Err(e) => leptos2::debug_warn(&format!("[ExportLinks::update] {}", e)),
+                        Err(e) => leptos2::debug_warn(&format!(
+                            "[ExportLinks::update] {}\n\ndoc was {:#?}",
+                            e, self.document
+                        )),
                     }
                 } else {
                     leptos2::debug_warn(&format!(
@@ -90,7 +96,12 @@ impl Component for ExportLinks {
 
         view! {
             <Host
-                foreign:change=("input[type=radio].choice", |ev| ExportLinksMsg::ChoiceChanged(event_target_value(&ev)))
+                foreign:change=(Tabs::tag(), |ev: web_sys::Event| {
+                    let doc_path = ev.target().and_then(|el| el.unchecked_ref::<web_sys::Element>().get_attribute("data-id")).unwrap_or_default();
+                    let ev: CustomEvent<usize> = ev.into();
+                    let new_selection = ev.detail.unwrap_or_default();
+                    ExportLinksMsg::ChoiceChanged(format!("{}#{}", doc_path, new_selection))
+                })
             >
                 <style>{include_str!("export_links.css")}</style>
                 <button

@@ -44,6 +44,7 @@ features = [
 	"DomRect",
 	"Event",
 	"EventTarget",
+	"KeyboardEvent",
 	"HtmlAudioElement",
 	"HtmlSelectElement",
 	"Navigator",

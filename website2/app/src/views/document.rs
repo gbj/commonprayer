@@ -1,6 +1,6 @@
 use liturgy::*;
 
-use crate::components::{BiblicalCitationLoader, ChoiceView};
+use crate::components::{BiblicalCitationLoader, Tabs};
 use crate::WebView;
 use leptos2::*;
 
@@ -169,7 +169,7 @@ impl<'a> WebView for DocumentView<'a> {
         */
 
         view! {
-            <article class={document_class(&self.doc)}>
+            <article class={document_class(&self.doc)} data-path={self.path.iter().map(|n| n.to_string()).intersperse_with(|| String::from("-")).collect::<String>()}>
                 // TODO selection {checkbox}
                 {label}
                 {header}
@@ -661,7 +661,7 @@ pub fn choice(locale: &str, mut path: Vec<usize>, choice: &Choice) -> HeaderAndM
             .view(locale),
         )
     } else {
-        let input_name = path
+        /* let input_name = path
             .iter()
             .map(|idx| idx.to_string())
             .intersperse_with(|| String::from("-"))
@@ -698,13 +698,42 @@ pub fn choice(locale: &str, mut path: Vec<usize>, choice: &Choice) -> HeaderAndM
                     </>
                 }
             })
+            .collect::<Vec<_>>(); */
+
+        let labels = choice
+            .options
+            .iter()
+            .enumerate()
+            .map(|(idx, doc)| choice.option_label(doc, idx))
             .collect::<Vec<_>>();
+
+        let children = choice.options.iter().enumerate().map(|(idx, child)| {
+            let mut new_path = path.clone();
+            new_path.push(idx);
+
+            let view = DocumentView {
+                doc: child,
+                path: new_path,
+            };
+
+            view.view(locale)
+        });
+
+        let input_name = path
+            .iter()
+            .map(|idx| idx.to_string())
+            .intersperse_with(|| String::from("-"))
+            .collect::<String>();
+
         (
             None,
             view! {
-                <ChoiceView>
-                    {children}
-                </ChoiceView>
+                <Tabs
+                    data-id={&input_name}
+                    prop:labels={labels.clone()}
+                >
+                    {Tabs::content(children)}
+                </Tabs>
             },
         )
     }
