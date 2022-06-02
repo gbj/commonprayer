@@ -257,7 +257,6 @@ fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
 
     // add pages
     for locale in locales {
-        //add_page(cfg, locale, readings());
         add_page::<AboutPage>(cfg, locale);
         add_page::<CalendarPage>(cfg, locale);
         add_page::<CanticleTablePage>(cfg, locale);
@@ -270,6 +269,7 @@ fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
         add_page::<LectionaryPage>(cfg, locale);
         add_page::<MeditationPage>(cfg, locale);
         add_page::<PsalterPage>(cfg, locale);
+        add_page::<ReadingsPage>(cfg, locale);
         //add_page(cfg, locale, settings());
     }
 }

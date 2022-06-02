@@ -11,10 +11,9 @@ mod lectionary;
 mod meditation;
 mod not_found_404;
 mod psalter;
-//mod readings;
+mod readings;
 //mod settings;
 
-//pub use self::calendar::*;
 pub use self::calendar::*;
 pub use self::hymnal::*;
 pub use self::lectionary::*;
@@ -28,5 +27,5 @@ pub use hymn::*;
 pub use index::*;
 pub use meditation::*;
 pub use not_found_404::*;
-//pub use readings::*;
+pub use readings::*;
 //pub use settings::*;
