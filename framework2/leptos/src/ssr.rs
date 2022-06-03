@@ -148,13 +148,16 @@ fn write_node(
                 if let Some(html) = &element.inner_html {
                     f.write_str(html)?;
                 } else {
+                    let mut shadowless_path = shadow_root_path.clone();
+                    shadowless_path.pop();
+
                     for child in &element.children {
                         write_node(
                             f,
                             child,
                             property_id,
                             shadow_root_id,
-                            shadow_root_path.clone(),
+                            shadowless_path.clone(),
                             props,
                         )?;
                     }
