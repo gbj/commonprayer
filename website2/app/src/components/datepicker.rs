@@ -42,11 +42,13 @@ impl Component for DatePicker {
     fn view(&self) -> Host {
         view! {
             <Host>
-                <fieldset class="centered stacked date-picker">
+                <style>{include_str!("datepicker.css")}</style>
+                <fieldset>
                     <label>
                         {&self.label}
                         <input
                             type="date"
+                            value={self.date.map(|date| date.to_padded_string())}
                             prop:value={self.date.map(|date| date.to_padded_string())}
                             on:change=|ev: Event| (Date::parse_from_str(&event_target_value(&ev), "%Y-%m-%d").ok())
                         />
