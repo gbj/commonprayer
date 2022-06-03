@@ -42,7 +42,7 @@ impl Element {
         if let Some(el) = parent.children().item(idx as u32) {
             add_listeners(el.unchecked_ref(), &self.listeners, link);
 
-            // append children
+            // hydrate children
             for (idx, child) in self
                 .children
                 .iter()

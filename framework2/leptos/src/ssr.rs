@@ -4,34 +4,60 @@ use crate::{Attribute, Host, IntoProperty, Node};
 
 impl std::fmt::Display for Host {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write_host(f, self, &mut 0)
+        let mut props = Vec::new();
+        write_host(f, self, &mut 0, &mut 0, Vec::new(), &mut props)?;
+        write_props(f, props)
     }
 }
 
 impl std::fmt::Display for Node {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write_node(f, self, &mut 0)
+        let mut props = Vec::new();
+        write_node(f, self, &mut 0, &mut 0, Vec::new(), &mut props)?;
+        write_props(f, props)
     }
+}
+
+fn write_props(
+    f: &mut std::fmt::Formatter<'_>,
+    props: Vec<(Vec<usize>, String, String)>,
+) -> std::fmt::Result {
+    f.write_str("<script>")?;
+    f.write_str(include_str!("ssr_prop_selector.js"))?;
+    for (shadow_path, prop_name, serialized_value) in props {
+        write!(
+            f,
+            "(() => selectEl(document, {:?})[{:?}] = JSON.parse({:?}))();",
+            shadow_path, prop_name, serialized_value
+        )?;
+    }
+    f.write_str("</script>")
 }
 
 fn write_host(
     f: &mut std::fmt::Formatter<'_>,
     host: &Host,
     property_id: &mut usize,
+    shadow_root_id: &mut usize,
+    shadow_root_path: Vec<usize>,
+    props: &mut Vec<(Vec<usize>, String, String)>,
 ) -> std::fmt::Result {
     f.write_char('<')?;
     f.write_str(host.tag)?;
 
     // attributes placed on <Host>
-    write_attributes(f, &host.host_attrs, property_id)?;
+    write_attributes(f, &host.host_attrs, property_id, &shadow_root_path, props)?;
 
     // attributes serialized from state
-    write_attributes(f, &host.state_attrs, property_id)?;
+    write_attributes(f, &host.state_attrs, property_id, &shadow_root_path, props)?;
 
     write_class(f, &host.host_attrs)?;
 
     // note that this has been rendered and initial state needs to be hydrated, not mounted
-    f.write_str(" data-leptos-hydrate=\"hydrate\"")?;
+    // include the shadow root ID so we can find this element again to hydrate props
+    f.write_str(" data-leptos-hydrate=\"")?;
+    write!(f, "{}", *shadow_root_id)?;
+    f.write_char('"')?;
 
     f.write_char('>')?;
 
@@ -40,7 +66,14 @@ fn write_host(
 
     // children
     for child in &host.children {
-        write_node(f, child, property_id)?;
+        write_node(
+            f,
+            child,
+            property_id,
+            shadow_root_id,
+            shadow_root_path.clone(),
+            props,
+        )?;
     }
 
     f.write_str("</template>")?;
@@ -56,6 +89,9 @@ fn write_node(
     f: &mut std::fmt::Formatter<'_>,
     node: &Node,
     property_id: &mut usize,
+    shadow_root_id: &mut usize,
+    shadow_root_path: Vec<usize>,
+    props: &mut Vec<(Vec<usize>, String, String)>,
 ) -> std::fmt::Result {
     match node {
         Node::Text(data) => f.write_str(data),
@@ -63,14 +99,26 @@ fn write_node(
             f.write_char('<')?;
             f.write_str(&element.tag)?;
 
+            // if has shadow root, need to update shadow root path and id before serializing attributes
+            let shadow_root_path = if element.shadow_root.is_some() {
+                *shadow_root_id += 1;
+                let mut new_path = shadow_root_path.clone();
+                new_path.push(*shadow_root_id);
+                new_path
+            } else {
+                shadow_root_path
+            };
+
             // attributes
-            write_attributes(f, &element.attrs, property_id)?;
+            write_attributes(f, &element.attrs, property_id, &shadow_root_path, props)?;
 
             write_class(f, &element.attrs)?;
 
             // note that it needs to hydrate, not mount, if shadow DOM is present
             if element.shadow_root.is_some() {
-                f.write_str(" data-leptos-hydrate=\"hydrate\"")?;
+                f.write_str(" data-leptos-hydrate=\"")?;
+                write!(f, "{}", *shadow_root_id)?;
+                f.write_char('"')?;
             }
 
             // children
@@ -84,7 +132,14 @@ fn write_node(
                     let host = (root_fn)();
                     f.write_str("<template shadowroot=\"open\">")?;
                     for child in &host.children {
-                        write_node(f, child, property_id)?;
+                        write_node(
+                            f,
+                            child,
+                            property_id,
+                            shadow_root_id,
+                            shadow_root_path.clone(),
+                            props,
+                        )?;
                     }
                     f.write_str("</template>")?;
                 }
@@ -94,7 +149,14 @@ fn write_node(
                     f.write_str(html)?;
                 } else {
                     for child in &element.children {
-                        write_node(f, child, property_id)?;
+                        write_node(
+                            f,
+                            child,
+                            property_id,
+                            shadow_root_id,
+                            shadow_root_path.clone(),
+                            props,
+                        )?;
                     }
                 }
 
@@ -112,6 +174,8 @@ fn write_attributes(
     f: &mut std::fmt::Formatter<'_>,
     attrs: &[Attribute],
     property_id: &mut usize,
+    shadow_root_path: &Vec<usize>,
+    properties: &mut Vec<(Vec<usize>, String, String)>,
 ) -> std::fmt::Result {
     for attr in attrs {
         match attr {
@@ -124,14 +188,13 @@ fn write_attributes(
                     f.write_char('"')?;
                 }
             }
-            Attribute::Property(name, _) => {
-                f.write_char(' ')?;
-                f.write_str("data-leptos-prop-")?;
-                f.write_str(name)?;
-                f.write_str("=\"p")?;
-                f.write_str(&property_id.to_string())?;
-                f.write_char('"')?;
-                *property_id += 1;
+            Attribute::Property(name, value) => {
+                // add to array to be serialized
+                properties.push((
+                    shadow_root_path.clone(),
+                    name.to_string(),
+                    value.serialize(),
+                ));
             }
             _ => {}
         }
@@ -172,7 +235,7 @@ fn write_class(f: &mut std::fmt::Formatter<'_>, attrs: &[Attribute]) -> std::fmt
 
     Ok(())
 }
-
+/*
 pub fn serialize_props(tree: &[Node]) -> Option<String> {
     let mut buf = String::new();
     let mut cid = 0;
@@ -220,3 +283,4 @@ impl Node {
         }
     }
 }
+ */

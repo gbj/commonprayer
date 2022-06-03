@@ -40,7 +40,7 @@ export function make_custom_element(
 
       connectedCallback() {
         if (this._injectChildren) {
-          this._injectChildren(this, this.dataset.leptosHydrate == "hydrate");
+          this._injectChildren(this, Boolean(this.dataset.leptosHydrate));
         }
       }
     },

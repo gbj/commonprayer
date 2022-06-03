@@ -1,4 +1,4 @@
-use crate::{serialize_props, text, view};
+use crate::{text, view};
 
 use crate::Node;
 use crate::{self as leptos2};
@@ -68,12 +68,6 @@ where
 
         let body = self.body(locale);
 
-        let serialized_props = serialize_props(&body).map(|props| {
-            view! {
-                <script>"var _PROPS = " {props}";"</script>
-            }
-        });
-
         view! {
             <html lang={locale}>
                 <head>
@@ -99,8 +93,6 @@ where
                         }
                     }}
                     <script>{include_str!("./polyfills/declarative_shadow_dom.js")}</script>
-                    // serialized state
-                    {serialized_props}
                 </body>
             </html>
         }

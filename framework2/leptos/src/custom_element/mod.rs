@@ -45,12 +45,12 @@ where
                 }
             }
 
+            // it's entirely possible that the web component is upgrading after the prop deserializer
+            // has already set some of the properties on the element, so we'll want to check the element
+            // for each property
             for prop in Self::properties() {
-                if let Some(reference) = this.get_attribute(&format!("data-leptos-prop-{}", prop)) {
-                    if let Ok(value) = js_sys::Reflect::get(&PROPS, &JsValue::from_str(&reference))
-                    {
-                        initial_state.set_property(prop.to_string(), value);
-                    }
+                if let Ok(value) = js_sys::Reflect::get(&this, &JsValue::from_str(prop)) {
+                    initial_state.set_property(prop.to_string(), value);
                 }
             }
 
@@ -63,7 +63,7 @@ where
             let inject_children = Closure::once({
                 let state = state.clone();
                 let state_link = link.clone();
-                move |host, hydrate: bool| {
+                move |host: web_sys::HtmlElement, hydrate: bool| {
                     let mut current_view = state.borrow().view();
                     let link = Link::from(state_link.clone());
                     if hydrate {
@@ -199,7 +199,7 @@ where
                 let link = link.clone();
                 state.borrow_mut().set_property(name, new_value);
                 if let Err(e) = link.attributes_changed() {
-                    debug_warn(&format!("[WebComponent::attribute_changed] {}", e))
+                    debug_warn(&format!("[WebComponent::set_property] {}", e))
                 }
             }) as Box<dyn FnMut(String, JsValue)>);
             js_sys::Reflect::set(
@@ -294,11 +294,8 @@ where
             }
 
             for prop in Self::properties() {
-                if let Some(reference) = this.get_attribute(&format!("data-leptos-prop-{}", prop)) {
-                    if let Ok(value) = js_sys::Reflect::get(&PROPS, &JsValue::from_str(&reference))
-                    {
-                        initial_state.set_property(prop.to_string(), value);
-                    }
+                if let Ok(value) = js_sys::Reflect::get(&this, &JsValue::from_str(prop)) {
+                    initial_state.set_property(prop.to_string(), value);
                 }
             }
 
@@ -384,10 +381,4 @@ extern "C" {
 extern "C" {
     #[wasm_bindgen(js_name = HTMLElement, js_namespace = window)]
     pub static HTML_ELEMENT_CONSTRUCTOR: js_sys::Function;
-}
-
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_name = _PROPS, js_namespace = window)]
-    pub static PROPS: JsValue;
 }
