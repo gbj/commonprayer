@@ -27,6 +27,7 @@
 }
 
 [role="tab"] span.focus {
+	margin: 2px;
 	display: inline-block;
 	padding: 2px 0.5rem;
 }
@@ -44,6 +45,7 @@
 }
 
 [role="tab"]:focus span.focus {
+	margin: 0;
 	border: 2px solid var(--link-color-light);
 }
 
