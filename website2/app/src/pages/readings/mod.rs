@@ -20,9 +20,14 @@ use crate::{
     components::*,
     preferences,
     utils::{language::locale_to_language, time::current_hour},
-    views::Header,
+    views::{document::DocumentView, Header},
+    WebView,
 };
 
+mod daily_office_view;
+pub use daily_office_view::*;
+mod reading_links;
+use reading_links::*;
 mod redirect;
 use redirect::*;
 
@@ -117,28 +122,7 @@ impl Page for ReadingsPage {
     }
 
     fn body(&self, locale: &str) -> Vec<Node> {
-        view! {
-            <>
-                <Tabs
-                    prop:labels={vec![
-                        "Maria Ahlefeldt".to_string(),
-                        "Carl Andersen".to_string(),
-                        "Ida da Fonseca".to_string(),
-                        "Peter Lange-Müller".to_string()
-                    ]}
-                >
-                    {Tabs::content(view! {
-                        <>
-                            <p><a href="https://en.wikipedia.org/wiki/Maria_Theresia_Ahlefeldt">"Maria Theresia Ahlefeldt"</a> " (16 January 1755 – 20 December 1810) was a Danish, (originally German), composer. She is known as the first female composer in Denmark. Maria Theresia composed music for several ballets, operas, and plays of the royal theatre. She was given good critic as a composer and described as a “<span lang='da'>virkelig Tonekunstnerinde</span>” ('a True Artist of Music')."</p>
-                            <p><a href="https://en.wikipedia.org/wiki/Joachim_Andersen_(composer)">"Carl Joachim Andersen"</a> " (29 April 1847 – 7 May 1909) was a Danish flutist, conductor and composer born in Copenhagen, son of the flutist Christian Joachim Andersen. Both as a virtuoso and as composer of flute music, he is considered one of the best of his time. He was considered to be a tough leader and teacher and demanded as such a lot from his orchestras but through that style he reached a high level."</p>
-                            <p><a href="https://en.wikipedia.org/wiki/Ida_Henriette_da_Fonseca">"Ida Henriette da Fonseca"</a> " (July 27, 1802 – July 6, 1858) was a Danish opera singer and composer.  Ida Henriette da Fonseca was the daughter of Abraham da Fonseca (1776–1849) and Marie Sofie Kiærskou (1784–1863). She and her sister Emilie da Fonseca were students of Giuseppe Siboni, choir master of the Opera in Copenhagen. She was given a place at the royal Opera alongside her sister the same year she debuted in 1827."</p>
-                            <p><a href="https://en.wikipedia.org/wiki/Peter_Lange-M%C3%BCller">"Peter Erasmus Lange-Müller"</a>" (1 December 1850 – 26 February 1926) was a Danish composer and pianist. His compositional style was influenced by Danish folk music and by the work of Robert Schumann; Johannes Brahms; and his Danish countrymen, including J.P.E. Hartmann."</p>
-                        </>
-                    })}
-                </Tabs>
-            </>
-        }
-        /*  match self {
+        match self {
             // JavaScript in header will redirect to today's Daily Office page
             ReadingsPage::None => view! {
                 <>
@@ -149,9 +133,143 @@ impl Page for ReadingsPage {
             },
             ReadingsPage::DailyOffice(summary) => office_body(locale, summary),
             ReadingsPage::Lectionary(summary) => eucharist_body(locale, summary),
-        } */
+        }
     }
 }
+
+fn office_body(locale: &str, summary: &DailySummary) -> Vec<Node> {
+    let primary_reading_links = reading_links(
+        &summary.morning.observed,
+        &summary.evening.observed,
+        &summary.morning.thirty_day_psalms,
+        &summary.evening.thirty_day_psalms,
+    );
+
+    let alternate_reading_links = reading_links(
+        summary
+            .morning
+            .alternate
+            .as_ref()
+            .unwrap_or(&summary.morning.observed),
+        summary
+            .evening
+            .alternate
+            .as_ref()
+            .unwrap_or(&summary.evening.observed),
+        &summary.morning.thirty_day_psalms,
+        &summary.evening.thirty_day_psalms,
+    );
+
+    view! {
+        <>
+            {Header::new(locale, &t!("toc.daily_readings")).to_node()}
+            <main>
+                <DailyOfficeView
+                    locale={locale}
+                    prop:date={Some(summary.date)}
+                    morning-observance={&summary.morning.observed.localized_name}
+                    morning-alternate={summary.morning.alternate.as_ref().map(|observance| observance.localized_name.clone()).unwrap_or_default()}
+                    evening-observance={&summary.evening.observed.localized_name}
+                    evening-alternate={summary.evening.alternate.as_ref().map(|observance| observance.localized_name.clone()).unwrap_or_default()}
+                >
+                    // Reading Links
+                    <section class="reading-link-table" slot="primary_links_daily_psalms">
+                        {reading_links_view(&primary_reading_links, false)}
+                    </section>
+                    <section class="reading-link-table" slot="primary_links_30day_psalms">
+                        {reading_links_view(&primary_reading_links, true)}
+                    </section>
+                    <section class="reading-link-table" slot="alternate_links_daily_psalms">
+                        {reading_links_view(&alternate_reading_links, false)}
+                    </section>
+                    <section class="reading-link-table" slot="alternate_links_30day_psalms">
+                        {reading_links_view(&alternate_reading_links, true)}
+                    </section>
+
+                    // Reading Views
+                    <section slot="primary_morning_daily">{psalms_view(locale, &summary.morning.observed.daily_office_psalms)}</section>
+                    <section slot="morning_30">{psalms_view(locale, &summary.morning.thirty_day_psalms)}</section>
+                    <section slot="primary_morning_readings">
+                        {readings_view(locale, &summary.morning.observed)}
+                    </section>
+                    <section slot="primary_evening_daily">{psalms_view(locale, &summary.evening.observed.daily_office_psalms)}</section>
+                    <section slot="evening_30">{psalms_view(locale, &summary.evening.thirty_day_psalms)}</section>
+                    <section slot="primary_evening_readings">
+                        {readings_view(locale, &summary.evening.observed)}
+                    </section>
+
+                    <section slot="alternate_morning_daily">
+                        {summary.morning.alternate.as_ref().map(|observance| psalms_view(locale, &observance.daily_office_psalms)).unwrap_or_default()}
+                    </section>
+                    <section slot="alternate_morning_readings">
+                        {summary.morning.alternate.as_ref().map(|observance| readings_view(locale, observance)).unwrap_or_default()}
+                    </section>
+                    <section slot="alternate_evening_daily">
+                        {summary.evening.alternate.as_ref().map(|observance| psalms_view(locale, &observance.daily_office_psalms)).unwrap_or_default()}
+                    </section>
+                    <section slot="alternate_evening_readings">
+                        {summary.evening.alternate.as_ref().map(|observance| readings_view(locale, observance)).unwrap_or_default()}
+                    </section>
+                </DailyOfficeView>
+            </main>
+        </>
+    }
+}
+
+fn eucharist_body(locale: &str, summary: &EucharisticLectionarySummary) -> Vec<Node> {
+    todo!()
+}
+
+fn psalms_view(locale: &str, psalms: &[Psalm]) -> Vec<Node> {
+    psalms
+        .iter()
+        .map(|psalm| {
+            let id = psalm.citation.clone().unwrap_or_default();
+            let doc_view = DocumentView {
+                doc: &Document::from(psalm.clone()),
+                path: vec![],
+            };
+            view! {
+                <article class="document" id={id}>
+                    {doc_view.view(locale)}
+                </article>
+            }
+        })
+        .collect()
+}
+
+fn readings_view(locale: &str, summary: &ObservanceSummary) -> Vec<Node> {
+    let readings = &summary.daily_office_readings;
+    let version = preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
+        .and_then(|value| match value {
+            PreferenceValue::Version(version) => Some(version),
+            _ => None,
+        })
+        .unwrap_or(Version::NRSV);
+
+    if readings.is_empty() {
+        vec![]
+    } else {
+        readings
+            .iter()
+            .flat_map(|reading| {
+                let doc_view = DocumentView {
+                    doc: &Document::from(BiblicalCitation::from(reading.citation.clone()))
+                        .version(version),
+                    path: vec![],
+                };
+
+                view! {
+                    <>
+                        <a id={&reading.citation}></a>
+                        {doc_view.view(locale)}
+                    </>
+                }
+            })
+            .collect()
+    }
+}
+
 /*
 fn office_body(locale: &str, summary: &DailySummary) -> Vec<Node> {
     let controls = Controls::new(summary.clone());

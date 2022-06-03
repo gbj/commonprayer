@@ -381,6 +381,254 @@ fn eucharistic_observance_view(
                         ))
                         .view(locale)
                     }
+
+fn office_body(locale: &str, summary: &DailySummary) -> View {
+    let controls = Controls::new(summary.clone());
+
+    let primary_morning = observance_view(
+        locale,
+        current_hour() < 13,
+        (
+            controls.use_evening.toggled.stream(),
+            controls.use_alternate_observance.toggled.stream(),
+        )
+            .lift()
+            .map(|(evening, alternate)| {
+                evening.map(|evening| !evening && !alternate.unwrap_or(false))
+            }),
+        controls.use_30_day_psalter.toggled.clone(),
+        controls.use_lff_2018.toggled.clone(),
+        &summary.morning.observed,
+        &summary.morning.thirty_day_psalms,
+    );
+
+    let primary_evening = observance_view(
+        locale,
+        current_hour() >= 13,
+        (
+            controls.use_evening.toggled.stream(),
+            controls.use_alternate_observance.toggled.stream(),
+        )
+            .lift()
+            .map(|(evening, alternate)| {
+                evening.map(|evening| evening && !alternate.unwrap_or(false))
+            }),
+        controls.use_30_day_psalter.toggled.clone(),
+        controls.use_lff_2018.toggled.clone(),
+        &summary.evening.observed,
+        &summary.evening.thirty_day_psalms,
+    );
+
+    let alt_morning = observance_view(
+        locale,
+        false,
+        (
+            controls.use_evening.toggled.stream(),
+            controls.use_alternate_observance.toggled.stream(),
+        )
+            .lift()
+            .map(|(evening, alternate)| match (evening, alternate) {
+                (Some(true), Some(true)) => Some(true),
+                (None, Some(true)) => Some(true),
+                _ => Some(false),
+            }),
+        controls.use_30_day_psalter.toggled.clone(),
+        controls.use_lff_2018.toggled.clone(),
+        summary
+            .morning
+            .alternate
+            .as_ref()
+            .unwrap_or(&summary.evening.observed),
+        &summary.morning.thirty_day_psalms,
+    );
+
+    let alt_evening = observance_view(
+        locale,
+        false,
+        (
+            controls.use_evening.toggled.stream(),
+            controls.use_alternate_observance.toggled.stream(),
+        )
+            .lift()
+            .map(|(evening, alternate)| match (evening, alternate) {
+                (Some(true), Some(true)) => Some(true),
+                _ => Some(false),
+            }),
+        controls.use_30_day_psalter.toggled.clone(),
+        controls.use_lff_2018.toggled.clone(),
+        summary
+            .evening
+            .alternate
+            .as_ref()
+            .unwrap_or(&summary.evening.observed),
+        &summary.evening.thirty_day_psalms,
+    );
+
+    let locale = locale.to_string();
+
+    let primary_reading_links = reading_links(
+        &summary.morning.observed,
+        &summary.evening.observed,
+        &summary.morning.thirty_day_psalms,
+        &summary.evening.thirty_day_psalms,
+    );
+
+    let alternate_reading_links = reading_links(
+        summary
+            .morning
+            .alternate
+            .as_ref()
+            .unwrap_or(&summary.morning.observed),
+        summary
+            .evening
+            .alternate
+            .as_ref()
+            .unwrap_or(&summary.evening.observed),
+        &summary.morning.thirty_day_psalms,
+        &summary.evening.thirty_day_psalms,
+    );
+
+    let display_settings_menu = DisplaySettingsSideMenu::new();
+
+    view! {
+        <>
+            {header_with_side_menu(&locale, &t!("toc.daily_readings"), display_settings_menu.view())}
+            <dyn:main
+                class={display_settings_menu.current_settings().stream().map(|settings| settings.to_class()).boxed_local()}
+            >
+                <label class="stacked">
+                    {View::StaticText(t!("date"))}
+                    <dyn:input type="date" class="centered"
+                        value={summary.date.to_padded_string()}
+                        on:change={
+                            let locale = locale.clone();
+                            move |ev: Event| redirect_to_date(&locale, event_target_value(ev), RedirectMode::DailyOffice)
+                        }
+                    />
+                </label>
+
+                // Controls to select morning/evening, psalm cycle, and alternate observance
+                <dyn:view view={controls.view()}/>
+
+                // Reading links
+                <dyn:section
+                    class="primary reading-link-table"
+                    class:hidden={controls.use_alternate_observance.toggled.stream().boxed_local()}
+                >
+                    {reading_links_view(primary_reading_links, controls.use_30_day_psalter.toggled.clone())}
+                </dyn:section>
+                <dyn:section
+                    class="alternate reading-link-table hidden "
+                    class:hidden={controls.use_alternate_observance.toggled.stream().map(|using| !using).boxed_local()}
+                >
+                    {reading_links_view(alternate_reading_links, controls.use_30_day_psalter.toggled)}
+                </dyn:section>
+
+                // The psalms and readings themselves
+                <dyn:view view={primary_morning}/>
+                <dyn:view view={primary_evening}/>
+                <dyn:view view={alt_morning}/>
+                <dyn:view view={alt_evening}/>
+            </dyn:main>
+            {preference_status_footer(&display_settings_menu.status)}
+        </>
+    }
+}
+
+fn eucharist_body(locale: &str, summary: &EucharisticLectionarySummary) -> View {
+    // TODO choose observance
+    let observed = eucharistic_observance_view(locale, &summary.day.date, &summary.observed);
+
+    let display_settings_menu = DisplaySettingsSideMenu::new();
+
+    view! {
+        <>
+            {header_with_side_menu(locale, &t!("menu.lectionary"), display_settings_menu.view())}
+            <dyn:main
+                class={display_settings_menu.current_settings().stream().map(|settings| settings.to_class()).boxed_local()}
+            >
+            <label class="stacked">
+                {View::StaticText(t!("date"))}
+                <dyn:input type="date" class="centered"
+                    value={summary.day.date.to_padded_string()}
+                    on:change={
+                        let locale = locale.to_string();
+                        move |ev: Event| redirect_to_date(&locale, event_target_value(ev), RedirectMode::Eucharist)
+                    }
+                />
+            </label>
+
+            {observed}
+            </dyn:main>
+            {preference_status_footer(&display_settings_menu.status)}
+        </>
+    }
+}
+
+fn eucharistic_observance_view(
+    locale: &str,
+    date: &Date,
+    summary: &EucharisticObservanceSummary,
+) -> View {
+    let bible_version = preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
+        .and_then(|value| match value {
+            PreferenceValue::Version(version) => Some(version),
+            _ => None,
+        })
+        .unwrap_or(Version::NRSV);
+
+    let title = title_view(locale, &summary.observance, &summary.localized_name);
+
+    let collect_view = summary
+        .collects
+        .as_ref()
+        .map(|collect| {
+            view! {
+                <h2>{t!("lookup.collect_of_the_day")}</h2>
+                <dyn:view view={DocumentController::new(collect.clone()).view(locale)} />
+            }
+        })
+        .unwrap_or(View::Empty);
+
+    let track_choice_toggle = Toggle::new(
+        false,
+        "rcl-track",
+        t!("lectionary.track_one"),
+        t!("lectionary.track_two"),
+        None,
+    );
+
+    let track_choice_toggle_view =
+        if matches!(summary.tracked_readings, TrackedReadings::Tracked { .. }) {
+            track_choice_toggle.view()
+        } else {
+            View::Empty
+        };
+
+    let tracked_readings_view = tracked_readings_view(
+        locale,
+        &summary.tracked_readings,
+        track_choice_toggle.toggled,
+        bible_version,
+    );
+
+    let vigil_readings_view = View::Fragment(
+        summary
+            .vigil_readings
+            .iter()
+            .map(|doc| {
+                view! {
+                    <article class="document">
+                    {
+                        DocumentController::new(doc.clone().version(
+                            if matches!(doc.content, Content::Psalm(_)) {
+                                doc.version
+                            } else {
+                                bible_version
+                            },
+                        ))
+                        .view(locale)
+                    }
                     </article>
                 }
             })

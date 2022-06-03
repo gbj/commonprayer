@@ -1,3 +1,5 @@
+use std::str::FromStr;
+
 use serde::{Deserialize, Serialize};
 use strum_macros::{AsRefStr, Display, EnumIter, EnumString, IntoStaticStr};
 
@@ -390,6 +392,39 @@ pub enum Time {
     MorningOnly,
     AllDay,
     EveningOnly(Option<Feast>),
+}
+
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub enum TimeOfDay {
+    Morning,
+    Evening,
+}
+
+impl std::fmt::Display for TimeOfDay {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            TimeOfDay::Morning => f.write_str("morning"),
+            TimeOfDay::Evening => f.write_str("evening"),
+        }
+    }
+}
+
+impl FromStr for TimeOfDay {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "morning" => Ok(Self::Morning),
+            "evening" => Ok(Self::Evening),
+            _ => Err(()),
+        }
+    }
+}
+
+impl Default for TimeOfDay {
+    fn default() -> Self {
+        Self::Morning
+    }
 }
 
 /// (month, day, Feast, eve, not observed After this week begins (used for days between Epiphany and Epiphany 1))

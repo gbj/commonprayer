@@ -10,4 +10,8 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 pub fn define_custom_elements() {
     // readings
     Tabs::define();
+    DailyOfficeView::define();
+    Toggle::define();
+    DatePicker::define();
+    BiblicalCitationLoader::define();
 }

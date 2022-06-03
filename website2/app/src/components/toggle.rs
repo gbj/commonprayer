@@ -5,9 +5,10 @@ use leptos2::*;
 #[derive(Clone, Debug, Default, PartialEq, Deserialize, Serialize, WebComponent)]
 pub struct Toggle {
     pub name: String,
-    pub on_label: String,
-    pub off_label: String,
+    pub on: String,
+    pub off: String,
     pub legend: String,
+    #[prop]
     pub toggled: bool,
 }
 
@@ -18,17 +19,11 @@ pub struct ToggleEventDetail {
 }
 
 impl Toggle {
-    pub fn new(
-        toggled: bool,
-        name: impl Display,
-        off_label: String,
-        on_label: String,
-        legend: String,
-    ) -> Self {
+    pub fn new(toggled: bool, name: impl Display, off: String, on: String, legend: String) -> Self {
         Self {
             name: name.to_string(),
-            on_label,
-            off_label,
+            on,
+            off,
             legend,
             toggled,
         }
@@ -80,22 +75,24 @@ impl Component for Toggle {
                         id={&id_off}
                         name={&self.name}
                         value="off"
+                        checked={!self.toggled}
                         prop:checked={!self.toggled}
                         on:change=|ev| event_target_value(&ev) == "on"
                     />
                     <label for={&id_off}>
-                        {&self.off_label}
+                        {&self.off}
                     </label>
                     <input
                         type="radio"
                         id={&id_on}
                         name={&self.name}
                         value="on"
+                        checked={self.toggled}
                         prop:checked={self.toggled}
                         on:change=|ev| event_target_value(&ev) == "on"
                     />
                     <label for={&id_on}>
-                        {&self.on_label}
+                        {&self.on}
                     </label>
                 </fieldset>
             </Host>

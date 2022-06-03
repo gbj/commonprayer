@@ -43,8 +43,10 @@ impl State for BiblicalCitationLoader {
     fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
         match msg {
             BiblicalCitationMsg::LoadReading => {
-                self.state = FetchStatus::Loading;
-                return Some(Self::Cmd::LoadReading(self.citation.clone(), self.version));
+                if !self.citation.citation.is_empty() {
+                    self.state = FetchStatus::Loading;
+                    return Some(Self::Cmd::LoadReading(self.citation.clone(), self.version));
+                }
             }
             BiblicalCitationMsg::FetchError(e) => self.state = FetchStatus::Error(e),
             BiblicalCitationMsg::FetchResult(r) => self.state = FetchStatus::Success(Box::new(r)),

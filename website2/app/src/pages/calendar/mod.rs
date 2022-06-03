@@ -1,5 +1,8 @@
 mod controller;
+use std::str::FromStr;
+
 pub use controller::CalendarController;
+use strum_macros::{Display, EnumString};
 
 use crate::{
     preferences,
@@ -111,7 +114,7 @@ impl Page for CalendarPage {
     }
 }
 
-#[derive(Copy, Clone, Debug, Hash, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Copy, Clone, Debug, Hash, PartialEq, Eq, Serialize, Deserialize, EnumString, Display)]
 pub enum CalendarChoice {
     None,
     BCP1979,

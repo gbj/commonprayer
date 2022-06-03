@@ -164,15 +164,13 @@ fn element_node(node: &Node) -> Option<TokenStream> {
                 .attributes
                 .iter()
                 .filter(|attr| true_attr(attr))
-                .filter_map(
-                    |attr| match (attr.name_as_string(), attr.value_as_block()) {
-                        (Some(name), Some(value)) => {
-                            let span = attr.name_span().unwrap();
-                            Some(quote_spanned! { span => #value.to_attribute(#name.to_string()) })
-                        }
-                        _ => None,
-                    },
-                );
+                .filter_map(|attr| match (attr.name_as_string(), &attr.value) {
+                    (Some(name), Some(value)) => {
+                        let span = attr.name_span().unwrap();
+                        Some(quote_spanned! { span => #value.to_attribute(#name.to_string()) })
+                    }
+                    _ => None,
+                });
             let props = node.attributes.iter().filter_map(|attr| {
                 let attr_name = attr.name_as_string().unwrap();
                 if attr_name.starts_with("prop:") {

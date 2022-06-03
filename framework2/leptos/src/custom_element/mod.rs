@@ -50,7 +50,9 @@ where
             // for each property
             for prop in Self::properties() {
                 if let Ok(value) = js_sys::Reflect::get(&this, &JsValue::from_str(prop)) {
-                    initial_state.set_property(prop.to_string(), value);
+                    if !value.is_undefined() {
+                        initial_state.set_property(prop.to_string(), value);
+                    }
                 }
             }
 
