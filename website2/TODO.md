@@ -1,0 +1,22 @@
+- [ ] Finish website2 and merge
+	- [ ] Lectionary readings
+	- [ ] Nested document pages
+	- [ ] Settings page
+		- [ ] Ultimately, build a better/server-side/authenticated + reactive preferences approach
+		- [ ] Then make default versions + settings for readings page better
+- [ ] State::cmd => sync (and remove from event loop)
+	- [ ] Now that we're passing a link, it's unnecessary
+- [ ] Async blocks as children
+	- [ ] Streaming HTML
+	- [ ] AsyncElement node type
+	- [ ] Use this for e.g., BiblicalCitation
+- [ ] From Pages to Nested Routes
+	- [ ] Testable route tree matching
+	- [ ] Route nesting in views
+		- [ ] Outlet node type
+	- [ ] Remove duplicated app shell (Header + main)
+- [ ] IntersectionObserver to dynamically load individual custom elements
+- [ ] Speech rendering
+	- [ ] Declarative SpeechSynthesis web component
+- [ ] Progressive enhancement
+	- [ ] Client side route replacement

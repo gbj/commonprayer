@@ -25,7 +25,9 @@ use crate::{
 };
 
 mod daily_office_view;
+mod eucharistic_reading_view;
 pub use daily_office_view::*;
+pub use eucharistic_reading_view::*;
 mod reading_links;
 use reading_links::*;
 mod redirect;
@@ -243,7 +245,167 @@ fn office_body(locale: &str, summary: &DailySummary) -> Vec<Node> {
 }
 
 fn eucharist_body(locale: &str, summary: &EucharisticLectionarySummary) -> Vec<Node> {
-    todo!()
+    let bible_version = preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
+        .and_then(|value| match value {
+            PreferenceValue::Version(version) => Some(version),
+            _ => None,
+        })
+        .unwrap_or(Version::NRSV);
+
+    let tracked_readings = match &summary.observed.tracked_readings {
+        TrackedReadings::Any(readings) => {
+            view! {
+                <>
+                    <section slot="untracked">
+                        {first_lesson_and_psalm_view(locale, &readings, bible_version)}
+                    </section>
+                </>
+            }
+        }
+        TrackedReadings::Tracked {
+            track_one,
+            track_two,
+        } => view! {
+            <>
+                <section slot="track_one">
+                    {first_lesson_and_psalm_view(locale, track_one, bible_version)}
+                </section>
+                <section slot="track_two">
+                    {first_lesson_and_psalm_view(locale, track_two, bible_version)}
+                </section>
+            </>
+        },
+    };
+
+    // not every day has readings assigned in The Lectionary: offer a choice to redirect
+    // either to the Daily Office Lectionary or to The Lectionary
+    let no_readings_link = if summary.observed.epistle.is_none()
+        && summary.observed.gospel.is_none()
+    {
+        Some(view! {
+            <p class="redirect-links">
+                {t!("lectionary.no_readings")}
+                " "
+                <a href={format!("/{}/readings/{}/{}", locale, RedirectMode::DailyOffice, summary.day.date)}>
+                    {t!("daily_readings.daily_office_readings")}
+                </a>
+                " "
+                {t!("or")}
+                " "
+                <a href={format!("/{}/lectionary/{}#{}", locale, summary.day.date.year(), summary.day.date.month())}>
+                    {t!("lectionary.the_lectionary")}
+                </a>
+                {t!("lectionary.no_readings_end")}
+            </p>
+        })
+    } else {
+        None
+    };
+
+    view! {
+        <>
+            {Header::new(locale, &t!("toc.daily_readings")).to_node()}
+            <main>
+                <EucharisticReadingView
+                    locale={locale}
+                    prop:date={Some(summary.day.date)}
+                    prop:tracked={matches!(summary.observed.tracked_readings, TrackedReadings::Tracked { .. })}
+                >
+                    <section slot="header">
+                        // Name of Day
+                        {title_view(locale, &summary.observed.observance, &summary.observed.localized_name)}
+
+                        // Collect of the Day
+                        {summary.observed.collects.as_ref().map(|doc| view! {
+                            <div class="collect">
+                                <h3>{t!("lookup.collect_of_the_day")}</h3>
+                                {DocumentView {
+                                    path: vec![],
+                                    doc
+                                }
+                                .view(locale)}
+                            </div>
+                        })}
+
+                        // Palms and Vigil Readings preceded other Eucharistic readings
+                        {summary.observed.liturgy_of_the_palms.as_ref().map(|doc| view! {
+                            <>
+                                <a id="palms"></a>
+                                <h3>{t!("lectionary.palms")}</h3>
+                                <article class="document">
+                                   {DocumentView {
+                                        path: vec![],
+                                        doc: &doc.clone().version(bible_version)
+                                    }
+                                    .view(locale)}
+                                </article>
+                            </>
+                        }).unwrap_or_default()}
+                        {summary.observed
+                            .vigil_readings
+                            .iter()
+                            .map(|doc| {
+                                view! {
+                                    <article class="document">
+                                    {
+                                        DocumentView {
+                                            path: vec![],
+                                            doc: &doc.clone()
+                                                .version(if matches!(doc.content, Content::Psalm(_)) {
+                                                    doc.version
+                                                } else {
+                                                    bible_version
+                                                })
+                                        }
+                                        .view(locale)
+                                    }
+                                    </article>
+                                }
+                            })
+                            .collect::<Vec<_>>()
+                        }
+                    </section>
+
+                    // Readings
+                    {tracked_readings}
+
+                    <section slot="readings">
+                        {summary.observed.epistle.as_ref().map(|doc| view! {
+                            <>
+                                <a id="epistle"></a>
+                                <h3>{t!("lectionary.epistle")}</h3>
+                                <article class="document">
+                                    {DocumentView {
+                                        path: vec![],
+                                        doc: &doc.clone()
+                                            .version(bible_version)
+                                        }
+                                        .view(locale)
+                                    }
+                                </article>
+                            </>
+                        }).unwrap_or_default()}
+                        {summary.observed.gospel.as_ref().map(|doc| view! {
+                            <>
+                                <a id="gospel"></a>
+                                <h3>{t!("lectionary.gospel")}</h3>
+                                <article class="document">
+                                    {DocumentView {
+                                        path: vec![],
+                                        doc: &doc.clone()
+                                            .version(bible_version)
+                                        }
+                                        .view(locale)
+                                    }
+                                </article>
+                            </>
+                        }).unwrap_or_default()}
+                        {no_readings_link}
+                    </section>
+                </EucharisticReadingView>
+            </main>
+        </>
+    }
 }
 
 fn observance_header_view(
@@ -319,6 +481,7 @@ fn title_view(locale: &str, observance: &LiturgicalDayId, localized_name: &str) 
         },
     }
 }
+
 fn psalms_view(locale: &str, psalms: &[Psalm]) -> Vec<Node> {
     psalms
         .iter()
@@ -369,6 +532,60 @@ fn readings_view(locale: &str, summary: &ObservanceSummary) -> Vec<Node> {
     }
 }
 
+// TODO Bible Version
+fn first_lesson_and_psalm_view(
+    locale: &str,
+    readings: &FirstLessonAndPsalm,
+    bible_version: Version,
+) -> Vec<Node> {
+    let first_lesson = if let Some(first_lesson) = &readings.first_lesson {
+        view! {
+            <>
+                <a id="first-lesson"></a>
+                <h3>{t!("lectionary.first_lesson")}</h3>
+                <article class="document">
+                   {DocumentView { path: vec![], doc: &first_lesson.clone().version(bible_version) }.view(locale)}
+                </article>
+            </>
+        }
+    } else {
+        vec![]
+    };
+
+    let psalm_citation = readings
+        .psalm
+        .as_ref()
+        .and_then(|psalm| {
+            if let Content::Psalm(psalm) = &psalm.content {
+                psalm.citation.clone()
+            } else if let Content::Canticle(canticle) = &psalm.content {
+                Some(t!(
+                    "canticle_table.canticle_n",
+                    n = &canticle.number.to_string()
+                ))
+            } else {
+                None
+            }
+        })
+        .unwrap_or_else(|| t!("lectionary.psalm"));
+    let psalm = if let Some(psalm) = &readings.psalm {
+        view! {
+            <>
+                <a id="psalm"></a>
+                <h3>{psalm_citation}</h3>
+                <article class="document">
+                   {DocumentView { path: vec![], doc: psalm }.view(locale)}
+                </article>
+            </>
+        }
+    } else {
+        vec![]
+    };
+
+    let mut lessons = first_lesson;
+    lessons.extend(psalm);
+    lessons
+}
 /*
 fn office_body(locale: &str, summary: &DailySummary) -> Vec<Node> {
     let controls = Controls::new(summary.clone());

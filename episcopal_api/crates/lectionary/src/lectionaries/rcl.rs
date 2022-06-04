@@ -1,9 +1,25 @@
 use calendar::{
     Feast, LiturgicalDay, LiturgicalDayId, LiturgicalWeek, Proper, RCLYear, Weekday, Year, YearType,
 };
+use serde::{Deserialize, Serialize};
+use strum_macros::{Display, EnumString};
 
 use crate::{Lectionary, Reading, ReadingType, RCL_TRACK_1, RCL_TRACK_2};
 
+#[derive(
+    Copy,
+    Clone,
+    Debug,
+    PartialEq,
+    Eq,
+    Hash,
+    PartialOrd,
+    Ord,
+    Serialize,
+    Deserialize,
+    EnumString,
+    Display,
+)]
 pub enum RCLTrack {
     One,
     Two,

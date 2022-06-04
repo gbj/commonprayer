@@ -11,6 +11,7 @@ pub fn define_custom_elements() {
     // readings
     Tabs::define();
     DailyOfficeView::define();
+    EucharisticReadingView::define();
     Toggle::define();
     DatePicker::define();
     BiblicalCitationLoader::define();

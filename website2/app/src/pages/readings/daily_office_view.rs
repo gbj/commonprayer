@@ -122,7 +122,6 @@ impl Component for DailyOfficeView {
                     date={self.date}
                     on:change=|ev: web_sys::Event| {
                         let ev: CustomEvent<Option<Date>> = ev.into();
-                        leptos2::warn(&format!("received datepicker change event {:#?}", ev.detail));
                         if let Some(Some(date)) = ev.detail {
                             Self::Msg::SetDate(date)
                         } else {

@@ -1,10 +1,10 @@
 use leptos2::*;
-use liturgy::{BiblicalCitation, BiblicalReading, Version};
+use liturgy::{BiblicalCitation, BiblicalReading, Version, PreferenceKey, GlobalPref, PreferenceValue};
 use reference_parser::{BibleVerse, BibleVersePart, Book};
 
 use crate::{
     utils::fetch::{fetch, Fetch, FetchError, FetchMsg, FetchStatus},
-    views::document::biblical_reading_verses,
+    views::document::biblical_reading_verses, preferences,
 };
 
 #[derive(Clone, Debug, Default, PartialEq, Deserialize, Serialize, WebComponent)]
@@ -62,6 +62,16 @@ impl State for BiblicalCitationLoader {
         match cmd {
             BiblicalCitationCmd::Init => Some(Self::Msg::LoadReading),
             BiblicalCitationCmd::LoadReading(citation, version) => {
+                let version = if version.is_bible_translation() {
+                    version
+                } else {
+                    preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
+                        .and_then(|value| match value {
+                            PreferenceValue::Version(version) => Some(version),
+                            _ => None,
+                        })
+                        .unwrap_or(Version::NRSV)
+                };
                 let url = reading_url(&citation.citation, version);
                 match fetch::<BibleReadingFromAPI>(&url, None).await {
                     Ok(res) => Some(BiblicalCitationMsg::FetchResult(

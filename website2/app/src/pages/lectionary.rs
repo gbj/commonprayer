@@ -208,6 +208,7 @@ impl Page for LectionaryPage {
 
                 view! {
                     <>
+                        <a id={month}></a>
                         <h2>{t!(&format!("lectionary.month_{}", month))}</h2>
                         <div class="month">
                             <div class="weekday-label">{t!("canticle_table.sunday_abbrev")}</div>
@@ -236,13 +237,15 @@ impl Page for LectionaryPage {
     }
 
     fn on_load() {
-        let date = today();
-        let hash_result = location().set_hash(&format!("{}/{}", date.month(), date.day()));
-        if let Err(e) = hash_result {
-            leptos2::debug_warn(&format!(
-                "[error in LectionaryPage::on_load when calling location.setHash()]\n\n{:#?}",
-                e
-            ));
+        if location_hash().unwrap_or_default().trim().is_empty() {
+            let date = today();
+            let hash_result = location().set_hash(&format!("{}/{}", date.month(), date.day()));
+            if let Err(e) = hash_result {
+                leptos2::debug_warn(&format!(
+                    "[error in LectionaryPage::on_load when calling location.setHash()]\n\n{:#?}",
+                    e
+                ));
+            }
         }
 
         window_event_listener("hashchange", |_| {
