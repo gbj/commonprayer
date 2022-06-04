@@ -100,8 +100,8 @@ fn reading_links_reading_view(readings: &Vec<&str>) -> Node {
     }
 }
 
-fn psalm_links_view(psalms: &Vec<&str>) -> Vec<Node> {
-    psalms
+fn psalm_links_view(psalms: &Vec<&str>) -> Node {
+    let psalm_links = psalms
         .iter()
         .map(|citation| {
             view! {
@@ -110,5 +110,9 @@ fn psalm_links_view(psalms: &Vec<&str>) -> Vec<Node> {
                 </li>
             }
         })
-        .collect::<Vec<_>>()
+        .collect::<Vec<_>>();
+
+    view! {
+        <ul>{psalm_links}</ul>
+    }
 }

@@ -78,6 +78,40 @@ impl State for DailyOfficeView {
 
 impl Component for DailyOfficeView {
     fn view(&self) -> Host {
+        let links_slot = match (self.use_alternate, self.psalms) {
+            (true, Lectionaries::BCP1979ThirtyDayPsalms) => "alternate_links_30day_psalms",
+            (true, _) => "alternate_links_daily_psalms",
+            (false, Lectionaries::BCP1979ThirtyDayPsalms) => "primary_links_30day_psalms",
+            (false, _) => "primary_links_daily_psalms",
+        };
+
+        let header_slot = match (self.use_alternate, self.time, self.calendar) {
+            (true, TimeOfDay::Morning, CalendarChoice::LFF2018) => "alternate_morning_header_lff",
+            (true, TimeOfDay::Morning, _) => "alternate_morning_header",
+            (true, TimeOfDay::Evening, CalendarChoice::LFF2018) => "alternate_evening_header_lff",
+            (true, TimeOfDay::Evening, _) => "alternate_evening_header",
+            (false, TimeOfDay::Morning, CalendarChoice::LFF2018) => "primary_morning_header_lff",
+            (false, TimeOfDay::Morning, _) => "primary_morning_header",
+            (false, TimeOfDay::Evening, CalendarChoice::LFF2018) => "primary_evening_header_lff",
+            (false, TimeOfDay::Evening, _) => "primary_evening_header",
+        };
+
+        let psalms_slot = match (self.use_alternate, self.time, self.psalms) {
+            (_, TimeOfDay::Morning, Lectionaries::BCP1979ThirtyDayPsalms) => "morning_30",
+            (_, TimeOfDay::Evening, Lectionaries::BCP1979ThirtyDayPsalms) => "evening_30",
+            (false, TimeOfDay::Morning, _) => "primary_morning_daily",
+            (false, TimeOfDay::Evening, _) => "primary_evening_daily",
+            (true, TimeOfDay::Morning, _) => "alternate_morning_daily",
+            (true, TimeOfDay::Evening, _) => "alternate_evening_daily",
+        };
+
+        let readings_slot = match (self.use_alternate, self.time) {
+            (true, TimeOfDay::Morning) => "alternate_morning_readings",
+            (true, TimeOfDay::Evening) => "alternate_evening_readings",
+            (false, TimeOfDay::Morning) => "primary_morning_readings",
+            (false, TimeOfDay::Evening) => "primary_evening_readings",
+        };
+
         view! {
             <Host>
                 <style>{include_str!("daily_office_view.css")}</style>
@@ -162,106 +196,15 @@ impl Component for DailyOfficeView {
                     }
                 />
 
-                // Slots for readings and lists
-                <slot name="primary_links_daily_psalms" class:hidden={self.use_alternate || self.psalms == Lectionaries::BCP1979ThirtyDayPsalms}></slot>
-                <slot name="primary_links_30day_psalms" class:hidden={self.use_alternate || self.psalms != Lectionaries::BCP1979ThirtyDayPsalms}></slot>
-                <slot name="alternate_links_daily_psalms" class:hidden={!self.use_alternate || self.psalms == Lectionaries::BCP1979ThirtyDayPsalms}></slot>
-                <slot name="alternate_links_30day_psalms" class:hidden={!self.use_alternate || self.psalms != Lectionaries::BCP1979ThirtyDayPsalms}></slot>
+                // Slots for links down to readings
+                <slot name={links_slot}></slot>
+
+                // Day name, holy days w/ links, and collect
+                <slot name={header_slot}></slot>
 
                 // Slots for psalms and readings
-                <slot name="primary_morning_daily"
-                    class:hidden={
-                        self.use_alternate ||
-                        self.psalms == Lectionaries::BCP1979ThirtyDayPsalms ||
-                        self.time == TimeOfDay::Evening
-                    }
-                >
-                </slot>
-                <slot name="morning_30"
-                    class:hidden={
-                        self.psalms != Lectionaries::BCP1979ThirtyDayPsalms ||
-                        self.time == TimeOfDay::Evening
-                    }
-                >
-                </slot>
-                <slot name="primary_morning_readings"
-                    class:hidden={
-                        self.use_alternate ||
-                        self.time == TimeOfDay::Evening
-                    }
-                >
-                </slot>
-
-                <slot name="primary_evening_daily"
-                    class:hidden={
-                        self.use_alternate ||
-                        self.psalms == Lectionaries::BCP1979ThirtyDayPsalms ||
-                        self.time != TimeOfDay::Evening
-                    }
-                >
-                </slot>
-                <slot name="evening_30"
-                    class:hidden={
-                        self.psalms != Lectionaries::BCP1979ThirtyDayPsalms ||
-                        self.time != TimeOfDay::Evening
-                    }
-                >
-                </slot>
-                <slot name="primary_evening_readings"
-                    class:hidden={
-                        self.use_alternate ||
-                        self.time != TimeOfDay::Evening
-                    }
-                >
-                </slot>
-
-                <slot name="alternate_morning_daily"
-                    class:hidden={
-                        !self.use_alternate ||
-                        self.psalms == Lectionaries::BCP1979ThirtyDayPsalms ||
-                        self.time == TimeOfDay::Evening
-                    }
-                >
-                </slot>
-                <slot name="alternate_morning_30"
-                    class:hidden={
-                        !self.use_alternate ||
-                        self.psalms != Lectionaries::BCP1979ThirtyDayPsalms ||
-                        self.time == TimeOfDay::Evening
-                    }
-                >
-                </slot>
-                <slot name="alternate_morning_readings"
-                    class:hidden={
-                        !self.use_alternate ||
-                        self.time == TimeOfDay::Evening
-                    }
-                >
-                </slot>
-
-                <slot name="alternate_evening_daily"
-                    class:hidden={
-                        !self.use_alternate ||
-                        self.psalms == Lectionaries::BCP1979ThirtyDayPsalms ||
-                        self.time != TimeOfDay::Evening
-                    }
-                >
-                </slot>
-                <slot name="alternate_evening_30"
-                    class:hidden={
-                        !self.use_alternate ||
-                        self.psalms != Lectionaries::BCP1979ThirtyDayPsalms ||
-                        self.time != TimeOfDay::Evening
-                    }
-                >
-                </slot>
-                <slot name="alternate_evening_readings"
-                    class:hidden={
-                        !self.use_alternate ||
-                        self.time != TimeOfDay::Evening
-                    }
-                >
-                </slot>
+                <slot name={psalms_slot}></slot>
+                <slot name={readings_slot}></slot>
             </Host>
         }
     }

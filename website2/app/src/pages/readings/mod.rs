@@ -186,6 +186,32 @@ fn office_body(locale: &str, summary: &DailySummary) -> Vec<Node> {
                         {reading_links_view(&alternate_reading_links, true)}
                     </section>
 
+                    // Name/Collect
+                    <section slot="primary_morning_header">
+                        {observance_header_view(locale, Some(&summary.morning.observed), false)}
+                    </section>
+                    <section slot="primary_evening_header">
+                        {observance_header_view(locale, Some(&summary.evening.observed), false)}
+                    </section>
+                     <section slot="alternate_morning_header">
+                        {observance_header_view(locale, summary.morning.alternate.as_ref(), false)}
+                    </section>
+                     <section slot="alternate_evening_header">
+                        {observance_header_view(locale, summary.evening.alternate.as_ref(), false)}
+                    </section>
+                    <section slot="primary_morning_header_lff">
+                        {observance_header_view(locale, Some(&summary.morning.observed), true)}
+                    </section>
+                    <section slot="primary_evening_header_lff">
+                        {observance_header_view(locale, Some(&summary.evening.observed), true)}
+                    </section>
+                     <section slot="alternate_morning_header_lff">
+                        {observance_header_view(locale, summary.morning.alternate.as_ref(), true)}
+                    </section>
+                     <section slot="alternate_evening_header_lff">
+                        {observance_header_view(locale, summary.evening.alternate.as_ref(), true)}
+                    </section>
+
                     // Reading Views
                     <section slot="primary_morning_daily">{psalms_view(locale, &summary.morning.observed.daily_office_psalms)}</section>
                     <section slot="morning_30">{psalms_view(locale, &summary.morning.thirty_day_psalms)}</section>
@@ -220,6 +246,79 @@ fn eucharist_body(locale: &str, summary: &EucharisticLectionarySummary) -> Vec<N
     todo!()
 }
 
+fn observance_header_view(
+    locale: &str,
+    summary: Option<&ObservanceSummary>,
+    lff: bool,
+) -> Vec<Node> {
+    summary
+        .map(|summary| {
+            let title = title_view(locale, &summary.observance, &summary.localized_name);
+
+            let black_letter_days = if lff {
+                &summary.lff_black_letter_days
+            } else {
+                &summary.bcp_black_letter_days
+            }
+            .iter()
+            .map(|(feast, name)| {
+                let url = format!("/{}/holy-day/{:#?}", locale, feast);
+                view! {
+                    <li>
+                        <a href={url}>{name}</a>
+                    </li>
+                }
+            })
+            .collect::<Vec<_>>();
+            let black_letter_days = view! {
+                <ul class="black-letter-days">{black_letter_days}</ul>
+            };
+
+            let collects = summary
+                .collects
+                .as_ref()
+                .map(|collects| {
+                    [
+                        view! {
+                            <h2>{t!("lookup.collect_of_the_day")}</h2>
+                        },
+                        DocumentView {
+                            path: vec![],
+                            doc: collects,
+                        }
+                        .view(locale),
+                    ]
+                })
+                .into_iter()
+                .flatten();
+
+            [title, black_letter_days]
+                .into_iter()
+                .chain(collects)
+                .collect::<Vec<_>>()
+        })
+        .unwrap_or_default()
+}
+
+fn title_view(locale: &str, observance: &LiturgicalDayId, localized_name: &str) -> Node {
+    match observance {
+        LiturgicalDayId::Feast(feast) => view! {
+            <h1>
+                <a href={&format!("/{}/holy-day/{:#?}", locale, feast)}>{localized_name}</a>
+            </h1>
+        },
+        LiturgicalDayId::TransferredFeast(feast) => view! {
+            <h1>
+                <a href={&format!("/{}/holy-day/{:#?}", locale, feast)}>{localized_name}</a>
+                <br/>
+                {t!("daily_readings.transferred")}
+            </h1>
+        },
+        _ => view! {
+            <h1>{localized_name}</h1>
+        },
+    }
+}
 fn psalms_view(locale: &str, psalms: &[Psalm]) -> Vec<Node> {
     psalms
         .iter()
