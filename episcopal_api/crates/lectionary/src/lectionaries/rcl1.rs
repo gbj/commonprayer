@@ -170,12 +170,6 @@ pub const RCL_TRACK_1: Lectionary = Lectionary {
             "Psalm 43",
         ),
         (
-            LiturgicalDayId::ProperAndDay(Proper::Proper7, Weekday::Sun),
-            Year::Rcl(RCLYear::C),
-            ReadingType::Psalm,
-            "Psalm 43",
-        ),
-        (
             LiturgicalDayId::ProperAndDay(Proper::Proper8, Weekday::Sun),
             Year::Rcl(RCLYear::A),
             ReadingType::FirstReading,
