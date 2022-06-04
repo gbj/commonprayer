@@ -1364,7 +1364,7 @@ pub const BCP1979_DAILY_OFFICE_PSALTER: Lectionary = Lectionary {
 		(LiturgicalDayId::Feast(Feast::PeterAndPaul), Year::Any, ReadingType::MorningPsalm, "Psalm 66"),
 		(LiturgicalDayId::Feast(Feast::PeterAndPaul), Year::Any, ReadingType::EveningPsalm, "Psalm 97"),
 		(LiturgicalDayId::Feast(Feast::PeterAndPaul), Year::Any, ReadingType::EveningPsalm, "Psalm 138"),
-		(LiturgicalDayId::Feast(Feast::PhilipAndJames), Year::Any, ReadingType::EveningPsalm, "Psalm 119:137-160"),
+		(LiturgicalDayId::Feast(Feast::PhilipAndJames), Year::Any, ReadingType::MorningPsalm, "Psalm 119:137-160"),
 		(LiturgicalDayId::Feast(Feast::PhilipAndJames), Year::Any, ReadingType::EveningPsalm, "Psalm 139"),
 		(LiturgicalDayId::Feast(Feast::SimonAndJude), Year::Any, ReadingType::MorningPsalm, "Psalm 66"),
 		(LiturgicalDayId::Feast(Feast::SimonAndJude), Year::Any, ReadingType::MorningPsalm, "Psalm 67"),
