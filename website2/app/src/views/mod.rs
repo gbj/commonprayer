@@ -45,7 +45,7 @@ pub fn bible_version_select_options(locale: &str, value: Version) -> Vec<Node> {
         .map(|version| {
             let value_str: &'static str = version.into();
             view! {
-                <option value={value_str} checked={value == version}>{version.to_string()}</option>
+                <option value={value_str} selected={value == version}>{version.to_string()}</option>
             }
         })
         .collect::<Vec<_>>()

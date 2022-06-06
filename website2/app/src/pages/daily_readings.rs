@@ -230,6 +230,43 @@ impl Page for ReadingsPage {
 }
 
 impl ReadingsPage {
+    fn rebuild_query_string(&self, evening: bool) -> String {
+        let pairs = [
+            Some(("date", self.date.to_padded_string().as_str())),
+            if self.use_alternate {
+                Some(("alternate", ""))
+            } else {
+                None
+            },
+            Some(("version", self.version.to_string().as_str())),
+            if evening {
+                Some(("time", "evening"))
+            } else {
+                None
+            },
+            if self.use_thirty {
+                Some(("psalms", "30"))
+            } else {
+                None
+            },
+            if self.use_lff {
+                Some(("calendar", "lff"))
+            } else {
+                None
+            },
+        ]
+        .into_iter()
+        .flatten()
+        .map(|(k, v)| format!("{k}={v}"))
+        .intersperse_with(|| "&".to_string())
+        .collect::<String>();
+        format!("?{pairs}")
+    }
+
+    fn link_with_citation(&self, citation: &str, evening: bool) -> String {
+        format!("{}#{}", self.rebuild_query_string(evening), citation)
+    }
+
     fn observance_header_view(&self, locale: &str) -> Vec<Node> {
         let title = title_view(
             locale,
@@ -256,7 +293,7 @@ impl ReadingsPage {
             <ul class="black-letter-days">{black_letter_days}</ul>
         };
 
-        let reading_links = reading_links_view(&self.reading_links);
+        let reading_links = self.reading_links_view();
 
         let collects = self
             .summary
@@ -281,6 +318,74 @@ impl ReadingsPage {
             .into_iter()
             .chain(collects)
             .collect::<Vec<_>>()
+    }
+
+    fn reading_links_view(&self) -> Node {
+        let readings_different =
+            self.reading_links.morning_readings != self.reading_links.evening_readings;
+
+        view! {
+            <table class="reading-link-table">
+                <tr>
+                    <th>{t!("daily_readings.morning")}</th>
+                    <th>{t!("daily_readings.evening")}</th>
+                </tr>
+                <tr>
+                    <td>
+                        {self.psalm_links_view(&self.reading_links.morning_psalms, false)}
+                    </td>
+                    <td>
+                        {self.psalm_links_view(&self.reading_links.evening_psalms, true)}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan={if readings_different { "1" } else { "2" } }>
+                        {self.reading_links_reading_view(&self.reading_links.morning_readings, false)}
+                    </td>
+                    <td>
+                        {if readings_different {
+                            Some(self.reading_links_reading_view(&self.reading_links.evening_readings, true))
+                        } else {
+                            None
+                        }}
+                    </td>
+                </tr>
+            </table>
+        }
+    }
+
+    fn reading_links_reading_view(&self, readings: &[String], evening: bool) -> Node {
+        let reading_links = readings
+            .iter()
+            .map(|citation| {
+                view! {
+                    <li>
+                        <a href={self.link_with_citation(citation, evening)}>{citation}</a>
+                    </li>
+                }
+            })
+            .collect::<Vec<_>>();
+
+        view! {
+            <ul>{reading_links}</ul>
+        }
+    }
+
+    fn psalm_links_view(&self, psalms: &[String], evening: bool) -> Node {
+        let psalm_links = psalms
+            .iter()
+            .map(|citation| {
+                view! {
+                    <li>
+                        <a href={self.link_with_citation(citation, evening)}>{citation}</a>
+                    </li>
+                }
+            })
+            .collect::<Vec<_>>();
+
+        view! {
+            <ul>{psalm_links}</ul>
+        }
     }
 }
 
@@ -318,71 +423,4 @@ fn lectionary_reading_links(readings: &[Reading]) -> Vec<String> {
         .iter()
         .map(|reading| reading.citation.clone())
         .collect()
-}
-
-pub fn reading_links_view(links: &ReadingLinks) -> Node {
-    let readings_different = links.morning_readings != links.evening_readings;
-
-    view! {
-        <table class="reading-link-table">
-            <tr>
-                <th>{t!("daily_readings.morning")}</th>
-                <th>{t!("daily_readings.evening")}</th>
-            </tr>
-            <tr>
-                <td>
-                    {psalm_links_view(&links.morning_psalms)}
-                </td>
-                <td>
-                    {psalm_links_view(&links.evening_psalms)}
-                </td>
-            </tr>
-            <tr>
-                <td colspan={if readings_different { "1" } else { "2" } }>
-                    {reading_links_reading_view(&links.morning_readings)}
-                </td>
-                <td>
-                    {if readings_different {
-                        Some(reading_links_reading_view(&links.evening_readings))
-                    } else {
-                        None
-                    }}
-                </td>
-            </tr>
-        </table>
-    }
-}
-
-fn reading_links_reading_view(readings: &[String]) -> Node {
-    let reading_links = readings
-        .iter()
-        .map(|citation| {
-            view! {
-                <li>
-                    <a href={&format!("#{}", citation)}>{citation.to_string()}</a>
-                </li>
-            }
-        })
-        .collect::<Vec<_>>();
-
-    view! {
-        <ul>{reading_links}</ul>
-    }
-}
-
-fn psalm_links_view(psalms: &[String]) -> Node {
-    let psalm_links = psalms
-        .iter()
-        .map(|citation| {
-            view! {
-                <li>
-                    <a href={&format!("#{}", citation)}>{citation.to_string()}</a>
-                </li>
-            }
-        })
-        .collect::<Vec<_>>();
-
-    view! {
-        <ul>{psalm_links}</ul>
-    }
 }

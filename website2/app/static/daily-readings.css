@@ -5,6 +5,11 @@ fieldset.horizontal {
   align-items: center;
 }
 
+input[type=submit] {
+  display: block;
+  margin: auto;
+}
+
 h1 {
   text-align: center;
 }
