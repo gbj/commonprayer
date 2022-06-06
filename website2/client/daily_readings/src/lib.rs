@@ -10,4 +10,5 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 pub fn define_custom_elements() {
     // daily-readings
     Tabs::define();
+    BiblicalCitationLoader::define();
 }
