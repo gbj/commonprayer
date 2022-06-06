@@ -5,6 +5,7 @@ pub struct AboutPage {}
 
 impl Page for AboutPage {
     type Params = ();
+    type Query = ();
 
     fn name() -> &'static str {
         "about"
@@ -14,7 +15,12 @@ impl Page for AboutPage {
         vec!["".into()]
     }
 
-    fn build_state(_locale: &str, _path: &str, _params: Self::Params) -> Option<Self> {
+    fn build_state(
+        _locale: &str,
+        _path: &str,
+        _params: Self::Params,
+        _query: Self::Query,
+    ) -> Option<Self> {
         Some(Self {})
     }
 

@@ -17,14 +17,14 @@ use episcopal_api::{
     api::summary::DailySummary,
     calendar::Date,
     hymnal::{HymnNumber, Hymnal, Hymnals, HYMNAL_1982, LEVAS, WLP, EL_HIMNARIO, HymnMetadata},
-    liturgy::{Document, SlugPath, Slug}, library::{CommonPrayer, Library},
+    liturgy::{Document, SlugPath, Slug}, library::{CommonPrayer, Library}, language::Language,
 };
 use lazy_static::lazy_static;
 use leptos2::*;
 use serde::{Deserialize};
 use tempfile::tempdir;
 use app::{
-    api::bing::BingSearchResult, pages::*, utils::language::locale_to_language
+    api::bing::BingSearchResult, pages::*,
 };
 
 mod bing;
@@ -111,7 +111,7 @@ impl ResponseError for DateError {
 async fn daily_summary(params: web::Path<(String, String)>) -> Result<web::Json<DailySummary>> {
     let (locale, date) = params.into_inner();
     let date = Date::parse_from_str(&date, "%Y-%m-%d").map_err(DateError)?;
-    let language = locale_to_language(&locale);
+    let language = Language::from_locale(&locale);
     let summary = episcopal_api::library::CommonPrayer::daily_office_summary(&date, language);
     Ok(web::Json(summary))
 }
@@ -262,6 +262,7 @@ fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
         add_page::<CanticleTablePage>(cfg, locale);
         add_page::<DailyOfficePage>(cfg, locale);
         add_page::<DocumentPage>(cfg, locale);
+        add_page::<EucharisticReadingsPage>(cfg, locale);
         add_page::<HolyDayPage>(cfg, locale);
         add_page::<HymnPage>(cfg, locale);
         add_page::<HymnalPage>(cfg, locale);
@@ -326,7 +327,7 @@ where
         cfg.service(web::resource(&localized_path).route(web::get().to({
             let locale = locale.to_string();
 
-            move |req: HttpRequest, params: Path<P::Params>| {
+        move |req: HttpRequest, params: Path<P::Params>, query: Query<P::Query>| {
                 let locale = locale.to_string();
                 
                 async move {
@@ -357,7 +358,7 @@ where
                             }
 
                             let mut file = File::create(build_artifact_path).expect("could not create static file");
-                            match P::build_state(&locale, &path, params.into_inner()) {
+                            match P::build_state(&locale, &path, params.into_inner(), query.into_inner()) {
                                 Some(page) => {
                                     let view = page.render(&locale, Some(analytics_injection));
                                     let html = format!("<!DOCTYPE html>{}", view);
@@ -376,7 +377,7 @@ where
                     }
                     // otherwise, just render and serve the page
                     else {
-                        match P::build_state(&locale, &path, params.into_inner()) {
+                        match P::build_state(&locale, &path, params.into_inner(), query.into_inner()) {
                             Some(page) => {
                                 let view = page.render(&locale, Some(analytics_injection));
                                 let html = format!("<!DOCTYPE html>{}", view);

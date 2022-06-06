@@ -1,3 +1,17 @@
+- [ ] Bugs
+	- [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
+	- [ ] "Eccles." labeled as Ben Sira
+- [ ] Improve readings page
+	- [x] Better handle URL search params
+	- [x] Eucharistic readings page
+	- [ ] Daily Office Readings page
+		- [ ] BCP/LFF in menu
+		- [ ] Tabs for choices:
+			- Default/alternate
+			- Psalms (Tab: Daily Office/30-day)
+			- Readings (if holy day: tab for Morning/Evening)
+		- [ ] Show Morning & Evening readings on same page (so links work)
+			- [ ] No need for a tab here
 - [ ] Finish website2 and merge
 	- [ ] Lectionary readings
 	- [ ] Nested document pages

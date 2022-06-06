@@ -5,6 +5,7 @@ pub struct Index {}
 
 impl Page for Index {
     type Params = ();
+    type Query = ();
 
     fn name() -> &'static str {
         "index"
@@ -14,7 +15,12 @@ impl Page for Index {
         vec!["".into()]
     }
 
-    fn build_state(_locale: &str, _path: &str, _params: Self::Params) -> Option<Self> {
+    fn build_state(
+        _locale: &str,
+        _path: &str,
+        _params: Self::Params,
+        _query: Self::Query,
+    ) -> Option<Self> {
         Some(Self {})
     }
 

@@ -16,6 +16,7 @@ pub struct PsalterPage {
 
 impl Page for PsalterPage {
     type Params = ();
+    type Query = ();
 
     fn name() -> &'static str {
         "psalter"
@@ -29,7 +30,12 @@ impl Page for PsalterPage {
         true
     }
 
-    fn build_state(locale: &str, _path: &str, _params: Self::Params) -> Option<Self> {
+    fn build_state(
+        locale: &str,
+        _path: &str,
+        _params: Self::Params,
+        _query: Self::Query,
+    ) -> Option<Self> {
         Some(PsalterPage {
             psalms: match locale {
                 "es" => &*LOC_PSALTER,

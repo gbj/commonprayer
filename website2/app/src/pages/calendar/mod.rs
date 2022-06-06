@@ -6,7 +6,6 @@ use strum_macros::{Display, EnumString};
 
 use crate::{
     preferences,
-    utils::language::locale_to_language,
     views::{Header, Icon},
 };
 use calendar::{
@@ -27,6 +26,7 @@ pub struct CalendarPage {
 
 impl Page for CalendarPage {
     type Params = ();
+    type Query = ();
 
     fn name() -> &'static str {
         "calendar"
@@ -36,8 +36,13 @@ impl Page for CalendarPage {
         vec!["".into(), "bcp1979".into(), "lff2018".into()]
     }
 
-    fn build_state(locale: &str, path: &str, params: Self::Params) -> Option<Self> {
-        let language = locale_to_language(locale);
+    fn build_state(
+        locale: &str,
+        path: &str,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> Option<Self> {
+        let language = Language::from_locale(locale);
 
         let default_calendar = if path.ends_with("lff2018") {
             CalendarChoice::LFF2018
@@ -163,7 +168,7 @@ fn summarize_calendar(
 }
 
 pub fn hydration_state(locale: &str, path: &str, _params: &()) -> Option<CalendarPageProps> {
-    let language = locale_to_language(locale);
+    let language = Language::from_locale(locale);
 
     let default_calendar = if path.ends_with("lff2018") {
         CalendarChoice::LFF2018
@@ -214,7 +219,7 @@ pub fn root_id(use_lff: bool) -> &'static str {
 }
 
 fn calendar_view(calendar: CalendarChoice, locale: &str, listing: &CalendarListing) -> Vec<Node> {
-    let language = locale_to_language(locale);
+    let language = Language::from_locale(locale);
     let root_id = root_id(calendar == CalendarChoice::LFF2018);
 
     MONTHS

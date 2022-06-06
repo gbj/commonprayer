@@ -1,5 +1,5 @@
 [package]
-name = "readings_client"
+name = "eucharistic_readings_client"
 version = "0.1.0"
 edition = "2021"
 

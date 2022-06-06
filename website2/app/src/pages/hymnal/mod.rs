@@ -17,6 +17,11 @@ pub struct HymnalPageParams {
     hymnal: Option<Hymnals>,
 }
 
+#[derive(Deserialize)]
+pub struct HymnalPageQuery {
+    q: Option<String>,
+}
+
 pub struct HymnalPage {
     search: String,
     search_results: Vec<HymnMetadata>,
@@ -25,6 +30,7 @@ pub struct HymnalPage {
 
 impl Page for HymnalPage {
     type Params = HymnalPageParams;
+    type Query = HymnalPageQuery;
 
     fn name() -> &'static str {
         "hymnal"
@@ -34,10 +40,12 @@ impl Page for HymnalPage {
         vec!["".into(), "{hymnal}".into()]
     }
 
-    fn build_state(_locale: &str, path: &str, params: Self::Params) -> Option<Self> {
-        let mut search_parts = path.split("?q=");
-        search_parts.next();
-
+    fn build_state(
+        _locale: &str,
+        path: &str,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> Option<Self> {
         let hymnals = match params.hymnal {
             None => {
                 vec![
@@ -53,7 +61,7 @@ impl Page for HymnalPage {
             }
         };
 
-        let search = decode_uri(search_parts.next().unwrap_or_default());
+        let search = query.q.unwrap_or_default();
 
         let s = Some(match params.hymnal {
             None => HymnalPage {

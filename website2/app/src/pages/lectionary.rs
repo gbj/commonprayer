@@ -1,5 +1,6 @@
 use chrono::{Datelike, Local};
 use itertools::Itertools;
+use language::Language;
 use leptos2::*;
 use serde::Deserialize;
 use {
@@ -9,7 +10,7 @@ use {
 use crate::views::Header;
 
 use crate::utils::{
-    language::locale_to_language, scroll_to_element_by_id_with_padding_for_header, time::today,
+    scroll_to_element_by_id_with_padding_for_header, time::today,
 };
 
 #[derive(Deserialize)]
@@ -31,6 +32,7 @@ pub struct LectionaryDayEntry {
 
 impl Page for LectionaryPage {
     type Params = LectionaryPageParams;
+    type Query = ();
 
     fn name() -> &'static str {
         "lectionary"
@@ -40,7 +42,7 @@ impl Page for LectionaryPage {
         vec!["".into(), "{year}".into()]
     }
 
-    fn build_state(locale: &str, _path: &str, params: Self::Params) -> Option<Self> {
+    fn build_state(locale: &str, _path: &str, params: Self::Params, query: Self::Query) -> Option<Self> {
         let year = params
             .year
             .unwrap_or_else(|| Local::now().date().year().try_into().unwrap());
@@ -51,7 +53,7 @@ impl Page for LectionaryPage {
                 if current_date.year() == year {
                     let liturgical_day = BCP1979_CALENDAR.liturgical_day(current_date, false);
                     let rank = BCP1979_CALENDAR.rank(&liturgical_day);
-                    let language = locale_to_language(locale);
+                    let language = Language::from_locale(locale);
 
                     let other_notes = liturgical_day
                         .holy_days

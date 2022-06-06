@@ -2143,12 +2143,6 @@ pub const RCL_TRACK_2: Lectionary = Lectionary {
         (
             LiturgicalDayId::Feast(Feast::Mary),
             Year::Rcl(RCLYear::A),
-            ReadingType::FirstReading,
-            "Isaiah 61:10-11",
-        ),
-        (
-            LiturgicalDayId::Feast(Feast::Mary),
-            Year::Rcl(RCLYear::A),
             ReadingType::Psalm,
             "Psalm 34",
         ),
@@ -2173,12 +2167,6 @@ pub const RCL_TRACK_2: Lectionary = Lectionary {
         (
             LiturgicalDayId::Feast(Feast::Mary),
             Year::Rcl(RCLYear::B),
-            ReadingType::FirstReading,
-            "Isaiah 61:10-11",
-        ),
-        (
-            LiturgicalDayId::Feast(Feast::Mary),
-            Year::Rcl(RCLYear::B),
             ReadingType::Psalm,
             "Psalm 34",
         ),
@@ -2199,12 +2187,6 @@ pub const RCL_TRACK_2: Lectionary = Lectionary {
             Year::Rcl(RCLYear::B),
             ReadingType::Gospel,
             "Luke 1:46-55",
-        ),
-        (
-            LiturgicalDayId::Feast(Feast::Mary),
-            Year::Rcl(RCLYear::C),
-            ReadingType::FirstReading,
-            "Isaiah 61:10-11",
         ),
         (
             LiturgicalDayId::Feast(Feast::Mary),

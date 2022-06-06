@@ -332,6 +332,7 @@ en:
     gospel: Gospel
     no_readings: There were no readings found for this date in the Revised Common Lectionary. Would you like to look at the 
     no_readings_end: "?"
+    go: Go
 
   slug:
     Version: Version

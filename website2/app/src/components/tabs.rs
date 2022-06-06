@@ -7,8 +7,8 @@ pub struct Tabs {
     #[prop]
     pub labels: Vec<String>,
     pub align: String,
+    pub selected: usize,
     focused: usize,
-    selected: usize,
 }
 
 #[derive(Copy, Clone, Debug)]

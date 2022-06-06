@@ -59,4 +59,16 @@ impl Language {
             _ => todo!(),
         }
     }
+
+    pub fn from_locale(locale: &str) -> Self {
+        match locale {
+            "en" => Language::En,
+            "en-US" => Language::En,
+            "es" => Language::Es,
+            "es-ES" => Language::Es,
+            "fr" => Language::Fr,
+            "fr-FR" => Language::Fr,
+            _ => Language::En,
+        }
+    }
 }

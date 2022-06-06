@@ -75,6 +75,7 @@ pub struct DocumentPage {
 
 impl Page for DocumentPage {
     type Params = DocumentPageParams;
+    type Query = ();
 
     fn name() -> &'static str {
         "document"
@@ -121,7 +122,12 @@ impl Page for DocumentPage {
             .collect()
     }
 
-    fn build_state(locale: &str, path: &str, params: Self::Params) -> Option<Self> {
+    fn build_state(
+        locale: &str,
+        path: &str,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> Option<Self> {
         let locale_and_base = format!("/{locale}/document/");
         let path = path.replace(&locale_and_base, "");
 

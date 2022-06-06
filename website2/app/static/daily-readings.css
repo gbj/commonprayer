@@ -1,7 +1,8 @@
-main {
-  display: block;
-  margin: auto;
-  max-width: calc(100vw - calc(2 * var(--page-padding)));
+fieldset.horizontal {
+  border: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 h1 {
@@ -35,15 +36,6 @@ h2.day-name {
 }
 
 .reading-link-table {
-  display: flex;
-  flex-direction: row;
-}
-
-.reading-link-table.hidden {
-  display: none;
-}
-
-.reading-link-table table {
   width: 100%;
 }
 

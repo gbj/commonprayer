@@ -1,7 +1,7 @@
 mod hymn_media;
 pub use hymn_media::*;
 
-use crate::views::*;
+use crate::views::{DocumentView, Header};
 use hymnal::{Hymn, HymnNumber, Hymnal, Hymnals};
 use leptos2::*;
 
@@ -18,6 +18,7 @@ pub struct HymnPage {
 
 impl Page for HymnPage {
     type Params = HymnPageParams;
+    type Query = ();
 
     fn name() -> &'static str {
         "hymn"
@@ -27,7 +28,12 @@ impl Page for HymnPage {
         vec!["{hymnal}/{number}".into()]
     }
 
-    fn build_state(_locale: &str, path: &str, params: Self::Params) -> Option<Self> {
+    fn build_state(
+        _locale: &str,
+        path: &str,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> Option<Self> {
         let hymnal: Hymnal = params.hymnal.into();
         let hymn = hymnal
             .hymns

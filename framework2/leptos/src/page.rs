@@ -11,12 +11,18 @@ where
     Self: Sized,
 {
     type Params: DeserializeOwned + 'static;
+    type Query: DeserializeOwned + 'static;
 
     fn name() -> &'static str;
 
     fn paths() -> Vec<String>;
 
-    fn build_state(locale: &str, path: &str, params: Self::Params) -> Option<Self>;
+    fn build_state(
+        locale: &str,
+        path: &str,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> Option<Self>;
 
     fn head(&self, locale: &str) -> Vec<Node>;
 

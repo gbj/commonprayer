@@ -4,7 +4,6 @@ use leptos2::{document, is_server, window};
 use web_sys::ScrollToOptions;
 
 pub mod fetch;
-pub mod language;
 //pub mod preferences;
 pub mod share;
 pub mod time;

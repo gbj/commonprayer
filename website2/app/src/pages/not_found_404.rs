@@ -7,6 +7,7 @@ pub struct NotFound {
 
 impl Page for NotFound {
     type Params = ();
+    type Query = ();
 
     fn name() -> &'static str {
         "404"
@@ -16,7 +17,12 @@ impl Page for NotFound {
         vec![String::new()]
     }
 
-    fn build_state(_locale: &str, path: &str, _params: Self::Params) -> Option<Self> {
+    fn build_state(
+        _locale: &str,
+        path: &str,
+        _params: Self::Params,
+        _query: Self::Query,
+    ) -> Option<Self> {
         Some(Self {
             path: path.to_string(),
         })

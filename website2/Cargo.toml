@@ -3,13 +3,14 @@ members = [
 	"app",
 	"client/calendar",
 	"client/daily_office",
+	"client/daily_readings",
 	"client/document",
+	"client/eucharistic_readings",
 	"client/holy_day",
 	"client/hymn",
 	"client/hymnal",
 	"client/lectionary",
 	"client/meditation",
-	"client/readings",
 	"server",
 ]
 

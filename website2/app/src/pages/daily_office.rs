@@ -12,12 +12,18 @@ pub struct DailyOfficePage {}
 
 impl Page for DailyOfficePage {
     type Params = ();
+    type Query = ();
 
     fn name() -> &'static str {
         "daily-office"
     }
 
-    fn build_state(locale: &str, path: &str, params: Self::Params) -> Option<Self> {
+    fn build_state(
+        locale: &str,
+        path: &str,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> Option<Self> {
         Some(Self {})
     }
 

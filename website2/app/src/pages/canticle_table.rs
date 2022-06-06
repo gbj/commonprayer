@@ -7,12 +7,18 @@ pub struct CanticleTablePage {}
 
 impl Page for CanticleTablePage {
     type Params = ();
+    type Query = ();
 
     fn name() -> &'static str {
         "canticle-table"
     }
 
-    fn build_state(locale: &str, path: &str, params: Self::Params) -> Option<Self> {
+    fn build_state(
+        locale: &str,
+        path: &str,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> Option<Self> {
         Some(Self {})
     }
 

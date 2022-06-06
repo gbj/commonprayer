@@ -1,12 +1,12 @@
 use crate::{
     preferences,
-    utils::language::locale_to_language,
     views::{document::DocumentView, Header},
     WebView,
 };
 use calendar::{
     lff2018::LFF_BIOS, Feast, HolyDayId, LiturgicalDayId, Time, BCP1979_CALENDAR, LFF2018_CALENDAR,
 };
+use language::Language;
 use lectionary::{ReadingType, LFF2018_LECTIONARY, RCL};
 use leptos2::*;
 use library::{lff2018::collects::*, CollectId};
@@ -39,6 +39,7 @@ pub struct HolyDayPage {
 
 impl Page for HolyDayPage {
     type Params = HolyDayParams;
+    type Query = ();
 
     fn name() -> &'static str {
         "holy-day"
@@ -48,7 +49,12 @@ impl Page for HolyDayPage {
         vec!["{feast}".into()]
     }
 
-    fn build_state(locale: &str, _path: &str, params: Self::Params) -> Option<Self> {
+    fn build_state(
+        locale: &str,
+        _path: &str,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> Option<Self> {
         // deserializing here instead of in the params means that
         // a bad feast ID will be a 404 error (finds path, but branches here to None => 404)
         // not a server error (when it's unable to find path b/c can't deserialize to Feast)
@@ -56,7 +62,7 @@ impl Page for HolyDayPage {
         serde_json::from_str::<Feast>(&format!(r#""{}""#, params.feast))
             .ok()
             .and_then(|feast| {
-                let language = locale_to_language(locale);
+                let language = Language::from_locale(locale);
                 let eve_of = BCP1979_CALENDAR
                     .holy_days
                     .iter()

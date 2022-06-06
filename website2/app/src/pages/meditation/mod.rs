@@ -7,6 +7,7 @@ pub struct MeditationPage {}
 
 impl Page for MeditationPage {
     type Params = ();
+    type Query = ();
 
     fn name() -> &'static str {
         "meditation"
@@ -16,7 +17,12 @@ impl Page for MeditationPage {
         vec!["".into()]
     }
 
-    fn build_state(_locale: &str, _path: &str, _params: Self::Params) -> Option<Self> {
+    fn build_state(
+        _locale: &str,
+        _path: &str,
+        _params: Self::Params,
+        _query: Self::Query,
+    ) -> Option<Self> {
         Some(Self {})
     }
 
