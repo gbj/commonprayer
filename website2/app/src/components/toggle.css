@@ -55,8 +55,10 @@ fieldset.toggle input:not(:checked)+label {
 	background: var(--ui-toggle-unchecked-background);
 }
 
-fieldset.toggle input:not(:checked)+label:hover {
+fieldset.toggle input:not(:checked)+label:hover,
+fieldset.toggle input:focus+label {
 	background: var(--ui-toggle-unchecked-background-hover);
+	color: var(--color);
 }
 
 /* Hide radio buttons *only* visually, leaving them accessible to screen readers */
