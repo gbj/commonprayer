@@ -94,7 +94,8 @@ impl Page for HymnalPage {
                 <title>{title} " – " {t!("common_prayer")}</title>
                 <link rel="stylesheet" href="/static/vars.css"/>
                 <link rel="stylesheet" href="/static/general.css"/>
-                <link rel="stylesheet" href="/static/hymnal_search.css"/>
+                <link rel="stylesheet" href="/static/hymnal-search.css"/>
+                <link rel="stylesheet" href="/static/toggle-links.css"/>
             </>
         }
     }

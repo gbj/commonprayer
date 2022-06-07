@@ -11,8 +11,7 @@ pub fn define_custom_elements() {
     // calendar
     CalendarController::define();
 
-    // shared component s
+    // shared components
     DatePicker::define();
     Modal::define();
-    Toggle::define();
 }

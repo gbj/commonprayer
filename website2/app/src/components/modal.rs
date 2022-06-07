@@ -19,6 +19,7 @@ impl State for Modal {
     type Cmd = bool;
 
     fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
+        leptos2::debug_warn(&format!("Modal received msg {:#?}", msg));
         match msg {
             ModalMsg::Open => self.open = true,
             ModalMsg::Close => self.open = false,

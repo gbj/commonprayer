@@ -1,145 +1,22 @@
 mod controller;
-use std::str::FromStr;
 
 pub use controller::CalendarController;
-use strum_macros::{Display, EnumString};
 
-use crate::{
-    preferences,
-    views::{Header, Icon},
-};
+use crate::views::{Header, Icon};
 use calendar::{
     feasts::KalendarEntry, Calendar, Feast, HolyDayId, Rank, Time, BCP1979_CALENDAR,
     LFF2018_CALENDAR,
 };
 use language::Language;
 use leptos2::*;
-use liturgy::{GlobalPref, PreferenceKey, PreferenceValue};
 use rust_i18n::t;
-use serde_derive::{Deserialize, Serialize};
 
 pub struct CalendarPage {
-    default_calendar: CalendarChoice,
-    bcp1979: CalendarListing,
-    lff2018: CalendarListing,
-}
-
-impl Page for CalendarPage {
-    type Params = ();
-    type Query = ();
-
-    fn name() -> &'static str {
-        "calendar"
-    }
-
-    fn paths() -> Vec<String> {
-        vec!["".into(), "bcp1979".into(), "lff2018".into()]
-    }
-
-    fn build_state(
-        locale: &str,
-        path: &str,
-        params: Self::Params,
-        query: Self::Query,
-    ) -> Option<Self> {
-        let language = Language::from_locale(locale);
-
-        let default_calendar = if path.ends_with("lff2018") {
-            CalendarChoice::LFF2018
-        } else if path.ends_with("bcp1979") {
-            CalendarChoice::BCP1979
-        } else {
-            CalendarChoice::None
-        };
-        let bcp1979 = summarize_calendar(
-            language,
-            &BCP1979_CALENDAR,
-            BCP1979_CALENDAR.holy_days.iter().cloned(),
-        );
-        let lff2018 = summarize_calendar(
-            language,
-            &LFF2018_CALENDAR,
-            LFF2018_CALENDAR.holy_days.iter().cloned(),
-        );
-
-        Some(CalendarPage {
-            default_calendar,
-            bcp1979,
-            lff2018,
-        })
-    }
-
-    fn head(&self, locale: &str) -> Vec<Node> {
-        view! {
-            <>
-                <title>{t!("menu.calendar")} " – " {t!("common_prayer")}</title>
-                <link rel="stylesheet" href="/static/vars.css"/>
-                <link rel="stylesheet" href="/static/general.css"/>
-                <link rel="stylesheet" href="/static/calendar.css"/>
-            </>
-        }
-    }
-
-    fn body(&self, locale: &str) -> Vec<Node> {
-        // Render BCP and LFF calendars and choose between them
-        let bcp = calendar_view(CalendarChoice::BCP1979, locale, &self.bcp1979);
-        let lff = calendar_view(CalendarChoice::LFF2018, locale, &self.lff2018);
-
-        let initial_toggle_value = match self.default_calendar {
-            CalendarChoice::BCP1979 => false,
-            CalendarChoice::LFF2018 => true,
-            CalendarChoice::None => preferences::is(
-                &PreferenceKey::from(GlobalPref::Calendar),
-                &PreferenceValue::Local("lff2018".into()),
-            ),
-        };
-
-        let button = view! {
-            <button id="modalOpen">
-                <img src={Icon::Calendar} alt={t!("calendar.settings")}/>
-            </button>
-        };
-
-        // Main view
-        view! {
-            <>
-                {Header::new_with_additional_buttons(locale, &t!("menu.calendar"), vec![button]).to_node()}
-                <main>
-                    <CalendarController
-                        lff={self.default_calendar == CalendarChoice::LFF2018}
-                    >
-                        <h2 slot="bcp-title">{t!("bcp_1979")}</h2>
-                        <h2 slot="lff-title">{t!("lff_2018")}</h2>
-                        <section slot="bcp-content">{bcp}</section>
-                        <section slot="lff-content">{lff}</section>
-                    </CalendarController>
-                </main>
-            </>
-        }
-    }
-}
-
-#[derive(Copy, Clone, Debug, Hash, PartialEq, Eq, Serialize, Deserialize, EnumString, Display)]
-pub enum CalendarChoice {
-    None,
-    BCP1979,
-    LFF2018,
-}
-
-impl Default for CalendarChoice {
-    fn default() -> Self {
-        Self::BCP1979
-    }
+    lff: bool,
+    data: CalendarListing,
 }
 
 type CalendarListing = Vec<(HolyDayId, Feast, String)>;
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct CalendarPageProps {
-    default_calendar: CalendarChoice,
-    bcp1979: CalendarListing,
-    lff2018: CalendarListing,
-}
 
 fn summarize_calendar(
     language: Language,
@@ -167,32 +44,142 @@ fn summarize_calendar(
         .collect()
 }
 
-pub fn hydration_state(locale: &str, path: &str, _params: &()) -> Option<CalendarPageProps> {
-    let language = Language::from_locale(locale);
+impl Page for CalendarPage {
+    type Params = ();
+    type Query = ();
 
-    let default_calendar = if path.ends_with("lff2018") {
-        CalendarChoice::LFF2018
-    } else if path.ends_with("bcp1979") {
-        CalendarChoice::BCP1979
-    } else {
-        CalendarChoice::None
-    };
-    let bcp1979 = summarize_calendar(
-        language,
-        &BCP1979_CALENDAR,
-        BCP1979_CALENDAR.holy_days.iter().cloned(),
-    );
-    let lff2018 = summarize_calendar(
-        language,
-        &LFF2018_CALENDAR,
-        LFF2018_CALENDAR.holy_days.iter().cloned(),
-    );
+    fn name() -> &'static str {
+        "calendar"
+    }
 
-    Some(CalendarPageProps {
-        default_calendar,
-        bcp1979,
-        lff2018,
-    })
+    fn paths() -> Vec<String> {
+        vec!["".into(), "lff2018".into()]
+    }
+
+    fn build_state(
+        locale: &str,
+        path: &str,
+        _params: Self::Params,
+        _query: Self::Query,
+    ) -> Option<Self> {
+        let language = Language::from_locale(locale);
+
+        let lff = path.ends_with("lff2018");
+        let data = if lff {
+            summarize_calendar(
+                language,
+                &LFF2018_CALENDAR,
+                LFF2018_CALENDAR.holy_days.iter().cloned(),
+            )
+        } else {
+            summarize_calendar(
+                language,
+                &BCP1979_CALENDAR,
+                BCP1979_CALENDAR.holy_days.iter().cloned(),
+            )
+        };
+
+        Some(CalendarPage { lff, data })
+    }
+
+    fn head(&self, _locale: &str) -> Vec<Node> {
+        view! {
+            <>
+                <title>{t!("menu.calendar")} " – " {t!("common_prayer")}</title>
+                <link rel="stylesheet" href="/static/vars.css"/>
+                <link rel="stylesheet" href="/static/general.css"/>
+                <link rel="stylesheet" href="/static/calendar.css"/>
+                <link rel="stylesheet" href="/static/toggle-links.css"/>
+            </>
+        }
+    }
+
+    fn body(&self, locale: &str) -> Vec<Node> {
+        let button = view! {
+            <button id="modalOpen">
+                <img src={Icon::Calendar} alt={t!("calendar.settings")}/>
+            </button>
+        };
+
+        // Main view
+        view! {
+            <>
+                {Header::new_with_additional_buttons(locale, &t!("menu.calendar"), vec![button]).to_node()}
+                <CalendarController
+                    locale={locale}
+                    prop:lff={self.lff}
+                />
+                <main>
+                    {calendar_toggle_links(locale, self.lff)}
+
+                    {if self.lff {
+                        view! {  <h2>{t!("lff_2018")}</h2> }
+                    } else {
+                        view! { <h2>{t!("bcp_1979")}</h2> }
+                    }}
+
+                    {self.calendar_view(locale)}
+                </main>
+            </>
+        }
+    }
+}
+
+pub fn calendar_toggle_links(locale: &str, use_lff: bool) -> Node {
+    view! {
+        <div class="toggle-links">
+            <a href={format!("/{}/calendar", locale)} class:current={!use_lff}>{{t!("bcp_1979")}}</a>
+            <a href={format!("/{}/calendar/lff2018", locale)} class:current={use_lff}>{{t!("lff_2018")}}</a>
+        </div>
+    }
+}
+
+impl CalendarPage {
+    fn calendar_view(&self, locale: &str) -> Vec<Node> {
+        let language = Language::from_locale(locale);
+
+        MONTHS
+            .iter()
+            .flat_map(move |(month, days)| {
+                let name = language.month_name(*month);
+
+                let rows = (1..=*days)
+                    .map(|day_of_month| {
+                        let feast = self
+                            .data
+                            .iter()
+                            .find(|(id, _, _)| *id == HolyDayId::Date(*month, day_of_month))
+                            .map(|(_, feast, name)| (feast, name.clone()));
+                        let link = feast
+                            .and_then(|(feast, name)| {
+                                serde_json::to_string(&feast).ok().map(|feast| {
+                                    let link =
+                                        format!("/{}/holy-day/{}", locale, feast.replace('"', ""));
+                                    view! {
+                                        <a href={link}>{name}</a>
+                                    }
+                                })
+                            })
+                            .unwrap_or_default();
+                        let id = format!("{}-{}", month, day_of_month);
+                        view! {
+                            <tr id={id}>
+                                <td>{day_of_month.to_string()}</td>
+                                <td>{link}</td>
+                            </tr>
+                        }
+                    })
+                    .collect::<Vec<_>>();
+
+                view! {
+                    <>
+                        <h3>{name}</h3>
+                        <table id={month}>{rows}</table>
+                    </>
+                }
+            })
+            .collect()
+    }
 }
 
 const MONTHS: [(u8, u8); 12] = [
@@ -209,61 +196,3 @@ const MONTHS: [(u8, u8); 12] = [
     (11, 30),
     (12, 31),
 ];
-
-pub fn root_id(use_lff: bool) -> &'static str {
-    if use_lff {
-        "lff"
-    } else {
-        "bcp"
-    }
-}
-
-fn calendar_view(calendar: CalendarChoice, locale: &str, listing: &CalendarListing) -> Vec<Node> {
-    let language = Language::from_locale(locale);
-    let root_id = root_id(calendar == CalendarChoice::LFF2018);
-
-    MONTHS
-        .iter()
-        .flat_map(move |(month, days)| {
-            let name = language.month_name(*month);
-            // TODO yuck
-            let bcp = listing.clone();
-
-            let rows = (1..=*days)
-                .map(|day_of_month| {
-                    let feast = bcp
-                        .iter()
-                        .find(|(id, _, _)| *id == HolyDayId::Date(*month, day_of_month))
-                        .map(|(_, feast, name)| (feast, name.clone()));
-                    let link = feast
-                        .and_then(|(feast, name)| {
-                            serde_json::to_string(&feast).ok().map(|feast| {
-                                let link =
-                                    format!("/{}/holy-day/{}", locale, feast.replace('"', ""));
-                                view! {
-                                    <a href={link}>{name}</a>
-                                }
-                            })
-                        })
-                        .unwrap_or_default();
-                    let id = format!("{}-{}-{}", root_id, month, day_of_month);
-                    view! {
-                        <tr id={id}>
-                            <td>{day_of_month.to_string()}</td>
-                            <td>{link}</td>
-                        </tr>
-                    }
-                })
-                .collect::<Vec<_>>();
-
-            let id = format!("{}-{}", root_id, month);
-
-            view! {
-                <>
-                    <h3>{name}</h3>
-                    <table id={id}>{rows}</table>
-                </>
-            }
-        })
-        .collect()
-}

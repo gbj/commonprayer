@@ -1,3 +1,4 @@
+use super::calendar_toggle_links;
 use crate::{
     components::*,
     utils::{scroll_to_element_by_id_with_padding_for_header, time::today},
@@ -5,10 +6,10 @@ use crate::{
 use calendar::Date;
 use leptos2::*;
 
-use super::root_id;
-
 #[derive(Clone, Debug, Default, PartialEq, Deserialize, Serialize, WebComponent)]
 pub struct CalendarController {
+    pub locale: String,
+    #[prop]
     pub lff: bool,
     date: String,
     menu_open: bool,
@@ -17,7 +18,6 @@ pub struct CalendarController {
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum CalendarPageMsg {
     HashChange,
-    UseLff(bool),
     SetDate(Option<Date>),
     OpenMenu(bool),
     Noop,
@@ -25,7 +25,7 @@ pub enum CalendarPageMsg {
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum CalendarPageCmd {
-    ScrollTo { lff: bool, date_hash: String },
+    ScrollTo(String),
     SetHash(String),
 }
 
@@ -52,13 +52,6 @@ impl State for CalendarController {
 
     fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
         let cmd = match msg {
-            CalendarPageMsg::UseLff(lff) => {
-                self.lff = lff;
-                Some(CalendarPageCmd::ScrollTo {
-                    lff,
-                    date_hash: self.date.clone(),
-                })
-            }
             CalendarPageMsg::SetDate(date) => {
                 let date = date.unwrap_or_else(today);
                 let date_hash = format!("{}-{}", date.month(), date.day());
@@ -68,10 +61,7 @@ impl State for CalendarController {
             CalendarPageMsg::HashChange => {
                 let hash = location_hash().unwrap_or_default();
                 self.date = hash.clone();
-                Some(CalendarPageCmd::ScrollTo {
-                    lff: self.lff,
-                    date_hash: hash,
-                })
+                Some(CalendarPageCmd::ScrollTo(hash))
             }
             CalendarPageMsg::OpenMenu(open) => {
                 self.menu_open = open;
@@ -88,8 +78,8 @@ impl State for CalendarController {
         _link: StateLink<Self>,
     ) -> Option<Self::Msg> {
         match cmd {
-            CalendarPageCmd::ScrollTo { lff, date_hash } => {
-                scroll_to_row(lff, &date_hash);
+            CalendarPageCmd::ScrollTo(hash) => {
+                scroll_to_element_by_id_with_padding_for_header(&hash);
             }
             CalendarPageCmd::SetHash(hash) => {
                 location().set_hash(&hash);
@@ -121,25 +111,15 @@ impl Component for CalendarController {
                     }
                 }
             >
-                <style>".hidden { display: none; }"</style>
+                <style>
+                    ".hidden { display: none; }"
+                    {include_str!("../../../static/toggle-links.css")}
+                </style>
                 <Modal
-                    open={self.menu_open}
+                    prop:open={self.menu_open}
                     on:close=|_| CalendarPageMsg::OpenMenu(false)
                 >
-                    <Toggle
-                        slot="content"
-                        id="calendar-toggle"
-                        toggled={self.lff}
-                        name="calendar"
-                        off-label=t!("bcp_1979_abbrev")
-                        on-label=t!("lff_2018_abbrev")
-                        legend=t!("settings.calendar")
-                        on:change=|ev: Event| {
-                            let lff: CustomEvent<ToggleEventDetail> = ev.into();
-                            let lff = lff.detail.map(|detail| detail.toggled).unwrap_or_default();
-                            CalendarPageMsg::UseLff(lff)
-                        }
-                    />
+                    <div slot="content">{calendar_toggle_links(&self.locale, self.lff)}</div>
                     <DatePicker
                         slot="content"
                         id="calendar-date"
@@ -151,20 +131,7 @@ impl Component for CalendarController {
                         }
                     />
                 </Modal>
-
-                // Content
-                <main>
-                    <slot name="bcp-title" class:hidden={self.lff}></slot>
-                    <slot name="lff-title" class:hidden={!self.lff}></slot>
-                    <slot name="bcp-content" class:hidden={self.lff}></slot>
-                    <slot name="lff-content" class:hidden={!self.lff}></slot>
-                </main>
             </Host>
         }
     }
-}
-
-fn scroll_to_row(lff: bool, hash: &str) {
-    let root_id = root_id(lff);
-    scroll_to_element_by_id_with_padding_for_header(&format!("{}-{}", root_id, hash));
 }
