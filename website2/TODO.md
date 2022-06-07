@@ -2,6 +2,7 @@
 	- [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
 	- [ ] "Eccles." labeled as Ben Sira
 	- [ ] St. Mark readings + collect
+- [ ] Rewrite hymn page to use server-side query
 - [ ] Finish website2 and merge
 	- [ ] Nested document pages
 	- [ ] Settings page
