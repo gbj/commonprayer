@@ -45,7 +45,7 @@ impl Page for Index {
                             {t!("toc.calendar_full")}
                             <ul>
                                 <li>
-                                    {make_link(locale, "calendar/bcp1979", "bcp_1979", false)}
+                                    {make_link(locale, "calendar", "bcp_1979", false)}
                                 </li>
                                 <li>
                                     {make_link(locale, "calendar/lff2018", "lff_2018", false)}
