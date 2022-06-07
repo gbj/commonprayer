@@ -19,6 +19,7 @@ pub struct ReadingsPage {
     pub summary: ObservanceSummary,
     pub version: Version,
     pub use_alternate: bool,
+    pub alternates: Option<(String, String)>,
     pub evening: bool,
     pub use_thirty: bool,
     pub use_lff: bool,
@@ -62,7 +63,10 @@ impl Page for ReadingsPage {
             .as_ref()
             .and_then(|date| Date::parse_from_str(date, "%Y-%m-%d").ok())
             .unwrap_or_else(today);
-        let use_alternate = query.alternate.is_some();
+        let use_alternate = query
+            .alternate
+            .map(|alternate| alternate == "yes")
+            .unwrap_or(false);
         let version = query
             .version
             .filter(Version::is_bible_translation)
@@ -136,6 +140,12 @@ impl Page for ReadingsPage {
         } else {
             summary.morning
         };
+        let alternates = summary.alternate.as_ref().map(|alternate| {
+            (
+                summary.observed.localized_name.clone(),
+                alternate.localized_name.clone(),
+            )
+        });
         let summary = if use_alternate {
             summary.alternate.unwrap_or(summary.observed)
         } else {
@@ -147,6 +157,7 @@ impl Page for ReadingsPage {
             summary,
             version,
             use_alternate,
+            alternates,
             evening,
             use_thirty,
             use_lff,
@@ -211,6 +222,16 @@ impl Page for ReadingsPage {
                                 <input id="30" type="radio" name="psalms" value="30" checked={self.use_thirty} onchange="this.form.submit()"/>
                                 <label for="30">{t!("daily_readings.thirty_day_psalms")}</label>
                             </fieldset>
+                            {self.alternates.as_ref().map(|(observed, alternate)| {
+                                view! {
+                                    <fieldset class="toggle">
+                                        <input id="observed" type="radio" name="alternate" value="no" checked={!self.use_alternate} onchange="this.form.submit()"/>
+                                        <label for="observed">{observed}</label>
+                                        <input id="alternate" type="radio" name="alternate" value="yes" checked={self.use_alternate} onchange="this.form.submit()"/>
+                                        <label for="alternate">{alternate}</label>
+                                    </fieldset>
+                                }
+                            }).unwrap_or_else(|| text(""))}
                         </>
                     })}
 
@@ -234,7 +255,7 @@ impl ReadingsPage {
         let pairs = [
             Some(("date", self.date.to_padded_string().as_str())),
             if self.use_alternate {
-                Some(("alternate", ""))
+                Some(("alternate", "yes"))
             } else {
                 None
             },
