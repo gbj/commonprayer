@@ -51,9 +51,6 @@ where
                 format!("{}{}{}", Self::name(), separator, path)
             })
             .collect::<Vec<_>>();
-        if Self::pure() {
-            paths.push(format!("{}/*", Self::name()));
-        }
         paths
     }
 

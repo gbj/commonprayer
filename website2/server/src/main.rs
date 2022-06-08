@@ -313,7 +313,7 @@ where
                         .insert_header((
                             actix_web::http::header::LOCATION,
                             format!(
-                                "/{}{}",
+                                "/{}{}/",
                                 preferred_locale,
                                 if path == "/" { "" } else { path }
                             ),
@@ -323,8 +323,28 @@ where
             )),
         );
 
+        // add redirect to force trailing slash
+        // this ensures that a Form posting to "." will not accidentally replace the last part of the URL with the query params
+        cfg.service(
+        web::resource(&localized_path).route(
+            web::get()
+                .to(async move |req: HttpRequest| { 
+                    HttpResponse::PermanentRedirect()
+                        .insert_header((
+                            actix_web::http::header::LOCATION,
+                            format!(
+                                "{}/",
+                                req.path()
+                            )
+                        ))
+                        .finish()
+                    }
+                )
+            )
+        );
+
         // The page
-        cfg.service(web::resource(&localized_path).route(web::get().to({
+        cfg.service(web::resource(&format!("{}/", localized_path)).route(web::get().to({
             let locale = locale.to_string();
 
         move |req: HttpRequest, params: Path<P::Params>, query: Query<P::Query>| {
