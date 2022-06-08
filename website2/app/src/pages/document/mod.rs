@@ -44,6 +44,7 @@ pub enum DocumentPageType {
         label: String,
         documents: Vec<Document>,
         hidden_in_toc: bool,
+        search: String,
     },
     Parallels {
         label: String,
@@ -58,6 +59,13 @@ pub enum NavType {
     Url(String),
 }
 
+pub struct DocumentPage {
+    pub page_type: DocumentPageType,
+    pub path: String,
+    pub slug: SlugPath,
+    pub date: String,
+}
+
 #[derive(Deserialize, Clone)]
 pub struct DocumentPageParams {
     pub date: Option<Date>,
@@ -66,16 +74,14 @@ pub struct DocumentPageParams {
     pub alternate: Option<String>,
 }
 
-pub struct DocumentPage {
-    pub page_type: DocumentPageType,
-    pub path: String,
-    pub slug: SlugPath,
-    pub date: String,
+#[derive(Deserialize, Clone)]
+pub struct DocumentPageQuery {
+    pub search: Option<String>,
 }
 
 impl Page for DocumentPage {
     type Params = DocumentPageParams;
-    type Query = ();
+    type Query = DocumentPageQuery;
 
     fn name() -> &'static str {
         "document"
@@ -98,15 +104,11 @@ impl Page for DocumentPage {
                         Box::new(
                             [
                                 slug.to_string(),
-                                format!("{slug}/"),
+                                format!("{slug}"),
                                 format!("{slug}/{{date}}"),
-                                format!("{slug}/{{date}}/"),
                                 format!("{slug}/{{date}}/{{calendar}}"),
-                                format!("{slug}/{{date}}/{{calendar}}/"),
                                 format!("{slug}/{{date}}/{{calendar}}/{{prefs}}"),
-                                format!("{slug}/{{date}}/{{calendar}}/{{prefs}}/"),
                                 format!("{slug}/{{date}}/{{calendar}}/{{prefs}}/{{alternate}}"),
-                                format!("{slug}/{{date}}/{{calendar}}/{{prefs}}/{{alternate}}/"),
                             ]
                             .into_iter(),
                         ) as Box<dyn Iterator<Item = String>>
@@ -115,7 +117,7 @@ impl Page for DocumentPage {
                             as Box<dyn Iterator<Item = String>>
                     }
                 } else {
-                    Box::new([slug.to_string(), format!("{slug}/")].into_iter())
+                    Box::new([slug.to_string(), format!("{slug}")].into_iter())
                         as Box<dyn Iterator<Item = String>>
                 }
             })
@@ -267,6 +269,7 @@ impl Page for DocumentPage {
                         label,
                         documents,
                         hidden_in_toc,
+                        search: query.search.unwrap_or_default(),
                     }),
                     Contents::Parallels {
                         label,
@@ -330,8 +333,11 @@ impl Page for DocumentPage {
                 by_version_body(locale, &self.slug, label, documents)
             }
             DocumentPageType::MultiDocument {
-                label, documents, ..
-            } => multidocument_body(locale, &self.slug, label, documents),
+                label,
+                documents,
+                search,
+                ..
+            } => multidocument_body(locale, &self.slug, label, documents, search),
             DocumentPageType::Parallels {
                 label,
                 intro,
