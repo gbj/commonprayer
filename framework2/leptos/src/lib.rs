@@ -17,9 +17,11 @@ mod page;
 pub mod ssr;
 mod state;
 pub mod vdom;
+mod cmd;
 
 use std::any::Any;
 
+pub use cmd::*;
 pub use component::*;
 pub use custom_element::*;
 pub use dom::*;

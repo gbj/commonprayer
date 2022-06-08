@@ -25,62 +25,27 @@ pub enum BiblicalCitationMsg {
     FetchResult(BiblicalReading),
 }
 
-#[derive(Debug)]
-pub enum BiblicalCitationCmd {
-    Init,
-    LoadReading(BiblicalCitation, Version),
-}
-
-#[async_trait(?Send)]
 impl State for BiblicalCitationLoader {
     type Msg = BiblicalCitationMsg;
-    type Cmd = BiblicalCitationCmd;
 
-    fn init(&self) -> Option<Self::Cmd> {
-        Some(Self::Cmd::Init)
+    fn init(&self) -> Option<Cmd<Self>> {
+        Some(Cmd::new(|_, link| {
+            link.send(&Self::Msg::LoadReading);
+        }))
     }
 
-    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
+    fn update(&mut self, msg: Self::Msg) -> Option<Cmd<Self>> {
         match msg {
             BiblicalCitationMsg::LoadReading => {
                 if !self.citation.citation.is_empty() {
                     self.state = FetchStatus::Loading;
-                    return Some(Self::Cmd::LoadReading(self.citation.clone(), self.version));
+                    return Some(self.load_reading(&self.citation, self.version));
                 }
             }
             BiblicalCitationMsg::FetchError(e) => self.state = FetchStatus::Error(e),
             BiblicalCitationMsg::FetchResult(r) => self.state = FetchStatus::Success(Box::new(r)),
         };
         None
-    }
-
-    async fn cmd(
-        cmd: Self::Cmd,
-        _host: web_sys::HtmlElement,
-        _link: StateLink<Self>,
-    ) -> Option<Self::Msg> {
-        match cmd {
-            BiblicalCitationCmd::Init => Some(Self::Msg::LoadReading),
-            BiblicalCitationCmd::LoadReading(citation, version) => {
-                let version = if version.is_bible_translation() {
-                    version
-                } else {
-                    preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
-                        .and_then(|value| match value {
-                            PreferenceValue::Version(version) => Some(version),
-                            _ => None,
-                        })
-                        .unwrap_or(Version::NRSV)
-                };
-                let url = reading_url(&citation.citation, version);
-                match fetch::<BibleReadingFromAPI>(&url, None).await {
-                    Ok(res) => Some(BiblicalCitationMsg::FetchResult(
-                        res.api_data_to_biblical_reading(&citation),
-                    )),
-                    Err(e) => Some(BiblicalCitationMsg::FetchError(e)),
-                }
-            }
-        }
     }
 }
 
@@ -105,6 +70,35 @@ impl Component for BiblicalCitationLoader {
                 {content}
             </Host>
         }
+    }
+}
+
+impl BiblicalCitationLoader {
+    fn load_reading(&self, citation: &BiblicalCitation, version: Version) -> Cmd<Self> {
+        let version = if version.is_bible_translation() {
+            version
+        } else {
+            preferences::get(&PreferenceKey::from(GlobalPref::BibleVersion))
+                .and_then(|value| match value {
+                    PreferenceValue::Version(version) => Some(version),
+                    _ => None,
+                })
+                .unwrap_or(Version::NRSV)
+        };
+        let url = reading_url(&citation.citation, version);
+        let citation = citation.clone();
+        Cmd::new(move |_, link| {
+            let citation = citation.clone();
+            let link = link.clone();
+            spawn_local(async move {
+                match fetch::<BibleReadingFromAPI>(&url, None).await {
+                    Ok(res) => link.send(&BiblicalCitationMsg::FetchResult(
+                        res.api_data_to_biblical_reading(&citation),
+                    )),
+                    Err(e) => link.send(&BiblicalCitationMsg::FetchError(e)),
+                };
+            });
+        })
     }
 }
 

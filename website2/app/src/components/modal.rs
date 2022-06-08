@@ -13,32 +13,19 @@ pub enum ModalMsg {
     Close,
 }
 
-#[async_trait(?Send)]
 impl State for Modal {
     type Msg = ModalMsg;
-    type Cmd = bool;
 
-    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
-        leptos2::debug_warn(&format!("Modal received msg {:#?}", msg));
+    fn update(&mut self, msg: Self::Msg) -> Option<Cmd<Self>> {
         match msg {
             ModalMsg::Open => self.open = true,
             ModalMsg::Close => self.open = false,
         };
-        Some(self.open)
-    }
-
-    async fn cmd(
-        cmd: Self::Cmd,
-        host: web_sys::HtmlElement,
-        _link: StateLink<Self>,
-    ) -> Option<Self::Msg> {
-        let event_emitter = EventEmitter::new(&host);
-        if !cmd {
-            event_emitter.emit(CustomEvent::<()>::new("close").detail(()));
+        Some(if self.open {
+            Cmd::event(CustomEvent::new("open").detail(()))
         } else {
-            event_emitter.emit(CustomEvent::<()>::new("open").detail(()));
-        }
-        None
+            Cmd::event(CustomEvent::new("close").detail(()))
+        })
     }
 }
 

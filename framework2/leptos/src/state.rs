@@ -8,8 +8,8 @@ use std::{cell::RefCell, fmt::Debug, rc::Rc};
 
 use crate::{
     debug_warn,
-    link::{Link, StateLink},
-    spawn_local,
+    link::{StateLink},
+    spawn_local, cmd::Cmd,
 };
 
 #[async_trait(?Send)]
@@ -18,19 +18,12 @@ where
     Self: Default + Debug + Sized + PartialEq + 'static,
 {
     type Msg: Debug;
-    type Cmd: Debug;
 
-    fn init(&self) -> Option<Self::Cmd> {
+    fn init(&self) -> Option<Cmd<Self>> {
         None
     }
 
-    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd>;
-
-    async fn cmd(
-        cmd: Self::Cmd,
-        host: web_sys::HtmlElement,
-        link: StateLink<Self>,
-    ) -> Option<Self::Msg>;
+    fn update(&mut self, msg: Self::Msg) -> Option<Cmd<Self>>;
 
     fn nested_states(&mut self) -> Vec<&mut dyn StateMachine> {
         Vec::new()
@@ -175,16 +168,7 @@ where
         let init = self.state.borrow().init();
         if let (Some(cmd), Some(host)) = (init, self.host.clone()) {
             let link = StateLink::<T>::from(tx.clone());
-            let cmd = T::cmd(cmd, host, link);
-            let tx = tx.clone();
-            spawn_local(async move {
-                let msg = cmd.await;
-                if let Some(msg) = msg {
-                    if let Err(e) = tx.unbounded_send(Some(msg)) {
-                        debug_warn(&format!("[StateMachine::run] init cmd error {}", e));
-                    }
-                }
-            });
+            cmd.call(&host, &link);
         }
 
         // run update loop
@@ -205,13 +189,7 @@ where
 
                 if let (Some(cmd), Some(host), Some(tx)) = (cmd, &host, tx.clone()) {
                     let link = StateLink::<T>::from(tx.clone());
-                    let cmd = T::cmd(cmd, host.clone(), link.clone());
-                    spawn_local(async move {
-                        let msg = cmd.await;
-                        if let Some(msg) = msg {
-                            tx.unbounded_send(Some(msg));
-                        }
-                    });
+                    cmd.call(host, &link);
                 }
             }
         })

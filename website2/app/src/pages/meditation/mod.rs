@@ -102,12 +102,6 @@ pub enum MeditationTimerMsg {
     Error(MeditationTimerError),
 }
 
-#[derive(Clone, Debug)]
-pub enum MeditationTimerCmd {
-    StartTimer,
-    UpdateMediaSession(Duration, Duration),
-}
-
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum MeditationTimerError {
     Bell,
@@ -117,9 +111,8 @@ pub enum MeditationTimerError {
 #[async_trait(?Send)]
 impl State for MeditationTimer {
     type Msg = MeditationTimerMsg;
-    type Cmd = MeditationTimerCmd;
 
-    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
+    fn update(&mut self, msg: Self::Msg) -> Option<Cmd<Self>> {
         leptos2::warn(&format!("[MeditationTimer::update] {:#?}", msg));
         match (&mut self.state, msg) {
             // Setup: Change initial settings
@@ -155,7 +148,7 @@ impl State for MeditationTimer {
                     interval_handle: None,
                 };
 
-                return Some(MeditationTimerCmd::StartTimer);
+                return Some(self.start_timer());
             }
 
             // Playing: tick decrements the total remaining
@@ -167,11 +160,6 @@ impl State for MeditationTimer {
                 if self.elapsed_time >= self.total_time {
                     self.play_bell();
                 }
-
-                return Some(Self::Cmd::UpdateMediaSession(
-                    self.total_time,
-                    self.elapsed_time,
-                ));
             }
 
             // Pause playing
@@ -195,7 +183,7 @@ impl State for MeditationTimer {
                     interval_handle: None,
                 };
 
-                return Some(MeditationTimerCmd::StartTimer);
+                return Some(self.start_timer());
             }
 
             // Finish session
@@ -215,17 +203,6 @@ impl State for MeditationTimer {
             _ => {}
         }
         None
-    }
-
-    async fn cmd(
-        cmd: Self::Cmd,
-        _host: web_sys::HtmlElement,
-        link: StateLink<Self>,
-    ) -> Option<Self::Msg> {
-        match cmd {
-            MeditationTimerCmd::StartTimer => start_timer(link),
-            MeditationTimerCmd::UpdateMediaSession(total_time, elapsed_time) => None,
-        }
     }
 }
 
@@ -316,6 +293,22 @@ impl Component for MeditationTimer {
 }
 
 impl MeditationTimer {
+    fn start_timer(&self) -> Cmd<Self> {
+        Cmd::new(|_, link| {
+            match set_interval({
+                let link = link.clone();
+                move || {
+                    link.send(&MeditationTimerMsg::Tick);
+                }
+            },
+                Duration::from_secs(1),
+            ) {
+                Ok(handle) => link.send(&MeditationTimerMsg::SetIntervalHandle(handle)),
+                Err(_) => link.send(&MeditationTimerMsg::Error(MeditationTimerError::Interval)),
+            };
+        })
+    }
+
     pub fn create_bell(&self) -> Result<web_sys::HtmlAudioElement, MeditationTimerError> {
         let audio = web_sys::HtmlAudioElement::new_with_src(&self.bell)
             .map_err(|_| MeditationTimerError::Bell)?;
@@ -401,19 +394,5 @@ impl MeditationTimer {
                 />
             </form>
         }
-    }
-}
-
-// Utility functions
-
-fn start_timer(link: StateLink<MeditationTimer>) -> Option<MeditationTimerMsg> {
-    match set_interval(
-        move || {
-            link.send(&MeditationTimerMsg::Tick);
-        },
-        Duration::from_secs(1),
-    ) {
-        Ok(handle) => Some(MeditationTimerMsg::SetIntervalHandle(handle)),
-        Err(_) => Some(MeditationTimerMsg::Error(MeditationTimerError::Interval)),
     }
 }

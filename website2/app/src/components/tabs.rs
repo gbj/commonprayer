@@ -27,12 +27,10 @@ pub enum TabCmd {
     SelectTab(usize),
 }
 
-#[async_trait(?Send)]
 impl State for Tabs {
     type Msg = TabMsg;
-    type Cmd = TabCmd;
 
-    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
+    fn update(&mut self, msg: Self::Msg) -> Option<Cmd<Self>> {
         match msg {
             TabMsg::FocusFirst => self.focused = 0,
             TabMsg::FocusNext(current_focus) => {
@@ -53,38 +51,11 @@ impl State for Tabs {
             TabMsg::FocusLast => self.focused = self.labels.len() - 1,
             TabMsg::Select(current_focus) => {
                 self.selected = current_focus;
-                return Some(Self::Cmd::SelectTab(self.selected));
+                return Some(self.select_tab());
             }
             TabMsg::Noop => return None,
         };
-        Some(Self::Cmd::FocusTab(self.focused))
-    }
-
-    async fn cmd(
-        cmd: Self::Cmd,
-        host: web_sys::HtmlElement,
-        _link: StateLink<Self>,
-    ) -> Option<Self::Msg> {
-        match cmd {
-            // this needs to be a command, because focus() is only available
-            // as a method and not a DOM property or attribute
-            TabCmd::FocusTab(tab_idx) => {
-                let buttons = host
-                    .shadow_root()
-                    .unwrap()
-                    .query_selector("[role='tablist']")
-                    .unwrap()
-                    .unwrap();
-                if let Some(tab_btn) = buttons.children().item(tab_idx as u32) {
-                    tab_btn.unchecked_ref::<HtmlElement>().focus();
-                }
-            }
-            TabCmd::SelectTab(selection) => {
-                let emitter = EventEmitter::new(&host);
-                emitter.emit(CustomEvent::new("change").detail(selection).bubbles());
-            }
-        }
-        None
+        Some(self.focus_tab())
     }
 }
 
@@ -162,5 +133,24 @@ impl Tabs {
                 }
             })
             .collect()
+    }
+
+    pub fn focus_tab(&self) -> Cmd<Self> {
+        let focused = self.focused;
+        Cmd::new(move |host, _| {
+            let buttons = host
+                .shadow_root()
+                .unwrap()
+                .query_selector("[role='tablist']")
+                .unwrap()
+                .unwrap();
+            if let Some(tab_btn) = buttons.children().item(focused as u32) {
+                tab_btn.unchecked_ref::<HtmlElement>().focus();
+            }
+        })
+    }
+
+    pub fn select_tab(&self) -> Cmd<Self> {
+        Cmd::event(CustomEvent::new("change").detail(self.selected).bubbles())
     }
 }

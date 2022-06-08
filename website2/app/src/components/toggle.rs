@@ -30,27 +30,19 @@ impl Toggle {
     }
 }
 
-#[async_trait(?Send)]
 impl State for Toggle {
     type Msg = bool;
-    type Cmd = ToggleEventDetail;
 
-    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
+    fn update(&mut self, msg: Self::Msg) -> Option<Cmd<Self>> {
         self.toggled = msg;
-        Some(ToggleEventDetail {
-            name: self.name.to_string(),
-            toggled: msg,
-        })
-    }
-
-    async fn cmd(
-        cmd: Self::Cmd,
-        host: web_sys::HtmlElement,
-        _link: StateLink<Self>,
-    ) -> Option<Self::Msg> {
-        let event_emitter = EventEmitter::new(&host);
-        event_emitter.emit(CustomEvent::new("change").detail(cmd));
-        None
+        Some(Cmd::event(
+            CustomEvent::new("change")
+            .detail(ToggleEventDetail {
+                name: self.name.to_string(),
+                toggled: msg,
+            })
+            .bubbles()
+        ))
     }
 }
 

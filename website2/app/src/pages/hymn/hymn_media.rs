@@ -54,12 +54,10 @@ pub enum HymnMediaCmd {
     ScrollToVideoPlayer,
 }
 
-#[async_trait(?Send)]
 impl State for HymnMedia {
     type Msg = HymnMediaMsg;
-    type Cmd = HymnMediaCmd;
 
-    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
+    fn update(&mut self, msg: Self::Msg) -> Option<Cmd<Self>> {
         match msg {
             HymnMediaMsg::ChangeMode(mode) => {
                 let mode = match mode.as_str() {
@@ -98,29 +96,11 @@ impl State for HymnMedia {
                 let has_video = embed.is_some();
                 self.video_player_embed_code = embed;
                 if has_video {
-                    return Some(HymnMediaCmd::ScrollToVideoPlayer);
+                    return Some(self.scroll_to_video_player());
                 }
             }
         }
         None
-    }
-
-    async fn cmd(
-        cmd: Self::Cmd,
-        host: web_sys::HtmlElement,
-        _link: StateLink<Self>,
-    ) -> Option<Self::Msg> {
-        match cmd {
-            HymnMediaCmd::ScrollToVideoPlayer => {
-                let video_view = host
-                    .shadow_root()
-                    .unwrap()
-                    .get_element_by_id("video-view-label")
-                    .unwrap();
-                video_view.scroll_into_view();
-                None
-            }
-        }
     }
 
     fn nested_states(&mut self) -> Vec<&mut dyn StateMachine> {
@@ -342,5 +322,18 @@ impl HymnMedia {
                         }
                     })
             })
+    }
+}
+
+impl HymnMedia {
+    fn scroll_to_video_player(&self) -> Cmd<Self> {
+        Cmd::new(|host, _| {
+            let video_view = host
+                    .shadow_root()
+                    .unwrap()
+                    .get_element_by_id("video-view-label")
+                    .unwrap();
+                video_view.scroll_into_view();
+        })
     }
 }

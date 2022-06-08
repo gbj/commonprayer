@@ -1,6 +1,6 @@
 use std::fmt::{Debug, Display};
 
-use leptos2::{async_trait, is_server, Deserialize, Serialize, State, StateLink};
+use leptos2::*;
 use reqwasm::http::Request;
 use serde::de::DeserializeOwned;
 use thiserror::Error;
@@ -75,15 +75,13 @@ pub enum FetchCmd {
     Get(String, Option<AbortController>),
 }
 
-#[async_trait(?Send)]
 impl<T> State for Fetch<T>
 where
-    T: Default + Debug + PartialEq + Serialize + DeserializeOwned + 'static,
+    T: Clone + Default + Debug + PartialEq + Serialize + DeserializeOwned + 'static,
 {
     type Msg = FetchMsg<T>;
-    type Cmd = FetchCmd;
 
-    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
+    fn update(&mut self, msg: Self::Msg) -> Option<Cmd<Self>> {
         if self.abort_controller.is_none() {
             self.abort_controller = Self::abort_controller();
         }
@@ -100,10 +98,7 @@ where
 
                 self.url = url;
                 self.status = FetchStatus::Loading;
-                return Some(FetchCmd::Get(
-                    self.url.clone(),
-                    self.abort_controller.clone(),
-                ));
+                return Some(self.get());
             }
             FetchMsg::Success(data) => self.status = FetchStatus::Success(data),
             FetchMsg::Error(e) => self.status = FetchStatus::Error(e),
@@ -115,24 +110,25 @@ where
     fn should_notify_parents(&self, msg: &Self::Msg) -> bool {
         !matches!(msg, FetchMsg::Abort | FetchMsg::Noop)
     }
+}
 
-    async fn cmd(
-        cmd: Self::Cmd,
-        _host: web_sys::HtmlElement,
-        _link: StateLink<Self>,
-    ) -> Option<Self::Msg> {
-        match cmd {
-            FetchCmd::Get(url, controller) => {
-                let abort_signal = controller.as_ref().map(|ac| ac.signal());
+impl<T> Fetch<T> where T: Clone + Default + Debug + PartialEq + Serialize + DeserializeOwned + 'static, {
+    fn get(&self) -> Cmd<Self> {
+        let url = self.url.clone();
+        let controller = self.abort_controller.clone();
+        Cmd::new(move |_, link| {
+            let abort_signal = controller.as_ref().map(|ac| ac.signal());
+            let link = link.clone();
+            spawn_local(async move {
                 match fetch::<T>(&url, abort_signal.as_ref()).await {
-                    Ok(res) => Some(FetchMsg::Success(Box::new(res))),
-                    Err(e) => Some(match e {
-                        FetchError::Abort => FetchMsg::Noop,
-                        _ => FetchMsg::Error(e),
-                    }),
-                }
-            }
-        }
+                    Ok(res) => link.send(&FetchMsg::Success(Box::new(res))),
+                    Err(e) => match e {
+                        FetchError::Abort => link.send(&FetchMsg::Noop),
+                        _ => link.send(&FetchMsg::Error(e)),
+                    },
+                };
+            });
+        })
     }
 }
 

@@ -34,15 +34,11 @@ pub enum ExportLinksMsg {
     ChoiceChanged(String),
 }
 
-#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
-pub enum ExportLinksCmd {}
-
 #[async_trait(?Send)]
 impl State for ExportLinks {
     type Msg = ExportLinksMsg;
-    type Cmd = ExportLinksCmd;
 
-    fn update(&mut self, msg: Self::Msg) -> Option<Self::Cmd> {
+    fn update(&mut self, msg: Self::Msg) -> Option<Cmd<Self>> {
         match msg {
             ExportLinksMsg::ModalOpen(modal_open) => {
                 self.modal_open = modal_open;
@@ -76,14 +72,6 @@ impl State for ExportLinks {
                 }
             }
         }
-        None
-    }
-
-    async fn cmd(
-        _cmd: Self::Cmd,
-        _host: web_sys::HtmlElement,
-        _link: StateLink<Self>,
-    ) -> Option<Self::Msg> {
         None
     }
 }

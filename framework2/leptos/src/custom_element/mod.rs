@@ -86,19 +86,7 @@ where
                     // check for an initial command
                     let init = state.borrow().init();
                     if let Some(cmd) = init {
-                        let cmd = Self::cmd(cmd, host.clone(), state_link.clone());
-                        let link = link.clone();
-                        spawn_local(async move {
-                            let msg = cmd.await;
-                            if let Some(msg) = msg {
-                                if let Err(e) = link.send(msg.as_any()) {
-                                    debug_warn(&format!(
-                                        "[WebComponent::define] init cmd error {}",
-                                        e
-                                    ));
-                                }
-                            }
-                        });
+                        cmd.call(&host, &state_link);
                     }
 
                     // listen for messages
@@ -118,19 +106,7 @@ where
                                     // handle any async commands here, so the Cmd type doesn't leak
                                     // out of the component up to the ComponentInstance
                                     if let Some(cmd) = cmd {
-                                        let cmd = Self::cmd(cmd, host.clone(), state_link.clone());
-                                        let link = link.clone();
-                                        spawn_local(async move {
-                                            let msg = cmd.await;
-                                            if let Some(msg) = msg {
-                                                if let Err(e) = link.send(msg.as_any()) {
-                                                    debug_warn(&format!(
-                                                        "[WebComponent::define] error {}",
-                                                        e
-                                                    ));
-                                                }
-                                            }
-                                        });
+                                        cmd.call(&host, &state_link);
                                     }
 
                                     should_render
