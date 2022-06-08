@@ -44,8 +44,10 @@ features = [
 	"DomRect",
 	"Event",
 	"EventTarget",
+	"FormData",
 	"KeyboardEvent",
 	"HtmlAudioElement",
+	"HtmlFormElement",
 	"HtmlSelectElement",
 	"Navigator",
 	"ScrollBehavior",
@@ -56,5 +58,6 @@ features = [
 	"Touch",
 	"TouchEvent",
 	"TouchList",
+	"UrlSearchParams",
 	"Window"
 ]

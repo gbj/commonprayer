@@ -343,11 +343,24 @@ where
             )
         );
 
+        // VDOM JSON for client-side diffing/routing
+        cfg.service(web::resource(&format!("{}/get.json", localized_path)).route(web::get().to({
+            let locale = locale.to_string();
+
+            move |req: HttpRequest, params: Path<P::Params>, query: Query<P::Query>| {
+                let locale = locale.clone();
+                async move {
+                    let vdom = route_to_vdom::<P>(&locale, req, params, query);
+                    web::Json(vdom)
+                }
+            }
+        })));
+
         // The page
         cfg.service(web::resource(&format!("{}/", localized_path)).route(web::get().to({
             let locale = locale.to_string();
 
-        move |req: HttpRequest, params: Path<P::Params>, query: Query<P::Query>| {
+            move |req: HttpRequest, params: Path<P::Params>, query: Query<P::Query>| {
                 let locale = locale.to_string();
                 
                 async move {
@@ -413,4 +426,17 @@ where
             }
         })));
     }
+}
+
+fn route_to_vdom<P>(locale: &str, req: HttpRequest, params: Path<P::Params>, query: Query<P::Query>) -> Option<Node> where P: Page {
+    let path = req.uri().to_string();
+
+    // Plausible.io is an open-source analytics software as a service that uses no cookies and collects/sells no user data
+    // It is an alternative to Google Analytics, etc. with strong privacy protections
+    // Rather than an advertising based model, I pay a subscription fee to support their service
+    let analytics_injection = view! {
+        <script defer data-domain="commonprayeronline.org" src="https://plausible.io/js/plausible.js"></script>
+    };
+
+    P::build_state(locale, &path, params.into_inner(), query.into_inner()).map(|page| page.render(locale, Some(analytics_injection)))
 }

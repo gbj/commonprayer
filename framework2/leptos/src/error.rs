@@ -8,4 +8,6 @@ pub enum ComponentError {
     MsgMismatch,
     #[error("called AnyView::update with a state of the wrong type")]
     StateTypeMismatch,
+    #[error("tried to send a message on an empty link (probably created through diffing real DOM against deserialized VDOM)")]
+    EmptyLink,
 }

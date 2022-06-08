@@ -128,7 +128,7 @@ fn patch_children(
 }
 
 fn should_replace(old: &Node, new: &Node) -> bool {
-    // different node types or replace_fn is true
+    // different node types
     if std::mem::discriminant(old) != std::mem::discriminant(new) {
         true
     }

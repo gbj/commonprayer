@@ -6,6 +6,7 @@ mod element;
 mod event;
 mod host;
 mod patch;
+mod patch_against_dom;
 mod property;
 
 pub use attribute::*;
@@ -14,11 +15,12 @@ pub use element::*;
 pub use event::*;
 pub use host::*;
 pub use patch::*;
+pub use patch_against_dom::*;
 pub use property::*;
 
 use crate::{append_child, link::Link};
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum Node {
     Element(Element),
     Text(String),

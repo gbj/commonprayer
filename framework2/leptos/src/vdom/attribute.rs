@@ -1,9 +1,12 @@
+use serde::{Deserialize, Serialize};
+
 use crate::{remove_attribute, set_attribute, set_property, IntoProperty, PropertyValue};
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum Attribute {
     Attribute(String, Option<String>),
     Class(String, bool),
+    #[serde(skip)]
     Property(String, PropertyValue),
 }
 

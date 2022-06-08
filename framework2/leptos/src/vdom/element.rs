@@ -1,17 +1,25 @@
 use std::rc::Rc;
 
+use serde::{Deserialize, Serialize};
+
 use crate::{Attribute, Host, IntoChildren, Node};
 
 use super::event::EventListener;
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct Element {
     pub tag: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub key: Option<String>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub attrs: Vec<Attribute>,
+    #[serde(skip)]
     pub listeners: Vec<EventListener>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub children: Vec<Node>,
+    #[serde(skip)]
     pub shadow_root: Option<Rc<dyn Fn() -> Host>>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub inner_html: Option<String>,
 }
 

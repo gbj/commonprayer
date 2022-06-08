@@ -8,15 +8,27 @@ use futures::channel::mpsc::UnboundedSender;
 use crate::{Component, ComponentError, State};
 
 #[derive(Clone)]
-pub struct Link(Rc<dyn AnyLink>);
+pub struct Link(Option<Rc<dyn AnyLink>>);
 
 impl Link {
+    pub fn empty() -> Self {
+        Self(None)
+    }
+
     pub fn send(&self, msg: &dyn Any) -> Result<(), ComponentError> {
-        self.0.send_any(msg)
+        if let Some(link) = &self.0 {
+            link.send_any(msg)
+        } else {
+            Err(ComponentError::EmptyLink)
+        }
     }
 
     pub fn type_name(&self) -> &'static str {
-        self.0.type_name()
+        if let Some(link) = &self.0 {
+            link.type_name()
+        } else {
+            "<Empty Link>"
+        }
     }
 }
 
@@ -25,7 +37,7 @@ where
     T: AnyLink + 'static,
 {
     fn from(link: T) -> Self {
-        Self(Rc::new(link))
+        Self(Some(Rc::new(link)))
     }
 }
 

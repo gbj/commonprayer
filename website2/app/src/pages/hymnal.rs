@@ -1,3 +1,4 @@
+use crate::components::Form;
 use hymnal::*;
 use itertools::Itertools;
 use leptos2::*;
@@ -147,19 +148,21 @@ impl Page for HymnalPage {
             <>
                 {Header::new(locale, &t!("menu.hymnal")).to_node()}
                 <main>
-                    <form>
-                        // Search bar
-                        <label class="stacked">
-                            {t!("search")}
-                            <input
-                                type="search"
-                                name="q"
-                                value={&self.search}
-                                //prop:value={self.search.clone()}
-                                //on:input=move |ev| HymnalSearchMsg::Search(event_target_value(&ev), current_hymnal)
-                            />
-                        </label>
-                    </form>
+                    <Form>
+                        <form>
+                            // Search bar
+                            <label class="stacked">
+                                {t!("search")}
+                                <input
+                                    type="search"
+                                    name="q"
+                                    value={&self.search}
+                                    //prop:value={self.search.clone()}
+                                    //on:input=move |ev| HymnalSearchMsg::Search(event_target_value(&ev), current_hymnal)
+                                />
+                            </label>
+                        </form>
+                    </Form>
                     <div class="toggle-links">
                         <a href={format!("/{}/hymnal{}", locale, q_link)} class:current={self.hymnal.is_none()}>{t!("hymnal.any")}</a>
                         <a href={format!("/{}/hymnal/Hymnal1982{}", locale, q_link)} class:current={self.hymnal == Some(Hymnals::Hymnal1982)}>{t!("hymnal.h82_abbrev")}</a>
