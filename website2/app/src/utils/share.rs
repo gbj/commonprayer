@@ -10,7 +10,7 @@ pub enum ClipboardError {
 
 #[cfg(web_sys_unstable_apis)]
 pub async fn copy_text(text: &str) -> Result<(), ClipboardError> {
-    use leptos::window;
+    use leptos2::window;
     use wasm_bindgen_futures::JsFuture;
 
     let clipboard = window()

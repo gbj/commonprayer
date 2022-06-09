@@ -1,16 +1,16 @@
 [workspace]
 members = [
 	"app",
-	"client/calendar",
-	"client/daily_office",
-	"client/daily_readings",
-	"client/document",
-	"client/eucharistic_readings",
-	"client/holy_day",
-	"client/hymn",
-	"client/hymnal",
-	"client/lectionary",
-	"client/meditation",
+	"client/biblical_citation_loader",
+	"client/calendar_controller",
+	"client/datepicker",
+	"client/export_links",
+	"client/form",
+	"client/hymn_media",
+	"client/media_session",
+	"client/meditation_timer",
+	"client/modal",
+	"client/tabs",
 	"server",
 ]
 

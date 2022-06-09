@@ -54,10 +54,10 @@ async fn main() -> std::io::Result<()> {
             .service(hymnal_search_api_with_metadata)
             .service(video_search_api)
             .service(hymnal_word_cloud)
-            /* .service(Files::new("/pkg", &format!(
-                "{}/client/pkg",
+            .service(Files::new("/client", &format!(
+                "{}/client",
                 *PROJECT_ROOT
-            ))) */
+            )))
             .service(Files::new(
                 "/static",
                 &format!("{}/app/static", *PROJECT_ROOT),

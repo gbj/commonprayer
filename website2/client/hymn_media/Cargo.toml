@@ -1,0 +1,13 @@
+[package]
+name = "hymn_media_wc"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+app = { path = "../../app" }
+leptos2 = { path = "../../../framework2/leptos" }
+wee_alloc = "0.4"
+wasm-bindgen = "0.2"

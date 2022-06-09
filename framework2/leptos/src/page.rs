@@ -55,20 +55,6 @@ where
     }
 
     fn render(&self, locale: &str, global_body_code: Option<Node>) -> Node {
-        let name = Self::name().replace('-', "_");
-        let hydration_js = format!(
-            r#"
-                import("/pkg/{}/{}_client.js").then(async pkg => {{
-                    await pkg.default();
-                    if(pkg.on_load) {{
-                        pkg.on_load();
-                    }}
-                    pkg.define_custom_elements();
-                }});
-                "#,
-            &name, &name,
-        );
-
         let body = self.body(locale);
 
         view! {
@@ -91,7 +77,7 @@ where
                     } else {
                         view! {
                             <script type="module">
-                            {hydration_js}
+                            {include_str!("./hydration.js")}
                             </script>
                         }
                     }}
