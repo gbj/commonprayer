@@ -12,6 +12,9 @@ const observer = new IntersectionObserver(async (entries) => {
                     pkg.define_custom_elements();
                 });
 			}
+
+			// no longer need to observe this element for changes
+			observer.unobserve(entry.target);
 		}
 	}
 });
