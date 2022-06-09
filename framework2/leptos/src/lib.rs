@@ -18,6 +18,8 @@ pub mod ssr;
 mod state;
 pub mod vdom;
 mod cmd;
+pub mod router;
+pub mod view;
 
 use std::any::Any;
 
