@@ -1,5 +1,5 @@
 use leptos2::*;
-use wasm_bindgen::{JsCast, JsValue};
+use wasm_bindgen::{JsCast, JsValue, prelude::*};
 
 #[derive(Clone, Debug, Default, PartialEq, Eq, Hash, WebComponent)]
 pub struct Form {
@@ -135,6 +135,14 @@ impl Form {
 
         Cmd::new(move |_, _| {
             patch_dom(&node_to_patch, &mut new_vdom);
+            // set up listeners to hydrate any custom elements we've now added
+            observe_custom_elements();
         })
     }
+}
+
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_name = observeCustomElements)]
+    fn observe_custom_elements();
 }

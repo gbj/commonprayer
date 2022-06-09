@@ -76,7 +76,7 @@ where
                         text("")
                     } else {
                         view! {
-                            <script type="module">
+                            <script>
                             {include_str!("./hydration.js")}
                             </script>
                         }
