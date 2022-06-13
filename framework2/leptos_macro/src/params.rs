@@ -19,9 +19,7 @@ pub fn impl_params(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
 				let span = field.span().unwrap();
 
 				quote_spanned! {
-					span.into() => #ident: map.get(#field_name_string)
-						.ok_or_else(|| leptos2::router::RouterError::MissingParam(#field_name_string.to_string()))
-						.and_then(|value| value.parse::<#ty>().map_err(|e| leptos2::router::RouterError::Params(Box::new(e))))?
+					span.into() => #ident: <#ty>::into_param(map.get(#field_name_string).map(|n| n.as_str()), #field_name_string)?
 				}
 			})
             .collect()

@@ -1,0 +1,84 @@
+/* Export Links */
+.export-alert {
+	padding: 3rem;
+}
+
+.export-links {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+}
+
+.export-links a,
+.export-links button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid var(--border-color);
+	border-bottom: none;
+	box-sizing: border-box;
+	text-align: center;
+	text-decoration: none;
+	color: var(--color);
+	background: var(--background);
+	min-width: 200px;
+	width: 100%;
+	font: var(--ui-font);
+	padding: 0.5rem 0;
+}
+
+.export-links a img,
+.export-links button img {
+	width: 1rem;
+	height: auto;
+	margin: 0.5rem;
+}
+
+.export-links a:hover,
+.export-links button:hover {
+	background: var(--border-color);
+	cursor: pointer;
+}
+
+.export-links>a:first-child,
+.export-links>button:first-child {
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
+}
+
+.export-links>a:last-child,
+.export-links>button:last-child {
+	border-bottom-left-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
+	border-bottom: 1px solid var(--border-color);
+}
+
+.export-links .venite:hover {
+	background-color: black;
+	border-color: black;
+	color: white;
+}
+
+.export-links .word button:hover {
+	background-color: rgb(20, 67, 144);
+	border-color: rgb(20, 67, 144);
+	color: white;
+}
+
+.export-links .word button:hover img {
+	filter: var(--button-filter-light);
+}
+
+footer.export-status {
+	display: block;
+	margin: auto;
+	width: 100%;
+	margin-top: 1rem;
+	height: 3rem;
+}
+
+footer.export-status pre {
+	width: 100%;
+	white-space: pre-wrap;
+}

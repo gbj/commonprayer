@@ -1,0 +1,221 @@
+[data-route=""] {
+	display: flex;
+	width: 100vw;
+	--menu-width: 0;
+}
+
+nav#main-menu {
+	z-index: 300;
+	position: fixed;
+}
+
+nav#main-menu li:not(:first-of-type) {
+	font: var(--ui-font);
+}
+
+.menu .menu-content {
+	background: var(--background);
+}
+
+.menu .menu-content ul {
+	list-style-type: none;
+	margin: 0;
+	margin-left: 2rem;
+	padding: 0;
+}
+
+.menu .menu-content li h1 {
+	font-size: 1.25rem;
+	height: 2.5rem;
+}
+
+.menu .menu-content li, .menu .menu-content h1 {
+	align-items: center;
+	display: flex;
+}
+
+.menu .menu-content li {
+	box-sizing: border-box;
+	border-bottom: 1px solid var(--menu-border-color);
+}
+
+.menu .menu-content li:not(:first-of-type):hover {
+	background: var(--nav-link-hover);
+}
+
+.menu .menu-content h1 {
+	margin: 0;
+	font-weight: 500;
+}
+
+.menu a {
+	color: var(--color);
+	text-decoration: none;
+	padding: 0.5rem;
+	padding-left: 1.5rem;
+	width: 100%;
+}
+
+@media(max-width: 999px) {
+	[data-route=""] > div {
+		width: 100%;
+	}
+
+	.menu .menu-toggle-button {
+		position: absolute;
+		top: 0.5rem;
+		height: var(--nav-button-height);
+		width: var(--nav-button-height);
+	  }
+
+	  .menu input.menu-toggle-input {
+		/* hide it */
+		opacity: 0;
+		/* place above both hamburgers and menu itself */
+		position: absolute;
+		top: 0.5rem;
+		left: 0.5rem;
+		margin: 0;
+		z-index: 5;
+		height: var(--nav-button-height);
+		width: var(--nav-button-height);
+		cursor: pointer;
+	  }
+
+	  .menu input.menu-toggle-input:focus ~ .menu-toggle-button {
+		outline: 2px solid white;
+		outline: auto;
+		outline-offset: 4px;
+	  }
+
+	  @supports selector(:focus-visible) {
+		.menu input.menu-toggle-input:not(:focus-visible) ~ .menu-toggle-button {
+		  outline: none;
+		}
+	  }
+	  
+	  .menu.left .menu-toggle-button {
+		left: 0.5rem;
+	  }
+	  
+	  .menu input.menu-toggle-input:not(:checked) ~ .menu-toggle-button {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		transition: 0.25s ease;
+	  }
+	  
+	  .menu .menu-toggle-button {
+		display: block;
+		z-index: 3;
+		width: var(--nav-button-height);
+	  }
+	  
+	  .menu .hamburger span {
+		display: block;
+		width: var(--nav-button-height);
+		height: 0.1rem;
+		position: relative;
+		background: var(--color);
+		border-radius: 0.25rem;
+		z-index: 3;
+		transition: transform 0.25s cubic-bezier(0.77, 0.2, 0.05, 1),
+		  background 0.25s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.25s ease;
+	  }
+	  
+	  .menu input.menu-toggle-input:checked ~ .hamburger span {
+		opacity: 1;
+		transform: rotate(45deg) translate(-2px, -1px);
+		background: var(--color);
+		transition: 0.25s ease;
+	  }
+	  
+	  .menu input.menu-toggle-input:checked ~ .hamburger {
+		margin-top: 0.5rem;
+	  }
+	  
+	  /* Hidden middle line */
+	  .menu input.menu-toggle-input:checked ~ .hamburger span:nth-last-child(3) {
+		opacity: 0;
+		transform: rotate(0deg) scale(0.2, 0.2);
+	  }
+	  
+	  /* Reversed final line */
+	  .menu input.menu-toggle-input:checked ~ .hamburger span:nth-last-child(2) {
+		transform: rotate(-45deg) translate(0, -1px);
+	  }
+	  
+	  /* Slide menu in */
+	  .menu .menu-content {
+		background: var(--background);
+		border-right: 1px solid var(--menu-border-color);
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100vh;
+		width: 100vw;
+		max-width: 350px;
+		list-style-type: none;
+		-webkit-font-smoothing: antialiased;
+		transition: transform 0.175s cubic-bezier(0.77, 0.2, 0.05, 1);
+		z-index: 2;
+	  }
+	  
+	  .menu.left .menu-content {
+		transform: translateX(-110%);
+		display: none;
+	  }
+
+	  .menu.left input.menu-toggle-input:checked ~ .menu-content {
+		transform: translateX(0%);
+		display: block;
+	  }
+
+	  .overlay {
+		transition: transform 0.175s cubic-bezier(0.77, 0.2, 0.05, 1);
+	  }
+
+	  .menu input.menu-toggle-input:not(:checked) ~ label .overlay {
+		transform: translateX(-100%);
+	}
+
+	  .menu input.menu-toggle-input:checked ~ label .overlay {
+		opacity: 0.25;
+		background: black;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		z-index: 1;
+		transform: translateX(0%);
+	}
+}
+
+@media(min-width: 1000px) {
+	[data-route=""] {
+		--menu-width: 15rem;
+	}
+
+	/* First nested route takes up remaining space */
+	[data-route=""] > div {
+		width: calc(100vw - var(--menu-width));
+		position: absolute;
+		left: var(--menu-width)
+	}
+
+	.menu .menu-content ul {
+		margin-left: 0;
+	}
+
+	nav#main-menu {
+		border-right: 1px solid var(--border-color);
+		width: var(--menu-width);
+		min-width: 15rem;
+		height: 100vh;
+	}
+
+	#main-menu .hamburger, #main-menu-toggle-checkbox, #main-menu label[for="main-menu-toggle-checkbox"] {
+		display: none;
+	}
+}

@@ -1,0 +1,87 @@
+body.dark-mode-dark .menu-toggle-button:not(.hamburger) {
+    filter: var(--button-filter-light);
+}
+
+body.dark-mode-dark a img,
+body.dark-mode-dark button img {
+    filter: var(--button-filter-light);
+}
+
+/* Font Definitions */
+@font-face {
+    font-family: "Sabon";
+    font-weight: normal;
+    font-style: normal;
+    src: url("/static/fonts/Sabon_Roman.woff2") format("woff2"), url("/static/fonts/Sabon_Roman.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Sabon";
+    font-weight: normal;
+    font-style: italic;
+    src: url("/static/fonts/Sabon_Italic.woff2") format("woff2"), url("/static/fonts/Sabon_Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Sabon";
+    font-weight: bold;
+    font-style: normal;
+    src: url("/static/fonts/Sabon_Bold.woff2") format("woff2"), url("/static/fonts/Sabon_Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Sabon";
+    font-weight: bold;
+    font-style: italic;
+    src: url("/static/fonts/Sabon_BoldItalic.woff2") format("woff2"), url("/static/fonts/Sabon_BoldItalic.ttf") format("truetype");
+}
+
+/* Styles applying to everything */
+html {
+    font-size: 100%;
+}
+
+/* Respond to iOS preferences re: font size, weight for accessibility */
+@supports (font: -apple-system-body) {
+    html {
+        font: -apple-system-body;
+    }
+}
+
+body {
+    color: var(--color);
+    background-color: var(--background);
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+input,
+select {
+    font-size: max(1rem, 16px);
+}
+
+main {
+    display: block;
+    margin: auto;
+    max-width: calc(100vw - calc(2 * var(--page-padding)));
+    padding: 0.25rem;
+    padding-bottom: 2rem;
+    width: 35rem;
+}
+
+@media (min-width: 1000px) {
+	main {
+		padding-left: 3rem;
+	}
+}
+
+/* Hide things *only* visually, leaving them accessible to screen readers */
+.screen-reader-only:not(:focus):not(:active) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }

@@ -37,6 +37,14 @@ impl<'de> Deserialize<'de> for Date {
     }
 }
 
+impl std::str::FromStr for Date {
+    type Err = DateError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Date::parse_from_str(s, "%Y-%m-%d")
+    }
+}
+
 impl Date {
     /// Creates Date from a year, month, and day.
     pub fn from_ymd(year: u16, month: u8, day: u8) -> Date {

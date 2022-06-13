@@ -96,7 +96,7 @@ impl Component for CalendarController {
             >
                 <style>
                     ".hidden { display: none; }"
-                    {include_str!("../../../static/toggle-links.css")}
+                    {include_str!("../../styles/toggle-links.css")}
                 </style>
                 <Modal
                     prop:open={self.menu_open}

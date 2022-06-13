@@ -23,7 +23,6 @@ fn write_props(
     props: Vec<(Vec<usize>, String, String)>,
 ) -> std::fmt::Result {
     f.write_str("<script>")?;
-    f.write_str(include_str!("ssr_prop_selector.js"))?;
     for (shadow_path, prop_name, serialized_value) in props {
         write!(
             f,

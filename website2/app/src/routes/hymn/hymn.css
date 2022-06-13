@@ -1,0 +1,64 @@
+main {
+  font-family: Baskerville, Baskerville Old Face, Hoefler Text, Garamond,
+    Times New Roman, serif;
+}
+
+h2,
+h3,
+h4 {
+  text-align: center;
+}
+
+h3 {
+  font-style: italic;
+}
+
+.copyright {
+  text-align: center;
+  font-style: italic;
+}
+
+td {
+  vertical-align: top;
+}
+
+.tune {
+  font-variant: small-caps;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 767px) {
+  dl {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    width: 100%;
+    overflow: visible;
+  }
+  dl dt {
+    flex: 0 0 25%;
+  }
+  dl dd {
+    flex: 0 0 75%;
+    margin-left: auto;
+    text-align: left;
+  }
+}
+
+.hymnary-link {
+  text-align: center;
+}
+
+main footer {
+  text-align: center;
+  margin: auto;
+  font-size: 0.8rem;
+  font-style: italic;
+}

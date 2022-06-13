@@ -78,6 +78,7 @@ where
                         view! {
                             <script>
                             {include_str!("./hydration.js")}
+                            "observe_custom_elements(document);"
                             </script>
                         }
                     }}

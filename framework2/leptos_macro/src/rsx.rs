@@ -80,7 +80,9 @@ fn element_node(node: &Node) -> Option<TokenStream> {
             if true_attr(attr) || attr_name.starts_with("prop:") {
                 let real_attr_name = if attr_name.starts_with("prop:") {
                     attr_name.replace("prop:", "")
-                } else {
+                } else if attr_name.starts_with("_") {
+					attr_name.replacen("_", "", 1)
+				} else {
                     attr_name.to_string()
                 };
                 let value = attr.value.as_ref();

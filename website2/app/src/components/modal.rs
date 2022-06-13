@@ -38,6 +38,9 @@ impl Component for Modal {
                     <div class="overlay" on:click=|_| ModalMsg::Close></div>
                     <slot name="content" class="content"></slot>
                 </div>
+                <button on:click=|_| ModalMsg::Open>
+                    <slot name="button"></slot>
+                </button>
             </Host>
         }
     }

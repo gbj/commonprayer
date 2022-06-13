@@ -8,17 +8,17 @@ pub use leptos_macro2::*;
 pub use serde::{Deserialize, Serialize};
 pub use serde_json;
 
+mod cmd;
 mod component;
 mod custom_element;
 mod dom;
 mod error;
 mod event_emitter;
 mod page;
+pub mod router;
 pub mod ssr;
 mod state;
 pub mod vdom;
-mod cmd;
-pub mod router;
 pub mod view;
 
 use std::any::Any;
@@ -31,9 +31,11 @@ pub use error::*;
 pub use event_emitter::*;
 pub use link::*;
 pub use page::*;
+pub use router::*;
 pub use ssr::*;
 pub use state::*;
 pub use vdom::*;
+pub use view::*;
 
 pub use web_sys::Event;
 
@@ -62,4 +64,19 @@ macro_rules! de_attr {
     ($val:expr) => {
         wasm_bindgen::JsValue::to_serde(&$val).unwrap()
     };
+}
+
+pub fn body_scripts() -> Vec<Node> {
+    use crate as leptos2;
+
+    view! {
+        <>
+            <script>{include_str!("polyfills/declarative_shadow_dom.js")}</script>
+            <script type="module">
+                {include_str!("hydration.js")}
+                "observe_custom_elements(document);"
+            </script>
+            <script>{include_str!("ssr_prop_selector.js")}</script>
+        </>
+    }
 }

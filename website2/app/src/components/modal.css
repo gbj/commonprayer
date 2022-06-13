@@ -33,3 +33,9 @@
 .alert.hidden .content {
 	display: none;
 }
+
+button {
+	background: var(--background);
+	border: none;
+	cursor: pointer;
+}

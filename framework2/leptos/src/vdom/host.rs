@@ -2,7 +2,7 @@ use crate::{
     add_foreign_listeners, add_listeners, append_child, document, link::Link, window, Attribute,
     IntoChildren, Node,
 };
-use wasm_bindgen::JsCast;
+use wasm_bindgen::{JsCast, prelude::*};
 
 use super::event::EventListener;
 
@@ -47,6 +47,7 @@ impl Host {
                 link,
             );
         }
+
         if !self.foreign_listeners.is_empty() {
             add_foreign_listeners(window().unchecked_ref(), &mut self.foreign_listeners, link);
         }
@@ -55,6 +56,8 @@ impl Host {
             let child = child.to_node(link);
             append_child(shadow_root.unchecked_ref(), &child);
         }
+
+        observe_custom_elements(shadow_root.unchecked_ref());
     }
 
     pub fn hydrate(
@@ -74,6 +77,7 @@ impl Host {
                 link,
             );
         }
+
         if !self.foreign_listeners.is_empty() {
             add_foreign_listeners(window().unchecked_ref(), &mut self.foreign_listeners, link);
         }
@@ -89,5 +93,14 @@ impl Host {
         {
             child.hydrate(shadow_root.unchecked_ref(), idx, link);
         }
+        
+        observe_custom_elements(shadow_root.unchecked_ref());
     }
+}
+
+#[wasm_bindgen(module = "/src/hydration.js")]
+extern "C" {
+    fn observe_custom_elements(
+        root: &web_sys::HtmlElement
+    );
 }

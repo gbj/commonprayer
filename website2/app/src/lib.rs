@@ -11,6 +11,7 @@ pub mod pages;
 pub mod preferences;
 pub mod utils;
 pub mod views;
+pub mod routes;
 
 #[macro_use]
 extern crate rust_i18n;

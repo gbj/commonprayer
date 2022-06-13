@@ -6,11 +6,7 @@ use futures::{
 use serde::{Deserialize, Serialize};
 use std::{cell::RefCell, fmt::Debug, rc::Rc};
 
-use crate::{
-    debug_warn,
-    link::{StateLink},
-    spawn_local, cmd::Cmd,
-};
+use crate::{cmd::Cmd, debug_warn, link::StateLink, spawn_local};
 
 #[async_trait(?Send)]
 pub trait State

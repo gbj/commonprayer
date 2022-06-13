@@ -79,9 +79,8 @@ fn build_menu(id: &str, side: &'static str, button: Button, content: Node) -> No
             <input id={&toggle_id} type="checkbox" class="menu-toggle-input"/>
 
             // label contains the overlay, so that when the overlay is clicked the menu disappears
-            // note that it can be hidden from a screen reader, because the nav menu will simply appear
-            // for a screen reader (it's off-page visually until toggled)
-            <label for={&toggle_id} aria-hidden="true">
+            <label for={&toggle_id}>
+                <span class="screen-reader-only">{t!("menu.open_menu")}</span>
                 <div class="overlay"></div>
             </label>
 

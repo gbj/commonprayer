@@ -1,4 +1,4 @@
-use app::{components::*, pages::*};
+use app::{routes::calendar::CalendarController};
 use leptos2::WebComponent;
 use wasm_bindgen::prelude::wasm_bindgen;
 

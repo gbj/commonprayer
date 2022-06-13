@@ -104,6 +104,7 @@ pub fn add_foreign_listeners(
         if let Some(handler) = &listener.handler {
             let link = link.clone();
             let handler = handler.clone();
+            let ev_name = listener.event_name.clone();
             let event_handler = move |mut ev: web_sys::Event| {
                 if let Some(target_el) = ev
                     .target()

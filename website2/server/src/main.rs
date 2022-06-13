@@ -11,7 +11,7 @@ use actix_web::{
     middleware,
     post,
     web::{self, Path, Query},
-    App, HttpRequest, HttpResponse, HttpServer, ResponseError, Result,
+    App, HttpRequest, HttpResponse, HttpServer, ResponseError, Result, dev::Service,
 };
 use episcopal_api::{
     api::summary::DailySummary,
@@ -19,13 +19,16 @@ use episcopal_api::{
     hymnal::{HymnNumber, Hymnal, Hymnals, HYMNAL_1982, LEVAS, WLP, EL_HIMNARIO, HymnMetadata},
     liturgy::{Document, SlugPath, Slug}, library::{CommonPrayer, Library}, language::Language,
 };
+use futures::{channel::mpsc::unbounded, SinkExt};
 use lazy_static::lazy_static;
 use leptos2::*;
+use reqwest::header::CACHE_CONTROL;
 use serde::{Deserialize};
 use tempfile::tempdir;
 use app::{
-    api::bing::BingSearchResult, pages::*,
+    api::bing::BingSearchResult, pages::*, routes::router,
 };
+use tokio::task::spawn_local;
 
 mod bing;
 
@@ -34,6 +37,20 @@ const LOCALES: [&str; 1] = ["en"];
 lazy_static! {
     pub static ref PROJECT_ROOT: String =
         std::env::var("PROJECT_ROOT").unwrap_or_else(|_| "..".to_string());
+
+    pub static ref ROUTER: Router<app::routes::Index> = router();
+}
+
+struct RequestCompat(actix_web::HttpRequest);
+
+impl leptos2::Request for RequestCompat {
+    fn path(&self) -> &str {
+        self.0.path()
+    }
+
+    fn query_string(&self) -> &str {
+        self.0.query_string()
+    }
 }
 
 #[actix_web::main]
@@ -46,27 +63,81 @@ async fn main() -> std::io::Result<()> {
             .wrap(middleware::Compress::default())
             .wrap(Cors::permissive())
             .app_data(web::FormConfig::default().limit(256 * 1024)) // increase max form size for DOCX export
-            .service(daily_summary)
-            .service(export_docx)
-            .service(canticle_list_api)
-            .service(hymnal_api)
-            .service(hymnal_search_api)
-            .service(hymnal_search_api_with_metadata)
-            .service(video_search_api)
-            .service(hymnal_word_cloud)
+            //.service(daily_summary)
+            //.service(export_docx)
+            //.service(canticle_list_api)
+            //.service(hymnal_api)
+            //.service(hymnal_search_api)
+            //.service(hymnal_search_api_with_metadata)
+            //.service(video_search_api)
+            //.service(hymnal_word_cloud)
             .service(Files::new("/client", &format!(
                 "{}/client",
                 *PROJECT_ROOT
             )))
-            .service(Files::new(
-                "/static",
-                &format!("{}/app/static", *PROJECT_ROOT),
-            ))
-            .configure(|cfg| add_pages(cfg, &LOCALES))
+            .service(
+                web::scope("/static")
+                    .wrap_fn(|req, srv| {
+                        let fut = srv.call(req);
+                        async {
+                            let mut res = fut.await?;
+                            res.headers_mut()
+                                .insert(CACHE_CONTROL, actix_web::http::header::HeaderValue::from_static("max-age=31536000"));
+                            Ok(res)
+                        }
+                    })
+                    .service( Files::new(
+                        "",
+                        &format!("{}/app/static", *PROJECT_ROOT),
+                    ))
+            )
+            .default_service(
+                web::route()
+                    .to(async move |req: HttpRequest| {
+                        let routed = ROUTER.route(&RequestCompat(req)).await;
+                        let (tx, rx) = unbounded();
+
+                        spawn_local(async move {
+                            tx.unbounded_send(stream_html(head(&routed)));
+                            tx.unbounded_send(stream_html(format!("{}", routed.body)));
+                            tx.unbounded_send(stream_html("</body></html>".to_string()));
+                        });
+
+                        HttpResponse::Ok()
+                            .content_type("text/html")
+                            .streaming(rx)
+                    })
+            )
     })
     .bind(&format!("{}:{}", host, port))?
     .run()
     .await
+}
+
+fn stream_html(html: String) -> Result<web::Bytes, leptos2::router::RouterError> {
+    Ok(web::Bytes::from(html))
+}
+
+fn head(view: &RenderedView) -> String {
+    format!("<!DOCTYPE html><html lang=\"{}\"><head><title>{}</title>{}{}<style>{}</style></head><body>", view.locale, view.title, meta(&view.meta), links(&view.links), styles(&view.styles))
+}
+
+fn meta(metas: &MetaTags) -> String {
+    metas.iter().map(|(name, content)| if name == "charset" {
+        format!("<meta charset=\"{}\">", content)
+    } else {
+        format!("<meta name=\"{}\" content=\"{}\">", name, content)
+    }).collect()
+}
+
+fn styles(styles: &Styles) -> String {
+    let styles = styles.join("");
+    styles
+    //minifier::css::minify(&styles).map(|minified| minified.to_string()).unwrap_or(styles)
+}
+
+fn links(links: &[Node]) -> String {
+    links.iter().map(|link| link.to_string()).collect()
 }
 
 // Word Cloud API Generator

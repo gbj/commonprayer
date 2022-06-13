@@ -1,0 +1,1 @@
+cargo watch -x run -w ../app -w . -w ../../framework2

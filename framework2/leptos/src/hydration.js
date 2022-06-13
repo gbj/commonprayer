@@ -1,6 +1,6 @@
 const hasLoaded = {};
 
-function observeCustomElements() {
+export function observe_custom_elements(root) {
 	const observer = new IntersectionObserver(async (entries) => {
 		for(const entry of entries) {
 			if (entry.intersectionRatio > 0) {
@@ -21,9 +21,7 @@ function observeCustomElements() {
 	});
 	
 	// start observing
-	for(const el of document.querySelectorAll("[data-leptos-hydrate]")) {
+	for(const el of root.querySelectorAll("[data-leptos-hydrate]")) {
 		observer.observe(el);
 	}
 }
-
-observeCustomElements();

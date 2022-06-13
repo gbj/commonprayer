@@ -1,0 +1,40 @@
+/* Applies only to header of first matched route */
+div[data-route=""] > div > header {
+	text-align: center;
+	/* Floats along the top of the screen */
+	position: sticky;
+	top: 0;
+	background: var(--background);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 0.5rem 1.5rem;
+	border-bottom: 1px solid var(--menu-border-color);
+	z-index: 100;
+	width: calc(100% - 3rem);
+}
+
+div[data-route=""] > div > header h1 {
+	font-variant: small-caps;
+	font-size: 1.25rem;
+	margin: auto;
+	/* Overflows into ellipsis */
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	max-width: calc(100vw - 6rem);
+}
+
+div[data-route=""] > div > header button {
+	background: var(--background);
+	border: none;
+	display: block;
+}
+
+div[data-route=""] > div > header button:hover {
+	cursor: pointer;
+}
+
+div[data-route=""] > div > main * {
+	scroll-margin-top: 3.5rem;
+}
