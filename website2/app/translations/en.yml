@@ -401,3 +401,4 @@ en:
     stop: Finish
     bell_error: Error while trying to play audio.
     interval_error: Error while trying to set timer.
+    no_script: The Meditation Timer cannot run if JavaScript is disabled.

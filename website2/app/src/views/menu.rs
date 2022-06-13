@@ -39,6 +39,9 @@ pub fn menu(locale: &str) -> Node {
                     <a href={format!("/{}/hymnal", locale)}>{t!("menu.hymnal")}</a>
                 </li>
                 <li>
+                    <a href={format!("/{}/meditation", locale)}>{t!("meditation.title")}</a>
+                </li>
+                <li>
                     <a href={format!("/{}/settings", locale)}>{t!("settings.title")}</a>
                 </li>
                 <li>
