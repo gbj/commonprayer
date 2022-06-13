@@ -58,18 +58,20 @@ async fn main() -> std::io::Result<()> {
     let host = std::env::var("HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
     let port = std::env::var("PORT").unwrap_or_else(|_| "1234".to_string());
 
+    // TODO migrate export_docx and video_search_api into app
+
     HttpServer::new(|| {
         App::new()
             .wrap(middleware::Compress::default())
             .wrap(Cors::permissive())
             .app_data(web::FormConfig::default().limit(256 * 1024)) // increase max form size for DOCX export
             //.service(daily_summary)
-            //.service(export_docx)
+            .service(export_docx)
             //.service(canticle_list_api)
             //.service(hymnal_api)
             //.service(hymnal_search_api)
             //.service(hymnal_search_api_with_metadata)
-            //.service(video_search_api)
+            .service(video_search_api)
             //.service(hymnal_word_cloud)
             .service(Files::new("/client", &format!(
                 "{}/client",

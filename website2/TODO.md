@@ -7,6 +7,10 @@
 	- [x] Route nesting in views
 		- [x] Outlet node type
 	- [ ] Migrate website to this system
+		- [ ] Remaining pages
+		- [ ] Nested routes or async loaders instead of WC for...
+			- [ ] HymnMedia
+			- [ ] BiblicalCitationLoader (so, load from Bible API on server for Daily Readings/Lectionary + stream)
 	- [ ] Async nodes + streaming
 - [ ] Progressive enhancement
 	- [ ] Client side route replacement

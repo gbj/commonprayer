@@ -142,9 +142,9 @@ impl View for HymnalView {
         view! {
             <>
                 //{Header::new(&self.locale, &t!("menu.hymnal")).to_node()}
-				<header>{t!("menu.hymnal")}</header>
+				<header><h1>{t!("menu.hymnal")}</h1></header>
                 <main>
-                    <Form>
+                    //<Form>
                         <form>
                             // Search bar
                             <label class="stacked">
@@ -158,7 +158,7 @@ impl View for HymnalView {
                                 />
                             </label>
                         </form>
-                    </Form>
+                    //</Form>
                     <div class="toggle-links">
                         <a href={format!("/{}/hymnal{}", &self.locale, q_link)} class:current={self.hymnal.is_none()}>{t!("hymnal.any")}</a>
                         <a href={format!("/{}/hymnal/Hymnal1982{}", &self.locale, q_link)} class:current={self.hymnal == Some(Hymnals::Hymnal1982)}>{t!("hymnal.h82_abbrev")}</a>
@@ -202,7 +202,7 @@ fn hymnal_metadata(hymnal: &Hymnal) -> Node {
 }
 
 fn hymn_metadata(locale: &str, hymn: &HymnMetadata) -> Node {
-    let link = format!("/{}/hymnal/{:#?}/{}", locale, hymn.source, hymn.number);
+    let link = format!("/{}/hymn/{:#?}/{}", locale, hymn.source, hymn.number);
 
     let number_str = match hymn.number {
         HymnNumber::S(n) => format!("S{}", n),

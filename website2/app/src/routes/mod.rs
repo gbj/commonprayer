@@ -19,10 +19,10 @@ pub fn router() -> Router<Index> {
 			.child(Route::<CalendarView>::new("calendar/lff2018"))
 			.child(Route::<DocumentPage>::new("document/**"))
 			.child(Route::<MeditationView>::new("meditation"))
+			.child(Route::<HymnView>::new("hymn/:hymnal/:number"))
 			.child(Route::<HymnalView>::new("hymnal")
 				.child(Route::<HymnalView>::new(":hymnal")
 			)
-			.child(Route::<HymnView>::new("hymnal/:hymnal/:hymn"))
 		),
 		&["en"]
 	)

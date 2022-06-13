@@ -64,7 +64,7 @@ impl View for HymnView {
 
         view! {
             <>
-                <header>{format!("{} {}", hymn.number, hymn.title)}</header>
+                <header><h1>{format!("{} {}", hymn.number, hymn.title)}</h1></header>
                 <main>
                     <h2>
                         <a href={&format!("../../{:#?}", hymnal.id)}>
