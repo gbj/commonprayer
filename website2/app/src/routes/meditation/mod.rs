@@ -29,7 +29,7 @@ impl View for MeditationView {
         vec![]
     }
 
-    fn body(&self, nested_view: Option<Node>) -> Body {
+    fn body(&self, _nested_view: Option<Node>) -> Body {
         view! {
             <>
                 <header><h1>{t!("meditation.title")}</h1></header>
