@@ -8,7 +8,7 @@ enum Button {
     Image(Icon),
 }
 
-pub fn menu(locale: &str) -> Node {
+pub fn menu(locale: &str, current_location: &str) -> Node {
     build_menu(
         "main-menu",
         "left",
@@ -17,39 +17,51 @@ pub fn menu(locale: &str) -> Node {
             <ul>
                 <li>
                     <h1>
-                        <a href={format!("/{}", locale)}>{t!("common_prayer")}</a>
+                        {nav_link(current_location, locale, "", t!("common_prayer"))}
                     </h1>
                 </li>
+                <form action="search">
+                    <input class="main-search" type="search" name="q" placeholder={t!("search")}/>
+                    <noscript><input type="submit" value={t!("search")}/></noscript>
+                </form>
                 <li>
-                    <a href={format!("/{}/calendar", locale)}>{t!("menu.calendar")}</a>
+                    {nav_link(current_location, locale, "/calendar", t!("menu.calendar"))}
                 </li>
                 <li>
-                    <a href={format!("/{}/daily-office", locale)}>{t!("toc.daily_office")}</a>
+                    {nav_link(current_location, locale, "/canticle-table", t!("menu.canticle_table"))}
                 </li>
                 <li>
-                    <a href={format!("/{}/readings", locale)}>{t!("toc.daily_readings")}</a>
+                    {nav_link(current_location, locale, "/daily-office", t!("toc.daily_office"))}
                 </li>
                 <li>
-                    <a href={format!("/{}/lectionary", locale)}>{t!("menu.lectionary")}</a>
+                    {nav_link(current_location, locale, "/readings", t!("toc.daily_readings"))}
                 </li>
                 <li>
-                    <a href={format!("/{}/psalter", locale)}>{t!("menu.psalter")}</a>
+                    {nav_link(current_location, locale, "/lectionary", t!("menu.lectionary"))}
                 </li>
                 <li>
-                    <a href={format!("/{}/hymnal", locale)}>{t!("menu.hymnal")}</a>
+                    {nav_link(current_location, locale, "/psalter", t!("menu.psalter"))}
                 </li>
                 <li>
-                    <a href={format!("/{}/meditation", locale)}>{t!("meditation.title")}</a>
+                    {nav_link(current_location, locale, "/hymnal", t!("menu.hymnal"))}
                 </li>
                 <li>
-                    <a href={format!("/{}/settings", locale)}>{t!("settings.title")}</a>
+                    {nav_link(current_location, locale, "/meditation", t!("meditation.title"))}
                 </li>
                 <li>
-                    <a href={format!("/{}/about", locale)}>{t!("menu.about")}</a>
+                    {nav_link(current_location, locale, "/settings", t!("settings.title"))}
                 </li>
             </ul>
         },
     )
+}
+
+fn nav_link(current_url: &str, locale: &str, href: &str, label: String) -> Node {
+    let active = href != "" && current_url.starts_with(href);
+    let href = format!("/{}{}", locale, href);
+    view! {
+        <a href={href} class:current={active}>{label}</a>
+    }
 }
 
 pub fn side_menu(icon: Icon, content: Node) -> Node {

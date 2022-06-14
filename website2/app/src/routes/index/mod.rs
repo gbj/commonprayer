@@ -4,12 +4,16 @@ use leptos2::{*, view::View};
 
 #[derive(Debug)]
 pub struct Index {
-	locale: String
+	locale: String,
+	path: String,
 }
 
 impl Default for Index {
     fn default() -> Self {
-        Self { locale: "en".to_string() }
+        Self {
+			locale: "en".to_string(),
+			path: String::new()
+		}
     }
 }
 
@@ -20,11 +24,11 @@ impl Loader for Index {
 
     async fn loader(
 		locale: &str,
-		_path: &str,
+		path: &str,
         _params: Self::Params,
         _query: Self::Query,
     ) -> Option<Self> {
-        Some(Self { locale: locale.to_string() })
+        Some(Self { locale: locale.to_string(), path: path.to_string() })
     }
 }
 
@@ -61,7 +65,7 @@ impl View for Index {
     }
 
     fn body(&self, nested_view: Option<Node>) -> Vec<Node> {
-		let menu = menu(&self.locale);
+		let menu = menu(&self.locale, &self.path);
 
 		let mut index_content = match nested_view {
 			Some(view) => vec![menu, view],

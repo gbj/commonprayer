@@ -61,18 +61,12 @@ select {
 }
 
 main {
+    background: var(--background);
     display: block;
     margin: auto;
     max-width: calc(100vw - calc(2 * var(--page-padding)));
-    padding: 0.25rem;
-    padding-bottom: 2rem;
-    width: 35rem;
-}
-
-@media (min-width: 1000px) {
-	main {
-		padding-left: 3rem;
-	}
+    padding: 2.5rem;
+    width: 40rem;
 }
 
 /* Hide things *only* visually, leaving them accessible to screen readers */
@@ -84,4 +78,10 @@ main {
     position: absolute;
     white-space: nowrap;
     width: 1px;
+  }
+
+  a.reference {
+    display: block;
+    margin-left: auto;
+    font-size: var(--rubric-size);
   }

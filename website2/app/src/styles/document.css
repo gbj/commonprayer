@@ -49,12 +49,6 @@
   margin: 0;
 }
 
-a.reference {
-  display: block;
-  margin-left: auto;
-  font-size: var(--rubric-size);
-}
-
 .source-links {
   display: flex;
   flex-direction: row;

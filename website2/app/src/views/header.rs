@@ -66,7 +66,7 @@ impl StaticView for Header {
     fn to_node(&self) -> Node {
         view! {
             <header>
-                {menu(&self.locale)}
+                //{menu(&self.locale)}
                 <h1
                     class="page-title"
                     on:click=|_ev: Event| window().scroll_to_with_scroll_to_options(ScrollToOptions::new().top(0.0).behavior(ScrollBehavior::Smooth))

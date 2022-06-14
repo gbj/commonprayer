@@ -4,9 +4,29 @@
 	--menu-width: 0;
 }
 
+[data-route=""] > div {
+	height: 100vh;
+}
+
 nav#main-menu {
+	background: var(--season-lightest);
 	z-index: 300;
+	padding: 0 0.5rem;
 	position: fixed;
+}
+
+.main-search {
+	margin: 0.5rem;
+	margin-left: 1.5rem;
+	width: calc(100% - 1.5rem);
+	padding: 0.5rem;
+	padding-left: 2rem;
+	background-image: url("/static/icons/tabler-icon-search-input.svg");
+	background-position: left;
+	background-repeat: no-repeat;
+	border: 1px solid var(--border-color);
+	border-radius: 3px;
+	background-size: auto;
 }
 
 nav#main-menu li:not(:first-of-type) {
@@ -18,6 +38,7 @@ nav#main-menu li:not(:first-of-type) {
 }
 
 .menu .menu-content ul {
+	background: var(--season-lightest);
 	list-style-type: none;
 	margin: 0;
 	margin-left: 2rem;
@@ -36,7 +57,7 @@ nav#main-menu li:not(:first-of-type) {
 
 .menu .menu-content li {
 	box-sizing: border-box;
-	border-bottom: 1px solid var(--menu-border-color);
+	margin: 0.5rem 0;
 }
 
 .menu .menu-content li:not(:first-of-type):hover {
@@ -49,11 +70,17 @@ nav#main-menu li:not(:first-of-type) {
 }
 
 .menu a {
+	border-radius: 3px;
 	color: var(--color);
 	text-decoration: none;
 	padding: 0.5rem;
 	padding-left: 1.5rem;
 	width: 100%;
+}
+
+.menu a.current {
+	background: var(--season-light);
+	color: var(--season-text);
 }
 
 @media(max-width: 999px) {
