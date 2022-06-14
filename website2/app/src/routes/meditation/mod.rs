@@ -26,7 +26,7 @@ impl View for MeditationView {
     }
 
     fn styles(&self) -> Styles {
-        vec![]
+        vec![include_str!("meditation.css").into()]
     }
 
     fn body(&self, _nested_view: Option<Node>) -> Body {
