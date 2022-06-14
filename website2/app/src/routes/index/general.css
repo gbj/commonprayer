@@ -60,7 +60,8 @@ select {
     font-size: max(1rem, 16px);
 }
 
-main {
+/* Matches only the first div */
+body > div > div > main {
     background: var(--background);
     display: block;
     margin: auto;
