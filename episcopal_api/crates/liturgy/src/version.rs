@@ -1,4 +1,5 @@
 use language::Language;
+use thiserror::Error;
 use std::{convert::TryFrom, fmt::Display, str::FromStr};
 use strum_macros::{EnumIter, IntoStaticStr};
 
@@ -87,8 +88,14 @@ impl Default for Version {
     }
 }
 
+#[derive(Error, Debug)]
+pub enum VersionConversionError {
+    #[error("invalid version given")]
+    Invalid(String)
+}
+
 impl TryFrom<&str> for Version {
-    type Error = ();
+    type Error = VersionConversionError;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         match value {
@@ -113,13 +120,13 @@ impl TryFrom<&str> for Version {
             "Reina-Valera" => Ok(Self::RV09),
             "RV" => Ok(Self::RV09),
             "RV09" => Ok(Self::RV09),
-            _ => Err(()),
+            _ => Err(VersionConversionError::Invalid(value.to_string())),
         }
     }
 }
 
 impl FromStr for Version {
-    type Err = ();
+    type Err = VersionConversionError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Self::try_from(s)

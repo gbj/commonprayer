@@ -7,7 +7,7 @@ export function observe_custom_elements(root) {
 				const tagName = entry.target.tagName.toLowerCase();
 				if(!hasLoaded[tagName]) {
 					hasLoaded[tagName] = true;
-					const moduleName = tagName.replace("l-", "").replace("-", "_");
+					const moduleName = tagName.replace("l-", "").replace(/\-/g, "_");
 					import(`/client/${moduleName}/pkg/${moduleName}_wc.js`).then(async pkg => {
 						await pkg.default();
 						pkg.define_custom_elements();

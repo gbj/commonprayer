@@ -7,11 +7,25 @@
 	- [x] Route nesting in views
 		- [x] Outlet node type
 	- [ ] Migrate website to this system
-		- [ ] Remaining pages
-		- [ ] Nested routes or async loaders instead of WC for...
+		-  Remaining pages
+			- [x] Canticle Table
+			- [ ] Daily Office
+			- [x] Daily Readings
+			- [ ] Eucharistic Readings
+			- [ ] Holy Day
+			- [ ] Lectionary
+			- [ ] Psalter
+		- [ ] UI improvements
+			- [ ] Index Page cards
+			- [ ] Search bar (global)
+ 		- [ ] Nested routes or async loaders instead of WC for...
 			- [ ] HymnMedia
+				- [ ] Music
+					- [ ] fix the styling on this
+				- [ ] Videos
 			- [ ] BiblicalCitationLoader (so, load from Bible API on server for Daily Readings/Lectionary + stream)
 	- [ ] Async nodes + streaming
+- [ ] Global search
 - [ ] Progressive enhancement
 	- [ ] Client side route replacement
 - [ ] Finish website2 and merge

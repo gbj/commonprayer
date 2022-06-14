@@ -1,0 +1,76 @@
+/* Input Radio Toggles */
+fieldset.toggle {
+	display: flex;
+	justify-content: center;
+	padding: 0;
+	border: none;
+	margin: 0.25rem auto 0.25rem auto;
+  }
+  
+  fieldset.toggle legend {
+	display: block;
+	margin: 0.5rem auto 0.125rem auto;
+	font-weight: bold;
+  }
+  
+  fieldset.toggle label {
+	background: var(--ui);
+	text-align: center;
+	padding: 0.25rem 0.25rem;
+	cursor: pointer;
+	border: 1px solid var(--ui-toggle-checked-background);
+	border-right: 0;
+	min-width: 3rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: auto;
+	max-width: min(300px, 40vw);
+  }
+  
+  fieldset.toggle label:first-of-type {
+	border-top-left-radius: var(--border-radius);
+	border-bottom-left-radius: var(--border-radius);
+  }
+  
+  fieldset.toggle label:last-of-type {
+	border-right: 1px solid var(--ui-toggle-checked-background);
+	border-top-right-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
+  }
+  
+  fieldset.toggle input + label {
+	transition: border-color 0.15s ease-out, color 0.25s ease-out,
+	  background-color 0.15s ease-out, box-shadow 0.15s ease-out;
+  }
+  
+  fieldset.toggle input:checked + label {
+	background: var(--ui-toggle-checked-background);
+	box-shadow: 0 0 10px rgba(var(--ui-toggle-checked-background), 0.5);
+	color: var(--ui-toggle-checked-color);
+	font-weight: bold;
+  }
+  
+  fieldset.toggle input:not(:checked) + label {
+	background: var(--ui-toggle-unchecked-background);
+  }
+  
+  fieldset.toggle input:not(:checked) + label:hover {
+	background: var(--ui-toggle-unchecked-background-hover);
+	color: var(--color);
+  }
+
+  fieldset.toggle input:focus+label {
+	outline: auto;
+  }
+  
+  /* Hide radio buttons *only* visually, leaving them accessible to screen readers */
+  fieldset.toggle input[type="radio"] {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+  }
