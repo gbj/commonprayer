@@ -34,7 +34,7 @@ pub fn menu(locale: &str, current_location: &str) -> Node {
                     {nav_link(current_location, locale, "/daily-office", t!("toc.daily_office"))}
                 </li>
                 <li>
-                    {nav_link(current_location, locale, "/readings", t!("toc.daily_readings"))}
+                    {nav_link(current_location, locale, "/readings/office", t!("toc.daily_readings"))}
                 </li>
                 <li>
                     {nav_link(current_location, locale, "/lectionary", t!("menu.lectionary"))}

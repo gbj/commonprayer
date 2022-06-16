@@ -7,8 +7,15 @@
 		-  Remaining pages
 			- [ ] Daily Office
 			- [ ] Eucharistic Readings
+				- [ ] Alternate observance
+				- [ ] Track in query, not as tab (for linking)
+				- [ ] Reading links (like Daily Office)
+				- [ ] Async readings
 			- [ ] Holy Day
+				- [ ] Async readings
+				- [ ] Nest under readings?
 			- [ ] Lectionary
+				- [ ] Combine this with Calendar page in a sensible way
 			- [ ] Psalter
 		- [ ] UI improvements
 			- [ ] Index Page cards

@@ -1,5 +1,6 @@
 #![feature(async_closure)]
 #![feature(const_fn_trait_bound)]
+#![allow(unused_parens)]
 
 use std::{collections::HashSet, convert::Infallible, fs::File, io::Write};
 
@@ -22,7 +23,7 @@ use episcopal_api::{
     library::{CommonPrayer, Library},
     liturgy::{Document, Slug, SlugPath},
 };
-use futures::{channel::mpsc::unbounded, StreamExt};
+use futures::{StreamExt};
 use lazy_static::lazy_static;
 use leptos2::*;
 use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
@@ -71,7 +72,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             //.wrap(middleware::Compress::default())
-            //.wrap(Cors::permissive())
+            .wrap(Cors::permissive())
             .app_data(web::FormConfig::default().limit(256 * 1024)) // increase max form size for DOCX export
             //.service(daily_summary)
             .service(export_docx)
@@ -84,6 +85,7 @@ async fn main() -> std::io::Result<()> {
             .service(Files::new("/client", &format!("{}/client", *PROJECT_ROOT)))
             .service(
                 web::scope("/static")
+                    // cache settings for static files
                     .wrap_fn(|req, srv| {
                         let fut = srv.call(req);
                         async {
@@ -97,40 +99,25 @@ async fn main() -> std::io::Result<()> {
                             Ok(res)
                         }
                     })
+                    .wrap(middleware::Compress::default())
                     .service(Files::new("", &format!("{}/app/static", *PROJECT_ROOT))),
             )
             .default_service(web::route().to(async move |req: HttpRequest| {
                 let routed = ROUTER.route(&RequestCompat(req)).await;
-                let (tx, rx) = unbounded();
+                let head_html = head(&routed);
+                let body = routed.body.html_stream();
 
-                spawn_local(async move {
-                    println!("sending head");
-                    tx.unbounded_send(stream_html(head(&routed)));
-                    let mut body_stream = routed.body.html_stream();
-                    while let Some(piece) = body_stream.next().await {
-                        println!("sending chunk");
-                        tx.unbounded_send(stream_html(piece));
-                    }
-                    println!("sending tail");
-                    std::thread::sleep(std::time::Duration::from_secs(3));
-                    tx.unbounded_send(stream_html("</body></html>".to_string()));
-                });
-
-                /*  let head_html = head(&routed);
-                                       let body = routed.body.html_stream();
-
-                                       let stream = futures::stream::once(async move {
-                                           head_html
-                                       })
-                                       .chain(body)
-                                       .chain(futures::stream::once(async {
-                                           "</body></html>".to_string()
-                                       }))
-                                       .map(|html| Ok(web::Bytes::from(html)) as Result<web::Bytes, leptos2::router::RouterError>);
-                */
+                let stream = futures::stream::once(async move {
+                    head_html
+                })
+                .chain(body)
+                .chain(futures::stream::once(async {
+                    "</body></html>".to_string()
+                }))
+                .map(|html| Ok(web::Bytes::from(html)) as Result<web::Bytes, leptos2::router::RouterError>);
 
                 println!("responding with rx");
-                HttpResponse::Ok().content_type("text/html").streaming(rx)
+                HttpResponse::Ok().content_type("text/html").streaming(stream)
             }))
     })
     .bind_openssl(&format!("{}:{}", host, port), builder)?

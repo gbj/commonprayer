@@ -16,7 +16,7 @@ use crate::{
 
 use crate::utils::reading_loader::load_reading;
 
-pub struct ReadingsView {
+pub struct OfficeView {
     pub locale: String,
     pub date: Date,
     pub summary: ObservanceSummary,
@@ -36,7 +36,7 @@ pub struct ReadingsView {
 }
 
 #[derive(Params)]
-pub struct ReadingsViewQuery {
+pub struct OfficeViewQuery {
     date: Option<String>,
     alternate: Option<String>,
     version: Option<Version>,
@@ -46,9 +46,9 @@ pub struct ReadingsViewQuery {
 }
 
 #[async_trait]
-impl Loader for ReadingsView {
+impl Loader for OfficeView {
     type Params = ();
-    type Query = ReadingsViewQuery;
+    type Query = OfficeViewQuery;
 
     async fn loader(
         locale: &str,
@@ -192,7 +192,7 @@ impl Loader for ReadingsView {
     }
 }
 
-impl View for ReadingsView {
+impl View for OfficeView {
     fn title(&self) -> String {
         format!(
             "{}: {} – {}",
@@ -204,51 +204,48 @@ impl View for ReadingsView {
     }
 
     fn styles(&self) -> Styles {
-        vec![
-            include_str!("../../styles/document.css").into(),
-            include_str!("daily-readings.css").into(),
-            include_str!("../../styles/toggle-fieldset.css").into(),
-        ]
+        vec![]
     }
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         view! {
             <>
-                <header><h1>{t!("toc.daily_readings")}</h1></header>
-                <main>
+                <section>
                     // Controls
-                    {readings_settings_form(&self.locale, self.date, self.version, view! {
-                        <>
-                            <fieldset class="toggle">
-                                <input id="bcp" type="radio" name="calendar" value="bcp" checked={!self.use_lff} onchange="this.form.submit()"/>
-                                <label for="bcp">{t!("bcp_1979")}</label>
-                                <input id="lff" type="radio" name="calendar" value="lff" checked={self.use_lff} onchange="this.form.submit()"/>
-                                <label for="lff">{t!("lff_2018")}</label>
-                            </fieldset>
-                            <fieldset class="toggle">
-                                <input id="morning" type="radio" name="time" value="morning" checked={!self.evening} onchange="this.form.submit()"/>
-                                <label for="morning">{t!("daily_readings.morning")}</label>
-                                <input id="evening" type="radio" name="time" value="evening" checked={self.evening} onchange="this.form.submit()"/>
-                                <label for="evening">{t!("daily_readings.evening")}</label>
-                            </fieldset>
-                            <fieldset class="toggle">
-                                <input id="office" type="radio" name="psalms" value="daily" checked={!self.use_thirty} onchange="this.form.submit()"/>
-                                <label for="office">{t!("daily_readings.daily_office_psalms")}</label>
-                                <input id="30" type="radio" name="psalms" value="30" checked={self.use_thirty} onchange="this.form.submit()"/>
-                                <label for="30">{t!("daily_readings.thirty_day_psalms")}</label>
-                            </fieldset>
-                            {self.alternates.as_ref().map(|(observed, alternate)| {
-                                view! {
-                                    <fieldset class="toggle">
-                                        <input id="observed" type="radio" name="alternate" value="no" checked={!self.use_alternate} onchange="this.form.submit()"/>
-                                        <label for="observed">{observed}</label>
-                                        <input id="alternate" type="radio" name="alternate" value="yes" checked={self.use_alternate} onchange="this.form.submit()"/>
-                                        <label for="alternate">{alternate}</label>
-                                    </fieldset>
-                                }
-                            }).unwrap_or_else(|| text(""))}
-                        </>
-                    })}
+                    <form>
+                        // Date and Bible Version set in form in parent route, so just take them from
+                        // the parent and stash them in this form
+                        <input type="hidden" name="date" value={self.date.to_padded_string()}/>
+                        <input type="hidden" name="version" value={self.version}/>
+                        <fieldset class="toggle">
+                            <input id="bcp" type="radio" name="calendar" value="bcp" checked={!self.use_lff} onchange="this.form.submit()"/>
+                            <label for="bcp">{t!("bcp_1979")}</label>
+                            <input id="lff" type="radio" name="calendar" value="lff" checked={self.use_lff} onchange="this.form.submit()"/>
+                            <label for="lff">{t!("lff_2018")}</label>
+                        </fieldset>
+                        <fieldset class="toggle">
+                            <input id="morning" type="radio" name="time" value="morning" checked={!self.evening} onchange="this.form.submit()"/>
+                            <label for="morning">{t!("daily_readings.morning")}</label>
+                            <input id="evening" type="radio" name="time" value="evening" checked={self.evening} onchange="this.form.submit()"/>
+                            <label for="evening">{t!("daily_readings.evening")}</label>
+                        </fieldset>
+                        <fieldset class="toggle">
+                            <input id="office" type="radio" name="psalms" value="daily" checked={!self.use_thirty} onchange="this.form.submit()"/>
+                            <label for="office">{t!("daily_readings.daily_office_psalms")}</label>
+                            <input id="30" type="radio" name="psalms" value="30" checked={self.use_thirty} onchange="this.form.submit()"/>
+                            <label for="30">{t!("daily_readings.thirty_day_psalms")}</label>
+                        </fieldset>
+                        {self.alternates.as_ref().map(|(observed, alternate)| {
+                            view! {
+                                <fieldset class="toggle">
+                                    <input id="observed" type="radio" name="alternate" value="no" checked={!self.use_alternate} onchange="this.form.submit()"/>
+                                    <label for="observed">{observed}</label>
+                                    <input id="alternate" type="radio" name="alternate" value="yes" checked={self.use_alternate} onchange="this.form.submit()"/>
+                                    <label for="alternate">{alternate}</label>
+                                </fieldset>
+                            }
+                        }).unwrap_or_else(|| text(""))}
+                    </form>
 
                     {self.observance_header_view()}
 
@@ -259,13 +256,13 @@ impl View for ReadingsView {
                     // Readings
                     <h2>{t!("daily_readings.daily_office_readings")}</h2>
                     {async_readings_view(&self.locale, self.readings, self.version)}
-                </main>
+                </section>
             </>
         }
     }
 }
 
-impl ReadingsView {
+impl OfficeView {
     fn rebuild_query_string(&self, evening: bool) -> String {
         let pairs = [
             Some(("date", self.date.to_padded_string().as_str())),

@@ -11,11 +11,10 @@ members = [
 	"client/meditation_timer",
 	"client/modal",
 	"client/tabs",
-	"server",
-	"server2"
+	"server"
 ]
 
-#[profile.release]
+[profile.release]
 #codegen-units = 1
 #lto = true
-#opt-level = 3
+opt-level = 1
