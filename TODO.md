@@ -1,6 +1,8 @@
 Website Todos
 =============
 
+- [ ] Bugs
+  - [ ] 2018 April 9 should be Visitation because of transfers
 - [ ] USX Bibles
   - [x] Spanish
   - [ ] KJV

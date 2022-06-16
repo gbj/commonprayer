@@ -3,15 +3,9 @@
 	- [ ] "Eccles." labeled as Ben Sira
 	- [ ] St. Mark readings + collect
 - [ ] From Pages to Nested Routes
-	- [x] Testable route tree matching
-	- [x] Route nesting in views
-		- [x] Outlet node type
 	- [ ] Migrate website to this system
 		-  Remaining pages
-			- [x] Canticle Table
 			- [ ] Daily Office
-			- [x] Daily Readings
-				- [ ] async readings
 			- [ ] Eucharistic Readings
 			- [ ] Holy Day
 			- [ ] Lectionary
@@ -25,7 +19,7 @@
 					- [ ] fix the styling on this
 				- [ ] Videos
 			- [ ] BiblicalCitationLoader (so, load from Bible API on server for Daily Readings/Lectionary + stream)
-	- [ ] Async nodes + streaming
+- [ ] Reenable caching (while keeping streaming working?)
 - [ ] Global search
 - [ ] Progressive enhancement
 	- [ ] Client side route replacement
