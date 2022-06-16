@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use calendar::{Calendar, Date};
 use itertools::Itertools;
-use leptos2::{*, view::View};
+use leptos2::{view::View, *};
 use library::{CommonPrayer, Contents, Library};
 use liturgy::{parallel_table::ParallelDocument, *};
 use rust_i18n::t;
@@ -88,11 +88,11 @@ impl Loader for DocumentPage {
     type Query = DocumentPageQuery;
 
     async fn loader(
-		locale: &str,
+        locale: &str,
         path: &str,
         params: Self::Params,
         query: Self::Query,
-    ) -> Option<Self> {        
+    ) -> Option<Self> {
         let mut slug_parts = Vec::new();
         for part in params.remainder.split('/') {
             if let Some(slug) = Slug::unslugify(part) {
@@ -274,11 +274,11 @@ impl View for DocumentPage {
         vec![
             include_str!("../../styles/document.css").into(),
             include_str!("../../styles/settings.css").into(),
-            include_str!("../../styles/display-settings.css").into()
+            include_str!("../../styles/display-settings.css").into(),
         ]
     }
 
-    fn body(&self, nested_view: Option<Node>) -> view::Body {
+    fn body(self: Box<Self>, nested_view: Option<Node>) -> view::Body {
         match &self.page_type {
             DocumentPageType::Category { label, contents } => {
                 category_body(&self.locale, &self.slug, label, contents)
@@ -287,7 +287,7 @@ impl View for DocumentPage {
                 section_body(&self.locale, &self.slug, label, contents)
             }
             DocumentPageType::Document(params, document) => {
-                document_body(&self.locale, &self.slug, document, self, params)
+                document_body(&self.locale, &self.slug, document, &self, params)
             }
             DocumentPageType::ByVersion { label, documents } => {
                 by_version_body(&self.locale, &self.slug, label, documents)

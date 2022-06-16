@@ -14,17 +14,17 @@ use std::collections::HashMap;
 /// assert_eq!(query.get("hymnal"), Some(&"Hymnal1982".to_string()));
 ///```
 pub fn parse_query(query_string: &str) -> HashMap<String, String> {
-	query_string
-		.split('&')
-		.filter_map(|piece| {
-			let mut parts = piece.split('=');
-			let (k, v) = (parts.next(), parts.next());
-			match k {
-				Some(k) if !k.is_empty() => {
-					Some((k.to_string(), v.unwrap_or_default().to_string()))
-				}
-				_ => None,
-			}
-		})
-		.collect()
+    query_string
+        .split('&')
+        .filter_map(|piece| {
+            let mut parts = piece.split('=');
+            let (k, v) = (parts.next(), parts.next());
+            match k {
+                Some(k) if !k.is_empty() => {
+                    Some((k.to_string(), v.unwrap_or_default().to_string()))
+                }
+                _ => None,
+            }
+        })
+        .collect()
 }

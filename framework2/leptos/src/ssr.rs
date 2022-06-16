@@ -1,6 +1,6 @@
 use std::{collections::HashMap, fmt::Write};
 
-use crate::{Attribute, Host, IntoProperty, Node};
+use crate::{AsyncElement, Attribute, Element, Host, IntoProperty, Node};
 
 impl std::fmt::Display for Host {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -95,81 +95,112 @@ fn write_node(
     match node {
         Node::Text(data) => f.write_str(data),
         Node::Element(element) => {
-            f.write_char('<')?;
-            f.write_str(&element.tag)?;
-
-            // if has shadow root, need to update shadow root path and id before serializing attributes
-            let shadow_root_path = if element.shadow_root.is_some() {
-                *shadow_root_id += 1;
-                let mut new_path = shadow_root_path.clone();
-                new_path.push(*shadow_root_id);
-                new_path
-            } else {
-                shadow_root_path
-            };
-
-            // attributes
-            write_attributes(f, &element.attrs, property_id, &shadow_root_path, props)?;
-
-            write_class(f, &element.attrs)?;
-
-            // note that it needs to hydrate, not mount, if shadow DOM is present
-            if element.shadow_root.is_some() {
-                f.write_str(" data-leptos-hydrate=\"")?;
-                write!(f, "{}", *shadow_root_id)?;
-                f.write_char('"')?;
-            }
-
-            // children
-            if element.is_self_closing() {
-                f.write_str("/>")?;
-            } else {
-                f.write_char('>')?;
-
-                // Shadow DOM, if present
-                if let Some(root_fn) = &element.shadow_root {
-                    let host = (root_fn)();
-                    f.write_str("<template shadowroot=\"open\">")?;
-                    for child in &host.children {
-                        write_node(
-                            f,
-                            child,
-                            property_id,
-                            shadow_root_id,
-                            shadow_root_path.clone(),
-                            props,
-                        )?;
-                    }
-                    f.write_str("</template>")?;
-                }
-
-                // innerHTML or children
-                if let Some(html) = &element.inner_html {
-                    f.write_str(html)?;
-                } else {
-                    let mut shadowless_path = shadow_root_path.clone();
-                    shadowless_path.pop();
-
-                    for child in &element.children {
-                        write_node(
-                            f,
-                            child,
-                            property_id,
-                            shadow_root_id,
-                            shadowless_path.clone(),
-                            props,
-                        )?;
-                    }
-                }
-
-                // closing tag name
-                f.write_str("</")?;
-                f.write_str(&element.tag)?;
-                f.write_char('>')?;
-            }
+            write_element(
+                f,
+                element,
+                property_id,
+                shadow_root_id,
+                shadow_root_path,
+                props,
+            )?;
+            Ok(())
+        }
+        Node::AsyncElement(AsyncElement { pending, .. }) => {
+            eprintln!("\n[WARNING] You're creating static HTML that includes an AsyncElement. This element won't update when the Future is ready. Consider calling Node::to_html_stream() instead of Node::to_string().");
+            write_node(
+                f,
+                pending,
+                property_id,
+                shadow_root_id,
+                shadow_root_path,
+                props,
+            )?;
             Ok(())
         }
     }
+}
+
+fn write_element(
+    f: &mut std::fmt::Formatter<'_>,
+    element: &Element,
+    property_id: &mut usize,
+    shadow_root_id: &mut usize,
+    shadow_root_path: Vec<usize>,
+    props: &mut Vec<(Vec<usize>, String, String)>,
+) -> std::fmt::Result {
+    f.write_char('<')?;
+    f.write_str(&element.tag)?;
+
+    // if has shadow root, need to update shadow root path and id before serializing attributes
+    let shadow_root_path = if element.shadow_root.is_some() {
+        *shadow_root_id += 1;
+        let mut new_path = shadow_root_path.clone();
+        new_path.push(*shadow_root_id);
+        new_path
+    } else {
+        shadow_root_path
+    };
+
+    // attributes
+    write_attributes(f, &element.attrs, property_id, &shadow_root_path, props)?;
+
+    write_class(f, &element.attrs)?;
+
+    // note that it needs to hydrate, not mount, if shadow DOM is present
+    if element.shadow_root.is_some() {
+        f.write_str(" data-leptos-hydrate=\"")?;
+        write!(f, "{}", *shadow_root_id)?;
+        f.write_char('"')?;
+    }
+
+    // children
+    if element.is_self_closing() {
+        f.write_str("/>")?;
+    } else {
+        f.write_char('>')?;
+
+        // Shadow DOM, if present
+        if let Some(root_fn) = &element.shadow_root {
+            let host = (root_fn)();
+            f.write_str("<template shadowroot=\"open\">")?;
+            for child in &host.children {
+                write_node(
+                    f,
+                    child,
+                    property_id,
+                    shadow_root_id,
+                    shadow_root_path.clone(),
+                    props,
+                )?;
+            }
+            f.write_str("</template>")?;
+        }
+
+        // innerHTML or children
+        if let Some(html) = &element.inner_html {
+            f.write_str(html)?;
+        } else {
+            let mut shadowless_path = shadow_root_path.clone();
+            shadowless_path.pop();
+
+            for child in &element.children {
+                write_node(
+                    f,
+                    child,
+                    property_id,
+                    shadow_root_id,
+                    shadowless_path.clone(),
+                    props,
+                )?;
+            }
+        }
+
+        // closing tag name
+        f.write_str("</")?;
+        f.write_str(&element.tag)?;
+        f.write_char('>')?;
+    }
+    Ok(())
 }
 
 fn write_attributes(
@@ -237,52 +268,3 @@ fn write_class(f: &mut std::fmt::Formatter<'_>, attrs: &[Attribute]) -> std::fmt
 
     Ok(())
 }
-/*
-pub fn serialize_props(tree: &[Node]) -> Option<String> {
-    let mut buf = String::new();
-    let mut cid = 0;
-    for node in tree {
-        node.serialize_properties_with_property_id(&mut buf, &mut cid);
-    }
-    if buf.is_empty() {
-        None
-    } else {
-        buf.push_str("\n}");
-        Some(buf)
-    }
-}
-
-impl Node {
-    fn serialize_properties_with_property_id(&self, buf: &mut String, property_id: &mut usize) {
-        match self {
-            Node::Element(el) => {
-                for attr in &el.attrs {
-                    if let Attribute::Property(_, value) = attr {
-                        if *property_id == 0 {
-                            buf.push_str("{\n\t")
-                        }
-                        if *property_id > 0 {
-                            buf.push_str(",\n\t")
-                        }
-
-                        // key
-                        buf.push_str("\"p");
-                        buf.push_str(&property_id.to_string());
-                        buf.push_str("\": ");
-
-                        // value
-                        buf.push_str(&format!("JSON.parse({:?})", value.serialize()));
-
-                        *property_id += 1;
-                    }
-                }
-
-                for child in &el.children {
-                    child.serialize_properties_with_property_id(buf, property_id);
-                }
-            }
-            Node::Text(_) => {}
-        }
-    }
-}
- */

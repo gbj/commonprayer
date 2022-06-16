@@ -12,6 +12,7 @@ members = [
 	"client/modal",
 	"client/tabs",
 	"server",
+	"server2"
 ]
 
 #[profile.release]

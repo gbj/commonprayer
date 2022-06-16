@@ -1,4 +1,4 @@
-use crate::{Loader, Node, Params, RouterError, View, Body};
+use crate::{Body, Loader, Node, Params, RouterError, View};
 use std::{collections::HashMap, marker::PhantomData, pin::Pin};
 
 use futures::Future;
@@ -33,7 +33,7 @@ pub(crate) struct RouteLoader {
             &HashMap<String, String>,
         ) -> Pin<Box<dyn Future<Output = Result<Box<dyn View>, RouterError>>>>,
     >,
-    pub(crate) error_boundary: Box<dyn Fn(RouterError) -> Vec<Node>>
+    pub(crate) error_boundary: Box<dyn Fn(RouterError) -> Vec<Node>>,
 }
 
 pub struct Route<T>
@@ -123,10 +123,20 @@ where
                     } else if part_matches(concrete_part, match_part, params) {
                         matched_idx += 1;
                     } else {
-                        return Err(RouterError::NoMatch(format!("/{}/{}", locale, parts.join("/"))));
+                        return Err(RouterError::NoMatch(format!(
+                            "/{}/{}",
+                            locale,
+                            parts.join("/")
+                        )));
                     }
                 }
-                None => return Err(RouterError::NoMatch(format!("/{}/{}", locale, parts.join("/"))))
+                None => {
+                    return Err(RouterError::NoMatch(format!(
+                        "/{}/{}",
+                        locale,
+                        parts.join("/")
+                    )))
+                }
             }
         }
 
@@ -136,7 +146,13 @@ where
         if parts.len() > matched_idx {
             let remaining_parts = &parts[matched_idx..];
             for child in &self.children {
-                if let Ok(matched_loaders) = child.search(locale, remaining_parts, params, query, matched_route.clone()) {
+                if let Ok(matched_loaders) = child.search(
+                    locale,
+                    remaining_parts,
+                    params,
+                    query,
+                    matched_route.clone(),
+                ) {
                     for concrete_part in &parts[0..matched_idx] {
                         matched_route.push('/');
                         matched_route.push_str(concrete_part);
@@ -155,11 +171,19 @@ where
             return Ok(loaders);
         }
 
-        Err(RouterError::NoMatch(format!("/{}/{}", locale, parts.join("/"))))
+        Err(RouterError::NoMatch(format!(
+            "/{}/{}",
+            locale,
+            parts.join("/")
+        )))
     }
 }
 
-fn part_matches(concrete_part: &str, route_part: &str, params: &mut HashMap<String, String>) -> bool {
+fn part_matches(
+    concrete_part: &str,
+    route_part: &str,
+    params: &mut HashMap<String, String>,
+) -> bool {
     if concrete_part == route_part {
         true
     } else if route_part.starts_with(':') {
@@ -187,12 +211,15 @@ where
 
                 // if Params or Query can't be serialized, either handle error or pass it up
                 match (params, query) {
-                    (Ok(params), Ok(query)) => {let matched_route = matched_route.to_string(); Box::pin(async move {
-                        match T::loader(&locale, &path, params, query).await {
-                            None => Err(RouterError::NotFound(matched_route)),
-                            Some(data) => Ok(Box::new(data) as Box<dyn View>)
-                        }
-                    })},
+                    (Ok(params), Ok(query)) => {
+                        let matched_route = matched_route.to_string();
+                        Box::pin(async move {
+                            match T::loader(&locale, &path, params, query).await {
+                                None => Err(RouterError::NotFound(matched_route)),
+                                Some(data) => Ok(Box::new(data) as Box<dyn View>),
+                            }
+                        })
+                    }
                     (Ok(_), Err(e)) => Box::pin(async { Err(e) }),
                     (Err(e), _) => Box::pin(async { Err(e) }),
                 }
@@ -202,11 +229,11 @@ where
     }
 }
 
-impl<T> Route<T> 
+impl<T> Route<T>
 where
-    T: Default + Loader + View + Send + Sync + 'static
+    T: Default + Loader + View + Send + Sync + 'static,
 {
     pub fn default_body(nested_view: Option<Node>) -> Body {
-        T::default().body(nested_view)
+        Box::new(T::default()).body(nested_view)
     }
 }

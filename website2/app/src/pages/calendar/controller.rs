@@ -121,10 +121,14 @@ impl Component for CalendarController {
 
 impl CalendarController {
     fn set_hash(&self, hash: String) -> Cmd<Self> {
-        Cmd::new(move |_, _| { location().set_hash(&hash); })
+        Cmd::new(move |_, _| {
+            location().set_hash(&hash);
+        })
     }
 
     fn scroll_to(&self, hash: String) -> Cmd<Self> {
-        Cmd::new(move |_, _| { scroll_to_element_by_id_with_padding_for_header(&hash); })   
+        Cmd::new(move |_, _| {
+            scroll_to_element_by_id_with_padding_for_header(&hash);
+        })
     }
 }

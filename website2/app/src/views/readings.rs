@@ -1,9 +1,12 @@
-use crate::views::bible_version_select_options;
+use std::pin::Pin;
+
 use crate::WebView;
+use crate::{utils::fetch::FetchError, views::bible_version_select_options};
 use calendar::{Date, LiturgicalDayId};
+use futures::Future;
 use lectionary::Reading;
 use leptos2::*;
-use liturgy::{BiblicalCitation, Document, Psalm, Version};
+use liturgy::{BiblicalCitation, BiblicalReading, Document, Psalm, Version};
 
 use super::DocumentView;
 
@@ -95,6 +98,56 @@ pub fn readings_view(locale: &str, readings: &[Reading], version: Version) -> Ve
                         {doc_view.view(locale)}
                     </>
                 }
+            })
+            .collect()
+    }
+}
+
+pub fn async_readings_view(
+    locale: &str,
+    readings: Vec<(
+        String,
+        Pin<Box<dyn Future<Output = Result<BiblicalReading, FetchError>> + Send + Sync>>,
+    )>,
+    version: Version,
+) -> Vec<Node> {
+    if readings.is_empty() {
+        vec![]
+    } else {
+        readings
+            .into_iter()
+            .map(|(citation, reading)| {
+                let citation = citation.to_string();
+                let locale = locale.to_string();
+                Node::AsyncElement(AsyncElement {
+                    pending: Box::new(view! {
+                        <p>{t!("loading")}</p>
+                    }),
+                    ready: Some(Box::pin(async move {
+                        match reading.await {
+                            Ok(reading) => {
+                                let doc_view = DocumentView {
+                                    doc: &Document::from(reading).version(version),
+                                    path: vec![],
+                                };
+
+                                view! {
+                                    <div>
+                                        <a id={&citation}></a>
+                                        {doc_view.view(&locale)}
+                                    </div>
+                                }
+                            }
+                            Err(e) => {
+                                view! {
+                                    <p class="error">
+                                        {t!("biblical_citation.error", citation = &citation)}
+                                    </p>
+                                }
+                            }
+                        }
+                    })),
+                })
             })
             .collect()
     }

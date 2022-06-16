@@ -9,9 +9,9 @@ pub mod events;
 pub mod fragments;
 pub mod pages;
 pub mod preferences;
+pub mod routes;
 pub mod utils;
 pub mod views;
-pub mod routes;
 
 #[macro_use]
 extern crate rust_i18n;

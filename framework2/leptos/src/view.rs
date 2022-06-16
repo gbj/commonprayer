@@ -1,6 +1,6 @@
+use crate as leptos2;
 use async_trait::async_trait;
 use leptos_macro2::view;
-use crate as leptos2;
 use serde::{Deserialize, Serialize};
 
 use crate::router::Params;
@@ -39,21 +39,24 @@ pub trait View {
 
     fn styles(&self) -> Styles;
 
-    fn body(&self, nested_view: Option<Node>) -> Body;
+    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body;
 
-    fn error_boundary(error: RouterError) -> Body where Self: Sized {
+    fn error_boundary(error: RouterError) -> Body
+    where
+        Self: Sized,
+    {
         view! {
-			<>
+            <>
                 <main class="error-boundary">
                     <h1>"Error!"</h1>
                     <pre class="error">{error.to_string()}</pre>
                 </main>
-			</>
-		}
+            </>
+        }
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Default, PartialEq)]
 pub struct RenderedView {
     pub locale: String,
     pub title: String,

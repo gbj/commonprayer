@@ -16,7 +16,7 @@ impl Loader for MeditationView {
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-        Some(Self { })
+        Some(Self {})
     }
 }
 
@@ -29,7 +29,7 @@ impl View for MeditationView {
         vec![include_str!("meditation.css").into()]
     }
 
-    fn body(&self, _nested_view: Option<Node>) -> Body {
+    fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
         view! {
             <>
                 <header><h1>{t!("meditation.title")}</h1></header>
@@ -289,12 +289,13 @@ impl Component for MeditationTimer {
 impl MeditationTimer {
     fn start_timer(&self) -> Cmd<Self> {
         Cmd::new(|_, link| {
-            match set_interval({
-                let link = link.clone();
-                move || {
-                    link.send(&MeditationTimerMsg::Tick);
-                }
-            },
+            match set_interval(
+                {
+                    let link = link.clone();
+                    move || {
+                        link.send(&MeditationTimerMsg::Tick);
+                    }
+                },
                 Duration::from_secs(1),
             ) {
                 Ok(handle) => link.send(&MeditationTimerMsg::SetIntervalHandle(handle)),

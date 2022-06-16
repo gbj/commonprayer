@@ -1,5 +1,5 @@
 use app::{components::*, pages::*};
-use leptos2::{WebComponent, DeclarativeWebApi};
+use leptos2::{DeclarativeWebApi, WebComponent};
 use wasm_bindgen::prelude::wasm_bindgen;
 
 // Use `wee_alloc` as the global allocator.

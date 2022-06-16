@@ -1,7 +1,6 @@
 use std::fmt::{Debug, Display};
 
 use leptos2::*;
-use reqwasm::http::Request;
 use serde::de::DeserializeOwned;
 use thiserror::Error;
 use web_sys::{AbortController, AbortSignal};
@@ -112,7 +111,10 @@ where
     }
 }
 
-impl<T> Fetch<T> where T: Clone + Default + Debug + PartialEq + Serialize + DeserializeOwned + 'static, {
+impl<T> Fetch<T>
+where
+    T: Clone + Default + Debug + PartialEq + Serialize + DeserializeOwned + 'static,
+{
     fn get(&self) -> Cmd<Self> {
         let url = self.url.clone();
         let controller = self.abort_controller.clone();
@@ -162,21 +164,16 @@ pub async fn fetch<T>(url: &str, signal: Option<&AbortSignal>) -> Result<T, Fetc
 where
     T: DeserializeOwned,
 {
-    Request::get(url)
-        .abort_signal(signal)
-        .send()
+    reqwest::get(url)
+        //.abort_signal(signal) // TODO restore AbortSignal
+        //.send()
         .await
-        .map_err(|e| match e {
-            reqwasm::Error::JsError(e) => {
-                if e.name == "NetworkError" {
-                    FetchError::Connection
-                } else if e.name == "AbortError" {
-                    FetchError::Abort
-                } else {
-                    FetchError::Server
-                }
+        .map_err(|e| {
+            if e.is_connect() {
+                FetchError::Connection
+            } else {
+                FetchError::Server
             }
-            reqwasm::Error::SerdeError(_) => FetchError::Json,
         })?
         .json::<T>()
         .await

@@ -6,16 +6,28 @@ use crate::{link::Link, Element, EventListener, Node};
 use wasm_bindgen::{prelude::Closure, JsCast, UnwrapThrowExt};
 
 impl Node {
-    pub fn to_node(&self, link: &Link) -> web_sys::Node {
+    pub fn to_node(&mut self, link: &Link) -> web_sys::Node {
         match self {
             Node::Element(element) => element.to_node(link),
             Node::Text(text) => create_text_node(&document(), text).unchecked_into(),
+            Node::AsyncElement(async_element) => {
+                let pending_node = async_element.pending.to_node(link);
+                if let Some(fut) = async_element.ready.take() {
+                    let link = link.clone();
+                    let pending_node = pending_node.clone();
+                    spawn_local(async move {
+                        let ready_node = fut.await.to_node(&link);
+                        replace_with(pending_node.unchecked_ref(), &ready_node);
+                    });
+                }
+                pending_node
+            }
         }
     }
 }
 
 impl Element {
-    pub fn to_node(&self, link: &Link) -> web_sys::Node {
+    pub fn to_node(&mut self, link: &Link) -> web_sys::Node {
         let el = create_element(&document(), &self.tag);
 
         // set attributes
@@ -29,7 +41,7 @@ impl Element {
         if let Some(html) = &self.inner_html {
             el.set_inner_html(html);
         } else {
-            for child in &self.children {
+            for child in &mut self.children {
                 let child_node = child.to_node(link);
                 append_child(&el, &child_node);
             }
@@ -48,7 +60,8 @@ impl Element {
                 .iter()
                 .filter_map(|node| match node {
                     Node::Element(el) => Some(el),
-                    Node::Text(_) => None,
+                    // TODO: hydrating AsyncElement?
+                    _ => None,
                 })
                 .enumerate()
             {

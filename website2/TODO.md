@@ -11,6 +11,7 @@
 			- [x] Canticle Table
 			- [ ] Daily Office
 			- [x] Daily Readings
+				- [ ] async readings
 			- [ ] Eucharistic Readings
 			- [ ] Holy Day
 			- [ ] Lectionary

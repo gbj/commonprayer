@@ -1,7 +1,7 @@
+use super::breadcrumbs::breadcrumbs;
+use crate::views::Header;
 use leptos2::*;
 use liturgy::{Slug, SlugPath, Version};
-use crate::views::Header;
-use super::breadcrumbs::breadcrumbs;
 
 pub fn by_version_body(
     locale: &str,

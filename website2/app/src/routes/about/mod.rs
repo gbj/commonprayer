@@ -1,10 +1,10 @@
 use crate::views::Header;
-use leptos2::{*, view::View};
+use leptos2::{view::View, *};
 
 #[derive(Debug)]
 pub struct About {
     locale: String,
-    markdown_html: String
+    markdown_html: String,
 }
 
 #[async_trait]
@@ -13,7 +13,7 @@ impl Loader for About {
     type Query = ();
 
     async fn loader(
-		locale: &str,
+        locale: &str,
         _path: &str,
         _params: Self::Params,
         _query: Self::Query,
@@ -21,11 +21,11 @@ impl Loader for About {
         // allowed because future i18n will be inserted here
         #[allow(clippy::match_single_binding)]
         let markdown = match locale {
-            _ => include_str!("about.en.md")
+            _ => include_str!("about.en.md"),
         };
         Some(Self {
             locale: locale.to_string(),
-            markdown_html: markdown::to_html(markdown)
+            markdown_html: markdown::to_html(markdown),
         })
     }
 }
@@ -39,7 +39,7 @@ impl View for About {
         vec![include_str!("about.css").into()]
     }
 
-    fn body(&self, _nested_view: Option<Node>) -> view::Body {
+    fn body(self: Box<Self>, _nested_view: Option<Node>) -> view::Body {
         let markdown_block = Element::new("article").inner_html(self.markdown_html.clone());
 
         view! {

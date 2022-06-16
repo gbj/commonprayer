@@ -17,7 +17,8 @@ impl From<RenderedPartial> for RenderedView {
         let meta = partial.meta.into_iter().collect();
         let mut bodies = partial.body;
         bodies.reverse();
-        let body = bodies.into_iter()
+        let body = bodies
+            .into_iter()
             .fold(None, |acc, curr| Some((curr)(acc)))
             .unwrap_or_default();
 

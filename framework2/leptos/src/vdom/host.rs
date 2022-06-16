@@ -2,11 +2,11 @@ use crate::{
     add_foreign_listeners, add_listeners, append_child, document, link::Link, window, Attribute,
     IntoChildren, Node,
 };
-use wasm_bindgen::{JsCast, prelude::*};
+use wasm_bindgen::{prelude::*, JsCast};
 
 use super::event::EventListener;
 
-#[derive(Clone, PartialEq, Debug)]
+#[derive(PartialEq, Debug)]
 pub struct Host {
     pub tag: &'static str,
     pub host_attrs: Vec<Attribute>,
@@ -88,19 +88,19 @@ impl Host {
             .filter_map(|node| match node {
                 Node::Element(el) => Some(el),
                 Node::Text(_) => None,
+                // TODO hydrate AsyncElement?
+                Node::AsyncElement(_) => None,
             })
             .enumerate()
         {
             child.hydrate(shadow_root.unchecked_ref(), idx, link);
         }
-        
+
         observe_custom_elements(shadow_root.unchecked_ref());
     }
 }
 
 #[wasm_bindgen(module = "/src/hydration.js")]
 extern "C" {
-    fn observe_custom_elements(
-        root: &web_sys::HtmlElement
-    );
+    fn observe_custom_elements(root: &web_sys::HtmlElement);
 }

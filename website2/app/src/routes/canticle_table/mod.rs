@@ -4,12 +4,12 @@ use liturgy::{Reference, Source};
 
 pub struct CanticleTableView {
     locale: String,
-    use_eow: bool
+    use_eow: bool,
 }
 
 #[derive(Params)]
 pub struct CanticleTableParams {
-    table: Option<String>
+    table: Option<String>,
 }
 
 #[async_trait]
@@ -25,7 +25,7 @@ impl Loader for CanticleTableView {
     ) -> Option<Self> {
         Some(Self {
             locale: locale.to_string(),
-            use_eow: params.table.map(|table| table == "eow").unwrap_or(false)
+            use_eow: params.table.map(|table| table == "eow").unwrap_or(false),
         })
     }
 }
@@ -38,11 +38,11 @@ impl View for CanticleTableView {
     fn styles(&self) -> Styles {
         vec![
             include_str!("../../styles/toggle-links.css").into(),
-            include_str!("canticle-table.css").into()
+            include_str!("canticle-table.css").into(),
         ]
     }
 
-    fn body(&self, _nested_view: Option<Node>) -> Body {
+    fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
         view! {
             <>
                 <header><h1>{t!("menu.canticle_table")}</h1></header>

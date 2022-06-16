@@ -1,4 +1,8 @@
-use crate::{text, Element, Node, StaticView};
+use std::sync::Arc;
+
+use futures::Future;
+
+use crate::{text, AsyncElement, Element, Node, StaticView};
 
 pub trait IntoChildren {
     fn into_children(self) -> Box<dyn Iterator<Item = Node>>;
@@ -46,6 +50,20 @@ where
 impl IntoChildren for String {
     fn into_children(self) -> Box<dyn Iterator<Item = Node>> {
         Box::new(std::iter::once(text(self)))
+    }
+}
+
+impl<F> IntoChildren for (Node, F)
+where
+    F: Future<Output = Node> + 'static,
+{
+    fn into_children(self) -> Box<dyn Iterator<Item = Node>> {
+        let (pending, ready) = self;
+        let ready = Box::pin(ready);
+        Box::new(std::iter::once(Node::AsyncElement(AsyncElement {
+            pending: Box::new(pending),
+            ready: Some(ready),
+        })))
     }
 }
 

@@ -329,11 +329,11 @@ impl HymnMedia {
     fn scroll_to_video_player(&self) -> Cmd<Self> {
         Cmd::new(|host, _| {
             let video_view = host
-                    .shadow_root()
-                    .unwrap()
-                    .get_element_by_id("video-view-label")
-                    .unwrap();
-                video_view.scroll_into_view();
+                .shadow_root()
+                .unwrap()
+                .get_element_by_id("video-view-label")
+                .unwrap();
+            video_view.scroll_into_view();
         })
     }
 }

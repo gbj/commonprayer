@@ -37,11 +37,11 @@ impl State for Toggle {
         self.toggled = msg;
         Some(Cmd::event(
             CustomEvent::new("change")
-            .detail(ToggleEventDetail {
-                name: self.name.to_string(),
-                toggled: msg,
-            })
-            .bubbles()
+                .detail(ToggleEventDetail {
+                    name: self.name.to_string(),
+                    toggled: msg,
+                })
+                .bubbles(),
         ))
     }
 }

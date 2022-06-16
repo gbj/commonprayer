@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 
+mod async_element;
 mod attribute;
 mod children;
 mod element;
@@ -9,6 +10,7 @@ mod patch;
 mod patch_against_dom;
 mod property;
 
+pub use async_element::*;
 pub use attribute::*;
 pub use children::*;
 pub use element::*;
@@ -24,6 +26,7 @@ use crate::{append_child, link::Link};
 pub enum Node {
     Element(Element),
     Text(String),
+    AsyncElement(AsyncElement),
 }
 
 impl Node {

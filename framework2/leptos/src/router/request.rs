@@ -1,5 +1,5 @@
 pub trait Request {
-	fn path(&self) -> &str;
+    fn path(&self) -> &str;
 
-	fn query_string(&self) -> &str;
+    fn query_string(&self) -> &str;
 }

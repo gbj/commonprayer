@@ -8,14 +8,14 @@ use calendar::{
     LFF2018_CALENDAR,
 };
 use language::Language;
-use leptos2::{*, view::*};
+use leptos2::{view::*, *};
 use rust_i18n::t;
 
 #[derive(Debug)]
 pub struct CalendarView {
     lff: bool,
     data: CalendarListing,
-    locale: String
+    locale: String,
 }
 
 #[derive(Params)]
@@ -56,7 +56,7 @@ impl Loader for CalendarView {
     type Query = ();
 
     async fn loader(
-		locale: &str,
+        locale: &str,
         path: &str,
         params: Self::Params,
         query: Self::Query,
@@ -78,7 +78,11 @@ impl Loader for CalendarView {
             )
         };
 
-        Some(Self { locale: locale.to_string(), lff, data })
+        Some(Self {
+            locale: locale.to_string(),
+            lff,
+            data,
+        })
     }
 }
 
@@ -90,11 +94,11 @@ impl View for CalendarView {
     fn styles(&self) -> Styles {
         vec![
             include_str!("calendar.css").into(),
-            include_str!("../../styles/toggle-links.css").into()
+            include_str!("../../styles/toggle-links.css").into(),
         ]
     }
 
-    fn body(&self, nested_view: Option<Node>) -> Body {
+    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         // Main view
         view! {
             <>

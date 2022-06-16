@@ -40,14 +40,20 @@ impl Loader for HymnView {
 
 impl View for HymnView {
     fn title(&self) -> String {
-        format!("{} {} – {} – {}", self.hymn.number, self.hymn.title, self.hymnal.title, t!("common_prayer"))
+        format!(
+            "{} {} – {} – {}",
+            self.hymn.number,
+            self.hymn.title,
+            self.hymnal.title,
+            t!("common_prayer")
+        )
     }
 
     fn styles(&self) -> Styles {
         vec![include_str!("hymn.css").into()]
     }
 
-    fn body(&self, nested_view: Option<Node>) -> Vec<Node> {
+    fn body(self: Box<Self>, nested_view: Option<Node>) -> Vec<Node> {
         let hymnal = &self.hymnal;
         let hymn = &self.hymn;
 
@@ -127,7 +133,6 @@ impl View for HymnView {
         }
     }
 }
-
 
 fn possible_field(label: &str, value: &str) -> Vec<Node> {
     if value.is_empty() {

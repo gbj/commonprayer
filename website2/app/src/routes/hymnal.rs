@@ -17,7 +17,7 @@ pub struct HymnalViewQuery {
 }
 
 pub struct HymnalView {
-	locale: String,
+    locale: String,
     search: String,
     hymnal: Option<Hymnals>,
     search_results: Vec<HymnMetadata>,
@@ -35,7 +35,7 @@ impl Loader for HymnalView {
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-		println!("query = {:#?}", query);
+        println!("query = {:#?}", query);
         let hymnals = match params.hymnal {
             None => {
                 vec![
@@ -55,7 +55,7 @@ impl Loader for HymnalView {
 
         Some(match params.hymnal {
             None => HymnalView {
-				locale: locale.to_string(),
+                locale: locale.to_string(),
                 search_results: HYMNAL_1982
                     .search(&search)
                     .chain(LEVAS.search(&search))
@@ -69,7 +69,7 @@ impl Loader for HymnalView {
             Some(hymnal_id) => {
                 let hymnal: Hymnal = hymnal_id.into();
                 HymnalView {
-					locale: locale.to_string(),
+                    locale: locale.to_string(),
                     search_results: hymnal.search(&search).collect(),
                     hymnals,
                     search,
@@ -81,22 +81,26 @@ impl Loader for HymnalView {
 }
 
 impl View for HymnalView {
-	fn title(&self) -> String {
-        format!("{} – {}", if self.hymnals.len() == 1 {
-            self.hymnals[0].title.clone()
-        } else {
-            t!("menu.hymnal")
-        }, t!("common_prayer"))
+    fn title(&self) -> String {
+        format!(
+            "{} – {}",
+            if self.hymnals.len() == 1 {
+                self.hymnals[0].title.clone()
+            } else {
+                t!("menu.hymnal")
+            },
+            t!("common_prayer")
+        )
     }
 
     fn styles(&self) -> Styles {
         vec![
-			include_str!("hymnal.css").into(),
-			include_str!("../styles/toggle-links.css").into()
-		]
+            include_str!("hymnal.css").into(),
+            include_str!("../styles/toggle-links.css").into(),
+        ]
     }
 
-	fn body(&self, nested_view: Option<Node>) -> Vec<Node> {
+    fn body(self: Box<Self>, nested_view: Option<Node>) -> Vec<Node> {
         /*         let results_query_status = if self.search_results.is_empty() {
                    FetchStatus::Idle
                } else {
@@ -142,7 +146,7 @@ impl View for HymnalView {
         view! {
             <>
                 //{Header::new(&self.locale, &t!("menu.hymnal")).to_node()}
-				<header><h1>{t!("menu.hymnal")}</h1></header>
+                <header><h1>{t!("menu.hymnal")}</h1></header>
                 <main>
                     //<Form>
                         <form>
@@ -178,8 +182,6 @@ impl View for HymnalView {
             </>
         }
     }
-
-
 }
 
 fn hymnal_metadata(hymnal: &Hymnal) -> Node {

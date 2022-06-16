@@ -295,12 +295,13 @@ impl Component for MeditationTimer {
 impl MeditationTimer {
     fn start_timer(&self) -> Cmd<Self> {
         Cmd::new(|_, link| {
-            match set_interval({
-                let link = link.clone();
-                move || {
-                    link.send(&MeditationTimerMsg::Tick);
-                }
-            },
+            match set_interval(
+                {
+                    let link = link.clone();
+                    move || {
+                        link.send(&MeditationTimerMsg::Tick);
+                    }
+                },
                 Duration::from_secs(1),
             ) {
                 Ok(handle) => link.send(&MeditationTimerMsg::SetIntervalHandle(handle)),

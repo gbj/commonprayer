@@ -1,33 +1,34 @@
 #![feature(async_closure)]
 #![feature(const_fn_trait_bound)]
 
-use std::{collections::HashSet, fs::File, io::Write};
+use std::{collections::HashSet, convert::Infallible, fs::File, io::Write};
 
 use actix_cors::Cors;
 use actix_files::{Files, NamedFile};
 use actix_web::{
+    dev::Service,
     error, get,
     http::StatusCode,
-    middleware,
-    post,
+    middleware, post,
     web::{self, Path, Query},
-    App, HttpRequest, HttpResponse, HttpServer, ResponseError, Result, dev::Service,
+    App, HttpRequest, HttpResponse, HttpServer, ResponseError, Result,
 };
+use app::{api::bing::BingSearchResult, pages::*, routes::router};
 use episcopal_api::{
     api::summary::DailySummary,
     calendar::Date,
-    hymnal::{HymnNumber, Hymnal, Hymnals, HYMNAL_1982, LEVAS, WLP, EL_HIMNARIO, HymnMetadata},
-    liturgy::{Document, SlugPath, Slug}, library::{CommonPrayer, Library}, language::Language,
+    hymnal::{HymnMetadata, HymnNumber, Hymnal, Hymnals, EL_HIMNARIO, HYMNAL_1982, LEVAS, WLP},
+    language::Language,
+    library::{CommonPrayer, Library},
+    liturgy::{Document, Slug, SlugPath},
 };
-use futures::{channel::mpsc::unbounded, SinkExt};
+use futures::{channel::mpsc::unbounded, StreamExt};
 use lazy_static::lazy_static;
 use leptos2::*;
+use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 use reqwest::header::CACHE_CONTROL;
-use serde::{Deserialize};
+use serde::Deserialize;
 use tempfile::tempdir;
-use app::{
-    api::bing::BingSearchResult, pages::*, routes::router,
-};
 use tokio::task::spawn_local;
 
 mod bing;
@@ -37,7 +38,6 @@ const LOCALES: [&str; 1] = ["en"];
 lazy_static! {
     pub static ref PROJECT_ROOT: String =
         std::env::var("PROJECT_ROOT").unwrap_or_else(|_| "..".to_string());
-
     pub static ref ROUTER: Router<app::routes::Index> = router();
 }
 
@@ -57,13 +57,21 @@ impl leptos2::Request for RequestCompat {
 async fn main() -> std::io::Result<()> {
     let host = std::env::var("HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
     let port = std::env::var("PORT").unwrap_or_else(|_| "1234".to_string());
+    // load TLS keys
+    // to create a self-signed temporary cert for testing:
+    // `openssl req -x509 -newkey rsa:4096 -nodes -keyout key.pem -out cert.pem -days 365 -subj '/CN=localhost'`
+    let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+    builder
+        .set_private_key_file("key.pem", SslFiletype::PEM)
+        .unwrap();
+    builder.set_certificate_chain_file("cert.pem").unwrap();
 
     // TODO migrate export_docx and video_search_api into app
 
     HttpServer::new(|| {
         App::new()
-            .wrap(middleware::Compress::default())
-            .wrap(Cors::permissive())
+            //.wrap(middleware::Compress::default())
+            //.wrap(Cors::permissive())
             .app_data(web::FormConfig::default().limit(256 * 1024)) // increase max form size for DOCX export
             //.service(daily_summary)
             .service(export_docx)
@@ -73,50 +81,64 @@ async fn main() -> std::io::Result<()> {
             //.service(hymnal_search_api_with_metadata)
             .service(video_search_api)
             //.service(hymnal_word_cloud)
-            .service(Files::new("/client", &format!(
-                "{}/client",
-                *PROJECT_ROOT
-            )))
+            .service(Files::new("/client", &format!("{}/client", *PROJECT_ROOT)))
             .service(
                 web::scope("/static")
                     .wrap_fn(|req, srv| {
                         let fut = srv.call(req);
                         async {
                             let mut res = fut.await?;
-                            res.headers_mut()
-                                .insert(CACHE_CONTROL, actix_web::http::header::HeaderValue::from_static("max-age=31536000"));
+                            res.headers_mut().insert(
+                                CACHE_CONTROL,
+                                actix_web::http::header::HeaderValue::from_static(
+                                    "max-age=31536000",
+                                ),
+                            );
                             Ok(res)
                         }
                     })
-                    .service( Files::new(
-                        "",
-                        &format!("{}/app/static", *PROJECT_ROOT),
-                    ))
+                    .service(Files::new("", &format!("{}/app/static", *PROJECT_ROOT))),
             )
-            .default_service(
-                web::route()
-                    .to(async move |req: HttpRequest| {
-                        let routed = ROUTER.route(&RequestCompat(req)).await;
-                        let (tx, rx) = unbounded();
+            .default_service(web::route().to(async move |req: HttpRequest| {
+                let routed = ROUTER.route(&RequestCompat(req)).await;
+                let (tx, rx) = unbounded();
 
-                        spawn_local(async move {
-                            tx.unbounded_send(stream_html(head(&routed)));
-                            tx.unbounded_send(stream_html(format!("{}", routed.body)));
-                            tx.unbounded_send(stream_html("</body></html>".to_string()));
-                        });
+                spawn_local(async move {
+                    println!("sending head");
+                    tx.unbounded_send(stream_html(head(&routed)));
+                    let mut body_stream = routed.body.html_stream();
+                    while let Some(piece) = body_stream.next().await {
+                        println!("sending chunk");
+                        tx.unbounded_send(stream_html(piece));
+                    }
+                    println!("sending tail");
+                    std::thread::sleep(std::time::Duration::from_secs(3));
+                    tx.unbounded_send(stream_html("</body></html>".to_string()));
+                });
 
-                        HttpResponse::Ok()
-                            .content_type("text/html")
-                            .streaming(rx)
-                    })
-            )
+                /*  let head_html = head(&routed);
+                                       let body = routed.body.html_stream();
+
+                                       let stream = futures::stream::once(async move {
+                                           head_html
+                                       })
+                                       .chain(body)
+                                       .chain(futures::stream::once(async {
+                                           "</body></html>".to_string()
+                                       }))
+                                       .map(|html| Ok(web::Bytes::from(html)) as Result<web::Bytes, leptos2::router::RouterError>);
+                */
+
+                println!("responding with rx");
+                HttpResponse::Ok().content_type("text/html").streaming(rx)
+            }))
     })
-    .bind(&format!("{}:{}", host, port))?
+    .bind_openssl(&format!("{}:{}", host, port), builder)?
     .run()
     .await
 }
 
-fn stream_html(html: String) -> Result<web::Bytes, leptos2::router::RouterError> {
+fn stream_html(html: String) -> Result<web::Bytes, Infallible> {
     Ok(web::Bytes::from(html))
 }
 
@@ -125,11 +147,16 @@ fn head(view: &RenderedView) -> String {
 }
 
 fn meta(metas: &MetaTags) -> String {
-    metas.iter().map(|(name, content)| if name == "charset" {
-        format!("<meta charset=\"{}\">", content)
-    } else {
-        format!("<meta name=\"{}\" content=\"{}\">", name, content)
-    }).collect()
+    metas
+        .iter()
+        .map(|(name, content)| {
+            if name == "charset" {
+                format!("<meta charset=\"{}\">", content)
+            } else {
+                format!("<meta name=\"{}\" content=\"{}\">", name, content)
+            }
+        })
+        .collect()
 }
 
 fn styles(styles: &Styles) -> String {
@@ -211,7 +238,7 @@ async fn hymnal_api(path: web::Path<Hymnals>) -> Result<web::Json<Hymnal>> {
 #[derive(Deserialize, Debug)]
 struct HymnalSearchParams {
     q: String,
-    hymnal: Option<Hymnals>
+    hymnal: Option<Hymnals>,
 }
 
 #[get("/api/hymnal/search")]
@@ -221,14 +248,26 @@ async fn hymnal_search_api(
     let search = &params.q;
     let matches = if let Some(hymnal) = &params.hymnal {
         let hymnal = Hymnal::from(*hymnal);
-        hymnal.search(search).map(|hymn| (hymnal.id, hymn.number)).collect()
-    } else {HYMNAL_1982
-        .search(search)
-        .map(|hymn| (Hymnals::Hymnal1982, hymn.number))
-        .chain(LEVAS.search(search).map(|hymn| (Hymnals::LEVAS, hymn.number)))
-        .chain(WLP.search(search).map(|hymn| (Hymnals::WLP, hymn.number)))
-        .chain(EL_HIMNARIO.search(search).map(|hymn| (Hymnals::ElHimnario, hymn.number)))
-        .collect()
+        hymnal
+            .search(search)
+            .map(|hymn| (hymnal.id, hymn.number))
+            .collect()
+    } else {
+        HYMNAL_1982
+            .search(search)
+            .map(|hymn| (Hymnals::Hymnal1982, hymn.number))
+            .chain(
+                LEVAS
+                    .search(search)
+                    .map(|hymn| (Hymnals::LEVAS, hymn.number)),
+            )
+            .chain(WLP.search(search).map(|hymn| (Hymnals::WLP, hymn.number)))
+            .chain(
+                EL_HIMNARIO
+                    .search(search)
+                    .map(|hymn| (Hymnals::ElHimnario, hymn.number)),
+            )
+            .collect()
     };
 
     web::Json(matches)
@@ -254,7 +293,6 @@ async fn hymnal_search_api_with_metadata(
     web::Json(matches)
 }
 
-
 // Hymn Video API
 #[derive(Deserialize, Debug)]
 struct HymnVideoParams {
@@ -279,7 +317,8 @@ async fn video_search_api(params: Query<HymnVideoParams>) -> Result<web::Json<Bi
     let hymn = hymnal
         .hymns
         .iter()
-        .find(|hymn| hymn.number == params.number).expect("could not find hymn with this #");
+        .find(|hymn| hymn.number == params.number)
+        .expect("could not find hymn with this #");
 
     let result = bing::search(hymn).await.map_err(HymnSearchError)?;
     Ok(web::Json(result))
@@ -350,17 +389,17 @@ fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
 
 fn add_page<P>(cfg: &mut web::ServiceConfig, locale: &str)
 where
-    P: Page
+    P: Page,
 {
     println!("{}", P::name());
 
     // JS/WASM routes for the page
     if !P::static_page() {
         let name = P::name().replace('-', "_");
-        cfg.service(Files::new(&format!("/pkg/{}", name), &format!(
-            "{}/client/{}/pkg",
-            *PROJECT_ROOT, name
-        )));
+        cfg.service(Files::new(
+            &format!("/pkg/{}", name),
+            &format!("{}/client/{}/pkg", *PROJECT_ROOT, name),
+        ));
     }
 
     for path in P::get_absolute_paths() {
@@ -398,36 +437,31 @@ where
 
         // add redirect to force trailing slash
         // this ensures that a Form posting to "." will not accidentally replace the last part of the URL with the query params
-        cfg.service(
-        web::resource(&localized_path).route(
-            web::get()
-                .to(async move |req: HttpRequest| { 
-                    HttpResponse::PermanentRedirect()
-                        .insert_header((
-                            actix_web::http::header::LOCATION,
-                            format!(
-                                "{}/",
-                                req.path()
-                            )
-                        ))
-                        .finish()
-                    }
-                )
-            )
-        );
+        cfg.service(web::resource(&localized_path).route(web::get().to(
+            async move |req: HttpRequest| {
+                HttpResponse::PermanentRedirect()
+                    .insert_header((
+                        actix_web::http::header::LOCATION,
+                        format!("{}/", req.path()),
+                    ))
+                    .finish()
+            },
+        )));
 
         // VDOM JSON for client-side diffing/routing
-        cfg.service(web::resource(&format!("{}/get.json", localized_path)).route(web::get().to({
-            let locale = locale.to_string();
+        cfg.service(
+            web::resource(&format!("{}/get.json", localized_path)).route(web::get().to({
+                let locale = locale.to_string();
 
-            move |req: HttpRequest, params: Path<P::Params>, query: Query<P::Query>| {
-                let locale = locale.clone();
-                async move {
-                    let vdom = route_to_vdom::<P>(&locale, req, params, query);
-                    web::Json(vdom)
+                move |req: HttpRequest, params: Path<P::Params>, query: Query<P::Query>| {
+                    let locale = locale.clone();
+                    async move {
+                        let vdom = route_to_vdom::<P>(&locale, req, params, query);
+                        web::Json(vdom)
+                    }
                 }
-            }
-        })));
+            })),
+        );
 
         // The page
         cfg.service(web::resource(&format!("{}/", localized_path)).route(web::get().to({
@@ -501,7 +535,15 @@ where
     }
 }
 
-fn route_to_vdom<P>(locale: &str, req: HttpRequest, params: Path<P::Params>, query: Query<P::Query>) -> Option<Node> where P: Page {
+fn route_to_vdom<P>(
+    locale: &str,
+    req: HttpRequest,
+    params: Path<P::Params>,
+    query: Query<P::Query>,
+) -> Option<Node>
+where
+    P: Page,
+{
     let path = req.uri().to_string();
 
     // Plausible.io is an open-source analytics software as a service that uses no cookies and collects/sells no user data
@@ -511,5 +553,6 @@ fn route_to_vdom<P>(locale: &str, req: HttpRequest, params: Path<P::Params>, que
         <script defer data-domain="commonprayeronline.org" src="https://plausible.io/js/plausible.js"></script>
     };
 
-    P::build_state(locale, &path, params.into_inner(), query.into_inner()).map(|page| page.render(locale, Some(analytics_injection)))
+    P::build_state(locale, &path, params.into_inner(), query.into_inner())
+        .map(|page| page.render(locale, Some(analytics_injection)))
 }

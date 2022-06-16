@@ -1,20 +1,21 @@
 use api::summary::ObservanceSummary;
 use calendar::Date;
+use futures::Future;
 use language::Language;
 use lectionary::Reading;
 use leptos2::*;
 use library::CommonPrayer;
-use liturgy::{Psalm, Version};
-use rust_i18n::locale;
-use serde::Deserialize;
+use liturgy::{BiblicalReading, Psalm, Version};
+use std::pin::Pin;
 
 use crate::{
-    utils::time::today,
-    views::{document::DocumentView, readings::*, Header},
+    utils::{fetch::FetchError, time::today},
+    views::{document::DocumentView, readings::*},
     WebView,
 };
 
-#[derive(PartialEq)]
+use crate::utils::reading_loader::load_reading;
+
 pub struct ReadingsView {
     pub locale: String,
     pub date: Date,
@@ -27,7 +28,11 @@ pub struct ReadingsView {
     pub use_lff: bool,
     pub reading_links: ReadingLinks,
     pub psalms: Vec<Psalm>,
-    pub readings: Vec<Reading>,
+    // readings: async load on server rather than from client
+    pub readings: Vec<(
+        String,
+        Pin<Box<dyn Future<Output = Result<BiblicalReading, FetchError>> + Send + Sync>>,
+    )>,
 }
 
 #[derive(Params)]
@@ -147,6 +152,25 @@ impl Loader for ReadingsView {
             summary.observed
         };
 
+        let readings = if evening {
+            evening_readings
+        } else {
+            morning_readings
+        }
+        .into_iter()
+        .map(|reading| {
+            let citation = reading.citation.clone();
+            let citation2 = citation.clone();
+            (
+                reading.citation.clone(),
+                Box::pin(load_reading(citation2, version, None))
+                    as Pin<
+                        Box<dyn Future<Output = Result<BiblicalReading, FetchError>> + Send + Sync>,
+                    >,
+            )
+        })
+        .collect::<Vec<_>>();
+
         Some(Self {
             locale: locale.to_string(),
             date,
@@ -163,13 +187,9 @@ impl Loader for ReadingsView {
             } else {
                 morning_psalms
             },
-            readings: if evening {
-                evening_readings
-            } else {
-                morning_readings
-            },
+            readings,
         })
-    }	
+    }
 }
 
 impl View for ReadingsView {
@@ -177,20 +197,21 @@ impl View for ReadingsView {
         format!(
             "{}: {} – {}",
             t!("toc.daily_readings"),
-            self.date.to_localized_name(Language::from_locale(&self.locale)),
+            self.date
+                .to_localized_name(Language::from_locale(&self.locale)),
             t!("common_prayer")
         )
     }
 
     fn styles(&self) -> Styles {
         vec![
-			include_str!("../../styles/document.css").into(),
+            include_str!("../../styles/document.css").into(),
             include_str!("daily-readings.css").into(),
-            include_str!("../../styles/toggle-fieldset.css").into()
-		]
+            include_str!("../../styles/toggle-fieldset.css").into(),
+        ]
     }
 
-    fn body(&self, nested_view: Option<Node>) -> Body {
+    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         view! {
             <>
                 <header><h1>{t!("toc.daily_readings")}</h1></header>
@@ -237,7 +258,7 @@ impl View for ReadingsView {
 
                     // Readings
                     <h2>{t!("daily_readings.daily_office_readings")}</h2>
-                    {readings_view(&self.locale, &self.readings, self.version)}
+                    {async_readings_view(&self.locale, self.readings, self.version)}
                 </main>
             </>
         }

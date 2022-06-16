@@ -1,3 +1,4 @@
+use crate::views::Header;
 use chrono::{Datelike, Local};
 use itertools::Itertools;
 use language::Language;
@@ -7,11 +8,8 @@ use {
     calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId, Rank, Weekday, BCP1979_CALENDAR},
     library::summary,
 };
-use crate::views::Header;
 
-use crate::utils::{
-    scroll_to_element_by_id_with_padding_for_header, time::today,
-};
+use crate::utils::{scroll_to_element_by_id_with_padding_for_header, time::today};
 
 #[derive(Deserialize)]
 pub struct LectionaryPageParams {
@@ -42,7 +40,12 @@ impl Page for LectionaryPage {
         vec!["".into(), "{year}".into()]
     }
 
-    fn build_state(locale: &str, _path: &str, params: Self::Params, query: Self::Query) -> Option<Self> {
+    fn build_state(
+        locale: &str,
+        _path: &str,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> Option<Self> {
         let year = params
             .year
             .unwrap_or_else(|| Local::now().date().year().try_into().unwrap());
@@ -125,11 +128,12 @@ impl Page for LectionaryPage {
     }
 
     fn body(&self, locale: &str) -> Vec<Node> {
-        let grouped_by_month = self.days
-        .iter()
-        .group_by(|LectionaryDayEntry { month, .. }| month);
+        let grouped_by_month = self
+            .days
+            .iter()
+            .group_by(|LectionaryDayEntry { month, .. }| month);
 
-    let months = grouped_by_month
+        let months = grouped_by_month
             .into_iter()
             .flat_map(|(month, group)| {
                 // calendar days
@@ -228,14 +232,14 @@ impl Page for LectionaryPage {
             })
             .collect::<Vec<_>>();
 
-	view! {
-		<>
-			{Header::new(locale, &t!("menu.lectionary")).to_node()}
-			<main class="lectionary calendar">
-				{months}
-			</main>
-		</>
-	}
+        view! {
+            <>
+                {Header::new(locale, &t!("menu.lectionary")).to_node()}
+                <main class="lectionary calendar">
+                    {months}
+                </main>
+            </>
+        }
     }
 
     fn on_load() {
