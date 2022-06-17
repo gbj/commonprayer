@@ -74,10 +74,12 @@ en:
     ESV_full: English Standard Version (ESV)
     CEB_full: Common English Bible (CEB)
     KJV_full: King James Version (KJV)
+    RV_full: Reina-Valera (1909)
     NRSV: NRSV
     ESV: ESV
     CEB: CEB
     KJV: KJV
+    RV: RV
 
   source: Source
   reference: "%{source} p. %{page}"
@@ -101,6 +103,7 @@ en:
       light_explanation: Site will always use light mode.
       dark: Dark
       dark_explanation: Site will always use dark mode.
+    submit: Save Settings
     title: Settings
     general: General Settings
     liturgy: Liturgy Settings

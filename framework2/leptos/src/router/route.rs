@@ -133,13 +133,6 @@ where
                         params.insert("remainder".to_string(), remaining_parts);
                         loaders.push(self.create_loader(Some(&matched_route)));
 
-                        // add index route if it exists
-                        if let Some(index_route) =
-                            self.children.iter().find(|route| route.is_index())
-                        {
-                            loaders.push(index_route.create_loader(None))
-                        }
-
                         return Ok(loaders);
                     } else if part_matches(concrete_part, match_part, params) {
                         matched_idx += 1;
@@ -180,11 +173,6 @@ where
                     }
                     loaders.push(self.create_loader(Some(&matched_route)));
                     loaders.extend(matched_loaders);
-
-                    // add index route if it exists
-                    if let Some(index_route) = self.children.iter().find(|route| route.is_index()) {
-                        loaders.push(index_route.create_loader(None))
-                    }
 
                     return Ok(loaders);
                 }

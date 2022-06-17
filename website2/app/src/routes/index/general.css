@@ -64,7 +64,7 @@ select {
 body > div > div > main {
     display: block;
     margin: auto;
-    max-width: calc(100vw - calc(2 * var(--page-padding)));
+    max-width: calc(100vw - 5rem);
     padding: 2.5rem;
     width: 40rem;
 }

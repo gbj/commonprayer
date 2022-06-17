@@ -3,6 +3,7 @@
 	- [ ] "Eccles." labeled as Ben Sira
 	- [ ] St. Mark readings + collect
 - [ ] From Pages to Nested Routes
+	- [ ] Auth and settings
 	- [ ] Migrate website to this system
 		-  Remaining pages
 			- [ ] Daily Office
@@ -17,17 +18,20 @@
 			- [ ] Lectionary
 				- [ ] Combine this with Calendar page in a sensible way
 			- [ ] Psalter
-		- [ ] UI improvements
-			- [ ] Index Page cards
-			- [ ] Search bar (global)
- 		- [ ] Nested routes or async loaders instead of WC for...
+			- [ ] Document page
+				- [ ] Parallels
+				- [ ] Test links between page
+		- [ ] Nested routes or async loaders instead of WC for...
 			- [ ] HymnMedia
 				- [ ] Music
 					- [ ] fix the styling on this
 				- [ ] Videos
 			- [ ] BiblicalCitationLoader (so, load from Bible API on server for Daily Readings/Lectionary + stream)
-- [ ] Reenable caching (while keeping streaming working?)
+		- [ ] UI improvements
+			- [ ] Index Page cards
 - [ ] Global search
+- [ ] Themed pages
+- [ ] Reenable caching (while keeping streaming working?)
 - [ ] Progressive enhancement
 	- [ ] Client side route replacement
 - [ ] Finish website2 and merge

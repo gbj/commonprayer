@@ -116,7 +116,6 @@ async fn main() -> std::io::Result<()> {
                 }))
                 .map(|html| Ok(web::Bytes::from(html)) as Result<web::Bytes, leptos2::router::RouterError>);
 
-                println!("responding with rx");
                 HttpResponse::Ok().content_type("text/html").streaming(stream)
             }))
     })

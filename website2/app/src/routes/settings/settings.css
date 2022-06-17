@@ -1,0 +1,9 @@
+h2 {
+	text-align: center;
+}
+
+input[type=submit] {
+	display: block;
+	margin: auto;
+	margin-top: 1rem;
+}
