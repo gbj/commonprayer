@@ -161,7 +161,7 @@ impl Page for EucharisticReadingsPage {
                     {readings_settings_form(locale, self.day.date, self.version, vec![])}
 
                     // Name of Day
-                    {title_view(locale, &self.observed.observance, &self.observed.localized_name)}
+                    <h1>{title_view(locale, &self.observed.observance, &self.observed.localized_name)}</h1>
 
                     // Collect of the Day
                     {self.observed.collects.as_ref().map(|doc| view! {

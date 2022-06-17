@@ -1,0 +1,18 @@
+.reading-link-table {
+	margin-top: 1rem;
+	width: 100%;
+}
+
+.reading-link-table tr {
+	vertical-align: top;
+}
+
+.reading-link-table td {
+	text-align: center;
+}
+
+.reading-link-table ul {
+	list-style-type: none;
+	margin: 0.25rem;
+	padding: 0;
+}

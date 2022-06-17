@@ -62,7 +62,6 @@ select {
 
 /* Matches only the first div */
 body > div > div > main {
-    background: var(--background);
     display: block;
     margin: auto;
     max-width: calc(100vw - calc(2 * var(--page-padding)));
@@ -85,4 +84,18 @@ body > div > div > main {
     display: block;
     margin-left: auto;
     font-size: var(--rubric-size);
+  }
+
+  .badge {
+    background-color: var(--season-lightest);
+    border-radius: 3px;
+    color: #101010;
+    display: inline-block;
+    font: var(--ui-font);
+    padding: 0.25rem;
+    text-align: center;
+  }
+
+  .badge:visited, .badge:active {
+    color: inherit;
   }

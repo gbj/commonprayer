@@ -148,8 +148,7 @@ fn meta(metas: &MetaTags) -> String {
 
 fn styles(styles: &Styles) -> String {
     let styles = styles.join("");
-    styles
-    //minifier::css::minify(&styles).map(|minified| minified.to_string()).unwrap_or(styles)
+    minifier::css::minify(&styles).map(|minified| minified.to_string()).unwrap_or(styles)
 }
 
 fn links(links: &[Node]) -> String {

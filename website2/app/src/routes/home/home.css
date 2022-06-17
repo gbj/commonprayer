@@ -1,0 +1,49 @@
+main {
+	background: var(--background-lightest-grey);
+}
+
+.card h1, .card h2, .card h3 {
+	text-align: center;
+}
+
+.card .document h1, .card .document h2, .card .document h3, .card .document {
+	text-align: left;
+}
+
+
+.black-letter-days, .office-links {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.black-letter-days {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.office-links {
+	display: flex;
+	justify-content: space-between;
+}
+
+.office-links li {
+	margin: 1rem 0.25rem;
+}
+
+.office-links a {
+	font-size: 0.8rem;
+	text-transform: capitalize;
+	text-decoration: none;
+}
+
+.card {
+	width: 100%;
+}
+
+@media (min-width: 767px) {
+	.card {
+		max-width: 50%;
+	}
+}

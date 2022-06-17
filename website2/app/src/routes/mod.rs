@@ -1,7 +1,9 @@
 mod about;
 pub mod calendar;
 mod canticle_table;
+mod contents;
 mod document;
+mod home;
 mod hymn;
 mod hymnal;
 mod index;
@@ -12,19 +14,29 @@ pub use index::Index;
 use leptos2::*;
 
 use self::{
-    about::About, calendar::CalendarView, canticle_table::CanticleTableView,
-    document::DocumentPage, hymn::HymnView, hymnal::HymnalView, meditation::MeditationView,
-    readings::office::OfficeView, readings::{ReadingsView, eucharist::EucharistView},
+    about::About,
+    calendar::CalendarView,
+    canticle_table::CanticleTableView,
+    contents::ContentsView,
+    document::DocumentPage,
+    home::HomePage,
+    hymn::HymnView,
+    hymnal::HymnalView,
+    meditation::MeditationView,
+    readings::office::OfficeView,
+    readings::{eucharist::EucharistView, ReadingsView},
 };
 
 pub fn router() -> Router<Index> {
     Router::new(
         Route::<Index>::new("")
+            .child(Route::<HomePage>::new(""))
             .child(Route::<About>::new("about"))
             .child(Route::<CalendarView>::new("calendar"))
             .child(Route::<CalendarView>::new("calendar/lff2018"))
             .child(Route::<CanticleTableView>::new("canticle-table"))
             .child(Route::<CanticleTableView>::new("canticle-table/:table"))
+            .child(Route::<ContentsView>::new("contents"))
             .child(
                 Route::<ReadingsView>::new("readings")
                     .child(Route::<OfficeView>::new("office"))

@@ -19,11 +19,15 @@ where
     fn route_name(&self) -> &'static str;
 
     fn error_boundary(&self, error: RouterError) -> Vec<Node>;
+
+    fn is_index(&self) -> bool;
+
+    fn create_loader(&self, matched_route: Option<&str>) -> RouteLoader;
 }
 
 pub(crate) struct RouteLoader {
     pub(crate) route_name: &'static str,
-    pub(crate) matched_route: String,
+    pub(crate) matched_route: Option<String>,
     //pub(crate) loader: Box<dyn Fn(&str, &str, &HashMap<String, String>, &HashMap<String, String>, Option<Node>) -> Pin<Box<dyn Future<Output = Result<RenderedPartial, RouterError>>>>>//Pin<Box<dyn Future<Output = RenderedPartial>>>,
     pub(crate) loader: Box<
         dyn Fn(
@@ -94,6 +98,15 @@ where
         T::error_boundary(error)
     }
 
+    fn is_index(&self) -> bool {
+        eprintln!(
+            "is_index {} \t=> {:#?}",
+            self.route_name(),
+            self.route_parts
+        );
+        self.route_parts.is_empty()
+    }
+
     fn search(
         &self,
         locale: &str,
@@ -118,7 +131,15 @@ where
                         matched_route.push('/');
                         matched_route.push_str(&remaining_parts);
                         params.insert("remainder".to_string(), remaining_parts);
-                        loaders.push(self.create_loader(&matched_route));
+                        loaders.push(self.create_loader(Some(&matched_route)));
+
+                        // add index route if it exists
+                        if let Some(index_route) =
+                            self.children.iter().find(|route| route.is_index())
+                        {
+                            loaders.push(index_route.create_loader(None))
+                        }
+
                         return Ok(loaders);
                     } else if part_matches(concrete_part, match_part, params) {
                         matched_idx += 1;
@@ -157,8 +178,14 @@ where
                         matched_route.push('/');
                         matched_route.push_str(concrete_part);
                     }
-                    loaders.push(self.create_loader(&matched_route));
+                    loaders.push(self.create_loader(Some(&matched_route)));
                     loaders.extend(matched_loaders);
+
+                    // add index route if it exists
+                    if let Some(index_route) = self.children.iter().find(|route| route.is_index()) {
+                        loaders.push(index_route.create_loader(None))
+                    }
+
                     return Ok(loaders);
                 }
             }
@@ -167,7 +194,13 @@ where
                 matched_route.push('/');
                 matched_route.push_str(concrete_part);
             }
-            loaders.push(self.create_loader(&matched_route));
+            loaders.push(self.create_loader(Some(&matched_route)));
+
+            // add index route if it exists
+            if let Some(index_route) = self.children.iter().find(|route| route.is_index()) {
+                loaders.push(index_route.create_loader(None))
+            }
+
             return Ok(loaders);
         }
 
@@ -176,6 +209,38 @@ where
             locale,
             parts.join("/")
         )))
+    }
+
+    fn create_loader(&self, matched_route: Option<&str>) -> RouteLoader {
+        let matched_route = matched_route.map(String::from);
+        RouteLoader {
+            route_name: self.route_name(),
+            matched_route: matched_route.clone(),
+            loader: Box::new(move |locale, path, params, query| {
+                let locale = locale.to_string();
+                let path = path.to_string();
+                let params = T::Params::from_map(params);
+                let query = T::Query::from_map(query);
+
+                // if Params or Query can't be serialized, either handle error or pass it up
+                match (params, query) {
+                    (Ok(params), Ok(query)) => {
+                        let matched_route = matched_route.clone();
+                        Box::pin(async move {
+                            match T::loader(&locale, &path, params, query).await {
+                                None => {
+                                    Err(RouterError::NotFound(matched_route.unwrap_or_default()))
+                                }
+                                Some(data) => Ok(Box::new(data) as Box<dyn View>),
+                            }
+                        })
+                    }
+                    (Ok(_), Err(e)) => Box::pin(async { Err(e) }),
+                    (Err(e), _) => Box::pin(async { Err(e) }),
+                }
+            }),
+            error_boundary: Box::new(|err| T::error_boundary(err)),
+        }
     }
 }
 
@@ -191,41 +256,6 @@ fn part_matches(
         true
     } else {
         false
-    }
-}
-
-impl<T> Route<T>
-where
-    T: Loader + View + Send + Sync + 'static,
-{
-    fn create_loader(&self, matched_route: &str) -> RouteLoader {
-        let matched_route = matched_route.to_string();
-        RouteLoader {
-            route_name: self.route_name(),
-            matched_route: matched_route.to_string(),
-            loader: Box::new(move |locale, path, params, query| {
-                let locale = locale.to_string();
-                let path = path.to_string();
-                let params = T::Params::from_map(params);
-                let query = T::Query::from_map(query);
-
-                // if Params or Query can't be serialized, either handle error or pass it up
-                match (params, query) {
-                    (Ok(params), Ok(query)) => {
-                        let matched_route = matched_route.to_string();
-                        Box::pin(async move {
-                            match T::loader(&locale, &path, params, query).await {
-                                None => Err(RouterError::NotFound(matched_route)),
-                                Some(data) => Ok(Box::new(data) as Box<dyn View>),
-                            }
-                        })
-                    }
-                    (Ok(_), Err(e)) => Box::pin(async { Err(e) }),
-                    (Err(e), _) => Box::pin(async { Err(e) }),
-                }
-            }),
-            error_boundary: Box::new(|err| T::error_boundary(err)),
-        }
     }
 }
 

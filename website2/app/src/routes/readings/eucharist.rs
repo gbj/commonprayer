@@ -153,7 +153,7 @@ impl View for EucharistView {
             <>
                 <section>
                     // Name of Day
-                    {title_view(&self.locale, &self.observed.observance, &self.observed.localized_name)}
+                    <h1>{title_view(&self.locale, &self.observed.observance, &self.observed.localized_name)}</h1>
 
                     // Collect of the Day
                     {self.observed.collects.as_ref().map(|doc| view! {

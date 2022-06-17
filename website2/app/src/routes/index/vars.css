@@ -22,7 +22,7 @@
 	/* Navigation menu settings */
 	--nav-button-height: 1.5rem;
 	--menu-border-color: #f0f0f0;
-	--nav-link-hover: #f0f0f0;
+	--nav-link-hover: var(--season);
 
 	/* Display Settings */
 	--response-weight: bold;
@@ -53,11 +53,13 @@
 	--source-link-background: #d9d9d9;
 
 	/* UI elements */
-	--ui-font: 1rem ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--ui-font: lighter 1.1rem "Gill Sans", "Gill Sans MT", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--ui-box-shadow: 0 0 3px rgba(0, 0, 0, 0.19);
 
 	/* Seasonal Colors */
-	--season-lightest: #f0f0f0;
-	--season-light: #e0e0e0;
+	--season-lightest: #fafafa;
+	--season-light: #eaeaea;
+	--season: #e0e0e0;
 	--season-text: #101010;
 }
 
@@ -154,4 +156,10 @@ body.dark-mode-dark {
 
 	/* Source links */
 	--source-link-background: #494949;
+}
+
+.OrdinaryTime {
+	--season: #409940;
+	--season-light: #acdcac;
+	--season-lightest: #def1de;
 }

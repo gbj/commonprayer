@@ -44,20 +44,16 @@ pub fn readings_settings_form(
 pub fn title_view(locale: &str, observance: &LiturgicalDayId, localized_name: &str) -> Node {
     match observance {
         LiturgicalDayId::Feast(feast) => view! {
-            <h1>
-                <a href={&format!("/{}/holy-day/{:#?}", locale, feast)}>{localized_name}</a>
-            </h1>
+            <a href={&format!("/{}/holy-day/{:#?}", locale, feast)}>{localized_name}</a>
         },
         LiturgicalDayId::TransferredFeast(feast) => view! {
-            <h1>
+            <span>
                 <a href={&format!("/{}/holy-day/{:#?}", locale, feast)}>{localized_name}</a>
                 <br/>
                 {t!("daily_readings.transferred")}
-            </h1>
+            </span>
         },
-        _ => view! {
-            <h1>{localized_name}</h1>
-        },
+        _ => text(localized_name),
     }
 }
 

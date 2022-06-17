@@ -1,10 +1,10 @@
 /* Applies only to header of first matched route */
 div[data-route=""] > div > header {
+	background: var(--season-lightest);
 	text-align: center;
 	/* Floats along the top of the screen */
 	position: sticky;
 	top: 0;
-	background: var(--background);
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
@@ -15,7 +15,7 @@ div[data-route=""] > div > header {
 }
 
 div[data-route=""] > div > header h1 {
-	font-variant: small-caps;
+	font: var(--ui-font);
 	font-size: 1.25rem;
 	margin: auto;
 	/* Overflows into ellipsis */

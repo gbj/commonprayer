@@ -477,7 +477,7 @@ body > header {
 }
 
 .menu .menu-content li:not(:first-of-type):hover {
-  background: var(--nav-link-hover);
+  background: var(--season);
 }
 
 .menu .menu-content h1 {

@@ -40,24 +40,6 @@ h2.day-name {
   visibility: hidden;
 }
 
-.reading-link-table {
-  margin-top: 1rem;
-  width: 100%;
-}
-
-.reading-link-table tr {
-  vertical-align: top;
-}
-
-.reading-link-table td {
-  text-align: center;
-}
-
-.reading-link-table ul {
-  list-style-type: none;
-  padding: 0;
-}
-
 .redirect-links {
   margin-top: 2rem;
   text-align: center;

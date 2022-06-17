@@ -1,4 +1,5 @@
 [data-route=""] {
+    background: var(--season-lightest);
     display: flex;
     width: 100vw;
     --menu-width: 0;
@@ -9,7 +10,7 @@
 }
 
 nav#main-menu {
-    background: var(--season-lightest);
+    background: var(--season-light);
     z-index: 300;
     padding: 0 0.5rem;
     position: fixed;
@@ -30,12 +31,7 @@ nav#main-menu li:not(:first-of-type) {
     font: var(--ui-font);
 }
 
-.menu .menu-content {
-    background: var(--season-lightest);
-}
-
 .menu .menu-content ul {
-    background: var(--season-lightest);
     list-style-type: none;
     margin: 0 0 0 1rem;
     padding: 0;
@@ -57,7 +53,7 @@ nav#main-menu li:not(:first-of-type) {
     margin: 0.5rem 0;
 }
 .menu .menu-content li:not(:first-of-type):hover {
-    background: var(--nav-link-hover);
+    background: var(--season);
 }
 
 .menu .menu-content h1 {
@@ -74,7 +70,7 @@ nav#main-menu li:not(:first-of-type) {
 }
 
 .menu a.current {
-    background: var(--season-light);
+    background: var(--season);
     color: var(--season-text);
 }
 @media(max-width: 999px) {

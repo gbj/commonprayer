@@ -25,6 +25,9 @@ pub fn menu(locale: &str, current_location: &str) -> Node {
                     <noscript><input type="submit" value={t!("search")}/></noscript>
                 </form>
                 <li>
+                    {nav_link(current_location, locale, "/contents", t!("toc.table_of_contents"))}
+                </li>
+                <li>
                     {nav_link(current_location, locale, "/calendar", t!("menu.calendar"))}
                 </li>
                 <li>

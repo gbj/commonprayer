@@ -133,6 +133,7 @@ impl Loader for OfficeView {
             &evening_readings,
             &morning_psalms,
             &evening_psalms,
+            "".into(),
         );
 
         let summary = if evening {
@@ -326,7 +327,7 @@ impl OfficeView {
             <ul class="black-letter-days">{black_letter_days}</ul>
         };
 
-        let reading_links = self.reading_links_view();
+        let reading_links = self.reading_links.view(&self.locale);
 
         let collects = self
             .summary
@@ -352,10 +353,36 @@ impl OfficeView {
             .chain(collects)
             .collect::<Vec<_>>()
     }
+}
 
-    fn reading_links_view(&self) -> Node {
-        let readings_different =
-            self.reading_links.morning_readings != self.reading_links.evening_readings;
+#[derive(Clone, Debug, PartialEq)]
+pub struct ReadingLinks {
+    morning_psalms: Vec<String>,
+    evening_psalms: Vec<String>,
+    morning_readings: Vec<String>,
+    evening_readings: Vec<String>,
+    base_url: String,
+}
+
+pub fn reading_links(
+    morning_readings: &[Reading],
+    evening_readings: &[Reading],
+    morning_psalms: &[Psalm],
+    evening_psalms: &[Psalm],
+    base_url: String,
+) -> ReadingLinks {
+    ReadingLinks {
+        morning_psalms: psalm_links(morning_psalms),
+        evening_psalms: psalm_links(evening_psalms),
+        morning_readings: lectionary_reading_links(morning_readings),
+        evening_readings: lectionary_reading_links(evening_readings),
+        base_url,
+    }
+}
+
+impl WebView for ReadingLinks {
+    fn view(&self, locale: &str) -> Node {
+        let readings_different = self.morning_readings != self.evening_readings;
 
         view! {
             <table class="reading-link-table">
@@ -365,19 +392,19 @@ impl OfficeView {
                 </tr>
                 <tr>
                     <td>
-                        {self.psalm_links_view(&self.reading_links.morning_psalms, false)}
+                        {self.psalm_links_view(&self.morning_psalms, false)}
                     </td>
                     <td>
-                        {self.psalm_links_view(&self.reading_links.evening_psalms, true)}
+                        {self.psalm_links_view(&self.evening_psalms, true)}
                     </td>
                 </tr>
                 <tr>
                     <td colspan={if readings_different { "1" } else { "2" } }>
-                        {self.reading_links_reading_view(&self.reading_links.morning_readings, false)}
+                        {self.reading_links_reading_view(&self.morning_readings, false)}
                     </td>
                     <td>
                         {if readings_different {
-                            Some(self.reading_links_reading_view(&self.reading_links.evening_readings, true))
+                            Some(self.reading_links_reading_view(&self.evening_readings, true))
                         } else {
                             None
                         }}
@@ -386,7 +413,9 @@ impl OfficeView {
             </table>
         }
     }
+}
 
+impl ReadingLinks {
     fn reading_links_reading_view(&self, readings: &[String], evening: bool) -> Node {
         let reading_links = readings
             .iter()
@@ -420,27 +449,14 @@ impl OfficeView {
             <ul>{psalm_links}</ul>
         }
     }
-}
 
-#[derive(Clone, Debug, PartialEq)]
-pub struct ReadingLinks {
-    morning_psalms: Vec<String>,
-    evening_psalms: Vec<String>,
-    morning_readings: Vec<String>,
-    evening_readings: Vec<String>,
-}
-
-pub fn reading_links(
-    morning_readings: &[Reading],
-    evening_readings: &[Reading],
-    morning_psalms: &[Psalm],
-    evening_psalms: &[Psalm],
-) -> ReadingLinks {
-    ReadingLinks {
-        morning_psalms: psalm_links(morning_psalms),
-        evening_psalms: psalm_links(evening_psalms),
-        morning_readings: lectionary_reading_links(morning_readings),
-        evening_readings: lectionary_reading_links(evening_readings),
+    fn link_with_citation(&self, citation: &str, evening: bool) -> String {
+        format!(
+            "{}{}#{}",
+            self.base_url,
+            if evening { "&time=evening" } else { "" },
+            citation
+        )
     }
 }
 
