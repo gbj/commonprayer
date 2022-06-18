@@ -95,7 +95,7 @@ async fn main() -> std::io::Result<()> {
                     .service(Files::new("", &format!("{}/app/static", *PROJECT_ROOT))),
             )
             .default_service(
-                web::route().to(async move |req: HttpRequest, body: web::Bytes| {
+                web::route().to(async move |req: HttpRequest, body: web::Bytes, multipart: actix_multipart::Multipart| {
                     let req = RequestCompat::new(req, body.as_ref().to_vec());
                     let req = Arc::new(req) as Arc<dyn Request>;
                     if req.method() == http::Method::POST {
