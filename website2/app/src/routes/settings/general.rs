@@ -9,10 +9,10 @@ use super::Settings;
 
 #[derive(Serialize, Deserialize, Params)]
 pub struct GeneralSettings {
-    liturgy_version: Version,
-    use_lff: bool,
-    psalm_cycle: Lectionaries,
-    bible_version: Version,
+    pub liturgy_version: Version,
+    pub use_lff: bool,
+    pub psalm_cycle: Lectionaries,
+    pub bible_version: Version,
 }
 
 impl Settings for GeneralSettings {

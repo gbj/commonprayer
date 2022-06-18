@@ -11,7 +11,10 @@ use liturgy::Slug;
 
 use crate::utils::time::{current_hour, today};
 
-use super::readings::office::reading_links;
+use super::{
+    readings::office::reading_links,
+    settings::{GeneralSettings, Settings},
+};
 
 pub struct HomePage {
     locale: String,
@@ -21,6 +24,7 @@ pub struct HomePage {
     localized_day_name: String,
     daily_summary: DailySummary,
     eucharistic_summary: EucharisticLectionarySummary,
+    general_settings: GeneralSettings,
 }
 
 #[async_trait(?Send)]
@@ -34,7 +38,13 @@ impl Loader for HomePage {
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-        let calendar = LFF2018_CALENDAR; // TODO can set using a preference
+        let general_settings = GeneralSettings::get_all(&req);
+
+        let calendar = if general_settings.use_lff {
+            LFF2018_CALENDAR
+        } else {
+            BCP1979_CALENDAR
+        };
         let date = today();
         let hour = current_hour();
         let day = calendar.liturgical_day(date, hour >= 16);
@@ -43,6 +53,7 @@ impl Loader for HomePage {
         let localized_day_name =
             summary::localize_day_name(&day, &day.observed, &calendar, language);
         let season = calendar.season(&day);
+
         Some(Self {
             locale: locale.to_string(),
             language,
@@ -53,6 +64,7 @@ impl Loader for HomePage {
             eucharistic_summary: CommonPrayer::eucharistic_lectionary_summary(
                 &date, language, None,
             ),
+            general_settings,
         })
     }
 }
@@ -120,7 +132,12 @@ impl HomePage {
             &self.daily_summary.evening.observed.daily_office_readings,
             &self.daily_summary.morning.observed.daily_office_psalms,
             &self.daily_summary.evening.observed.daily_office_psalms,
-            "".into(),
+            format!(
+                "/{}/readings/office/?date={}&version={:?}",
+                self.locale,
+                self.day.date.to_padded_string(),
+                self.general_settings.bible_version
+            ),
         );
 
         view! {
@@ -146,9 +163,10 @@ impl HomePage {
 
     fn office_link(&self, slug: Slug) -> Node {
         let href = format!(
-            "/{}/document/office/{}?date={}",
+            "/{}/document/office/{}/{:?}/?date={}",
             self.locale,
             slug,
+            self.general_settings.liturgy_version,
             self.day.date.to_padded_string()
         );
         view! {
