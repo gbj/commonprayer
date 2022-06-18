@@ -95,7 +95,6 @@ impl View for Index {
         view! {
             <div class="error-boundary">
                 <style>{include_str!("404.css")}</style>
-                <header><h1>{t!("common_prayer")}</h1></header>
                 <main>
                     <h1>{t!("page_404.uh_oh")}</h1>
                     <p>{t!("page_404.explanation")}</p>

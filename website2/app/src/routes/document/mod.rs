@@ -25,6 +25,8 @@ mod section;
 
 pub use export_links::*;
 
+use super::settings::{DisplaySettings, Settings};
+
 #[derive(Debug)]
 pub enum DocumentPageType {
     Category {
@@ -66,6 +68,7 @@ pub struct DocumentPage {
     pub path: String,
     pub slug: SlugPath,
     pub date: String,
+    pub display_settings: DisplaySettings,
 }
 
 #[derive(Params)]
@@ -99,6 +102,8 @@ impl Loader for DocumentPage {
                 slug_parts.push(slug);
             }
         }
+
+        let display_settings = DisplaySettings::get_all(&req);
 
         let slug = SlugPath::from(slug_parts);
 
@@ -249,6 +254,7 @@ impl Loader for DocumentPage {
                     path: req.path().to_string(),
                     slug: slug.clone(),
                     date: query.date.map(|date| date.to_string()).unwrap_or_default(),
+                    display_settings,
                 })
             })
     }
@@ -305,7 +311,7 @@ impl View for DocumentPage {
             } => parallels_body(&self.locale, &self.slug, label, intro, parallels),
         };
         view! {
-            <div>{children}</div>
+            <div class={self.display_settings.to_class()}>{children}</div>
         }
     }
 }

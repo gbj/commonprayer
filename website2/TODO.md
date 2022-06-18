@@ -4,10 +4,12 @@
 	- [ ] St. Mark readings + collect
 - [ ] From Pages to Nested Routes
 	- [ ] Auth and settings
+		- [x] Cookie Storage for settings
+		- [ ] Actual auth system to store settings for users
 	- [ ] Migrate website to this system
 		-  Remaining pages
 			- [ ] Settings
-				- [ ] Actually apply General + Display Settings
+				- [x] Actually apply General + Display Settings
 				- [ ] Liturgy settings
 			- [ ] Daily Office
 			- [ ] Eucharistic Readings

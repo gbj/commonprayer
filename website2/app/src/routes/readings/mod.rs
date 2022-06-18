@@ -3,16 +3,19 @@ pub mod office;
 
 use calendar::Date;
 use language::Language;
-use leptos2::*;
+use leptos2::{cookie::Display, *};
 use liturgy::Version;
 
 use crate::{utils::time::today, views::bible_version_select_options};
+
+use super::settings::{DisplaySettings, Settings};
 
 pub struct ReadingsView {
     pub locale: String,
     pub date: Date,
     pub version: Version,
     pub path: String,
+    pub display_settings: DisplaySettings,
 }
 
 #[derive(Params)]
@@ -41,11 +44,15 @@ impl Loader for ReadingsView {
             .version
             .filter(Version::is_bible_translation)
             .unwrap_or(Version::NRSV);
+
+        let display_settings = DisplaySettings::get_all(&req);
+
         Some(Self {
             locale: locale.to_string(),
             date,
             version,
             path: req.path().to_string(),
+            display_settings,
         })
     }
 }
@@ -73,7 +80,7 @@ impl View for ReadingsView {
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         view! {
-            <div>
+            <div class={self.display_settings.to_class()}>
                 <header><h1>{t!("toc.readings")}</h1></header>
                 <main>
                     <form>

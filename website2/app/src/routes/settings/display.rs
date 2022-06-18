@@ -3,7 +3,7 @@ use leptos2::*;
 
 use super::{dark_mode::DarkMode, Settings};
 
-#[derive(Serialize, Deserialize, Params, Default)]
+#[derive(Serialize, Deserialize, Params, Default, Debug)]
 pub struct DisplaySettings {
     pub dark_mode: DarkMode,
     pub psalm_verse_numbers: bool,
@@ -13,6 +13,24 @@ pub struct DisplaySettings {
 impl Settings for DisplaySettings {
     fn cookie_name() -> &'static str {
         "DisplaySettings"
+    }
+}
+
+impl DisplaySettings {
+    pub fn to_class(&self) -> String {
+        format!(
+            "{} {}",
+            if self.psalm_verse_numbers {
+                ""
+            } else {
+                "psalm-verses-hidden"
+            },
+            if self.bible_verse_numbers {
+                ""
+            } else {
+                "bible-verses-hidden"
+            }
+        )
     }
 }
 

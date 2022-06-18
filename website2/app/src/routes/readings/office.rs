@@ -302,11 +302,15 @@ impl OfficeView {
     }
 
     fn observance_header_view(&self) -> Vec<Node> {
-        let title = title_view(
-            &self.locale,
-            &self.summary.observance,
-            &self.summary.localized_name,
-        );
+        let title = view! {
+            <h2>
+                {title_view(
+                    &self.locale,
+                    &self.summary.observance,
+                    &self.summary.localized_name,
+                )}
+            </h2>
+        };
 
         let black_letter_days = if self.use_lff {
             &self.summary.lff_black_letter_days

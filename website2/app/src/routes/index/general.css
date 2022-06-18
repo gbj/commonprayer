@@ -61,7 +61,7 @@ select {
 }
 
 /* Matches only the first div */
-.app-shell > div > main {
+.app-shell > div > main, .app-shell > div > .error-boundary {
     display: block;
     margin: auto;
     max-width: calc(100vw - 5rem);
