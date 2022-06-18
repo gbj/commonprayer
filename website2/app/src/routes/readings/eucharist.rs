@@ -150,7 +150,7 @@ impl View for EucharistView {
         };
 
         view! {
-            <>
+            <div>
                 <section>
                     // Name of Day
                     <h1>{title_view(&self.locale, &self.observed.observance, &self.observed.localized_name)}</h1>
@@ -240,7 +240,7 @@ impl View for EucharistView {
                     }).unwrap_or_default()}
                     {no_readings_link}
                 </section>
-            </>
+            </div>
         }
     }
 }

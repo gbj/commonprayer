@@ -3,7 +3,7 @@ use super::{DocumentPage, DocumentPageQuery, ExportLinks};
 use crate::views::document::DocumentView;
 use crate::{
     components::DatePicker,
-    views::{side_menu, Header, Icon},
+    views::{Header, Icon},
     WebView,
 };
 use leptos2::*;
@@ -131,7 +131,7 @@ pub fn document_body(
     let display_settings_menu = view! { <pre>"TODO display_settings_menu" </pre> };
     let liturgy_preference_menu = view! { <pre>"TODO liturgy_preference_menu" </pre> };
 
-    let side_menu = side_menu(
+    /* let side_menu = side_menu(
         Icon::Settings,
         view! {
             <div>
@@ -143,7 +143,7 @@ pub fn document_body(
                 {liturgy_preference_menu}
             </div>
         },
-    );
+    ); */
 
     let viewer = DocumentView {
         doc: document,
@@ -152,7 +152,8 @@ pub fn document_body(
 
     view! {
         <>
-            {Header::new_with_side_menu_and_additional_buttons(locale, &document.label.clone().unwrap_or_default(), side_menu, vec![export_button]).to_node()}
+            <header><h1>{document.label.clone().unwrap_or_default()}</h1></header>
+            //{Header::new_with_side_menu_and_additional_buttons(locale, &document.label.clone().unwrap_or_default(), side_menu, vec![export_button]).to_node()}
             <main
                 // TODO display settings class
             >

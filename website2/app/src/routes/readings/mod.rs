@@ -73,7 +73,7 @@ impl View for ReadingsView {
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         view! {
-            <>
+            <div>
                 <header><h1>{t!("toc.readings")}</h1></header>
                 <main>
                     <form>
@@ -111,7 +111,7 @@ impl View for ReadingsView {
 
                     {nested_view.unwrap_or_default()}
                 </main>
-            </>
+            </div>
         }
     }
 }

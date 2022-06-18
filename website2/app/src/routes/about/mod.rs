@@ -43,7 +43,7 @@ impl View for About {
         let markdown_block = Element::new("article").inner_html(self.markdown_html.clone());
 
         view! {
-            <>
+            <div>
                 <header><h1>{t!("menu.about")}</h1></header>
                 <main>
                     <h2>{t!("about.title")}</h2>
@@ -54,7 +54,7 @@ impl View for About {
                         <a href="mailto:greg@venite.app" class="email" target="_blank"><span>{t!("about.email")}</span></a>
                     </div>
                 </main>
-            </>
+            </div>
         }
     }
 }

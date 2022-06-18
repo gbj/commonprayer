@@ -19,7 +19,7 @@ where
 
     fn route_name(&self) -> &'static str;
 
-    fn error_boundary(&self, error: RouterError) -> Vec<Node>;
+    fn error_boundary(&self, error: RouterError) -> Body;
 
     fn is_index(&self) -> bool;
 
@@ -47,7 +47,7 @@ pub(crate) struct RouteLoader {
             ) -> Pin<Box<dyn Future<Output = ActionResponse>>>,
         >,
     >,
-    pub(crate) error_boundary: Box<dyn Fn(RouterError) -> Vec<Node>>,
+    pub(crate) error_boundary: Box<dyn Fn(RouterError) -> Body>,
 }
 
 pub struct Route<T>
@@ -104,7 +104,7 @@ where
         std::any::type_name::<T>()
     }
 
-    fn error_boundary(&self, error: RouterError) -> Vec<Node> {
+    fn error_boundary(&self, error: RouterError) -> Body {
         T::error_boundary(error)
     }
 

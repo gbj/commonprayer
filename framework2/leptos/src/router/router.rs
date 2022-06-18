@@ -1,6 +1,6 @@
 use std::{collections::HashMap, sync::Arc};
 
-use crate::{self as leptos2, ActionResponse, Element, Request};
+use crate::{self as leptos2, ActionResponse, Attribute, Body, Element, Request};
 use futures::future::join_all;
 use leptos_macro2::view;
 
@@ -62,24 +62,28 @@ where
                                 acc.meta.extend(curr.meta());
                                 acc.styles.extend(curr.styles());
                                 Box::new(move |nested_view| curr.body(nested_view))
-                                    as Box<dyn FnOnce(Option<Node>) -> Vec<Node>>
+                                    as Box<dyn FnOnce(Option<Node>) -> Body>
                             }
                             Err(e) => {
                                 let error_boundary = (loaders[loader_idx].error_boundary)(e);
                                 Box::new(move |_| error_boundary)
-                                    as Box<dyn FnOnce(Option<Node>) -> Vec<Node>>
+                                    as Box<dyn FnOnce(Option<Node>) -> Body>
                             }
                         };
 
                         let matched_route = (&loaders[loader_idx].matched_route).clone();
                         let locale = locale.to_string();
+                        let route_name = loaders[loader_idx].route_name.to_string();
 
                         acc.body.push(Box::new(move |nested_view| {
-                            view! {
-                                <div data-locale={locale} data-route={matched_route}>
-                                    {(body)(nested_view)}
-                                </div>
+                            let mut node = (body)(nested_view);
+                            if let Node::Element(el) = &mut node {
+                                el.attrs.push(Attribute::Attribute("data-locale".into(), Some(locale)));
+                                el.attrs.push(Attribute::Attribute("data-route".into(), matched_route));
+                            } else {
+                                crate::debug_warn(&format!("[WARNING] {}.body() should return an Element, not a Text node.", route_name));
                             }
+                            node
                         }));
 
                         acc

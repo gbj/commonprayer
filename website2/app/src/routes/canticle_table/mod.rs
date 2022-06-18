@@ -44,7 +44,7 @@ impl View for CanticleTableView {
 
     fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
         view! {
-            <>
+            <div>
                 <header><h1>{t!("menu.canticle_table")}</h1></header>
                 <main>
                     <div class="toggle-links">
@@ -57,7 +57,7 @@ impl View for CanticleTableView {
                         eow_table(&self.locale)
                     }}
                 </main>
-            </>
+            </div>
         }
     }
 }

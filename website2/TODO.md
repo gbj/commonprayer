@@ -7,8 +7,8 @@
 	- [ ] Migrate website to this system
 		-  Remaining pages
 			- [ ] Settings
-				- [ ] Abstract cookie-setting into a leptos::Storage module (for client-only version, can use localStorage)
-				- [ ] Display Settings
+				- [ ] Actually apply General + Display Settings
+				- [ ] Liturgy settings
 			- [ ] Daily Office
 			- [ ] Eucharistic Readings
 				- [ ] Alternate observance

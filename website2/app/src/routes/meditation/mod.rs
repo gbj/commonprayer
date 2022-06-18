@@ -31,13 +31,13 @@ impl View for MeditationView {
 
     fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
         view! {
-            <>
+            <div>
                 <header><h1>{t!("meditation.title")}</h1></header>
                 <main>
                     <MeditationTimer/>
                     <noscript>{t!("meditation.no_script")}</noscript>
                 </main>
-            </>
+            </div>
         }
     }
 }

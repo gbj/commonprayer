@@ -101,7 +101,7 @@ impl View for HymnalView {
         ]
     }
 
-    fn body(self: Box<Self>, nested_view: Option<Node>) -> Vec<Node> {
+    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         /*         let results_query_status = if self.search_results.is_empty() {
                    FetchStatus::Idle
                } else {
@@ -145,7 +145,7 @@ impl View for HymnalView {
         };
 
         view! {
-            <>
+            <div>
                 //{Header::new(&self.locale, &t!("menu.hymnal")).to_node()}
                 <header><h1>{t!("menu.hymnal")}</h1></header>
                 <main>
@@ -180,7 +180,7 @@ impl View for HymnalView {
                     >
                     </HymnalSearch> */
                 </main>
-            </>
+            </div>
         }
     }
 }

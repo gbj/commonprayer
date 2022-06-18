@@ -34,7 +34,7 @@ impl View for ContentsView {
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         view! {
-            <>
+            <div>
                 <header><h1>{t!("toc.table_of_contents")}</h1></header>
                 <main>
                     <ul class="toc-menu">
@@ -149,7 +149,7 @@ impl View for ContentsView {
                         </li>
                     </ul>
                 </main>
-            </>
+            </div>
         }
     }
 }

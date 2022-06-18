@@ -1,12 +1,15 @@
 use std::sync::Arc;
 
 use leptos2::*;
+use serde::de::DeserializeOwned;
 
+mod dark_mode;
 mod display;
 mod general;
 mod liturgy;
 
 pub use self::liturgy::*;
+pub use dark_mode::DarkMode;
 pub use display::*;
 pub use general::*;
 
@@ -40,14 +43,14 @@ impl View for SettingsView {
 
     fn styles(&self) -> Styles {
         vec![
-            include_str!("../../styles/toggle-links.css").into(),
             include_str!("settings.css").into(),
+            include_str!("../../styles/toggle-links.css").into(),
         ]
     }
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         view! {
-            <>
+            <div>
                 <header><h1>{t!("settings.title")}</h1></header>
                 <main>
                     <div class="toggle-links">
@@ -72,7 +75,51 @@ impl View for SettingsView {
                     </div>
                     {nested_view}
                 </main>
-            </>
+            </div>
         }
+    }
+}
+
+pub trait Settings
+where
+    Self: Serialize + DeserializeOwned + Default,
+{
+    fn cookie_name() -> &'static str;
+
+    fn get_all(req: &Arc<dyn Request>) -> Self {
+        let headers = req.headers();
+        let settings = headers
+            .cookies()
+            .filter_map(|cookie| match cookie {
+                Ok(cookie) => Some(cookie),
+                Err(e) => {
+                    eprintln!("invalid cookie: {:#?}", e);
+                    None
+                }
+            })
+            .find(|cookie| cookie.name() == Self::cookie_name())
+            .and_then(|cookie| serde_json::from_str(cookie.value()).ok());
+        settings.unwrap_or_default()
+    }
+
+    fn get<T>(req: &Arc<dyn Request>, cb: fn(Self) -> T) -> T {
+        let settings = Self::get_all(req);
+        (cb)(settings)
+    }
+
+    fn set<T>(req: &Arc<dyn Request>, res: &mut http::Response<T>, settings: Self) {
+        let settings_cookie = cookie::Cookie::build(
+            Self::cookie_name(),
+            serde_json::to_string(&settings).unwrap(),
+        )
+        .path("/")
+        .secure(true)
+        .http_only(true)
+        .max_age(cookie::time::Duration::days(365_000))
+        .finish();
+        res.headers_mut().insert(
+            "Set-Cookie",
+            http::HeaderValue::from_str(&settings_cookie.to_string()).unwrap(),
+        );
     }
 }

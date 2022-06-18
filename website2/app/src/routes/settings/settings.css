@@ -20,3 +20,11 @@ footer.success {
 		background: var(--color-success-background);
 		border-radius: 3px;
 }
+
+fieldset {
+	border: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}

@@ -101,7 +101,7 @@ impl View for CalendarView {
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         // Main view
         view! {
-            <>
+            <div>
                 <header>
                     <span></span> // Exists only to balance span with buttons
                     <h1>{t!("menu.calendar")}</h1>
@@ -121,7 +121,7 @@ impl View for CalendarView {
 
                     {self.calendar_view(&self.locale)}
                 </main>
-            </>
+            </div>
         }
     }
 }

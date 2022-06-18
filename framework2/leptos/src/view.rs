@@ -9,7 +9,7 @@ use crate::{Node, Request, RouterError};
 
 pub type MetaTags = Vec<(String, String)>;
 pub type Styles = Vec<String>;
-pub type Body = Vec<Node>;
+pub type Body = Node;
 
 #[async_trait(?Send)]
 pub trait Loader
@@ -56,12 +56,10 @@ pub trait View {
         Self: Sized,
     {
         view! {
-            <>
-                <main class="error-boundary">
-                    <h1>"Error!"</h1>
-                    <pre class="error">{error.to_string()}</pre>
-                </main>
-            </>
+            <main class="error-boundary">
+                <h1>"Error!"</h1>
+                <pre class="error">{error.to_string()}</pre>
+            </main>
         }
     }
 }

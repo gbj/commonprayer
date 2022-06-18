@@ -73,14 +73,14 @@ impl View for HomePage {
 
     fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
         view! {
-            <>
+            <div>
                 <header><h1>{t!("common_prayer")}</h1></header>
                 <main>
                     <section class="cards">
                         {self.daily_office_card(self.day.evening, true)}
                     </section>
                 </main>
-            </>
+            </div>
         }
     }
 }

@@ -1,5 +1,7 @@
 use leptos2::*;
 
+use crate::routes::settings::DarkMode;
+
 use super::Icon;
 
 #[derive(Copy, Clone, Debug, Hash, PartialEq, Eq)]
@@ -65,10 +67,6 @@ fn nav_link(current_url: &str, locale: &str, href: &str, label: String) -> Node 
     view! {
         <a href={href} class:current={active}>{label}</a>
     }
-}
-
-pub fn side_menu(icon: Icon, content: Node) -> Node {
-    build_menu("side-menu", "right", Button::Image(icon), content)
 }
 
 fn build_menu(id: &str, side: &'static str, button: Button, content: Node) -> Node {

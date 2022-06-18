@@ -210,7 +210,7 @@ impl View for OfficeView {
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         view! {
-            <>
+            <div>
                 <section>
                     // Controls
                     <form>
@@ -258,7 +258,7 @@ impl View for OfficeView {
                     <h2>{t!("daily_readings.daily_office_readings")}</h2>
                     {async_readings_view(&self.locale, self.readings, self.version)}
                 </section>
-            </>
+            </div>
         }
     }
 }

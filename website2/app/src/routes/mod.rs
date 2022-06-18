@@ -9,7 +9,7 @@ mod hymnal;
 mod index;
 pub mod meditation;
 mod readings;
-mod settings;
+pub mod settings;
 pub use index::Index;
 
 use leptos2::*;
@@ -49,8 +49,10 @@ pub fn router() -> Router<Index> {
             .child(Route::<HymnView>::new("hymn/:hymnal/:number"))
             .child(Route::<HymnalView>::new("hymnal").child(Route::<HymnalView>::new(":hymnal")))
             .child(
-                Route::<SettingsView>::new("settings").child(Route::<GeneralSettingsView>::new("")), //.child(Route::<DisplaySettingsView>::new("display"))
-                                                                                                     //.child(Route::<LiturgySettingsView>::new(":liturgy")),
+                Route::<SettingsView>::new("settings")
+                    .child(Route::<GeneralSettingsView>::new(""))
+                    .child(Route::<DisplaySettingsView>::new("display")),
+                //.child(Route::<LiturgySettingsView>::new(":liturgy")),
             ),
         &["en"],
     )

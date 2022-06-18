@@ -1,6 +1,7 @@
 /* Applies only to header of first matched route */
-div[data-route=""] > div > header {
+.app-shell > div > header {
 	background: var(--season-lightest);
+	color: var(--color);
 	text-align: center;
 	/* Floats along the top of the screen */
 	position: sticky;
@@ -14,7 +15,7 @@ div[data-route=""] > div > header {
 	width: calc(100% - 3rem);
 }
 
-div[data-route=""] > div > header h1 {
+.app-shell > div > header h1 {
 	font: var(--ui-font);
 	font-size: 1.25rem;
 	margin: auto;
@@ -25,16 +26,16 @@ div[data-route=""] > div > header h1 {
 	max-width: calc(100vw - 6rem);
 }
 
-div[data-route=""] > div > header button {
+.app-shell > div > header button {
 	background: var(--background);
 	border: none;
 	display: block;
 }
 
-div[data-route=""] > div > header button:hover {
+.app-shell > div > header button:hover {
 	cursor: pointer;
 }
 
-div[data-route=""] > div > main * {
+.app-shell > div > main * {
 	scroll-margin-top: 3.5rem;
 }

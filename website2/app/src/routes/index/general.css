@@ -61,7 +61,7 @@ select {
 }
 
 /* Matches only the first div */
-body > div > div > main {
+.app-shell > div > main {
     display: block;
     margin: auto;
     max-width: calc(100vw - 5rem);

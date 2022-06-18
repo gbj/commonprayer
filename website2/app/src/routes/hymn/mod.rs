@@ -55,7 +55,7 @@ impl View for HymnView {
         vec![include_str!("hymn.css").into()]
     }
 
-    fn body(self: Box<Self>, nested_view: Option<Node>) -> Vec<Node> {
+    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         let hymnal = &self.hymnal;
         let hymn = &self.hymn;
 
@@ -71,7 +71,7 @@ impl View for HymnView {
         );
 
         view! {
-            <>
+            <div>
                 <header><h1>{format!("{} {}", hymn.number, hymn.title)}</h1></header>
                 <main>
                     <h2>
@@ -131,7 +131,7 @@ impl View for HymnView {
                         {t!("hymnal.copyright_footer")}
                     </footer>
                 </main>
-            </>
+            </div>
         }
     }
 }

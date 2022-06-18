@@ -279,7 +279,7 @@ impl View for DocumentPage {
     }
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> view::Body {
-        match &self.page_type {
+        let children = match &self.page_type {
             DocumentPageType::Category { label, contents } => {
                 category_body(&self.locale, &self.slug, label, contents)
             }
@@ -303,6 +303,9 @@ impl View for DocumentPage {
                 intro,
                 parallels,
             } => parallels_body(&self.locale, &self.slug, label, intro, parallels),
+        };
+        view! {
+            <div>{children}</div>
         }
     }
 }

@@ -5,12 +5,20 @@ use http::{Response, StatusCode};
 use leptos2::*;
 use liturgy::{Lectionaries, Version};
 
+use super::Settings;
+
 #[derive(Serialize, Deserialize, Params)]
 pub struct GeneralSettings {
     liturgy_version: Version,
     use_lff: bool,
     psalm_cycle: Lectionaries,
     bible_version: Version,
+}
+
+impl Settings for GeneralSettings {
+    fn cookie_name() -> &'static str {
+        "GeneralSettings"
+    }
 }
 
 impl Default for GeneralSettings {
@@ -30,14 +38,14 @@ pub struct GeneralSettingsView {
 }
 
 #[derive(Params)]
-pub struct GeneralSettingsParams {
+pub struct GeneralSettingsQuery {
     success: Option<String>,
 }
 
 #[async_trait(?Send)]
 impl Loader for GeneralSettingsView {
     type Params = ();
-    type Query = GeneralSettingsParams;
+    type Query = GeneralSettingsQuery;
 
     async fn loader(
         locale: &str,
@@ -45,19 +53,7 @@ impl Loader for GeneralSettingsView {
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-        let headers = req.headers();
-        let settings = headers
-            .cookies()
-            .filter_map(|cookie| match cookie {
-                Ok(cookie) => Some(cookie),
-                Err(e) => {
-                    eprintln!("invalid cookie: {:#?}", e);
-                    None
-                }
-            })
-            .find(|cookie| cookie.name() == "GeneralSettings")
-            .and_then(|cookie| serde_json::from_str(cookie.value()).ok())
-            .unwrap_or_default();
+        let settings = GeneralSettings::get_all(&req);
 
         Some(Self {
             settings,
@@ -73,23 +69,20 @@ impl Loader for GeneralSettingsView {
     ) -> ActionResponse {
         // TODO test to make sure Content-Type is actually application/x-www-form-urlencoded
         // read form data
-        let general_settings = req
+        let settings = req
             .body()
             .and_then(|body| body.as_form_data::<GeneralSettings>().ok())
             .unwrap_or_default();
-        let settings_cookie = Cookie::build(
-            "GeneralSettings",
-            serde_json::to_string(&general_settings).unwrap(),
-        )
-        .path("/")
-        .finish();
 
         // build response
         Response::builder()
             .status(StatusCode::SEE_OTHER)
             .header("Location", format!("/{}/settings?success", locale))
-            .header("Set-Cookie", settings_cookie.to_string())
             .body(())
+            .map(|mut res| {
+                GeneralSettings::set(&req, &mut res, settings);
+                res
+            })
             .map(ActionResponse::from_response)
             .unwrap_or_else(ActionResponse::from_error)
     }
@@ -106,7 +99,7 @@ impl View for GeneralSettingsView {
 
     fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
         view! {
-            <>
+            <div>
                 <h2>{t!("settings.general")}</h2>
                 <form method="post">
                     // Rite I/Rite II
@@ -235,7 +228,7 @@ impl View for GeneralSettingsView {
                 } else {
                     Node::default()
                 }}
-            </>
+            </div>
         }
     }
 }

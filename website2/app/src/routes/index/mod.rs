@@ -1,5 +1,6 @@
 use std::sync::Arc;
 
+use super::settings::{DarkMode, DisplaySettings, Settings};
 use crate::utils::encode_uri;
 use crate::views::{menu, Header};
 use leptos2::{view::View, *};
@@ -8,6 +9,7 @@ use leptos2::{view::View, *};
 pub struct Index {
     locale: String,
     path: String,
+    dark_mode: DarkMode,
 }
 
 impl Default for Index {
@@ -15,6 +17,7 @@ impl Default for Index {
         Self {
             locale: "en".to_string(),
             path: String::new(),
+            dark_mode: DarkMode::Auto,
         }
     }
 }
@@ -30,9 +33,12 @@ impl Loader for Index {
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
+        let dark_mode = DisplaySettings::get(&req, |settings| settings.dark_mode);
+
         Some(Self {
             locale: locale.to_string(),
             path: req.path().to_string(),
+            dark_mode,
         })
     }
 }
@@ -72,36 +78,22 @@ impl View for Index {
         ]
     }
 
-    fn body(self: Box<Self>, nested_view: Option<Node>) -> Vec<Node> {
+    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         let menu = menu(&self.locale, &self.path);
 
-        let mut index_content = match nested_view {
-            Some(view) => vec![menu, view],
-            None => {
-                view! {
-                    <>
-                        {menu}
-                        <div>
-                            <header><h1>{t!("common_prayer")}</h1></header>
-                            <main>
-
-                            </main>
-                        </div>
-                    </>
-                }
-            }
-        };
-
-        index_content.extend(body_scripts());
-        index_content.push(view! {
-			<script defer data-domain="commonprayeronline.org" src="https://plausible.io/js/plausible.js"></script>
-		});
-        index_content
+        view! {
+            <div class={format!("app-shell dark-mode-{}", self.dark_mode).to_lowercase()}>
+                {menu}
+                {nested_view.unwrap_or_default()}
+                {body_scripts()}
+                <script defer data-domain="commonprayeronline.org" src="https://plausible.io/js/plausible.js"></script>
+            </div>
+        }
     }
 
     fn error_boundary(error: RouterError) -> Body {
         view! {
-            <>
+            <div class="error-boundary">
                 <style>{include_str!("404.css")}</style>
                 <header><h1>{t!("common_prayer")}</h1></header>
                 <main>
@@ -114,7 +106,7 @@ impl View for Index {
                         <a class="toc-link" href="/">{t!("page_404.button_text")}</a>
                     </section>
                 </main>
-            </>
+            </div>
         }
     }
 }

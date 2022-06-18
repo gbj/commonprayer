@@ -8,16 +8,14 @@
 	--page-padding: 1rem;
 	--rubric-size: 0.9rem;
 	--rubric-color: #ea0000;
-	--error-color: rgb(234, 0, 0);
-	--error-color-tint: rgba(234, 0, 0, 0.5);
 	--button-filter-light: invert(97%) sepia(97%) saturate(0%) hue-rotate(36deg) brightness(104%) contrast(105%);
 	--button-filter-dark: gray saturate(0%) brightness(70%) contrast(1000%);
 
 	/* Colors */
-	--color-success-background: rgba(5, 131, 5, 0.05);
-	--color-success: rgb(5, 131, 5);
-	--color-error-background: rgba(131, 5, 5, 0.05);
-	--color-error: rgb(131, 5, 5);
+	--color-success-background: #e1eddb;
+	--color-success: #54863f;
+	--color-error-background: #fbc6c2;
+	--color-error: #db3c30;
 
 	/* Navigation menu settings */
 	--nav-button-height: 1.5rem;
@@ -71,22 +69,21 @@ a:visited {
 	color: var(--link-visited-color);
 }
 
+.app-shell {
+	background-color: var(--background);
+	color: var(--color);
+}
+
 /* Dark Mode — Colors */
 @media (prefers-color-scheme: dark) {
-	body:not(.dark-mode-light) {
-		--background: #101010;
-		--border-color: #202020;
-		--overlay-shadow-color: #303030;
+	:not(.dark-mode-light) {
+		--background: #202020;
+		--border-color: #303030;
+		--overlay-shadow-color: #404040;
 		--color: #fefefe;
 		--rubric-color: #ff7070;
 		--error-color: rgb(234, 0, 0);
 		--error-color-tint: rgba(234, 0, 0, 0.5);
-
-		/* Colors */
-		--color-success-background: rgba(5, 131, 5, 0.05);
-		--color-success: rgb(5, 131, 5);
-		--color-error-background: rgba(131, 5, 5, 0.05);
-		--color-error: rgb(131, 5, 5);
 
 		/* Navigation menu settings */
 		--menu-border-color: #303030;
@@ -109,6 +106,11 @@ a:visited {
 
 		/* Source links */
 		--source-link-background: #494949;
+
+		--season: #050505;
+		--season-light: #151515;
+		--season-lightest: #1f1f1f;
+		--season-text: #efefef;
 	}
 
 	.menu-toggle-button:not(.hamburger) {
@@ -121,20 +123,14 @@ a:visited {
 	}
 }
 
-body.dark-mode-dark {
-	--background: #101010;
-	--border-color: #202020;
-	--overlay-shadow-color: #303030;
+.dark-mode-dark {
+	--background: #202020;
+	--border-color: #303030;
+	--overlay-shadow-color: #404040;
 	--color: #fefefe;
 	--rubric-color: #ff7070;
 	--error-color: rgb(234, 0, 0);
 	--error-color-tint: rgba(234, 0, 0, 0.5);
-
-	/* Colors */
-	--color-success-background: rgba(5, 131, 5, 0.05);
-	--color-success: rgb(5, 131, 5);
-	--color-error-background: rgba(131, 5, 5, 0.05);
-	--color-error: rgb(131, 5, 5);
 
 	/* Navigation menu settings */
 	--menu-border-color: #303030;
@@ -156,6 +152,12 @@ body.dark-mode-dark {
 
 	/* Source links */
 	--source-link-background: #494949;
+
+	/* Seasonal Colors */
+	--season: #050505;
+	--season-light: #151515;
+	--season-lightest: #1f1f1f;
+	--season-text: #efefef;
 }
 
 .OrdinaryTime {

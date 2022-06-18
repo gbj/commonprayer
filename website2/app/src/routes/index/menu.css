@@ -5,7 +5,7 @@
     --menu-width: 0;
 }
 
-[data-route=""] > div {
+.app-shell {
     height: 100vh;
 }
 
@@ -207,7 +207,7 @@ nav#main-menu li:not(:first-of-type) {
     }
 
     /* First nested route takes up remaining space */
-    [data-route=""] > div {
+    .app-shell > div {
         width: calc(100vw - var(--menu-width));
         position: absolute;
         left: var(--menu-width);
