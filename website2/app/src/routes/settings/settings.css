@@ -21,7 +21,7 @@ footer.success {
 		border-radius: 3px;
 }
 
-fieldset {
+fieldset.vertical {
 	border: none;
 	display: flex;
 	flex-direction: column;

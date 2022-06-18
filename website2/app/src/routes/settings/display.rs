@@ -120,7 +120,7 @@ impl View for DisplaySettingsView {
                     </fieldset>
 
                     // Verse Numbers
-                    <fieldset>
+                    <fieldset class="vertical">
                         <label class="horizontal">
                             {t!("settings.display_settings.bible_verses")}
                             <input type="hidden" name="bible_verse_numbers" value="false"/>

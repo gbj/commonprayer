@@ -76,14 +76,16 @@ a:visited {
 
 /* Dark Mode — Colors */
 @media (prefers-color-scheme: dark) {
-	:not(.dark-mode-light) {
+	.app-shell:not(.dark-mode-light) {
 		--background: #202020;
 		--border-color: #303030;
 		--overlay-shadow-color: #404040;
 		--color: #fefefe;
 		--rubric-color: #ff7070;
-		--error-color: rgb(234, 0, 0);
-		--error-color-tint: rgba(234, 0, 0, 0.5);
+
+		/* Colors */
+		--color-success-background: #a5ca95;
+		--color-success: #2a431f;
 
 		/* Navigation menu settings */
 		--menu-border-color: #303030;
@@ -129,8 +131,10 @@ a:visited {
 	--overlay-shadow-color: #404040;
 	--color: #fefefe;
 	--rubric-color: #ff7070;
-	--error-color: rgb(234, 0, 0);
-	--error-color-tint: rgba(234, 0, 0, 0.5);
+
+	/* Colors */
+	--color-success-background: #a5ca95;
+	--color-success: #2a431f;
 
 	/* Navigation menu settings */
 	--menu-border-color: #303030;

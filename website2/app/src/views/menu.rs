@@ -62,10 +62,10 @@ pub fn menu(locale: &str, current_location: &str) -> Node {
 }
 
 fn nav_link(current_url: &str, locale: &str, href: &str, label: String) -> Node {
-    let active = href != "" && current_url.starts_with(href);
-    let href = format!("/{}{}", locale, href);
+    let localized_href = format!("/{}{}", locale, href);
+    let active = !href.is_empty() && current_url.starts_with(&localized_href);
     view! {
-        <a href={href} class:current={active}>{label}</a>
+        <a href={localized_href} class:current={active}>{label}</a>
     }
 }
 
@@ -74,7 +74,7 @@ fn build_menu(id: &str, side: &'static str, button: Button, content: Node) -> No
         Button::Hamburger => view! {
             // "hamburger" menu button created via CSS, and positioned over the toggle checkbox
             // (but under it by z-index) so it appears to be a button
-            // this, too, can be ignored by a screen reader (see above)
+            // this can be ignored by a screen reader (see above)
             <div class="menu-toggle-button hamburger" aria-hidden="true">
                 <span></span>
                 <span></span>
