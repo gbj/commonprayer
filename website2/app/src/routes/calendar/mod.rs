@@ -50,20 +50,20 @@ fn summarize_calendar(
         })
         .collect()
 }
-#[async_trait]
+#[async_trait(?Send)]
 impl Loader for CalendarView {
     type Params = ();
     type Query = ();
 
     async fn loader(
         locale: &str,
-        path: &str,
+        req: Arc<dyn Request>,
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
         let language = Language::from_locale(locale);
 
-        let lff = path.ends_with("lff2018");
+        let lff = req.path().ends_with("lff2018");
         let data = if lff {
             summarize_calendar(
                 language,

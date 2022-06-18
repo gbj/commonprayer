@@ -2,7 +2,7 @@
 #![feature(const_fn_trait_bound)]
 #![allow(unused_parens)]
 
-use std::{collections::HashSet, convert::Infallible, fs::File, io::Write};
+use std::{collections::HashSet, convert::Infallible, fs::File};
 
 use actix_cors::Cors;
 use actix_files::{Files, NamedFile};
@@ -11,10 +11,10 @@ use actix_web::{
     error, get,
     http::StatusCode,
     middleware, post,
-    web::{self, Path, Query},
+    web::{self, Query},
     App, HttpRequest, HttpResponse, HttpServer, ResponseError, Result,
 };
-use app::{api::bing::BingSearchResult, pages::*, routes::router};
+use app::{api::bing::BingSearchResult, routes::router};
 use episcopal_api::{
     api::summary::DailySummary,
     calendar::Date,
@@ -23,16 +23,20 @@ use episcopal_api::{
     library::{CommonPrayer, Library},
     liturgy::{Document, Slug, SlugPath},
 };
-use futures::{StreamExt};
+use futures::StreamExt;
 use lazy_static::lazy_static;
 use leptos2::*;
 use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
+use request_compat::RequestCompat;
 use reqwest::header::CACHE_CONTROL;
+use response_compat::ResponseCompat;
 use serde::Deserialize;
 use tempfile::tempdir;
 use tokio::task::spawn_local;
 
 mod bing;
+mod request_compat;
+mod response_compat;
 
 const LOCALES: [&str; 1] = ["en"];
 
@@ -40,18 +44,6 @@ lazy_static! {
     pub static ref PROJECT_ROOT: String =
         std::env::var("PROJECT_ROOT").unwrap_or_else(|_| "..".to_string());
     pub static ref ROUTER: Router<app::routes::Index> = router();
-}
-
-struct RequestCompat(actix_web::HttpRequest);
-
-impl leptos2::Request for RequestCompat {
-    fn path(&self) -> &str {
-        self.0.path()
-    }
-
-    fn query_string(&self) -> &str {
-        self.0.query_string()
-    }
 }
 
 #[actix_web::main]
@@ -102,22 +94,43 @@ async fn main() -> std::io::Result<()> {
                     .wrap(middleware::Compress::default())
                     .service(Files::new("", &format!("{}/app/static", *PROJECT_ROOT))),
             )
-            .default_service(web::route().to(async move |req: HttpRequest| {
-                let routed = ROUTER.route(&RequestCompat(req)).await;
-                let head_html = head(&routed);
-                let body = routed.body.html_stream();
+            .default_service(
+                web::route().to(async move |req: HttpRequest, body: web::Bytes| {
+                    let req = RequestCompat::new(req, body.as_ref().to_vec());
+                    let req = Arc::new(req) as Arc<dyn Request>;
+                    if req.method() == http::Method::POST {
+                        let res = ROUTER.post(&req).await;
+                        match res {
+                            ActionResponse::None => HttpResponse::NotFound().finish(),
+                            ActionResponse::Response(res) => {
+                                let res = ResponseCompat::from(res);
+                                res.into()
+                            }
+                            ActionResponse::Error(e) => {
+                                HttpResponse::InternalServerError().body(e.to_string())
+                            }
+                        }
+                    } else {
+                        let routed = ROUTER.get(&req).await;
+                        let head_html = head(&routed);
+                        let body = routed.body.html_stream();
 
-                let stream = futures::stream::once(async move {
-                    head_html
-                })
-                .chain(body)
-                .chain(futures::stream::once(async {
-                    "</body></html>".to_string()
-                }))
-                .map(|html| Ok(web::Bytes::from(html)) as Result<web::Bytes, leptos2::router::RouterError>);
+                        let stream = futures::stream::once(async move { head_html })
+                            .chain(body)
+                            .chain(futures::stream::once(async {
+                                "</body></html>".to_string()
+                            }))
+                            .map(|html| {
+                                Ok(web::Bytes::from(html))
+                                    as Result<web::Bytes, leptos2::router::RouterError>
+                            });
 
-                HttpResponse::Ok().content_type("text/html").streaming(stream)
-            }))
+                        HttpResponse::Ok()
+                            .content_type("text/html")
+                            .streaming(stream)
+                    }
+                }),
+            )
     })
     .bind_openssl(&format!("{}:{}", host, port), builder)?
     .run()
@@ -147,7 +160,9 @@ fn meta(metas: &MetaTags) -> String {
 
 fn styles(styles: &Styles) -> String {
     let styles = styles.join("");
-    minifier::css::minify(&styles).map(|minified| minified.to_string()).unwrap_or(styles)
+    minifier::css::minify(&styles)
+        .map(|minified| minified.to_string())
+        .unwrap_or(styles)
 }
 
 fn links(links: &[Node]) -> String {
@@ -336,208 +351,4 @@ async fn export_docx(data: web::Form<DocxExportFormData>) -> Result<NamedFile> {
     docx.write(&file)
         .map_err(|e| error::InternalError::new(e.to_string(), StatusCode::INTERNAL_SERVER_ERROR))?;
     Ok(NamedFile::open(path)?)
-}
-
-// Add additional pages, defined programmatically
-fn add_pages(cfg: &mut web::ServiceConfig, locales: &[&str]) {
-    // check if static export directory exists
-    let artifacts_path = format!("{}/artifacts", *PROJECT_ROOT);
-    let artifacts_path = std::path::Path::new(&artifacts_path);
-    if artifacts_path.exists() {
-        println!("emptying artifacts directory");
-        std::fs::remove_dir_all(artifacts_path).expect("couldn't empty artifacts directory");
-        std::fs::create_dir(artifacts_path).expect("couldn't create artifacts directory");
-    } else {
-        println!("creating artifacts directory");
-        std::fs::create_dir(artifacts_path).expect("could not create artifacts directory");
-    }
-
-    // add pages
-    for locale in locales {
-        add_page::<AboutPage>(cfg, locale);
-        add_page::<CalendarPage>(cfg, locale);
-        add_page::<CanticleTablePage>(cfg, locale);
-        add_page::<DailyOfficePage>(cfg, locale);
-        add_page::<DocumentPage>(cfg, locale);
-        add_page::<EucharisticReadingsPage>(cfg, locale);
-        add_page::<HolyDayPage>(cfg, locale);
-        add_page::<HymnPage>(cfg, locale);
-        add_page::<HymnalPage>(cfg, locale);
-        add_page::<Index>(cfg, locale);
-        add_page::<LectionaryPage>(cfg, locale);
-        add_page::<MeditationPage>(cfg, locale);
-        add_page::<PsalterPage>(cfg, locale);
-        add_page::<ReadingsPage>(cfg, locale);
-        //add_page(cfg, locale, settings());
-    }
-}
-
-fn add_page<P>(cfg: &mut web::ServiceConfig, locale: &str)
-where
-    P: Page,
-{
-    println!("{}", P::name());
-
-    // JS/WASM routes for the page
-    if !P::static_page() {
-        let name = P::name().replace('-', "_");
-        cfg.service(Files::new(
-            &format!("/pkg/{}", name),
-            &format!("{}/client/{}/pkg", *PROJECT_ROOT, name),
-        ));
-    }
-
-    for path in P::get_absolute_paths() {
-        // "index" is special case that uses / instead
-        let localized_path = if path == "index" {
-            locale.to_string()
-        } else {
-            format!("{locale}/{path}")
-        };
-        println!("\t{}", path);
-
-        // Page with no locale => redirect based on preferred locale in request
-        cfg.service(
-            web::resource(if path == "index" { "/" } else { path.as_str() }).route(web::get().to(
-                async move |req: HttpRequest| {
-                    let preferred_locale = req
-                        .headers()
-                        .get("Accept-Language")
-                        .and_then(|locale| locale.to_str().unwrap().split('-').next())
-                        .unwrap_or("en");
-                    let path = req.path();
-                    HttpResponse::TemporaryRedirect()
-                        .insert_header((
-                            actix_web::http::header::LOCATION,
-                            format!(
-                                "/{}{}/",
-                                preferred_locale,
-                                if path == "/" { "" } else { path }
-                            ),
-                        ))
-                        .finish()
-                },
-            )),
-        );
-
-        // add redirect to force trailing slash
-        // this ensures that a Form posting to "." will not accidentally replace the last part of the URL with the query params
-        cfg.service(web::resource(&localized_path).route(web::get().to(
-            async move |req: HttpRequest| {
-                HttpResponse::PermanentRedirect()
-                    .insert_header((
-                        actix_web::http::header::LOCATION,
-                        format!("{}/", req.path()),
-                    ))
-                    .finish()
-            },
-        )));
-
-        // VDOM JSON for client-side diffing/routing
-        cfg.service(
-            web::resource(&format!("{}/get.json", localized_path)).route(web::get().to({
-                let locale = locale.to_string();
-
-                move |req: HttpRequest, params: Path<P::Params>, query: Query<P::Query>| {
-                    let locale = locale.clone();
-                    async move {
-                        let vdom = route_to_vdom::<P>(&locale, req, params, query);
-                        web::Json(vdom)
-                    }
-                }
-            })),
-        );
-
-        // The page
-        cfg.service(web::resource(&format!("{}/", localized_path)).route(web::get().to({
-            let locale = locale.to_string();
-
-            move |req: HttpRequest, params: Path<P::Params>, query: Query<P::Query>| {
-                let locale = locale.to_string();
-                
-                async move {
-                    let path = req.uri().to_string();
-
-                    // Plausible.io is an open-source analytics software as a service that uses no cookies and collects/sells no user data
-                    // It is an alternative to Google Analytics, etc. with strong privacy protections
-                    // Rather than an advertising based model, I pay a subscription fee to support their service
-                    let analytics_injection = view! {
-                        <script defer data-domain="commonprayeronline.org" src="https://plausible.io/js/plausible.js"></script>
-                    };
-
-                    // if incremental generation, check if page has already been created and serve that file if it has
-                    if P::pure() {
-                        let build_artifact_dir = [(*PROJECT_ROOT).clone(), "artifacts".to_string()].into_iter().chain(path.split('/').map(String::from)).collect::<Vec<_>>().join("/");
-                        let mut build_artifact_path = build_artifact_dir.clone();
-                        build_artifact_path.push_str(".html");
-                        let build_artifact_path = std::path::Path::new(&build_artifact_path);
-                        if build_artifact_path.exists() {
-                            match NamedFile::open(build_artifact_path) {
-                                Ok(file) => file.into_response(&req),
-                                Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
-                            }
-                        } else {
-                            let build_artifact_dir_path = std::path::Path::new(&build_artifact_dir);
-                            if !build_artifact_dir_path.exists() {
-                                std::fs::create_dir_all(build_artifact_dir_path).expect("could not create static file dir");
-                            }
-
-                            let mut file = File::create(build_artifact_path).expect("could not create static file");
-                            match P::build_state(&locale, &path, params.into_inner(), query.into_inner()) {
-                                Some(page) => {
-                                    let view = page.render(&locale, Some(analytics_injection));
-                                    let html = format!("<!DOCTYPE html>{}", view);
-                                    match file.write(html.as_bytes()) {
-                                        Ok(_) => println!("\t\t\tgenerated static file at {}", path),
-                                        Err(e) => println!("\t\t\terror generating static file for {}\n\t\t\t\t{}", path, e)
-                                    };
-                                    HttpResponse::Ok().body(html)
-                                },
-                                None => {
-                                    let not_found = NotFound { path: path.to_string() }.render(&locale, None);
-                                    HttpResponse::Ok().body(not_found.to_string())
-                                }
-                            }
-                        }
-                    }
-                    // otherwise, just render and serve the page
-                    else {
-                        match P::build_state(&locale, &path, params.into_inner(), query.into_inner()) {
-                            Some(page) => {
-                                let view = page.render(&locale, Some(analytics_injection));
-                                let html = format!("<!DOCTYPE html>{}", view);
-                                HttpResponse::Ok().body(html)
-                            },
-                            None => {
-                                let not_found = NotFound { path: path.to_string() }.render(&locale, None);
-                                HttpResponse::Ok().body(not_found.to_string())
-                            }
-                        }
-                    }
-                }
-            }
-        })));
-    }
-}
-
-fn route_to_vdom<P>(
-    locale: &str,
-    req: HttpRequest,
-    params: Path<P::Params>,
-    query: Query<P::Query>,
-) -> Option<Node>
-where
-    P: Page,
-{
-    let path = req.uri().to_string();
-
-    // Plausible.io is an open-source analytics software as a service that uses no cookies and collects/sells no user data
-    // It is an alternative to Google Analytics, etc. with strong privacy protections
-    // Rather than an advertising based model, I pay a subscription fee to support their service
-    let analytics_injection = view! {
-        <script defer data-domain="commonprayeronline.org" src="https://plausible.io/js/plausible.js"></script>
-    };
-
-    P::build_state(locale, &path, params.into_inner(), query.into_inner())
-        .map(|page| page.render(locale, Some(analytics_injection)))
 }

@@ -7,7 +7,7 @@ pub mod api;
 pub mod components;
 pub mod events;
 pub mod fragments;
-pub mod pages;
+//pub mod pages;
 pub mod preferences;
 pub mod routes;
 pub mod utils;

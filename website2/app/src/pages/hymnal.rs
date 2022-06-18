@@ -40,6 +40,7 @@ impl Page for HymnalPage {
         _path: &str,
         params: Self::Params,
         query: Self::Query,
+    req: &HttpRequest
     ) -> Option<Self> {
         let hymnals = match params.hymnal {
             None => {

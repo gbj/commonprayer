@@ -1,5 +1,5 @@
-use crate::{Body, Loader, Node, Params, RouterError, View};
-use std::{collections::HashMap, marker::PhantomData, pin::Pin};
+use crate::{ActionResponse, Body, Loader, Node, Params, Request, RouterError, View};
+use std::{collections::HashMap, marker::PhantomData, pin::Pin, sync::Arc};
 
 use futures::Future;
 
@@ -9,6 +9,7 @@ where
 {
     fn search(
         &self,
+        req: &Arc<dyn Request>,
         locale: &str,
         parts: &[&str],
         params: &mut HashMap<String, String>,
@@ -22,20 +23,29 @@ where
 
     fn is_index(&self) -> bool;
 
-    fn create_loader(&self, matched_route: Option<&str>) -> RouteLoader;
+    fn create_loader(&self, matched_route: Option<&str>, include_action: bool) -> RouteLoader;
 }
 
 pub(crate) struct RouteLoader {
     pub(crate) route_name: &'static str,
     pub(crate) matched_route: Option<String>,
-    //pub(crate) loader: Box<dyn Fn(&str, &str, &HashMap<String, String>, &HashMap<String, String>, Option<Node>) -> Pin<Box<dyn Future<Output = Result<RenderedPartial, RouterError>>>>>//Pin<Box<dyn Future<Output = RenderedPartial>>>,
     pub(crate) loader: Box<
         dyn Fn(
             &str,
-            &str,
+            Arc<dyn Request>,
             &HashMap<String, String>,
             &HashMap<String, String>,
         ) -> Pin<Box<dyn Future<Output = Result<Box<dyn View>, RouterError>>>>,
+    >,
+    pub(crate) action: Option<
+        Box<
+            dyn Fn(
+                &str,
+                Arc<dyn Request>,
+                &HashMap<String, String>,
+                &HashMap<String, String>,
+            ) -> Pin<Box<dyn Future<Output = ActionResponse>>>,
+        >,
     >,
     pub(crate) error_boundary: Box<dyn Fn(RouterError) -> Vec<Node>>,
 }
@@ -99,16 +109,12 @@ where
     }
 
     fn is_index(&self) -> bool {
-        eprintln!(
-            "is_index {} \t=> {:#?}",
-            self.route_name(),
-            self.route_parts
-        );
         self.route_parts.is_empty()
     }
 
     fn search(
         &self,
+        req: &Arc<dyn Request>,
         locale: &str,
         parts: &[&str],
         params: &mut HashMap<String, String>,
@@ -131,7 +137,7 @@ where
                         matched_route.push('/');
                         matched_route.push_str(&remaining_parts);
                         params.insert("remainder".to_string(), remaining_parts);
-                        loaders.push(self.create_loader(Some(&matched_route)));
+                        loaders.push(self.create_loader(Some(&matched_route), false));
 
                         return Ok(loaders);
                     } else if part_matches(concrete_part, match_part, params) {
@@ -161,6 +167,7 @@ where
             let remaining_parts = &parts[matched_idx..];
             for child in &self.children {
                 if let Ok(matched_loaders) = child.search(
+                    req,
                     locale,
                     remaining_parts,
                     params,
@@ -171,7 +178,7 @@ where
                         matched_route.push('/');
                         matched_route.push_str(concrete_part);
                     }
-                    loaders.push(self.create_loader(Some(&matched_route)));
+                    loaders.push(self.create_loader(Some(&matched_route), false));
                     loaders.extend(matched_loaders);
 
                     return Ok(loaders);
@@ -182,11 +189,11 @@ where
                 matched_route.push('/');
                 matched_route.push_str(concrete_part);
             }
-            loaders.push(self.create_loader(Some(&matched_route)));
+            loaders.push(self.create_loader(Some(&matched_route), true));
 
             // add index route if it exists
             if let Some(index_route) = self.children.iter().find(|route| route.is_index()) {
-                loaders.push(index_route.create_loader(None))
+                loaders.push(index_route.create_loader(None, true))
             }
 
             return Ok(loaders);
@@ -199,14 +206,13 @@ where
         )))
     }
 
-    fn create_loader(&self, matched_route: Option<&str>) -> RouteLoader {
+    fn create_loader(&self, matched_route: Option<&str>, include_action: bool) -> RouteLoader {
         let matched_route = matched_route.map(String::from);
         RouteLoader {
             route_name: self.route_name(),
             matched_route: matched_route.clone(),
-            loader: Box::new(move |locale, path, params, query| {
+            loader: Box::new(move |locale, req, params, query| {
                 let locale = locale.to_string();
-                let path = path.to_string();
                 let params = T::Params::from_map(params);
                 let query = T::Query::from_map(query);
 
@@ -214,8 +220,9 @@ where
                 match (params, query) {
                     (Ok(params), Ok(query)) => {
                         let matched_route = matched_route.clone();
+                        let req = req.clone();
                         Box::pin(async move {
-                            match T::loader(&locale, &path, params, query).await {
+                            match T::loader(&locale, req, params, query).await {
                                 None => {
                                     Err(RouterError::NotFound(matched_route.unwrap_or_default()))
                                 }
@@ -227,6 +234,24 @@ where
                     (Err(e), _) => Box::pin(async { Err(e) }),
                 }
             }),
+            action: if include_action {
+                Some(Box::new(move |locale, req, params, query| {
+                    let locale = locale.to_string();
+                    let params = T::Params::from_map(params);
+                    let query = T::Query::from_map(query);
+
+                    // if Params or Query can't be serialized, either handle error or pass it up
+                    match (params, query) {
+                        (Ok(params), Ok(query)) => {
+                            Box::pin(async move { T::action(&locale, req, params, query).await })
+                        }
+                        (Ok(_), Err(e)) => Box::pin(async { ActionResponse::Error(Box::new(e)) }),
+                        (Err(e), _) => Box::pin(async { ActionResponse::Error(Box::new(e)) }),
+                    }
+                }))
+            } else {
+                None
+            },
             error_boundary: Box::new(|err| T::error_boundary(err)),
         }
     }

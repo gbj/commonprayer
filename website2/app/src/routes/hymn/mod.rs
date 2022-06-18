@@ -1,4 +1,6 @@
 mod hymn_media;
+use std::sync::Arc;
+
 pub use hymn_media::*;
 
 use crate::views::{DocumentView, Header};
@@ -16,14 +18,14 @@ pub struct HymnView {
     hymn: Hymn,
 }
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Loader for HymnView {
     type Params = HymnViewParams;
     type Query = ();
 
     async fn loader(
         locale: &str,
-        path: &str,
+        req: Arc<dyn Request>,
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {

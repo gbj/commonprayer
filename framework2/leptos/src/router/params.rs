@@ -25,7 +25,7 @@ where
 impl<T> IntoParam for Option<T>
 where
     T: FromStr,
-    <T as FromStr>::Err: std::error::Error + 'static,
+    <T as FromStr>::Err: std::error::Error + Send + Sync + 'static,
 {
     fn into_param(value: Option<&str>, _name: &str) -> Result<Self, RouterError> {
         match value {
@@ -44,7 +44,7 @@ impl<T> !NotOption for Option<T> {}
 impl<T> IntoParam for T
 where
     T: FromStr + NotOption,
-    <T as FromStr>::Err: std::error::Error + 'static,
+    <T as FromStr>::Err: std::error::Error + Send + Sync + 'static,
 {
     fn into_param(value: Option<&str>, name: &str) -> Result<Self, RouterError> {
         let value = value.ok_or_else(|| RouterError::MissingParam(name.to_string()))?;

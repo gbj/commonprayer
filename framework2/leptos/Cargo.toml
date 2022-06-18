@@ -5,7 +5,10 @@ edition = "2021"
 
 [dependencies]
 async-trait = "0.1"
+cookie = "0.16"
+form_urlencoded = "1"
 futures = "0.3"
+http = "0.2"
 itertools = "0.10"
 js-sys = "0.3"
 leptos_macro2 = { path = "../leptos_macro" }

@@ -20,6 +20,7 @@ impl Page for Index {
         _path: &str,
         _params: Self::Params,
         _query: Self::Query,
+    req: &HttpRequest
     ) -> Option<Self> {
         Some(Self {})
     }

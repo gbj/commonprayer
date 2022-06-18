@@ -35,6 +35,7 @@ impl Page for PsalterPage {
         _path: &str,
         _params: Self::Params,
         _query: Self::Query,
+    req: &HttpRequest
     ) -> Option<Self> {
         Some(PsalterPage {
             psalms: match locale {

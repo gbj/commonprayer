@@ -18,6 +18,7 @@ impl Page for CanticleTablePage {
         path: &str,
         params: Self::Params,
         query: Self::Query,
+    req: &HttpRequest
     ) -> Option<Self> {
         Some(Self {})
     }

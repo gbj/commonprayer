@@ -23,6 +23,7 @@ impl Page for DailyOfficePage {
         path: &str,
         params: Self::Params,
         query: Self::Query,
+    req: &HttpRequest
     ) -> Option<Self> {
         Some(Self {})
     }

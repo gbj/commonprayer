@@ -1,17 +1,19 @@
+use std::sync::Arc;
+
 use leptos2::*;
 
 pub struct ContentsView {
     locale: String,
 }
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Loader for ContentsView {
     type Params = ();
     type Query = ();
 
     async fn loader(
         locale: &str,
-        path: &str,
+        req: Arc<dyn Request>,
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {

@@ -55,6 +55,7 @@ impl Page for ReadingsPage {
         _path: &str,
         _params: Self::Params,
         query: Self::Query,
+    req: &HttpRequest
     ) -> Option<Self> {
         // Build all params
         let language = Language::from_locale(locale);

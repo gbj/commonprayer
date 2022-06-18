@@ -1,4 +1,4 @@
-use app::{components::*, pages::*};
+use app::components::*;
 use leptos2::WebComponent;
 use wasm_bindgen::prelude::wasm_bindgen;
 

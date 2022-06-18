@@ -22,6 +22,7 @@ impl Page for NotFound {
         path: &str,
         _params: Self::Params,
         _query: Self::Query,
+        req: &HttpRequest,
     ) -> Option<Self> {
         Some(Self {
             path: path.to_string(),

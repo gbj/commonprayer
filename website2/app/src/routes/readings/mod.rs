@@ -21,14 +21,14 @@ pub struct ReadingsViewQuery {
     version: Option<Version>,
 }
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Loader for ReadingsView {
     type Params = ();
     type Query = ReadingsViewQuery;
 
     async fn loader(
         locale: &str,
-        path: &str,
+        req: Arc<dyn Request>,
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
@@ -45,7 +45,7 @@ impl Loader for ReadingsView {
             locale: locale.to_string(),
             date,
             version,
-            path: path.to_string(),
+            path: req.path().to_string(),
         })
     }
 }

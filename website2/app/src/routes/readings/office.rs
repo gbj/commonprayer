@@ -45,14 +45,14 @@ pub struct OfficeViewQuery {
     calendar: Option<String>,
 }
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Loader for OfficeView {
     type Params = ();
     type Query = OfficeViewQuery;
 
     async fn loader(
         locale: &str,
-        path: &str,
+        req: Arc<dyn Request>,
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {

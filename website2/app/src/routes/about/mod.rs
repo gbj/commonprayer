@@ -7,16 +7,16 @@ pub struct About {
     markdown_html: String,
 }
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Loader for About {
     type Params = ();
     type Query = ();
 
     async fn loader(
         locale: &str,
-        _path: &str,
-        _params: Self::Params,
-        _query: Self::Query,
+        req: Arc<dyn Request>,
+        params: Self::Params,
+        query: Self::Query,
     ) -> Option<Self> {
         // allowed because future i18n will be inserted here
         #[allow(clippy::match_single_binding)]

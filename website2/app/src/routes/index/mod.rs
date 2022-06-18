@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use crate::utils::encode_uri;
 use crate::views::{menu, Header};
 use leptos2::{view::View, *};
@@ -17,20 +19,20 @@ impl Default for Index {
     }
 }
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Loader for Index {
     type Params = ();
     type Query = ();
 
     async fn loader(
         locale: &str,
-        path: &str,
-        _params: Self::Params,
-        _query: Self::Query,
+        req: Arc<dyn Request>,
+        params: Self::Params,
+        query: Self::Query,
     ) -> Option<Self> {
         Some(Self {
             locale: locale.to_string(),
-            path: path.to_string(),
+            path: req.path().to_string(),
         })
     }
 }

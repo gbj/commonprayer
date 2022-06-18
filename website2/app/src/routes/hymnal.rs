@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use crate::components::Form;
 use hymnal::*;
 use itertools::Itertools;
@@ -24,18 +26,17 @@ pub struct HymnalView {
     hymnals: Vec<Hymnal>,
 }
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Loader for HymnalView {
     type Params = HymnalViewParams;
     type Query = HymnalViewQuery;
 
     async fn loader(
         locale: &str,
-        _path: &str,
+        req: Arc<dyn Request>,
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-        println!("query = {:#?}", query);
         let hymnals = match params.hymnal {
             None => {
                 vec![

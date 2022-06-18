@@ -54,6 +54,7 @@ impl Page for HolyDayPage {
         _path: &str,
         params: Self::Params,
         query: Self::Query,
+    req: &HttpRequest
     ) -> Option<Self> {
         // deserializing here instead of in the params means that
         // a bad feast ID will be a 404 error (finds path, but branches here to None => 404)

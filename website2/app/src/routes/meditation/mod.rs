@@ -5,14 +5,14 @@ use std::time::Duration;
 
 pub struct MeditationView {}
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Loader for MeditationView {
     type Params = ();
     type Query = ();
 
     async fn loader(
         locale: &str,
-        path: &str,
+        req: Arc<dyn Request>,
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {

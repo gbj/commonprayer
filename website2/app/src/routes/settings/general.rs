@@ -1,30 +1,97 @@
-use leptos2::*;
-use liturgy::Version;
+use std::{collections::HashMap, sync::Arc};
 
-pub struct GeneralSettingsView {
-    rite_i: bool,
-    bcp_calendar: bool,
-    thirty_day_psalms: bool,
+use cookie::Cookie;
+use http::{Response, StatusCode};
+use leptos2::*;
+use liturgy::{Lectionaries, Version};
+
+#[derive(Serialize, Deserialize, Params)]
+pub struct GeneralSettings {
+    liturgy_version: Version,
+    use_lff: bool,
+    psalm_cycle: Lectionaries,
     bible_version: Version,
 }
 
-#[async_trait]
+impl Default for GeneralSettings {
+    fn default() -> Self {
+        Self {
+            liturgy_version: Version::RiteII,
+            use_lff: true,
+            psalm_cycle: Lectionaries::BCP1979DailyOfficePsalms,
+            bible_version: Version::NRSV,
+        }
+    }
+}
+
+pub struct GeneralSettingsView {
+    settings: GeneralSettings,
+    success: bool,
+}
+
+#[derive(Params)]
+pub struct GeneralSettingsParams {
+    success: Option<String>,
+}
+
+#[async_trait(?Send)]
 impl Loader for GeneralSettingsView {
     type Params = ();
-    type Query = ();
+    type Query = GeneralSettingsParams;
 
     async fn loader(
         locale: &str,
-        path: &str,
+        req: Arc<dyn Request>,
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
+        let headers = req.headers();
+        let settings = headers
+            .cookies()
+            .filter_map(|cookie| match cookie {
+                Ok(cookie) => Some(cookie),
+                Err(e) => {
+                    eprintln!("invalid cookie: {:#?}", e);
+                    None
+                }
+            })
+            .find(|cookie| cookie.name() == "GeneralSettings")
+            .and_then(|cookie| serde_json::from_str(cookie.value()).ok())
+            .unwrap_or_default();
+
         Some(Self {
-            rite_i: false,
-            bcp_calendar: false,
-            thirty_day_psalms: false,
-            bible_version: Version::NRSV,
+            settings,
+            success: query.success.is_some(),
         })
+    }
+
+    async fn action(
+        locale: &str,
+        req: Arc<dyn Request>,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> ActionResponse {
+        // TODO test to make sure Content-Type is actually application/x-www-form-urlencoded
+        // read form data
+        let general_settings = req
+            .body()
+            .and_then(|body| body.as_form_data::<GeneralSettings>().ok())
+            .unwrap_or_default();
+        let settings_cookie = Cookie::build(
+            "GeneralSettings",
+            serde_json::to_string(&general_settings).unwrap(),
+        )
+        .path("/")
+        .finish();
+
+        // build response
+        Response::builder()
+            .status(StatusCode::SEE_OTHER)
+            .header("Location", format!("/{}/settings?success", locale))
+            .header("Set-Cookie", settings_cookie.to_string())
+            .body(())
+            .map(ActionResponse::from_response)
+            .unwrap_or_else(ActionResponse::from_error)
     }
 }
 
@@ -48,13 +115,17 @@ impl View for GeneralSettingsView {
                         <input
                             type="radio"
                             id="rite_i"
-                            checked={self.rite_i}
+                            checked={self.settings.liturgy_version == Version::RiteI}
+                            name="liturgy_version"
+                            value={Version::RiteI}
                         />
                         <label for="rite_i">{t!("settings.rite_i")}</label>
                         <input
                             type="radio"
                             id="rite_ii"
-                            checked={!self.rite_i}
+                            checked={self.settings.liturgy_version != Version::RiteI}
+                            name="liturgy_version"
+                            value={Version::RiteII}
                         />
                         <label for="rite_ii">{t!("settings.rite_ii")}</label>
                     </fieldset>
@@ -65,13 +136,17 @@ impl View for GeneralSettingsView {
                         <input
                             type="radio"
                             id="bcp_1979"
-                            checked={self.bcp_calendar}
+                            checked={!self.settings.use_lff}
+                            name="use_lff"
+                            value="false"
                         />
                         <label for="bcp_1979">{t!("bcp_1979")}</label>
                         <input
                             type="radio"
                             id="lff_2018"
-                            checked={!self.bcp_calendar}
+                            checked={self.settings.use_lff}
+                            name="use_lff"
+                            value="true"
                         />
                         <label for="lff_2018">{t!("lff_2018")}</label>
                     </fieldset>
@@ -82,13 +157,17 @@ impl View for GeneralSettingsView {
                         <input
                             type="radio"
                             id="daily_office_psalms"
-                            checked={!self.thirty_day_psalms}
+                            checked={self.settings.psalm_cycle == Lectionaries::BCP1979DailyOfficePsalms}
+                            name="psalm_cycle"
+                            value={Lectionaries::BCP1979DailyOfficePsalms}
                         />
                         <label for="daily_office_psalms">{t!("daily_readings.daily_office_psalms")}</label>
                         <input
                             type="radio"
                             id="thirty_day_psalms"
-                            checked={self.thirty_day_psalms}
+                            checked={self.settings.psalm_cycle == Lectionaries::BCP1979ThirtyDayPsalms}
+                            name="psalm_cycle"
+                            value={Lectionaries::BCP1979ThirtyDayPsalms}
                         />
                         <label for="thirty_day_psalms">{t!("daily_readings.thirty_day_psalms")}</label>
                     </fieldset>
@@ -99,7 +178,9 @@ impl View for GeneralSettingsView {
                         <input
                             type="radio"
                             id="NRSV"
-                            checked={self.bible_version == Version::NRSV}
+                            checked={self.settings.bible_version == Version::NRSV}
+                            name="bible_version"
+                            value={Version::NRSV}
                         />
                         <label for="NRSV" title={t!("bible_version.NRSV_full")}>
                             {t!("bible_version.NRSV")}
@@ -107,7 +188,9 @@ impl View for GeneralSettingsView {
                         <input
                             type="radio"
                             id="CEB"
-                            checked={self.bible_version == Version::CEB}
+                            checked={self.settings.bible_version == Version::CEB}
+                            name="bible_version"
+                            value={Version::CEB}
                         />
                         <label for="CEB" title={t!("bible_version.CEB_full")}>
                             {t!("bible_version.CEB")}
@@ -115,7 +198,9 @@ impl View for GeneralSettingsView {
                         <input
                             type="radio"
                             id="ESV"
-                            checked={self.bible_version == Version::ESV}
+                            checked={self.settings.bible_version == Version::ESV}
+                            name="bible_version"
+                            value={Version::ESV}
                         />
                         <label for="ESV" title={t!("bible_version.ESV_full")}>
                             {t!("bible_version.ESV")}
@@ -123,7 +208,9 @@ impl View for GeneralSettingsView {
                         <input
                             type="radio"
                             id="KJV"
-                            checked={self.bible_version == Version::KJV}
+                            checked={self.settings.bible_version == Version::KJV}
+                            name="bible_version"
+                            value={Version::KJV}
                         />
                         <label for="KJV" title={t!("bible_version.KJV_full")}>
                             {t!("bible_version.KJV")}
@@ -131,7 +218,9 @@ impl View for GeneralSettingsView {
                         <input
                             type="radio"
                             id="RV"
-                            checked={self.bible_version == Version::RV09}
+                            checked={self.settings.bible_version == Version::RV09}
+                            name="bible_version"
+                            value={Version::RV09}
                         />
                         <label for="RV" title={t!("bible_version.RV_full")}>
                             {t!("bible_version.RV")}
@@ -139,6 +228,13 @@ impl View for GeneralSettingsView {
                     </fieldset>
                     <input type="submit" value={t!("settings.submit")}/>
                 </form>
+                {if self.success {
+                    view! {
+                        <footer class="success">{t!("settings.success")}</footer>
+                    }
+                } else {
+                    Node::default()
+                }}
             </>
         }
     }

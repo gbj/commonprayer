@@ -33,6 +33,7 @@ impl Page for HymnPage {
         path: &str,
         params: Self::Params,
         query: Self::Query,
+    req: &HttpRequest
     ) -> Option<Self> {
         let hymnal: Hymnal = params.hymnal.into();
         let hymn = hymnal

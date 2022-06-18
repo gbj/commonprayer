@@ -34,14 +34,14 @@ pub struct EucharistViewQuery {
     version: Option<Version>,
 }
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Loader for EucharistView {
     type Params = ();
     type Query = EucharistViewQuery;
 
     async fn loader(
         locale: &str,
-        path: &str,
+        req: Arc<dyn Request>,
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {

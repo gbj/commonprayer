@@ -82,14 +82,14 @@ pub struct DocumentPageQuery {
     pub alternate: Option<String>,
 }
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Loader for DocumentPage {
     type Params = DocumentPageParams;
     type Query = DocumentPageQuery;
 
     async fn loader(
         locale: &str,
-        path: &str,
+        req: Arc<dyn Request>,
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
@@ -246,7 +246,7 @@ impl Loader for DocumentPage {
                 page_type.map(|page_type| DocumentPage {
                     locale: locale.to_string(),
                     page_type,
-                    path: path.to_string(),
+                    path: req.path().to_string(),
                     slug: slug.clone(),
                     date: query.date.map(|date| date.to_string()).unwrap_or_default(),
                 })

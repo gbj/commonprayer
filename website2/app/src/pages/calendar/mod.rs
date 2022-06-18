@@ -61,6 +61,7 @@ impl Page for CalendarPage {
         path: &str,
         _params: Self::Params,
         _query: Self::Query,
+    req: &HttpRequest
     ) -> Option<Self> {
         let language = Language::from_locale(locale);
 

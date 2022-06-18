@@ -9,5 +9,5 @@ pub enum RouterError {
     #[error("could not find parameter")]
     MissingParam(String),
     #[error("failed to deserialize parameters")]
-    Params(Box<dyn std::error::Error>),
+    Params(Box<dyn std::error::Error + Send + Sync>),
 }

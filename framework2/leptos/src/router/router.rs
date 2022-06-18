@@ -1,6 +1,6 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, sync::Arc};
 
-use crate::{self as leptos2, Element, Request};
+use crate::{self as leptos2, ActionResponse, Element, Request};
 use futures::future::join_all;
 use leptos_macro2::view;
 
@@ -27,7 +27,7 @@ where
         }
     }
 
-    pub async fn route(&self, req: &impl Request) -> RenderedView {
+    pub async fn get(&self, req: &Arc<dyn Request>) -> RenderedView {
         let path = req.path();
         let locale = self
             .locales
@@ -45,12 +45,12 @@ where
 
         match self
             .root
-            .search(&locale, &parts, &mut params, &query, String::new())
+            .search(&req, &locale, &parts, &mut params, &query, String::new())
         {
             Ok(loaders) => {
                 let loader_futures = loaders
                     .iter()
-                    .map(|loader| (loader.loader)(&locale, &path, &params, &query));
+                    .map(|loader| (loader.loader)(&locale, req.clone(), &params, &query));
                 let partial = join_all(loader_futures).await.into_iter().enumerate().fold(
                     RenderedPartial::default(),
                     |mut acc, (loader_idx, curr)| {
@@ -101,6 +101,46 @@ where
                     ),
                 }
             }
+        }
+    }
+
+    pub async fn post(&self, req: &Arc<dyn Request>) -> ActionResponse {
+        let path = req.path();
+        let locale = self
+            .locales
+            .iter()
+            .find(|locale| path.starts_with(&format!("/{}", locale)))
+            .cloned()
+            .unwrap_or_else(|| "en".to_string());
+        let path = path.replace(&format!("/{}", locale), "");
+        let query = parse_query(req.query_string());
+        let parts = path
+            .split('/')
+            .filter(|n| !n.is_empty())
+            .collect::<Vec<_>>();
+        let mut params = HashMap::new();
+
+        match self
+            .root
+            .search(req, &locale, &parts, &mut params, &query, String::new())
+        {
+            Ok(loaders) => match loaders
+                .iter()
+                .filter_map(|loader| loader.action.as_ref())
+                .last()
+            {
+                Some(action) => (action)(&locale, req.clone(), &params, &query).await,
+                None => {
+                    panic!(
+                        "no action found in loaders: {:#?}",
+                        loaders
+                            .iter()
+                            .map(|loader| loader.route_name)
+                            .collect::<Vec<_>>()
+                    );
+                }
+            },
+            Err(e) => ActionResponse::Error(Box::new(e)),
         }
     }
 }

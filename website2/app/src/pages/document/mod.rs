@@ -129,6 +129,7 @@ impl Page for DocumentPage {
         path: &str,
         params: Self::Params,
         query: Self::Query,
+    req: &HttpRequest
     ) -> Option<Self> {
         let locale_and_base = format!("/{locale}/document/");
         let path = path.replace(&locale_and_base, "");

@@ -1,29 +1,39 @@
-use crate as leptos2;
+use std::sync::Arc;
+
+use crate::{self as leptos2, router::ActionResponse};
 use async_trait::async_trait;
 use leptos_macro2::view;
-use serde::{Deserialize, Serialize};
 
 use crate::router::Params;
-use crate::{Node, RouterError};
+use crate::{Node, Request, RouterError};
 
 pub type MetaTags = Vec<(String, String)>;
 pub type Styles = Vec<String>;
 pub type Body = Vec<Node>;
 
-#[async_trait]
+#[async_trait(?Send)]
 pub trait Loader
 where
     Self: Sized,
 {
-    type Params: Params + 'static;
-    type Query: Params + 'static;
+    type Params: Params + Send + Sync + 'static;
+    type Query: Params + Send + Sync + 'static;
 
     async fn loader(
         locale: &str,
-        path: &str,
+        req: Arc<dyn Request>,
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self>;
+
+    async fn action(
+        locale: &str,
+        req: Arc<dyn Request>,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> ActionResponse {
+        ActionResponse::None
+    }
 }
 
 pub trait View {

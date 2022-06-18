@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use leptos2::*;
 
 mod display;
@@ -13,20 +15,20 @@ pub struct SettingsView {
     path: String,
 }
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Loader for SettingsView {
     type Params = ();
     type Query = ();
 
     async fn loader(
         locale: &str,
-        path: &str,
-        _params: Self::Params,
-        _query: Self::Query,
+        req: Arc<dyn Request>,
+        params: Self::Params,
+        query: Self::Query,
     ) -> Option<Self> {
         Some(Self {
             locale: locale.to_string(),
-            path: path.to_string(),
+            path: req.path().to_string(),
         })
     }
 }

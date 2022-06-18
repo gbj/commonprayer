@@ -43,6 +43,7 @@ impl Page for EucharisticReadingsPage {
         _path: &str,
         _params: Self::Params,
         query: Self::Query,
+    req: &HttpRequest
     ) -> Option<Self> {
         let language = Language::from_locale(locale);
         let date = query
