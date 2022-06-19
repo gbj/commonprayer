@@ -112,39 +112,46 @@ pub fn async_readings_view(
     } else {
         readings
             .into_iter()
-            .map(|(citation, reading)| {
-                let citation = citation.to_string();
-                let locale = locale.to_string();
-                Node::AsyncElement(AsyncElement {
-                    pending: Box::new(view! {
-                        <p>{t!("loading")}</p>
-                    }),
-                    ready: Some(Box::pin(async move {
-                        match reading.await {
-                            Ok(reading) => {
-                                let doc_view = DocumentView {
-                                    doc: &Document::from(reading).version(version),
-                                    path: vec![],
-                                };
-
-                                view! {
-                                    <div>
-                                        <a id={&citation}></a>
-                                        {doc_view.view(&locale)}
-                                    </div>
-                                }
-                            }
-                            Err(e) => {
-                                view! {
-                                    <p class="error">
-                                        {t!("biblical_citation.error", citation = &citation)}
-                                    </p>
-                                }
-                            }
-                        }
-                    })),
-                })
-            })
+            .map(|(citation, reading)| async_reading_node(locale, &citation, reading, version))
             .collect()
     }
+}
+
+pub fn async_reading_node(
+    locale: &str,
+    citation: &str,
+    reading: Pin<Box<dyn Future<Output = Result<BiblicalReading, FetchError>>>>,
+    version: Version,
+) -> Node {
+    let locale = locale.to_string();
+    let citation = citation.to_string();
+    Node::AsyncElement(AsyncElement {
+        pending: Box::new(view! {
+            <p>{t!("loading")}</p>
+        }),
+        ready: Some(Box::pin(async move {
+            match reading.await {
+                Ok(reading) => {
+                    let doc_view = DocumentView {
+                        doc: &Document::from(reading).version(version),
+                        path: vec![],
+                    };
+
+                    view! {
+                        <article class="document">
+                            <a id={&citation}></a>
+                            {doc_view.view(&locale)}
+                        </article>
+                    }
+                }
+                Err(e) => {
+                    view! {
+                        <p class="error">
+                            {t!("biblical_citation.error", citation = &citation)}
+                        </p>
+                    }
+                }
+            }
+        })),
+    })
 }

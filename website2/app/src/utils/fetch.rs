@@ -152,6 +152,8 @@ impl<T> Default for FetchStatus<T> {
 pub enum FetchError {
     #[error("request was aborted by client")]
     Abort,
+    #[error("error with caching middleware")]
+    Cache,
     #[error("could not connect to server")]
     Connection,
     #[error("internal server error")]

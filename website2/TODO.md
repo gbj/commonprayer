@@ -8,18 +8,19 @@
 		- [ ] Actual auth system to store settings for users
 	- [ ] Migrate website to this system
 		-  Remaining pages
+			- [ ] Eucharistic Readings
+				- [x] Async readings
+				- [ ] Alternate observance
+				- [ ] Track in query, not as tab (for linking)
+				- [ ] Reading links (like Daily Office)
+				- [ ] Add Vigil readings back
+			- [ ] Holy Day
+				- [ ] Async readings
+				- [ ] Nest under readings?
 			- [ ] Settings
 				- [x] Actually apply General + Display Settings
 				- [ ] Liturgy settings
 			- [ ] Daily Office
-			- [ ] Eucharistic Readings
-				- [ ] Alternate observance
-				- [ ] Track in query, not as tab (for linking)
-				- [ ] Reading links (like Daily Office)
-				- [ ] Async readings
-			- [ ] Holy Day
-				- [ ] Async readings
-				- [ ] Nest under readings?
 			- [ ] Lectionary
 				- [ ] Combine this with Calendar page in a sensible way
 			- [ ] Psalter

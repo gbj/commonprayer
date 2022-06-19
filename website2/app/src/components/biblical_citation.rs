@@ -6,10 +6,8 @@ use reference_parser::{BibleVerse, BibleVersePart, Book};
 
 use crate::{
     preferences,
-    utils::{
-        fetch::{fetch, Fetch, FetchError, FetchMsg, FetchStatus},
-        reading_loader::*,
-    },
+    routes::readings::reading_loader::*,
+    utils::fetch::{fetch, Fetch, FetchError, FetchMsg, FetchStatus},
     views::document::biblical_reading_verses,
 };
 
@@ -99,7 +97,7 @@ impl BiblicalCitationLoader {
             spawn_local(async move {
                 match fetch::<BibleReadingFromAPI>(&url, None).await {
                     Ok(res) => link.send(&BiblicalCitationMsg::FetchResult(
-                        res.api_data_to_biblical_reading(&citation.citation, citation.intro),
+                        res.api_data_to_biblical_reading(&citation.citation, &citation.intro),
                     )),
                     Err(e) => link.send(&BiblicalCitationMsg::FetchError(e)),
                 };

@@ -8,7 +8,7 @@ mod hymn;
 mod hymnal;
 mod index;
 pub mod meditation;
-mod readings;
+pub mod readings;
 pub mod settings;
 pub use index::Index;
 

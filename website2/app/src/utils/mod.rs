@@ -5,7 +5,6 @@ use web_sys::ScrollToOptions;
 
 pub mod fetch;
 //pub mod preferences;
-pub mod reading_loader;
 pub mod share;
 pub mod time;
 

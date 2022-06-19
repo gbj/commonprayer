@@ -10,6 +10,10 @@
 	margin: 0.25rem auto 0.25rem auto;
 }
 
+.toggle-links.right {
+	justify-content: right;
+}
+
 .toggle-links a, .toggle-links a:visited {
 	color: var(--color);
 }

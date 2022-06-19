@@ -14,7 +14,7 @@ use crate::{
     WebView,
 };
 
-use crate::utils::reading_loader::load_reading;
+use super::reading_loader::{load_reading, ReadingFuture};
 
 pub struct OfficeView {
     pub locale: String,
@@ -29,10 +29,7 @@ pub struct OfficeView {
     pub reading_links: ReadingLinks,
     pub psalms: Vec<Psalm>,
     // readings: async load on server rather than from client
-    pub readings: Vec<(
-        String,
-        Pin<Box<dyn Future<Output = Result<BiblicalReading, FetchError>> + Send + Sync>>,
-    )>,
+    pub readings: Vec<(String, ReadingFuture)>,
 }
 
 #[derive(Params)]

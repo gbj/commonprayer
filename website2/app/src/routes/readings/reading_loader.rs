@@ -1,21 +1,36 @@
-use futures::Future;
+use std::pin::Pin;
+
+use futures::{future::join_all, Future};
+use leptos2::*;
 use liturgy::{BiblicalCitation, BiblicalReading, BiblicalReadingIntro, Version};
 use reference_parser::{BibleVerse, BibleVersePart, Book};
 use serde::{Deserialize, Serialize};
+
+use reqwest::Client;
+//use reqwest_middleware::ClientBuilder;
+//use reqwest_middleware_cache::{managers::CACacheManager, Cache, CacheMode};
 
 use crate::utils::{
     encode_uri,
     fetch::{fetch, FetchError},
 };
 
+pub type ReadingFuture =
+    Pin<Box<dyn Future<Output = Result<BiblicalReading, FetchError>> + Send + Sync>>;
+
+lazy_static::lazy_static! {
+    static ref CLIENT: Client = Client::new();
+}
 pub async fn load_reading(
     citation: String,
     version: Version,
     intro: Option<BiblicalReadingIntro>,
 ) -> Result<BiblicalReading, FetchError> {
     let url = reading_url(&citation, version);
-    eprintln!("(load_reading) url = {}", url);
-    reqwest::get(&url)
+
+    CLIENT
+        .get(&url)
+        .send()
         .await
         .map_err(|e| {
             eprintln!("\n\n(load_reading request) error \n{:#?}", e);
@@ -31,7 +46,7 @@ pub async fn load_reading(
             eprintln!("\n\n(load_reading JSON) error \n{:#?}", e);
             FetchError::Json
         })
-        .map(|reading| reading.api_data_to_biblical_reading(&citation, intro))
+        .map(|reading| reading.api_data_to_biblical_reading(&citation, &intro))
 }
 
 #[derive(Deserialize, Clone, Default, Debug, PartialEq, Serialize)]
@@ -52,7 +67,7 @@ impl BibleReadingFromAPI {
     pub fn api_data_to_biblical_reading(
         &self,
         citation: &str,
-        intro: Option<BiblicalReadingIntro>,
+        intro: &Option<BiblicalReadingIntro>,
     ) -> BiblicalReading {
         let mut text = Vec::new();
         let parts = self

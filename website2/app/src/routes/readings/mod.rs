@@ -1,5 +1,6 @@
 pub mod eucharist;
 pub mod office;
+pub mod reading_loader;
 
 use calendar::Date;
 use language::Language;

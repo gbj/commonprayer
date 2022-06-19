@@ -36,6 +36,8 @@ library = { path = "../../episcopal_api/crates/library" }
 liturgy = { path = "../../episcopal_api/crates/liturgy" }
 psalter = { path = "../../episcopal_api/crates/psalter" }
 reference-parser = { path = "../../episcopal_api/crates/reference-parser" }
+reqwest-middleware-cache = "0.1.1"
+reqwest-middleware = "0.1.6"
 
 [dependencies.web-sys]
 version = "0.3"
