@@ -2,14 +2,14 @@ use std::{collections::HashMap, convert::TryFrom};
 
 use api::summary::{
     DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary, FirstLessonAndPsalm,
-    ObservanceSummary, PartialDailySummary, TrackedReadings,
+    ObservanceSummary, PartialDailySummary, PsalmOrReading, TrackedReadings,
 };
 use calendar::{
     Calendar, Date, Feast, LiturgicalDay, LiturgicalDayId, Weekday, BCP1979_CALENDAR,
     LFF2018_CALENDAR,
 };
 use canticle_table::CanticleId;
-use liturgy::{BiblicalCitation, Content, Document, LiturgyPreferences, Psalm, Version};
+use liturgy::{Content, Document, LiturgyPreferences, Psalm, Version};
 use psalter::{bcp1979::BCP1979_PSALTER, Psalter};
 
 use language::Language;
@@ -108,23 +108,20 @@ fn summarize_eucharistic_observance(
         TrackedReadings::Any(Box::new(tracked_readings(observance, day, &RCL, psalter)))
     };
 
-    let epistle = Document::choice_or_document(
-        &mut RCL
-            .reading_by_type(observance, day, ReadingType::SecondReading)
-            .map(|reading| Document::from(BiblicalCitation::from(reading.citation))),
-    );
+    let epistle = RCL
+        .reading_by_type(observance, day, ReadingType::SecondReading)
+        .map(|reading| reading.citation)
+        .collect();
 
-    let gospel = Document::choice_or_document(
-        &mut RCL
-            .reading_by_type(observance, day, ReadingType::Gospel)
-            .map(|reading| Document::from(BiblicalCitation::from(reading.citation))),
-    );
+    let gospel = RCL
+        .reading_by_type(observance, day, ReadingType::Gospel)
+        .map(|reading| reading.citation)
+        .collect();
 
-    let liturgy_of_the_palms = Document::choice_or_document(
-        &mut RCL
-            .reading_by_type(observance, day, ReadingType::PalmsGospel)
-            .map(|reading| Document::from(BiblicalCitation::from(reading.citation))),
-    );
+    let liturgy_of_the_palms = RCL
+        .reading_by_type(observance, day, ReadingType::PalmsGospel)
+        .map(|reading| reading.citation)
+        .collect();
 
     EucharisticObservanceSummary {
         observance: *observance,
@@ -143,7 +140,7 @@ fn vigil_readings(
     day: &LiturgicalDay,
     lectionary: &'static Lectionary,
     psalter: &Psalter,
-) -> Vec<Document> {
+) -> Vec<PsalmOrReading> {
     VIGIL_READING_TYPES
         .iter()
         .filter_map(|reading_type| {
@@ -159,12 +156,14 @@ fn vigil_readings(
                         .into_iter()
                     });
                 Document::choice_or_document(&mut psalms)
+                    .map(|doc| PsalmOrReading::Psalm(Box::new(doc)))
             } else {
-                Document::choice_or_document(
-                    &mut lectionary
+                Some(PsalmOrReading::Reading(
+                    lectionary
                         .reading_by_type(observance, day, *reading_type)
-                        .map(|reading| Document::from(BiblicalCitation::from(reading.citation))),
-                )
+                        .map(|reading| reading.citation)
+                        .collect(),
+                ))
             }
         })
         .collect()
@@ -176,18 +175,17 @@ fn tracked_readings(
     lectionary: &'static Lectionary,
     psalter: &Psalter,
 ) -> FirstLessonAndPsalm {
-    let first_lesson = Document::choice_or_document(
-        &mut lectionary
-            .reading_by_type(observance, day, ReadingType::FirstReading)
-            .map(|reading| Document::from(BiblicalCitation::from(reading.citation))),
-    );
-    let mut psalms = lectionary
+    let first_lesson = lectionary
+        .reading_by_type(observance, day, ReadingType::FirstReading)
+        .map(|reading| reading.citation)
+        .collect();
+    let psalm = lectionary
         .reading_by_type(observance, day, ReadingType::Psalm)
         .flat_map(|reading| {
             psalm_citation_to_documents::<CommonPrayer>(psalter, Version::RiteII, &reading.citation)
                 .into_iter()
-        });
-    let psalm = Document::choice_or_document(&mut psalms);
+        })
+        .collect();
     FirstLessonAndPsalm {
         first_lesson,
         psalm,

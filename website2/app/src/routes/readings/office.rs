@@ -5,7 +5,7 @@ use language::Language;
 use lectionary::Reading;
 use leptos2::*;
 use library::CommonPrayer;
-use liturgy::{BiblicalReading, Psalm, Version};
+use liturgy::{BiblicalReading, Document, Psalm, Version};
 use std::pin::Pin;
 
 use crate::{
@@ -14,7 +14,7 @@ use crate::{
     WebView,
 };
 
-use super::reading_loader::{load_reading, ReadingFuture};
+use super::reading_loader::{load_reading, ReadingFuture, ReadingLoader};
 
 pub struct OfficeView {
     pub locale: String,
@@ -29,7 +29,7 @@ pub struct OfficeView {
     pub reading_links: ReadingLinks,
     pub psalms: Vec<Psalm>,
     // readings: async load on server rather than from client
-    pub readings: Vec<(String, ReadingFuture)>,
+    pub readings: Vec<ReadingLoader>,
 }
 
 #[derive(Params)]
@@ -156,17 +156,7 @@ impl Loader for OfficeView {
             morning_readings
         }
         .into_iter()
-        .map(|reading| {
-            let citation = reading.citation.clone();
-            let citation2 = citation.clone();
-            (
-                reading.citation.clone(),
-                Box::pin(load_reading(citation2, version, None))
-                    as Pin<
-                        Box<dyn Future<Output = Result<BiblicalReading, FetchError>> + Send + Sync>,
-                    >,
-            )
-        })
+        .map(|reading| load_reading(&reading.citation, version, None))
         .collect::<Vec<_>>();
 
         Some(Self {
@@ -208,7 +198,7 @@ impl View for OfficeView {
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         view! {
             <div>
-                <section>
+                <section class="readings">
                     // Controls
                     <form>
                         // Date and Bible Version set in form in parent route, so just take them from
@@ -253,7 +243,7 @@ impl View for OfficeView {
 
                     // Readings
                     <h2>{t!("daily_readings.daily_office_readings")}</h2>
-                    {async_readings_view(&self.locale, self.readings, self.version)}
+                    {async_readings_view(&self.locale, self.readings)}
                 </section>
             </div>
         }

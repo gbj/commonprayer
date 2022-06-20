@@ -193,6 +193,13 @@ impl Choice {
         }
     }
 
+    pub fn option_labels(&self) -> impl Iterator<Item = String> + '_ {
+        self.options
+            .iter()
+            .enumerate()
+            .map(move |(idx, option)| self.option_label(option, idx))
+    }
+
     fn unique_versions(&self) -> usize {
         self.options.iter().map(|doc| doc.version).unique().count()
     }

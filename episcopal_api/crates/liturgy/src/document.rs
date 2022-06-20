@@ -554,6 +554,24 @@ impl Document {
             self.label.clone()
         }
     }
+
+    pub fn as_citation(&self) -> Option<String> {
+        match &self.content {
+            Content::BiblicalCitation(c) => Some(c.citation.clone()),
+            Content::BiblicalReading(c) => Some(c.citation.clone()),
+            Content::Canticle(c) => Some(c.citation.clone().unwrap_or_else(|| format!("Canticle {}", c.number))),
+            Content::DocumentLink { label, path, rotate } => todo!(),
+            Content::HymnLink(h) => match h {
+                HymnLink::Hymnal(hymnal) => Some(hymnal.to_string()),
+                HymnLink::Hymn(hymnal, number) => Some(format!("{} {}", hymnal, number)),
+                _ => None
+            },
+            Content::Psalm(c) => Some(c.citation.clone().unwrap_or_else(|| format!("Psalm {}", c.number))),
+            Content::PsalmCitation(c) => Some(c.0.clone()),
+            Content::Sentence(c) => c.citation.clone().map(|c| c),
+            _ => None
+        }
+    }
 }
 
 impl Default for Document {

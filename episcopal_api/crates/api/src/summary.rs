@@ -16,11 +16,17 @@ pub struct EucharisticObservanceSummary {
     pub localized_name: String,
     pub collects: Option<Document>,
     pub tracked_readings: TrackedReadings,
-    pub epistle: Option<Document>,
-    pub gospel: Option<Document>,
+    pub epistle: Vec<String>,
+    pub gospel: Vec<String>,
     // special occasions
-    pub vigil_readings: Vec<Document>,
-    pub liturgy_of_the_palms: Option<Document>,
+    pub vigil_readings: Vec<PsalmOrReading>,
+    pub liturgy_of_the_palms: Vec<String>,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]
+pub enum PsalmOrReading {
+    Psalm(Box<Document>),
+    Reading(Vec<String>),
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]
@@ -34,8 +40,8 @@ pub enum TrackedReadings {
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]
 pub struct FirstLessonAndPsalm {
-    pub first_lesson: Option<Document>,
-    pub psalm: Option<Document>,
+    pub first_lesson: Vec<String>,
+    pub psalm: Vec<Document>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]

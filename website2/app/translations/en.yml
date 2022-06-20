@@ -197,6 +197,7 @@ en:
     transferred: (Transferred)
     psalms: Psalms
     psalm: Psalm %{number}
+    canticle: Canticle %{number}
     daily_office_readings: Daily Office Readings
     daily_office_psalms: Daily Office Psalms
     thirty_day_psalms: 30-Day Psalm Cycle

@@ -72,10 +72,10 @@ impl View for ReadingsView {
     fn styles(&self) -> Styles {
         vec![
             include_str!("../../styles/document.css").into(),
-            include_str!("readings.css").into(),
             include_str!("../../styles/reading-link-table.css").into(),
             include_str!("../../styles/toggle-fieldset.css").into(),
             include_str!("../../styles/toggle-links.css").into(),
+            include_str!("readings.css").into(),
         ]
     }
 

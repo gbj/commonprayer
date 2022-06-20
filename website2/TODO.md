@@ -11,9 +11,13 @@
 			- [ ] Eucharistic Readings
 				- [x] Async readings
 				- [ ] Alternate observance
-				- [ ] Track in query, not as tab (for linking)
-				- [ ] Reading links (like Daily Office)
+				- [x] Track in query, not as tab (for linking)
+				- [x] Reading links (like Daily Office)
+				- [x] Handle days with multiple options
+					- [x] Loading
+					- [x] Links
 				- [ ] Add Vigil readings back
+				- [ ] Cache readings on disk, and load sync if found
 			- [ ] Holy Day
 				- [ ] Async readings
 				- [ ] Nest under readings?

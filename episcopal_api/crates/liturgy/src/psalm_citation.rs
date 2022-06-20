@@ -3,7 +3,7 @@ use std::fmt::Display;
 
 /// A reference to a [Psalm](crate::Psalm), which will be inserted by the compilation process.
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
-pub struct PsalmCitation(String);
+pub struct PsalmCitation(pub String);
 
 impl PsalmCitation {
     pub fn as_str(&self) -> &str {

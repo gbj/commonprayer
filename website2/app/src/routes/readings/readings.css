@@ -45,3 +45,12 @@ h2.day-name {
   text-align: center;
   font-style: italic;
 }
+
+.reading-links {
+  list-style-type: none;
+  padding: 0;
+}
+
+.readings article.document {
+  margin-bottom: 2rem;
+}

@@ -36,6 +36,6 @@
 	cursor: pointer;
 }
 
-.app-shell > div > main * {
+.app-shell * {
 	scroll-margin-top: 3.5rem;
 }

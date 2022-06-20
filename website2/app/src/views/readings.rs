@@ -1,5 +1,7 @@
 use std::pin::Pin;
 
+use crate::components::Tabs;
+use crate::routes::readings::reading_loader::ReadingLoader;
 use crate::WebView;
 use crate::{utils::fetch::FetchError, views::bible_version_select_options};
 use calendar::{Date, LiturgicalDayId};
@@ -8,7 +10,7 @@ use lectionary::Reading;
 use leptos2::*;
 use liturgy::{BiblicalCitation, BiblicalReading, Document, Psalm, Version};
 
-use super::DocumentView;
+use super::{biblical_reading, DocumentView};
 
 pub fn readings_settings_form(
     locale: &str,
@@ -99,59 +101,36 @@ pub fn readings_view(locale: &str, readings: &[Reading], version: Version) -> Ve
     }
 }
 
-pub fn async_readings_view(
-    locale: &str,
-    readings: Vec<(
-        String,
-        Pin<Box<dyn Future<Output = Result<BiblicalReading, FetchError>> + Send + Sync>>,
-    )>,
-    version: Version,
-) -> Vec<Node> {
+pub fn async_readings_view(locale: &str, readings: Vec<ReadingLoader>) -> Vec<Node> {
     if readings.is_empty() {
         vec![]
-    } else {
+    } else if readings.len() == 1 {
         readings
             .into_iter()
-            .map(|(citation, reading)| async_reading_node(locale, &citation, reading, version))
+            .flat_map(|reading| reading.view(locale, vec![]))
             .collect()
+    } else {
+        // start with anchors, so that navigation to a hidden tab still works
+        let mut frag = readings
+            .iter()
+            .map(ReadingLoader::as_citation)
+            .map(|citation| view! { <a id={citation}></a> })
+            .collect::<Vec<_>>();
+        let labels = readings
+            .iter()
+            .map(ReadingLoader::as_citation)
+            .map(String::from)
+            .collect::<Vec<_>>();
+        let content = readings
+            .into_iter()
+            .map(|loader| view! { <div>{loader.view(locale, vec![])}</div> });
+        frag.push(view! {
+            <Tabs
+                prop:labels={labels.clone()}
+            >
+                {Tabs::content(content)}
+            </Tabs>
+        });
+        frag
     }
-}
-
-pub fn async_reading_node(
-    locale: &str,
-    citation: &str,
-    reading: Pin<Box<dyn Future<Output = Result<BiblicalReading, FetchError>>>>,
-    version: Version,
-) -> Node {
-    let locale = locale.to_string();
-    let citation = citation.to_string();
-    Node::AsyncElement(AsyncElement {
-        pending: Box::new(view! {
-            <p>{t!("loading")}</p>
-        }),
-        ready: Some(Box::pin(async move {
-            match reading.await {
-                Ok(reading) => {
-                    let doc_view = DocumentView {
-                        doc: &Document::from(reading).version(version),
-                        path: vec![],
-                    };
-
-                    view! {
-                        <article class="document">
-                            <a id={&citation}></a>
-                            {doc_view.view(&locale)}
-                        </article>
-                    }
-                }
-                Err(e) => {
-                    view! {
-                        <p class="error">
-                            {t!("biblical_citation.error", citation = &citation)}
-                        </p>
-                    }
-                }
-            }
-        })),
-    })
 }

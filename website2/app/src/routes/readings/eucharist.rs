@@ -1,9 +1,10 @@
 use api::summary::{EucharisticObservanceSummary, FirstLessonAndPsalm, TrackedReadings};
 use calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId};
+use futures::future::join_all;
 use language::Language;
 use leptos2::*;
 use library::CommonPrayer;
-use liturgy::{BiblicalReading, Content, Document, Psalm, Version};
+use liturgy::{BiblicalReading, Choice, Content, Document, DocumentError, Psalm, Version};
 use std::pin::Pin;
 use std::str::FromStr;
 
@@ -14,7 +15,7 @@ use crate::{
     WebView,
 };
 
-use super::reading_loader::{load_reading, ReadingFuture};
+use super::reading_loader::{load_reading, ReadingFuture, ReadingLoader};
 
 pub struct EucharistView {
     pub locale: String,
@@ -26,12 +27,12 @@ pub struct EucharistView {
     pub collects: Option<Document>,
     pub is_tracked: bool,
     pub using_track_two: bool,
-    pub first_lesson: Option<(String, ReadingFuture)>,
-    pub psalm: Option<Document>,
-    pub epistle: Option<(String, ReadingFuture)>,
-    pub gospel: Option<(String, ReadingFuture)>,
-    pub vigil_readings: Vec<(String, ReadingFuture)>,
-    pub liturgy_of_the_palms: Option<(String, ReadingFuture)>,
+    pub first_lesson: Vec<ReadingLoader>,
+    pub psalm: Vec<Document>,
+    pub epistle: Vec<ReadingLoader>,
+    pub gospel: Vec<ReadingLoader>,
+    //pub vigil_readings: Vec<ReadingLoader>,
+    pub liturgy_of_the_palms: Vec<ReadingLoader>,
 }
 
 #[derive(Params)]
@@ -93,7 +94,11 @@ impl Loader for EucharistView {
         let using_track_two = query.track.map(|track| track == "two").unwrap_or(false);
         let (first_lesson, psalm) = match tracked_readings {
             TrackedReadings::Any(readings) => (
-                (build_reading_with_citation_from_doc(readings.first_lesson, version)),
+                readings
+                    .first_lesson
+                    .iter()
+                    .map(|citation| load_reading(citation, version, None))
+                    .collect(),
                 readings.psalm,
             ),
             TrackedReadings::Tracked {
@@ -102,27 +107,43 @@ impl Loader for EucharistView {
             } => {
                 if using_track_two {
                     (
-                        build_reading_with_citation_from_doc(track_two.first_lesson, version),
+                        track_two
+                            .first_lesson
+                            .iter()
+                            .map(|citation| load_reading(citation, version, None))
+                            .collect(),
                         track_two.psalm,
                     )
                 } else {
                     (
-                        build_reading_with_citation_from_doc(track_one.first_lesson, version),
+                        track_one
+                            .first_lesson
+                            .iter()
+                            .map(|citation| load_reading(citation, version, None))
+                            .collect(),
                         track_one.psalm,
                     )
                 }
             }
         };
-        let epistle = build_reading_with_citation_from_doc(epistle, version);
-        let gospel = build_reading_with_citation_from_doc(gospel, version);
-        let liturgy_of_the_palms =
-            build_reading_with_citation_from_doc(liturgy_of_the_palms, version);
+        let epistle = epistle
+            .iter()
+            .map(|citation| load_reading(citation, version, None))
+            .collect();
+        let gospel = gospel
+            .iter()
+            .map(|citation| load_reading(citation, version, None))
+            .collect();
+        let liturgy_of_the_palms = liturgy_of_the_palms
+            .iter()
+            .map(|citation| load_reading(citation, version, None))
+            .collect();
         // TODO some of these may Psalms
-        let vigil_readings = vec![]; /* observed
-                                     .vigil_readings
-                                     .into_iter()
-                                     .map(|reading| build_reading_from_doc(Some(reading), version))
-                                     .collect(); */
+        /*let vigil_readings = vec![];  observed
+        .vigil_readings
+        .into_iter()
+        .map(|reading| build_reading_from_doc(Some(reading), version))
+        .collect(); */
 
         Some(Self {
             locale: locale.to_string(),
@@ -139,26 +160,9 @@ impl Loader for EucharistView {
             epistle,
             gospel,
             liturgy_of_the_palms,
-            vigil_readings,
+            //vigil_readings,
         })
     }
-}
-
-fn build_reading_with_citation_from_doc(
-    doc: Option<Document>,
-    version: Version,
-) -> Option<(String, ReadingFuture)> {
-    doc.and_then(|doc| match doc.content {
-        Content::BiblicalReading(reading) => Some((
-            reading.citation.clone(),
-            Box::pin(async move { Ok(reading) }) as ReadingFuture,
-        )),
-        Content::BiblicalCitation(citation) => Some((
-            citation.citation.clone(),
-            Box::pin(load_reading(citation.citation, version, citation.intro)),
-        )),
-        _ => None,
-    })
 }
 
 impl View for EucharistView {
@@ -178,7 +182,7 @@ impl View for EucharistView {
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         // not every day has readings assigned in The Lectionary: offer a choice to redirect
         // either to the Daily Office Lectionary or to The Lectionary
-        let no_readings_link = if self.epistle.is_none() && self.gospel.is_none() {
+        let no_readings_link = if self.epistle.is_empty() && self.gospel.is_empty() {
             Some(view! {
                 <p class="redirect-links">
                     {t!("lectionary.no_readings")}
@@ -205,6 +209,8 @@ impl View for EucharistView {
                     // Name of Day
                     <h1>{title_view(&self.locale, &self.observance, &self.localized_name)}</h1>
 
+                    {self.reading_links()}
+
                     // Collect of the Day
                     {self.collects.as_ref().map(|doc| view! {
                         <div class="collect">
@@ -218,13 +224,7 @@ impl View for EucharistView {
                     })}
 
                     // Palms and Vigil Readings preceded other Eucharistic readings
-                    {self.liturgy_of_the_palms.map(|(citation, reading)| view! {
-                        <>
-                            <a id="palms"></a>
-                            <h3>{t!("lectionary.palms")}</h3>
-                            {async_reading_node(&self.locale, &citation, reading, self.version)}
-                        </>
-                    }).unwrap_or_default()}
+                    {async_readings_view(&self.locale, self.liturgy_of_the_palms)}
                     /* {self.vigil_readings
                         .iter()
                         .map(|doc| {
@@ -290,41 +290,27 @@ impl View for EucharistView {
                         None
                     }}
 
-                    {self.first_lesson.map(|(citation, reading)| view! {
-                        <>
-                            <a id="first-lesson"></a>
-                            <h3>{t!("lectionary.first_lesson")}</h3>
-                            {async_reading_node(&self.locale, &citation, reading, self.version)}
-                        </>
-                    }).unwrap_or_default()}
+                    {async_readings_view(&self.locale, self.first_lesson)}
 
-                    {self.psalm.map(|doc| view! {
-                        <>
-                            <a id="psalm"></a>
-                            <h3>{t!("lectionary.psalm")}</h3>
-                            <article class="document">
-                                {DocumentView {
-                                    path: vec![],
-                                    doc: &doc
-                                }.view(&self.locale)}
-                            </article>
-                        </>
-                    }).unwrap_or_default()}
+                    {self.psalm
+                        .iter()
+                        .flat_map(|doc| view! {
+                            <>
+                                <a id={doc.as_citation().unwrap_or_default()}></a>
+                                <h3>{t!("lectionary.psalm")}</h3>
+                                <article class="document">
+                                    {DocumentView {
+                                        path: vec![],
+                                        doc: &doc
+                                    }.view(&self.locale)}
+                                </article>
+                            </>
+                        })
+                        .collect::<Vec<_>>()
+                    }
 
-                    {self.epistle.map(|(citation, reading)| view! {
-                        <>
-                            <a id="epistle"></a>
-                            <h3>{t!("lectionary.epistle")}</h3>
-                            {async_reading_node(&self.locale, &citation, reading, self.version)}
-                        </>
-                    }).unwrap_or_default()}
-                    {self.gospel.map(|(citation, reading)| view! {
-                        <>
-                            <a id="gospel"></a>
-                            <h3>{t!("lectionary.gospel")}</h3>
-                            {async_reading_node(&self.locale, &citation, reading, self.version)}
-                        </>
-                    }).unwrap_or_default()}
+                    {async_readings_view(&self.locale, self.epistle)}
+                    {async_readings_view(&self.locale, self.gospel)}
 
                     {no_readings_link}
                 </section>
@@ -334,53 +320,57 @@ impl View for EucharistView {
 }
 
 impl EucharistView {
-    fn first_lesson_and_psalm_view(&self, readings: &FirstLessonAndPsalm) -> Vec<Node> {
-        let first_lesson = if let Some(first_lesson) = &readings.first_lesson {
-            view! {
-                <>
-                    <a id="first-lesson"></a>
-                    <h3>{t!("lectionary.first_lesson")}</h3>
-                    <article class="document">
-                    {DocumentView { path: vec![], doc: &first_lesson.clone().version(self.version) }.view(&self.locale)}
-                    </article>
-                </>
-            }
-        } else {
-            vec![]
-        };
+    fn reading_links(&self) -> Node {
+        view! {
+            <ul class="reading-links">
+                {self.reading_link(&self.first_lesson)}
+                {self.psalm_link(&self.psalm)}
+                {self.reading_link(&self.epistle)}
+                {self.reading_link(&self.gospel)}
+            </ul>
+        }
+    }
 
-        let psalm_citation = readings
-            .psalm
-            .as_ref()
-            .and_then(|psalm| {
-                if let Content::Psalm(psalm) = &psalm.content {
-                    psalm.citation.clone()
-                } else if let Content::Canticle(canticle) = &psalm.content {
-                    Some(t!(
-                        "canticle_table.canticle_n",
-                        n = &canticle.number.to_string()
-                    ))
-                } else {
-                    None
+    fn reading_link(&self, readings: &[ReadingLoader]) -> Node {
+        let links = readings
+            .iter()
+            .map(ReadingLoader::as_citation)
+            .map(|citation| view! { <a href={format!("#{}", citation)}>{citation}</a> })
+            .intersperse_with(|| text(format!(" {} ", t!("or"))))
+            .collect::<Vec<_>>();
+        view! {
+            <li>{links}</li>
+        }
+    }
+
+    fn psalm_link(&self, readings: &[Document]) -> Node {
+        let links = readings
+            .iter()
+            .filter_map(|doc| {
+                let label = match &doc.content {
+                    Content::Psalm(psalm) => Some(psalm.citation.clone().unwrap_or(
+                        doc.label.clone().unwrap_or_else(|| {
+                            t!("daily_readings.psalm", number = &psalm.number.to_string())
+                        }),
+                    )),
+                    Content::PsalmCitation(citation) => Some(citation.0.clone()),
+                    Content::Canticle(canticle) => Some(t!(
+                        "daily_readings.canticle",
+                        number = &canticle.number.to_string()
+                    )),
+                    _ => None,
+                };
+                let citation = doc.as_citation();
+                match (citation, label) {
+                    (Some(citation), Some(label)) => Some((citation, label)),
+                    _ => None,
                 }
             })
-            .unwrap_or_else(|| t!("lectionary.psalm"));
-        let psalm = if let Some(psalm) = &readings.psalm {
-            view! {
-                <>
-                    <a id="psalm"></a>
-                    <h3>{psalm_citation}</h3>
-                    <article class="document">
-                    {DocumentView { path: vec![], doc: psalm }.view(&self.locale)}
-                    </article>
-                </>
-            }
-        } else {
-            vec![]
-        };
-
-        let mut lessons = first_lesson;
-        lessons.extend(psalm);
-        lessons
+            .map(|(citation, label)| view! { <a href={format!("#{}", citation)}>{label}</a> })
+            .intersperse_with(|| text(t!("or")))
+            .collect::<Vec<_>>();
+        view! {
+            <li>{links}</li>
+        }
     }
 }
