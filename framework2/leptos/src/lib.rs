@@ -78,7 +78,7 @@ pub fn body_scripts() -> Vec<Node> {
     view! {
         <>
             <script>{include_str!("polyfills/declarative_shadow_dom.js")}</script>
-            <script>
+            <script type="module">
                 {include_str!("hydration.js")}
                 "observe_custom_elements(document);"
             </script>

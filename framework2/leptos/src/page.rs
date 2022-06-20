@@ -76,7 +76,7 @@ where
                         text("")
                     } else {
                         view! {
-                            <script>
+                            <script type="module">
                             {include_str!("./hydration.js")}
                             "observe_custom_elements(document);"
                             </script>

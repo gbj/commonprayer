@@ -1,6 +1,6 @@
 const hasLoaded = {};
 
-function observe_custom_elements(root) {
+export function observe_custom_elements(root) {
 	const observer = new IntersectionObserver(async (entries) => {
 		for(const entry of entries) {
 			if (entry.intersectionRatio > 0) {
