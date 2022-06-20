@@ -16,7 +16,7 @@
 				- [x] Handle days with multiple options
 					- [x] Loading
 					- [x] Links
-				- [ ] Add Vigil readings back
+				- [x] Add Vigil readings back
 				- [ ] Cache readings on disk, and load sync if found
 			- [ ] Holy Day
 				- [ ] Async readings

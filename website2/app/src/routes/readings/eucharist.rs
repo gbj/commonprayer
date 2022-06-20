@@ -1,21 +1,18 @@
-use api::summary::{EucharisticObservanceSummary, FirstLessonAndPsalm, TrackedReadings};
+use api::summary::{EucharisticObservanceSummary, PsalmOrReading, TrackedReadings};
 use calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId};
-use futures::future::join_all;
 use language::Language;
 use leptos2::*;
 use library::CommonPrayer;
-use liturgy::{BiblicalReading, Choice, Content, Document, DocumentError, Psalm, Version};
-use std::pin::Pin;
+use liturgy::{Content, Document, Version};
 use std::str::FromStr;
 
 use crate::{
-    components::Tabs,
-    utils::{fetch::FetchError, time::today},
+    utils::time::today,
     views::{document::DocumentView, readings::*},
     WebView,
 };
 
-use super::reading_loader::{load_reading, ReadingFuture, ReadingLoader};
+use super::reading_loader::ReadingLoader;
 
 pub struct EucharistView {
     pub locale: String,
@@ -31,8 +28,13 @@ pub struct EucharistView {
     pub psalm: Vec<Document>,
     pub epistle: Vec<ReadingLoader>,
     pub gospel: Vec<ReadingLoader>,
-    //pub vigil_readings: Vec<ReadingLoader>,
+    pub vigil_readings: Vec<DocumentOrReadingLoader>,
     pub liturgy_of_the_palms: Vec<ReadingLoader>,
+}
+
+enum DocumentOrReadingLoader {
+    Document(Box<Document>),
+    ReadingLoader(ReadingLoader),
 }
 
 #[derive(Params)]
@@ -97,7 +99,7 @@ impl Loader for EucharistView {
                 readings
                     .first_lesson
                     .iter()
-                    .map(|citation| load_reading(citation, version, None))
+                    .map(|citation| ReadingLoader::new(citation, version, None))
                     .collect(),
                 readings.psalm,
             ),
@@ -110,7 +112,7 @@ impl Loader for EucharistView {
                         track_two
                             .first_lesson
                             .iter()
-                            .map(|citation| load_reading(citation, version, None))
+                            .map(|citation| ReadingLoader::new(citation, version, None))
                             .collect(),
                         track_two.psalm,
                     )
@@ -119,7 +121,7 @@ impl Loader for EucharistView {
                         track_one
                             .first_lesson
                             .iter()
-                            .map(|citation| load_reading(citation, version, None))
+                            .map(|citation| ReadingLoader::new(citation, version, None))
                             .collect(),
                         track_one.psalm,
                     )
@@ -128,22 +130,25 @@ impl Loader for EucharistView {
         };
         let epistle = epistle
             .iter()
-            .map(|citation| load_reading(citation, version, None))
+            .map(|citation| ReadingLoader::new(citation, version, None))
             .collect();
         let gospel = gospel
             .iter()
-            .map(|citation| load_reading(citation, version, None))
+            .map(|citation| ReadingLoader::new(citation, version, None))
             .collect();
         let liturgy_of_the_palms = liturgy_of_the_palms
             .iter()
-            .map(|citation| load_reading(citation, version, None))
+            .map(|citation| ReadingLoader::new(citation, version, None))
             .collect();
-        // TODO some of these may Psalms
-        /*let vigil_readings = vec![];  observed
-        .vigil_readings
-        .into_iter()
-        .map(|reading| build_reading_from_doc(Some(reading), version))
-        .collect(); */
+
+        let vigil_readings = observed
+            .vigil_readings
+            .into_iter()
+            .map(|reading| match reading {
+                DocumentOrReading::Document(doc) => doc,
+                DocumentOrReading::Reading(reading) => ReadingLoader::new(&reading, version, None),
+            })
+            .collect();
 
         Some(Self {
             locale: locale.to_string(),
@@ -160,7 +165,7 @@ impl Loader for EucharistView {
             epistle,
             gospel,
             liturgy_of_the_palms,
-            //vigil_readings,
+            vigil_readings,
         })
     }
 }
@@ -225,28 +230,33 @@ impl View for EucharistView {
 
                     // Palms and Vigil Readings preceded other Eucharistic readings
                     {async_readings_view(&self.locale, self.liturgy_of_the_palms)}
-                    /* {self.vigil_readings
+                    {self.vigil_readings
                         .iter()
                         .map(|doc| {
-                            view! {
-                                <article class="document">
-                                {
-                                    DocumentView {
-                                        path: vec![],
-                                        doc: &doc.clone()
-                                            .version(if matches!(doc.content, Content::Psalm(_)) {
-                                                doc.version
-                                            } else {
-                                                self.version
-                                            })
+                            match doc {
+                                DocumentOrReadingLoader::Document(doc) => {
+                                    view! {
+                                        <article class="document">
+                                        {
+                                            DocumentView {
+                                                path: vec![],
+                                                doc: &doc.clone()
+                                                    .version(if matches!(doc.content, Content::Psalm(_)) {
+                                                        doc.version
+                                                    } else {
+                                                        self.version
+                                                    })
+                                            }
+                                            .view(&self.locale)
+                                        }
+                                        </article>
                                     }
-                                    .view(&self.locale)
                                 }
-                                </article>
+                                DocumentOrReadingLoader::ReadingLoader(loader) => loader.view(&self.locale, vec![])
                             }
                         })
                         .collect::<Vec<_>>()
-                    } */
+                    }
 
                     // Readings
                     {if self.is_tracked {

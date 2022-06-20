@@ -19,13 +19,13 @@ pub struct EucharisticObservanceSummary {
     pub epistle: Vec<String>,
     pub gospel: Vec<String>,
     // special occasions
-    pub vigil_readings: Vec<PsalmOrReading>,
+    pub vigil_readings: Vec<DocumentOrReading>,
     pub liturgy_of_the_palms: Vec<String>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]
-pub enum PsalmOrReading {
-    Psalm(Box<Document>),
+pub enum DocumentOrReading {
+    Document(Box<Document>),
     Reading(Vec<String>),
 }
 

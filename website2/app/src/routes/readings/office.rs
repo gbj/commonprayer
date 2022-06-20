@@ -1,20 +1,18 @@
 use api::summary::ObservanceSummary;
 use calendar::Date;
-use futures::Future;
 use language::Language;
 use lectionary::Reading;
 use leptos2::*;
 use library::CommonPrayer;
-use liturgy::{BiblicalReading, Document, Psalm, Version};
-use std::pin::Pin;
+use liturgy::{Psalm, Version};
 
 use crate::{
-    utils::{fetch::FetchError, time::today},
+    utils::time::today,
     views::{document::DocumentView, readings::*},
     WebView,
 };
 
-use super::reading_loader::{load_reading, ReadingFuture, ReadingLoader};
+use super::reading_loader::ReadingLoader;
 
 pub struct OfficeView {
     pub locale: String,
@@ -156,7 +154,7 @@ impl Loader for OfficeView {
             morning_readings
         }
         .into_iter()
-        .map(|reading| load_reading(&reading.citation, version, None))
+        .map(|reading| ReadingLoader::new(&reading.citation, version, None))
         .collect::<Vec<_>>();
 
         Some(Self {
