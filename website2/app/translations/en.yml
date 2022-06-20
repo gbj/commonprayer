@@ -205,6 +205,9 @@ en:
     evening: Evening
     todays_readings: Click here for today’s readings.
     or: or
+    vigil_readings: At the Liturgy of the Word
+    eucharist_readings: At the Eucharist
+    option: Option %{n}
 
   canticle_swap:
     change_canticle: Change Canticle

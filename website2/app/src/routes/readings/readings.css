@@ -54,3 +54,8 @@ h2.day-name {
 .readings article.document {
   margin-bottom: 2rem;
 }
+
+.vigil-psalm {
+  padding-left: 1rem;
+  padding-bottom: 0.5rem;
+}

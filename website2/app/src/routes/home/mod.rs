@@ -61,9 +61,7 @@ impl Loader for HomePage {
             season,
             localized_day_name,
             daily_summary: CommonPrayer::daily_office_summary(&date, language),
-            eucharistic_summary: CommonPrayer::eucharistic_lectionary_summary(
-                &date, language, None,
-            ),
+            eucharistic_summary: CommonPrayer::eucharistic_lectionary_summary(&date, language),
             general_settings,
         })
     }

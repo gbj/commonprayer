@@ -1,8 +1,8 @@
 use std::{collections::HashMap, convert::TryFrom};
 
 use api::summary::{
-    DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary, FirstLessonAndPsalm,
-    ObservanceSummary, PartialDailySummary, PsalmOrReading, TrackedReadings,
+    DailySummary, DocumentOrReading, EucharisticLectionarySummary, EucharisticObservanceSummary,
+    FirstLessonAndPsalm, ObservanceSummary, PartialDailySummary, TrackedReadings,
 };
 use calendar::{
     Calendar, Date, Feast, LiturgicalDay, LiturgicalDayId, Weekday, BCP1979_CALENDAR,
@@ -37,24 +37,27 @@ impl CommonPrayer {
     pub fn eucharistic_lectionary_summary(
         date: &Date,
         language: Language,
-        alternate: Option<Feast>,
     ) -> EucharisticLectionarySummary {
         let psalter = &BCP1979_PSALTER;
-        let mut day = BCP1979_CALENDAR.liturgical_day(*date, false);
-
-        if let Some(alternate) = alternate {
-            day.observed = LiturgicalDayId::Feast(alternate);
-        }
+        let day = BCP1979_CALENDAR.liturgical_day(*date, false);
+        let alternates = day
+            .alternative_services
+            .iter()
+            .map(|alternate| {
+                summarize_eucharistic_observance(
+                    &day,
+                    &LiturgicalDayId::Feast(*alternate),
+                    language,
+                    psalter,
+                )
+            })
+            .collect::<Vec<_>>();
 
         let observed = summarize_eucharistic_observance(&day, &day.observed, language, psalter);
-        let alternate = day
-            .alternate
-            .as_ref()
-            .map(|alternate| summarize_eucharistic_observance(&day, alternate, language, psalter));
         EucharisticLectionarySummary {
             day,
             observed,
-            alternate,
+            alternates,
         }
     }
 
@@ -65,14 +68,16 @@ impl CommonPrayer {
         let psalter = &BCP1979_PSALTER;
         let day = BCP1979_CALENDAR.liturgical_day(*date, false);
         let observed = summarize_eucharistic_observance(&day, &day.observed, language, psalter);
-        let alternate = day
+        let alternates = day
             .alternate
             .as_ref()
-            .map(|alternate| summarize_eucharistic_observance(&day, alternate, language, psalter));
+            .map(|alternate| summarize_eucharistic_observance(&day, alternate, language, psalter))
+            .into_iter()
+            .collect();
         EucharisticLectionarySummary {
             day,
             observed,
-            alternate,
+            alternates,
         }
     }
 }
@@ -140,7 +145,7 @@ fn vigil_readings(
     day: &LiturgicalDay,
     lectionary: &'static Lectionary,
     psalter: &Psalter,
-) -> Vec<PsalmOrReading> {
+) -> Vec<DocumentOrReading> {
     VIGIL_READING_TYPES
         .iter()
         .filter_map(|reading_type| {
@@ -156,14 +161,17 @@ fn vigil_readings(
                         .into_iter()
                     });
                 Document::choice_or_document(&mut psalms)
-                    .map(|doc| PsalmOrReading::Psalm(Box::new(doc)))
+                    .map(|doc| DocumentOrReading::Document(Box::new(doc)))
             } else {
-                Some(PsalmOrReading::Reading(
-                    lectionary
-                        .reading_by_type(observance, day, *reading_type)
-                        .map(|reading| reading.citation)
-                        .collect(),
-                ))
+                let readings = lectionary
+                    .reading_by_type(observance, day, *reading_type)
+                    .map(|reading| reading.citation)
+                    .collect::<Vec<_>>();
+                if readings.is_empty() {
+                    None
+                } else {
+                    Some(DocumentOrReading::Reading(readings))
+                }
             }
         })
         .collect()

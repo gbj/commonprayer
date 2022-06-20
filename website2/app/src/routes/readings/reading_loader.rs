@@ -28,6 +28,17 @@ pub enum ReadingLoader {
     },
 }
 
+impl std::fmt::Debug for ReadingLoader {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Sync(arg0) => f.debug_tuple("Sync").field(arg0).finish(),
+            Self::Async { citation, reading } => {
+                f.debug_struct("Async").field("citation", citation).finish()
+            }
+        }
+    }
+}
+
 impl ReadingLoader {
     pub fn new(citation: &str, version: Version, intro: Option<BiblicalReadingIntro>) -> Self {
         // TODO add Sync variant for

@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 pub struct EucharisticLectionarySummary {
     pub day: LiturgicalDay,
     pub observed: EucharisticObservanceSummary,
-    pub alternate: Option<EucharisticObservanceSummary>,
+    pub alternates: Vec<EucharisticObservanceSummary>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]
