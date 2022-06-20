@@ -3,6 +3,7 @@ use std::pin::Pin;
 use futures::Future;
 use leptos2::*;
 use liturgy::{BiblicalReading, BiblicalReadingIntro, Version};
+use moka::sync::Cache;
 use reference_parser::{BibleVerse, BibleVersePart, Book};
 use serde::{Deserialize, Serialize};
 
@@ -15,6 +16,13 @@ use crate::{
 
 lazy_static::lazy_static! {
     static ref CLIENT: Client = Client::new();
+
+    // the assumption is that we'll typically want to cache a few days of Daily Office readings,
+    // and maybe a few Sundays of RCL readings, but not much more
+    static ref READINGS_CACHE: Cache<(String, Version), BiblicalReading> = Cache::builder()
+        .time_to_idle(std::time::Duration::from_secs(604_800)) // after one week without get() or insert(), will expire
+        .max_capacity(50) // if we have more than 50 cached readings, start dropping them based on use
+        .build();
 }
 
 pub type ReadingFuture =
@@ -32,7 +40,7 @@ impl std::fmt::Debug for ReadingLoader {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::Sync(arg0) => f.debug_tuple("Sync").field(arg0).finish(),
-            Self::Async { citation, reading } => {
+            Self::Async { citation, .. } => {
                 f.debug_struct("Async").field("citation", citation).finish()
             }
         }
@@ -42,40 +50,47 @@ impl std::fmt::Debug for ReadingLoader {
 impl ReadingLoader {
     #[cfg(not(target_arch = "wasm32"))]
     pub fn new(citation: &str, version: Version, intro: Option<BiblicalReadingIntro>) -> Self {
-        // TODO add Sync variant for
-        // 1) offline-accessible sync Bibles (like RV09)
-        // 2) cached requests
-
-        let url = reading_url(citation, version);
-
         let citation = citation.to_string();
-        let reading = Box::pin({
-            let citation = citation.clone();
-            async move {
-                CLIENT
-                    .get(&url)
-                    .send()
-                    .await
-                    .map_err(|e| {
-                        eprintln!("\n\n(load_reading request) error \n{:#?}", e);
-                        if e.is_connect() {
-                            FetchError::Connection
-                        } else {
-                            FetchError::Server
-                        }
-                    })?
-                    .json::<BibleReadingFromAPI>()
-                    .await
-                    .map_err(|e| {
-                        eprintln!("\n\n(load_reading JSON) error \n{:#?}", e);
-                        FetchError::Json
-                    })
-                    .map(|reading| reading.api_data_to_biblical_reading(&citation, &intro))
-            }
-        })
-            as Pin<Box<dyn Future<Output = Result<BiblicalReading, FetchError>> + Send + Sync>>;
+        match READINGS_CACHE.get(&(citation.clone(), version)) {
+            Some(reading) => ReadingLoader::Sync(reading),
+            None => {
+                let url = reading_url(&citation, version);
 
-        ReadingLoader::Async { citation, reading }
+                let reading = Box::pin({
+                    let citation = citation.clone();
+                    async move {
+                        let reading = CLIENT
+                            .get(&url)
+                            .send()
+                            .await
+                            .map_err(|e| {
+                                eprintln!("\n\n(load_reading request) error \n{:#?}", e);
+                                if e.is_connect() {
+                                    FetchError::Connection
+                                } else {
+                                    FetchError::Server
+                                }
+                            })?
+                            .json::<BibleReadingFromAPI>()
+                            .await
+                            .map_err(|e| {
+                                eprintln!("\n\n(load_reading JSON) error \n{:#?}", e);
+                                FetchError::Json
+                            })
+                            .map(|reading| reading.api_data_to_biblical_reading(&citation, &intro));
+                        if let Ok(reading) = &reading {
+                            READINGS_CACHE.insert((citation, version), reading.clone());
+                        }
+                        reading
+                    }
+                })
+                    as Pin<
+                        Box<dyn Future<Output = Result<BiblicalReading, FetchError>> + Send + Sync>,
+                    >;
+
+                ReadingLoader::Async { citation, reading }
+            }
+        }
     }
 
     // TODO ReadingLoader on WASM — Reqwest WASM issues
@@ -126,7 +141,7 @@ impl ReadingLoader {
                             let reading = reading.await;
                             match reading {
                                 Ok(reading) => biblical_reading(&locale, path, &reading).1,
-                                Err(e) => view! {
+                                Err(_) => view! {
                                     <p class="error">{t!("biblical_citation.error", citation = &citation)}</p>
                                 },
                             }
@@ -138,7 +153,7 @@ impl ReadingLoader {
                     <>
                         <a id={&citation}></a>
                         <article class="document">
-                            <header><h3>{&citation}</h3></header>
+                            <header><h3 class="citation">{&citation}</h3></header>
                             <main>{reading}</main>
                         </article>
                     </>
