@@ -3,6 +3,7 @@ Website Todos
 
 - [ ] Bugs
   - [ ] 2018 April 9 should be Visitation because of transfers
+  - [ ] Irenaeus of Lyons (6/28) missing readings
 - [ ] USX Bibles
   - [x] Spanish
   - [ ] KJV
