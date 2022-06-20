@@ -40,6 +40,7 @@ impl std::fmt::Debug for ReadingLoader {
 }
 
 impl ReadingLoader {
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn new(citation: &str, version: Version, intro: Option<BiblicalReadingIntro>) -> Self {
         // TODO add Sync variant for
         // 1) offline-accessible sync Bibles (like RV09)
@@ -75,6 +76,23 @@ impl ReadingLoader {
             as Pin<Box<dyn Future<Output = Result<BiblicalReading, FetchError>> + Send + Sync>>;
 
         ReadingLoader::Async { citation, reading }
+    }
+
+    // TODO ReadingLoader on WASM — Reqwest WASM issues
+    // a) Futures not Send/Sync
+    // b) Error::is_connect doesn't exist
+    #[cfg(target_arch = "wasm32")]
+    pub fn new(citation: &str, version: Version, intro: Option<BiblicalReadingIntro>) -> Self {
+        let reading = Box::pin({
+            let citation = citation.clone();
+            async move { Err(FetchError::Connection) }
+        })
+            as Pin<Box<dyn Future<Output = Result<BiblicalReading, FetchError>> + Send + Sync>>;
+
+        ReadingLoader::Async {
+            citation: citation.to_string(),
+            reading,
+        }
     }
 
     pub fn as_citation(&self) -> &str {
@@ -243,6 +261,7 @@ fn strip_entities(text: String) -> String {
     }
 }
 
+#[cfg(not(target_arch = "wasm32"))]
 fn strip_entities(text: String) -> String {
     htmlentity::entity::decode(&text).iter().collect()
 }

@@ -171,11 +171,12 @@ where
         //.send()
         .await
         .map_err(|e| {
-            if e.is_connect() {
+            todo!()
+            /* if e.is_connect() {
                 FetchError::Connection
             } else {
                 FetchError::Server
-            }
+            } */
         })?
         .json::<T>()
         .await
