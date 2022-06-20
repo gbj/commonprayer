@@ -24,8 +24,8 @@ use self::{
     hymn::HymnView,
     hymnal::HymnalView,
     meditation::MeditationView,
-    readings::office::OfficeView,
     readings::{eucharist::EucharistView, ReadingsView},
+    readings::{holy_day::HolyDayView, office::OfficeView},
     settings::*,
 };
 
@@ -42,7 +42,8 @@ pub fn router() -> Router<Index> {
             .child(
                 Route::<ReadingsView>::new("readings")
                     .child(Route::<OfficeView>::new("office"))
-                    .child(Route::<EucharistView>::new("eucharist")),
+                    .child(Route::<EucharistView>::new("eucharist"))
+                    .child(Route::<HolyDayView>::new("holy-day")),
             )
             .child(Route::<DocumentPage>::new("document/**"))
             .child(Route::<MeditationView>::new("meditation"))

@@ -1,10 +1,11 @@
 pub mod eucharist;
+pub mod holy_day;
 pub mod office;
 pub mod reading_loader;
 
 use calendar::Date;
 use language::Language;
-use leptos2::{cookie::Display, *};
+use leptos2::*;
 use liturgy::Version;
 
 use crate::{utils::time::today, views::bible_version_select_options};
@@ -114,6 +115,11 @@ impl View for ReadingsView {
                             class:current={self.path.contains("/eucharist")}
                         >
                             {t!("toc.holy_eucharist")}
+                        </a>
+                        <a href={format!("/{}/readings/holy-day/?date={}&version={}", self.locale, self.date, self.version)}
+                            class:current={self.path.contains("/holy-day")}
+                        >
+                            {t!("toc.holy_days")}
                         </a>
                     </div>
 

@@ -16,3 +16,9 @@ details summary:hover {
 .choice nav {
   text-align: right;
 }
+
+section.bio {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}

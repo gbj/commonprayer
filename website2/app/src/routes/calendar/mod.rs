@@ -152,14 +152,11 @@ impl CalendarView {
                             .find(|(id, _, _)| *id == HolyDayId::Date(*month, day_of_month))
                             .map(|(_, feast, name)| (feast, name.clone()));
                         let link = feast
-                            .and_then(|(feast, name)| {
-                                serde_json::to_string(&feast).ok().map(|feast| {
-                                    let link =
-                                        format!("/{}/holy-day/{}", locale, feast.replace('"', ""));
-                                    view! {
-                                        <a href={link}>{name}</a>
-                                    }
-                                })
+                            .map(|(feast, name)| {
+                                let link = format!("/{}/readings/holy-day/?id={}", locale, feast);
+                                view! {
+                                    <a href={link}>{name}</a>
+                                }
                             })
                             .unwrap_or_default();
                         let id = format!("{}-{}", month, day_of_month);

@@ -1,6 +1,7 @@
 use crate::{components::Tabs, utils::encode_uri};
 use api::summary::{DocumentOrReading, EucharisticObservanceSummary, TrackedReadings};
 use calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId};
+use itertools::Itertools;
 use language::Language;
 use leptos2::*;
 use library::CommonPrayer;
@@ -416,18 +417,18 @@ impl EucharistView {
         let eucharist_links = if self.first_lesson.is_empty() {
             view! {
                 <ul class="reading-links">
-                    {self.reading_link(&self.epistle)}
-                    {self.psalm_link(&self.psalm)}
-                    {self.reading_link(&self.gospel)}
+                    {Self::reading_link(&self.epistle)}
+                    {Self::psalm_link(&self.psalm)}
+                    {Self::reading_link(&self.gospel)}
                 </ul>
             }
         } else {
             view! {
                 <ul class="reading-links">
-                    {self.reading_link(&self.first_lesson)}
-                    {self.psalm_link(&self.psalm)}
-                    {self.reading_link(&self.epistle)}
-                    {self.reading_link(&self.gospel)}
+                    {Self::reading_link(&self.first_lesson)}
+                    {Self::psalm_link(&self.psalm)}
+                    {Self::reading_link(&self.epistle)}
+                    {Self::reading_link(&self.gospel)}
                 </ul>
             }
         };
@@ -459,7 +460,7 @@ impl EucharistView {
                             view! { <li class="vigil-psalm"><a href={format!("#{}", citation)}>{citation}</a></li> }
                         }
                     },
-                    DocumentOrReadingLoader::ReadingLoader(readings) => self.reading_link(readings),
+                    DocumentOrReadingLoader::ReadingLoader(readings) => Self::reading_link(readings),
                 })
                 .collect::<Vec<_>>();
             view! {
@@ -477,7 +478,7 @@ impl EucharistView {
         }
     }
 
-    fn reading_link(&self, readings: &[ReadingLoader]) -> Node {
+    pub(crate) fn reading_link(readings: &[ReadingLoader]) -> Node {
         let links = readings
             .iter()
             .map(ReadingLoader::as_citation)
@@ -489,7 +490,7 @@ impl EucharistView {
         }
     }
 
-    fn psalm_link(&self, readings: &[Document]) -> Node {
+    pub(crate) fn psalm_link(readings: &[Document]) -> Node {
         let links = readings
             .iter()
             .filter_map(|doc| {

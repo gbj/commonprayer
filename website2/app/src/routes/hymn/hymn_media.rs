@@ -3,6 +3,7 @@ use crate::{
     WebView,
 };
 use hymnal::{HymnNumber, Hymnals};
+use itertools::Itertools;
 use leptos2::*;
 use liturgy::Text;
 use strum_macros::{Display, EnumString};

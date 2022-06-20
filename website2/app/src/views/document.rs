@@ -6,6 +6,7 @@ use liturgy::*;
 use crate::components::{BiblicalCitationLoader, Tabs};
 use crate::utils::fetch::FetchError;
 use crate::WebView;
+use itertools::Itertools;
 use leptos2::*;
 
 pub type DocumentFuture = Pin<Box<dyn Future<Output = Result<Document, FetchError>>>>;

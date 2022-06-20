@@ -137,6 +137,7 @@ en:
     calendar_full: The Calendar of the Church Year
     readings: Readings
     daily_readings: Daily Readings
+    holy_days: Holy Days
     daily_office: Daily Office
     pray_daily_office: Pray the Office
     daily_office_lectionary: Daily Office Lectionary
@@ -339,6 +340,7 @@ en:
     epistle: Epistle
     gospel: Gospel
     no_readings: There were no readings found for this date in the Revised Common Lectionary. Would you like to look at the 
+    no_readings_lff: There was no holy day found on this date. Would you like to look at the 
     no_readings_end: "?"
     go: Go
 

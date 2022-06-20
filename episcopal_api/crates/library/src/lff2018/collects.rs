@@ -4,7 +4,7 @@ use liturgy::{Document, Reference, Source, Text, Version};
 use crate::{CollectData, CollectId};
 
 lazy_static! {
-    pub static ref LFF_COLLECTS_CONTEMPORARY: [(CollectId, CollectData); 266] = [(
+    pub static ref LFF_COLLECTS_CONTEMPORARY: [(CollectId, CollectData); 265] = [(
         CollectId::Feast(Feast::RichardOfChichester,),
         CollectData::from(
             Document::from(
@@ -881,21 +881,6 @@ lazy_static! {
                     .response("Amen.")
                 )
                 .label("Columba of Iona")
-                .source(Reference {
-                    source: Source::LFF2018,
-                    page: 0
-                })
-                .version(Version::RiteII)
-        )
-    ),
-        (
-        CollectId::Feast(Feast::IrenaeusOfLyons),
-        CollectData::from(
-            Document::from(
-                Text::from("Almighty God, who strengthened your servant Irenaeus to defend thy truth against every blast of vain doctrine: Keep us, we pray, steadfast in your true religion, that in constancy and peace we may walk in the way that leads to eternal life; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
-                    .response("Amen.")
-                )
-                .label("")
                 .source(Reference {
                     source: Source::LFF2018,
                     page: 0
