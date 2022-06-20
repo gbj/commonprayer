@@ -27,26 +27,12 @@
 }
 
 [role="tab"] span.focus {
-	margin: 2px;
 	display: inline-block;
 	padding: 2px 0.5rem;
 }
 
-[role="tab"]:hover
-[role="tab"]:focus
-[role="tab"]:active {
-  background: blue;
-}
-
-[role="tab"]:hover span.focus,
-[role="tab"]:focus span.focus,
-[role="tab"]:active span.focus {
-  color: var(--link-color-light);
-}
-
 [role="tab"]:focus span.focus {
-	margin: 0;
-	border: 2px solid var(--link-color-light);
+	outline: auto;
 }
 
 [role="tabpanel"] {
