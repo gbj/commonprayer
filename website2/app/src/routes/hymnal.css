@@ -12,22 +12,6 @@
 	visibility: hidden;
 }
 
-/* Stacked label-input pairs */
-fieldset.stacked,
-label.stacked {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	border: none;
-}
-
-fieldset.stacked label {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	font-weight: bold;
-}
-
 /* Hymn listings */
 .hymn-listing {
 	display: flex;

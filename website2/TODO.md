@@ -15,9 +15,12 @@
 			- [ ] Daily Office
 			- [x] Lectionary
 				- [x] Combine this with Calendar page in a sensible way
-				- [ ] Settings (calendar, show black-letter days, etc.)
-				- [ ] Navigation (next month/prev month, date picker)
-			- [ ] Readings Page: export readings to Word doc
+				- [x] Settings (calendar, show black-letter days, etc.)
+				- [x] Navigation (next month/prev month, date picker)
+				- [ ] Mobile layout
+			- [ ] Readings Page
+				- [ ] Ember Day readings
+				- [ ] export readings to Word doc
 			- [ ] Psalter
 			- [ ] Document page
 				- [ ] Parallels

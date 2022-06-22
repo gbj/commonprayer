@@ -11,6 +11,7 @@
 	--rubric-color: #ea0000;
 	--button-filter-light: invert(97%) sepia(97%) saturate(0%) hue-rotate(36deg) brightness(104%) contrast(105%);
 	--button-filter-dark: gray saturate(0%) brightness(70%) contrast(1000%);
+	--button-filter: var(--button-filter-dark);
 
 	/* Colors */
 	--color-success-background: #e1eddb;
@@ -84,6 +85,8 @@ a:visited {
 		--color: #fefefe;
 		--rubric-color: #ff7070;
 
+		--button-filter: var(--button-filter-light);
+
 		/* Colors */
 		--color-success-background: #a5ca95;
 		--color-success: #2a431f;
@@ -132,6 +135,8 @@ a:visited {
 	--overlay-shadow-color: #404040;
 	--color: #fefefe;
 	--rubric-color: #ff7070;
+
+	--button-filter: var(--button-filter-light);
 
 	/* Colors */
 	--color-success-background: #a5ca95;

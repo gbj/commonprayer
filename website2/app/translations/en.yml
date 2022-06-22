@@ -81,6 +81,11 @@ en:
     KJV: KJV
     RV: RV
 
+  calendar:
+    omit_black_letter: Omit Days of Optional Observance (“Black-Letter Days”)
+    month: Month
+    year: Year
+
   source: Source
   reference: "%{source} p. %{page}"
   version:
@@ -90,9 +95,6 @@ en:
     RiteI: Rite I (Traditional Language)
     RiteII: Rite II (Contemporary Language)
     Parallel: Parallels
-
-  calendar:
-    settings: Settings
 
   settings:
     dark_mode:

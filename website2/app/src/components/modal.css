@@ -39,3 +39,17 @@ button {
 	border: none;
 	cursor: pointer;
 }
+
+header {
+	width: 100%;
+}
+
+button.close {
+	background: var(--background);
+	display: block;
+	margin-left: auto;
+}
+
+button.close svg {
+	filter: var(--button-filter);
+}

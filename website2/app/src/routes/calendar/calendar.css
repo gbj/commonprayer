@@ -123,7 +123,6 @@ ul.other-notes {
 
   ul.black-letter-days a {
     color: var(--color);
-    text-decoration: none;
     font-style: italic;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -131,4 +130,27 @@ ul.other-notes {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
+
+  .alternative {
+    display: block;
+  }
+}
+
+/* Navigation/Settings Controls */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+legend {
+  display: block;
+  font-weight: bold;
+  margin: auto;
+}
+
+label.stacked {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
 }

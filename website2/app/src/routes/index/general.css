@@ -99,3 +99,10 @@ select {
   .badge:visited, .badge:active {
     color: inherit;
   }
+
+fieldset.horizontal, label.horizontal {
+    border: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
