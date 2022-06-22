@@ -1,7 +1,134 @@
-h2 {
-  text-align: center;
+/* Mobile/phone-size: calendar as rows */
+.weekday-label {
+  display: none;
 }
 
-tr {
+.month {
+  display: flex;
+  flex-direction: column;
+}
+
+.day.sunday > * {
+  font-weight: bold;
+  padding-top: 1rem;
+}
+
+.day > .month-number {
+  padding-right: 0.5rem;
+}
+
+.month {
+  display: table;
+}
+
+.day {
+  display: table-row;
   vertical-align: top;
+}
+
+a.alternative {
+  margin-top: 0.5rem;
+}
+
+ul.other-notes {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  display: block;
+  margin-left: auto;
+  font-size: 0.9rem;
+  font-variant: small-caps;
+}
+
+/* Tablet/desktop: true calendar view */
+@media (min-width: 767px) {
+  :root {
+    --main-width: min(1000px, 100vw);
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .day.sunday > *,
+  .day > .month-number {
+    padding: 0;
+  }
+
+  .weekday-label {
+    text-align: center;
+    font-weight: bold;
+    margin: 1px;
+  }
+
+  .padding {
+    margin: 1px;
+  }
+
+  .day {
+    border: 1px solid var(--border-color);
+  }
+
+  .month {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .week, .weekday-labels {
+    display: table-row;
+  }
+
+  .day, .weekday-label, .padding {
+    display: table-cell;
+    padding: 0.5rem;
+    position: relative;
+    text-align: center;
+    width: calc((var(--main-width) / 7) - 2px - 3rem);
+  }
+
+  .day, .padding {
+    height: calc((var(--main-width) / 7) - 2px - 3rem);
+  }
+
+  .day * {
+    display: block;
+    text-align: center;
+  }
+
+  body > main.lectionary.calendar {
+    width: calc(var(--main-width) - var(--menu-width));
+  }
+
+  ul.other-notes, ul.black-letter-days {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+    display: block;
+    font-size: 0.9rem;
+    margin: 0;
+    margin-top: 0.5rem;
+    padding: 0;
+  }
+
+  ul.other-notes {
+    font-variant: small-caps;
+    position: absolute;
+    bottom: 0;
+    height: 2rem;
+    text-align: center;
+    width: calc(100% - 1rem);
+  }
+
+  ul.black-letter-days a {
+    color: var(--color);
+    text-decoration: none;
+    font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 }

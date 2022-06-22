@@ -1,59 +1,42 @@
-mod controller;
-
-pub use controller::CalendarController;
-
-use crate::views::{Header, Icon};
 use calendar::{
-    feasts::KalendarEntry, Calendar, Feast, HolyDayId, Rank, Time, BCP1979_CALENDAR,
-    LFF2018_CALENDAR,
+    Date, Feast, LiturgicalDay, LiturgicalDayId, Rank, BCP1979_CALENDAR, LFF2018_CALENDAR, Weekday,
 };
+use itertools::Itertools;
 use language::Language;
-use leptos2::{view::*, *};
-use rust_i18n::t;
+use leptos2::*;
+use library::summary;
 
-#[derive(Debug)]
+use crate::utils::time::today;
 pub struct CalendarView {
-    lff: bool,
-    data: CalendarListing,
-    locale: String,
+	locale: String,
+    year: u16,
+    month: u8,
+    days: Vec<CalendarDayEntry>,
+    using_lff: bool,
+    show_black_letter: bool,
+}
+
+pub struct CalendarDayEntry {
+    month: u8,
+    day: u8,
+    black_letter_days: Vec<(Feast, String)>,
+    listing: Option<(String, LiturgicalDay)>,
+    alternatives: Vec<(String, Feast)>,
+    other_notes: Vec<String>,
 }
 
 #[derive(Params)]
-pub struct CalendarParams {
-    locale: String,
+pub struct CalendarDayQuery {
+    year: Option<u16>,
+    month: Option<u8>,
+    calendar: Option<String>,
+    blackletter: Option<String>,
 }
 
-type CalendarListing = Vec<(HolyDayId, Feast, String)>;
-
-fn summarize_calendar(
-    language: Language,
-    calendar: &Calendar,
-    holy_days: impl Iterator<Item = KalendarEntry>,
-) -> CalendarListing {
-    holy_days
-        .filter_map(|(id, feast, time, _)| {
-            if matches!(id, HolyDayId::Date(_, _)) {
-                let rank = calendar.feast_day_rank(&feast);
-                // include black-letter and red-letter days, but not weird Daily Office lectionary days like December 29
-                // and don't include the Eve of ___ days
-                if (rank == Rank::OptionalObservance || rank >= Rank::HolyDay)
-                    && !matches!(time, Time::EveningOnly(_))
-                {
-                    let name = calendar.feast_name(feast, language);
-                    Some((id, feast, name.map(String::from).unwrap_or_default()))
-                } else {
-                    None
-                }
-            } else {
-                None
-            }
-        })
-        .collect()
-}
 #[async_trait(?Send)]
 impl Loader for CalendarView {
     type Params = ();
-    type Query = ();
+    type Query = CalendarDayQuery;
 
     async fn loader(
         locale: &str,
@@ -61,136 +44,231 @@ impl Loader for CalendarView {
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-        let language = Language::from_locale(locale);
+        let today = today();
+        let year = query.year.unwrap_or_else(|| today.year());
+        let month = query.month.unwrap_or_else(|| today.month());
 
-        let lff = req.path().ends_with("lff2018");
-        let data = if lff {
-            summarize_calendar(
-                language,
-                &LFF2018_CALENDAR,
-                LFF2018_CALENDAR.holy_days.iter().cloned(),
-            )
+        let day_1 = Date::from_ymd(year, month, 1);
+
+        let using_lff = query
+            .calendar
+            .map(|calendar| calendar == "lff" || calendar == "lff2018")
+            .unwrap_or(false);
+        let show_black_letter = query.blackletter.map(|v| v != "false").unwrap_or(true);
+
+        let calendar = if using_lff {
+            LFF2018_CALENDAR
         } else {
-            summarize_calendar(
-                language,
-                &BCP1979_CALENDAR,
-                BCP1979_CALENDAR.holy_days.iter().cloned(),
-            )
+            BCP1979_CALENDAR
         };
 
+        let language = Language::from_locale(locale);
+
+        let days = (0..=31)
+            .filter_map(|offset| {
+                let current_date = day_1.add_days(offset);
+                if current_date.year() == year {
+                    let liturgical_day = calendar.liturgical_day(current_date, false);
+                    let rank = calendar.rank(&liturgical_day);
+
+                    let other_notes = liturgical_day
+                        .holy_days
+                        .iter()
+                        .filter(|feast| calendar.feast_day_rank(feast) == Rank::EmberDay)
+                        .map(|feast| {
+                            summary::localize_day_name(
+                                &liturgical_day,
+                                &LiturgicalDayId::Feast(*feast),
+                                &calendar,
+                                language,
+                            )
+                        })
+                        .collect();
+
+                    let alternatives = liturgical_day
+                        .alternative_services
+                        .iter()
+                        .map(|feast| {
+                            (
+                                summary::localize_day_name(
+                                    &liturgical_day,
+                                    &LiturgicalDayId::Feast(*feast),
+                                    &calendar,
+                                    language,
+                                ),
+                                *feast,
+                            )
+                        })
+                        .collect();
+
+                    let black_letter_days = liturgical_day.holy_days.iter().filter(|feast| show_black_letter && calendar.feast_day_rank(feast) == Rank::OptionalObservance).map(|feast| (*feast, calendar.feast_name(*feast, language).unwrap_or_else(|| feast.to_string()))).collect();
+
+                    let marked_on_calendar = if rank >= Rank::HolyDay {
+                        let localized_day_name = summary::localize_day_name(
+                            &liturgical_day,
+                            &liturgical_day.observed,
+                            &calendar,
+                            language,
+                        );
+                        Some((localized_day_name, liturgical_day))
+                    } else {
+                        None
+                    };
+
+                    Some(CalendarDayEntry {
+                        month: current_date.month(),
+                        day: current_date.day(),
+                        black_letter_days,
+                        listing: marked_on_calendar,
+                        alternatives,
+                        other_notes,
+                    })
+                } else {
+                    None
+                }
+            })
+            .collect();
+
         Some(Self {
-            locale: locale.to_string(),
-            lff,
-            data,
+			locale: locale.to_string(),
+            year,
+            month,
+            days,
+            using_lff,
+            show_black_letter,
         })
     }
 }
 
 impl View for CalendarView {
     fn title(&self) -> String {
-        format!("{} – {}", t!("menu.calendar"), t!("common_prayer"))
+        format!(
+            "{} {} – {}",
+            t!(&format!("lectionary.month_{}", self.month)),
+            self.year,
+            t!("common_prayer")
+        )
     }
 
     fn styles(&self) -> Styles {
-        vec![
-            include_str!("calendar.css").into(),
-            include_str!("../../styles/toggle-links.css").into(),
-        ]
+        vec![include_str!("calendar.css").into()]
     }
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
-        // Main view
-        view! {
-            <div>
-                <header>
-                    <span></span> // Exists only to balance span with buttons
-                    <h1>{t!("menu.calendar")}</h1>
-                    <CalendarController
-                        locale={&self.locale}
-                        prop:lff={self.lff}
-                    />
-                </header>
-                <main>
-                    {calendar_toggle_links(&self.locale, self.lff)}
+        // calendar days
+		let days = self.days
+				.into_iter()
+				.map(|CalendarDayEntry { day, listing, alternatives, other_notes, black_letter_days, month, .. }| {
+					let listing = if let Some((day_name, liturgical_day)) = listing {
+						let transferred = if matches!(
+							liturgical_day.observed,
+							LiturgicalDayId::TransferredFeast(_)
+						) {
+							Some(text(t!("daily_readings.transferred")))
+						} else {
+							None
+						};
 
-                    {if self.lff {
-                        view! {  <h2>{t!("lff_2018")}</h2> }
+						let alternatives = if alternatives.is_empty() {
+							vec![]
+						} else {
+								alternatives
+									.iter()
+									.map(|(name, feast)| view! {
+										<a 
+											class="alternative" 
+											href={format!("/{}/readings/lectionary/{}-{}-{}/{:?}", self.locale, self.year, self.month, day, feast)}
+										>
+											{name}
+										</a>
+									})
+									.collect()
+						};
+
+						Some(view! {
+							<div>
+								<a href={format!("/{}/readings/lectionary/{}-{}-{}", self.locale, self.year, self.month, day)}>{day_name}</a>
+								{transferred}
+								{alternatives}
+							</div>
+						})
+					} else {
+						None
+					};
+
+					let date = Date::from_ymd(self.year, self.month, day);
+					let class = if date.weekday() == Weekday::Sun {
+						"day sunday"
+					} else {
+						"day"
+					};
+
+					let other_notes = if other_notes.is_empty() {
+						None
+					} else {
+						let others = other_notes.iter().map(|s| view! { <li>{s}</li>} ).collect::<Vec<_>>();
+						Some(view! {
+							<ul class="other-notes">{others}</ul>
+						})
+					};
+
+                    let black_letter_days = if black_letter_days.is_empty() {
+                        None
                     } else {
-                        view! { <h2>{t!("bcp_1979")}</h2> }
-                    }}
+                        let days = black_letter_days.iter().map(|(feast, name)| {
+                            let href = format!("/{}/readings/holy-day/?date={}-{}-{}&id={}", self.locale, self.year, month, day, feast);
+                            view! {
+                                <li><a href={href}>{name}</a></li>
+                            }
+                        }).collect::<Vec<_>>();
+                        Some(view! {
+                            <ul class="black-letter-days">{days}</ul>
+                        })
+                    };
 
-                    {self.calendar_view(&self.locale)}
-                </main>
-            </div>
-        }
+					view! {
+						<time datetime={format!("{}-{:02}-{:02}", self.year, self.month, day)} class={class}>
+							<a id={format!("{}/{}", self.month, day)}></a>
+							<div class="month-number">{day.to_string()}</div>
+							{listing}
+                            {black_letter_days}
+                            {other_notes}
+						</time>
+					}
+				});
+
+		// padding so that day #1 falls on the correct column for its day of week
+		let padding_days = Date::from_ymd(self.year, self.month, 1)
+			.weekday()
+			.num_days_from_sunday();
+		let padding = (1..=padding_days)
+				.map(|_| view! { <div class="padding"></div> });;
+
+        let weeks = padding.chain(days).chunks(7).into_iter().map(|chunk| {
+            view! {
+                <div class="week">{chunk.collect::<Vec<_>>()}</div>
+            }
+        }).collect::<Vec<_>>();
+
+		view! {
+			<div>
+				<header><h1>{t!("menu.calendar")}</h1></header>
+				<main>
+					<h2>{t!(&format!("lectionary.month_{}", self.month))}</h2>
+					<time class="month" datetime={format!("{}-{:02}", self.year, self.month)}>
+                        <div class="weekday-labels">
+                            <div class="weekday-label">{t!("canticle_table.sunday_abbrev")}</div>
+                            <div class="weekday-label">{t!("canticle_table.monday_abbrev")}</div>
+                            <div class="weekday-label">{t!("canticle_table.tuesday_abbrev")}</div>
+                            <div class="weekday-label">{t!("canticle_table.wednesday_abbrev")}</div>
+                            <div class="weekday-label">{t!("canticle_table.thursday_abbrev")}</div>
+                            <div class="weekday-label">{t!("canticle_table.friday_abbrev")}</div>
+                            <div class="weekday-label">{t!("canticle_table.saturday_abbrev")}</div>
+                        </div>
+						{weeks}
+					</time>
+				</main>
+			</div>
+		}
     }
 }
-
-pub fn calendar_toggle_links(locale: &str, use_lff: bool) -> Node {
-    view! {
-        <div class="toggle-links">
-            <a href={format!("/{}/calendar", locale)} class:current={!use_lff}>{{t!("bcp_1979")}}</a>
-            <a href={format!("/{}/calendar/lff2018", locale)} class:current={use_lff}>{{t!("lff_2018")}}</a>
-        </div>
-    }
-}
-
-impl CalendarView {
-    fn calendar_view(&self, locale: &str) -> Vec<Node> {
-        let language = Language::from_locale(locale);
-
-        MONTHS
-            .iter()
-            .flat_map(move |(month, days)| {
-                let name = language.month_name(*month);
-
-                let rows = (1..=*days)
-                    .map(|day_of_month| {
-                        let feast = self
-                            .data
-                            .iter()
-                            .find(|(id, _, _)| *id == HolyDayId::Date(*month, day_of_month))
-                            .map(|(_, feast, name)| (feast, name.clone()));
-                        let link = feast
-                            .map(|(feast, name)| {
-                                let link = format!("/{}/readings/holy-day/?id={}", locale, feast);
-                                view! {
-                                    <a href={link}>{name}</a>
-                                }
-                            })
-                            .unwrap_or_default();
-                        let id = format!("{}-{}", month, day_of_month);
-                        view! {
-                            <tr id={id}>
-                                <td>{day_of_month.to_string()}</td>
-                                <td>{link}</td>
-                            </tr>
-                        }
-                    })
-                    .collect::<Vec<_>>();
-
-                view! {
-                    <>
-                        <h3>{name}</h3>
-                        <table id={month}>{rows}</table>
-                    </>
-                }
-            })
-            .collect()
-    }
-}
-
-const MONTHS: [(u8, u8); 12] = [
-    (1, 31),
-    (2, 28),
-    (3, 31),
-    (4, 30),
-    (5, 31),
-    (6, 30),
-    (7, 31),
-    (8, 31),
-    (9, 30),
-    (10, 31),
-    (11, 30),
-    (12, 31),
-];

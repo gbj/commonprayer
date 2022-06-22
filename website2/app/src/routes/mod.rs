@@ -35,7 +35,6 @@ pub fn router() -> Router<Index> {
             .child(Route::<HomePage>::new(""))
             .child(Route::<About>::new("about"))
             .child(Route::<CalendarView>::new("calendar"))
-            .child(Route::<CalendarView>::new("calendar/lff2018"))
             .child(Route::<CanticleTableView>::new("canticle-table"))
             .child(Route::<CanticleTableView>::new("canticle-table/:table"))
             .child(Route::<ContentsView>::new("contents"))

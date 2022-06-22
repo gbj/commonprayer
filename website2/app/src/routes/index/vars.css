@@ -1,5 +1,6 @@
 /* CSS variables determining appearance */
 :root {
+	--main-width: 40rem;
 	--background: #fefefe;
 	--border-color: #e0e0e0;
 	--overlay-shadow-color: #d0d0d0;

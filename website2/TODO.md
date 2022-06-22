@@ -10,14 +10,19 @@
 		-  Remaining pages
 			- [ ] Settings
 				- [x] Actually apply General + Display Settings
+					- [ ] Calendar link in menu
 				- [ ] Liturgy settings
 			- [ ] Daily Office
-			- [ ] Lectionary
-				- [ ] Combine this with Calendar page in a sensible way
+			- [x] Lectionary
+				- [x] Combine this with Calendar page in a sensible way
+				- [ ] Settings (calendar, show black-letter days, etc.)
+				- [ ] Navigation (next month/prev month, date picker)
+			- [ ] Readings Page: export readings to Word doc
 			- [ ] Psalter
 			- [ ] Document page
 				- [ ] Parallels
 				- [ ] Test links between page
+			- [ ] Better menu
 		- [ ] Nested routes or async loaders instead of WC for...
 			- [ ] HymnMedia
 				- [ ] Music
