@@ -66,16 +66,20 @@ where
     V: Clone + Send + Sync,
 {
     fn new() -> Self {
-        panic!("moka caching (and therefore ReadingLoader) is *not* supported on WASM")
+        leptos2::debug_warn(
+            "Moka caching is not supported on WASM, so ReadingLoader won't cache calls.",
+        );
+        Self {
+            k: PhantomData,
+            v: PhantomData,
+        }
     }
 
     fn get(&self, key: &K) -> Option<V> {
-        panic!("moka caching (and therefore ReadingLoader) is *not* supported on WASM")
+        None
     }
 
-    fn insert(&self, key: K, value: V) {
-        panic!("moka caching (and therefore ReadingLoader) is *not* supported on WASM")
-    }
+    fn insert(&self, key: K, value: V) {}
 }
 
 lazy_static::lazy_static! {
