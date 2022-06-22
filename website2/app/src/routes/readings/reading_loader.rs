@@ -1,9 +1,8 @@
-use std::pin::Pin;
+use std::{marker::PhantomData, pin::Pin};
 
 use futures::Future;
 use leptos2::*;
 use liturgy::{BiblicalReading, BiblicalReadingIntro, Version};
-use moka::sync::Cache;
 use reference_parser::{BibleVerse, BibleVersePart, Book};
 use serde::{Deserialize, Serialize};
 
@@ -14,15 +13,77 @@ use crate::{
     views::biblical_reading,
 };
 
+#[cfg(target_arch = "wasm32")]
+fn cache() {
+    panic!("moka caching (and therefore ReadingLoader) is *not* supported on WASM")
+}
+
+#[cfg(not(target_arch = "wasm32"))]
+fn cache() {
+    panic!("moka caching (and therefore ReadingLoader) is *not* supported on WASM")
+}
+
+#[cfg(not(target_arch = "wasm32"))]
+struct Cache<K, V>(moka::sync::Cache<K, V>)
+where
+    K: std::hash::Hash + Eq + Send + Sync + 'static,
+    V: Clone + Send + Sync + 'static;
+
+#[cfg(not(target_arch = "wasm32"))]
+impl<K, V> Cache<K, V>
+where
+    K: std::hash::Hash + Eq + Send + Sync,
+    V: Clone + Send + Sync,
+{
+    fn new() -> Self {
+        Self(
+            moka::sync::Cache::builder()
+                .time_to_idle(std::time::Duration::from_secs(604_800)) // after one week without get() or insert(), will expire
+                .max_capacity(50) // if we have more than 50 cached readings, start dropping them based on use
+                .build(),
+        )
+    }
+
+    fn get(&self, key: &K) -> Option<V> {
+        self.0.get(key)
+    }
+
+    fn insert(&self, key: K, value: V) {
+        self.0.insert(key, value);
+    }
+}
+
+#[cfg(target_arch = "wasm32")]
+struct Cache<K, V> {
+    k: PhantomData<K>,
+    v: PhantomData<V>,
+}
+
+#[cfg(target_arch = "wasm32")]
+impl<K, V> Cache<K, V>
+where
+    K: std::hash::Hash + Eq + Send + Sync,
+    V: Clone + Send + Sync,
+{
+    fn new() -> Self {
+        panic!("moka caching (and therefore ReadingLoader) is *not* supported on WASM")
+    }
+
+    fn get(&self, key: &K) -> Option<V> {
+        panic!("moka caching (and therefore ReadingLoader) is *not* supported on WASM")
+    }
+
+    fn insert(&self, key: K, value: V) {
+        panic!("moka caching (and therefore ReadingLoader) is *not* supported on WASM")
+    }
+}
+
 lazy_static::lazy_static! {
     static ref CLIENT: Client = Client::new();
 
     // the assumption is that we'll typically want to cache a few days of Daily Office readings,
     // and maybe a few Sundays of RCL readings, but not much more
-    static ref READINGS_CACHE: Cache<(String, Version), BiblicalReading> = Cache::builder()
-        .time_to_idle(std::time::Duration::from_secs(604_800)) // after one week without get() or insert(), will expire
-        .max_capacity(50) // if we have more than 50 cached readings, start dropping them based on use
-        .build();
+    static ref READINGS_CACHE: Cache<(String, Version), BiblicalReading> = Cache::new();
 }
 
 pub type ReadingFuture =
