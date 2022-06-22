@@ -5,6 +5,13 @@ macro_rules! is_server {
     };
 }
 
+#[macro_export]
+macro_rules! is_dev {
+    () => {
+        cfg!(debug_assertions)
+    };
+}
+
 use std::time::Duration;
 
 use futures::Future;
