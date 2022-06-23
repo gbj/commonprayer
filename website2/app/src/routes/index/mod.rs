@@ -2,7 +2,6 @@ use std::sync::Arc;
 
 use super::settings::{DarkMode, DisplaySettings, Settings};
 use crate::utils::encode_uri;
-use crate::views::{menu, Header};
 use leptos2::{view::View, *};
 
 #[derive(Debug)]
@@ -79,7 +78,7 @@ impl View for Index {
     }
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
-        let menu = menu(&self.locale, &self.path);
+        let menu = self.menu();
 
         view! {
             <div class={format!("app-shell dark-mode-{}", self.dark_mode).to_lowercase()}>
@@ -107,5 +106,84 @@ impl View for Index {
                 </main>
             </div>
         }
+    }
+}
+
+impl Index {
+    fn menu(&self) -> Node {
+        view! {
+            <nav id="main-menu" role="navigation" class="left">
+                // an invisible checkbox that toggles whether the menu appears or not via CSS
+                <input id="main-menu-toggle" type="checkbox" class="menu-toggle-input"/>
+
+                // label contains the overlay, so that when the overlay is clicked the menu disappears
+                <label for="main-menu-toggle">
+                    <span class="screen-reader-only">{t!("menu.open_menu")}</span>
+                    <div class="overlay"></div>
+                </label>
+
+                // "hamburger" menu button created via CSS, and positioned over the toggle checkbox
+                // (but under it by z-index) so it appears to be a button
+                // this can be ignored by a screen reader (see above)
+                <div class="menu-toggle-button hamburger" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                // Here's the actual content of the navigation menu
+                <div class="menu-content">
+                    <ul>
+                        <li>
+                            <h1>
+                                {nav_link(&self.path, &self.locale, "", t!("common_prayer"))}
+                            </h1>
+                        </li>
+                        <form action="search">
+                            <input class="main-search" type="search" name="q" placeholder={t!("search")}/>
+                            <noscript><input type="submit" value={t!("search")}/></noscript>
+                        </form>
+                        <li>
+                            {nav_link(&self.path, &self.locale, "/contents", t!("toc.table_of_contents"))}
+                        </li>
+                        <li>
+                            {nav_link(&self.path, &self.locale, "/calendar", t!("menu.calendar"))}
+                        </li>
+                        <li>
+                            {nav_link(&self.path, &self.locale, "/canticle-table", t!("menu.canticle_table"))}
+                        </li>
+                        <li>
+                            {nav_link(&self.path, &self.locale, "/daily-office", t!("toc.daily_office"))}
+                        </li>
+                        <li>
+                            {nav_link(&self.path, &self.locale, "/readings/office", t!("toc.daily_readings"))}
+                        </li>
+                        <li>
+                            {nav_link(&self.path, &self.locale, "/lectionary", t!("menu.lectionary"))}
+                        </li>
+                        <li>
+                            {nav_link(&self.path, &self.locale, "/psalter", t!("menu.psalter"))}
+                        </li>
+                        <li>
+                            {nav_link(&self.path, &self.locale, "/hymnal", t!("menu.hymnal"))}
+                        </li>
+                        <li>
+                            {nav_link(&self.path, &self.locale, "/meditation", t!("meditation.title"))}
+                        </li>
+                        <li>
+                            {nav_link(&self.path, &self.locale, "/settings", t!("settings.title"))}
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        }
+    }
+}
+
+fn nav_link(current_url: &str, locale: &str, href: &str, label: String) -> Node {
+    let localized_href = format!("/{}{}", locale, href);
+    let active = !href.is_empty() && current_url.starts_with(&localized_href);
+    view! {
+        <a href={localized_href} class:current={active}>{label}</a>
     }
 }

@@ -1,5 +1,4 @@
 use super::breadcrumbs::breadcrumbs;
-use crate::views::Header;
 use crate::WebView;
 use leptos2::*;
 use liturgy::SlugPath;
@@ -30,7 +29,7 @@ pub fn category_body(
         .collect::<Vec<_>>();
     view! {
         <>
-            {Header::new(locale, title).to_node()}
+            <header><h1>{title}</h1></header>
             <main>
                 {breadcrumbs(locale, base_slug)}
                 <ul class="category-summary">

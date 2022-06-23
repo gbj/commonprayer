@@ -3,7 +3,7 @@ use std::sync::Arc;
 
 pub use hymn_media::*;
 
-use crate::views::{DocumentView, Header};
+use crate::views::DocumentView;
 use hymnal::{Hymn, HymnNumber, Hymnal, Hymnals};
 use leptos2::*;
 

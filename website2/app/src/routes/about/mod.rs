@@ -1,4 +1,3 @@
-use crate::views::Header;
 use leptos2::{view::View, *};
 
 #[derive(Debug)]

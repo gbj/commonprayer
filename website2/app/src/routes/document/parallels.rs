@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 
 use super::breadcrumbs::breadcrumbs;
-use crate::views::Header;
 use leptos2::*;
 use liturgy::{parallel_table::ParallelDocument, Document, Slug, SlugPath, Version};
 

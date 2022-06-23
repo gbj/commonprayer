@@ -1,8 +1,5 @@
 use super::breadcrumbs::breadcrumbs;
-use crate::{
-    views::{DocumentView, Header},
-    WebView,
-};
+use crate::{views::DocumentView, WebView};
 use itertools::Itertools;
 use leptos2::*;
 use liturgy::{Document, Slug, SlugPath, Version};
@@ -53,7 +50,7 @@ pub fn multidocument_body(
 
     view! {
         <>
-            {Header::new(locale, title).to_node()}
+            <header><h1>{title}</h1></header>
             <main>
                 {breadcrumbs(locale, base_slug)}
                 <form>

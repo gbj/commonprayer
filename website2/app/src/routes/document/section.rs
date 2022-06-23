@@ -1,5 +1,4 @@
 use super::{breadcrumbs::breadcrumbs, NavType};
-use crate::views::Header;
 use leptos2::*;
 use liturgy::SlugPath;
 
@@ -49,7 +48,7 @@ pub fn section_body(
         .collect::<Vec<_>>();
     view! {
         <>
-            {Header::new(locale, title).to_node()}
+            <header><h1>{title}</h1></header>
             <main>
                 {breadcrumbs(locale, base_slug)}
                 <ul class="section-summary">

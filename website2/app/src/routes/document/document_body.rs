@@ -1,11 +1,7 @@
 use super::breadcrumbs::breadcrumbs;
 use super::{DocumentPage, DocumentPageQuery, ExportLinks};
 use crate::views::document::DocumentView;
-use crate::{
-    components::DatePicker,
-    views::{Header, Icon},
-    WebView,
-};
+use crate::{components::DatePicker, WebView};
 use leptos2::*;
 use liturgy::{Document, SlugPath};
 

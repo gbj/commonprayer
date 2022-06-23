@@ -18,13 +18,16 @@
 				- [x] Settings (calendar, show black-letter days, etc.)
 				- [x] Navigation (next month/prev month, date picker)
 				- [ ] Mobile layout
+				- [ ] ICS link
 			- [ ] Readings Page
 				- [ ] Ember Day readings
+				- [ ] Rogation Day readings
 				- [ ] export readings to Word doc
 			- [ ] Psalter
 			- [ ] Document page
 				- [ ] Parallels
 				- [ ] Test links between page
+				- [ ] Download links
 			- [ ] Better menu
 		- [ ] Nested routes or async loaders instead of WC for...
 			- [ ] HymnMedia
@@ -35,15 +38,15 @@
 		- [ ] UI improvements
 			- [ ] Index Page cards
 - [ ] Global search
-- [ ] Themed pages
-- [ ] Reenable caching (while keeping streaming working?)
-- [ ] Progressive enhancement
-	- [ ] Client side route replacement
+- [ ] Themed pages (Pentecost, etc.)
 - [ ] Finish website2 and merge
 	- [ ] Nested document pages
 	- [ ] Settings page
 		- [ ] Ultimately, build a better/server-side/authenticated + reactive preferences approach
 		- [ ] Then make default versions + settings for readings page better
+- Initial public release
+- [ ] Progressive enhancement
+	- [ ] Client side route replacement
 - [ ] Async blocks as children
 	- [ ] Streaming HTML
 	- [ ] AsyncElement node type

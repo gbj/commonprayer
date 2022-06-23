@@ -1,5 +1,4 @@
 use super::breadcrumbs::breadcrumbs;
-use crate::views::Header;
 use leptos2::*;
 use liturgy::{Slug, SlugPath, Version};
 
@@ -21,7 +20,7 @@ pub fn by_version_body(
             .collect::<Vec<_>>();
     view! {
         <>
-            {Header::new(locale, title).to_node()}
+            <header><h1>{title}</h1></header>
             <main>
                 {breadcrumbs(locale, base_slug)}
                 <ul class="by-version-summary">

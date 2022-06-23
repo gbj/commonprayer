@@ -3,15 +3,11 @@ use leptos2::{view, Node};
 use liturgy::Version;
 
 pub mod document;
-pub mod header;
 pub mod icon;
-pub mod menu;
 pub mod readings;
 
 pub use document::*;
-pub use header::*;
 pub use icon::*;
-pub use menu::*;
 pub use readings::*;
 
 pub fn bible_version_select(locale: &str, name: &str, value: Version) -> Node {
