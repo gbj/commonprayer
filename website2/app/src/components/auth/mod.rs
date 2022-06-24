@@ -92,7 +92,7 @@ impl Component for Auth {
                     self.user.as_ref().map(|user| view! {
                         <div class="user-info">
                             <p>{user.display_name.clone().unwrap_or_default()}</p>
-                            <button on:click=|_| Self::Msg::Logout>{"Logout"}</button>
+                            <button on:click=|_| Self::Msg::Logout>{t!("auth.logout")}</button>
                         </div>
                     })
                 } else {

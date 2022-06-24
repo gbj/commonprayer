@@ -11,6 +11,7 @@ pub struct UserInfo {
     #[serde(alias = "providerId")]
     pub provider_id: String,
     pub uid: String,
+    pub token: String,
 }
 
 impl UserInfo {

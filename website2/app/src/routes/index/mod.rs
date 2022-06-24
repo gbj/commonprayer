@@ -43,6 +43,16 @@ impl Loader for Index {
 
         let general_settings = GeneralSettings::get_all(&req);
         let user = UserInfo::get_untrusted(&req);
+        
+        if let Some(user) = &user {
+                    eprintln!("validating token");
+        let token = auth::validate_token(&user.token).await;
+        match token {
+            Ok(token) =>         eprintln!("token result = {{\n\theaders: {:?},\n\tclaims: {:?}}}", token.headers, token.claims),
+            Err(e) => eprintln!("error {:#?}", e)
+        }
+        }
+
 
         Some(Self {
             locale: locale.to_string(),
@@ -151,7 +161,7 @@ impl Index {
                 // Here's the actual content of the navigation menu
                 <div class="menu-content">
                     <ul>
-                        <li class="horizontal">
+                        <li class="title horizontal">
                             <h1>
                                 {nav_link(&self.path, &self.locale, "", t!("common_prayer"))}
                             </h1>

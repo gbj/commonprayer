@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+anyhow = "1"
 leptos2 = { path = "../../framework2/leptos" }
 rust-i18n = "0.6"
 lazy_static = "1"
@@ -40,6 +41,8 @@ reference-parser = { path = "../../episcopal_api/crates/reference-parser" }
 
 # Server-Only Crates
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+alcoholic_jwt = "4091"
+cached = { version = "0.34", features = ["async"] }
 moka = "0.8"
 
 # web-sys settings

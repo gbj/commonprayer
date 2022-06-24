@@ -6,6 +6,9 @@
 	- [ ] Auth and settings
 		- [x] Cookie Storage for settings
 		- [ ] Actual auth system to store settings for users
+			- [x] client side
+			- [x] server side: JWT verification
+			- [ ] server side: database with settings
 	- [ ] Migrate website to this system
 		-  Remaining pages
 			- [ ] Settings
