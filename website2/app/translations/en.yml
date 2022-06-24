@@ -5,6 +5,10 @@ en:
   search: Search
   today: Today
 
+  auth:
+    title: User Authentication
+    logout: Sign Out
+
   page_404:
     title: Page Not Found
     uh_oh: Uh-oh!

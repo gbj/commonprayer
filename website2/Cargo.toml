@@ -1,6 +1,7 @@
 [workspace]
 members = [
 	"app",
+	"client/auth",
 	"client/biblical_citation_loader",
 	"client/calendar_controller",
 	"client/date_picker",

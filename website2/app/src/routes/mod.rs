@@ -6,7 +6,7 @@ mod document;
 mod home;
 mod hymn;
 mod hymnal;
-mod index;
+pub mod index;
 pub mod meditation;
 pub mod readings;
 pub mod settings;

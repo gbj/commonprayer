@@ -45,6 +45,12 @@ impl Component for Modal {
                         ModalMsg::Close
                     }
                 })
+                foreign:openmodal=(format!("[data-modal-id='{}']", self.id), |_| {
+                    ModalMsg::Open
+                })
+                foreign:closemodal=(format!("[data-modal-id='{}']", self.id), |_| {
+                    ModalMsg::Close
+                })
                 role="dialog"
                 aria-modal="true"
                 aria_labelledby="modal_label"

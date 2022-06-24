@@ -13,8 +13,8 @@ nav#main-menu {
 }
 
 .main-search {
-    margin: 0.5rem 0.5rem 0.5rem 1.5rem;
-    width: calc(100% - 1.5rem);
+    margin: 0.5rem;
+    width: calc(100% - 0.5rem);
     padding: 0.5rem 0.5rem 0.5rem 2rem;
     background-image: url("/static/icons/tabler-icon-search-input.svg");
     background-position: left;
@@ -33,13 +33,17 @@ nav#main-menu li:not(:first-of-type) {
     padding: 0;
 }
 
+.menu .menu-content li {
+    padding: 0.25rem;
+    margin: 0.25rem;
+}
+
 .menu .menu-content li h1 {
     font-size: 1.25rem;
     height: 2.5rem;
 }
 
-.menu .menu-content h1,
-.menu .menu-content li {
+.menu .menu-content li.horizontal {
     align-items: center;
     display: flex;
 }
@@ -48,7 +52,7 @@ nav#main-menu li:not(:first-of-type) {
     box-sizing: border-box;
     margin: 0.5rem 0;
 }
-.menu .menu-content li:not(:first-of-type):hover {
+.menu .menu-content li:not(:first-of-type) a:hover {
     background: var(--season);
 }
 
@@ -60,9 +64,10 @@ nav#main-menu li:not(:first-of-type) {
 .menu a {
     border-radius: 3px;
     color: var(--color);
+    display: block;
     text-decoration: none;
-    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
-    width: 100%;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    width: calc(100% - 1rem);
 }
 
 .menu a.current {

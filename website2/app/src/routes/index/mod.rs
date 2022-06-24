@@ -1,14 +1,19 @@
 use std::sync::Arc;
 
 use super::settings::{DarkMode, DisplaySettings, GeneralSettings, Settings};
+use crate::components::{Auth, Modal};
 use crate::utils::encode_uri;
 use leptos2::{view::View, *};
+
+pub mod auth;
+use auth::{auth_scripts, UserInfo};
 
 pub struct Index {
     locale: String,
     path: String,
     dark_mode: DarkMode,
     general_settings: GeneralSettings,
+    user: Option<UserInfo>,
 }
 
 impl Default for Index {
@@ -18,6 +23,7 @@ impl Default for Index {
             path: String::new(),
             dark_mode: DarkMode::Auto,
             general_settings: GeneralSettings::default(),
+            user: None,
         }
     }
 }
@@ -36,12 +42,14 @@ impl Loader for Index {
         let dark_mode = DisplaySettings::get(&req, |settings| settings.dark_mode);
 
         let general_settings = GeneralSettings::get_all(&req);
+        let user = UserInfo::get_untrusted(&req);
 
         Some(Self {
             locale: locale.to_string(),
             path: req.path().to_string(),
             dark_mode,
             general_settings,
+            user,
         })
     }
 }
@@ -89,6 +97,11 @@ impl View for Index {
                 {menu}
                 {nested_view.unwrap_or_default()}
                 {body_scripts()}
+
+                // Firebase Auth
+                {auth_scripts()}
+
+                // Plausible Analytics
                 <script defer data-domain="commonprayeronline.org" src="https://plausible.io/js/plausible.js"></script>
             </div>
         }
@@ -138,10 +151,14 @@ impl Index {
                 // Here's the actual content of the navigation menu
                 <div class="menu-content">
                     <ul>
-                        <li>
+                        <li class="horizontal">
                             <h1>
                                 {nav_link(&self.path, &self.locale, "", t!("common_prayer"))}
                             </h1>
+                            <Auth prop:user={self.user.clone()} data-modal-id="login"></Auth>
+                            <Modal id="login">
+                                <div id="firebase-auth" slot="content"></div>
+                            </Modal>
                         </li>
                         <form action="search">
                             <input class="main-search" type="search" name="q" placeholder={t!("search")}/>

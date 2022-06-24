@@ -12,6 +12,8 @@ pub mod routes;
 pub mod utils;
 pub mod views;
 
+pub use routes::index::auth::UserInfo;
+
 #[macro_use]
 extern crate rust_i18n;
 
