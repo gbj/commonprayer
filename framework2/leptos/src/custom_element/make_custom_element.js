@@ -7,43 +7,45 @@ export function make_custom_element(
   observedProperties,
   superclassTag
 ) {
-  customElements.define(
-    tag_name,
-    class extends superclass {
-      static get observedAttributes() {
-        return observedAttributes;
-      }
-
-      constructor() {
-        super();
-
-        // run whatever custom constructor we've been given, and other setup as necessary
-        constructor(this);
-
-        if (shadow && !this.shadowRoot) {
-          this.attachShadow({ mode: "open" });
+  if (!customElements.get(tag_name)) {
+    customElements.define(
+      tag_name,
+      class extends superclass {
+        static get observedAttributes() {
+          return observedAttributes;
         }
 
-        // define setters/getters for properties
-        for (const propertyName of observedProperties) {
-          Object.defineProperty(this, propertyName, {
-            set(value) {
-              return this._setProperty(propertyName, value);
-            }
-          });
-        }
-      }
+        constructor() {
+          super();
 
-      attributeChangedCallback(name, oldValue, newValue) {
-        this._attributeChangedCallback(this, name, oldValue || "", newValue);
-      }
+          // run whatever custom constructor we've been given, and other setup as necessary
+          constructor(this);
 
-      connectedCallback() {
-        if (this._injectChildren) {
-          this._injectChildren(this, Boolean(this.dataset.leptosHydrate));
+          if (shadow && !this.shadowRoot) {
+            this.attachShadow({ mode: "open" });
+          }
+
+          // define setters/getters for properties
+          for (const propertyName of observedProperties) {
+            Object.defineProperty(this, propertyName, {
+              set(value) {
+                return this._setProperty(propertyName, value);
+              }
+            });
+          }
         }
-      }
-    },
-    superclassTag ? { extends: superclassTag } : undefined
-  );
+
+        attributeChangedCallback(name, oldValue, newValue) {
+          this._attributeChangedCallback(this, name, oldValue || "", newValue);
+        }
+
+        connectedCallback() {
+          if (this._injectChildren) {
+            this._injectChildren(this, Boolean(this.dataset.leptosHydrate));
+          }
+        }
+      },
+      superclassTag ? { extends: superclassTag } : undefined
+    );
+  }
 }
