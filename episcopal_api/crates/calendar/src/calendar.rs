@@ -91,7 +91,10 @@ impl Calendar {
                 LiturgicalDayId::TransferredFeast(t_feast) => {
                     // to be honest it's a little unclear whether a transferred red-letter day should
                     // cause the original black-letter day to be ignored, or also commemorated
+                    // but we'll drop it, which I think is the most reasonable option
                     t_feast != *feast
+                        && (feast_rank >= Rank::PrecedenceOverWeekday
+                            || feast_rank == Rank::EmberDay)
                 }
                 _ => weekday != Weekday::Sun,
             }

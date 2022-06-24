@@ -1,50 +1,58 @@
+  ul.other-notes, ul.black-letter-days {
+    list-style-type: none;
+    padding: 0;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  ul.other-notes {
+    font-variant: small-caps;
+  }
+
+    ul.black-letter-days a {
+    color: var(--color);
+    font-style: italic;
+  }
+
 /* Mobile/phone-size: calendar as rows */
-.weekday-label {
-  display: none;
-}
+@media(max-width: 766px) {
+  .weekday-labels {
+    display: none;
+  }
 
-.month {
-  display: flex;
-  flex-direction: column;
-}
+  .day {
+    display: grid;
+    grid-template-areas: "number main other";
+    grid-template-columns: 2rem 1fr 4.5rem;
+    margin-bottom: 0.25rem;
+  }
 
-.day.sunday > * {
-  font-weight: bold;
-  padding-top: 1rem;
-}
+  .month-number {
+    grid-area: number;
+  }
 
-.day > .month-number {
-  padding-right: 0.5rem;
-}
+  .day-name, .alternative, .black-letter-days, .other-notes {
+    display: block;
+  }
 
-.month {
-  display: table;
-}
+  .main-listing, .black-letter-days {
+    grid-area: main;
+  }
 
-.day {
-  display: table-row;
-  vertical-align: top;
-}
+  .other-notes {
+    grid-area: other;
+    text-align: right;
+  }
 
-a.alternative {
-  margin-top: 0.5rem;
-}
-
-ul.other-notes {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  text-align: right;
-  display: block;
-  margin-left: auto;
-  font-size: 0.9rem;
-  font-variant: small-caps;
+  .padding {
+    display: none;
+  }
 }
 
 /* Tablet/desktop: true calendar view */
 @media (min-width: 767px) {
   :root {
-    --main-width: min(1000px, 100vw);
+    --main-width: 1000px;
   }
 
   h2 {
@@ -68,6 +76,7 @@ ul.other-notes {
 
   .day {
     border: 1px solid var(--border-color);
+    vertical-align: top;
   }
 
   .month {
@@ -97,23 +106,21 @@ ul.other-notes {
     text-align: center;
   }
 
+  a.alternative {
+    margin-top: 0.5rem;
+  }
+
   body > main.lectionary.calendar {
     width: calc(var(--main-width) - var(--menu-width));
   }
 
   ul.other-notes, ul.black-letter-days {
-    list-style-type: none;
-    padding: 0;
     text-align: center;
     display: block;
-    font-size: 0.9rem;
-    margin: 0;
     margin-top: 0.5rem;
-    padding: 0;
   }
 
   ul.other-notes {
-    font-variant: small-caps;
     position: absolute;
     bottom: 0;
     height: 2rem;
@@ -121,18 +128,16 @@ ul.other-notes {
     width: calc(100% - 1rem);
   }
 
-  ul.black-letter-days a {
-    color: var(--color);
-    font-style: italic;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-
   .alternative {
     display: block;
+  }
+
+  .day-name, ul.black-letter-days a {
+        overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
   }
 }
 

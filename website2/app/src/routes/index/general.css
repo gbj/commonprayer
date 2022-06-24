@@ -69,6 +69,13 @@ select {
     width: var(--main-width);
 }
 
+@media(max-width: 767px) {
+    .app-shell > div > main, .app-shell > div > .error-boundary {
+        padding: 1rem;
+        max-width: calc(100vw - 2rem);
+    }
+}
+
 /* Hide things *only* visually, leaving them accessible to screen readers */
 .screen-reader-only:not(:focus):not(:active) {
     clip: rect(0 0 0 0);

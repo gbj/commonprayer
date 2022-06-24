@@ -1421,7 +1421,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 215] = [
     ),
 ];
 
-pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 198] = [
+pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 199] = [
     (Feast::AbsalomJones, Language::En, "Absalom Jones, Priest, 1818", Status::Authorized),
     (Feast::AgnesAndCeciliaOfRome, Language::En, "Agnes, Martyr at Rome, 304", Status::Authorized),
     (Feast::AidanOfLindisfarne, Language::En, "Aidan, Bishop of Lindisfarne, 651", Status::Authorized),
@@ -1546,6 +1546,7 @@ pub(crate) const BCP1979_FEAST_NAMES : [(Feast, Language, &str, Status); 198] = 
     (Feast::SamuelIsaacJosephScherechewsky, Language::En, "Samuel Isaac Joseph Schereschewsky, Bishop of Shanghai, 1906", Status::Authorized),
     (Feast::SaturdayAfterAscension, Language::En, "Saturday after Ascension Day", Status::Authorized),
     (Feast::EveOfPentecost, Language::En, "Eve of Pentecost", Status::Authorized),
+    (Feast::PentecostVigil, Language::En, "Pentecost Vigil", Status::Authorized),
     (Feast::SaturdayInEasterWeek, Language::En, "Saturday in Easter Week", Status::Authorized),
     (Feast::HolySaturday, Language::En, "Holy Saturday", Status::Authorized),
     (Feast::SaturdayAfterAshWednesday, Language::En, "Saturday after Ash Wednesday", Status::Authorized),

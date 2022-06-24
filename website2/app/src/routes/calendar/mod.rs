@@ -69,7 +69,7 @@ impl Loader for CalendarView {
         let days = (0..=31)
             .filter_map(|offset| {
                 let current_date = day_1.add_days(offset);
-                if current_date.year() == year {
+                if current_date.year() == year && current_date.month() == month {
                     let liturgical_day = calendar.liturgical_day(current_date, false);
                     let rank = calendar.rank(&liturgical_day);
 
@@ -299,7 +299,7 @@ impl CalendarView {
 							liturgical_day.observed,
 							LiturgicalDayId::TransferredFeast(_)
 						) {
-							Some(text(format!(" {}", t!("daily_readings.transferred"))))
+							Some(view! {<span class="transferred">{format!(" {}", t!("daily_readings.transferred"))}</span>})
 						} else {
 							None
 						};
@@ -321,8 +321,8 @@ impl CalendarView {
 						};
 
 						Some(view! {
-							<div>
-								<a href={format!("/{}/readings/eucharist/?date={}-{}-{}", self.locale, self.year, self.month, day)}>{day_name}</a>
+							<div class="main-listing">
+								<a class="day-name" href={format!("/{}/readings/eucharist/?date={}-{}-{}", self.locale, self.year, self.month, day)}>{day_name}</a>
 								{transferred}
 								{alternatives}
 							</div>

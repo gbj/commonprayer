@@ -5,10 +5,6 @@
     --menu-width: 0;
 }
 
-.app-shell {
-    height: 100vh;
-}
-
 nav#main-menu {
     background: var(--season-light);
     z-index: 300;
