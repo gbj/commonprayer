@@ -36,6 +36,7 @@ nav#main-menu li:not(:first-of-type) {
 .menu .menu-content li {
     padding: 0.25rem;
     margin: 0.25rem;
+    margin-bottom: 0;
 }
 
 .menu .menu-content li h1 {
@@ -46,6 +47,7 @@ nav#main-menu li:not(:first-of-type) {
 .menu .menu-content li.horizontal {
     align-items: center;
     display: flex;
+    justify-content: space-between;
 }
 
 .menu .menu-content li {
@@ -77,6 +79,15 @@ nav#main-menu li:not(:first-of-type) {
 @media(max-width: 999px) {
     [data-route=""] > div {
         width: 100%;
+    }
+
+    .menu .menu-content {
+        background-color: var(--season-light);
+    }
+
+    .menu-content > ul {
+        margin-left: 2rem;
+        padding-left: 0.5rem;
     }
 
     .menu .menu-toggle-button {
