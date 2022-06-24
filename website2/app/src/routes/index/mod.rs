@@ -1,14 +1,14 @@
 use std::sync::Arc;
 
-use super::settings::{DarkMode, DisplaySettings, Settings};
+use super::settings::{DarkMode, DisplaySettings, GeneralSettings, Settings};
 use crate::utils::encode_uri;
 use leptos2::{view::View, *};
 
-#[derive(Debug)]
 pub struct Index {
     locale: String,
     path: String,
     dark_mode: DarkMode,
+    general_settings: GeneralSettings,
 }
 
 impl Default for Index {
@@ -17,6 +17,7 @@ impl Default for Index {
             locale: "en".to_string(),
             path: String::new(),
             dark_mode: DarkMode::Auto,
+            general_settings: GeneralSettings::default(),
         }
     }
 }
@@ -34,10 +35,13 @@ impl Loader for Index {
     ) -> Option<Self> {
         let dark_mode = DisplaySettings::get(&req, |settings| settings.dark_mode);
 
+        let general_settings = GeneralSettings::get_all(&req);
+
         Some(Self {
             locale: locale.to_string(),
             path: req.path().to_string(),
             dark_mode,
+            general_settings,
         })
     }
 }
@@ -60,10 +64,10 @@ impl View for Index {
     fn links(&self) -> Vec<Node> {
         view! {
             <>
-                <link rel="preload" href="/static/fonts/Sabon_Roman.woff2" _as="font" type="font/woff2" crossorigin />
-                <link rel="preload" href="/static/fonts/Sabon_Bold.woff2" _as="font" type="font/woff2" crossorigin/>
-                <link rel="preload" href="/static/fonts/Sabon_Italic.woff2" _as="font" type="font/woff2" crossorigin/>
-                <link rel="preload" href="/static/fonts/Sabon_BoldItalic.woff2" _as="font" type="font/woff2" crossorigin/>
+                <link rel="preload" href="/static/fonts/Sabon_Roman.woff2" _as="font" type="font/woff2"/>
+                <link rel="preload" href="/static/fonts/Sabon_Bold.woff2" _as="font" type="font/woff2"/>
+                <link rel="preload" href="/static/fonts/Sabon_Italic.woff2" _as="font" type="font/woff2"/>
+                <link rel="preload" href="/static/fonts/Sabon_BoldItalic.woff2" _as="font" type="font/woff2"/>
             </>
         }
     }
@@ -112,12 +116,12 @@ impl View for Index {
 impl Index {
     fn menu(&self) -> Node {
         view! {
-            <nav id="main-menu" role="navigation" class="left">
+            <nav id="main-menu" role="navigation" class="menu left">
                 // an invisible checkbox that toggles whether the menu appears or not via CSS
-                <input id="main-menu-toggle" type="checkbox" class="menu-toggle-input"/>
+                <input id="main-menu-toggle-checkbox" type="checkbox" class="menu-toggle-input"/>
 
                 // label contains the overlay, so that when the overlay is clicked the menu disappears
-                <label for="main-menu-toggle">
+                <label for="main-menu-toggle-checkbox">
                     <span class="screen-reader-only">{t!("menu.open_menu")}</span>
                     <div class="overlay"></div>
                 </label>
@@ -150,16 +154,18 @@ impl Index {
                             {nav_link(&self.path, &self.locale, "/calendar", t!("menu.calendar"))}
                         </li>
                         <li>
-                            {nav_link(&self.path, &self.locale, "/canticle-table", t!("menu.canticle_table"))}
+                            {nav_link(&self.path, &self.locale, "/readings", t!("menu.readings"))}
                         </li>
                         <li>
                             {nav_link(&self.path, &self.locale, "/daily-office", t!("toc.daily_office"))}
-                        </li>
-                        <li>
-                            {nav_link(&self.path, &self.locale, "/readings/office", t!("toc.daily_readings"))}
-                        </li>
-                        <li>
-                            {nav_link(&self.path, &self.locale, "/lectionary", t!("menu.lectionary"))}
+                            <ul>
+                                <li>
+                                    {nav_link(&self.path, &self.locale, "/", t!("toc.morning_prayer"))}
+                                </li>
+                                <li>
+                                    {nav_link(&self.path, &self.locale, "/canticle-table", t!("menu.canticle_table"))}
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             {nav_link(&self.path, &self.locale, "/psalter", t!("menu.psalter"))}
