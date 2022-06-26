@@ -1,5 +1,8 @@
 use leptos2::{Arc, Cookies, Request};
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+use crate::routes::index::auth::validate_token;
 
 #[derive(Deserialize, Serialize, Clone, PartialEq, Debug)]
 pub struct UserInfo {
@@ -30,5 +33,30 @@ impl UserInfo {
             })
             .find(|cookie| cookie.name() == "untrusted-user")
             .and_then(|cookie| serde_json::from_str(cookie.value()).ok())
+    }
+
+    pub async fn verified_id(req: Arc<dyn Request>) -> Option<String> {
+        if let Some(unverified) = Self::get_untrusted(&req) {
+            unverified.to_verified_id().await
+        } else {
+            None
+        }
+    }
+
+    pub async fn to_verified_id(&self) -> Option<String> {
+        let token = validate_token(&self.token).await;
+        match token {
+            Ok(token) => token
+                .claims
+                .get("user_id")
+                .and_then(|user_id| match user_id {
+                    Value::String(uid) => Some(uid.clone()),
+                    _ => None,
+                }),
+            Err(e) => {
+                eprintln!("{}", e);
+                None
+            }
+        }
     }
 }

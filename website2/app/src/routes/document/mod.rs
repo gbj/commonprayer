@@ -103,7 +103,7 @@ impl Loader for DocumentPage {
             }
         }
 
-        let display_settings = DisplaySettings::get_all(&req);
+        let display_settings = Settings::display(&req).await;
 
         let slug = SlugPath::from(slug_parts);
 

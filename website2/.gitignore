@@ -1,3 +1,4 @@
 artifacts
 cert.pem
 key.pem
+.env

@@ -23,3 +23,4 @@ lazy_static = "1"
 urlencoding = "2"
 reqwest = { version =  "0.11", features = ["json"]}
 anyhow = "1"
+sqlx = { version = "0.6", features = ["postgres", "runtime-tokio-native-tls", "json"]}

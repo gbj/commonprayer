@@ -1,12 +1,15 @@
-use std::sync::Arc;
+use std::{collections::HashMap, sync::Arc};
 
-use leptos2::*;
-use serde::de::DeserializeOwned;
+use ::liturgy::{PreferenceKey, PreferenceValue, Slug, Version};
+use leptos2::{http::Response, *};
+use serde_json::{from_value, Value};
 
 mod dark_mode;
 mod display;
 mod general;
 mod liturgy;
+
+use crate::UserInfo;
 
 pub use self::liturgy::*;
 pub use dark_mode::DarkMode;
@@ -80,14 +83,252 @@ impl View for SettingsView {
     }
 }
 
+#[derive(Default)]
+pub struct Settings {
+    pub general: GeneralSettings,
+    pub display: DisplaySettings,
+}
+
+#[derive(Default, Serialize, Deserialize)]
+struct LiturgySettings(HashMap<(Slug, Version), HashMap<PreferenceKey, PreferenceValue>>);
+
+impl LiturgySettings {
+    pub fn new() -> Self {
+        Self(HashMap::new())
+    }
+}
+
+struct DBSettings {
+    user_id: String,
+    general: Value,
+    display: Value,
+    liturgy: Value,
+}
+
+impl Settings {
+    pub async fn all(req: &Arc<dyn Request>) -> Self {
+        if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            match sqlx::query_as!(
+                DBSettings,
+                "SELECT * from user_settings where user_id = $1",
+                uid
+            )
+            .fetch_one(req.db())
+            .await
+            {
+                Ok(DBSettings {
+                    general, display, ..
+                }) => {
+                    match (
+                        from_value::<GeneralSettings>(general),
+                        from_value::<DisplaySettings>(display),
+                    ) {
+                        (Ok(general), Ok(display)) => Some(Self { general, display }),
+                        (Err(e), Ok(display)) => {
+                            eprintln!("[Settings::all — settings.general JSON error] {}", e);
+                            Some(Self {
+                                general: GeneralSettings::default(),
+                                display,
+                            })
+                        }
+                        (Ok(general), Err(e)) => {
+                            eprintln!("[Settings::all — settings.display JSON error] {}", e);
+                            Some(Self {
+                                general,
+                                display: DisplaySettings::default(),
+                            })
+                        }
+                        (Err(e_general), Err(e_display)) => {
+                            eprintln!(
+                                "[Settings::all — settings.general JSON error] {}",
+                                e_general
+                            );
+                            eprintln!(
+                                "[Settings::all — settings.display JSON error] {}",
+                                e_display
+                            );
+                            None
+                        }
+                    }
+                }
+                Err(e) => {
+                    eprintln!("[Settings::all] {}", e);
+                    None
+                }
+            }
+        } else {
+            None
+        }
+        .unwrap_or_default()
+    }
+
+    pub async fn general(req: &Arc<dyn Request>) -> GeneralSettings {
+        if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            match sqlx::query!("SELECT general from user_settings where user_id = $1", uid)
+                .fetch_one(req.db())
+                .await
+            {
+                Ok(value) => from_value::<GeneralSettings>(value.general).ok(),
+                Err(e) => {
+                    eprintln!("[Settings::general] {}", e);
+                    None
+                }
+            }
+        } else {
+            None
+        }
+        .unwrap_or_default()
+    }
+
+    pub async fn display(req: &Arc<dyn Request>) -> DisplaySettings {
+        if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            match sqlx::query!("SELECT display from user_settings where user_id = $1", uid)
+                .fetch_one(req.db())
+                .await
+            {
+                Ok(value) => from_value::<DisplaySettings>(value.display).ok(),
+                Err(e) => {
+                    eprintln!("[Settings::display] {}", e);
+                    None
+                }
+            }
+        } else {
+            None
+        }
+        .unwrap_or_default()
+    }
+
+    async fn set_display(
+        req: &Arc<dyn Request>,
+        res: &mut Response<()>,
+        settings: DisplaySettings,
+    ) {
+        // store in database for users who are logged in
+        if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            match sqlx::query!("INSERT INTO user_settings VALUES ($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET display = $3;",
+                uid,
+                serde_json::to_value(&GeneralSettings::default()).unwrap(),
+                serde_json::to_value(&settings).unwrap(),
+                serde_json::to_value(&LiturgySettings::default()).unwrap()
+            )
+            .execute(req.db())
+            .await {
+                Ok(_) => {}
+                Err(e) => {
+                    eprintln!("[Settings::set_display] {}", e)
+                }
+            }
+        }
+        // store in cookies for users not logged in
+        else {
+            Self::store_prefs_in_cookie(
+                req,
+                res,
+                "display",
+                serde_json::to_string(&settings).unwrap(),
+            )
+        }
+    }
+
+    async fn set_general(
+        req: &Arc<dyn Request>,
+        res: &mut Response<()>,
+        settings: GeneralSettings,
+    ) {
+        // store in database for users who are logged in
+        if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            match sqlx::query!("INSERT INTO user_settings VALUES ($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET general = $2;",
+                uid,
+                serde_json::to_value(&settings).unwrap(),
+                serde_json::to_value(&DisplaySettings::default()).unwrap(),
+                serde_json::to_value(&LiturgySettings::default()).unwrap()
+            )
+            .execute(req.db())
+            .await {
+                Ok(_) => {}
+                Err(e) => {
+                    eprintln!("[Settings::set_display] {}", e)
+                }
+            }
+        }
+        // store in cookies for users not logged in
+        else {
+            Self::store_prefs_in_cookie(
+                req,
+                res,
+                "general",
+                serde_json::to_string(&settings).unwrap(),
+            )
+        }
+    }
+
+    fn store_prefs_in_cookie(
+        req: &Arc<dyn Request>,
+        res: &mut Response<()>,
+        cookie_name: &str,
+        json: String,
+    ) {
+        let settings_cookie = cookie::Cookie::build(cookie_name, json)
+            .path("/")
+            .secure(true)
+            .http_only(true)
+            .max_age(cookie::time::Duration::days(365_000))
+            .finish();
+        res.headers_mut().insert(
+            "Set-Cookie",
+            http::HeaderValue::from_str(&settings_cookie.to_string()).unwrap(),
+        );
+    }
+}
+
+/*  pub async fn general(req: &Arc<dyn Request>) -> Option<GeneralSettings> {
+    if let Some(user) = UserInfo::get_untrusted(req) {
+        if let Some(uid) = user.verified_uid().await {
+            sqlx::query_as!(
+                Settings,
+                "SELECT * from user_settings where user_id = $1",
+                uid
+            )
+            .fetch_one(req.db())
+            .await
+            .ok()
+        } else {
+            None
+        }
+    } else {
+        None
+    }
+}
+
+pub async fn display(req: &Arc<dyn Request>) -> Option<DisplaySettings> {
+    if let Some(user) = UserInfo::get_untrusted(req) {
+        if let Some(uid) = user.verified_uid().await {
+            sqlx::query_as!(
+                Settings,
+                "SELECT * from user_settings where user_id = $1",
+                uid
+            )
+            .fetch_one(req.db())
+            .await
+            .ok()
+        } else {
+            None
+        }
+    } else {
+        None
+    }
+} */
+
+/*
+#[async_trait(?Send)]
 pub trait Settings
 where
     Self: Serialize + DeserializeOwned + Default,
 {
     fn cookie_name() -> &'static str;
 
-    fn get_all(req: &Arc<dyn Request>) -> Self {
-        let headers = req.headers();
+    async fn get_all(req: &Arc<dyn Request>) -> Self {
+        /* let headers = req.headers();
         let settings = headers
             .cookies()
             .filter_map(|cookie| match cookie {
@@ -99,15 +340,22 @@ where
             })
             .find(|cookie| cookie.name() == Self::cookie_name())
             .and_then(|cookie| serde_json::from_str(cookie.value()).ok());
-        settings.unwrap_or_default()
+        settings.unwrap_or_default() */
+
+        let settings = sqxl::query_as!(Self, )
+
     }
 
-    fn get<T>(req: &Arc<dyn Request>, cb: fn(Self) -> T) -> T {
-        let settings = Self::get_all(req);
+    async fn get<T>(req: &Arc<dyn Request>, cb: fn(Self) -> T) -> T {
+        let settings = Self::get_all(req).await;
         (cb)(settings)
     }
 
-    fn set<T>(req: &Arc<dyn Request>, res: &mut http::Response<T>, settings: Self) {
+    async fn set<T>(req: &Arc<dyn Request>, res: &mut http::Response<T>, settings: Self) {
+        // set in DB
+        let existing_info =
+
+        // set as cookie
         let settings_cookie = cookie::Cookie::build(
             Self::cookie_name(),
             serde_json::to_string(&settings).unwrap(),
@@ -123,3 +371,4 @@ where
         );
     }
 }
+ */

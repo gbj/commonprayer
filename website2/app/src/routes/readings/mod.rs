@@ -47,7 +47,7 @@ impl Loader for ReadingsView {
             .filter(Version::is_bible_translation)
             .unwrap_or(Version::NRSV);
 
-        let display_settings = DisplaySettings::get_all(&req);
+        let display_settings = Settings::display(&req).await;
 
         Some(Self {
             locale: locale.to_string(),

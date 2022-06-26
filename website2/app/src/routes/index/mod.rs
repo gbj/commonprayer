@@ -1,8 +1,10 @@
+use std::pin::Pin;
 use std::sync::Arc;
 
 use super::settings::{DarkMode, DisplaySettings, GeneralSettings, Settings};
 use crate::components::{Auth, Modal};
 use crate::utils::encode_uri;
+use futures::{future, join, Future, TryStreamExt};
 use leptos2::{view::View, *};
 
 pub mod auth;
@@ -39,20 +41,10 @@ impl Loader for Index {
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-        let dark_mode = DisplaySettings::get(&req, |settings| settings.dark_mode);
-
-        let general_settings = GeneralSettings::get_all(&req);
+        let settings = Settings::all(&req).await;
+        let dark_mode = settings.display.dark_mode;
+        let general_settings = settings.general;
         let user = UserInfo::get_untrusted(&req);
-        
-        if let Some(user) = &user {
-                    eprintln!("validating token");
-        let token = auth::validate_token(&user.token).await;
-        match token {
-            Ok(token) =>         eprintln!("token result = {{\n\theaders: {:?},\n\tclaims: {:?}}}", token.headers, token.claims),
-            Err(e) => eprintln!("error {:#?}", e)
-        }
-        }
-
 
         Some(Self {
             locale: locale.to_string(),
@@ -100,7 +92,7 @@ impl View for Index {
     }
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
-        let menu = self.menu();
+        let menu = Self::menu(&self.path, &self.locale, self.user.as_ref());
 
         view! {
             <div class={format!("app-shell dark-mode-{}", self.dark_mode).to_lowercase()}>
@@ -137,7 +129,7 @@ impl View for Index {
 }
 
 impl Index {
-    fn menu(&self) -> Node {
+    fn menu(path: &str, locale: &str, user: Option<&UserInfo>) -> Node {
         view! {
             <nav id="main-menu" role="navigation" class="menu left">
                 // an invisible checkbox that toggles whether the menu appears or not via CSS
@@ -163,9 +155,9 @@ impl Index {
                     <ul>
                         <li class="title horizontal">
                             <h1>
-                                {nav_link(&self.path, &self.locale, "", t!("common_prayer"))}
+                                {nav_link(path, locale, "", t!("common_prayer"))}
                             </h1>
-                            <Auth prop:user={self.user.clone()} data-modal-id="login"></Auth>
+                            <Auth prop:user={user.cloned()} data-modal-id="login"></Auth>
                             <Modal id="login">
                                 <div id="firebase-auth" slot="content"></div>
                             </Modal>
@@ -175,36 +167,36 @@ impl Index {
                             <noscript><input type="submit" value={t!("search")}/></noscript>
                         </form>
                         <li>
-                            {nav_link(&self.path, &self.locale, "/contents", t!("toc.table_of_contents"))}
+                            {nav_link(path, locale, "/contents", t!("toc.table_of_contents"))}
                         </li>
                         <li>
-                            {nav_link(&self.path, &self.locale, "/calendar", t!("menu.calendar"))}
+                            {nav_link(path, locale, "/calendar", t!("menu.calendar"))}
                         </li>
                         <li>
-                            {nav_link(&self.path, &self.locale, "/readings", t!("menu.readings"))}
+                            {nav_link(path, locale, "/readings", t!("menu.readings"))}
                         </li>
                         <li>
-                            {nav_link(&self.path, &self.locale, "/daily-office", t!("toc.daily_office"))}
+                            {nav_link(path, locale, "/daily-office", t!("toc.daily_office"))}
                             <ul>
                                 <li>
-                                    {nav_link(&self.path, &self.locale, "/", t!("toc.morning_prayer"))}
+                                    {nav_link(path, locale, "/", t!("toc.morning_prayer"))}
                                 </li>
                                 <li>
-                                    {nav_link(&self.path, &self.locale, "/canticle-table", t!("menu.canticle_table"))}
+                                    {nav_link(path, locale, "/canticle-table", t!("menu.canticle_table"))}
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            {nav_link(&self.path, &self.locale, "/psalter", t!("menu.psalter"))}
+                            {nav_link(path, locale, "/psalter", t!("menu.psalter"))}
                         </li>
                         <li>
-                            {nav_link(&self.path, &self.locale, "/hymnal", t!("menu.hymnal"))}
+                            {nav_link(path, locale, "/hymnal", t!("menu.hymnal"))}
                         </li>
                         <li>
-                            {nav_link(&self.path, &self.locale, "/meditation", t!("meditation.title"))}
+                            {nav_link(path, locale, "/meditation", t!("meditation.title"))}
                         </li>
                         <li>
-                            {nav_link(&self.path, &self.locale, "/settings", t!("settings.title"))}
+                            {nav_link(path, locale, "/settings", t!("settings.title"))}
                         </li>
                     </ul>
                 </div>

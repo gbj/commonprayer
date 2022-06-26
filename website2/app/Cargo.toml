@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1"
+cached = { version = "0.34", features = ["async"] }
 leptos2 = { path = "../../framework2/leptos" }
 rust-i18n = "0.6"
 lazy_static = "1"
@@ -24,6 +25,7 @@ reqwasm = "0.5"
 reqwest = { version = "0.11", features = ["json"] }
 strum = "0.24"
 strum_macros = "0.24"
+sqlx = { version = "0.6", features = ["postgres", "runtime-tokio-native-tls", "json"]}
 thiserror = "1"
 markdown = "0.3"
 
@@ -42,7 +44,6 @@ reference-parser = { path = "../../episcopal_api/crates/reference-parser" }
 # Server-Only Crates
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 alcoholic_jwt = "4091"
-cached = { version = "0.34", features = ["async"] }
 moka = "0.8"
 
 # web-sys settings

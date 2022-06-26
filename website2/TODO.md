@@ -8,7 +8,13 @@
 		- [ ] Actual auth system to store settings for users
 			- [x] client side
 			- [x] server side: JWT verification
-			- [ ] server side: database with settings
+			- [x] server side: database with settings
+			- [ ] fallback to cookies for un-logged-in users
+			- [ ] clear cookies on login/logout
+			- [ ] refresh page on login/logout (so new settings)
+			- [ ] caching to prevent multiple database lookups every page load
+	- [ ] Re-architect components (compile separately without depending on app, so no server-side code tries to compile for WASM)
+	- [ ] Fix Dark Mode (look at eg Settings page)
 	- [ ] Migrate website to this system
 		-  Remaining pages
 			- [ ] Settings
@@ -16,6 +22,8 @@
 					- [ ] Calendar link in menu
 				- [ ] Liturgy settings
 			- [ ] Daily Office
+				- [ ] main menu link using settings => query params
+				- [ ] 
 			- [x] Lectionary
 				- [ ] ICS link
 			- [ ] Readings Page

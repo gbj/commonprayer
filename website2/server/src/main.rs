@@ -31,6 +31,7 @@ use request_compat::RequestCompat;
 use reqwest::header::CACHE_CONTROL;
 use response_compat::ResponseCompat;
 use serde::Deserialize;
+use sqlx::{postgres::PgPoolOptions, Pool, Postgres};
 use tempfile::tempdir;
 use tokio::task::spawn_local;
 
@@ -50,6 +51,7 @@ lazy_static! {
 async fn main() -> std::io::Result<()> {
     let host = std::env::var("HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
     let port = std::env::var("PORT").unwrap_or_else(|_| "1234".to_string());
+
     // load TLS keys
     // to create a self-signed temporary cert for testing:
     // `openssl req -x509 -newkey rsa:4096 -nodes -keyout key.pem -out cert.pem -days 365 -subj '/CN=localhost'`
@@ -59,78 +61,99 @@ async fn main() -> std::io::Result<()> {
         .unwrap();
     builder.set_certificate_chain_file("cert.pem").unwrap();
 
+    // connect to database
+    let database_url = std::env::var("DATABASE_URL")
+        .unwrap_or_else(|_| "postgres://postgres@localhost".to_string());
+    let pool = PgPoolOptions::new()
+        .max_connections(5)
+        .connect(&database_url)
+        .await
+        .expect("could not connect to SQL database");
+    // run migrations
+    sqlx::migrate!()
+        .run(&pool)
+        .await
+        .expect("could not run SQLx migrations");
+
     // TODO migrate export_docx and video_search_api into app
 
-    HttpServer::new(|| {
-        App::new()
-            //.wrap(middleware::Compress::default())
-            .wrap(Cors::permissive())
-            .app_data(web::FormConfig::default().limit(256 * 1024)) // increase max form size for DOCX export
-            //.service(daily_summary)
-            .service(export_docx)
-            //.service(canticle_list_api)
-            //.service(hymnal_api)
-            //.service(hymnal_search_api)
-            //.service(hymnal_search_api_with_metadata)
-            .service(video_search_api)
-            //.service(hymnal_word_cloud)
-            .service(Files::new("/client", &format!("{}/client", *PROJECT_ROOT)))
-            .service(
-                web::scope("/static")
-                    // cache settings for static files
-                    .wrap_fn(|req, srv| {
-                        let fut = srv.call(req);
-                        async {
-                            let mut res = fut.await?;
-                            res.headers_mut().insert(
-                                CACHE_CONTROL,
-                                actix_web::http::header::HeaderValue::from_static(
-                                    "max-age=31536000",
-                                ),
-                            );
-                            Ok(res)
-                        }
-                    })
-                    .wrap(middleware::Compress::default())
-                    .service(Files::new("", &format!("{}/app/static", *PROJECT_ROOT))),
-            )
-            .default_service(
-                web::route().to(async move |req: HttpRequest, body: web::Bytes, multipart: actix_multipart::Multipart| {
-                    let req = RequestCompat::new(req, body.as_ref().to_vec());
-                    let req = Arc::new(req) as Arc<dyn Request>;
-                    if req.method() == http::Method::POST {
-                        let res = ROUTER.post(&req).await;
-                        match res {
-                            ActionResponse::None => HttpResponse::NotFound().finish(),
-                            ActionResponse::Response(res) => {
-                                let res = ResponseCompat::from(res);
-                                res.into()
+    HttpServer::new({
+        let pool = pool.clone();
+        move || {
+            App::new()
+                //.wrap(middleware::Compress::default())
+                .wrap(Cors::permissive())
+                .app_data(web::FormConfig::default().limit(256 * 1024)) // increase max form size for DOCX export
+                .app_data(web::Data::new(pool.clone()))
+                //.service(daily_summary)
+                .service(export_docx)
+                //.service(canticle_list_api)
+                //.service(hymnal_api)
+                //.service(hymnal_search_api)
+                //.service(hymnal_search_api_with_metadata)
+                .service(video_search_api)
+                //.service(hymnal_word_cloud)
+                .service(Files::new("/client", &format!("{}/client", *PROJECT_ROOT)))
+                .service(
+                    web::scope("/static")
+                        // cache settings for static files
+                        .wrap_fn(|req, srv| {
+                            let fut = srv.call(req);
+                            async {
+                                let mut res = fut.await?;
+                                res.headers_mut().insert(
+                                    CACHE_CONTROL,
+                                    actix_web::http::header::HeaderValue::from_static(
+                                        "max-age=31536000",
+                                    ),
+                                );
+                                Ok(res)
                             }
-                            ActionResponse::Error(e) => {
-                                HttpResponse::InternalServerError().body(e.to_string())
+                        })
+                        .wrap(middleware::Compress::default())
+                        .service(Files::new("", &format!("{}/app/static", *PROJECT_ROOT))),
+                )
+                .default_service(web::route().to(
+                    async move |req: HttpRequest,
+                                body: web::Bytes,
+                                multipart: actix_multipart::Multipart,
+                                db: web::Data<Pool<Postgres>>| {
+                        let req = RequestCompat::new(req, body.as_ref().to_vec(), db.into_inner());
+                        let req = Arc::new(req) as Arc<dyn Request>;
+                        if req.method() == http::Method::POST {
+                            let res = ROUTER.post(&req).await;
+                            match res {
+                                ActionResponse::None => HttpResponse::NotFound().finish(),
+                                ActionResponse::Response(res) => {
+                                    let res = ResponseCompat::from(res);
+                                    res.into()
+                                }
+                                ActionResponse::Error(e) => {
+                                    HttpResponse::InternalServerError().body(e.to_string())
+                                }
                             }
+                        } else {
+                            let routed = ROUTER.get(&req).await;
+                            let head_html = head(&routed);
+                            let body = routed.body.html_stream();
+
+                            let stream = futures::stream::once(async move { head_html })
+                                .chain(body)
+                                .chain(futures::stream::once(async {
+                                    "</body></html>".to_string()
+                                }))
+                                .map(|html| {
+                                    Ok(web::Bytes::from(html))
+                                        as Result<web::Bytes, leptos2::router::RouterError>
+                                });
+
+                            HttpResponse::Ok()
+                                .content_type("text/html")
+                                .streaming(stream)
                         }
-                    } else {
-                        let routed = ROUTER.get(&req).await;
-                        let head_html = head(&routed);
-                        let body = routed.body.html_stream();
-
-                        let stream = futures::stream::once(async move { head_html })
-                            .chain(body)
-                            .chain(futures::stream::once(async {
-                                "</body></html>".to_string()
-                            }))
-                            .map(|html| {
-                                Ok(web::Bytes::from(html))
-                                    as Result<web::Bytes, leptos2::router::RouterError>
-                            });
-
-                        HttpResponse::Ok()
-                            .content_type("text/html")
-                            .streaming(stream)
-                    }
-                }),
-            )
+                    },
+                ))
+        }
     })
     .bind_openssl(&format!("{}:{}", host, port), builder)?
     .run()

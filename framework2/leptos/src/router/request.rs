@@ -13,6 +13,8 @@ pub trait Request {
     fn headers(&self) -> http::HeaderMap;
 
     fn body(&self) -> Option<RequestBody>;
+
+    fn db(&self) -> &sqlx::Pool<sqlx::Postgres>;
 }
 
 pub struct RequestBody<'a> {

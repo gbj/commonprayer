@@ -1,4 +1,7 @@
-pub struct RequestCompat(actix_web::HttpRequest, Vec<u8>);
+use sqlx::{Pool, Postgres};
+use std::sync::Arc;
+
+pub struct RequestCompat(actix_web::HttpRequest, Vec<u8>, Arc<Pool<Postgres>>);
 
 impl leptos2::Request for RequestCompat {
     fn path(&self) -> &str {
@@ -25,10 +28,18 @@ impl leptos2::Request for RequestCompat {
     fn body(&self) -> Option<leptos2::RequestBody> {
         Some(leptos2::RequestBody::from(self.1.as_slice()))
     }
+
+    fn db(&self) -> &sqlx::Pool<sqlx::Postgres> {
+        &self.2
+    }
 }
 
 impl RequestCompat {
-    pub fn new(req: actix_web::HttpRequest, body_bytes: Vec<u8>) -> Self {
-        Self(req, body_bytes)
+    pub fn new(
+        req: actix_web::HttpRequest,
+        body_bytes: Vec<u8>,
+        db_pool: Arc<Pool<Postgres>>,
+    ) -> Self {
+        Self(req, body_bytes, db_pool)
     }
 }

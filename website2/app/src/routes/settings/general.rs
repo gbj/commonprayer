@@ -15,12 +15,6 @@ pub struct GeneralSettings {
     pub bible_version: Version,
 }
 
-impl Settings for GeneralSettings {
-    fn cookie_name() -> &'static str {
-        "GeneralSettings"
-    }
-}
-
 impl Default for GeneralSettings {
     fn default() -> Self {
         Self {
@@ -53,7 +47,7 @@ impl Loader for GeneralSettingsView {
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-        let settings = GeneralSettings::get_all(&req);
+        let settings = Settings::general(&req).await;
 
         Some(Self {
             settings,
@@ -75,16 +69,14 @@ impl Loader for GeneralSettingsView {
             .unwrap_or_default();
 
         // build response
-        Response::builder()
+        let mut res = Response::builder()
             .status(StatusCode::SEE_OTHER)
             .header("Location", format!("/{}/settings?success", locale))
             .body(())
-            .map(|mut res| {
-                GeneralSettings::set(&req, &mut res, settings);
-                res
-            })
-            .map(ActionResponse::from_response)
-            .unwrap_or_else(ActionResponse::from_error)
+            .unwrap();
+
+        Settings::set_general(&req, &mut res, settings).await;
+        ActionResponse::from_response(res)
     }
 }
 

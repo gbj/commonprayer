@@ -10,12 +10,6 @@ pub struct DisplaySettings {
     pub bible_verse_numbers: bool,
 }
 
-impl Settings for DisplaySettings {
-    fn cookie_name() -> &'static str {
-        "DisplaySettings"
-    }
-}
-
 impl DisplaySettings {
     pub fn to_class(&self) -> String {
         format!(
@@ -55,7 +49,7 @@ impl Loader for DisplaySettingsView {
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-        let settings = DisplaySettings::get_all(&req);
+        let settings = Settings::display(&req).await;
 
         Some(Self {
             settings,
@@ -75,16 +69,14 @@ impl Loader for DisplaySettingsView {
             .unwrap_or_default();
 
         // build response
-        Response::builder()
+        let mut res = Response::builder()
             .status(StatusCode::SEE_OTHER)
             .header("Location", format!("/{}/settings/display?success", locale))
             .body(())
-            .map(|mut res| {
-                DisplaySettings::set(&req, &mut res, settings);
-                res
-            })
-            .map(ActionResponse::from_response)
-            .unwrap_or_else(ActionResponse::from_error)
+            .unwrap();
+
+        Settings::set_display(&req, &mut res, settings).await;
+        ActionResponse::from_response(res)
     }
 }
 

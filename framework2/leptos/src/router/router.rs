@@ -1,8 +1,7 @@
 use std::{collections::HashMap, sync::Arc};
 
-use crate::{self as leptos2, ActionResponse, Attribute, Body, Element, Request};
+use crate::{ActionResponse, Attribute, Body, Element, Request};
 use futures::future::join_all;
-use leptos_macro2::view;
 
 use crate::{AnyRoute, Loader, Node, RenderedView, Route, View};
 

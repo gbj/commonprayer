@@ -38,7 +38,7 @@ impl Loader for HomePage {
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-        let general_settings = GeneralSettings::get_all(&req);
+        let general_settings = Settings::general(&req).await;
 
         let calendar = if general_settings.use_lff {
             LFF2018_CALENDAR
