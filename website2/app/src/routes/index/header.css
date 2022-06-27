@@ -27,7 +27,7 @@
 }
 
 .app-shell > div > header button {
-	background: var(--background);
+	background: none;
 	border: none;
 	display: block;
 }
