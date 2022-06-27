@@ -113,3 +113,10 @@ fieldset.horizontal, label.horizontal {
     justify-content: space-around;
     align-items: center;
 }
+
+label.stacked {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  text-align: center;
+}

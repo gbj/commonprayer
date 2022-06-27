@@ -153,9 +153,3 @@ legend {
   font-weight: bold;
   margin: auto;
 }
-
-label.stacked {
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
-}

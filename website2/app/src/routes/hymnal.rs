@@ -51,7 +51,10 @@ impl Loader for HymnalView {
             }
         };
 
-        let search = query.q.unwrap_or_default();
+        let search = query
+            .q
+            .and_then(|q| urlencoding::decode(&q).ok().map(|n| n.replace('+', " ")))
+            .unwrap_or_default();
 
         Some(match params.hymnal {
             None => HymnalView {
@@ -101,15 +104,6 @@ impl View for HymnalView {
     }
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
-        /*         let results_query_status = if self.search_results.is_empty() {
-                   FetchStatus::Idle
-               } else {
-                   FetchStatus::Success(Box::new(self.search_results.clone()))
-               };
-
-               let results_query_state = NestedState::new(Fetch::with_status(results_query_status));
-        */
-
         let hymns = self
             .search_results
             .iter()
@@ -145,24 +139,19 @@ impl View for HymnalView {
 
         view! {
             <div>
-                //{Header::new(&self.locale, &t!("menu.hymnal")).to_node()}
                 <header><h1>{t!("menu.hymnal")}</h1></header>
                 <main>
-                    //<Form>
-                        <form>
-                            // Search bar
-                            <label class="stacked">
-                                {t!("search")}
-                                <input
-                                    type="search"
-                                    name="q"
-                                    value={&self.search}
-                                    //prop:value={self.search.clone()}
-                                    //on:input=move |ev| HymnalSearchMsg::Search(event_target_value(&ev), current_hymnal)
-                                />
-                            </label>
-                        </form>
-                    //</Form>
+                    <form>
+                        // Search bar
+                        <label class="stacked">
+                            {t!("search")}
+                            <input
+                                type="search"
+                                name="q"
+                                value={&self.search}
+                            />
+                        </label>
+                    </form>
                     <div class="toggle-links">
                         <a href={format!("/{}/hymnal{}", &self.locale, q_link)} class:current={self.hymnal.is_none()}>{t!("hymnal.any")}</a>
                         <a href={format!("/{}/hymnal/Hymnal1982{}", &self.locale, q_link)} class:current={self.hymnal == Some(Hymnals::Hymnal1982)}>{t!("hymnal.h82_abbrev")}</a>
