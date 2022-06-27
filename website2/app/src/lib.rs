@@ -5,19 +5,23 @@ use leptos2::Node;
 pub mod api;
 pub mod components;
 pub mod events;
-pub mod fragments;
-//pub mod pages;
+mod icon;
 pub mod preferences;
+mod user_info;
+
+#[cfg(feature = "routes")]
 pub mod routes;
 pub mod utils;
-pub mod views;
 
-pub use routes::index::auth::UserInfo;
+pub use icon::Icon;
+pub use user_info::UserInfo;
 
+#[cfg(feature = "routes")]
 #[macro_use]
 extern crate rust_i18n;
 
 // Init translations for current crate.
+#[cfg(feature = "routes")]
 i18n!("translations");
 
 pub trait WebView {

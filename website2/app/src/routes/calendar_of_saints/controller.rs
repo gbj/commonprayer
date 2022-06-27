@@ -95,6 +95,7 @@ impl Component for CalendarController {
                         slot="content"
                         id="calendar-date"
                         label=t!("date")
+                        todaylabel=t!("today")
                         date={&initial_date}
                         on:change=|ev: Event| {
                             let ev: CustomEvent<Option<Date>> = ev.into();

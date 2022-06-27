@@ -22,6 +22,7 @@ mod export_links;
 mod multidocument;
 mod parallels;
 mod section;
+pub mod views;
 
 pub use export_links::*;
 

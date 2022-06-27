@@ -2,7 +2,6 @@ use leptos2::*;
 
 mod user_info;
 mod verify_jwk;
-pub use user_info::UserInfo;
 pub use verify_jwk::*;
 
 pub fn auth_scripts() -> Vec<Node> {

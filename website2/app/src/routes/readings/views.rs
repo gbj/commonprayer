@@ -1,16 +1,13 @@
-use std::pin::Pin;
-
 use crate::components::Tabs;
 use crate::routes::readings::reading_loader::ReadingLoader;
 use crate::WebView;
-use crate::{utils::fetch::FetchError, views::bible_version_select_options};
 use calendar::{Date, LiturgicalDayId};
-use futures::Future;
+use language::Language;
 use lectionary::Reading;
 use leptos2::*;
-use liturgy::{BiblicalCitation, BiblicalReading, Document, Psalm, Version};
+use liturgy::{BiblicalCitation, Document, Psalm, Version};
 
-use super::{biblical_reading, DocumentView};
+use crate::routes::document::views::DocumentView;
 
 pub fn readings_settings_form(
     locale: &str,
@@ -133,4 +130,41 @@ pub fn async_readings_view(locale: &str, readings: Vec<ReadingLoader>) -> Vec<No
         });
         frag
     }
+}
+
+pub fn bible_version_select(locale: &str, name: &str, value: Version) -> Node {
+    view! {
+        <select name={name}>
+            {bible_version_select_options(locale, value)}
+        </select>
+    }
+}
+
+pub fn bible_version_select_options(locale: &str, value: Version) -> Vec<Node> {
+    let versions = match Language::from_locale(locale) {
+        Language::Es => [
+            Version::RV09,
+            Version::NRSV,
+            Version::CEB,
+            Version::ESV,
+            Version::KJV,
+        ],
+        _ => [
+            Version::NRSV,
+            Version::CEB,
+            Version::ESV,
+            Version::KJV,
+            Version::RV09,
+        ],
+    };
+
+    versions
+        .into_iter()
+        .map(|version| {
+            let value_str: &'static str = version.into();
+            view! {
+                <option value={value_str} selected={value == version}>{version.to_string()}</option>
+            }
+        })
+        .collect::<Vec<_>>()
 }

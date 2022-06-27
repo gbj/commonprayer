@@ -5,6 +5,8 @@ use crate::UserInfo;
 
 #[derive(Clone, Debug, Default, PartialEq, Deserialize, Serialize, WebComponent)]
 pub struct Auth {
+    pub loginlabel: String,
+    pub logoutlabel: String,
     #[prop]
     pub user: Option<UserInfo>,
     pub logout_open: bool,
@@ -71,7 +73,7 @@ impl Component for Auth {
                 <div>
                     <button
                         class="auth-button"
-                        aria-label={t!("auth.title")}
+                        aria-label={if self.loginlabel.is_empty() { "Log Out"} else { &self.loginlabel }}
                         on:click=|_| Self::Msg::OpenModal
                     >
                         <img
@@ -92,7 +94,7 @@ impl Component for Auth {
                     self.user.as_ref().map(|user| view! {
                         <div class="user-info">
                             <p>{user.display_name.clone().unwrap_or_default()}</p>
-                            <button on:click=|_| Self::Msg::Logout>{t!("auth.logout")}</button>
+                            <button on:click=|_| Self::Msg::Logout>{if self.logoutlabel.is_empty() { "Log Out"} else { &self.logoutlabel }}</button>
                         </div>
                     })
                 } else {

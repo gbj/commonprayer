@@ -11,7 +11,7 @@ use strum_macros::{Display, EnumString};
 use crate::{
     api::bing::BingSearchResult,
     utils::fetch::{fetch, FetchError, FetchStatus},
-    views::Icon,
+    Icon,
 };
 
 #[derive(Clone, Debug, Default, PartialEq, Deserialize, Serialize, WebComponent)]

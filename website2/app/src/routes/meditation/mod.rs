@@ -1,5 +1,5 @@
 use crate::components::MediaSession;
-use crate::views::Icon;
+use crate::Icon;
 use leptos2::*;
 use std::time::Duration;
 

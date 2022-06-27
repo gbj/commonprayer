@@ -1,7 +1,7 @@
 use calendar::{
     Date, Feast, LiturgicalDay, LiturgicalDayId, Rank, BCP1979_CALENDAR, LFF2018_CALENDAR, Weekday,
 };
-use crate::views::Icon;
+use crate::Icon;
 use crate::components::Modal;
 use itertools::Itertools;
 use language::Language;

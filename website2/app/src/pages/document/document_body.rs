@@ -120,7 +120,7 @@ pub fn document_body(
     let date_menu = if document.has_date_condition() {
         Some(view! {
             <section class="preview-menu">
-                <DatePicker label={t!("date")}/>
+                <DatePicker label={t!("date")} todaylabel={t!("today")} />
             </section>
         })
     } else {

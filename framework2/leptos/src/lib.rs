@@ -6,7 +6,10 @@
 pub use async_trait::async_trait;
 pub use cookie;
 pub use form_urlencoded;
+
+#[cfg(feature = "router")]
 pub use http;
+
 pub use leptos_macro2::*;
 pub use serde::{Deserialize, Serialize};
 pub use serde_json;
@@ -19,11 +22,16 @@ mod dom;
 mod error;
 mod event_emitter;
 mod page;
+
+#[cfg(feature = "router")]
 pub mod router;
+
 pub mod ssr;
 pub mod ssr_streaming;
 mod state;
 pub mod vdom;
+
+#[cfg(feature = "router")]
 pub mod view;
 
 use std::any::Any;
@@ -36,11 +44,16 @@ pub use error::*;
 pub use event_emitter::*;
 pub use link::*;
 pub use page::*;
+
+#[cfg(feature = "router")]
 pub use router::*;
+
 pub use ssr::*;
 pub use ssr_streaming::*;
 pub use state::*;
 pub use vdom::*;
+
+#[cfg(feature = "router")]
 pub use view::*;
 
 pub use web_sys::Event;

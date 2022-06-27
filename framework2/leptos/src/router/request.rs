@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use thiserror::Error;
 
 use crate::{Params, RouterError};
+
 pub trait Request {
     fn path(&self) -> &str;
 

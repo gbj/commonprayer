@@ -1,5 +1,6 @@
 use super::breadcrumbs::breadcrumbs;
-use crate::{views::DocumentView, WebView};
+use super::views::DocumentView;
+use crate::WebView;
 use itertools::Itertools;
 use leptos2::*;
 use liturgy::{Document, Slug, SlugPath, Version};

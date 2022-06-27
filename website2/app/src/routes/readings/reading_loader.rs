@@ -8,10 +8,8 @@ use serde::{Deserialize, Serialize};
 
 use reqwest::Client;
 
-use crate::{
-    utils::{encode_uri, fetch::FetchError},
-    views::biblical_reading,
-};
+use crate::routes::document::views::biblical_reading;
+use crate::utils::{encode_uri, fetch::FetchError};
 
 #[cfg(target_arch = "wasm32")]
 fn cache() {

@@ -8,13 +8,9 @@ use library::CommonPrayer;
 use liturgy::{Content, Document, Version};
 use std::str::FromStr;
 
-use crate::{
-    utils::time::today,
-    views::{document::DocumentView, readings::*},
-    WebView,
-};
+use crate::{routes::document::views::DocumentView, utils::time::today, WebView};
 
-use super::reading_loader::ReadingLoader;
+use super::{reading_loader::ReadingLoader, views::*};
 
 pub struct EucharistView {
     pub locale: String,

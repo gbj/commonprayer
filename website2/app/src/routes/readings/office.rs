@@ -7,13 +7,10 @@ use leptos2::*;
 use library::CommonPrayer;
 use liturgy::{Psalm, Version};
 
-use crate::{
-    utils::time::today,
-    views::{document::DocumentView, readings::*},
-    WebView,
-};
+use crate::{routes::document::views::DocumentView, utils::time::today, WebView};
 
 use super::reading_loader::ReadingLoader;
+use super::views::*;
 
 pub struct OfficeView {
     pub locale: String,

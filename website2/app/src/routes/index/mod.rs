@@ -8,7 +8,8 @@ use futures::{future, join, Future, TryStreamExt};
 use leptos2::{view::View, *};
 
 pub mod auth;
-use auth::{auth_scripts, UserInfo};
+use crate::UserInfo;
+use auth::auth_scripts;
 
 pub struct Index {
     locale: String,
@@ -157,7 +158,12 @@ impl Index {
                             <h1>
                                 {nav_link(path, locale, "", t!("common_prayer"))}
                             </h1>
-                            <Auth prop:user={user.cloned()} data-modal-id="login"></Auth>
+                            <Auth
+                                prop:user={user.cloned()}
+                                data-modal-id="login"
+                                loginlabel={t!("auth.title")}
+                                logoutlabel={t!("auth.logout")}
+                            ></Auth>
                             <Modal id="login">
                                 <div id="firebase-auth" slot="content"></div>
                             </Modal>

@@ -1,7 +1,4 @@
-use crate::{
-    views::{readings::title_view, DocumentView},
-    WebView,
-};
+use crate::WebView;
 use api::summary::{DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary};
 use calendar::{LiturgicalDay, Season, BCP1979_CALENDAR, LFF2018_CALENDAR};
 use language::Language;
@@ -12,7 +9,7 @@ use liturgy::Slug;
 use crate::utils::time::{current_hour, today};
 
 use super::{
-    readings::office::reading_links,
+    readings::{office::reading_links, views::title_view},
     settings::{GeneralSettings, Settings},
 };
 

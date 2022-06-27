@@ -1,7 +1,7 @@
 use crate::WebView;
 use crate::{
     components::Tabs,
-    views::{async_readings_view, DocumentView},
+    routes::document::views::{psalm, DocumentView},
 };
 use calendar::Date;
 use calendar::{
@@ -20,6 +20,7 @@ use psalter::bcp1979::BCP1979_PSALTER;
 
 use super::eucharist::EucharistView;
 use super::reading_loader::ReadingLoader;
+use super::views::async_readings_view;
 
 pub struct HolyDayView {
     date: Option<String>,
@@ -320,7 +321,7 @@ impl HolyDayView {
                             <a id={doc.citation.clone().unwrap_or_default()}></a>
                             <h3>{t!("lectionary.psalm")}</h3>
                             <article class="document">
-                                {crate::views::document::psalm(doc).1}
+                                {psalm(doc).1}
                             </article>
                         </>
                     }
@@ -343,7 +344,7 @@ impl HolyDayView {
                         <a id={doc.citation.clone().unwrap_or_default()}></a>
                         <h3>{t!("lectionary.psalm")}</h3>
                         <article class="document">
-                            {crate::views::document::psalm(doc).1}
+                            {psalm(doc).1}
                         </article>
                     </div>
                 }

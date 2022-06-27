@@ -2,14 +2,16 @@ pub mod eucharist;
 pub mod holy_day;
 pub mod office;
 pub mod reading_loader;
+pub mod views;
 
 use calendar::Date;
 use language::Language;
 use leptos2::*;
 use liturgy::Version;
 
-use crate::{utils::time::today, views::bible_version_select_options};
+use crate::utils::time::today;
 
+use self::views::bible_version_select_options;
 use super::settings::{DisplaySettings, Settings};
 
 pub struct ReadingsView {

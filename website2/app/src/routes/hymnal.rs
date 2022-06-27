@@ -1,11 +1,10 @@
 use std::sync::Arc;
 
-use crate::components::Form;
 use hymnal::*;
 use itertools::Itertools;
 use leptos2::*;
 
-use crate::views::*;
+use crate::Icon;
 use hymnal::{HymnMetadata, Hymnal, Hymnals};
 
 #[derive(Params)]

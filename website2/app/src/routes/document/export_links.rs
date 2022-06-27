@@ -1,6 +1,6 @@
 use crate::components::{Modal, Tabs};
 use crate::utils::encode_uri;
-use crate::views::Icon;
+use crate::Icon;
 use leptos2::*;
 use liturgy::{Content, Document};
 use wasm_bindgen::JsCast;

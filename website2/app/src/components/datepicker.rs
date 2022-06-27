@@ -7,13 +7,18 @@ use crate::utils::time::today;
 #[derive(Clone, Debug, Default, PartialEq, Deserialize, Serialize, WebComponent)]
 pub struct DatePicker {
     pub label: String,
+    pub todaylabel: String,
     #[prop]
     pub date: Option<Date>,
 }
 
 impl DatePicker {
-    pub fn new(label: String, date: Option<Date>) -> Self {
-        Self { label, date }
+    pub fn new(label: String, todaylabel: String, date: Option<Date>) -> Self {
+        Self {
+            label,
+            todaylabel,
+            date,
+        }
     }
 }
 
@@ -45,7 +50,11 @@ impl Component for DatePicker {
                 <button
                     on:click=|_| Some(today())
                 >
-                    {t!("today")}
+                    {if self.todaylabel.is_empty() {
+                        "Today"
+                    } else {
+                        &self.todaylabel
+                    }}
                 </button>
             </Host>
         }

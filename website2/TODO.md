@@ -13,7 +13,7 @@
 			- [ ] clear cookies on login/logout
 			- [ ] refresh page on login/logout (so new settings)
 			- [ ] caching to prevent multiple database lookups every page load
-	- [ ] Re-architect components (compile separately without depending on app, so no server-side code tries to compile for WASM)
+	- [x] Re-architect components (compile separately without depending on app, so no server-side code tries to compile for WASM)
 	- [ ] Fix Dark Mode (look at eg Settings page)
 	- [ ] Migrate website to this system
 		-  Remaining pages

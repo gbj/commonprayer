@@ -3,7 +3,7 @@ use std::pin::Pin;
 use futures::Future;
 use liturgy::*;
 
-use crate::components::{BiblicalCitationLoader, Tabs};
+use crate::components::Tabs;
 use crate::utils::fetch::FetchError;
 use crate::WebView;
 use itertools::Itertools;
@@ -241,12 +241,13 @@ pub fn biblical_citation(
     let main = view! {
         <main class="biblical-reading">
             {intro}
-            <BiblicalCitationLoader
+            <p>"TODO"</p>
+            /* <BiblicalCitationLoader
                 locale={locale}
                 prop:citation={citation.clone()}
                 version={version}
                 prop:path={path.clone()}
-            />
+            /> */
         </main>
     };
 
