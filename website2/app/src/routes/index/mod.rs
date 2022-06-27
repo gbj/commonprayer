@@ -1,11 +1,11 @@
-use std::pin::Pin;
 use std::sync::Arc;
 
 use super::settings::{DarkMode, DisplaySettings, GeneralSettings, Settings};
 use crate::components::{Auth, Modal};
 use crate::utils::encode_uri;
-use futures::{future, join, Future, TryStreamExt};
+use crate::utils::time::today;
 use leptos2::{view::View, *};
+use liturgy::Slug;
 
 pub mod auth;
 use crate::UserInfo;
@@ -93,7 +93,12 @@ impl View for Index {
     }
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
-        let menu = Self::menu(&self.path, &self.locale, self.user.as_ref());
+        let menu = Self::menu(
+            &self.path,
+            &self.locale,
+            self.user.as_ref(),
+            &self.general_settings,
+        );
 
         view! {
             <div class={format!("app-shell dark-mode-{}", self.dark_mode).to_lowercase()}>
@@ -130,7 +135,7 @@ impl View for Index {
 }
 
 impl Index {
-    fn menu(path: &str, locale: &str, user: Option<&UserInfo>) -> Node {
+    fn menu(path: &str, locale: &str, user: Option<&UserInfo>, settings: &GeneralSettings) -> Node {
         view! {
             <nav id="main-menu" role="navigation" class="menu left">
                 // an invisible checkbox that toggles whether the menu appears or not via CSS
@@ -176,16 +181,39 @@ impl Index {
                             {nav_link(path, locale, "/contents", t!("toc.table_of_contents"))}
                         </li>
                         <li>
-                            {nav_link(path, locale, "/calendar", t!("menu.calendar"))}
+                            {nav_link(
+                                path,
+                                locale,
+                                if settings.use_lff {
+                                    "/calendar"
+                                } else {
+                                    "/calendar?calendar=bcp"
+                                },
+                                t!("menu.calendar")
+                            )}
                         </li>
                         <li>
-                            {nav_link(path, locale, "/readings", t!("menu.readings"))}
+                            {nav_link(
+                                path,
+                                locale,
+                                &format!("/readings/office?version={}", settings.bible_version),
+                                t!("menu.readings")
+                            )}
                         </li>
                         <li>
-                            {nav_link(path, locale, "/daily-office", t!("toc.daily_office"))}
+                            {nav_link(path, locale, "/document/office", t!("toc.daily_office"))}
                             <ul>
                                 <li>
-                                    {nav_link(path, locale, "/", t!("toc.morning_prayer"))}
+                                    {office_link(path, locale, settings, Slug::MorningPrayer, t!("toc.morning_prayer"))}
+                                </li>
+                                <li>
+                                    {office_link(path, locale, settings, Slug::NoondayPrayer, t!("toc.noonday_prayer"))}
+                                </li>
+                                <li>
+                                    {office_link(path, locale, settings, Slug::EveningPrayer, t!("toc.evening_prayer"))}
+                                </li>
+                                <li>
+                                    {office_link(path, locale, settings, Slug::Compline, t!("toc.compline"))}
                                 </li>
                                 <li>
                                     {nav_link(path, locale, "/canticle-table", t!("menu.canticle_table"))}
@@ -217,4 +245,25 @@ fn nav_link(current_url: &str, locale: &str, href: &str, label: String) -> Node 
     view! {
         <a href={localized_href} class:current={active}>{label}</a>
     }
+}
+
+fn office_link(
+    path: &str,
+    locale: &str,
+    settings: &GeneralSettings,
+    slug: Slug,
+    label: String,
+) -> Node {
+    let version = settings.liturgy_version;
+    let href = if slug == Slug::MorningPrayer || slug == Slug::EveningPrayer {
+        format!(
+            "/document/office/{}/{:?}?date={}",
+            slug.slugify(),
+            version,
+            today()
+        )
+    } else {
+        format!("/document/office/{}", slug.slugify())
+    };
+    nav_link(path, locale, &href, label)
 }
