@@ -1,11 +1,9 @@
-button {
-	color: var(--color);
-}
-
 [role="tablist"] {
 	white-space: nowrap;
 	overflow-x: scroll;
 	overflow-y: hidden;
+	padding: 0;
+	padding-bottom: 5px;
 	scroll-behavior: smooth;
 	scroll-snap-type: x mandatory;
 	text-align: right;
@@ -17,6 +15,7 @@ button {
 [role="tab"]:focus,
 [role="tab"]:hover {
 	background: none;
+	color: var(--color);
 	cursor: pointer;
 	position: relative;
 	z-index: 2;
@@ -29,6 +28,7 @@ button {
 	overflow: visible;
 	outline: none;
 	font-weight: bold;
+	scroll-snap-align: start;
 }
 
 [role="tab"][aria-selected="true"] {
