@@ -1,5 +1,16 @@
+button {
+	color: var(--color);
+}
+
 [role="tablist"] {
+	white-space: nowrap;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	scroll-behavior: smooth;
+	scroll-snap-type: x mandatory;
 	text-align: right;
+	margin-left: auto;
+	max-width: 80%;
 }
 
 [role="tab"],
@@ -29,6 +40,10 @@
 [role="tab"] span.focus {
 	display: inline-block;
 	padding: 2px 0.5rem;
+	text-overflow: ellipsis;
+	width: 10rem;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 [role="tab"]:focus span.focus {
