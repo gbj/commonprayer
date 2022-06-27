@@ -2,6 +2,7 @@ use std::{collections::HashMap, sync::Arc};
 
 use ::liturgy::{PreferenceKey, PreferenceValue, Slug, Version};
 use leptos2::{http::Response, *};
+use serde::de::DeserializeOwned;
 use serde_json::{from_value, Value};
 
 mod dark_mode;
@@ -105,6 +106,9 @@ struct DBSettings {
     liturgy: Value,
 }
 
+const GENERAL_COOKIE_NAME: &'static str = "general";
+const DISPLAY_COOKIE_NAME: &'static str = "display";
+
 impl Settings {
     pub async fn all(req: &Arc<dyn Request>) -> Self {
         if let Some(uid) = UserInfo::verified_id(req.clone()).await {
@@ -157,7 +161,9 @@ impl Settings {
                 }
             }
         } else {
-            None
+            let general = Self::get_prefs_from_cookie(req, GENERAL_COOKIE_NAME).unwrap_or_default();
+            let display = Self::get_prefs_from_cookie(req, DISPLAY_COOKIE_NAME).unwrap_or_default();
+            Some(Self { general, display })
         }
         .unwrap_or_default()
     }
@@ -175,7 +181,7 @@ impl Settings {
                 }
             }
         } else {
-            None
+            Self::get_prefs_from_cookie(req, GENERAL_COOKIE_NAME)
         }
         .unwrap_or_default()
     }
@@ -193,7 +199,7 @@ impl Settings {
                 }
             }
         } else {
-            None
+            Self::get_prefs_from_cookie(req, DISPLAY_COOKIE_NAME)
         }
         .unwrap_or_default()
     }
@@ -224,7 +230,7 @@ impl Settings {
             Self::store_prefs_in_cookie(
                 req,
                 res,
-                "display",
+                DISPLAY_COOKIE_NAME,
                 serde_json::to_string(&settings).unwrap(),
             )
         }
@@ -256,10 +262,27 @@ impl Settings {
             Self::store_prefs_in_cookie(
                 req,
                 res,
-                "general",
+                GENERAL_COOKIE_NAME,
                 serde_json::to_string(&settings).unwrap(),
             )
         }
+    }
+
+    fn get_prefs_from_cookie<T: Default + DeserializeOwned>(
+        req: &Arc<dyn Request>,
+        cookie_name: &str,
+    ) -> Option<T> {
+        req.headers()
+            .cookies()
+            .filter_map(|cookie| match cookie {
+                Ok(cookie) => Some(cookie),
+                Err(e) => {
+                    eprintln!("invalid cookie: {:#?}", e);
+                    None
+                }
+            })
+            .find(|cookie| cookie.name() == cookie_name)
+            .and_then(|cookie| serde_json::from_str(cookie.value()).ok())
     }
 
     fn store_prefs_in_cookie(

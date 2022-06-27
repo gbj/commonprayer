@@ -5,7 +5,7 @@ edition = "2021"
 
 [features]
 default = ["routes"]
-routes = ["leptos2/router", "leptos2/backend", "alcoholic_jwt", "cached", "moka", "sqlx"]
+routes = ["leptos2/router", "leptos2/backend", "alcoholic_jwt", "cached", "moka", "rust-i18n", "sqlx"]
 
 [dependencies]
 anyhow = "1"
