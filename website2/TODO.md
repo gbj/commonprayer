@@ -9,9 +9,8 @@
 			- [x] client side
 			- [x] server side: JWT verification
 			- [x] server side: database with settings
-			- [ ] fallback to cookies for un-logged-in users
-			- [ ] clear cookies on login/logout
-			- [ ] refresh page on login/logout (so new settings)
+			- [x] fallback to cookies for un-logged-in users
+			- [x] refresh page on login/logout (so new settings)
 			- [ ] caching to prevent multiple database lookups every page load
 	- [x] Re-architect components (compile separately without depending on app, so no server-side code tries to compile for WASM)
 	- [ ] Fix Dark Mode (look at eg Settings page)

@@ -15,6 +15,7 @@ pub struct Auth {
 #[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
 
 pub enum AuthMsg {
+    Login,
     Logout,
     OpenModal,
     SetUser(Option<UserInfo>),
@@ -40,6 +41,7 @@ impl State for Auth {
 
                 // set internal user
                 self.user = user;
+
                 None
             }
             Self::Msg::OpenModal => {
@@ -49,6 +51,12 @@ impl State for Auth {
                     self.logout_open = !self.logout_open;
                     None
                 }
+            }
+            Self::Msg::Login => {
+                // reload page to load new preferences
+                Some(Cmd::new(|_, _| {
+                    location().reload();
+                }))
             }
             Self::Msg::Logout => {
                 self.user = None;
@@ -67,6 +75,9 @@ impl Component for Auth {
                 window:user=|ev: Event| {
                     let ev: CustomEvent<Option<UserInfo>> = ev.into();
                     Self::Msg::SetUser(ev.detail.flatten())
+                }
+                window:signin=|_| {
+                    Self::Msg::Login
                 }
             >
                 <style>{include_str!("auth.css")}</style>

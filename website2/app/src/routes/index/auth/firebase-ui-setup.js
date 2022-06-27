@@ -19,9 +19,9 @@ firebase.auth().onAuthStateChanged(function (user) {
   }
 });
 
-window.addEventListener("logout", (ev) => {
-  console.log("caught logout event", ev.detail);
-  firebase.auth().signOut();
+window.addEventListener("logout", async (ev) => {
+  await firebase.auth().signOut();
+  window.location.reload();
 });
 
 const ui = new firebaseui.auth.AuthUI(firebase.auth());
