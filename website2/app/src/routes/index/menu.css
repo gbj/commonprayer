@@ -6,7 +6,6 @@
 }
 
 nav#main-menu {
-    background: var(--season-light);
     z-index: 300;
     padding: 0 0.5rem;
     position: fixed;
@@ -239,6 +238,7 @@ nav#main-menu li:not(:first-of-type) {
     }
 
     nav#main-menu {
+        background: var(--season-light);
         border-right: 1px solid var(--border-color);
         width: var(--menu-width);
         min-width: 15rem;
