@@ -7,7 +7,7 @@ use liturgy::{Lectionaries, Version};
 
 use super::Settings;
 
-#[derive(Serialize, Deserialize, Params)]
+#[derive(Debug, Serialize, Deserialize, Params, Clone, Hash, PartialEq, Eq)]
 pub struct GeneralSettings {
     pub liturgy_version: Version,
     pub use_lff: bool,

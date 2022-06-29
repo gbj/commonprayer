@@ -1,9 +1,11 @@
+use std::pin::Pin;
 use std::sync::Arc;
 
 use super::settings::{DarkMode, DisplaySettings, GeneralSettings, Settings};
 use crate::components::{Auth, Modal};
 use crate::utils::encode_uri;
 use crate::utils::time::today;
+use futures::Future;
 use leptos2::{view::View, *};
 use liturgy::Slug;
 
@@ -17,6 +19,7 @@ pub struct Index {
     dark_mode: DarkMode,
     general_settings: GeneralSettings,
     user: Option<UserInfo>,
+    verified: Pin<Box<dyn Future<Output = bool> + Send + Sync>>,
 }
 
 impl Default for Index {
@@ -27,6 +30,7 @@ impl Default for Index {
             dark_mode: DarkMode::Auto,
             general_settings: GeneralSettings::default(),
             user: None,
+            verified: Box::pin(async { false }),
         }
     }
 }
@@ -46,6 +50,12 @@ impl Loader for Index {
         let dark_mode = settings.display.dark_mode;
         let general_settings = settings.general;
         let user = UserInfo::get_untrusted(&req);
+        let verified = if let Some(user) = user.clone() {
+            Box::pin(async move { user.to_verified_id().await.is_some() })
+                as Pin<Box<dyn Future<Output = bool> + Send + Sync>>
+        } else {
+            Box::pin(async { false })
+        };
 
         Some(Self {
             locale: locale.to_string(),
@@ -53,6 +63,7 @@ impl Loader for Index {
             dark_mode,
             general_settings,
             user,
+            verified,
         })
     }
 }
@@ -98,6 +109,7 @@ impl View for Index {
             &self.locale,
             self.user.as_ref(),
             &self.general_settings,
+            self.verified,
         );
 
         view! {
@@ -135,7 +147,26 @@ impl View for Index {
 }
 
 impl Index {
-    fn menu(path: &str, locale: &str, user: Option<&UserInfo>, settings: &GeneralSettings) -> Node {
+    fn menu(
+        path: &str,
+        locale: &str,
+        user: Option<&UserInfo>,
+        settings: &GeneralSettings,
+        verified: Pin<Box<dyn Future<Output = bool> + Send + Sync>>,
+    ) -> Node {
+        let user_logged_in = view! {
+            <div class="verified">{(
+                view! { <span>"?"</span> },
+                async {
+                    if verified.await {
+                        view! { <span>"✓"</span> }
+                    } else {
+                        view! { <span>"✕"</span> }
+                    }
+                }
+            )}</div>
+        };
+
         view! {
             <nav id="main-menu" role="navigation" class="menu left">
                 // an invisible checkbox that toggles whether the menu appears or not via CSS
@@ -169,6 +200,7 @@ impl Index {
                                 loginlabel={t!("auth.title")}
                                 logoutlabel={t!("auth.logout")}
                             ></Auth>
+                            {user_logged_in}
                             <Modal id="login">
                                 <div id="firebase-auth" slot="content"></div>
                             </Modal>

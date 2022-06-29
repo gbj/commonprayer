@@ -1,6 +1,8 @@
 use std::{collections::HashMap, sync::Arc};
 
 use ::liturgy::{PreferenceKey, PreferenceValue, Slug, Version};
+use cached::proc_macro::cached;
+use lazy_static::lazy_static;
 use leptos2::{http::Response, *};
 use serde::de::DeserializeOwned;
 use serde_json::{from_value, Value};
@@ -84,7 +86,7 @@ impl View for SettingsView {
     }
 }
 
-#[derive(Default)]
+#[derive(Debug, Default, Clone, Hash, PartialEq, Eq)]
 pub struct Settings {
     pub general: GeneralSettings,
     pub display: DisplaySettings,
@@ -106,12 +108,31 @@ struct DBSettings {
     liturgy: Value,
 }
 
-const GENERAL_COOKIE_NAME: &'static str = "general";
-const DISPLAY_COOKIE_NAME: &'static str = "display";
+const GENERAL_COOKIE_NAME: &str = "general";
+const DISPLAY_COOKIE_NAME: &str = "display";
+
+lazy_static! {
+    pub static ref ALL_SETTINGS_CACHE: moka::sync::Cache<String, Settings> =
+        moka::sync::Cache::builder()
+            .time_to_live(std::time::Duration::from_millis(500))
+            .build();
+    pub static ref GENERAL_SETTINGS_CACHE: moka::sync::Cache<String, GeneralSettings> =
+        moka::sync::Cache::builder()
+            .time_to_live(std::time::Duration::from_millis(500))
+            .build();
+    pub static ref DISPLAY_SETTINGS_CACHE: moka::sync::Cache<String, DisplaySettings> =
+        moka::sync::Cache::builder()
+            .time_to_live(std::time::Duration::from_millis(500))
+            .build();
+}
 
 impl Settings {
-    pub async fn all(req: &Arc<dyn Request>) -> Self {
+    pub async fn all(req: &Arc<dyn Request>) -> Settings {
         if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            if let Some(cached) = ALL_SETTINGS_CACHE.get(&uid) {
+                return cached;
+            }
+
             match sqlx::query_as!(
                 DBSettings,
                 "SELECT * from user_settings where user_id = $1",
@@ -123,21 +144,21 @@ impl Settings {
                 Ok(DBSettings {
                     general, display, ..
                 }) => {
-                    match (
+                    let from_db = match (
                         from_value::<GeneralSettings>(general),
                         from_value::<DisplaySettings>(display),
                     ) {
-                        (Ok(general), Ok(display)) => Some(Self { general, display }),
+                        (Ok(general), Ok(display)) => Some(Settings { general, display }),
                         (Err(e), Ok(display)) => {
                             eprintln!("[Settings::all — settings.general JSON error] {}", e);
-                            Some(Self {
+                            Some(Settings {
                                 general: GeneralSettings::default(),
                                 display,
                             })
                         }
                         (Ok(general), Err(e)) => {
                             eprintln!("[Settings::all — settings.display JSON error] {}", e);
-                            Some(Self {
+                            Some(Settings {
                                 general,
                                 display: DisplaySettings::default(),
                             })
@@ -153,7 +174,11 @@ impl Settings {
                             );
                             None
                         }
-                    }
+                    };
+                    if let Some(from_db) = &from_db {
+                        ALL_SETTINGS_CACHE.insert(uid, from_db.clone());
+                    };
+                    from_db
                 }
                 Err(e) => {
                     eprintln!("[Settings::all] {}", e);
@@ -161,20 +186,32 @@ impl Settings {
                 }
             }
         } else {
-            let general = Self::get_prefs_from_cookie(req, GENERAL_COOKIE_NAME).unwrap_or_default();
-            let display = Self::get_prefs_from_cookie(req, DISPLAY_COOKIE_NAME).unwrap_or_default();
-            Some(Self { general, display })
+            let general =
+                Settings::get_prefs_from_cookie(&req, GENERAL_COOKIE_NAME).unwrap_or_default();
+            let display =
+                Settings::get_prefs_from_cookie(&req, DISPLAY_COOKIE_NAME).unwrap_or_default();
+            Some(Settings { general, display })
         }
         .unwrap_or_default()
     }
 
     pub async fn general(req: &Arc<dyn Request>) -> GeneralSettings {
         if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            if let Some(cached) = GENERAL_SETTINGS_CACHE.get(&uid) {
+                return cached;
+            }
+
             match sqlx::query!("SELECT general from user_settings where user_id = $1", uid)
                 .fetch_one(req.db())
                 .await
             {
-                Ok(value) => from_value::<GeneralSettings>(value.general).ok(),
+                Ok(value) => {
+                    let from_db = from_value::<GeneralSettings>(value.general).ok();
+                    if let Some(from_db) = &from_db {
+                        GENERAL_SETTINGS_CACHE.insert(uid, from_db.clone());
+                    };
+                    from_db
+                }
                 Err(e) => {
                     eprintln!("[Settings::general] {}", e);
                     None
@@ -188,11 +225,21 @@ impl Settings {
 
     pub async fn display(req: &Arc<dyn Request>) -> DisplaySettings {
         if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            if let Some(cached) = DISPLAY_SETTINGS_CACHE.get(&uid) {
+                return cached;
+            }
+
             match sqlx::query!("SELECT display from user_settings where user_id = $1", uid)
                 .fetch_one(req.db())
                 .await
             {
-                Ok(value) => from_value::<DisplaySettings>(value.display).ok(),
+                Ok(value) => {
+                    let from_db = from_value::<DisplaySettings>(value.display).ok();
+                    if let Some(from_db) = &from_db {
+                        DISPLAY_SETTINGS_CACHE.insert(uid, from_db.clone());
+                    };
+                    from_db
+                }
                 Err(e) => {
                     eprintln!("[Settings::display] {}", e);
                     None

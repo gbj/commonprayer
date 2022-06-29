@@ -4,9 +4,6 @@
 	- [ ] St. Mark readings + collect
 	- [ ] Irenaeus collect
 - [ ] From Pages to Nested Routes
-	- [ ] Auth and settings
-		- [ ] Actual auth system to store settings for users
-			- [ ] caching to prevent multiple database lookups every page load
 	- [x] Re-architect components (compile separately without depending on app, so no server-side code tries to compile for WASM)
 	- [ ] Migrate website to this system
 		-  Remaining pages

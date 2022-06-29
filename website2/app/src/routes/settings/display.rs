@@ -3,7 +3,7 @@ use leptos2::*;
 
 use super::{dark_mode::DarkMode, Settings};
 
-#[derive(Serialize, Deserialize, Params, Default, Debug)]
+#[derive(Serialize, Deserialize, Params, Default, Debug, Clone, Hash, PartialEq, Eq)]
 pub struct DisplaySettings {
     pub dark_mode: DarkMode,
     pub psalm_verse_numbers: bool,
