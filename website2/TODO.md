@@ -2,6 +2,7 @@
 	- [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
 	- [ ] "Eccles." labeled as Ben Sira
 	- [ ] St. Mark readings + collect
+	- [ ] Irenaeus collect
 - [ ] From Pages to Nested Routes
 	- [ ] Auth and settings
 		- [ ] Actual auth system to store settings for users
@@ -11,9 +12,8 @@
 		-  Remaining pages
 			- [ ] Settings
 				- [ ] Liturgy settings
-			- [ ] Daily Office
-				- [ ] main menu link using settings => query params
-				- [ ] 
+					- [ ] use in Daily Office links
+					- [ ] also create a Eucharist menu link w/ simple "Today" button for docs
 			- [x] Lectionary
 				- [ ] ICS link
 			- [ ] Readings Page
@@ -22,16 +22,10 @@
 				- [ ] export readings to Word doc
 			- [ ] Psalter
 			- [ ] Document page
+				- [ ] use ReadingLoader for BiblicalCitations (so, load from Bible API on server for Daily Readings/Lectionary + stream)
 				- [ ] Parallels
 				- [ ] Test links between page
 				- [ ] Download links
-			- [ ] Better menu
-		- [ ] Nested routes or async loaders instead of WC for...
-			- [ ] HymnMedia
-				- [ ] Music
-					- [ ] fix the styling on this
-				- [ ] Videos
-			- [ ] BiblicalCitationLoader (so, load from Bible API on server for Daily Readings/Lectionary + stream)
 		- [ ] UI improvements
 			- [ ] Index Page cards
 - [ ] Global search
@@ -42,11 +36,8 @@
 		- [ ] Ultimately, build a better/server-side/authenticated + reactive preferences approach
 		- [ ] Then make default versions + settings for readings page better
 - Initial public release
+- [ ] Better way of doing relative links within nested views so I don't need to rebuild whole URLs with locale etc.
 - [ ] Progressive enhancement
 	- [ ] Client side route replacement
-- [ ] Async blocks as children
-	- [ ] Streaming HTML
-	- [ ] AsyncElement node type
-	- [ ] Use this for e.g., BiblicalCitation
 - [ ] Speech rendering
 	- [ ] Declarative SpeechSynthesis web component
