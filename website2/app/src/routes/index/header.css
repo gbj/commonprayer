@@ -9,7 +9,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	padding: 0.5rem 1.5rem;
+	padding: 0.5rem 1.5rem 0.5rem 2.5rem;
 	border-bottom: 1px solid var(--menu-border-color);
 	z-index: 100;
 	width: calc(100% - 3rem);

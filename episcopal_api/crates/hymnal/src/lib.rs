@@ -155,7 +155,7 @@ fn strip_non_word_characters(original: &str) -> String {
         || ('0'..='9').contains(ch)).collect()
 }
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Hash, Eq)]
 pub struct Hymn {
     #[serde(skip_serializing_if = "Hymnals::is_default", default)]
     pub source: Hymnals,

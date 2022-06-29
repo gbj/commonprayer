@@ -1,0 +1,14 @@
+.page-scan { 
+	text-align: center;
+	display: block;
+	border: 1px solid var(--border-color);
+	text-align: center;
+	height: auto;
+	max-width: min(1000px, 95vw);
+	display: flex;
+	height: min(600px, 95vw);
+	align-items: center;
+	justify-content: center;
+	margin: 1rem auto;
+	padding: 2px;
+}

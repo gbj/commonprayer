@@ -36,8 +36,10 @@ pub struct BingError {
     pub more_details: String,
 }
 
-#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Deserialize, Serialize)]
 pub struct VideoResult {
+    #[serde(alias = "videoId")]
+    pub id: String,
     pub duration: Option<String>,
     pub name: Option<String>,
     pub description: Option<String>,
@@ -67,12 +69,12 @@ fn default_bool_field() -> bool {
     true
 }
 
-#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Deserialize, Serialize)]
 pub struct Named {
     pub name: String,
 }
 
-#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Deserialize, Serialize)]
 pub struct Thumbnail {
     pub width: u32,
     pub height: u32,

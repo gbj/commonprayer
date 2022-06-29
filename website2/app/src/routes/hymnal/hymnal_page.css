@@ -1,0 +1,17 @@
+@media(max-width: 1000px) {
+	.app-shell > div > main.page-scan-viewer {
+		padding: 0;
+		max-width: 100vw;
+		width: 100vw;
+	}
+}
+
+.page-scan {
+	max-width: 100%;
+	width: 100%;
+	height: auto;
+}
+
+footer {
+	text-align: center;
+}

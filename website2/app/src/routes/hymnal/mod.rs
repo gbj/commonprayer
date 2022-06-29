@@ -1,3 +1,5 @@
+pub mod hymnal_page;
+
 use std::sync::Arc;
 
 use hymnal::*;
@@ -99,7 +101,7 @@ impl View for HymnalView {
     fn styles(&self) -> Styles {
         vec![
             include_str!("hymnal.css").into(),
-            include_str!("../styles/toggle-links.css").into(),
+            include_str!("../../styles/toggle-links.css").into(),
         ]
     }
 
@@ -193,7 +195,7 @@ fn hymnal_metadata(hymnal: &Hymnal) -> Node {
 }
 
 fn hymn_metadata(locale: &str, hymn: &HymnMetadata) -> Node {
-    let link = format!("/{}/hymn/{:#?}/{}", locale, hymn.source, hymn.number);
+    let link = format!("/{}/hymn/{:?}/{}", locale, hymn.source, hymn.number);
 
     let number_str = match hymn.number {
         HymnNumber::S(n) => format!("S{}", n),

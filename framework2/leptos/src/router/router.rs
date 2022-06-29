@@ -56,7 +56,11 @@ where
                         let body = match curr {
                             Ok(curr) => {
                                 acc.locale = locale.clone();
-                                acc.title = curr.title();
+                                acc.title = if curr.title().is_empty() {
+                                    acc.title
+                                } else {
+                                    curr.title()
+                                };
                                 acc.links.extend(curr.links());
                                 acc.meta.extend(curr.meta());
                                 acc.styles.extend(curr.styles());

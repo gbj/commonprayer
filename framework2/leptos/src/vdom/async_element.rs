@@ -57,3 +57,15 @@ impl<'de> Deserialize<'de> for AsyncElement {
         })
     }
 }
+
+impl<F> From<(Node, F)> for AsyncElement
+where
+    F: Future<Output = Node> + 'static,
+{
+    fn from((pending, ready): (Node, F)) -> Self {
+        Self {
+            pending: Box::new(pending),
+            ready: Some(Box::pin(ready)),
+        }
+    }
+}

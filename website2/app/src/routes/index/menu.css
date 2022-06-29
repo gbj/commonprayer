@@ -7,7 +7,7 @@
 
 nav#main-menu {
     z-index: 300;
-    padding: 0 0.5rem;
+    padding-top: 0;
     position: fixed;
 }
 

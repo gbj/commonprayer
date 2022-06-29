@@ -1,7 +1,8 @@
-mod hymn_media;
+pub mod hymn_music_view;
+pub mod hymn_text_view;
+pub mod hymn_video_player_view;
+pub mod hymn_video_view;
 use std::sync::Arc;
-
-pub use hymn_media::*;
 
 use hymnal::{Hymn, HymnNumber, Hymnal, Hymnals};
 use leptos2::*;
@@ -13,6 +14,8 @@ pub struct HymnViewParams {
 }
 
 pub struct HymnView {
+    locale: String,
+    path: String,
     hymnal: Hymnal,
     hymn: Hymn,
 }
@@ -35,7 +38,12 @@ impl Loader for HymnView {
             .find(|s_hymn| s_hymn.number == params.number)?
             .clone();
 
-        Some(HymnView { hymnal, hymn })
+        Some(HymnView {
+            locale: locale.to_string(),
+            path: req.path().to_string(),
+            hymnal,
+            hymn,
+        })
     }
 }
 
@@ -51,7 +59,10 @@ impl View for HymnView {
     }
 
     fn styles(&self) -> Styles {
-        vec![include_str!("hymn.css").into()]
+        vec![
+            include_str!("../../styles/toggle-links.css").into(),
+            include_str!("hymn.css").into(),
+        ]
     }
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
@@ -64,17 +75,14 @@ impl View for HymnView {
             Hymnals::WLP => "WLP1997",
             Hymnals::ElHimnario => "EH1998",
         };
-        let hymnary_hymn_link = format!(
-            "https://hymnary.org/hymn/{}/{}",
-            &hymnary_hymnal_id, hymn.number
-        );
+        let hymnary_hymn_link = hymnary_page_link(hymnal.id, self.hymn.page_number);
 
         view! {
             <div>
                 <header><h1>{format!("{} {}", hymn.number, hymn.title)}</h1></header>
                 <main>
                     <h2>
-                        <a href={&format!("../../{:#?}", hymnal.id)}>
+                        <a href={&format!("/{}/hymnal/{:?}", self.locale, hymnal.id)}>
                             {&hymnal.title}
                         </a>
                         " "
@@ -110,20 +118,25 @@ impl View for HymnView {
                         "."
                     </p>
 
-                    <HymnMedia
-                        hymnal={hymnal.id}
-                        number={hymn.number}
-                        text={&hymn.text}
-                        copyright={hymn.copyright_restriction}
-                        page={hymn.page_number}
-                        mode={if !hymn.text.is_empty() {
-                            HymnMediaShowing::Text
-                        } else if !hymn.copyright_restriction {
-                            HymnMediaShowing::PageScan
-                        } else {
-                            HymnMediaShowing::Video
-                        }}
-                    />
+                    <div class="toggle-links">
+                        <a href={format!("/{}/hymn/{}/{}/text", self.locale, self.hymnal.id, self.hymn.number)}
+                            class:current={self.path.contains("text") || self.path.ends_with(&self.hymn.number.to_string())}
+                        >
+                            {t!("hymnal.text_view")}
+                        </a>
+                        <a href={format!("/{}/hymn/{}/{}/music", self.locale, self.hymnal.id, self.hymn.number)}
+                            class:current={self.path.contains("music")}
+                        >
+                            {t!("hymnal.music_view")}
+                        </a>
+                        <a href={format!("/{}/hymn/{}/{}/video", self.locale, self.hymnal.id, self.hymn.number)}
+                            class:current={self.path.contains("video") || self.path.contains("play")}
+                        >
+                            {t!("hymnal.video_view")}
+                        </a>
+                    </div>
+
+                    {nested_view}
 
                     // Copyright notice in footer
                     <footer>
@@ -191,5 +204,22 @@ fn rite_song_link(hymnal: &Hymnals, number: &HymnNumber) -> Option<String> {
         Some(format!("{}{}/", base, id))
     } else {
         None
+    }
+}
+
+pub fn hymnary_page_link(hymnal: Hymnals, page: u16) -> String {
+    format!(
+        "https://hymnary.org/page/fetch/{}/{}/high",
+        hymnary_hymnal_id(hymnal),
+        page
+    )
+}
+
+pub fn hymnary_hymnal_id(hymnal: Hymnals) -> &'static str {
+    match hymnal {
+        Hymnals::Hymnal1982 => "EH1982",
+        Hymnals::LEVAS => "LEVS1993",
+        Hymnals::WLP => "WLP1997",
+        Hymnals::ElHimnario => "EH1998",
     }
 }
