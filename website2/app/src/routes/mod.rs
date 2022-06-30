@@ -67,8 +67,9 @@ pub fn router() -> Router<Index> {
             .child(
                 Route::<SettingsView>::new("settings")
                     .child(Route::<GeneralSettingsView>::new(""))
-                    .child(Route::<DisplaySettingsView>::new("display")),
-                //.child(Route::<LiturgySettingsView>::new(":liturgy")),
+                    .child(Route::<DisplaySettingsView>::new("display"))
+                    .child(Route::<LiturgySettingsView>::new("liturgy"))
+                    .child(Route::<LiturgySettingsView>::new("liturgy/**")),
             ),
         &["en"],
     )

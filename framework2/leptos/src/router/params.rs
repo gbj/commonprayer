@@ -32,7 +32,10 @@ where
             None => Ok(None),
             Some(value) => match T::from_str(value) {
                 Ok(value) => Ok(Some(value)),
-                Err(e) => Err(RouterError::Params(Box::new(e))),
+                Err(e) => {
+                    eprintln!("{}", e);
+                    Err(RouterError::Params(Box::new(e)))
+                }
             },
         }
     }

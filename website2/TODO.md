@@ -9,10 +9,9 @@
 		-  Remaining pages
 			- [ ] Settings
 				- [ ] Liturgy settings
+					- [x] DB
 					- [ ] use in Daily Office links
 					- [ ] also create a Eucharist menu link w/ simple "Today" button for docs
-			- [x] Lectionary
-				- [ ] ICS link
 			- [ ] Readings Page
 				- [ ] Ember Day readings
 				- [ ] Rogation Day readings
@@ -33,6 +32,8 @@
 		- [ ] Ultimately, build a better/server-side/authenticated + reactive preferences approach
 		- [ ] Then make default versions + settings for readings page better
 - Initial public release
+- [ ] Features
+	- [ ] Calendar ICS links
 - [ ] Better way of doing relative links within nested views so I don't need to rebuild whole URLs with locale etc.
 - [ ] Progressive enhancement
 	- [ ] Client side route replacement

@@ -1,8 +1,11 @@
-use leptos2::{Arc, Cookies, Request};
+use leptos2::{Arc, Cookies, Deserialize, Request, Serialize};
 use serde_json::Value;
 
 use crate::routes::index::auth::validate_token;
 use crate::UserInfo;
+
+#[derive(Clone, Debug, Hash, PartialEq, Eq, Default, Serialize, Deserialize)]
+pub struct UserId(String);
 
 impl UserInfo {
     /// There is *always* the potential that this is fake user data set in a cookie by the client.

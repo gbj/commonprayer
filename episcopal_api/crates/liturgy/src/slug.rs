@@ -5,6 +5,7 @@ use serde::{
 };
 use std::{convert::TryFrom, str::FromStr};
 use strum_macros::{Display, EnumString};
+use thiserror::Error;
 
 use crate::Version;
 
@@ -53,8 +54,14 @@ impl<'a> IntoIterator for &'a SlugPath {
     }
 }
 
+#[derive(Error, Debug, Clone)]
+pub enum SlugPathError {
+    #[error("could not parse a slug from this path part")]
+    SlugNotFound(String),
+}
+
 impl FromStr for SlugPath {
-    type Err = ();
+    type Err = SlugPathError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut path = Vec::new();
@@ -62,7 +69,7 @@ impl FromStr for SlugPath {
             if let Some(slug) = Slug::unslugify(part) {
                 path.push(slug);
             } else {
-                return Err(());
+                return Err(SlugPathError::SlugNotFound(part.to_string()));
             }
         }
         Ok(SlugPath(path))

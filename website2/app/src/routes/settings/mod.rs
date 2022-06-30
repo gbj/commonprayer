@@ -1,9 +1,9 @@
 use std::{collections::HashMap, sync::Arc};
 
-use ::liturgy::{PreferenceKey, PreferenceValue, Slug, Version};
-use cached::proc_macro::cached;
+use ::liturgy::{Content, Liturgy, PreferenceKey, PreferenceValue, Slug, SlugPath, Version};
 use lazy_static::lazy_static;
 use leptos2::{http::Response, *};
+use library::{CommonPrayer, Contents, Library};
 use serde::de::DeserializeOwned;
 use serde_json::{from_value, Value};
 
@@ -73,7 +73,7 @@ impl View for SettingsView {
                             {t!("settings.display_settings.title")}
                         </a>
                         <a
-                            href={format!("/{}/liturgy", self.locale)}
+                            href={format!("/{}/settings/liturgy", self.locale)}
                             class:current={self.path.contains("/liturgy")}
                         >
                             {t!("settings.liturgy")}
@@ -86,19 +86,10 @@ impl View for SettingsView {
     }
 }
 
-#[derive(Debug, Default, Clone, Hash, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct Settings {
     pub general: GeneralSettings,
     pub display: DisplaySettings,
-}
-
-#[derive(Default, Serialize, Deserialize)]
-struct LiturgySettings(HashMap<(Slug, Version), HashMap<PreferenceKey, PreferenceValue>>);
-
-impl LiturgySettings {
-    pub fn new() -> Self {
-        Self(HashMap::new())
-    }
 }
 
 struct DBSettings {
@@ -110,6 +101,7 @@ struct DBSettings {
 
 const GENERAL_COOKIE_NAME: &str = "general";
 const DISPLAY_COOKIE_NAME: &str = "display";
+const LITURGY_COOKIE_NAME: &str = "liturgy";
 
 lazy_static! {
     pub static ref ALL_SETTINGS_CACHE: moka::sync::Cache<String, Settings> =
@@ -121,6 +113,10 @@ lazy_static! {
             .time_to_live(std::time::Duration::from_millis(500))
             .build();
     pub static ref DISPLAY_SETTINGS_CACHE: moka::sync::Cache<String, DisplaySettings> =
+        moka::sync::Cache::builder()
+            .time_to_live(std::time::Duration::from_millis(500))
+            .build();
+    pub static ref LITURGY_SETTINGS_CACHE: moka::sync::Cache<(String, SlugPath), Vec<(PreferenceKey, PreferenceValue)>> =
         moka::sync::Cache::builder()
             .time_to_live(std::time::Duration::from_millis(500))
             .build();
@@ -142,43 +138,17 @@ impl Settings {
             .await
             {
                 Ok(DBSettings {
-                    general, display, ..
+                    general,
+                    display,
+                    liturgy,
+                    ..
                 }) => {
-                    let from_db = match (
-                        from_value::<GeneralSettings>(general),
-                        from_value::<DisplaySettings>(display),
-                    ) {
-                        (Ok(general), Ok(display)) => Some(Settings { general, display }),
-                        (Err(e), Ok(display)) => {
-                            eprintln!("[Settings::all — settings.general JSON error] {}", e);
-                            Some(Settings {
-                                general: GeneralSettings::default(),
-                                display,
-                            })
-                        }
-                        (Ok(general), Err(e)) => {
-                            eprintln!("[Settings::all — settings.display JSON error] {}", e);
-                            Some(Settings {
-                                general,
-                                display: DisplaySettings::default(),
-                            })
-                        }
-                        (Err(e_general), Err(e_display)) => {
-                            eprintln!(
-                                "[Settings::all — settings.general JSON error] {}",
-                                e_general
-                            );
-                            eprintln!(
-                                "[Settings::all — settings.display JSON error] {}",
-                                e_display
-                            );
-                            None
-                        }
-                    };
-                    if let Some(from_db) = &from_db {
-                        ALL_SETTINGS_CACHE.insert(uid, from_db.clone());
-                    };
-                    from_db
+                    let general = from_value::<GeneralSettings>(general).unwrap_or_default();
+                    let display = from_value::<DisplaySettings>(display).unwrap_or_default();
+
+                    let from_db = Settings { general, display };
+                    ALL_SETTINGS_CACHE.insert(uid, from_db.clone());
+                    Some(from_db)
                 }
                 Err(e) => {
                     eprintln!("[Settings::all] {}", e);
@@ -187,9 +157,9 @@ impl Settings {
             }
         } else {
             let general =
-                Settings::get_prefs_from_cookie(&req, GENERAL_COOKIE_NAME).unwrap_or_default();
+                Settings::get_prefs_from_cookie(req, GENERAL_COOKIE_NAME).unwrap_or_default();
             let display =
-                Settings::get_prefs_from_cookie(&req, DISPLAY_COOKIE_NAME).unwrap_or_default();
+                Settings::get_prefs_from_cookie(req, DISPLAY_COOKIE_NAME).unwrap_or_default();
             Some(Settings { general, display })
         }
         .unwrap_or_default()
@@ -251,6 +221,112 @@ impl Settings {
         .unwrap_or_default()
     }
 
+    pub async fn liturgy(req: &Arc<dyn Request>, path: &SlugPath) -> Option<SettingsForLiturgy> {
+        let contents = CommonPrayer::contents().contents_at_path(path)?;
+        let liturgy_prefs = if let Contents::Document(doc) = contents {
+            if let Content::Liturgy(liturgy) = &doc.content {
+                Some(liturgy.preferences.clone())
+            } else {
+                None
+            }
+        } else {
+            None
+        }?;
+
+        let client_prefs = if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            if let Some(cached) = LITURGY_SETTINGS_CACHE.get(&(uid.clone(), path.clone())) {
+                Some(cached)
+            } else {
+                match sqlx::query!(
+                    "SELECT prefs from liturgy_settings where user_id_and_liturgy = $1",
+                    format!("{}-{}", uid, path.to_string())
+                )
+                .fetch_one(req.db())
+                .await
+                {
+                    Ok(value) => {
+                        let from_db =
+                            from_value::<Vec<(PreferenceKey, PreferenceValue)>>(value.prefs).ok();
+                        if let Some(from_db) = &from_db {
+                            LITURGY_SETTINGS_CACHE.insert((uid, path.clone()), from_db.clone());
+                        };
+                        from_db
+                    }
+                    Err(e) => {
+                        eprintln!("[Settings::liturgy] {}", e);
+                        None
+                    }
+                }
+            }
+        } else {
+            Self::get_prefs_from_cookie(req, &format!("{}-{}", LITURGY_COOKIE_NAME, path))
+        }
+        .unwrap_or_default()
+        .into_iter()
+        .collect::<HashMap<_, _>>();
+
+        Some(SettingsForLiturgy {
+            liturgy: path.clone(),
+            liturgy_prefs,
+            client_prefs,
+        })
+    }
+
+    /* pub async fn liturgy(req: &Arc<dyn Request>, path: &SlugPath) -> Option<SettingsForLiturgy> {
+        let contents = CommonPrayer::contents().contents_at_path(path)?;
+        let liturgy_prefs = if let Contents::Document(doc) = contents {
+            if let Content::Liturgy(liturgy) = &doc.content {
+                Some(liturgy.preferences.clone())
+            } else {
+                None
+            }
+        } else {
+            None
+        }?;
+
+        let client_prefs = if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            if let Some(cached) = LITURGY_SETTINGS_CACHE.get(&uid) {
+                Some(cached)
+            } else {
+                match sqlx::query!("SELECT liturgy from user_settings where user_id = $1", uid)
+                    .fetch_one(req.db())
+                    .await
+                {
+                    Ok(value) => {
+                        let from_db = from_value::<LiturgySettings>(value.liturgy).ok();
+                        if let Some(from_db) = &from_db {
+                            LITURGY_SETTINGS_CACHE.insert(uid, from_db.clone());
+                        };
+                        from_db
+                    }
+                    Err(e) => {
+                        eprintln!("[Settings::liturgy] {}", e);
+                        None
+                    }
+                }
+            }
+        } else {
+            Self::get_prefs_from_cookie(req, LITURGY_COOKIE_NAME)
+        }
+        .unwrap_or_default()
+        .0
+        .into_iter()
+        .filter_map(|((s_path, key), value)| {
+            if &s_path == path {
+                Some((key, value))
+            } else {
+                None
+            }
+        })
+        .collect::<HashMap<_, _>>();
+
+        Some(SettingsForLiturgy {
+            liturgy: path.clone(),
+            liturgy_prefs,
+            client_prefs,
+        })
+    } */
+
     async fn set_display(
         req: &Arc<dyn Request>,
         res: &mut Response<()>,
@@ -303,6 +379,9 @@ impl Settings {
                     eprintln!("[Settings::set_display] {}", e)
                 }
             }
+
+            // update cached values
+            GENERAL_SETTINGS_CACHE.invalidate(&uid);
         }
         // store in cookies for users not logged in
         else {
@@ -310,6 +389,43 @@ impl Settings {
                 req,
                 res,
                 GENERAL_COOKIE_NAME,
+                serde_json::to_string(&settings).unwrap(),
+            )
+        }
+    }
+
+    async fn set_liturgy(
+        req: &Arc<dyn Request>,
+        res: &mut Response<()>,
+        liturgy: SlugPath,
+        settings: HashMap<PreferenceKey, PreferenceValue>,
+    ) {
+        // because Serde JSON Map keys must be strings
+        let settings = settings.into_iter().collect::<Vec<_>>();
+
+        // store in database for users who are logged in
+        if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            match sqlx::query!("INSERT INTO liturgy_settings VALUES ($1, $2) ON CONFLICT (user_id_and_liturgy) DO UPDATE SET prefs = $2;",
+                format!("{}-{}", uid, liturgy),
+                serde_json::to_value(&settings).unwrap(),
+            )
+            .execute(req.db())
+            .await {
+                Ok(_) => {}
+                Err(e) => {
+                    eprintln!("[Settings::set_liturgy] {}", e)
+                }
+            }
+
+            // update cached values
+            LITURGY_SETTINGS_CACHE.invalidate(&(uid, liturgy));
+        }
+        // store in cookies for users not logged in
+        else {
+            Self::store_prefs_in_cookie(
+                req,
+                res,
+                &format!("{}-{}", LITURGY_COOKIE_NAME, liturgy),
                 serde_json::to_string(&settings).unwrap(),
             )
         }

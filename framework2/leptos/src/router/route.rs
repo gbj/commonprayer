@@ -137,7 +137,7 @@ where
                         matched_route.push('/');
                         matched_route.push_str(&remaining_parts);
                         params.insert("remainder".to_string(), remaining_parts);
-                        loaders.push(self.create_loader(Some(&matched_route), false));
+                        loaders.push(self.create_loader(Some(&matched_route), true));
 
                         return Ok(loaders);
                     } else if part_matches(concrete_part, match_part, params) {

@@ -28,3 +28,16 @@ fieldset.vertical {
 	align-items: center;
 	justify-content: center;
 }
+
+.description {
+	text-align: center;
+	font-style: italic;
+	margin-top: -0.125rem;
+	margin-bottom: 0.25rem;
+}
+
+.preference {
+	display: flex;
+	flex-direction: column;
+	margin: 0.5rem 0;
+}
