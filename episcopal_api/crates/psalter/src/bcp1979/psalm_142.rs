@@ -7,7 +7,7 @@ lazy_static! {
           PsalmSection {
               reference: Reference {
                 source: Source::BCP1979,
-                page: 748
+                page: 798
               },
               local_name: String::from(""),
               latin_name: String::from("Voce mea ad Dominus"),
