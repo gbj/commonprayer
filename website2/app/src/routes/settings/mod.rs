@@ -221,8 +221,8 @@ impl Settings {
         .unwrap_or_default()
     }
 
-    pub async fn liturgy(req: &Arc<dyn Request>, path: &SlugPath) -> Option<SettingsForLiturgy> {
-        let contents = CommonPrayer::contents().contents_at_path(path)?;
+    pub async fn liturgy(req: &Arc<dyn Request>, path: SlugPath) -> Option<SettingsForLiturgy> {
+        let contents = CommonPrayer::contents().contents_at_path(&path)?;
         let liturgy_prefs = if let Contents::Document(doc) = contents {
             if let Content::Liturgy(liturgy) = &doc.content {
                 Some(liturgy.preferences.clone())
@@ -271,61 +271,6 @@ impl Settings {
             client_prefs,
         })
     }
-
-    /* pub async fn liturgy(req: &Arc<dyn Request>, path: &SlugPath) -> Option<SettingsForLiturgy> {
-        let contents = CommonPrayer::contents().contents_at_path(path)?;
-        let liturgy_prefs = if let Contents::Document(doc) = contents {
-            if let Content::Liturgy(liturgy) = &doc.content {
-                Some(liturgy.preferences.clone())
-            } else {
-                None
-            }
-        } else {
-            None
-        }?;
-
-        let client_prefs = if let Some(uid) = UserInfo::verified_id(req.clone()).await {
-            if let Some(cached) = LITURGY_SETTINGS_CACHE.get(&uid) {
-                Some(cached)
-            } else {
-                match sqlx::query!("SELECT liturgy from user_settings where user_id = $1", uid)
-                    .fetch_one(req.db())
-                    .await
-                {
-                    Ok(value) => {
-                        let from_db = from_value::<LiturgySettings>(value.liturgy).ok();
-                        if let Some(from_db) = &from_db {
-                            LITURGY_SETTINGS_CACHE.insert(uid, from_db.clone());
-                        };
-                        from_db
-                    }
-                    Err(e) => {
-                        eprintln!("[Settings::liturgy] {}", e);
-                        None
-                    }
-                }
-            }
-        } else {
-            Self::get_prefs_from_cookie(req, LITURGY_COOKIE_NAME)
-        }
-        .unwrap_or_default()
-        .0
-        .into_iter()
-        .filter_map(|((s_path, key), value)| {
-            if &s_path == path {
-                Some((key, value))
-            } else {
-                None
-            }
-        })
-        .collect::<HashMap<_, _>>();
-
-        Some(SettingsForLiturgy {
-            liturgy: path.clone(),
-            liturgy_prefs,
-            client_prefs,
-        })
-    } */
 
     async fn set_display(
         req: &Arc<dyn Request>,
@@ -466,95 +411,3 @@ impl Settings {
         );
     }
 }
-
-/*  pub async fn general(req: &Arc<dyn Request>) -> Option<GeneralSettings> {
-    if let Some(user) = UserInfo::get_untrusted(req) {
-        if let Some(uid) = user.verified_uid().await {
-            sqlx::query_as!(
-                Settings,
-                "SELECT * from user_settings where user_id = $1",
-                uid
-            )
-            .fetch_one(req.db())
-            .await
-            .ok()
-        } else {
-            None
-        }
-    } else {
-        None
-    }
-}
-
-pub async fn display(req: &Arc<dyn Request>) -> Option<DisplaySettings> {
-    if let Some(user) = UserInfo::get_untrusted(req) {
-        if let Some(uid) = user.verified_uid().await {
-            sqlx::query_as!(
-                Settings,
-                "SELECT * from user_settings where user_id = $1",
-                uid
-            )
-            .fetch_one(req.db())
-            .await
-            .ok()
-        } else {
-            None
-        }
-    } else {
-        None
-    }
-} */
-
-/*
-#[async_trait(?Send)]
-pub trait Settings
-where
-    Self: Serialize + DeserializeOwned + Default,
-{
-    fn cookie_name() -> &'static str;
-
-    async fn get_all(req: &Arc<dyn Request>) -> Self {
-        /* let headers = req.headers();
-        let settings = headers
-            .cookies()
-            .filter_map(|cookie| match cookie {
-                Ok(cookie) => Some(cookie),
-                Err(e) => {
-                    eprintln!("invalid cookie: {:#?}", e);
-                    None
-                }
-            })
-            .find(|cookie| cookie.name() == Self::cookie_name())
-            .and_then(|cookie| serde_json::from_str(cookie.value()).ok());
-        settings.unwrap_or_default() */
-
-        let settings = sqxl::query_as!(Self, )
-
-    }
-
-    async fn get<T>(req: &Arc<dyn Request>, cb: fn(Self) -> T) -> T {
-        let settings = Self::get_all(req).await;
-        (cb)(settings)
-    }
-
-    async fn set<T>(req: &Arc<dyn Request>, res: &mut http::Response<T>, settings: Self) {
-        // set in DB
-        let existing_info =
-
-        // set as cookie
-        let settings_cookie = cookie::Cookie::build(
-            Self::cookie_name(),
-            serde_json::to_string(&settings).unwrap(),
-        )
-        .path("/")
-        .secure(true)
-        .http_only(true)
-        .max_age(cookie::time::Duration::days(365_000))
-        .finish();
-        res.headers_mut().insert(
-            "Set-Cookie",
-            http::HeaderValue::from_str(&settings_cookie.to_string()).unwrap(),
-        );
-    }
-}
- */

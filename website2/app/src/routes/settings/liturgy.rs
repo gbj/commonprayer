@@ -6,7 +6,6 @@ use leptos2::*;
 use liturgy::{
     ClientPreferences, LiturgyPreferences, PreferenceKey, PreferenceValue, Slug, SlugPath, Version,
 };
-use reqwest::redirect::Action;
 
 use super::Settings;
 
@@ -24,6 +23,17 @@ pub struct SettingsForLiturgy {
     pub liturgy: SlugPath,
     pub liturgy_prefs: LiturgyPreferences,
     pub client_prefs: HashMap<PreferenceKey, PreferenceValue>,
+}
+
+impl SettingsForLiturgy {
+    pub fn serialize_non_default_prefs(&self) -> String {
+        let filtered_as_vec = self
+            .client_prefs
+            .iter()
+            .filter(|(k, v)| self.liturgy_prefs.default_value_for_key(k) != Some(v))
+            .collect::<Vec<_>>();
+        serde_json::to_string(&filtered_as_vec).unwrap()
+    }
 }
 
 pub struct LiturgySettingsView {
@@ -55,10 +65,14 @@ impl Loader for LiturgySettingsView {
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-        let path = params
-            .remainder
-            .unwrap_or_else(|| SlugPath::from([Slug::Office, Slug::MorningPrayer]));
-        let settings = Settings::liturgy(&req, &path).await?;
+        let path = params.remainder.unwrap_or_else(|| {
+            SlugPath::from([
+                Slug::Office,
+                Slug::MorningPrayer,
+                Slug::Version(Version::RiteII),
+            ])
+        });
+        let settings = Settings::liturgy(&req, path).await?;
 
         Some(Self {
             locale: locale.to_string(),
@@ -76,18 +90,22 @@ impl Loader for LiturgySettingsView {
     ) -> ActionResponse {
         match req.body() {
             Some(raw_body) => {
-                let path = params
-                    .remainder
-                    .unwrap_or_else(|| SlugPath::from([Slug::Office, Slug::MorningPrayer]));
+                let path = params.remainder.unwrap_or_else(|| {
+                    SlugPath::from([
+                        Slug::Office,
+                        Slug::MorningPrayer,
+                        Slug::Version(Version::RiteII),
+                    ])
+                });
                 let form_data = form_urlencoded::parse(raw_body.as_bytes())
                     .map(|(k, v)| {
                         (
                             urlencoding::decode(&k)
                                 .map(|k| k.to_string())
-                                .unwrap_or_else(|| k.to_string()),
+                                .unwrap_or_else(|_| k.to_string()),
                             urlencoding::decode(&v)
                                 .map(|v| v.to_string())
-                                .unwrap_or_else(|| v.to_string()),
+                                .unwrap_or_else(|_| v.to_string()),
                         )
                     })
                     .collect::<HashMap<_, _>>();
@@ -121,20 +139,6 @@ impl Loader for LiturgySettingsView {
             }
             None => ActionResponse::None,
         }
-        /* let settings = req
-            .body()
-            .and_then(|body| body.as_form_data::<LiturgySettings>().ok())
-            .unwrap_or_default();
-
-        // build response
-        let mut res = Response::builder()
-            .status(StatusCode::SEE_OTHER)
-            .header("Location", format!("/{}/settings/display?success", locale))
-            .body(())
-            .unwrap();
-
-        Settings::set_display(&req, &mut res, settings).await;
-        ActionResponse::from_response(res) */
     }
 }
 

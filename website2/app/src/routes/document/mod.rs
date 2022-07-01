@@ -196,7 +196,7 @@ impl Loader for DocumentPage {
                                 // (due to JSON format limitations)
                                 .and_then(|json| {
                                     serde_json::from_str::<Vec<(PreferenceKey, PreferenceValue)>>(
-                                        json,
+                                        &urlencoding::decode(json).unwrap(),
                                     )
                                     .ok()
                                 })

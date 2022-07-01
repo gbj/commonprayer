@@ -1,13 +1,16 @@
+use std::collections::HashMap;
 use std::pin::Pin;
 use std::sync::Arc;
 
-use super::settings::{DarkMode, DisplaySettings, GeneralSettings, Settings};
+use super::settings::{DarkMode, DisplaySettings, GeneralSettings, Settings, SettingsForLiturgy};
 use crate::components::{Auth, Modal};
 use crate::utils::encode_uri;
 use crate::utils::time::today;
-use futures::Future;
+use calendar::Date;
+use futures::future::join_all;
+use futures::{join, Future};
 use leptos2::{view::View, *};
-use liturgy::Slug;
+use liturgy::{PreferenceKey, PreferenceValue, Slug, SlugPath, Version};
 
 pub mod auth;
 use crate::UserInfo;
@@ -19,7 +22,40 @@ pub struct Index {
     dark_mode: DarkMode,
     general_settings: GeneralSettings,
     user: Option<UserInfo>,
+    office_prefs: OfficePrefs,
     verified: Pin<Box<dyn Future<Output = bool> + Send + Sync>>,
+}
+
+#[derive(Default)]
+pub struct OfficePrefs {
+    mp: Option<SettingsForLiturgy>,
+    np: Option<SettingsForLiturgy>,
+    ep: Option<SettingsForLiturgy>,
+    compline: Option<SettingsForLiturgy>,
+}
+
+impl OfficePrefs {
+    pub async fn from_version(req: Arc<dyn Request>, version: Version) -> Self {
+        let (mp, np, ep, compline) = join!(
+            Settings::liturgy(
+                &req,
+                SlugPath::from([Slug::Office, Slug::MorningPrayer, Slug::Version(version)]),
+            ),
+            Settings::liturgy(&req, SlugPath::from([Slug::Office, Slug::NoondayPrayer])),
+            Settings::liturgy(
+                &req,
+                SlugPath::from([Slug::Office, Slug::EveningPrayer, Slug::Version(version)]),
+            ),
+            Settings::liturgy(&req, SlugPath::from([Slug::Office, Slug::Compline])),
+        );
+
+        Self {
+            mp,
+            np,
+            ep,
+            compline,
+        }
+    }
 }
 
 impl Default for Index {
@@ -30,6 +66,7 @@ impl Default for Index {
             dark_mode: DarkMode::Auto,
             general_settings: GeneralSettings::default(),
             user: None,
+            office_prefs: OfficePrefs::default(),
             verified: Box::pin(async { false }),
         }
     }
@@ -56,6 +93,8 @@ impl Loader for Index {
         } else {
             Box::pin(async { false })
         };
+        let office_prefs =
+            OfficePrefs::from_version(req.clone(), general_settings.liturgy_version).await;
 
         Some(Self {
             locale: locale.to_string(),
@@ -63,6 +102,7 @@ impl Loader for Index {
             dark_mode,
             general_settings,
             user,
+            office_prefs,
             verified,
         })
     }
@@ -109,6 +149,7 @@ impl View for Index {
             &self.locale,
             self.user.as_ref(),
             &self.general_settings,
+            self.office_prefs,
             self.verified,
         );
 
@@ -152,6 +193,7 @@ impl Index {
         locale: &str,
         user: Option<&UserInfo>,
         settings: &GeneralSettings,
+        office_prefs: OfficePrefs,
         verified: Pin<Box<dyn Future<Output = bool> + Send + Sync>>,
     ) -> Node {
         let user_logged_in = view! {
@@ -236,16 +278,16 @@ impl Index {
                             {nav_link(path, locale, "/document/office", t!("toc.daily_office"))}
                             <ul>
                                 <li>
-                                    {office_link(path, locale, settings, Slug::MorningPrayer, t!("toc.morning_prayer"))}
+                                    {office_link(path, locale, settings, office_prefs.mp, Slug::MorningPrayer, t!("toc.morning_prayer"))}
                                 </li>
                                 <li>
-                                    {office_link(path, locale, settings, Slug::NoondayPrayer, t!("toc.noonday_prayer"))}
+                                    {office_link(path, locale, settings, office_prefs.np, Slug::NoondayPrayer, t!("toc.noonday_prayer"))}
                                 </li>
                                 <li>
-                                    {office_link(path, locale, settings, Slug::EveningPrayer, t!("toc.evening_prayer"))}
+                                    {office_link(path, locale, settings, office_prefs.ep, Slug::EveningPrayer, t!("toc.evening_prayer"))}
                                 </li>
                                 <li>
-                                    {office_link(path, locale, settings, Slug::Compline, t!("toc.compline"))}
+                                    {office_link(path, locale, settings, office_prefs.compline, Slug::Compline, t!("toc.compline"))}
                                 </li>
                                 <li>
                                     {nav_link(path, locale, "/canticle-table", t!("menu.canticle_table"))}
@@ -283,19 +325,41 @@ fn office_link(
     path: &str,
     locale: &str,
     settings: &GeneralSettings,
+    prefs: Option<SettingsForLiturgy>,
     slug: Slug,
     label: String,
 ) -> Node {
     let version = settings.liturgy_version;
-    let href = if slug == Slug::MorningPrayer || slug == Slug::EveningPrayer {
+    let slug = slug.slugify();
+    let today = today();
+
+    match prefs {
+        Some(settings) => {
+            let href = office_link_href(&slug, version, today, Some(settings));
+            nav_link(&path, &locale, &href, label)
+        }
+        None => {
+            let href = office_link_href(&slug, version, today, None);
+            nav_link(&path, &locale, &href, label)
+        }
+    }
+}
+
+fn office_link_href(
+    slug: &str,
+    version: Version,
+    date: Date,
+    prefs: Option<SettingsForLiturgy>,
+) -> String {
+    if let Some(prefs) = prefs {
         format!(
-            "/document/office/{}/{:?}?date={}",
-            slug.slugify(),
+            "/document/office/{}/{:?}?date={}&prefs={}",
+            slug,
             version,
-            today()
+            date,
+            urlencoding::encode(&prefs.serialize_non_default_prefs())
         )
     } else {
-        format!("/document/office/{}", slug.slugify())
-    };
-    nav_link(path, locale, &href, label)
+        format!("/document/office/{}/{:?}?date={}", slug, version, date)
+    }
 }
