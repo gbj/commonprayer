@@ -17,7 +17,7 @@ members = [
 #codegen-units = 1
 #lto = true
 inherits = "release"
-opt-level = 1
+opt-level = 3
 
 [profile.release]
 codegen-units = 1
