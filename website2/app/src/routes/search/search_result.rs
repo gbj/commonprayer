@@ -68,7 +68,8 @@ pub enum SearchResultContent {
     Feast {
         name: PossibleMatchOwned,
         date: Option<(Date, String, bool)>,
-        collect: PossibleMatchOwned,
+        collect1: PossibleMatchOwned,
+        collect2: PossibleMatchOwned,
         bio: PossibleMatchOwned,
     },
     Document {
@@ -152,7 +153,8 @@ impl WebView for SearchResult {
             SearchResultContent::Feast {
                 name,
                 date,
-                collect,
+                collect1,
+                collect2,
                 bio,
             } => {
                 view! {
@@ -175,10 +177,17 @@ impl WebView for SearchResult {
                             }
                         </div>
                         <div class="collect">
-                            {if matches!(collect, PossibleMatchOwned::None(_)) {
+                            {if matches!(collect1, PossibleMatchOwned::None(_)) {
                                 None
                             } else {
-                                Some(collect.to_node())
+                                Some(collect1.to_node())
+                            }}
+                        </div>
+                        <div class="collect">
+                            {if matches!(collect2, PossibleMatchOwned::None(_)) {
+                                None
+                            } else {
+                                Some(collect2.to_node())
                             }}
                         </div>
                         <div class="bio">

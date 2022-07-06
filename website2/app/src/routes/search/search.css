@@ -53,7 +53,7 @@
 	margin-left: auto;
 }
 
-.search-result .bio, .search-result .text {
+.search-result .bio, .search-result .text, .search-result .collect, .search-result .metadata {
 	padding-left: 1.5rem;
 }
 

@@ -11,7 +11,10 @@ use hymnal::{Hymn, Hymnal};
 use itertools::Itertools;
 use language::Language;
 use lazy_static::lazy_static;
-use library::{CommonPrayer, Contents, Library};
+use library::{
+    lff2018::collects::{LFF_COLLECTS_CONTEMPORARY, LFF_COLLECTS_TRADITIONAL},
+    CollectId, CommonPrayer, Contents, Library,
+};
 use liturgy::{Document, Slug, SlugPath};
 use regex::Regex;
 
@@ -220,7 +223,19 @@ impl Searchable for Feast {
             .unwrap_or_default();
         let bio = match_field!(q, raw, bio, has_match, cumulative_score);
 
-        let collect = PossibleMatch::None("");
+        let collect1 = LFF_COLLECTS_TRADITIONAL
+            .iter()
+            .find(|(id, _)| *id == CollectId::Feast(*self))
+            .map(|(_, data)| data.document.as_text())
+            .unwrap_or_default();
+        let collect1 = match_field!(q, raw, &collect1, has_match, cumulative_score);
+
+        let collect2 = LFF_COLLECTS_CONTEMPORARY
+            .iter()
+            .find(|(id, _)| *id == CollectId::Feast(*self))
+            .map(|(_, data)| data.document.as_text())
+            .unwrap_or_default();
+        let collect2 = match_field!(q, raw, &collect2, has_match, cumulative_score);
 
         if has_match {
             Some(SearchResult {
@@ -229,7 +244,8 @@ impl Searchable for Feast {
                 content: SearchResultContent::Feast {
                     name: name.into(),
                     date,
-                    collect: collect.into(),
+                    collect1: collect1.into(),
+                    collect2: collect2.into(),
                     bio: bio.into(),
                 },
             })
