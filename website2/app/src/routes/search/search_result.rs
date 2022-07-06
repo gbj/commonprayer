@@ -15,6 +15,7 @@ pub struct SearchResult {
 
 pub enum SearchResultLink {
     Document(SlugPath, Vec<usize>),
+    Psalm(u8),
     Feast(Feast),
     Hymn(Hymnals, HymnNumber),
 }
@@ -79,6 +80,11 @@ pub enum SearchResultContent {
         metadata: PossibleMatchOwned,
         text: PossibleMatchOwned,
     },
+    Psalm {
+        number: PossibleMatchOwned,
+        metadata: PossibleMatchOwned,
+        text: PossibleMatchOwned,
+    },
     Contents {
         label: PossibleMatchOwned,
     },
@@ -111,6 +117,9 @@ impl WebView for SearchResult {
             }
             SearchResultLink::Hymn(hymnal, number) => {
                 format!("/{}/hymn/{:?}/{}", locale, hymnal, number)
+            }
+            SearchResultLink::Psalm(number) => {
+                format!("/{}/psalm/{}", locale, number)
             }
         };
 
@@ -224,7 +233,35 @@ impl WebView for SearchResult {
                             <span class="citation">{citation}</span>
                         </div>
                         <div class="metadata">
+                            {if matches!(metadata, PossibleMatchOwned::None(_)) {
+                                None
+                            } else {
+                                Some(metadata.to_node())
+                            }}
+                        </div>
+                        <div class="text">
                             {if matches!(text, PossibleMatchOwned::None(_)) {
+                                None
+                            } else {
+                                Some(text.to_node())
+                            }}
+                        </div>
+                    </>
+                }
+            }
+            SearchResultContent::Psalm {
+                number,
+                metadata,
+                text,
+            } => {
+                view! {
+                    <>
+                        <div class="primary">
+                            <img class="icon" src={Icon::Harp.to_string()} alt={t!("search_page.psalm")}/>
+                            <a class="title" href={&href}>{number}</a>
+                        </div>
+                        <div class="metadata">
+                            {if matches!(metadata, PossibleMatchOwned::None(_)) {
                                 None
                             } else {
                                 Some(metadata.to_node())

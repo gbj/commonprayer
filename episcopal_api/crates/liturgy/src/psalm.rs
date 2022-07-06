@@ -98,6 +98,31 @@ impl Psalm {
             self.sections.clone()
         }
     }
+
+    pub fn as_text(&self) -> String {
+        let filtered = self.filtered_sections();
+        filtered
+            .iter()
+            .flat_map(|section| section.verses.iter())
+            .flat_map(|verse| [&verse.a, &verse.b])
+            .cloned()
+            .intersperse_with(|| String::from("\n"))
+            .collect()
+    }
+
+    pub fn as_metadata_text(&self) -> String {
+        let filtered = self.filtered_sections();
+        self.citation
+            .as_ref()
+            .into_iter()
+            .chain(
+                filtered
+                    .iter()
+                    .flat_map(|section| [&section.local_name, &section.latin_name]),
+            )
+            .cloned()
+            .collect()
+    }
 }
 
 #[derive(Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]

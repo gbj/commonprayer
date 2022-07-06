@@ -1,3 +1,5 @@
+use std::ops::Range;
+
 use crate::utils::time::today;
 
 use super::search_result::{
@@ -15,7 +17,11 @@ use library::{
     lff2018::collects::{LFF_COLLECTS_CONTEMPORARY, LFF_COLLECTS_TRADITIONAL},
     CollectId, CommonPrayer, Contents, Library,
 };
-use liturgy::{Document, Slug, SlugPath};
+use liturgy::{Document, Psalm, Slug, SlugPath};
+use psalter::bcp1979::BCP1979_PSALTER;
+use reference_parser::{
+    BibleReference, BibleReferenceQuery, BibleReferenceRange, BibleVerse, BibleVersePart, Book,
+};
 use regex::Regex;
 
 lazy_static! {
@@ -40,27 +46,40 @@ pub fn global_search<L: Library>(
     let q = Regex::new(&q).expect("could not compile search Regex");
 
     let q_date = DateParser::parse(raw).map(Date::from);
+    let q_citation = BibleReference::from(raw);
 
     // Search for matching hymns
     let hymns = hymnals.into_iter().flat_map(|hymnal| {
         hymnal
             .hymns
             .iter()
-            .filter_map(|hymn| hymn.search_in(raw, &q, &q_date, language, None, None))
+            .filter_map(|hymn| hymn.search_in(raw, &q, &q_date, &q_citation, language, None, None))
     });
 
     // Search for matching holy days
-    let holy_days = LFF2018_FEASTS
-        .iter()
-        .filter_map(|(_, feast, ..)| feast.search_in(raw, &q, &q_date, language, None, None));
+    let holy_days = LFF2018_FEASTS.iter().filter_map(|(_, feast, ..)| {
+        feast.search_in(raw, &q, &q_date, &q_citation, language, None, None)
+    });
 
     // Search through document TOC, including both the label for containers and the leaf nodes of documents
     let contents = CommonPrayer::contents();
     let documents = contents
         .flatten()
         .dedup_by(|(slug_path_a, _), (slug_path_b, _)| slug_path_a == slug_path_b)
-        .flat_map(|(slug_path, c)| search_contents(c, slug_path, raw, &q, &q_date, language));
-    documents.chain(holy_days).chain(hymns).collect()
+        .flat_map(|(slug_path, c)| {
+            search_contents(c, slug_path, raw, &q, &q_date, &q_citation, language)
+        });
+
+    // Search within Psalter
+    let psalms = BCP1979_PSALTER.psalms.iter().flat_map(|(_, psalm)| {
+        psalm.search_in(raw, &q, &q_date, &q_citation, language, None, None)
+    });
+
+    documents
+        .chain(psalms)
+        .chain(holy_days)
+        .chain(hymns)
+        .collect()
 }
 
 trait Searchable {
@@ -69,6 +88,7 @@ trait Searchable {
         raw: &str,
         q: &Regex,
         q_date: &Option<Date>,
+        q_citation: &BibleReference,
         language: Language,
         slug_path: Option<SlugPath>,
         path: Option<Vec<usize>>,
@@ -116,6 +136,7 @@ impl Searchable for Hymn {
         raw: &str,
         q: &Regex,
         _q_date: &Option<Date>,
+        _q_citation: &BibleReference,
         _language: Language,
         _slug_path: Option<SlugPath>,
         _path: Option<Vec<usize>>,
@@ -159,6 +180,7 @@ impl Searchable for Feast {
         raw: &str,
         q: &Regex,
         q_date: &Option<Date>,
+        _q_citation: &BibleReference,
         language: Language,
         _slug_path: Option<SlugPath>,
         _path: Option<Vec<usize>>,
@@ -261,6 +283,7 @@ fn search_contents<'a>(
     raw: &'a str,
     q: &'a Regex,
     q_date: &'a Option<Date>,
+    q_citation: &'a BibleReference,
     language: Language,
 ) -> impl Iterator<Item = SearchResult> + 'a {
     if let Contents::Document(document) = contents {
@@ -272,6 +295,7 @@ fn search_contents<'a>(
                         raw,
                         q,
                         q_date,
+                        q_citation,
                         language,
                         Some(slug_path.clone()),
                         Some(path),
@@ -288,6 +312,7 @@ fn search_contents<'a>(
                     raw,
                     q,
                     q_date,
+                    q_citation,
                     language,
                     Some(slug_path.clone()),
                     Some(vec![idx]),
@@ -300,6 +325,7 @@ fn search_contents<'a>(
                             raw,
                             q,
                             q_date,
+                            q_citation,
                             language,
                             Some(slug_path.clone()),
                             Some(vec![idx]),
@@ -312,7 +338,7 @@ fn search_contents<'a>(
     } else {
         Box::new(
             contents
-                .search_in(raw, q, q_date, language, Some(slug_path), None)
+                .search_in(raw, q, q_date, q_citation, language, Some(slug_path), None)
                 .into_iter(),
         )
     }
@@ -325,6 +351,7 @@ impl<'a> Searchable for Contents<'a> {
         raw: &str,
         q: &Regex,
         q_date: &Option<Date>,
+        q_citation: &BibleReference,
         language: Language,
         slug_path: Option<SlugPath>,
         path: Option<Vec<usize>>,
@@ -333,7 +360,7 @@ impl<'a> Searchable for Contents<'a> {
             Contents::Category { label, .. } => contents_match_on(label, raw, q, slug_path),
             Contents::Sections { label, .. } => contents_match_on(label, raw, q, slug_path),
             Contents::Document(document) => {
-                document.search_in(raw, q, q_date, language, slug_path, path)
+                document.search_in(raw, q, q_date, q_citation, language, slug_path, path)
             }
             Contents::ByVersion { label, .. } => contents_match_on(label, raw, q, slug_path),
             Contents::MultiDocument { label, .. } => contents_match_on(label, raw, q, slug_path),
@@ -368,6 +395,7 @@ impl Searchable for Document {
         raw: &str,
         q: &Regex,
         _q_date: &Option<Date>,
+        _q_citation: &BibleReference,
         _language: Language,
         slug_path: Option<SlugPath>,
         path: Option<Vec<usize>>,
@@ -414,6 +442,70 @@ impl Searchable for Document {
                     version: self.version,
                     label: label.into(),
                     citation: citation.into(),
+                    metadata: metadata.into(),
+                    text: text.into(),
+                },
+            })
+        } else {
+            None
+        }
+    }
+}
+
+impl Searchable for Psalm {
+    fn search_in(
+        &self,
+        raw: &str,
+        q: &Regex,
+        q_date: &Option<Date>,
+        q_citation: &BibleReference,
+        language: Language,
+        slug_path: Option<SlugPath>,
+        path: Option<Vec<usize>>,
+    ) -> Option<SearchResult> {
+        let mut has_match = false;
+        let mut cumulative_score = 0.0;
+
+        let number_raw = t!("daily_readings.psalm", number = &self.number.to_string());
+        let mut number = match_field!(q, raw, &number_raw, has_match, cumulative_score);
+        // if doesn't directly match number, try matching query parsed as Biblical citation
+        // against the psalm number
+        if let PossibleMatch::None(_) = number {
+            let filtered = self.filtered_sections();
+            if filtered
+                .iter()
+                .flat_map(|section| section.verses.iter())
+                .any(|verse| {
+                    q_citation.contains(BibleVerse {
+                        book: Book::Psalms,
+                        chapter: self.number.into(),
+                        verse: verse.number.into(),
+                        verse_part: BibleVersePart::All,
+                    })
+                })
+            {
+                has_match = true;
+                cumulative_score += 1.0;
+                number = PossibleMatch::Matched {
+                    original: &number_raw,
+                    score: 1.0,
+                    range: 0..number_raw.len(),
+                };
+            }
+        }
+
+        let metadata = self.as_metadata_text();
+        let metadata = match_field!(q, raw, &metadata, has_match, cumulative_score);
+
+        let text = self.as_text();
+        let text = match_field!(q, raw, &text, has_match, cumulative_score);
+
+        if has_match {
+            Some(SearchResult {
+                score: cumulative_score,
+                link: SearchResultLink::Psalm(self.number),
+                content: SearchResultContent::Psalm {
+                    number: number.into(),
                     metadata: metadata.into(),
                     text: text.into(),
                 },

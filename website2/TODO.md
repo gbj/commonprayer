@@ -10,12 +10,7 @@
 		-  Remaining pages
 			- [ ] Global search
 				- [x] Ignoring whitespace/punctuation in simple search
-				- [ ] Apply to other content types
-					- [ ] Holy Days
-						- [ ] collects
-					- [x] Table of Contents documents
-					- [ ] Psalms
-					- [ ] Fix weird highlighting offset
+				- [ ] Fix weird highlighting offset
 				- [ ] Fuzzy reading search
 					- [ ] Daily Office Lectionary
 					- [ ] Holy Days

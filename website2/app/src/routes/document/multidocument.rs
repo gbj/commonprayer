@@ -216,7 +216,7 @@ fn categories(locale: &str, tree: &CategoryTree, search: &str) -> Vec<Node> {
                             }).unwrap_or_default();
 
                             view! {
-                                <div>
+                                <div class="multidocument">
                                     {label}
                                     {docs_view}
                                 </div>

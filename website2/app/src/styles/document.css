@@ -654,6 +654,10 @@ l-choice-view input[type=radio]:checked+label+div {
   margin: -1px;
 }
 
+.multidocument .document {
+  margin-top: -1px;
+}
+
 .manual-select {
   display: block;
   float: right;
