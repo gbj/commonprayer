@@ -644,6 +644,7 @@ l-choice-view input[type=radio]:checked+label+div {
 
 .document:not(.selected) {
   margin: -1px;
+  margin-top: calc(1rem - 1px);
   padding: 1px;
 }
 
