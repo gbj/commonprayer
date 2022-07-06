@@ -3,11 +3,22 @@
 	- [ ] "Eccles." labeled as Ben Sira
 	- [ ] St. Mark readings + collect
 	- [ ] Irenaeus collect
+	- [ ] Doubled Peter & Paul collect
 - [ ] From Pages to Nested Routes
 	- [x] Re-architect components (compile separately without depending on app, so no server-side code tries to compile for WASM)
 	- [ ] Migrate website to this system
 		-  Remaining pages
-			- [ ] Settings
+			- [ ] Global search
+				- [x] Ignoring whitespace/punctuation in simple search
+				- [ ] Apply to other content types
+					- [ ] Holy Days
+						- [ ] collects
+					- [x] Table of Contents documents
+					- [ ] Psalms
+					- [ ] Fix weird highlighting offset
+				- [ ] Fuzzy reading search
+					- [ ] Daily Office Lectionary
+					- [ ] Holy Days
 			- [ ] Readings Page
 				- [ ] Ember Day readings
 				- [ ] Rogation Day readings
@@ -20,7 +31,6 @@
 				- [ ] Download links
 		- [ ] UI improvements
 			- [ ] Index Page cards
-- [ ] Global search
 - [ ] Themed pages (Pentecost, etc.)
 - [ ] Finish website2 and merge
 	- [ ] Nested document pages

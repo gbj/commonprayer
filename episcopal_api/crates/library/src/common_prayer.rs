@@ -112,6 +112,10 @@ impl Library for CommonPrayer {
                                     Contents::Document(&*bcp1979::office::NOONDAY_PRAYER),
                                 ),
                                 (
+                                    Slug::ServiceOfLight,
+                                    Contents::Document(&*bcp1979::office::AN_ORDER_OF_WORSHIP_FOR_EVENING),
+                                ),
+                                (
                                     Slug::EveningPrayer,
                                     Contents::ByVersion {
                                         label: "Evening Prayer".into(),

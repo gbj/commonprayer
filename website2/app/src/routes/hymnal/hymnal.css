@@ -2,15 +2,6 @@
 	text-align: center;
 }
 
-.search-state {
-	display: block;
-	margin: auto;
-	text-align: center;
-}
-
-.search-state.hidden {
-	visibility: hidden;
-}
 
 /* Hymn listings */
 .hymn-listing {
@@ -106,6 +97,7 @@
 }
 
 .tune {
+	text-transform: lowercase;
 	font-variant: small-caps;
 }
 

@@ -73,8 +73,8 @@ impl Element {
         self
     }
 
-    pub fn inner_html(mut self, html: String) -> Self {
-        self.inner_html = Some(html);
+    pub fn inner_html(mut self, html: impl std::fmt::Display) -> Self {
+        self.inner_html = Some(html.to_string());
         self
     }
 }

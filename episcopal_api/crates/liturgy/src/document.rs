@@ -101,8 +101,8 @@ impl Document {
     /// assert_eq!(paths[0], vec![0]);
     /// assert_eq!(paths[1], vec![1]);
     /// ```
-    pub fn flatten_with_path(&self) -> impl Iterator<Item = (Vec<usize>, &Document)> {
-        fn flatten_doc_with_path_starting_from_path(doc: &Document, starting_path: Vec<usize>) -> impl Iterator<Item = (Vec<usize>, &Document)>  {
+    pub fn flatten_with_path(&self, as_template: bool) -> impl Iterator<Item = (Vec<usize>, &Document)> {
+        fn flatten_doc_with_path_starting_from_path(doc: &Document, starting_path: Vec<usize>, as_template: bool) -> impl Iterator<Item = (Vec<usize>, &Document)>  {
             let children = match &doc.content {
                 Content::Liturgy(liturgy) => Some(liturgy.body.iter().collect::<Vec<_>>()),
                 Content::Series(series) => Some(series.iter().collect::<Vec<_>>()),
@@ -114,21 +114,27 @@ impl Document {
                 Box::new(
                     children
                         .into_iter()
+                        .filter(move |doc| doc.display != Show::CompiledOnly || !as_template)
                         .enumerate()
                         .flat_map({
                             move |(idx, child)| {
                                 let mut new_path = starting_path.clone();
                                 new_path.push(idx);
-                                flatten_doc_with_path_starting_from_path(child, new_path)
+                                flatten_doc_with_path_starting_from_path(child, new_path, as_template)
                             }
                         })
                 ) as Box<dyn Iterator<Item = (Vec<usize>, &Document)>>
+            } else if matches!(doc.content, Content::DocumentLink { .. } | Content::HymnLink(_) | Content::LectionaryReading(_)) {
+                Box::new(std::iter::empty()) as Box<dyn Iterator<Item = (Vec<usize>, &Document)>>
+            }
+            else if doc.display == Show::CompiledOnly && as_template {
+                Box::new(std::iter::empty()) as Box<dyn Iterator<Item = (Vec<usize>, &Document)>>
             } else {
                 Box::new(std::iter::once((starting_path, doc))) as Box<dyn Iterator<Item = (Vec<usize>, &Document)>>
             }
         }
 
-        flatten_doc_with_path_starting_from_path(self, Vec::new())
+        flatten_doc_with_path_starting_from_path(self, Vec::new(), as_template)
     }
 
     /// Builds a new Document from an iterator of Documents; either a [Choice] (if multiple Documents) or a single Document.
@@ -258,6 +264,14 @@ impl Document {
 				tags,
 			})
         }
+    }
+
+    pub fn as_text(&self) -> String {
+        self.content.as_text()
+    }
+
+    pub fn as_metadata_text(&self) -> String {
+        self.content.as_metadata_text()
     }
 
     #[must_use]
@@ -560,7 +574,6 @@ impl Document {
             Content::BiblicalCitation(c) => Some(c.citation.clone()),
             Content::BiblicalReading(c) => Some(c.citation.clone()),
             Content::Canticle(c) => Some(c.citation.clone().unwrap_or_else(|| format!("Canticle {}", c.number))),
-            Content::DocumentLink { label, path, rotate } => todo!(),
             Content::HymnLink(h) => match h {
                 HymnLink::Hymnal(hymnal) => Some(hymnal.to_string()),
                 HymnLink::Hymn(hymnal, number) => Some(format!("{} {}", hymnal, number)),
@@ -782,6 +795,47 @@ impl Content {
 
     pub fn is_leaf(&self) -> bool {
         !self.is_container()
+    }
+
+    pub fn as_text(&self) -> String {
+        match self {
+            Content::Error(c) => c.to_string(),
+            Content::Antiphon(c) => c.to_string(),
+            Content::BiblicalReading(c) => c.text.iter().map(|(_, text)| text).cloned().intersperse_with(|| String::from(" ")).collect(),
+            Content::Canticle(c) => c.sections.iter().flat_map(|section| section.verses.iter().flat_map(|verse| [&verse.a, &verse.b])).cloned().intersperse_with(|| String::from("\n")).collect(),
+            Content::GloriaPatri(c) => [&c.text.0, &c.text.1, &c.text.2, &c.text.3].iter().copied().cloned().intersperse_with(|| String::from(" ")).collect(),
+            Content::Heading(c) => match c {
+                Heading::Date(s) => s.clone(),
+                Heading::Day { name, .. } => name.clone(),
+                Heading::Text(_, s) => s.clone(),
+                _ => String::new()
+            },
+            Content::Invitatory(c) => c.sections.iter().flat_map(|section| section.verses.iter()).flat_map(|verse| [&verse.a, &verse.b]).cloned().intersperse_with(|| String::from("\n")).collect(),
+            Content::Litany(c) => c.lines.iter().intersperse(&c.response).cloned().intersperse_with(|| String::from("\n")).collect(),
+            Content::Preces(c) => c.iter().flat_map(|(v, r)| [v, r]).cloned().intersperse_with(|| String::from(" ")).collect(),
+            Content::Psalm(c) => c.sections.iter().flat_map(|section| section.verses.iter()).flat_map(|verse| [&verse.a, &verse.b]).cloned().intersperse_with(|| String::from("\n")).collect(),
+            Content::ResponsivePrayer(c) => c.iter().cloned().intersperse_with(|| String::from("\n")).collect(),
+            Content::Rubric(c) => c.to_string(),
+            Content::Sentence(c) => c.text.clone(),
+            Content::Text(c) => c.to_string(),
+            _ => String::new()
+        }
+    }
+
+    pub fn as_metadata_text(&self) -> String {
+        match self {
+            Content::BiblicalCitation(c) => c.to_string(),
+            Content::BiblicalReading(c) => [Some(c.citation.clone()), Some(String::from(" ")), c.intro.clone().map(|n| n.as_document().as_text())].iter().flatten().cloned().collect(),
+            Content::Canticle(c) => [Some(format!("Canticle {}", c.number)), Some(String::from(" ")), c.citation.clone(), Some(String::from(" ")), Some(c.local_name.clone()), Some(String::from(" ")), c.latin_name.clone(), Some(String::from(" ")), c.rubric.clone()].iter().chain(c.sections.iter().map(|section| &section.title)).flatten().cloned().collect(),
+            Content::Invitatory(c) => [c.citation.clone(), Some(String::from(" ")), Some(c.local_name.clone()), Some(String::from(" ")), c.latin_name.clone(), Some(String::from(" ")), match &c.antiphon {
+                SeasonalAntiphon::Antiphon(a) => Some(a.to_string()),
+                _ => None
+            }].iter().flatten().cloned().collect(),
+            Content::Psalm(c) => [Some(format!("Psalm {}", c.number)), Some(String::from(" ")), c.citation.clone()].iter().flatten().chain(c.sections.iter().flat_map(|section| [&section.local_name, &section.latin_name])).cloned().collect(),
+            Content::PsalmCitation(c) => c.to_string(),
+            Content::Sentence(c) => [c.citation.clone(), Some(String::from(" ")), c.response.clone().map(|r| r.as_text())].iter().flatten().cloned().collect(),
+            _ => String::new()
+        }
     }
 }
 

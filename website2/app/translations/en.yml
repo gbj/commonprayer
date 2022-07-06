@@ -370,7 +370,7 @@ en:
     InvitatoryAntiphons: Invitatory Antiphons
     ClosingSentences: Closing Sentences
     Canticle: Canticle
-    GreatLitany: GreatLitany
+    GreatLitany: The Great Litany
     Collects: Collects
     Baptism: Baptism
     Eucharist: Eucharist
@@ -418,3 +418,14 @@ en:
     bell_error: Error while trying to play audio.
     interval_error: Error while trying to set timer.
     no_script: The Meditation Timer cannot run if JavaScript is disabled.
+
+  search_page:
+    enter_query: Enter a query in the search bar above to search the Common Prayer library.
+    no_results: No results were found for your query.
+    results_singular: Found 1 result.
+    results_plural: Found %{number} results.
+    hymn: Hymn
+    holy_day: Holy Day
+    document: Document
+    category: Category
+    fragment: (liturgical text)

@@ -53,10 +53,7 @@ impl Loader for HymnalView {
             }
         };
 
-        let search = query
-            .q
-            .and_then(|q| urlencoding::decode(&q).ok().map(|n| n.replace('+', " ")))
-            .unwrap_or_default();
+        let search = query.q.unwrap_or_default();
 
         Some(match params.hymnal {
             None => HymnalView {

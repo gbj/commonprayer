@@ -9,7 +9,7 @@ type CategoryTree<'a> = Vec<(
     Option<&'a String>,
     Vec<(
         Option<&'a String>,
-        Vec<(Option<&'a String>, Vec<&'a Document>)>,
+        Vec<(Option<&'a String>, Vec<(usize, &'a Document)>)>,
     )>,
 )>;
 
@@ -22,21 +22,22 @@ pub fn multidocument_body(
 ) -> Vec<Node> {
     let tree: CategoryTree = docs
         .iter()
-        .group_by(|doc| doc.tags.get(0))
+        .enumerate()
+        .group_by(|(_, doc)| doc.tags.get(0))
         .into_iter()
         .map(|(category, docs_with_category)| {
             (
                 category,
                 docs_with_category
                     .into_iter()
-                    .group_by(|doc| doc.tags.get(1))
+                    .group_by(|(_, doc)| doc.tags.get(1))
                     .into_iter()
                     .map(|(subcategory, docs_with_subcategory)| {
                         (
                             subcategory,
                             docs_with_subcategory
                                 .into_iter()
-                                .group_by(|doc| doc.label.as_ref())
+                                .group_by(|(_, doc)| doc.label.as_ref())
                                 .into_iter()
                                 .map(|(label, docs_with_label)| {
                                     (label, docs_with_label.into_iter().collect::<Vec<_>>())
@@ -79,7 +80,7 @@ fn links(tree: &CategoryTree, search: &str) -> Node {
                                         docs_with_subcategory
                                             .iter()
                                             .map(|(label, docs)| {
-                                                let hidden = !search.is_empty() && !docs.iter().any(|doc| doc.contains_case_insensitive(&search));
+                                                let hidden = !search.is_empty() && !docs.iter().any(|(_, doc)| doc.contains_case_insensitive(&search));
 
                                                 view! {
                                                     <li class:hidden={hidden}>
@@ -95,7 +96,7 @@ fn links(tree: &CategoryTree, search: &str) -> Node {
                                     let docs = docs_with_subcategory.iter()
                                         .flat_map(|(_, docs)| docs.iter())
                                         .map(|doc| (*doc).clone()).collect::<Vec<_>>();
-                                    let hidden = !search.is_empty() && !docs.iter().any(|doc| doc.contains_case_insensitive(&search));
+                                    let hidden = !search.is_empty() && !docs.iter().any(|(_, doc)| doc.contains_case_insensitive(&search));
 
                                     view! {
                                         <li class:hidden={hidden}>
@@ -112,7 +113,7 @@ fn links(tree: &CategoryTree, search: &str) -> Node {
                     let docs = docs_with_category.iter()
                         .flat_map(|(_, docs)| docs.iter().flat_map(|(_, docs)| docs.iter()))
                         .map(|doc| (*doc).clone()).collect::<Vec<_>>();
-                    let hidden = !search.is_empty() && !docs.iter().any(|doc| doc.contains_case_insensitive(&search));
+                    let hidden = !search.is_empty() && !docs.iter().any(|(_, doc)| doc.contains_case_insensitive(&search));
 
                     view! {
                         <li class:hidden={hidden}>
@@ -143,7 +144,7 @@ fn categories(locale: &str, tree: &CategoryTree, search: &str) -> Vec<Node> {
             let hidden = !search.is_empty()
                 && !docs
                     .iter()
-                    .any(|doc| doc.contains_case_insensitive(&search));
+                    .any(|(_, doc)| doc.contains_case_insensitive(&search));
 
             let subcategories = subcategories
                 .iter()
@@ -156,17 +157,17 @@ fn categories(locale: &str, tree: &CategoryTree, search: &str) -> Vec<Node> {
                     let hidden = !search.is_empty()
                         && !docs
                             .iter()
-                            .any(|doc| doc.contains_case_insensitive(&search));
+                            .any(|(_, doc)| doc.contains_case_insensitive(&search));
 
                     let labels = docs_with_subcategory
                         .iter()
                         .map(|(label, docs_with_label)| {
-                            let docs = docs_with_label.iter().cloned().cloned().collect::<Vec<_>>();
-                            let subtitle = docs.get(0).and_then(|doc| doc.subtitle.clone());
+                            let docs = docs_with_label.iter().collect::<Vec<_>>();
+                            let subtitle = docs.get(0).and_then(|(_, doc)| doc.subtitle.clone());
 
                             let docs_view = docs
                                 .iter()
-                                .map(|doc| {
+                                .map(|(doc_idx, doc)| {
                                     let hidden = !search.is_empty()
                                         && !doc.contains_case_insensitive(&search);
 
@@ -181,7 +182,7 @@ fn categories(locale: &str, tree: &CategoryTree, search: &str) -> Vec<Node> {
                                     .view(locale);
 
                                     view! {
-                                        <article class="document" class:hidden={hidden}>
+                                        <article class="document" class:hidden={hidden} id={doc_idx}>
                                             {doc}
                                         </article>
                                     }
@@ -192,7 +193,7 @@ fn categories(locale: &str, tree: &CategoryTree, search: &str) -> Vec<Node> {
                                 let hidden = !label.contains(&search.to_lowercase())
                                     && !docs
                                         .iter()
-                                        .any(|doc| doc.contains_case_insensitive(&search));
+                                        .any(|(_, doc)| doc.contains_case_insensitive(&search));
 
                                 if let Some(subtitle) = subtitle {
                                     view! {

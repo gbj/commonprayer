@@ -247,7 +247,7 @@ impl Index {
                                 <div id="firebase-auth" slot="content"></div>
                             </Modal>
                         </li>
-                        <form action="search">
+                        <form action={format!("/{}/search", locale)}>
                             <input class="main-search" type="search" name="q" placeholder={t!("search")}/>
                             <noscript><input type="submit" value={t!("search")}/></noscript>
                         </form>

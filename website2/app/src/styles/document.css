@@ -28,6 +28,10 @@
   font-variant: small-caps;
 }
 
+.document {
+  scroll-margin-top: 3.5rem;
+}
+
 /** Document Header (label, citation, etc.) */
 .document h3,
 .document h4 {

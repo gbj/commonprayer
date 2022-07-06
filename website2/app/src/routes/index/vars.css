@@ -18,6 +18,8 @@
 	--color-success: #54863f;
 	--color-error-background: #fbc6c2;
 	--color-error: #db3c30;
+	--search-match-color: #ffff90;
+	--search-match-border: #ffff00;
 
 	/* Navigation menu settings */
 	--nav-button-height: 1.5rem;

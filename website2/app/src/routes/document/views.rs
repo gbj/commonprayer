@@ -175,8 +175,15 @@ impl<'a> WebView for DocumentView<'a> {
                };
         */
 
+        let path = self
+            .path
+            .iter()
+            .map(|n| n.to_string())
+            .intersperse_with(|| String::from("-"))
+            .collect::<String>();
+
         view! {
-            <article class={document_class(&self.doc)} data-path={self.path.iter().map(|n| n.to_string()).intersperse_with(|| String::from("-")).collect::<String>()}>
+            <article class={document_class(&self.doc)} data-path={&path} id={&path}>
                 // TODO selection {checkbox}
                 {label}
                 {header}
