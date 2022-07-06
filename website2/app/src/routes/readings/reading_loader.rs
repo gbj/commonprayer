@@ -181,6 +181,14 @@ impl ReadingLoader {
     }
 
     pub fn view(self, locale: &str, path: Vec<usize>) -> Vec<Node> {
+        self.view_config(locale, path, true)
+    }
+
+    pub fn view_without_header(self, locale: &str, path: Vec<usize>) -> Vec<Node> {
+        self.view_config(locale, path, false)
+    }
+
+    fn view_config(self, locale: &str, path: Vec<usize>, with_header: bool) -> Vec<Node> {
         match self {
             ReadingLoader::Sync(reading) => {
                 let (header, main) = biblical_reading(locale, path, &reading);
@@ -212,14 +220,18 @@ impl ReadingLoader {
                     })),
                 });
 
-                view! {
-                    <>
-                        <a id={&citation}></a>
-                        <article class="document">
-                            <header><h3 class="citation">{&citation}</h3></header>
-                            <main>{reading}</main>
-                        </article>
-                    </>
+                if with_header {
+                    view! {
+                        <>
+                            <a id={&citation}></a>
+                            <article class="document">
+                                <header><h3 class="citation">{&citation}</h3></header>
+                                <main>{reading}</main>
+                            </article>
+                        </>
+                    }
+                } else {
+                    vec![reading]
                 }
             }
         }

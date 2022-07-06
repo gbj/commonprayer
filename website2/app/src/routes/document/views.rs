@@ -4,6 +4,7 @@ use futures::Future;
 use liturgy::*;
 
 use crate::components::Tabs;
+use crate::routes::readings::reading_loader::ReadingLoader;
 use crate::utils::fetch::FetchError;
 use crate::WebView;
 use itertools::Itertools;
@@ -237,24 +238,11 @@ pub fn biblical_citation(
         <h3 class="citation">{&citation.citation}</h3>
     };
 
-    let intro = citation.intro.as_ref().map(|intro| {
-        view! {
-            <section class="reading-intro">
-                {DocumentView { doc: intro.as_document(), path: path.clone() }.view(locale)}
-            </section>
-        }
-    });
+    let loader = ReadingLoader::new(&citation.citation, version, citation.intro.clone());
 
     let main = view! {
         <main class="biblical-reading">
-            {intro}
-            <p>"TODO"</p>
-            /* <BiblicalCitationLoader
-                locale={locale}
-                prop:citation={citation.clone()}
-                version={version}
-                prop:path={path.clone()}
-            /> */
+            {loader.view_without_header(locale, path)}
         </main>
     };
 
