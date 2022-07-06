@@ -1,16 +1,10 @@
-use std::pin::Pin;
-
-use futures::Future;
 use liturgy::*;
 
 use crate::components::Tabs;
 use crate::routes::readings::reading_loader::ReadingLoader;
-use crate::utils::fetch::FetchError;
 use crate::WebView;
 use itertools::Itertools;
 use leptos2::*;
-
-pub type DocumentFuture = Pin<Box<dyn Future<Output = Result<Document, FetchError>>>>;
 
 pub struct DocumentView<'a> {
     pub doc: &'a Document,
@@ -183,10 +177,19 @@ impl<'a> WebView for DocumentView<'a> {
             .intersperse_with(|| String::from("-"))
             .collect::<String>();
 
+        let header = match (&label, &header) {
+            (None, None) => None,
+            _ => Some(view! {
+                <header>
+                    {label}
+                    {header}
+                </header>
+            }),
+        };
+
         view! {
-            <article class={document_class(&self.doc)} data-path={&path} id={&path}>
+            <article class={document_class(self.doc)} data-path={&path} id={&path}>
                 // TODO selection {checkbox}
-                {label}
                 {header}
                 {main}
             </article>
@@ -739,50 +742,6 @@ pub fn choice(locale: &str, mut path: Vec<usize>, choice: &Choice) -> HeaderAndM
                 </Tabs>
             },
         )
-    }
-}
-
-pub fn choice_async(
-    locale: &str,
-    mut path: Vec<usize>,
-    choice: &Choice,
-    async_options: impl IntoIterator<Item = DocumentFuture>,
-) -> Node {
-    let input_name = path
-        .iter()
-        .map(|idx| idx.to_string())
-        .intersperse_with(|| String::from("-"))
-        .collect::<String>();
-
-    let labels = choice
-        .options
-        .iter()
-        .enumerate()
-        .map(|(idx, doc)| choice.option_label(doc, idx))
-        .collect::<Vec<_>>();
-
-    let children = async_options.into_iter().enumerate().map(|(idx, doc)| {
-        let mut path = path.clone();
-        let locale = locale.to_string();
-        path.push(idx);
-        Node::AsyncElement(AsyncElement {
-            pending: Box::new(view! { <p>{t!("loading")}</p> }),
-            ready: Some(Box::pin(async move {
-                let doc = doc
-                    .await
-                    .unwrap_or_else(|e| Document::from(DocumentError::from(e.to_string())));
-                DocumentView { doc: &doc, path }.view(&locale)
-            })),
-        })
-    });
-
-    view! {
-        <Tabs
-            data-id={&input_name}
-            prop:labels={labels.clone()}
-        >
-            {Tabs::content(children)}
-        </Tabs>
     }
 }
 
