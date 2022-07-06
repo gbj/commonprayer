@@ -1015,7 +1015,7 @@ lazy_static! {
                 Text::from("God of all truth and peace, who raised up your bishop John to be servant of the servants of God and bestowed on him wisdom to call for the work of renewing your church: Grant that, following his example, we may reach out to other Christians in the love of your Son, and labor throughout the nations of the world to kindle a desire for justice and peace; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
                     .response("Amen.")
                 )
-                .label("John Xxiii (Angelo Giuseppe Roncalli)")
+                .label("John XXIII (Angelo Giuseppe Roncalli)")
                 .source(Reference {
                     source: Source::LFF2018,
                     page: 0
@@ -5788,7 +5788,7 @@ lazy_static! {
                 Text::from("God of all truth and peace, who didst raise up thy bishop John to be servant of the servants of God and bestowed on him wisdom to call for the work of renewing thy church: Grant that, following his example, we may reach out to other Christians in the love of thy Son, and labor throughout the nations of the world to kindle a desire for justice and peace; through Jesus Christ our Lord, who livest and reignest with thee and the Holy Ghost, one God, now and for ever.")
                     .response("Amen.")
                 )
-                .label("John Xxiii (Angelo Giuseppe Roncalli)")
+                .label("John XXIII (Angelo Giuseppe Roncalli)")
                 .source(Reference {
                     source: Source::LFF2018,
                     page: 0
