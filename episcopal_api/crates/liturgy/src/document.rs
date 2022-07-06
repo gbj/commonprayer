@@ -813,7 +813,10 @@ impl Content {
             Content::Invitatory(c) => c.sections.iter().flat_map(|section| section.verses.iter()).flat_map(|verse| [&verse.a, &verse.b]).cloned().intersperse_with(|| String::from("\n")).collect(),
             Content::Litany(c) => c.lines.iter().intersperse(&c.response).cloned().intersperse_with(|| String::from("\n")).collect(),
             Content::Preces(c) => c.iter().flat_map(|(v, r)| [v, r]).cloned().intersperse_with(|| String::from(" ")).collect(),
-            Content::Psalm(c) => c.sections.iter().flat_map(|section| section.verses.iter()).flat_map(|verse| [&verse.a, &verse.b]).cloned().intersperse_with(|| String::from("\n")).collect(),
+            Content::Psalm(c) => {
+                let filtered = c.filtered_sections();
+                filtered.iter().flat_map(|section| section.verses.iter()).flat_map(|verse| [&verse.a, &verse.b]).cloned().intersperse_with(|| String::from("\n")).collect()
+            }
             Content::ResponsivePrayer(c) => c.iter().cloned().intersperse_with(|| String::from("\n")).collect(),
             Content::Rubric(c) => c.to_string(),
             Content::Sentence(c) => c.text.clone(),
@@ -831,7 +834,10 @@ impl Content {
                 SeasonalAntiphon::Antiphon(a) => Some(a.to_string()),
                 _ => None
             }].iter().flatten().cloned().collect(),
-            Content::Psalm(c) => [Some(format!("Psalm {}", c.number)), Some(String::from(" ")), c.citation.clone()].iter().flatten().chain(c.sections.iter().flat_map(|section| [&section.local_name, &section.latin_name])).cloned().collect(),
+            Content::Psalm(c) => {
+                let filtered = c.filtered_sections();
+                [Some(format!("Psalm {}", c.number)), Some(String::from(" ")), c.citation.clone()].iter().flatten().chain(filtered.iter().flat_map(|section| [&section.local_name, &section.latin_name])).cloned().collect()
+            },
             Content::PsalmCitation(c) => c.to_string(),
             Content::Sentence(c) => [c.citation.clone(), Some(String::from(" ")), c.response.clone().map(|r| r.as_text())].iter().flatten().cloned().collect(),
             _ => String::new()
