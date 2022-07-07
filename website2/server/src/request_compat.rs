@@ -20,7 +20,7 @@ impl leptos2::Request for RequestCompat {
         let actix_map = self.0.headers();
         let mut map = leptos2::http::HeaderMap::new();
         for (key, val) in actix_map.into_iter() {
-            map.insert(key, val.clone());
+            map.append(key, val.clone());
         }
         map
     }
