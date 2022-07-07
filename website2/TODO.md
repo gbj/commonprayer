@@ -18,9 +18,7 @@
 				- [ ] Ember Day readings
 				- [ ] Rogation Day readings
 				- [ ] export readings to Word doc
-			- [ ] Psalter
 			- [ ] Document page
-				- [ ] use ReadingLoader for BiblicalCitations (so, load from Bible API on server for Daily Readings/Lectionary + stream)
 				- [ ] Parallels
 				- [ ] Test links between page
 				- [ ] Download links

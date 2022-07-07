@@ -1,0 +1,5 @@
+input[type=number] {
+	display: block;
+	margin: auto;
+	max-width: 5rem;
+}

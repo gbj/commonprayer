@@ -295,7 +295,7 @@ impl Index {
                             </ul>
                         </li>
                         <li>
-                            {nav_link(path, locale, "/psalter", t!("menu.psalter"))}
+                            {nav_link(path, locale, "/psalm", t!("menu.psalter"))}
                         </li>
                         <li>
                             {nav_link(path, locale, "/hymnal", t!("menu.hymnal"))}

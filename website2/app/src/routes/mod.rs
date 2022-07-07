@@ -8,6 +8,7 @@ mod hymn;
 mod hymnal;
 pub mod index;
 pub mod meditation;
+pub mod psalm;
 pub mod readings;
 pub mod search;
 pub mod settings;
@@ -28,6 +29,7 @@ use self::{
     },
     hymnal::{hymnal_page::HymnalPageView, HymnalView},
     meditation::MeditationView,
+    psalm::PsalmView,
     readings::{eucharist::EucharistView, ReadingsView},
     readings::{holy_day::HolyDayView, office::OfficeView},
     search::SearchView,
@@ -66,6 +68,7 @@ pub fn router() -> Router<Index> {
             // the fact it's a child route is just for show, basically
             // to nest the route with .child() would mean injecting the page viewer into the hymnal search page -- not what we want
             .child(Route::<HymnalPageView>::new("hymnal/:hymnal/page"))
+            .child(Route::<PsalmView>::new("psalm"))
             .child(Route::<SearchView>::new("search"))
             .child(
                 Route::<SettingsView>::new("settings")

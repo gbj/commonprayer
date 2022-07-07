@@ -430,3 +430,10 @@ en:
     category: Category
     psalm: Psalm
     fragment: (liturgical text)
+
+  psalm:
+    psalm: Psalm
+    prev: Previous
+    next: Next
+    en: English (BCP 1979)
+    es: Spanish (LOC 1979)
