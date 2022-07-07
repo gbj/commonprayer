@@ -116,4 +116,35 @@ impl<'a> View for PsalmView<'a> {
             </div>
         }
     }
+
+    fn error_boundary(error: RouterError) -> Body
+    where
+        Self: Sized,
+    {
+        view! {
+            <div>
+                <style>
+                    {include_str!("../../styles/toggle-fieldset.css")}
+                    {include_str!("psalm.css")}
+                </style>
+                <header><h1>{t!("psalm.psalm")}</h1></header>
+                <main class="error">
+                    <form>
+                        <label class="stacked">
+                            {t!("psalm.psalm")}
+                            <input type="number" min="1" max="150" name="number" value={1} onchange="this.form.submit()"/>
+                        </label>
+                        <fieldset class="toggle">
+                            <input id="bcp" type="radio" name="version" value="BCP1979" checked={true} onchange="this.form.submit()"/>
+                            <label for="bcp">{t!("psalm.en")}</label>
+                            <input id="loc" type="radio" name="version" value="LibroDeOracionComun" onchange="this.form.submit()"/>
+                            <label for="loc">{t!("psalm.es")}</label>
+                        </fieldset>
+                        <noscript><input type="submit" value={t!("lectionary.go")}/></noscript>
+                    </form>
+                    <p class="error-message">{t!("psalm.error")}</p>
+                </main>
+            </div>
+        }
+    }
 }

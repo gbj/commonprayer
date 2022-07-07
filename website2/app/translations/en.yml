@@ -437,3 +437,4 @@ en:
     next: Next
     en: English (BCP 1979)
     es: Spanish (LOC 1979)
+    error: Something went wrong while trying to load the psalm. Please try to choose a psalm again using the menu.

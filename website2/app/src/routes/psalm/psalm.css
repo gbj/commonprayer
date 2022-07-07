@@ -3,3 +3,7 @@ input[type=number] {
 	margin: auto;
 	max-width: 5rem;
 }
+
+.error-message {
+	text-align: center;
+}
