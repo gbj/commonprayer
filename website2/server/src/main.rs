@@ -55,12 +55,12 @@ async fn main() -> std::io::Result<()> {
     // load TLS keys
     // to create a self-signed temporary cert for testing:
     // `openssl req -x509 -newkey rsa:4096 -nodes -keyout key.pem -out cert.pem -days 365 -subj '/CN=localhost'`
-    let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
-    builder
-        .set_private_key_file("key.pem", SslFiletype::PEM)
-        .unwrap();
-    builder.set_certificate_chain_file("cert.pem").unwrap();
-
+    /*     let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+       builder
+           .set_private_key_file("key.pem", SslFiletype::PEM)
+           .unwrap();
+       builder.set_certificate_chain_file("cert.pem").unwrap();
+    */
     // connect to database
     let database_url = std::env::var("DATABASE_URL")
         .unwrap_or_else(|_| "postgres://postgres@localhost".to_string());
@@ -85,6 +85,7 @@ async fn main() -> std::io::Result<()> {
                 .wrap(Cors::permissive())
                 .app_data(web::FormConfig::default().limit(256 * 1024)) // increase max form size for DOCX export
                 .app_data(web::Data::new(pool.clone()))
+                .service(health_check)
                 //.service(daily_summary)
                 .service(export_docx)
                 //.service(canticle_list_api)
@@ -155,7 +156,8 @@ async fn main() -> std::io::Result<()> {
                 ))
         }
     })
-    .bind_openssl(&format!("{}:{}", host, port), builder)?
+    .bind(&format!("{}:{}", host, port))?
+    //.bind_openssl(&format!("{}:{}", host, port), builder)?
     .run()
     .await
 }
@@ -190,6 +192,11 @@ fn styles(styles: &Styles) -> String {
 
 fn links(links: &[Node]) -> String {
     links.iter().map(|link| link.to_string()).collect()
+}
+
+#[get("/api/healthcheck")]
+async fn health_check() -> HttpResponse {
+    HttpResponse::Ok().finish()
 }
 
 // Word Cloud API Generator
