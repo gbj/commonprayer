@@ -1,41 +1,46 @@
 - [ ] Bugs
+	- [ ] Fix width of tab buttons
+	- [ ] Properly rotate opening sentences
 	- [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
 	- [ ] "Eccles." labeled as Ben Sira
 	- [ ] St. Mark readings + collect
 	- [ ] Irenaeus collect
 	- [ ] Doubled Peter & Paul collect
-- [ ] From Pages to Nested Routes
-	- [x] Re-architect components (compile separately without depending on app, so no server-side code tries to compile for WASM)
-	- [ ] Migrate website to this system
-		-  Remaining pages
-			- [ ] Global search
-				- [x] Ignoring whitespace/punctuation in simple search
-				- [ ] Fix weird highlighting offset
-				- [ ] Fuzzy reading search
-					- [ ] Daily Office Lectionary
-					- [ ] Holy Days
-			- [ ] Readings Page
-				- [ ] Ember Day readings
-				- [ ] Rogation Day readings
-				- [ ] export readings to Word doc
-			- [ ] Document page
-				- [ ] Parallels
-				- [ ] Test links between page
-				- [ ] Download links
-		- [ ] UI improvements
-			- [ ] Index Page cards
+	- [ ] Fix weird highlighting offset in search
+	- [ ] Readings page
+		- [ ] Ember Day readings
+		- [ ] Rogation Day readings
+
+- Deployment
+	- [ ] Test DB
+	- [ ] SSL
+
+- [ ] Readings Page
+	- [ ] export readings to Word doc
+		- [ ] include display settings (Psalm verse number/Bible verse number)
+		- [ ] fix Unicode of quotation marks (when converted from HTML entities from NRSV but not ESV)
+	- [ ] Eucharist DOCX
+		- [ ] check if has first reading and move psalm to after epistle if necessary
+	- [ ] Holy Day DOCX
+	- [ ] Office readings: sequential rather than tabbed readings
+- [ ] Document page
+	- [ ] Download links
+	- [ ] Test links between page
+	- [ ] Parallel exports
+- [ ] UI improvements
+	- [ ] Index Page cards
 - [ ] Themed pages (Pentecost, etc.)
 - [ ] Finish website2 and merge
 	- [ ] Nested document pages
-	- [ ] Settings page
-		- [ ] Ultimately, build a better/server-side/authenticated + reactive preferences approach
-		- [ ] Then make default versions + settings for readings page better
 - Initial public release
 - [ ] Integration tests
 - [ ] Features
 	- [ ] Calendar ICS links
+	- [ ] Fuzzy reading search
+		- [ ] Daily Office Lectionary
+		- [ ] Holy Days
+	- [ ] Speech rendering
+		- [ ] Declarative SpeechSynthesis web component
 - [ ] Better way of doing relative links within nested views so I don't need to rebuild whole URLs with locale etc.
 - [ ] Progressive enhancement
 	- [ ] Client side route replacement
-- [ ] Speech rendering
-	- [ ] Declarative SpeechSynthesis web component

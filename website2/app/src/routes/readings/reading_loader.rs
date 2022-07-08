@@ -9,6 +9,7 @@ use serde::{Deserialize, Serialize};
 use reqwest::Client;
 
 use crate::routes::document::views::biblical_reading;
+use crate::utils::fetch::Fetch;
 use crate::utils::{encode_uri, fetch::FetchError};
 
 #[cfg(target_arch = "wasm32")]
@@ -97,6 +98,16 @@ pub enum ReadingLoader {
         citation: String,
         reading: ReadingFuture,
     },
+}
+
+impl ReadingLoader {
+    pub fn into_future(self) -> Pin<Box<dyn Future<Output = Result<BiblicalReading, FetchError>>>> {
+        match self {
+            ReadingLoader::Sync(reading) => Box::pin(async { Ok(reading) })
+                as Pin<Box<dyn Future<Output = Result<BiblicalReading, FetchError>>>>,
+            ReadingLoader::Async { reading, .. } => Box::pin(async { reading.await }),
+        }
+    }
 }
 
 impl std::fmt::Debug for ReadingLoader {

@@ -1,14 +1,20 @@
+use std::fs::File;
+use std::path::PathBuf;
+
 use api::summary::ObservanceSummary;
 use calendar::Date;
+use docx::DocxDocument;
+use futures::future::join_all;
 use itertools::Itertools;
 use language::Language;
 use lectionary::Reading;
 use leptos2::*;
 use library::CommonPrayer;
-use liturgy::{Psalm, Version};
+use liturgy::{Content, Document, DocumentError, Heading, HeadingLevel, Psalm, Series, Version};
 
 use crate::{routes::document::views::DocumentView, utils::time::today, WebView};
 
+use super::export_docx::{add_readings, docx_response};
 use super::reading_loader::ReadingLoader;
 use super::views::*;
 
@@ -173,6 +179,47 @@ impl Loader for OfficeView {
             },
             readings,
         })
+    }
+
+    // POST to download Word doc
+    async fn action(
+        locale: &str,
+        req: Arc<dyn Request>,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> ActionResponse {
+        let data = Self::loader(locale, req, params, query).await;
+        if let Some(data) = data {
+            let docx = DocxDocument::new();
+
+            // Title
+            let docx = docx.add_content(&Document::from(Heading::from((
+                HeadingLevel::Heading1,
+                data.date.to_localized_name(Language::from_locale(locale)),
+            ))));
+
+            // Collect
+            let docx = if let Some(collects) = data.summary.collects {
+                docx.add_content(&Document::from(Heading::from((
+                    HeadingLevel::Heading2,
+                    t!("lookup.collect_of_the_day"),
+                ))))
+                .add_content(&collects)
+            } else {
+                docx
+            };
+
+            // Psalms & Readings
+            let docx = docx.add_content(&Document::from(Series::from(data.psalms)));
+            let docx = add_readings(docx, data.readings).await;
+
+            match docx_response(data.date, docx) {
+                Ok(path) => ActionResponse::from_path(path),
+                Err(e) => ActionResponse::from_error(e),
+            }
+        } else {
+            ActionResponse::None
+        }
     }
 }
 
@@ -342,7 +389,7 @@ impl OfficeView {
     }
 }
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Serialize)]
 pub struct ReadingLinks {
     morning_psalms: Vec<String>,
     evening_psalms: Vec<String>,

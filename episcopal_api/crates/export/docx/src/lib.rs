@@ -48,6 +48,34 @@ impl From<Document> for DocxDocument {
     }
 }
 
+impl DocxDocument {
+    pub fn new() -> Self {
+        Self(
+            Docx::new()
+                .inject_styles()
+                .page_size(17 * HALF_INCH, 11 * ONE_INCH)
+                .page_margin(
+                    PageMargin::new()
+                        .top(ONE_INCH.try_into().unwrap())
+                        .left(ONE_INCH.try_into().unwrap())
+                        .bottom(ONE_INCH.try_into().unwrap())
+                        .right(ONE_INCH.try_into().unwrap()),
+                ),
+        )
+    }
+
+    #[must_use]
+    pub fn add_content(self, doc: &Document) -> Self {
+        Self(add_content(self.0, doc))
+    }
+}
+
+impl Default for DocxDocument {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 fn add_content(docx: Docx, doc: &Document) -> Docx {
     match &doc.content {
         Content::Liturgy(liturgy) => liturgy.body.iter().fold(docx, add_content),

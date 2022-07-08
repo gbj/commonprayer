@@ -115,11 +115,15 @@ async fn main() -> std::io::Result<()> {
                         .service(Files::new("", &format!("{}/app/static", *PROJECT_ROOT))),
                 )
                 .default_service(web::route().to(
-                    async move |req: HttpRequest,
+                    async move |req_raw: HttpRequest,
                                 body: web::Bytes,
                                 multipart: actix_multipart::Multipart,
                                 db: web::Data<Pool<Postgres>>| {
-                        let req = RequestCompat::new(req, body.as_ref().to_vec(), db.into_inner());
+                        let req = RequestCompat::new(
+                            req_raw.clone(),
+                            body.as_ref().to_vec(),
+                            db.into_inner(),
+                        );
                         let req = Arc::new(req) as Arc<dyn Request>;
                         if req.method() == http::Method::POST {
                             let res = ROUTER.post(&req).await;
@@ -132,6 +136,11 @@ async fn main() -> std::io::Result<()> {
                                 ActionResponse::Error(e) => {
                                     HttpResponse::InternalServerError().body(e.to_string())
                                 }
+                                ActionResponse::File(path) => NamedFile::open(path)
+                                    .map(|file| file.into_response(&req_raw))
+                                    .unwrap_or_else(|e| {
+                                        HttpResponse::InternalServerError().body(e.to_string())
+                                    }),
                             }
                         } else {
                             let routed = ROUTER.get(&req).await;

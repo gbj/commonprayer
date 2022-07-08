@@ -1,4 +1,5 @@
 pub mod eucharist;
+mod export_docx;
 pub mod holy_day;
 pub mod office;
 pub mod reading_loader;
@@ -10,6 +11,7 @@ use leptos2::*;
 use liturgy::Version;
 
 use crate::utils::time::today;
+use crate::Icon;
 
 use self::views::bible_version_select_options;
 use super::settings::{DisplaySettings, Settings};
@@ -85,7 +87,17 @@ impl View for ReadingsView {
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         view! {
             <div class={self.display_settings.to_class()}>
-                <header><h1>{t!("toc.readings")}</h1></header>
+                <header>
+                    <div></div>
+                    <h1>{t!("toc.readings")}</h1>
+
+                    // POST to download DOCX
+                    <form method="POST">
+                        <button type="submit">
+                            <img src={Icon::Download.to_string()} alt={t!("export.word")}/>
+                        </button>
+                    </form>
+                </header>
                 <main>
                     <form>
                         <fieldset class="horizontal">

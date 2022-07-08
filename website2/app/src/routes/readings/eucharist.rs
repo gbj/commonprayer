@@ -1,16 +1,27 @@
-use crate::{components::Tabs, utils::encode_uri};
+use crate::{
+    components::Tabs,
+    utils::{encode_uri, fetch::FetchError},
+};
 use api::summary::{DocumentOrReading, EucharisticObservanceSummary, TrackedReadings};
 use calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId};
+use docx::DocxDocument;
+use futures::{future::join_all, Future};
 use itertools::Itertools;
 use language::Language;
 use leptos2::*;
 use library::CommonPrayer;
-use liturgy::{Content, Document, Version};
-use std::str::FromStr;
+use liturgy::{
+    Choice, Content, Document, DocumentError, Heading, HeadingLevel, Parallel, Series, Version,
+};
+use std::{pin::Pin, str::FromStr};
 
 use crate::{routes::document::views::DocumentView, utils::time::today, WebView};
 
-use super::{reading_loader::ReadingLoader, views::*};
+use super::{
+    export_docx::{add_readings, docx_response},
+    reading_loader::ReadingLoader,
+    views::*,
+};
 
 pub struct EucharistView {
     pub locale: String,
@@ -35,6 +46,26 @@ pub struct EucharistView {
 pub enum DocumentOrReadingLoader {
     Document(Box<Document>),
     ReadingLoader(Vec<ReadingLoader>),
+}
+
+impl DocumentOrReadingLoader {
+    pub fn into_future(self) -> Pin<Box<dyn Future<Output = Document>>> {
+        match self {
+            DocumentOrReadingLoader::Document(doc) => {
+                Box::pin(async { *doc }) as Pin<Box<dyn Future<Output = Document>>>
+            }
+            DocumentOrReadingLoader::ReadingLoader(loaders) => Box::pin(async {
+                let readings = join_all(loaders.into_iter().map(ReadingLoader::into_future)).await;
+                Document::from(Parallel::from(readings.into_iter().map(|reading| {
+                    reading
+                        .map(|reading| Document::from(reading))
+                        .unwrap_or_else(|e| {
+                            Document::from(Content::Error(DocumentError::from(e.to_string())))
+                        })
+                })))
+            }),
+        }
+    }
 }
 
 #[derive(Params)]
@@ -196,6 +227,70 @@ impl Loader for EucharistView {
             liturgy_of_the_palms,
             vigil_readings,
         })
+    }
+
+    // POST to download Word doc
+    async fn action(
+        locale: &str,
+        req: Arc<dyn Request>,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> ActionResponse {
+        let data = Self::loader(locale, req, params, query).await;
+        if let Some(data) = data {
+            let docx = DocxDocument::new();
+
+            // Title
+            let docx = docx.add_content(&Document::from(Heading::from((
+                HeadingLevel::Heading1,
+                data.day
+                    .date
+                    .to_localized_name(Language::from_locale(locale)),
+            ))));
+
+            // Collect
+            let mut docx = if let Some(collects) = data.collects {
+                docx.add_content(&Document::from(Heading::from((
+                    HeadingLevel::Heading2,
+                    t!("lookup.collect_of_the_day"),
+                ))))
+                .add_content(&collects)
+            } else {
+                docx
+            };
+
+            // Psalms & Readings
+            if !data.liturgy_of_the_palms.is_empty() {
+                docx = add_readings(docx, data.liturgy_of_the_palms).await;
+            }
+
+            if !data.vigil_readings.is_empty() {
+                let readings = join_all(
+                    data.vigil_readings
+                        .into_iter()
+                        .map(DocumentOrReadingLoader::into_future),
+                )
+                .await;
+                docx = readings
+                    .into_iter()
+                    .fold(docx, |docx, reading| docx.add_content(&reading));
+            }
+
+            docx = add_readings(docx, data.first_lesson).await;
+            docx = data
+                .psalm
+                .into_iter()
+                .fold(docx, |docx, psalm| docx.add_content(&psalm));
+            docx = add_readings(docx, data.epistle).await;
+            docx = add_readings(docx, data.gospel).await;
+
+            match docx_response(data.day.date, docx) {
+                Ok(path) => ActionResponse::from_path(path),
+                Err(e) => ActionResponse::from_error(e),
+            }
+        } else {
+            ActionResponse::None
+        }
     }
 }
 
