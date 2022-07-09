@@ -78,8 +78,8 @@ impl Loader for Index {
     async fn loader(
         locale: &str,
         req: Arc<dyn Request>,
-        params: Self::Params,
-        query: Self::Query,
+        _params: Self::Params,
+        _query: Self::Query,
     ) -> Option<Self> {
         let settings = Settings::all(&req).await;
         let dark_mode = settings.display.dark_mode;
@@ -334,11 +334,11 @@ fn office_link(
     match prefs {
         Some(settings) => {
             let href = office_link_href(&slug, version, today, Some(settings));
-            nav_link(&path, &locale, &href, label)
+            nav_link(path, locale, &href, label)
         }
         None => {
             let href = office_link_href(&slug, version, today, None);
-            nav_link(&path, &locale, &href, label)
+            nav_link(path, locale, &href, label)
         }
     }
 }

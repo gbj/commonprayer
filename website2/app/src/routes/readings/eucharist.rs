@@ -77,8 +77,8 @@ impl Loader for EucharistView {
 
     async fn loader(
         locale: &str,
-        req: Arc<dyn Request>,
-        params: Self::Params,
+        _req: Arc<dyn Request>,
+        _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
         // Extract basic settings from URL query
@@ -311,7 +311,7 @@ impl View for EucharistView {
         vec![]
     }
 
-    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
+    fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
         // not every day has readings assigned in The Lectionary: offer a choice to redirect
         // either to the Daily Office Lectionary or to The Lectionary
         let no_readings_link = if self.epistle.is_empty() && self.gospel.is_empty() {

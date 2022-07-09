@@ -44,9 +44,9 @@ impl Loader for DisplaySettingsView {
     type Query = DisplaySettingsQuery;
 
     async fn loader(
-        locale: &str,
+        _locale: &str,
         req: Arc<dyn Request>,
-        params: Self::Params,
+        _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
         let settings = Settings::display(&req).await;
@@ -60,8 +60,8 @@ impl Loader for DisplaySettingsView {
     async fn action(
         locale: &str,
         req: Arc<dyn Request>,
-        params: Self::Params,
-        query: Self::Query,
+        _params: Self::Params,
+        _query: Self::Query,
     ) -> ActionResponse {
         let settings = req
             .body()

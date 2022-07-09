@@ -49,8 +49,8 @@ impl Loader for HolyDayView {
 
     async fn loader(
         locale: &str,
-        req: Arc<dyn Request>,
-        params: Self::Params,
+        _req: Arc<dyn Request>,
+        _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
         let version = query
@@ -184,7 +184,7 @@ impl View for HolyDayView {
         vec![include_str!("holy_day.css").into()]
     }
 
-    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
+    fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
         let reading_links = self.reading_links();
         let psalm_view = self.psalm_view();
 
@@ -252,7 +252,7 @@ impl View for HolyDayView {
         }
     }
 
-    fn error_boundary(error: RouterError) -> Body
+    fn error_boundary(_error: RouterError) -> Body
     where
         Self: Sized,
     {

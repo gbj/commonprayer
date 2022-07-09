@@ -1,4 +1,4 @@
-mod search;
+mod search_algorithm;
 mod search_result;
 
 use crate::WebView;
@@ -6,7 +6,7 @@ use hymnal::{EL_HIMNARIO, HYMNAL_1982, LEVAS, WLP};
 use language::Language;
 use leptos2::*;
 use library::CommonPrayer;
-use search::global_search;
+use search_algorithm::global_search;
 use search_result::SearchResult;
 
 #[derive(Params)]
@@ -33,8 +33,8 @@ impl Loader for SearchView {
 
     async fn loader(
         locale: &str,
-        req: Arc<dyn Request>,
-        params: Self::Params,
+        _req: Arc<dyn Request>,
+        _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
         let q = query.q.unwrap_or_default();
@@ -81,7 +81,7 @@ impl View for SearchView {
         ]
     }
 
-    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
+    fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
         let res = match self.state {
             SearchViewState::EmptyQuery => view! {
                 <p>{t!("search_page.enter_query")}</p>

@@ -41,9 +41,9 @@ impl Loader for GeneralSettingsView {
     type Query = GeneralSettingsQuery;
 
     async fn loader(
-        locale: &str,
+        _locale: &str,
         req: Arc<dyn Request>,
-        params: Self::Params,
+        _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
         let settings = Settings::general(&req).await;
@@ -57,8 +57,8 @@ impl Loader for GeneralSettingsView {
     async fn action(
         locale: &str,
         req: Arc<dyn Request>,
-        params: Self::Params,
-        query: Self::Query,
+        _params: Self::Params,
+        _query: Self::Query,
     ) -> ActionResponse {
         // TODO test to make sure Content-Type is actually application/x-www-form-urlencoded
         // read form data

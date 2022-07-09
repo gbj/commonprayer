@@ -9,10 +9,10 @@ impl Loader for MeditationView {
     type Query = ();
 
     async fn loader(
-        locale: &str,
-        req: Arc<dyn Request>,
-        params: Self::Params,
-        query: Self::Query,
+        _locale: &str,
+        _req: Arc<dyn Request>,
+        _params: Self::Params,
+        _query: Self::Query,
     ) -> Option<Self> {
         Some(Self {})
     }

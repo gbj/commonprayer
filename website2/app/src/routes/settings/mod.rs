@@ -32,8 +32,8 @@ impl Loader for SettingsView {
     async fn loader(
         locale: &str,
         req: Arc<dyn Request>,
-        params: Self::Params,
-        query: Self::Query,
+        _params: Self::Params,
+        _query: Self::Query,
     ) -> Option<Self> {
         Some(Self {
             locale: locale.to_string(),
@@ -93,10 +93,8 @@ pub struct Settings {
 }
 
 struct DBSettings {
-    user_id: String,
     general: Value,
     display: Value,
-    liturgy: Value,
 }
 
 const GENERAL_COOKIE_NAME: &str = "general";
@@ -131,17 +129,14 @@ impl Settings {
 
             match sqlx::query_as!(
                 DBSettings,
-                "SELECT * from user_settings where user_id = $1",
+                "SELECT general, display from user_settings where user_id = $1",
                 uid
             )
             .fetch_one(req.db())
             .await
             {
                 Ok(DBSettings {
-                    general,
-                    display,
-                    liturgy,
-                    ..
+                    general, display, ..
                 }) => {
                     let general = from_value::<GeneralSettings>(general).unwrap_or_default();
                     let display = from_value::<DisplaySettings>(display).unwrap_or_default();
@@ -394,7 +389,7 @@ impl Settings {
     }
 
     fn store_prefs_in_cookie(
-        req: &Arc<dyn Request>,
+        _req: &Arc<dyn Request>,
         res: &mut Response<()>,
         cookie_name: &str,
         json: String,

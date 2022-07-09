@@ -38,7 +38,7 @@ impl Loader for ReadingsView {
     async fn loader(
         locale: &str,
         req: Arc<dyn Request>,
-        params: Self::Params,
+        _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
         let date = query

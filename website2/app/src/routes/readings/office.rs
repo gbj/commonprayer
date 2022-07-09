@@ -46,8 +46,8 @@ impl Loader for OfficeView {
 
     async fn loader(
         locale: &str,
-        req: Arc<dyn Request>,
-        params: Self::Params,
+        _req: Arc<dyn Request>,
+        _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
         // Build all params
@@ -233,7 +233,7 @@ impl View for OfficeView {
         vec![]
     }
 
-    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
+    fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
         view! {
             <div>
                 <section class="readings">
@@ -289,43 +289,6 @@ impl View for OfficeView {
 }
 
 impl OfficeView {
-    fn rebuild_query_string(&self, evening: bool) -> String {
-        let pairs = [
-            Some(("date", self.date.to_padded_string().as_str())),
-            if self.use_alternate {
-                Some(("alternate", "yes"))
-            } else {
-                None
-            },
-            Some(("version", self.version.to_string().as_str())),
-            if evening {
-                Some(("time", "evening"))
-            } else {
-                None
-            },
-            if self.use_thirty {
-                Some(("psalms", "30"))
-            } else {
-                None
-            },
-            if self.use_lff {
-                Some(("calendar", "lff"))
-            } else {
-                None
-            },
-        ]
-        .into_iter()
-        .flatten()
-        .map(|(k, v)| format!("{k}={v}"))
-        .intersperse_with(|| "&".to_string())
-        .collect::<String>();
-        format!("?{pairs}")
-    }
-
-    fn link_with_citation(&self, citation: &str, evening: bool) -> String {
-        format!("{}#{}", self.rebuild_query_string(evening), citation)
-    }
-
     fn observance_header_view(&self) -> Vec<Node> {
         let title = view! {
             <h2>
@@ -410,7 +373,7 @@ pub fn reading_links(
 }
 
 impl WebView for ReadingLinks {
-    fn view(&self, locale: &str) -> Node {
+    fn view(&self, _locale: &str) -> Node {
         let readings_different = self.morning_readings != self.evening_readings;
 
         view! {

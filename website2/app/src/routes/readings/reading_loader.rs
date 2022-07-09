@@ -11,23 +11,11 @@ use reqwest::Client;
 use crate::routes::document::views::biblical_reading;
 use crate::utils::{encode_uri, fetch::FetchError};
 
-#[cfg(target_arch = "wasm32")]
-fn cache() {
-    panic!("moka caching (and therefore ReadingLoader) is *not* supported on WASM")
-}
-
-#[cfg(not(target_arch = "wasm32"))]
-fn cache() {
-    panic!("moka caching (and therefore ReadingLoader) is *not* supported on WASM")
-}
-
-#[cfg(not(target_arch = "wasm32"))]
 struct Cache<K, V>(moka::sync::Cache<K, V>)
 where
     K: std::hash::Hash + Eq + Send + Sync + 'static,
     V: Clone + Send + Sync + 'static;
 
-#[cfg(not(target_arch = "wasm32"))]
 impl<K, V> Cache<K, V>
 where
     K: std::hash::Hash + Eq + Send + Sync,
@@ -49,35 +37,6 @@ where
     fn insert(&self, key: K, value: V) {
         self.0.insert(key, value);
     }
-}
-
-#[cfg(target_arch = "wasm32")]
-struct Cache<K, V> {
-    k: PhantomData<K>,
-    v: PhantomData<V>,
-}
-
-#[cfg(target_arch = "wasm32")]
-impl<K, V> Cache<K, V>
-where
-    K: std::hash::Hash + Eq + Send + Sync,
-    V: Clone + Send + Sync,
-{
-    fn new() -> Self {
-        leptos2::debug_warn(
-            "Moka caching is not supported on WASM, so ReadingLoader won't cache calls.",
-        );
-        Self {
-            k: PhantomData,
-            v: PhantomData,
-        }
-    }
-
-    fn get(&self, key: &K) -> Option<V> {
-        None
-    }
-
-    fn insert(&self, key: K, value: V) {}
 }
 
 lazy_static::lazy_static! {

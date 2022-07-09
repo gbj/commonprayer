@@ -69,12 +69,6 @@ impl View for HymnView {
         let hymnal = &self.hymnal;
         let hymn = &self.hymn;
 
-        let hymnary_hymnal_id = match hymnal.id {
-            Hymnals::Hymnal1982 => "EH1982",
-            Hymnals::LEVAS => "LEVS1993",
-            Hymnals::WLP => "WLP1997",
-            Hymnals::ElHimnario => "EH1998",
-        };
         let hymnary_hymn_link = hymnary_page_link(hymnal.id, self.hymn.page_number);
 
         view! {

@@ -86,7 +86,7 @@ impl Loader for LiturgySettingsView {
         locale: &str,
         req: Arc<dyn Request>,
         params: Self::Params,
-        query: Self::Query,
+        _query: Self::Query,
     ) -> ActionResponse {
         match req.body() {
             Some(raw_body) => {
@@ -211,8 +211,7 @@ impl LiturgySettingsView {
                         } else {
                             let choices = pref
                                 .choices()
-                                .enumerate()
-                                .map(|(choice_idx, choice)| {
+                                .map(|choice| {
                                     view! {
                                         <option
                                             value={urlencoding::encode(&serde_json::to_string(&choice.value).unwrap())}

@@ -44,7 +44,7 @@ pub async fn validate_token(token: &str) -> Result<ValidJWT> {
 
     // If a JWKS contains multiple keys, the correct KID first
     // needs to be fetched from the token headers.
-    let kid = alcoholic_jwt::token_kid(&token)
+    let kid = alcoholic_jwt::token_kid(token)
         .expect("Failed to decode token headers")
         .expect("No 'kid' claim present in token");
 

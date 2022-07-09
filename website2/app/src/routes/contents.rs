@@ -13,9 +13,9 @@ impl Loader for ContentsView {
 
     async fn loader(
         locale: &str,
-        req: Arc<dyn Request>,
-        params: Self::Params,
-        query: Self::Query,
+        _req: Arc<dyn Request>,
+        _params: Self::Params,
+        _query: Self::Query,
     ) -> Option<Self> {
         Some(Self {
             locale: locale.to_string(),
@@ -32,7 +32,7 @@ impl View for ContentsView {
         vec![]
     }
 
-    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
+    fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
         view! {
             <div>
                 <header><h1>{t!("toc.table_of_contents")}</h1></header>

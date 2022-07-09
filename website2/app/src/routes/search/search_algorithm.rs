@@ -80,6 +80,7 @@ pub fn global_search<L: Library>(
 }
 
 trait Searchable {
+    #[allow(clippy::too_many_arguments)] // this is just an internal Trait, not too worried about the argument count
     fn search_in(
         &self,
         raw: &str,
@@ -439,7 +440,7 @@ impl Searchable for Document {
                 ),
                 content: SearchResultContent::Document {
                     version: self.version,
-                    label: label.into(),
+                    label,
                     citation: citation.into(),
                     metadata: metadata.into(),
                     text: text.into(),
@@ -456,11 +457,11 @@ impl Searchable for Psalm {
         &self,
         raw: &str,
         q: &Regex,
-        q_date: &Option<Date>,
+        _q_date: &Option<Date>,
         q_citation: &BibleReference,
-        language: Language,
-        slug_path: Option<SlugPath>,
-        path: Option<Vec<usize>>,
+        _language: Language,
+        _slug_path: Option<SlugPath>,
+        _path: Option<Vec<usize>>,
     ) -> Option<SearchResult> {
         let mut has_match = false;
         let mut cumulative_score = 0.0;

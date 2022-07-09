@@ -24,11 +24,11 @@ impl<'a> Loader for PsalmView<'a> {
 
     async fn loader(
         locale: &str,
-        req: Arc<dyn Request>,
-        params: Self::Params,
+        _req: Arc<dyn Request>,
+        _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-        let language = Language::from_locale(&locale);
+        let language = Language::from_locale(locale);
         let version = query.version.unwrap_or(if language == Language::Es {
             Version::LibroDeOracionComun
         } else {
@@ -117,7 +117,7 @@ impl<'a> View for PsalmView<'a> {
         }
     }
 
-    fn error_boundary(error: RouterError) -> Body
+    fn error_boundary(_error: RouterError) -> Body
     where
         Self: Sized,
     {

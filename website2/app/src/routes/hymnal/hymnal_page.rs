@@ -32,7 +32,7 @@ impl Loader for HymnalPageView {
 
     async fn loader(
         locale: &str,
-        req: Arc<dyn Request>,
+        _req: Arc<dyn Request>,
         params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
@@ -61,7 +61,7 @@ impl View for HymnalPageView {
         ]
     }
 
-    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
+    fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
         view! {
             <div>
                 <header>
