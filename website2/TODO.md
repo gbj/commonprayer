@@ -7,7 +7,6 @@
 	- [ ] Irenaeus collect
 	- [ ] Doubled Peter & Paul collect
 	- [ ] Fix weird highlighting offset in search
-	- [x] Meditation timer not running
 	- [ ] Readings page
 		- [ ] Ember Day readings
 		- [ ] Rogation Day readings
@@ -16,8 +15,6 @@
 	- [ ] export readings to Word doc
 		- [ ] include display settings (Psalm verse number/Bible verse number)
 		- [ ] fix Unicode of quotation marks (when converted from HTML entities from NRSV but not ESV)
-	- [ ] Eucharist DOCX
-		- [ ] check if has first reading and move psalm to after epistle if necessary
 	- [ ] Holy Day DOCX
 	- [ ] Office readings: sequential rather than tabbed readings
 - [ ] Document page

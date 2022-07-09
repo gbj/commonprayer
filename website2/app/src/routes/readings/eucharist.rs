@@ -276,12 +276,21 @@ impl Loader for EucharistView {
                     .fold(docx, |docx, reading| docx.add_content(&reading));
             }
 
-            docx = add_readings(docx, data.first_lesson).await;
-            docx = data
-                .psalm
-                .into_iter()
-                .fold(docx, |docx, psalm| docx.add_content(&psalm));
-            docx = add_readings(docx, data.epistle).await;
+            if data.first_lesson.is_empty() {
+                docx = add_readings(docx, data.epistle).await;
+                docx = data
+                    .psalm
+                    .into_iter()
+                    .fold(docx, |docx, psalm| docx.add_content(&psalm));
+            } else {
+                docx = add_readings(docx, data.first_lesson).await;
+                docx = data
+                    .psalm
+                    .into_iter()
+                    .fold(docx, |docx, psalm| docx.add_content(&psalm));
+                docx = add_readings(docx, data.epistle).await;
+            }
+
             docx = add_readings(docx, data.gospel).await;
 
             match docx_response(data.day.date, docx) {
