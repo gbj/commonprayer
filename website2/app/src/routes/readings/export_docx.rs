@@ -1,4 +1,3 @@
-use calendar::Date;
 use docx::DocxDocument;
 use futures::future::join_all;
 use liturgy::{Content, Document, DocumentError};
@@ -9,8 +8,11 @@ use thiserror::Error;
 use super::reading_loader::ReadingLoader;
 
 // DOCX export
-pub fn docx_response(date: Date, docx: DocxDocument) -> Result<PathBuf, DocxExportError> {
-    let file_name = format!("{}.docx", date.to_padded_string());
+pub fn docx_response(
+    file_name: impl std::fmt::Display,
+    docx: DocxDocument,
+) -> Result<PathBuf, DocxExportError> {
+    let file_name = format!("{}.docx", file_name);
 
     let dir = tempdir().map_err(|_| DocxExportError::TempDir)?;
     let path = dir.path().join(file_name);

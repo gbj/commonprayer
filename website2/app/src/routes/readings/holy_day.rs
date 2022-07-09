@@ -7,6 +7,7 @@ use calendar::Date;
 use calendar::{
     lff2018::LFF_BIOS, Feast, HolyDayId, LiturgicalDayId, Time, BCP1979_CALENDAR, LFF2018_CALENDAR,
 };
+use docx::DocxDocument;
 use itertools::Itertools;
 use language::Language;
 use lectionary::{ReadingType, LFF2018_LECTIONARY, RCL};
@@ -15,10 +16,11 @@ use library::{
     lff2018::collects::{LFF_COLLECTS_CONTEMPORARY, LFF_COLLECTS_TRADITIONAL},
     CollectId,
 };
-use liturgy::{Choice, Content, Document, Psalm, Version};
+use liturgy::{Choice, Content, Document, Heading, HeadingLevel, Parallel, Psalm, Text, Version};
 use psalter::bcp1979::BCP1979_PSALTER;
 
 use super::eucharist::EucharistView;
+use super::export_docx::{add_readings, docx_response};
 use super::reading_loader::ReadingLoader;
 use super::views::async_readings_view;
 
@@ -152,6 +154,63 @@ impl Loader for HolyDayView {
             collect_traditional,
             collect_contemporary,
         })
+    }
+
+    // POST to download Word doc
+    async fn action(
+        locale: &str,
+        req: Arc<dyn Request>,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> ActionResponse {
+        let data = Self::loader(locale, req, params, query).await;
+        if let Some(data) = data {
+            let docx = DocxDocument::new();
+
+            // Title
+            let mut docx = docx.add_content(&Document::from(Heading::from((
+                HeadingLevel::Heading1,
+                data.name.clone(),
+            ))));
+
+            // Collect
+            docx = docx
+                .add_content(&Document::from(Heading::from((
+                    HeadingLevel::Heading2,
+                    t!("lookup.collect_of_the_day"),
+                ))))
+                .add_content(&Document::from(Parallel::from(vec![
+                    data.collect_traditional,
+                    data.collect_contemporary,
+                ])));
+
+            if let Some(bio) = data.bio {
+                docx = docx.add_content(&Document::from(Text::from(bio)));
+            }
+
+            // Psalms & Readings
+            if data.first_lesson.is_empty() {
+                docx = add_readings(docx, data.epistle).await;
+                docx = docx.add_content(&Document::from(Parallel::from(
+                    data.psalm.into_iter().map(Document::from),
+                )));
+            } else {
+                docx = add_readings(docx, data.first_lesson).await;
+                docx = docx.add_content(&Document::from(Parallel::from(
+                    data.psalm.into_iter().map(Document::from),
+                )));
+                docx = add_readings(docx, data.epistle).await;
+            }
+
+            let docx = add_readings(docx, data.gospel).await;
+
+            match docx_response(data.name, docx) {
+                Ok(path) => ActionResponse::from_path(path),
+                Err(e) => ActionResponse::from_error(e),
+            }
+        } else {
+            ActionResponse::None
+        }
     }
 }
 
