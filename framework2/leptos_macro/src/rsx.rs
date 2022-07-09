@@ -312,6 +312,8 @@ fn foreign_listeners_from_node(node: &Node) -> proc_macro2::TokenStream {
                 Some(quote_spanned! {
                     span => (
                         #event_name.to_string(),
+                        // allowed because this lets us use a format!() string as identifier here
+                        #[allow(clippy::redundant_clone)]
                         #selector.to_string(),
                         std::panic::Location::caller(),
                         std::rc::Rc::new(#handler) as std::rc::Rc<dyn Fn(_) -> _>

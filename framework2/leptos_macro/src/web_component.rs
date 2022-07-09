@@ -94,7 +94,7 @@ pub fn impl_wc(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
                         Ok(val) => {
                             self.#ident = val;
                         },
-                        Err(e) => leptos2::warn(&format!("[set_property] deserialization error {}", e.to_string()))
+                        Err(e) => leptos2::warn(&format!("[set_property] deserialization error {}", e))
                     }
                 }
             }
@@ -126,6 +126,7 @@ pub fn impl_wc(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
             quote_spanned! {
                 span => leptos2::property(
                     #attr_name,
+                    #[allow(clippy::clone_on_copy)]
                     Box::new(self.#ident.clone())
                 )
             }
