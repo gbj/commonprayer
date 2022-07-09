@@ -1,9 +1,10 @@
 use quote::{quote, quote_spanned};
-use syn::{spanned::Spanned};
+use syn::spanned::Spanned;
 
 pub fn impl_wc(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
     let name = &ast.ident;
-    let tag = format!("l-{}", slugify(&name.to_string()));
+    let slug = slugify(&name.to_string());
+    let tag = format!("l-{}", slug);
 
     let attrs = if let syn::Data::Struct(syn::DataStruct {
         fields: syn::Fields::Named(ref fields),
