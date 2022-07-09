@@ -1,6 +1,6 @@
 use std::{collections::HashMap, sync::Arc};
 
-use ::liturgy::{Content, Liturgy, PreferenceKey, PreferenceValue, Slug, SlugPath, Version};
+use ::liturgy::{Content, PreferenceKey, PreferenceValue, SlugPath};
 use lazy_static::lazy_static;
 use leptos2::{http::Response, *};
 use library::{CommonPrayer, Contents, Library};

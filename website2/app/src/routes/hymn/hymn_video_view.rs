@@ -3,7 +3,6 @@ use std::{pin::Pin, str::FromStr};
 use cached::proc_macro::cached;
 use futures::Future;
 use hymnal::{Hymn, HymnNumber, Hymnal, Hymnals};
-use itertools::Itertools;
 use leptos2::*;
 use reqwest::header::{HeaderName, HeaderValue};
 
@@ -26,9 +25,9 @@ impl Loader for HymnVideoView {
 
     async fn loader(
         locale: &str,
-        req: Arc<dyn Request>,
+        _req: Arc<dyn Request>,
         params: Self::Params,
-        query: Self::Query,
+        _query: Self::Query,
     ) -> Option<Self> {
         let hymnal: Hymnal = params.hymnal.into();
         let hymn = hymnal

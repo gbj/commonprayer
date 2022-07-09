@@ -3,7 +3,7 @@ use docx::DocxDocument;
 use futures::future::join_all;
 use liturgy::{Content, Document, DocumentError};
 use std::{fs::File, path::PathBuf};
-use tempfile::{tempdir, TempDir};
+use tempfile::tempdir;
 use thiserror::Error;
 
 use super::reading_loader::ReadingLoader;

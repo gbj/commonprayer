@@ -1,16 +1,11 @@
-use std::fs::File;
-use std::path::PathBuf;
-
 use api::summary::ObservanceSummary;
 use calendar::Date;
 use docx::DocxDocument;
-use futures::future::join_all;
-use itertools::Itertools;
 use language::Language;
 use lectionary::Reading;
 use leptos2::*;
 use library::CommonPrayer;
-use liturgy::{Content, Document, DocumentError, Heading, HeadingLevel, Psalm, Series, Version};
+use liturgy::{Document, Heading, HeadingLevel, Psalm, Series, Version};
 
 use crate::{routes::document::views::DocumentView, utils::time::today, WebView};
 

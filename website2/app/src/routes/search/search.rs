@@ -1,5 +1,3 @@
-use std::ops::Range;
-
 use crate::utils::time::today;
 
 use super::search_result::{
@@ -19,9 +17,7 @@ use library::{
 };
 use liturgy::{Document, Psalm, Slug, SlugPath};
 use psalter::bcp1979::BCP1979_PSALTER;
-use reference_parser::{
-    BibleReference, BibleReferenceQuery, BibleReferenceRange, BibleVerse, BibleVersePart, Book,
-};
+use reference_parser::{BibleReference, BibleVerse, BibleVersePart, Book};
 use regex::Regex;
 
 lazy_static! {
@@ -38,10 +34,11 @@ pub fn global_search<L: Library>(
     let q = REMOVE_SPACES_AND_PUNCTUATION.replace_all(q, "");
     let q = format!(
         "({})",
-        q.chars()
-            .map(|c| c.to_lowercase().to_string())
-            .intersperse_with(|| r#"[[[:punct:]][[:space:]]]*"#.to_string())
-            .collect::<String>()
+        std::iter::Iterator::intersperse_with(
+            q.chars().map(|c| c.to_lowercase().to_string()),
+            || r#"[[[:punct:]][[:space:]]]*"#.to_string()
+        )
+        .collect::<String>()
     );
     let q = Regex::new(&q).expect("could not compile search Regex");
 
@@ -406,19 +403,21 @@ impl Searchable for Document {
         let label: PossibleMatchOwned = match self.best_label() {
             Some(label) => match_field!(q, raw, &label, has_match, cumulative_score).into(),
             None => PossibleMatchOwned::None(
-                slug_path
-                    .clone()
-                    .unwrap_or_default()
-                    .into_iter()
-                    .map(|slug| match slug {
-                        Slug::Version(version) => version.to_string(),
-                        Slug::Canticle(id) => {
-                            t!("daily_readings.canticle", number = &id.to_string())
-                        }
-                        _ => t!(&format!("slug.{:?}", slug)),
-                    })
-                    .intersperse_with(|| String::from(" 〉"))
-                    .collect(),
+                std::iter::Iterator::intersperse_with(
+                    slug_path
+                        .clone()
+                        .unwrap_or_default()
+                        .into_iter()
+                        .map(|slug| match slug {
+                            Slug::Version(version) => version.to_string(),
+                            Slug::Canticle(id) => {
+                                t!("daily_readings.canticle", number = &id.to_string())
+                            }
+                            _ => t!(&format!("slug.{:?}", slug)),
+                        }),
+                    || String::from(" 〉"),
+                )
+                .collect(),
             ),
         };
 

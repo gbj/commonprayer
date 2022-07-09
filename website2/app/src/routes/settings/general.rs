@@ -1,6 +1,5 @@
-use std::{collections::HashMap, sync::Arc};
+use std::sync::Arc;
 
-use cookie::Cookie;
 use http::{Response, StatusCode};
 use leptos2::*;
 use liturgy::{Lectionaries, Version};

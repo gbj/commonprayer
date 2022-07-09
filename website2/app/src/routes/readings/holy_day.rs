@@ -294,16 +294,19 @@ impl HolyDayView {
     }
 
     fn psalm_link(psalms: &[Psalm]) -> Node {
-        let links = psalms
-            .iter()
-            .map(|psalm| {
-                psalm.citation.clone().unwrap_or_else(|| {
-                    t!("daily_readings.psalm", number = &psalm.number.to_string())
+        // necessary awkwardness to avoid Itertools conflict for now
+        let links = std::iter::Iterator::intersperse_with(
+            psalms
+                .iter()
+                .map(|psalm| {
+                    psalm.citation.clone().unwrap_or_else(|| {
+                        t!("daily_readings.psalm", number = &psalm.number.to_string())
+                    })
                 })
-            })
-            .map(|citation| view! { <a href={format!("#{}", citation)}>{citation}</a> })
-            .intersperse_with(|| text(format!(" {} ", t!("or"))))
-            .collect::<Vec<_>>();
+                .map(|citation| view! { <a href={format!("#{}", citation)}>{citation}</a> }),
+            || text(format!(" {} ", t!("or"))),
+        )
+        .collect::<Vec<_>>();
         view! {
             <li>{links}</li>
         }

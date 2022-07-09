@@ -32,8 +32,8 @@ impl Loader for HomePage {
     async fn loader(
         locale: &str,
         req: Arc<dyn Request>,
-        params: Self::Params,
-        query: Self::Query,
+        _params: Self::Params,
+        _query: Self::Query,
     ) -> Option<Self> {
         let general_settings = Settings::general(&req).await;
 

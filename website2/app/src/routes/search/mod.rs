@@ -1,8 +1,6 @@
 mod search;
 mod search_result;
 
-use std::cmp::Reverse;
-
 use crate::WebView;
 use hymnal::{EL_HIMNARIO, HYMNAL_1982, LEVAS, WLP};
 use language::Language;

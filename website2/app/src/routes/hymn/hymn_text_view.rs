@@ -1,4 +1,4 @@
-use hymnal::{Hymn, Hymnal};
+use hymnal::Hymnal;
 use leptos2::*;
 
 use super::HymnViewParams;
@@ -13,10 +13,10 @@ impl Loader for HymnTextView {
     type Query = ();
 
     async fn loader(
-        locale: &str,
-        req: Arc<dyn Request>,
+        _locale: &str,
+        _req: Arc<dyn Request>,
         params: Self::Params,
-        query: Self::Query,
+        _query: Self::Query,
     ) -> Option<Self> {
         let hymnal: Hymnal = params.hymnal.into();
         let hymn = hymnal

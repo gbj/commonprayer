@@ -19,9 +19,9 @@ impl Loader for CanticleTableView {
 
     async fn loader(
         locale: &str,
-        req: Arc<dyn Request>,
+        _req: Arc<dyn Request>,
         params: Self::Params,
-        query: Self::Query,
+        _query: Self::Query,
     ) -> Option<Self> {
         Some(Self {
             locale: locale.to_string(),

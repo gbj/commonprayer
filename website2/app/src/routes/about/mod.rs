@@ -2,7 +2,6 @@ use leptos2::{view::View, *};
 
 #[derive(Debug)]
 pub struct About {
-    locale: String,
     markdown_html: String,
 }
 
@@ -13,9 +12,9 @@ impl Loader for About {
 
     async fn loader(
         locale: &str,
-        req: Arc<dyn Request>,
-        params: Self::Params,
-        query: Self::Query,
+        _req: Arc<dyn Request>,
+        _params: Self::Params,
+        _query: Self::Query,
     ) -> Option<Self> {
         // allowed because future i18n will be inserted here
         #[allow(clippy::match_single_binding)]
@@ -23,7 +22,6 @@ impl Loader for About {
             _ => include_str!("about.en.md"),
         };
         Some(Self {
-            locale: locale.to_string(),
             markdown_html: markdown::to_html(markdown),
         })
     }

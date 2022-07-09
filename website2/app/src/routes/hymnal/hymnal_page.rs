@@ -1,13 +1,11 @@
 use std::sync::Arc;
 
-use hymnal::*;
-use itertools::Itertools;
 use leptos2::*;
 
 use super::hymnal_metadata;
 use crate::routes::hymn::hymnary_page_link;
 use crate::Icon;
-use hymnal::{HymnMetadata, Hymnal, Hymnals};
+use hymnal::{Hymnal, Hymnals};
 
 #[derive(Params)]
 pub struct HymnalPageViewParams {

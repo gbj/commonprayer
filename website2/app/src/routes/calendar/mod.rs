@@ -42,8 +42,8 @@ impl Loader for CalendarView {
 
     async fn loader(
         locale: &str,
-        req: Arc<dyn Request>,
-        params: Self::Params,
+        _req: Arc<dyn Request>,
+        _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
         let today = today();
@@ -156,7 +156,7 @@ impl View for CalendarView {
         vec![include_str!("calendar.css").into()]
     }
 
-    fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
+    fn body(self: Box<Self>, _nested_view: Option<Node>) -> Body {
 		view! {
 			<div>
 				<header>
@@ -382,7 +382,7 @@ impl CalendarView {
 			.weekday()
 			.num_days_from_sunday();
 		let padding = (1..=padding_days)
-				.map(|_| view! { <div class="padding"></div> });;
+				.map(|_| view! { <div class="padding"></div> });
 
          padding.chain(days).chunks(7).into_iter().map(|chunk| {
             view! {

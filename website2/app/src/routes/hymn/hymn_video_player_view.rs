@@ -2,17 +2,12 @@ use std::{pin::Pin, str::FromStr};
 
 use cached::proc_macro::cached;
 use futures::Future;
-use hymnal::{Hymn, HymnNumber, Hymnal, Hymnals};
-use itertools::Itertools;
 use leptos2::*;
 use reqwest::header::{HeaderName, HeaderValue};
 
-use crate::api::bing::{BingSearchResult, VideoResult};
+use crate::api::bing::VideoResult;
 
-use super::{
-    hymn_video_view::{BING_SEARCH_API_KEY, CACHED_VIDEO_EMBED_CODES},
-    HymnViewParams,
-};
+use super::hymn_video_view::{BING_SEARCH_API_KEY, CACHED_VIDEO_EMBED_CODES};
 
 pub struct HymnVideoPlayerView {
     result: EmbedCode,
@@ -34,9 +29,9 @@ impl Loader for HymnVideoPlayerView {
     type Query = HymnVideoPlayerQuery;
 
     async fn loader(
-        locale: &str,
-        req: Arc<dyn Request>,
-        params: Self::Params,
+        _locale: &str,
+        _req: Arc<dyn Request>,
+        _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
         let result = match CACHED_VIDEO_EMBED_CODES.get(&query.id) {

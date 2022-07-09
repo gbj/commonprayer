@@ -1,5 +1,8 @@
 #![allow(unused_braces)]
+#![allow(unused_parens)]
+#![allow(redundant_semicolons)]
 #![feature(async_closure)]
+#![feature(iter_intersperse)]
 
 use leptos2::Node;
 pub mod api;

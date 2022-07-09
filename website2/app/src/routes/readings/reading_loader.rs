@@ -1,4 +1,4 @@
-use std::{marker::PhantomData, pin::Pin};
+use std::pin::Pin;
 
 use futures::Future;
 use leptos2::*;
@@ -9,7 +9,6 @@ use serde::{Deserialize, Serialize};
 use reqwest::Client;
 
 use crate::routes::document::views::biblical_reading;
-use crate::utils::fetch::Fetch;
 use crate::utils::{encode_uri, fetch::FetchError};
 
 #[cfg(target_arch = "wasm32")]

@@ -1,10 +1,8 @@
 use std::borrow::Cow;
 
-use leptos2::{document, is_server, window};
-use web_sys::ScrollToOptions;
+use leptos2::{document, is_server};
 
 pub mod fetch;
-//pub mod preferences;
 pub mod share;
 pub mod time;
 

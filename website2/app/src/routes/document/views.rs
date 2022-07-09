@@ -3,7 +3,6 @@ use liturgy::*;
 use crate::components::Tabs;
 use crate::routes::readings::reading_loader::ReadingLoader;
 use crate::WebView;
-use itertools::Itertools;
 use leptos2::*;
 
 pub struct DocumentView<'a> {

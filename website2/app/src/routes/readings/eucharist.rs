@@ -1,18 +1,12 @@
-use crate::{
-    components::Tabs,
-    utils::{encode_uri, fetch::FetchError},
-};
+use crate::{components::Tabs, utils::encode_uri};
 use api::summary::{DocumentOrReading, EucharisticObservanceSummary, TrackedReadings};
 use calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId};
 use docx::DocxDocument;
 use futures::{future::join_all, Future};
-use itertools::Itertools;
 use language::Language;
 use leptos2::*;
 use library::CommonPrayer;
-use liturgy::{
-    Choice, Content, Document, DocumentError, Heading, HeadingLevel, Parallel, Series, Version,
-};
+use liturgy::{Content, Document, DocumentError, Heading, HeadingLevel, Parallel, Version};
 use std::{pin::Pin, str::FromStr};
 
 use crate::{routes::document::views::DocumentView, utils::time::today, WebView};

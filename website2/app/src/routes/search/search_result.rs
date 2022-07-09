@@ -3,7 +3,6 @@ use std::ops::Range;
 use crate::{Icon, WebView};
 use calendar::{Date, Feast};
 use hymnal::{HymnNumber, Hymnals};
-use itertools::Itertools;
 use leptos2::*;
 use liturgy::{SlugPath, Version};
 

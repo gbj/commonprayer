@@ -1,16 +1,14 @@
-use std::collections::HashMap;
 use std::pin::Pin;
 use std::sync::Arc;
 
-use super::settings::{DarkMode, DisplaySettings, GeneralSettings, Settings, SettingsForLiturgy};
+use super::settings::{DarkMode, GeneralSettings, Settings, SettingsForLiturgy};
 use crate::components::{Auth, Modal};
 use crate::utils::encode_uri;
 use crate::utils::time::today;
 use calendar::Date;
-use futures::future::join_all;
 use futures::{join, Future};
 use leptos2::{view::View, *};
-use liturgy::{PreferenceKey, PreferenceValue, Slug, SlugPath, Version};
+use liturgy::{Slug, SlugPath, Version};
 
 pub mod auth;
 use crate::UserInfo;

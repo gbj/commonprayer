@@ -1,5 +1,4 @@
 use crate::components::MeditationTimer;
-use crate::Icon;
 use leptos2::*;
 
 pub struct MeditationView {}

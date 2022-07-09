@@ -2,7 +2,7 @@ use alcoholic_jwt::{validate, ValidJWT, JWKS};
 use anyhow::Result;
 use cached::proc_macro::cached;
 
-const FIREBASE_KEY_URL: &'static str =
+const FIREBASE_KEY_URL: &str =
     "https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com";
 
 #[derive(Clone, Debug, Hash, PartialEq, Eq)]
