@@ -1,5 +1,5 @@
-use app::routes::meditation::MeditationTimer;
-use leptos2::{DeclarativeWebApi, WebComponent};
+use app::components::MeditationTimer;
+use leptos2::WebComponent;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 // Use `wee_alloc` as the global allocator.

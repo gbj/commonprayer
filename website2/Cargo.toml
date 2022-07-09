@@ -2,7 +2,6 @@
 members = [
 	"app",
 	"client/auth",
-	"client/calendar_controller",
 	"client/date_picker",
 	"client/export_links",
 	"client/form",

@@ -7,14 +7,11 @@
 	- [ ] Irenaeus collect
 	- [ ] Doubled Peter & Paul collect
 	- [ ] Fix weird highlighting offset in search
+	- [x] Meditation timer not running
 	- [ ] Readings page
 		- [ ] Ember Day readings
 		- [ ] Rogation Day readings
-
-- Deployment
-	- [ ] Test DB
-	- [ ] SSL
-
+		
 - [ ] Readings Page
 	- [ ] export readings to Word doc
 		- [ ] include display settings (Psalm verse number/Bible verse number)
