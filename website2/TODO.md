@@ -1,6 +1,5 @@
 - [ ] Bugs
   - [ ] Fix width of tab buttons
-  - [ ] Fix width of psalm header
   - [ ] Properly rotate opening sentences
   - [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
   - [ ] "Eccles." labeled as Ben Sira

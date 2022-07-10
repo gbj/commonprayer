@@ -352,6 +352,7 @@ a.source-link > span {
 .document header.canticle-header {
   display: grid;
   margin: 1rem 0;
+  width: 100%;
 }
 
 .document header.psalm-header > * {
