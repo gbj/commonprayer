@@ -1,5 +1,4 @@
 - [ ] Bugs
-  - [ ] Fix width of tab buttons
   - [ ] Properly rotate opening sentences
   - [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
   - [ ] "Eccles." labeled as Ben Sira
