@@ -1,5 +1,4 @@
 - [ ] Bugs
-  - [ ] Properly rotate opening sentences
   - [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
   - [ ] "Eccles." labeled as Ben Sira
   - [ ] St. Mark readings + collect
@@ -25,6 +24,7 @@
 - Initial public release
 - [ ] Integration tests
 - [ ] Features
+  - [ ] Tabs swipe left/right
   - [ ] Calendar ICS links
   - [ ] Fuzzy reading search
     - [ ] Daily Office Lectionary
