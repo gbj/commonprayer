@@ -1,40 +1,39 @@
 - [ ] Bugs
-	- [ ] Fix width of tab buttons
-	- [ ] Properly rotate opening sentences
-	- [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
-	- [ ] "Eccles." labeled as Ben Sira
-	- [ ] St. Mark readings + collect
-	- [ ] Irenaeus collect
-	- [ ] Doubled Peter & Paul collect
-	- [ ] Fix weird highlighting offset in search
-	- [ ] Readings page
-		- [ ] Ember Day readings
-		- [ ] Rogation Day readings
-		
+  - [ ] HTML Entities in e.g., NRSV
+  - [ ] Fix width of tab buttons
+  - [ ] Fix width of psalm header
+  - [ ] Properly rotate opening sentences
+  - [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
+  - [ ] "Eccles." labeled as Ben Sira
+  - [ ] St. Mark readings + collect
+  - [ ] Irenaeus collect
+  - [ ] Doubled Peter & Paul collect
+  - [ ] Fix weird highlighting offset in search
+  - [ ] Readings page
+    - [ ] Ember Day readings
+    - [ ] Rogation Day readings
 - [ ] Readings Page
-	- [ ] export readings to Word doc
-		- [ ] include display settings (Psalm verse number/Bible verse number)
-		- [ ] fix Unicode of quotation marks (when converted from HTML entities from NRSV but not ESV)
-	- [ ] Holy Day DOCX
-	- [ ] Office readings: sequential rather than tabbed readings
+  - [ ] Office readings: sequential rather than tabbed readings
 - [ ] Document page
-	- [ ] Download links
-	- [ ] Test links between page
-	- [ ] Parallel exports
+  - [ ] Export links
+  - [ ] Include DisplaySettings in DOCX export (here and in Readings page)
+  - [ ] Test links between page
+  - [ ] Parallel exports
+  - [ ] Display Setting to show psalm page numbers or not
 - [ ] UI improvements
-	- [ ] Index Page cards
+  - [ ] Index Page cards
 - [ ] Themed pages (Pentecost, etc.)
 - [ ] Finish website2 and merge
-	- [ ] Nested document pages
+  - [ ] Nested document pages
 - Initial public release
 - [ ] Integration tests
 - [ ] Features
-	- [ ] Calendar ICS links
-	- [ ] Fuzzy reading search
-		- [ ] Daily Office Lectionary
-		- [ ] Holy Days
-	- [ ] Speech rendering
-		- [ ] Declarative SpeechSynthesis web component
+  - [ ] Calendar ICS links
+  - [ ] Fuzzy reading search
+    - [ ] Daily Office Lectionary
+    - [ ] Holy Days
+  - [ ] Speech rendering
+    - [ ] Declarative SpeechSynthesis web component
 - [ ] Better way of doing relative links within nested views so I don't need to rebuild whole URLs with locale etc.
 - [ ] Progressive enhancement
-	- [ ] Client side route replacement
+  - [ ] Client side route replacement

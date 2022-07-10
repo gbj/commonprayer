@@ -2,7 +2,7 @@ use std::pin::Pin;
 
 use futures::Future;
 use leptos2::*;
-use liturgy::{BiblicalReading, BiblicalReadingIntro, Version};
+use liturgy::{BiblicalReading, BiblicalReadingIntro, Document, Version};
 use reference_parser::{BibleVerse, BibleVersePart, Book};
 use serde::{Deserialize, Serialize};
 
@@ -160,14 +160,15 @@ impl ReadingLoader {
     fn view_config(self, locale: &str, path: Vec<usize>, with_header: bool) -> Vec<Node> {
         match self {
             ReadingLoader::Sync(reading) => {
-                let (header, main) = biblical_reading(locale, path, &reading);
+                let (header, main) = biblical_reading(locale, path.clone(), &reading);
                 view! {
                     <>
-                        <a id={reading.citation}></a>
+                        <a id={&reading.citation}></a>
                         <article class="document">
                             <header>{header}</header>
                             <main>{main}</main>
                         </article>
+                        {reading_loaded_script(&path, &reading)}
                     </>
                 }
             }
@@ -178,9 +179,13 @@ impl ReadingLoader {
                     ready: Some(Box::pin({
                         let citation = citation.clone();
                         async move {
-                            let reading = reading.await;
-                            match reading {
-                                Ok(reading) => biblical_reading(&locale, path, &reading).1,
+                            match reading.await {
+                                Ok(reading) => view! {
+                                    <div>
+                                        {biblical_reading(&locale, path.clone(), &reading).1}
+                                        {reading_loaded_script(&path, &reading)}
+                                    </div>
+                                },
                                 Err(_) => view! {
                                     <p class="error">{t!("biblical_citation.error", citation = &citation)}</p>
                                 },
@@ -204,6 +209,16 @@ impl ReadingLoader {
                 }
             }
         }
+    }
+}
+
+fn reading_loaded_script(path: &[usize], reading: &BiblicalReading) -> Node {
+    let data =
+        serde_json::to_string(&(path, reading)).expect("could not serialize loaded reading data");
+    view! {
+        <script>
+        {format!(r#"customElements.whenDefined("l-export-links").then(() => window.dispatchEvent(new CustomEvent("readingloaded", {{ detail: JSON.parse({data:?}) }})));"#)}
+        </script>
     }
 }
 
@@ -322,5 +337,20 @@ fn strip_entities(text: String) -> String {
 
 #[cfg(not(target_arch = "wasm32"))]
 fn strip_entities(text: String) -> String {
-    htmlentity::entity::decode(&text).iter().collect()
+    // HTML handles certain entities in a way that's not actually Unicode,
+    // so we need to fix them manually — we can't actually just use a normal entity replacement
+    // see https://stackoverflow.com/questions/7031633/146-is-getting-converted-as-u0092-by-nokogiri-in-ruby-on-rails
+    text.replace("&#141;", "‘")
+        .replace("&#142;", "’")
+        .replace("&#143;", "“")
+        .replace("&#144;", "”")
+        .replace("&#146;", "’")
+        .replace("&#147;", "“")
+        .replace("&#148;", "”")
+        .replace("&#149;", "‘")
+        .replace("&#150;", "’")
+        .replace("&#151;", "“")
+        .replace("&#152;", "”")
+        .replace("&#153;", "–")
+        .replace("&#154;", "—")
 }

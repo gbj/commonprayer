@@ -1,7 +1,10 @@
 use super::breadcrumbs::breadcrumbs;
 use super::views::DocumentView;
-use super::{DocumentPage, DocumentPageQuery, ExportLinks};
-use crate::{components::DatePicker, WebView};
+use super::{DocumentPage, DocumentPageQuery};
+use crate::{
+    components::{DatePicker, ExportLinks},
+    WebView,
+};
 use leptos2::*;
 use liturgy::{Document, SlugPath};
 
@@ -123,7 +126,7 @@ pub fn document_body(
         None
     };
 
-    let export_button = view! { <ExportLinks fake="Fake attr" prop:document={document.clone()}/> };
+    //let export_button = view! { <ExportLinks fake="Fake attr" prop:document={document.clone()}/> };
     let display_settings_menu = view! { <pre>"TODO display_settings_menu" </pre> };
     let liturgy_preference_menu = view! { <pre>"TODO liturgy_preference_menu" </pre> };
 
@@ -148,7 +151,21 @@ pub fn document_body(
 
     view! {
         <>
-            <header><h1>{document.label.clone().unwrap_or_default()}</h1></header>
+            <header>
+                <h1>{document.label.clone().unwrap_or_default()}</h1>
+                <ExportLinks
+                    prop:document={document.clone()}
+                    slug={base_slug.to_string()}
+                    date={&props.date}
+                    buttonlabel={t!("export.export")}
+                    linklabel={t!("export.link")}
+                    wordlabel={t!("export.word")}
+                    venitelabel={t!("export.venite")}
+                    jsonlabel={t!("export.json")}
+                    clipboardsuccess={t!("export.clipboard_success")}
+                    clipboarderror={t!("export.clipboard_error")}
+                />
+            </header>
             //{Header::new_with_side_menu_and_additional_buttons(locale, &document.label.clone().unwrap_or_default(), side_menu, vec![export_button]).to_node()}
             <main
                 // TODO display settings class
@@ -156,6 +173,7 @@ pub fn document_body(
                 {breadcrumbs(locale, base_slug)}
                 {viewer.view(locale)}
             </main>
+            <script>r#"window.addEventListener("readingloaded", (ev) => console.log("JS readingloaded", ev))"#</script>
         </>
     }
 }

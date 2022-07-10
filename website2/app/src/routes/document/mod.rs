@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use calendar::{Calendar, Date};
+use docx::DocxDocument;
 use itertools::Itertools;
 use leptos2::{view::View, *};
 use library::{CommonPrayer, Contents, Library};
@@ -26,7 +27,10 @@ pub mod views;
 
 pub use export_links::*;
 
-use super::settings::{DisplaySettings, Settings};
+use super::{
+    readings::export_docx::docx_response,
+    settings::{DisplaySettings, Settings},
+};
 
 #[derive(Debug)]
 pub enum DocumentPageType {
@@ -259,6 +263,39 @@ impl Loader for DocumentPage {
                 })
             })
     }
+
+    // POST to get a DOCX of any `Document` that has been POSTed
+    async fn action(
+        locale: &str,
+        req: Arc<dyn Request>,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> ActionResponse {
+        let form_data = req
+            .body()
+            .and_then(|body| body.as_form_data::<DocxPostForm>().ok())
+            .unwrap_or_default();
+        match serde_json::from_str::<Document>(&form_data.doc) {
+            Ok(doc) => {
+                let docx = DocxDocument::new().add_content(&doc);
+                match docx_response(
+                    format!("{}-{}", form_data.liturgy.replace('/', "-"), form_data.date),
+                    docx,
+                ) {
+                    Ok(path) => ActionResponse::from_path(path),
+                    Err(e) => ActionResponse::from_error(e),
+                }
+            }
+            Err(e) => ActionResponse::from_error(e),
+        }
+    }
+}
+
+#[derive(Params, Default)]
+pub struct DocxPostForm {
+    liturgy: String,
+    date: String,
+    doc: String,
 }
 
 impl View for DocumentPage {
@@ -285,7 +322,7 @@ impl View for DocumentPage {
         ]
     }
 
-    fn body(self: Box<Self>, nested_view: Option<Node>) -> view::Body {
+    fn body(self: Box<Self>, _nested_view: Option<Node>) -> view::Body {
         let children = match &self.page_type {
             DocumentPageType::Category { label, contents } => {
                 category_body(&self.locale, &self.slug, label, contents)

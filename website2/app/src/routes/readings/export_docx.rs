@@ -16,6 +16,7 @@ pub fn docx_response(
 
     let dir = tempdir().map_err(|_| DocxExportError::TempDir)?;
     let path = dir.path().join(file_name);
+    eprintln!("path = {:?}", path);
     let file = File::create(&path).map_err(|_| DocxExportError::CreateFile)?;
 
     docx.write(&file).map_err(|_| DocxExportError::WriteFile)?;

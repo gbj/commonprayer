@@ -1,5 +1,5 @@
 pub mod eucharist;
-mod export_docx;
+pub mod export_docx;
 pub mod holy_day;
 pub mod office;
 pub mod reading_loader;
