@@ -1,5 +1,8 @@
+use std::time::Duration;
+
 use crate::components::{Modal, Tabs};
 use crate::utils::encode_uri;
+use crate::utils::share::copy_text;
 use crate::Icon;
 use leptos2::*;
 use liturgy::{BiblicalReading, Content, Document};
@@ -27,6 +30,7 @@ enum Status {
     Idle,
     Success,
     Error(String),
+    LocationError,
 }
 
 impl Default for Status {
@@ -37,9 +41,14 @@ impl Default for Status {
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum ExportLinksMsg {
+    CopyLink,
+    CopyLDF,
     ModalOpen(bool),
     ChoiceChanged(String),
     ReadingLoaded(Vec<usize>, BiblicalReading),
+    ClipboardError(String),
+    ClipboardSuccess,
+    ClearStatus,
     Noop,
 }
 
@@ -48,6 +57,30 @@ impl State for ExportLinks {
 
     fn update(&mut self, msg: Self::Msg) -> Option<Cmd<Self>> {
         match msg {
+            Self::Msg::CopyLink => {
+                let location = location();
+                return match (location.pathname(), location.search()) {
+                    (Ok(pathname), Ok(search)) => {
+                        let url =
+                            format!("https://www.commonprayeronline.org{}{}", pathname, search);
+                        Some(self.copy(url))
+                    }
+                    _ => {
+                        self.status = Status::LocationError;
+                        None
+                    }
+                };
+            }
+            Self::Msg::CopyLDF => {
+                let ldf = ldf::LdfJson::from(self.document.clone());
+                return match serde_json::to_string(&ldf.into_inner()) {
+                    Ok(json) => Some(self.copy(json)),
+                    Err(_) => {
+                        self.status = Status::LocationError;
+                        None
+                    }
+                };
+            }
             Self::Msg::ModalOpen(modal_open) => {
                 self.modal_open = modal_open;
             }
@@ -88,6 +121,17 @@ impl State for ExportLinks {
                     *subdoc = Document::from(reading);
                 };
             }
+            Self::Msg::ClipboardError(text) => {
+                self.status = Status::Error(text);
+                return Some(self.clear_status_after_timeout(Duration::from_secs(3)));
+            }
+            Self::Msg::ClipboardSuccess => {
+                self.status = Status::Success;
+                return Some(self.clear_status_after_timeout(Duration::from_secs(30)));
+            }
+            Self::Msg::ClearStatus => {
+                self.status = Status::Idle;
+            }
             Self::Msg::Noop => {}
         }
         None
@@ -119,7 +163,7 @@ impl Component for ExportLinks {
                 })
             >
                 <style>{include_str!("export_links.css")}</style>
-                <button
+                <button class="open-button"
                     on:click=|_| ExportLinksMsg::ModalOpen(true)
                 >
                     <img src={Icon::Download} alt={&self.buttonlabel}/>
@@ -129,10 +173,8 @@ impl Component for ExportLinks {
                         //{selections_toggle_view}
                         <ul class="export-links">
                             // Link
-                            <button class="link" /* on:click={
-                                let status = status.clone();
-                                move |_ev: Event| share_link(&status)
-                            } */>
+                            <button class="link"
+                            on:click=|_| Self::Msg::CopyLink>
                                 <img src="/static/icons/tabler-icon-link.svg"/>
                                 {&self.linklabel}
                             </button>
@@ -155,11 +197,7 @@ impl Component for ExportLinks {
                             </form>
 
                             // Venite
-                            <button class="link venite" /* on:click={
-                                let status = status.clone();
-                                let ctrl = document_controller.clone();
-                                move |_ev: Event| copy_ldf(&status, &ctrl, &use_whole_doc)
-                            } */>
+                            <button class="link venite" on:click=|_| Self::Msg::CopyLDF>
                                 <img src="/static/icons/venite.svg"/>
                                 {&self.venitelabel}
                             </button>
@@ -176,11 +214,11 @@ impl Component for ExportLinks {
                             </a>
                         </ul>
                     </main>
-                    <footer class="export-status">
+                    <footer class="export-status" slot="content">
                         <p class="success" class:hidden={self.status != Status::Success}>
                             {&self.clipboardsuccess}
                         </p>
-                        <p class="error" class:hidden={!matches!(self.status, Status::Error(_))}>
+                        <p class="error" class:hidden={!matches!(self.status, Status::Error(_) | Status::LocationError)}>
                             {&self.clipboarderror}
                             <pre>{text_to_copy}</pre>
                         </p>
@@ -188,5 +226,39 @@ impl Component for ExportLinks {
                 </Modal>
             </Host>
         }
+    }
+}
+
+impl ExportLinks {
+    fn copy(&self, text: String) -> Cmd<Self> {
+        Cmd::new(|_, link| {
+            let link = link.clone();
+            spawn_local(async move {
+                match copy_text(&text).await {
+                    Ok(_) => {
+                        leptos2::debug_warn("copied text");
+
+                        link.send(&ExportLinksMsg::ClipboardSuccess);
+                    }
+                    Err(_) => {
+                        leptos2::debug_warn("failed to copy text");
+
+                        link.send(&ExportLinksMsg::ClipboardError(text));
+                    }
+                }
+            })
+        })
+    }
+
+    fn clear_status_after_timeout(&self, duration: Duration) -> Cmd<Self> {
+        Cmd::new(move |_, link| {
+            let link = link.clone();
+            set_timeout(
+                move || {
+                    link.send(&ExportLinksMsg::ClearStatus);
+                },
+                duration,
+            )
+        })
     }
 }

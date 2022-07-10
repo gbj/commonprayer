@@ -1,4 +1,18 @@
 /* Export Links */
+.hidden {
+	display: none;
+}
+
+.open-button {
+	background: none;
+	border: none;
+	display: block;
+}
+
+.open-button:hover {
+	cursor: pointer;
+}
+
 .export-alert {
 	padding: 3rem;
 }
@@ -81,4 +95,21 @@ footer.export-status {
 footer.export-status pre {
 	width: 100%;
 	white-space: pre-wrap;
+}
+
+.success, .error {
+	border-radius: 3px;
+	padding: 0.5rem;
+}
+
+.success {
+	background: var(--color-success-background);
+	border: 1px solid var(--color-success);
+	color: var(--color-success);
+}
+
+.error {
+	background: var(--color-error-background);
+	border: 1px solid var(--color-error);
+	color: var(--color-error);
 }
