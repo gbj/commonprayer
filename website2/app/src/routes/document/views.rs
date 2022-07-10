@@ -736,6 +736,7 @@ pub fn choice(locale: &str, mut path: Vec<usize>, choice: &Choice) -> HeaderAndM
                 <Tabs
                     data-id={&input_name}
                     prop:labels={labels.clone()}
+                    selected={choice.selected}
                 >
                     {Tabs::content(children)}
                 </Tabs>

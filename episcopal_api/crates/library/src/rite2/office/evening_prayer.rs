@@ -66,7 +66,7 @@ lazy_static! {
 
         // Neither Service of Light nor OmitForeOffice
         Document::from(Series::from([
-            Document::from(Content::DocumentLink { label: "Opening Sentences".into(), path: SlugPath::from([Slug::Office, Slug::OpeningSentences, Slug::Version(Version::RiteII)]), rotate: false }).display(Show::CompiledOnly),
+            Document::from(Content::DocumentLink { label: "Opening Sentences".into(), path: SlugPath::from([Slug::Office, Slug::OpeningSentences, Slug::Version(Version::RiteII)]), rotate: true }).display(Show::CompiledOnly),
             Document::from(Rubric::from("The following Confession of Sin may then be said; or the Office may continue at once with “O God make speed to save us.”")).page(116),
             Document::from(Heading::from((HeadingLevel::Heading3, "Confession of Sin"))),
             Document::from(Rubric::from("The Officiant says to the people")),
@@ -324,7 +324,7 @@ lazy_static! {
           .display(Show::CompiledOnly),
         Document::from(Rubric::from("The Officiant may then conclude with one of the following")),
 
-        Document::from(Content::DocumentLink { label: "Closing Sentences".into(), path: SlugPath::from([Slug::Office, Slug::ClosingSentences, Slug::Version(Version::RiteII)]), rotate: false }),
+        Document::from(Content::DocumentLink { label: "Closing Sentences".into(), path: SlugPath::from([Slug::Office, Slug::ClosingSentences, Slug::Version(Version::RiteII)]), rotate: true }),
     ]))
         .evening(true)
         .preferences([

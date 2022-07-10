@@ -21,7 +21,7 @@ lazy_static! {
                 // Fore-Office -- optionally omitted with "omitForeOffice" preference
                 Document::from(Series::from([
                     Document::from(Rubric::from("The Officiant begins the service with one or more of these sentences of Scripture, or with the versicle “Lord, open our lips.”")).page(75),
-                    Document::from(Content::DocumentLink { label: "Opening Sentences".into(), path: SlugPath::from([Slug::Office, Slug::OpeningSentences, Slug::Version(Version::RiteII)]), rotate: false }),
+                    Document::from(Content::DocumentLink { label: "Opening Sentences".into(), path: SlugPath::from([Slug::Office, Slug::OpeningSentences, Slug::Version(Version::RiteII)]), rotate: true }),
                     Document::from(Rubric::from("The following Confession of Sin may then be said; or the Office may continue at once with “Lord, open our lips.”")).page(79),
                     Document::from(Heading::from((HeadingLevel::Heading3, "Confession of Sin"))),
                     Document::from(Rubric::from("The Officiant says to the people")),
@@ -55,7 +55,7 @@ lazy_static! {
                 Document::from(Rubric::from("Then follows one of the Invitatory Psalms, Venite or Jubilate.")),
 
                 Document::from(Rubric::from("One of the following Antiphons may be sung or said with the Invitatory Psalm")).display(Show::TemplateOnly),
-                Document::from(Content::DocumentLink { label: "Invitatory Antiphons".into(), path: SlugPath::from([Slug::Office, Slug::InvitatoryAntiphons, Slug::Version(Version::RiteII)]), rotate: false })
+                Document::from(Content::DocumentLink { label: "Invitatory Antiphons".into(), path: SlugPath::from([Slug::Office, Slug::InvitatoryAntiphons, Slug::Version(Version::RiteII)]), rotate: true })
                     .version(Version::RiteII)
                     .display(Show::TemplateOnly),
 
@@ -417,7 +417,7 @@ lazy_static! {
                 .display(Show::CompiledOnly),
             Document::from(Rubric::from("The Officiant may then conclude with one of the following")),
 
-            Document::from(Content::DocumentLink { label: "Closing Sentences".into(), path: SlugPath::from([Slug::Office, Slug::ClosingSentences, Slug::Version(Version::RiteII)]), rotate: false }),
+            Document::from(Content::DocumentLink { label: "Closing Sentences".into(), path: SlugPath::from([Slug::Office, Slug::ClosingSentences, Slug::Version(Version::RiteII)]), rotate: true }),
 
             // Possible location #3 for sermon
             Document::from(Heading::from((HeadingLevel::Heading3, "The Sermon")))
