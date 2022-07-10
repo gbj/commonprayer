@@ -1,5 +1,4 @@
 - [ ] Bugs
-  - [ ] HTML Entities in e.g., NRSV
   - [ ] Fix width of tab buttons
   - [ ] Fix width of psalm header
   - [ ] Properly rotate opening sentences
