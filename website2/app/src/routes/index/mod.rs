@@ -124,10 +124,10 @@ impl View for Index {
     fn links(&self) -> Vec<Node> {
         view! {
             <>
-                <link rel="preload" href="/static/fonts/Sabon_Roman.woff2" _as="font" type="font/woff2"/>
-                <link rel="preload" href="/static/fonts/Sabon_Bold.woff2" _as="font" type="font/woff2"/>
-                <link rel="preload" href="/static/fonts/Sabon_Italic.woff2" _as="font" type="font/woff2"/>
-                <link rel="preload" href="/static/fonts/Sabon_BoldItalic.woff2" _as="font" type="font/woff2"/>
+                <link rel="preload" href="/static/fonts/Sabon_Roman.woff2" _as="font" type="font/woff2" crossorigin="anonymous" />
+                <link rel="preload" href="/static/fonts/Sabon_Bold.woff2" _as="font" type="font/woff2" crossorigin="anonymous" />
+                <link rel="preload" href="/static/fonts/Sabon_Italic.woff2" _as="font" type="font/woff2" crossorigin="anonymous" />
+                <link rel="preload" href="/static/fonts/Sabon_BoldItalic.woff2" _as="font" type="font/woff2" crossorigin="anonymous" />
             </>
         }
     }
