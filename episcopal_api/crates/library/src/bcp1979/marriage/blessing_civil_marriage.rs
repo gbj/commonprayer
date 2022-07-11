@@ -12,12 +12,14 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Holy Eucharist".into(),
                 path: SlugPath::from([Slug::Eucharist]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }),
             Document::from(Content::DocumentLink {
                 label: "Marriage Service".into(),
                 path: SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }),
 
             // Consent
@@ -52,7 +54,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Marriage Service".into(),
                 path: SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }),
         ])
     )));

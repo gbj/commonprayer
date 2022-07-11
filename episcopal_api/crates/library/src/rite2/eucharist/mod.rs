@@ -216,7 +216,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Prayers of the People".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::PrayersOfThePeople, Slug::Version(Version::BCP1979)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).tags([POP_FORMS]).display(Show::TemplateOnly),
             Document::from(Choice::from(bcp1979::eucharist::PRAYERS_OF_THE_PEOPLE.clone(),)),
 
@@ -227,7 +228,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Penitential Sentences".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::PenitentialSentences, Slug::Version(Version::RiteII)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).tags([CONFESSION]),
             Document::from(Rubric::from("The Deacon or Celebrant says")).tags([CONFESSION]),
             Document::from(Text::from("Let us confess our sins against God and our neighbor.")).tags([CONFESSION]),
@@ -249,7 +251,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Offertory Sentences".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::OffertorySentences, Slug::Version(Version::RiteII)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).version(Version::RiteII).tags([OFFERTORY]),
 
             Document::from(Rubric::from("During the Offertory, a hymn, psalm, or anthem may be sung.")).tags([OFFERTORY_HYMN]),
@@ -260,7 +263,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Eucharistic Prayers".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::GreatThanksgiving]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).tags([EUCHARISTIC_PRAYERS]).display(Show::TemplateOnly),
             Document::from(Choice::from(vec![
                 PRAYER_A.clone(),
@@ -340,7 +344,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Form for Consecrating Additional Bread and Wine".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::ConsecratingAdditional]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).tags([ADDITIONAL_CONSECRATION_TAG]),
             Document::from(Rubric::from("After Communion, the Celebrant says")).tags([POSTCOMMUNION_PRAYER_TAG]),
             Document::from(Text::from("Let us pray.")).tags([POSTCOMMUNION_PRAYER_TAG]),
@@ -486,7 +491,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Proper Prefaces".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Version(Version::RiteII)]),
-                rotate: true
+                rotate: true,
+                link_only: false
             }),
             Document::from(Text::from("Therefore we praise you, joining our voices with Angels and Archangels and with all the company of heaven, who for ever sing this hymn to proclaim the glory of your Name:")),
             Document::from(Rubric::from("Celebrant and People")),
@@ -521,7 +527,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Proper Prefaces".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Version(Version::RiteII)]),
-                rotate: true
+                rotate: true,
+                link_only: false
             }),
             Document::from(Text::from("Therefore we praise you, joining our voices with Angels and Archangels and with all the company of heaven, who for ever sing this hymn to proclaim the glory of your Name:")),
             Document::from(Rubric::from("Celebrant and People")),

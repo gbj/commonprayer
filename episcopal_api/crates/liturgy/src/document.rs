@@ -625,10 +625,12 @@ pub enum Content {
     DocumentLink {
         label: String,
         path: SlugPath,
-        /// If `true`, the compiler will only show one [Document](crate::Document),
-        /// rotating by day in a deterministic way. If `false`, it will show them all
-        /// as a [Choice](crate::Choice).
-        rotate: bool
+        /// The compiler will show every matching [Document](crate::Document) as a
+        /// [Choice](crate::Choice), with the first selected by default. If `true`,
+        /// the selection will be rotated deterministically by day.
+        rotate: bool,
+        /// If `true`, the compiler will not insert the documents, but will retain a link.
+        link_only: bool
     },
     /// The Gloria Patri is formatted such that it is broken into four lines rather than two if necessary
     GloriaPatri(GloriaPatri),

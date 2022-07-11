@@ -27,7 +27,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Proper Prefaces".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Version(Version::RiteII)]),
-                rotate: true
+                rotate: true,
+                link_only: false
             }),
             Document::from(Text::from("Therefore, joining with Angels and Archangels\nand with the faithful of every generation,\nwe lift our voices with all creation as we sing (say):")),
             Document::from(Rubric::from("Celebrant and People")),

@@ -14,7 +14,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Marriage Service".into(),
                 path: SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }),
             Document::from(Rubric::from("Normally, the celebrant is a priest or bishop. Where permitted by civil law, and when no priest or bishop is available, a deacon may function as celebrant, but does not pronounce a nuptial blessing.")),
             Document::from(Rubric::from("The laws of the State and the canons of this Church having been complied with, the man and the woman, together with their witnesses, families, and friends assemble in the church or in some other convenient place.")).tags([PROCESSION_RUBRIC]),
@@ -34,7 +35,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Holy Eucharist".into(),
                 path: SlugPath::from([Slug::Eucharist]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).tags([AT_THE_EUCHARIST]),
         ]))));
 }

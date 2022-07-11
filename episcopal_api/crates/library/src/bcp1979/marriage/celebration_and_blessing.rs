@@ -135,7 +135,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Additional Directions".into(),
                 path: SlugPath::from([Slug::Marriage, Slug::AdditionalDirections]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).tags([ADDITIONAL_DIRECTIONS_PARALLEL]),
             Document::from(Series::from(vec![
                 Document::from(Rubric::from("A hymn, psalm, or anthem may follow.")),
@@ -251,7 +252,8 @@ lazy_static! {
                 Document::from(Content::DocumentLink {
                     label: "Preface of Marriage".into(),
                     path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Marriage]),
-                    rotate: false
+                    rotate: false,
+                    link_only: false
                 }).tags([PROPER_PREFACE]),
                 Document::from(Rubric::from("At the Communion, it is appropriate that the newly married couple receive Communion first, after the ministers.")).tags([POST_PREFACE_RUBRIC]),
                 Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")).tags([POSTCOMMUNION_PRAYER]),

@@ -168,7 +168,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Additional Prayers".into(),
                 path: SlugPath::from([Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteII)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).version(Version::RiteII).tags([RUBRIC_BEFORE_PRAYERS]),
             Document::from(Series::from(vec![
                 Document::from(Litany::from((
@@ -198,7 +199,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Preface of the Commemoration of the Dead".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Burial, Slug::Version(Version::RiteII)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).tags([PROPER_PREFACE]),
             Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")).tags([POSTCOMMUNION_PRAYER]),
             Document::from(Text::from("Almighty God, we thank you that in your great love you have fed us with the spiritual food and drink of the Body and Blood of your Son Jesus Christ, and have given us a foretaste of your heavenly banquet. Grant that this Sacrament may be to us a comfort in affliction, and a pledge of our inheritance in that kingdom where there is no death, neither sorrow nor crying, but the fullness of joy with all your saints; through Jesus Christ our Savior.").response("Amen.").display_format(DisplayFormat::Unison)).tags([POSTCOMMUNION_PRAYER]),
@@ -255,7 +257,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Additional Prayers".into(),
                 path: SlugPath::from([Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteII)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).version(Version::RiteII).tags([COMMITTAL_PRAYERS_2]),
             Document::from(Rubric::from("Then may be said.")).tags([COMMITTAL_PRAYERS_2]),
             Document::from(ResponsivePrayer::from([
@@ -285,7 +288,8 @@ lazy_static! {
                 Document::from(Content::DocumentLink {
                     label: "Additional Prayers".into(),
                     path: SlugPath::from([Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteII)]),
-                    rotate: false
+                    rotate: false,
+                    link_only: false
                 }).version(Version::RiteII)
             ])).tags([ADDITIONAL_PRAYERS])
         ]))));

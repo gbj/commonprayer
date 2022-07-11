@@ -73,23 +73,32 @@ pub trait Library {
         } else {
             match &document.content {
                 // Document Link Lookup
-                Content::DocumentLink { path, rotate, .. } => {
-                    let contents = Self::contents().contents_at_path(path)?;
-                    let docs = contents.as_documents();
-                    let mut docs = docs.cloned();
+                Content::DocumentLink {
+                    path,
+                    rotate,
+                    link_only,
+                    ..
+                } => {
+                    if *link_only {
+                        Some(document)
+                    } else {
+                        let contents = Self::contents().contents_at_path(path)?;
+                        let docs = contents.as_documents();
+                        let mut docs = docs.cloned();
 
-                    Document::choice_or_document(&mut docs)
-                        .and_then(|docs| {
-                            Self::compile(docs, calendar, day, observed, prefs, liturgy_prefs)
-                        })
-                        .map(|mut doc| {
-                            if let Content::Choice(ref mut choice) = doc.content {
-                                if *rotate {
-                                    choice.rotate(&day.date);
+                        Document::choice_or_document(&mut docs)
+                            .and_then(|docs| {
+                                Self::compile(docs, calendar, day, observed, prefs, liturgy_prefs)
+                            })
+                            .map(|mut doc| {
+                                if let Content::Choice(ref mut choice) = doc.content {
+                                    if *rotate {
+                                        choice.rotate(&day.date);
+                                    }
                                 }
-                            }
-                            doc
-                        })
+                                doc
+                            })
+                    }
                 }
 
                 // Lectionaries
@@ -324,6 +333,7 @@ pub trait Library {
                                 label: String::new(),
                                 path: SlugPath::from([Slug::Office, Slug::InvitatoryAntiphons]),
                                 rotate: true,
+                                link_only: false,
                             }),
                             calendar,
                             day,

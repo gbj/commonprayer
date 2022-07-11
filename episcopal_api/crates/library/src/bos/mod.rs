@@ -219,7 +219,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Nicene Creed".into(),
                 path: SlugPath::from([Slug::NiceneCreed]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }),
 
             Document::from(Heading::from((HeadingLevel::Heading2, "Prayers of the People"))),
@@ -270,7 +271,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "An Order for Burial".into(),
                 path: SlugPath::from([Slug::Burial, Slug::Order]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }),
             Document::from(Heading::from((HeadingLevel::Heading2, "Opening Anthem"))).tags([OPENING_RUBRIC]),
             Document::from(Text::from("The steadfast love of the Lord never ceases, \nhis mercies never come to an end;\nthey are new every morning; \ngreat is his faithfulness.\nThe Lord will not cast off forever.\nThough he cause grief, he will have compassion \naccording to the abundance of his steadfast love;\nThe Lord does not willingly afflict or grieve his children.")).tags([ANTHEMS]),

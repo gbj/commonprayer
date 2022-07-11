@@ -17,17 +17,20 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "BCP Marriage Service".into(),
                 path: SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }),
             Document::from(Content::DocumentLink {
                 label: "The Witnessing and Blessing of a Marriage".into(),
                 path: SlugPath::from([Slug::Marriage, Slug::WitnessingAndBlessing]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }),
             Document::from(Content::DocumentLink {
                 label: "The Celebration and Blessing of a Marriage".into(),
                 path: SlugPath::from([Slug::Marriage, Slug::CelebrationAndBlessing, Slug::Version(Version::Expansive)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }),
             Document::from(Rubric::from("Normally, the celebrant is a priest or bishop. Where permitted by civil law, and when no priest or bishop is available, a deacon may function as celebrant, but does not pronounce a nuptial blessing.\n\nThe laws of the State and the Canons of this Church having been complied with, the couple, together with their witnesses, families, and friends assemble in the church or in some other convenient place.")),
             Document::from(Rubric::from("1. The teaching of the Church concerning Holy Matrimony, as it is declared in the formularies and Canons of this Church, is briefly stated. \n\n2. The intention of the couple to enter the state of matrimony, and their free consent, is publicly ascertained. \n\n3. One or more Readings, one of which is always from Holy Scripture, may precede the exchange of vows. If there is to be a Communion, a Reading from the Gospel is always included. \n\n4. The vows are exchanged, using the following form").long()),
@@ -39,7 +42,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                     label: "Holy Eucharist".into(),
                     path: SlugPath::from([Slug::Eucharist]),
-                    rotate: false
+                    rotate: false,
+                    link_only: false
                 }),
         ]))));
 }

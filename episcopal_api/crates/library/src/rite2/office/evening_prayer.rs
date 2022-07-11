@@ -52,11 +52,12 @@ lazy_static! {
         Document::from(Heading::InsertDay),
 
         Document::from(Rubric::from("The Officiant begins the service with one or more of the following sentences of Scripture;\n\nor with the Service of Light, and continuing with the appointed Psalmody;\n\nor with the versicle “O God, make speed to save us.”")).page(115),
-        Document::from(Content::DocumentLink { label: "Opening Sentences".into(), path: SlugPath::from([Slug::Office, Slug::OpeningSentences, Slug::Version(Version::RiteII)]), rotate: false }).display(Show::TemplateOnly),
+        Document::from(Content::DocumentLink { label: "Opening Sentences".into(), path: SlugPath::from([Slug::Office, Slug::OpeningSentences, Slug::Version(Version::RiteII)]), rotate: false, link_only: false }).display(Show::TemplateOnly),
         Document::from(Content::DocumentLink {
           label: "Service of Light".into(),
           path: SlugPath::from([Slug::Office, Slug::ServiceOfLight]),
-          rotate: false
+          rotate: false,
+          link_only: true
         }).display(Show::TemplateOnly),
 
         // Service of Light
@@ -66,7 +67,7 @@ lazy_static! {
 
         // Neither Service of Light nor OmitForeOffice
         Document::from(Series::from([
-            Document::from(Content::DocumentLink { label: "Opening Sentences".into(), path: SlugPath::from([Slug::Office, Slug::OpeningSentences, Slug::Version(Version::RiteII)]), rotate: true }).display(Show::CompiledOnly),
+            Document::from(Content::DocumentLink { label: "Opening Sentences".into(), path: SlugPath::from([Slug::Office, Slug::OpeningSentences, Slug::Version(Version::RiteII)]), rotate: true, link_only: false }).display(Show::CompiledOnly),
             Document::from(Rubric::from("The following Confession of Sin may then be said; or the Office may continue at once with “O God make speed to save us.”")).page(116),
             Document::from(Heading::from((HeadingLevel::Heading3, "Confession of Sin"))),
             Document::from(Rubric::from("The Officiant says to the people")),
@@ -295,7 +296,7 @@ lazy_static! {
 
         Document::from(Rubric::from("Authorized intercessions and thanksgivings may follow.")),
 
-        Document::from(Content::DocumentLink { label: "Prayers and Thanksgivings".into(), path: SlugPath::from([Slug::PrayersAndThanksgivings]), rotate: false }),
+        Document::from(Content::DocumentLink { label: "Prayers and Thanksgivings".into(), path: SlugPath::from([Slug::PrayersAndThanksgivings]), rotate: false, link_only: true }),
 
         Document::from(Rubric::from("Before the close of the Office one or both of the following may be used")),
         Document::from(Text::from("Almighty God, Father of all mercies,\nwe your unworthy servants give you humble thanks\nfor all your goodness and loving-kindness\nto us and to all whom you have made.\nWe bless you for our creation, preservation,\nand all the blessings of this life;\nbut above all for your immeasurable love\nin the redemption of the world by our Lord Jesus Christ;\nfor the means of grace, and for the hope of glory.\n\nAnd, we pray, give us such an awareness of your mercies,\nthat with truly thankful hearts we may show forth your praise,\nnot only with our lips, but in our lives,\nby giving up our selves to your service,\nand by walking before you\nin holiness and righteousness all our days;\nthrough Jesus Christ our Lord,\nto whom, with you and the Holy Spirit,\nbe honor and glory throughout all ages. ")
@@ -324,7 +325,7 @@ lazy_static! {
           .display(Show::CompiledOnly),
         Document::from(Rubric::from("The Officiant may then conclude with one of the following")),
 
-        Document::from(Content::DocumentLink { label: "Closing Sentences".into(), path: SlugPath::from([Slug::Office, Slug::ClosingSentences, Slug::Version(Version::RiteII)]), rotate: true }),
+        Document::from(Content::DocumentLink { label: "Closing Sentences".into(), path: SlugPath::from([Slug::Office, Slug::ClosingSentences, Slug::Version(Version::RiteII)]), rotate: true, link_only: false }),
     ]))
         .evening(true)
         .preferences([

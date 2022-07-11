@@ -112,7 +112,7 @@ lazy_static! {
 
         Document::from(Rubric::from("Silence may be kept, and free intercessions and thanksgivings may be offered.\n")),
 
-        Document::from(Content::DocumentLink { label: "Prayers and Thanksgivings".into(), path: SlugPath::from([Slug::PrayersAndThanksgivings]), rotate: false }),
+        Document::from(Content::DocumentLink { label: "Prayers and Thanksgivings".into(), path: SlugPath::from([Slug::PrayersAndThanksgivings]), rotate: false, link_only: false }),
 
         Document::from(Rubric::from("The service concludes with the Song of Simeon with this Antiphon, which is sung or said by all")),
         Document::from(Antiphon::from("Guide us waking, O Lord, and guard us sleeping; that awake we may watch with Christ, and asleep we may rest in peace.")),

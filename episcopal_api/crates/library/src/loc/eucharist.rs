@@ -239,7 +239,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Oración de los Fieles".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::PrayersOfThePeople, Slug::Version(Version::LibroDeOracionComun)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).tags([POP_FORMS]),
             Document::from(Choice::from(loc::eucharist::PRAYERS_OF_THE_PEOPLE.clone())),
 
@@ -250,7 +251,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Versículos del Orden Penitencial".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::PenitentialSentences, Slug::Version(Version::LibroDeOracionComun)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).tags([CONFESSION]),
             Document::from(Rubric::from("El Diácono o el Celebrante dice:")).tags([CONFESSION]),
             Document::from(Text::from("Confesemos nuestros pecados contra Dios y contra nuestro prójimo.")).tags([CONFESSION]),
@@ -272,7 +274,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Versículos".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::OffertorySentences, Slug::Version(Version::LibroDeOracionComun)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).version(Version::RiteII).tags([OFFERTORY]),
 
             Document::from(Rubric::from("Durante el Ofertorio puede cantarse un himno, salmo o antífona.")).tags([OFFERTORY_HYMN]),
@@ -283,7 +286,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Plegarias Eucarísticas".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::GreatThanksgiving, Slug::Version(Version::LibroDeOracionComun)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).tags([EUCHARISTIC_PRAYERS]).display(Show::TemplateOnly),
             Document::from(Choice::from(vec![
                 PRAYER_A.clone(),
@@ -355,7 +359,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "La Fórmula para Consagrar Más Pan y Vino".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::ConsecratingAdditional, Slug::Version(Version::LibroDeOracionComun)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).tags([ADDITIONAL_CONSECRATION_TAG]),
             Document::from(Rubric::from("Después de la Comunión, el Celebrante dice:")).tags([POSTCOMMUNION_PRAYER_TAG]),
             Document::from(Text::from("Oremos.")).tags([POSTCOMMUNION_PRAYER_TAG]),
@@ -514,7 +519,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Prefacios Propios".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Version(Version::LibroDeOracionComun)]),
-                rotate: true
+                rotate: true,
+                link_only: false
             }),
             Document::from(Text::from("Por tanto te alabamos, uniendo nuestras voces con los Angeles y Arcángeles, y con todos los coros celestiales que, proclamando la gloria de tu Nombre, por siempre cantan este himno:")),
             Document::from(Rubric::from("Celebrante y Pueblo:")),
@@ -554,7 +560,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Prefacios Propios".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Version(Version::LibroDeOracionComun)]),
-                rotate: true
+                rotate: true,
+                link_only: false
             }),
             Document::from(Text::from("Por tanto te alabamos, uniendo nuestras voces con los Angeles y Arcángeles, y con todos los coros c elestiales que, proclamando la gloria de tu Nombre, por siempre cantan este himno:")),
             Document::from(Rubric::from("Celebrante y Pueblo:")),

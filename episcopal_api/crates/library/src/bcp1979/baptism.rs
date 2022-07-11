@@ -20,7 +20,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Additional Directions".into(),
                 path: SlugPath::from([Slug::Baptism, Slug::AdditionalDirections]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }),
         ]))));
 
@@ -61,7 +62,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Additional Directions".into(),
                 path: SlugPath::from([Slug::Baptism, Slug::AdditionalDirections]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }),
 
             Document::from(Heading::from((HeadingLevel::Heading2, "The Lessons"))),

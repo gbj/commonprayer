@@ -96,7 +96,7 @@ lazy_static! {
                 // Closing
                 Document::from(Rubric::from("Free intercessions may be offered.")),
 
-                Document::from(Content::DocumentLink { label: "Prayers and Thanksgivings".into(), path: SlugPath::from([Slug::PrayersAndThanksgivings]), rotate: false }),
+                Document::from(Content::DocumentLink { label: "Prayers and Thanksgivings".into(), path: SlugPath::from([Slug::PrayersAndThanksgivings]), rotate: false, link_only: false }),
 
                 Document::from(Rubric::from("The service concludes as follows")),
                 Document::from(Preces::from([

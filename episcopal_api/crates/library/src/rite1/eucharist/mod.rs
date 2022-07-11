@@ -23,7 +23,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Proper Prefaces".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Version(Version::RiteI)]),
-                rotate: true
+                rotate: true,
+                link_only: false
             }),
             Document::from(Text::from("Therefore with Angels and Archangels, and with all the company of heaven, we laud and magnify thy glorious Name; evermore praising thee, and saying,")),
             Document::from(Rubric::from("Celebrant and People")),
@@ -57,7 +58,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Proper Prefaces".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Version(Version::RiteI)]),
-                rotate: true
+                rotate: true,
+                link_only: false
             }),
             Document::from(Text::from("Therefore with Angels and Archangels, and with all the company of heaven, we laud and magnify thy glorious Name; evermore praising thee, and saying,")),
             Document::from(Rubric::from("Celebrant and People")),

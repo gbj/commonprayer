@@ -731,7 +731,8 @@ lazy_static! {
                 Document::from(Content::DocumentLink{
                     label: "Apostles’ Creed".into(),
                     path: SlugPath::from([Slug::ApostlesCreed, Slug::Version(Version::RiteI)]),
-                    rotate: false
+                    rotate: false,
+                    link_only: false
                 }).display(Show::TemplateOnly)
             ])).tags([CREED]),
             APOSTLES_CREED_TRADITIONAL.clone().display(Show::CompiledOnly),
@@ -741,7 +742,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Additional Prayers".into(),
                 path: SlugPath::from([Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteI)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).version(Version::RiteI).tags([RUBRIC_BEFORE_PRAYERS]),
 
             Document::from(Rubric::from("The People respond to every petition with Amen.\n\nThe Deacon or other leader says")).tags([PRAYERS_RUBRIC]),
@@ -770,7 +772,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Preface of the Commemoration of the Dead".into(),
                 path: SlugPath::from([Slug::Eucharist, Slug::ProperPrefaces, Slug::Burial, Slug::Version(Version::RiteI)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).tags([PROPER_PREFACE]),
             Document::from(Rubric::from("In place of the usual postcommunion prayer, the following is said")).tags([POSTCOMMUNION_PRAYER]),
             Document::from(Text::from("Almighty God, we thank thee that in thy great love thou hast fed us with the spiritual food and drink of the Body and Blood of thy Son Jesus Christ, and hast given unto us a foretaste of thy heavenly banquet. Grant that this Sacrament may be unto us a comfort in affliction, and a pledge of our inheritance in that kingdom where there is no death, neither sorrow nor crying, but the fullness of joy with all thy saints; through Jesus Christ our Savior.").response("Amen.").display_format(DisplayFormat::Unison)).tags([POSTCOMMUNION_PRAYER]),
@@ -830,7 +833,8 @@ lazy_static! {
             Document::from(Content::DocumentLink {
                 label: "Additional Prayers".into(),
                 path: SlugPath::from([Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteI)]),
-                rotate: false
+                rotate: false,
+                link_only: false
             }).version(Version::RiteI).tags([COMMITTAL_PRAYERS_2]),
 
             Document::from(Rubric::from("Then may be said.")).tags([COMMITTAL_PRAYERS_2]),
@@ -853,7 +857,8 @@ lazy_static! {
                 Document::from(Content::DocumentLink {
                     label: "Additional Prayers".into(),
                     path: SlugPath::from([Slug::Burial, Slug::AdditionalPrayers, Slug::Version(Version::RiteI)]),
-                    rotate: false
+                    rotate: false,
+                    link_only: false
                 }).version(Version::RiteI)
             ])).tags([ADDITIONAL_PRAYERS])
         ]))));
