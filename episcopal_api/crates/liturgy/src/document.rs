@@ -412,7 +412,8 @@ impl Document {
         label_contains || subtitle_contains || version_label_contains || source_contains || tags_contain || content_contains
     }
 
-    /// Whether any of the document's fields, or its content, contains the given text, ignoring the search string case
+    /// Whether any of the document's fields, or its content, contains the given text, ignoring the search string case.
+    /// An empty `String` returns `true`.
     pub fn contains_case_insensitive(&self, text: &str) -> bool {
         let text = text.to_lowercase();
         let label_contains = self

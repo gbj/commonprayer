@@ -235,12 +235,18 @@ impl Loader for DocumentPage {
                         label,
                         documents,
                         hidden_in_toc,
-                    } => Some(DocumentPageType::MultiDocument {
-                        label,
-                        documents,
-                        hidden_in_toc,
-                        search: query.search.unwrap_or_default(),
-                    }),
+                    } => {
+                        let search = query.search.unwrap_or_default();
+                        Some(DocumentPageType::MultiDocument {
+                            label,
+                            documents: documents
+                                .into_iter()
+                                .filter(|doc| doc.contains_case_insensitive(&search))
+                                .collect(),
+                            hidden_in_toc,
+                            search,
+                        })
+                    }
                     Contents::Parallels {
                         label,
                         intro,
