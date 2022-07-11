@@ -7513,7 +7513,7 @@ lazy_static! {
                 Text::from("Almighty God, who didst strengthen thy servant Irenaeus to defend thy truth against every blast of vain doctrine: Keep us, we pray, steadfast in thy true religion, that in constancy and peace we may walk in the way that leads to eternal life; through Jesus Christ our Lord, who liveth and reigneth with thee and the Holy Ghost, one God, now and for ever.")
                     .response("Amen.")
                 )
-                .label("")
+                .label("Irenaeus of Lyons")
                 .source(Reference {
                     source: Source::LFF2018,
                     page: 0

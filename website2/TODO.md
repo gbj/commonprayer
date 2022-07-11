@@ -1,8 +1,6 @@
 - [ ] Bugs
   - [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
-  - [ ] "Eccles." labeled as Ben Sira
   - [ ] St. Mark readings + collect
-  - [ ] Irenaeus collect
   - [ ] Doubled Peter & Paul collect
   - [ ] Fix weird highlighting offset in search
   - [ ] Readings page
@@ -22,6 +20,7 @@
 - [ ] Finish website2 and merge
   - [ ] Nested document pages
 - Initial public release
+- [ ] Bulletin editor
 - [ ] Integration tests
 - [ ] Features
   - [ ] Tabs swipe left/right
