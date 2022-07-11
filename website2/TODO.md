@@ -4,7 +4,6 @@
   - [ ] Readings page
     - [ ] Ember Day readings
     - [ ] Rogation Day readings
-  - [ ] Red-letter/LFF collects only show one version? (check 4/25, 6/29)
 - [ ] Readings Page
   - [ ] Office readings: sequential rather than tabbed readings
 - [ ] Document page

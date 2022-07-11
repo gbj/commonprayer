@@ -175,7 +175,7 @@ lazy_static! {
                 Text::from("Almighty God, whose blessed apostles Peter and Paul glorified you by their martyrdom: Grant that your Church, instructed by their teaching and example, and knit together in unity by your Spirit, may ever stand firm upon the one foundation, which is Jesus Christ our Lord; who lives and reigns with you, in the unity of the same Spirit, one God, now and for ever.")
                     .response("Amen.")
                 )
-                .label("")
+                .label("Saint Peter and Saint Paul")
                 .source(Reference {
                     source: Source::LFF2018,
                     page: 0
@@ -7528,7 +7528,7 @@ lazy_static! {
                 Text::from("Almighty God, whose blessed apostles Peter and Paul glorified thee by their martyrdom: Grant that thy church, instructed by their teaching and example, and knit together in unity by thy Spirit, may ever stand firm upon the one foundation, which is Jesus Christ our Lord; who liveth and reigneth with thee, in the unity of the same Spirit, one God, for ever and ever.")
                     .response("Amen.")
                 )
-                .label("")
+                .label("Saint Peter and Saint Paul")
                 .source(Reference {
                     source: Source::LFF2018,
                     page: 0
