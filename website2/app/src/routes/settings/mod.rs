@@ -12,7 +12,7 @@ mod display;
 mod general;
 mod liturgy;
 
-use crate::UserInfo;
+use crate::{UserId, UserInfo};
 
 pub use self::liturgy::*;
 pub use dark_mode::DarkMode;
@@ -102,19 +102,19 @@ const DISPLAY_COOKIE_NAME: &str = "display";
 const LITURGY_COOKIE_NAME: &str = "liturgy";
 
 lazy_static! {
-    pub static ref ALL_SETTINGS_CACHE: moka::sync::Cache<String, Settings> =
+    pub static ref ALL_SETTINGS_CACHE: moka::sync::Cache<UserId, Settings> =
         moka::sync::Cache::builder()
             .time_to_live(std::time::Duration::from_millis(500))
             .build();
-    pub static ref GENERAL_SETTINGS_CACHE: moka::sync::Cache<String, GeneralSettings> =
+    pub static ref GENERAL_SETTINGS_CACHE: moka::sync::Cache<UserId, GeneralSettings> =
         moka::sync::Cache::builder()
             .time_to_live(std::time::Duration::from_millis(500))
             .build();
-    pub static ref DISPLAY_SETTINGS_CACHE: moka::sync::Cache<String, DisplaySettings> =
+    pub static ref DISPLAY_SETTINGS_CACHE: moka::sync::Cache<UserId, DisplaySettings> =
         moka::sync::Cache::builder()
             .time_to_live(std::time::Duration::from_millis(500))
             .build();
-    pub static ref LITURGY_SETTINGS_CACHE: moka::sync::Cache<(String, SlugPath), Vec<(PreferenceKey, PreferenceValue)>> =
+    pub static ref LITURGY_SETTINGS_CACHE: moka::sync::Cache<(UserId, SlugPath), Vec<(PreferenceKey, PreferenceValue)>> =
         moka::sync::Cache::builder()
             .time_to_live(std::time::Duration::from_millis(500))
             .build();
@@ -130,7 +130,7 @@ impl Settings {
             match sqlx::query_as!(
                 DBSettings,
                 "SELECT general, display from user_settings where user_id = $1",
-                uid
+                uid.to_string()
             )
             .fetch_one(req.db())
             .await
@@ -166,9 +166,12 @@ impl Settings {
                 return cached;
             }
 
-            match sqlx::query!("SELECT general from user_settings where user_id = $1", uid)
-                .fetch_one(req.db())
-                .await
+            match sqlx::query!(
+                "SELECT general from user_settings where user_id = $1",
+                uid.to_string()
+            )
+            .fetch_one(req.db())
+            .await
             {
                 Ok(value) => {
                     let from_db = from_value::<GeneralSettings>(value.general).ok();
@@ -194,9 +197,12 @@ impl Settings {
                 return cached;
             }
 
-            match sqlx::query!("SELECT display from user_settings where user_id = $1", uid)
-                .fetch_one(req.db())
-                .await
+            match sqlx::query!(
+                "SELECT display from user_settings where user_id = $1",
+                uid.to_string()
+            )
+            .fetch_one(req.db())
+            .await
             {
                 Ok(value) => {
                     let from_db = from_value::<DisplaySettings>(value.display).ok();
@@ -275,7 +281,7 @@ impl Settings {
         // store in database for users who are logged in
         if let Some(uid) = UserInfo::verified_id(req.clone()).await {
             match sqlx::query!("INSERT INTO user_settings VALUES ($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET display = $3;",
-                uid,
+                uid.to_string(),
                 serde_json::to_value(&GeneralSettings::default()).unwrap(),
                 serde_json::to_value(&settings).unwrap(),
                 serde_json::to_value(&LiturgySettings::default()).unwrap()
@@ -307,7 +313,7 @@ impl Settings {
         // store in database for users who are logged in
         if let Some(uid) = UserInfo::verified_id(req.clone()).await {
             match sqlx::query!("INSERT INTO user_settings VALUES ($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET general = $2;",
-                uid,
+                uid.to_string(),
                 serde_json::to_value(&settings).unwrap(),
                 serde_json::to_value(&DisplaySettings::default()).unwrap(),
                 serde_json::to_value(&LiturgySettings::default()).unwrap()

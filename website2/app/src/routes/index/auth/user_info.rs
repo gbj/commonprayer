@@ -7,6 +7,12 @@ use crate::UserInfo;
 #[derive(Clone, Debug, Hash, PartialEq, Eq, Default, Serialize, Deserialize)]
 pub struct UserId(String);
 
+impl std::fmt::Display for UserId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0)
+    }
+}
+
 impl UserInfo {
     /// There is *always* the potential that this is fake user data set in a cookie by the client.
     /// It should never be trusted for actual authentication, but is convenient for SSR of display name
@@ -25,7 +31,7 @@ impl UserInfo {
             .and_then(|cookie| serde_json::from_str(cookie.value()).ok())
     }
 
-    pub async fn verified_id(req: Arc<dyn Request>) -> Option<String> {
+    pub async fn verified_id(req: Arc<dyn Request>) -> Option<UserId> {
         if let Some(unverified) = Self::get_untrusted(&req) {
             unverified.to_verified_id().await
         } else {
@@ -33,14 +39,14 @@ impl UserInfo {
         }
     }
 
-    pub async fn to_verified_id(&self) -> Option<String> {
+    pub async fn to_verified_id(&self) -> Option<UserId> {
         let token = validate_token(&self.token).await;
         match token {
             Ok(token) => token
                 .claims
                 .get("user_id")
                 .and_then(|user_id| match user_id {
-                    Value::String(uid) => Some(uid.clone()),
+                    Value::String(uid) => Some(UserId(uid.clone())),
                     _ => None,
                 }),
             Err(e) => {

@@ -13,6 +13,7 @@ use liturgy::{Slug, SlugPath, Version};
 pub mod auth;
 use crate::UserInfo;
 use auth::auth_scripts;
+pub use auth::UserId;
 
 pub struct Index {
     locale: String,
