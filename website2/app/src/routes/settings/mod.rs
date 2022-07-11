@@ -132,12 +132,12 @@ impl Settings {
                 "SELECT general, display from user_settings where user_id = $1",
                 uid.to_string()
             )
-            .fetch_one(req.db())
+            .fetch_optional(req.db())
             .await
             {
-                Ok(DBSettings {
+                Ok(Some(DBSettings {
                     general, display, ..
-                }) => {
+                })) => {
                     let general = from_value::<GeneralSettings>(general).unwrap_or_default();
                     let display = from_value::<DisplaySettings>(display).unwrap_or_default();
 
@@ -145,6 +145,7 @@ impl Settings {
                     ALL_SETTINGS_CACHE.insert(uid, from_db.clone());
                     Some(from_db)
                 }
+                Ok(None) => Some(Settings::default()),
                 Err(e) => {
                     eprintln!("[Settings::all] {}", e);
                     None
@@ -170,16 +171,17 @@ impl Settings {
                 "SELECT general from user_settings where user_id = $1",
                 uid.to_string()
             )
-            .fetch_one(req.db())
+            .fetch_optional(req.db())
             .await
             {
-                Ok(value) => {
+                Ok(Some(value)) => {
                     let from_db = from_value::<GeneralSettings>(value.general).ok();
                     if let Some(from_db) = &from_db {
                         GENERAL_SETTINGS_CACHE.insert(uid, from_db.clone());
                     };
                     from_db
                 }
+                Ok(None) => Some(GeneralSettings::default()),
                 Err(e) => {
                     eprintln!("[Settings::general] {}", e);
                     None
@@ -201,16 +203,17 @@ impl Settings {
                 "SELECT display from user_settings where user_id = $1",
                 uid.to_string()
             )
-            .fetch_one(req.db())
+            .fetch_optional(req.db())
             .await
             {
-                Ok(value) => {
+                Ok(Some(value)) => {
                     let from_db = from_value::<DisplaySettings>(value.display).ok();
                     if let Some(from_db) = &from_db {
                         DISPLAY_SETTINGS_CACHE.insert(uid, from_db.clone());
                     };
                     from_db
                 }
+                Ok(None) => Some(DisplaySettings::default()),
                 Err(e) => {
                     eprintln!("[Settings::display] {}", e);
                     None
@@ -242,10 +245,10 @@ impl Settings {
                     "SELECT prefs from liturgy_settings where user_id_and_liturgy = $1",
                     format!("{}-{}", uid, path.to_string())
                 )
-                .fetch_one(req.db())
+                .fetch_optional(req.db())
                 .await
                 {
-                    Ok(value) => {
+                    Ok(Some(value)) => {
                         let from_db =
                             from_value::<Vec<(PreferenceKey, PreferenceValue)>>(value.prefs).ok();
                         if let Some(from_db) = &from_db {
@@ -253,6 +256,7 @@ impl Settings {
                         };
                         from_db
                     }
+                    Ok(None) => Some(Vec::default()),
                     Err(e) => {
                         eprintln!("[Settings::liturgy] {}", e);
                         None
