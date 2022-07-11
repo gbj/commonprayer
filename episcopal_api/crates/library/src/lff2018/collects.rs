@@ -1675,7 +1675,7 @@ lazy_static! {
                 Text::from("Almighty God, by the hand of Mark the evangelist you have given to your church the Gospel of Jesus Christ the Son of God: We thank you for this witness, and pray that we may be firmly grounded in its truth; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, for ever and ever.")
                     .response("Amen.")
                 )
-                .label("")
+                .label("Saint Mark")
                 .source(Reference {
                     source: Source::LFF2018,
                     page: 0
@@ -6898,7 +6898,7 @@ lazy_static! {
                 Text::from("Almighty God, who by the hand of Mark the evangelist hast given to thy church the Gospel of Jesus Christ the Son of God: We thank thee for this witness, and pray that we may be firmly grounded in its truth; through the same Jesus Christ our Lord, who liveth and reigneth with thee and the Holy Ghost, one God, for ever and ever.")
                     .response("Amen.")
                 )
-                .label("")
+                .label("Saint Mark")
                 .source(Reference {
                     source: Source::LFF2018,
                     page: 0
