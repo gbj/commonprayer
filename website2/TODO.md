@@ -4,14 +4,11 @@
   - [ ] Readings page
     - [ ] Ember Day readings
     - [ ] Rogation Day readings
-- [ ] Readings Page
-  - [ ] Office readings: sequential rather than tabbed readings
 - [ ] Document page
-  - [ ] Export links
   - [ ] Include DisplaySettings in DOCX export (here and in Readings page)
   - [ ] Test links between page
   - [ ] Parallel exports
-  - [ ] Display Setting to show psalm page numbers or not
+  - [ ] Display Setting to show (psalm and other) page numbers or not
 - [ ] UI improvements
   - [ ] Index Page cards
 - [ ] Themed pages (Pentecost, etc.)
