@@ -281,7 +281,7 @@ impl View for OfficeView {
 
                     // Readings
                     <h2>{t!("daily_readings.daily_office_readings")}</h2>
-                    {async_readings_view(&self.locale, self.readings)}
+                    {async_readings_serial_view(&self.locale, self.readings)}
                 </section>
             </div>
         }

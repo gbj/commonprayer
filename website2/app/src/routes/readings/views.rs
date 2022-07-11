@@ -132,6 +132,22 @@ pub fn async_readings_view(locale: &str, readings: Vec<ReadingLoader>) -> Vec<No
     }
 }
 
+pub fn async_readings_serial_view(locale: &str, readings: Vec<ReadingLoader>) -> Vec<Node> {
+    if readings.is_empty() {
+        vec![]
+    } else if readings.len() == 1 {
+        readings
+            .into_iter()
+            .flat_map(|reading| reading.view(locale, vec![]))
+            .collect()
+    } else {
+        readings
+            .into_iter()
+            .map(|loader| view! { <div>{loader.view(locale, vec![])}</div> })
+            .collect()
+    }
+}
+
 pub fn bible_version_select(locale: &str, name: &str, value: Version) -> Node {
     view! {
         <select name={name}>
