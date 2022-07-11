@@ -1,6 +1,6 @@
 use crate::Book;
 
-pub const BOOKS: [(&str, Book); 162] = [
+pub const BOOKS: [(&str, Book); 165] = [
     ("Genesis", Book::Genesis),
     ("Gen.", Book::Genesis),
     ("Exodus", Book::Exodus),
@@ -47,6 +47,7 @@ pub const BOOKS: [(&str, Book); 162] = [
     ("Proverbs", Book::Proverbs),
     ("Prov.", Book::Proverbs),
     ("Ecclesiastes", Book::Ecclesiastes),
+    ("Eccles.", Book::Ecclesiastes),
     ("Eccl.", Book::Ecclesiastes),
     ("Song of Solomon", Book::SongOfSolomon),
     ("Song of Songs", Book::SongOfSolomon),
@@ -163,4 +164,6 @@ pub const BOOKS: [(&str, Book); 162] = [
     ("Bel", Book::Bel),
     ("Bel and the Dragon", Book::Bel),
     ("Judith", Book::Judith),
+    ("Tob.", Book::Tobit),
+    ("Tobit", Book::Tobit),
 ];
