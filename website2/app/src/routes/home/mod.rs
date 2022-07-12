@@ -1,10 +1,13 @@
 use crate::WebView;
-use api::summary::{DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary};
-use calendar::{LiturgicalDay, Season, BCP1979_CALENDAR, LFF2018_CALENDAR};
+use api::summary::{
+    DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary, TrackedReadings,
+};
+use calendar::{Date, Feast, LiturgicalDay, Season, BCP1979_CALENDAR, LFF2018_CALENDAR};
 use language::Language;
+use lectionary::RCLTrack;
 use leptos2::*;
 use library::{summary, CommonPrayer};
-use liturgy::Slug;
+use liturgy::{Document, Slug, Version};
 
 use crate::utils::time::{current_hour, today};
 
@@ -13,14 +16,12 @@ use super::{
     settings::{GeneralSettings, Settings},
 };
 
+mod deck;
+use deck::*;
+
 pub struct HomePage {
     locale: String,
-    language: Language,
-    day: LiturgicalDay,
-    season: Season,
-    localized_day_name: String,
-    daily_summary: DailySummary,
-    eucharistic_summary: EucharisticLectionarySummary,
+    deck: TodaysDeck,
     general_settings: GeneralSettings,
 }
 
@@ -37,28 +38,18 @@ impl Loader for HomePage {
     ) -> Option<Self> {
         let general_settings = Settings::general(&req).await;
 
-        let calendar = if general_settings.use_lff {
-            LFF2018_CALENDAR
-        } else {
-            BCP1979_CALENDAR
-        };
-        let date = today();
-        let hour = current_hour();
-        let day = calendar.liturgical_day(date, hour >= 16);
-
-        let language = Language::from_locale(locale);
-        let localized_day_name =
-            summary::localize_day_name(&day, &day.observed, &calendar, language);
-        let season = calendar.season(&day);
+        let deck = TodaysDeck::create(
+            &req,
+            locale,
+            general_settings.use_lff,
+            today(),
+            current_hour(),
+        )
+        .await;
 
         Some(Self {
             locale: locale.to_string(),
-            language,
-            day,
-            season,
-            localized_day_name,
-            daily_summary: CommonPrayer::daily_office_summary(&date, language),
-            eucharistic_summary: CommonPrayer::eucharistic_lectionary_summary(&date, language),
+            deck,
             general_settings,
         })
     }
@@ -84,7 +75,7 @@ impl View for HomePage {
                 <header><h1>{t!("common_prayer")}</h1></header>
                 <main>
                     <section class="cards">
-                        {self.daily_office_card(self.day.evening, true)}
+                        {self.deck.into_iter().map(|card| card.view(&self.locale, &self.general_settings)).collect::<Vec<_>>()}
                     </section>
                 </main>
             </div>
@@ -92,80 +83,288 @@ impl View for HomePage {
     }
 }
 
-impl HomePage {
-    fn daily_office_card(&self, evening: bool, lff: bool) -> Node {
-        let observed = &if evening {
-            &self.daily_summary.evening
-        } else {
-            &self.daily_summary.morning
+impl Card {
+    fn view(self, locale: &str, settings: &GeneralSettings) -> Node {
+        match self {
+            Card::DailySummary {
+                name,
+                season,
+                evening,
+                lff,
+                day,
+                summary,
+            } => daily_office_card(locale, settings, day, *summary, evening, lff, name, season),
+            Card::SundaySummary {
+                name,
+                season,
+                day,
+                summary,
+            } => sunday_card(locale, name, season, day, settings, *summary),
+            Card::HolyDayPreview {
+                id,
+                name,
+                date,
+                bio,
+            } => holy_day_card(locale, id, name, date, bio),
+            Card::Favorites(_) => {
+                Node::default()
+                //view! { <article class="card">/* <main>"TODO favorites"</main> */</article> }
+            }
+            Card::Bookmarks(_) => {
+                Node::default()
+                //view! {<article class="card">/* <main>"TODO bookmarks"</main> */</article> }
+            }
         }
-        .observed;
-        let black_letter_days = &if lff {
-            &observed.lff_black_letter_days
-        } else {
-            &observed.bcp_black_letter_days
-        };
-        let black_letter_days = if black_letter_days.is_empty() {
-            Node::default()
-        } else {
-            let days = black_letter_days
-                .iter()
-                .map(|(feast, name)| {
-                    let url = format!("/{}/holy-day/{:#?}", &self.locale, feast);
-                    view! {
-                        <li>
-                            <a href={url}>{name}</a>
-                        </li>
-                    }
-                })
-                .collect::<Vec<_>>();
-            view! { <ul class="black-letter-days">{days}</ul>}
-        };
+    }
+}
 
-        let reading_links = reading_links(
-            &self.daily_summary.morning.observed.daily_office_readings,
-            &self.daily_summary.evening.observed.daily_office_readings,
-            &self.daily_summary.morning.observed.daily_office_psalms,
-            &self.daily_summary.evening.observed.daily_office_psalms,
-            format!(
-                "/{}/readings/office/?date={}&version={:?}",
-                self.locale,
-                self.day.date.to_padded_string(),
-                self.general_settings.bible_version
-            ),
-        );
+fn daily_office_card(
+    locale: &str,
+    settings: &GeneralSettings,
+    day: LiturgicalDay,
+    summary: DailySummary,
+    evening: bool,
+    lff: bool,
+    name: String,
+    season: Season,
+) -> Node {
+    let language = Language::from_locale(locale);
 
+    let observed = &if evening {
+        &summary.evening
+    } else {
+        &summary.morning
+    }
+    .observed;
+    let black_letter_days = &if lff {
+        &observed.lff_black_letter_days
+    } else {
+        &observed.bcp_black_letter_days
+    };
+    let black_letter_days = if black_letter_days.is_empty() {
+        Node::default()
+    } else {
+        let days = black_letter_days
+            .iter()
+            .map(|(feast, name)| {
+                let url = format!("/{}/holy-day/{:#?}", locale, feast);
+                view! {
+                    <li>
+                        <a href={url}>{name}</a>
+                    </li>
+                }
+            })
+            .collect::<Vec<_>>();
+        view! { <ul class="black-letter-days">{days}</ul>}
+    };
+
+    let reading_links = reading_links(
+        &summary.morning.observed.daily_office_readings,
+        &summary.evening.observed.daily_office_readings,
+        &summary.morning.observed.daily_office_psalms,
+        &summary.evening.observed.daily_office_psalms,
+        format!(
+            "/{}/readings/office/?date={}&version={:?}",
+            locale,
+            day.date.to_padded_string(),
+            settings.bible_version
+        ),
+    );
+
+    view! {
+        <article class={format!("card {:?}", season)}>
+            <header>
+                <h1>{t!("toc.daily_office")}</h1>
+                <h2>{title_view(&locale, &day.observed, &name)}</h2>
+                <h3>{day.date.to_localized_name(language)}</h3>
+            </header>
+            <main>
+                {black_letter_days}
+                <ul class="office-links">
+                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::MorningPrayer)}</li>
+                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::NoondayPrayer)}</li>
+                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::EveningPrayer)}</li>
+                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::Compline)}</li>
+                </ul>
+                {reading_links.view(&locale)}
+            </main>
+        </article>
+    }
+}
+
+fn office_link(locale: &str, version: Version, date: Date, slug: Slug) -> Node {
+    let href = format!(
+        "/{}/document/office/{}/{:?}/?date={}",
+        locale,
+        slug,
+        version,
+        date.to_padded_string()
+    );
+    view! {
+        <a class="badge" href={href}>{t!(&format!("slug.{}", slug))}</a>
+    }
+}
+
+fn sunday_card(
+    locale: &str,
+    name: String,
+    season: Season,
+    day: LiturgicalDay,
+    settings: &GeneralSettings,
+    summary: EucharisticLectionarySummary,
+) -> Node {
+    fn reading_link(
+        locale: &str,
+        date: Date,
+        version: Version,
+        citations: &[(Option<RCLTrack>, String)],
+    ) -> Node {
+        let date = date.to_padded_string();
+        let links = citations
+            .iter()
+            .map(|(track, citation)| {
+                let track = match track {
+                    Some(RCLTrack::One) => "&track=one",
+                    Some(RCLTrack::Two) => "&track=two",
+                    None => "",
+                };
+                let href = format!(
+                    "/{locale}/readings/eucharist?date={date}{track}&version={version}#{citation}"
+                );
+                view! {
+                    <a href={href}>{citation}</a>
+                }
+            })
+            .intersperse_with(|| text(format!(" {} ", t!("daily_readings.or"))))
+            .collect::<Vec<_>>();
         view! {
-            <article class={format!("card {:#?}", self.season)}>
-                <header>
-                    <h1>{t!("toc.daily_office")}</h1>
-                    <h2>{title_view(&self.locale, &self.day.observed, &self.localized_day_name)}</h2>
-                    <h3>{self.day.date.to_localized_name(self.language)}</h3>
-                </header>
-                <main>
-                    {black_letter_days}
-                    <ul class="office-links">
-                        <li>{self.office_link(Slug::MorningPrayer)}</li>
-                        <li>{self.office_link(Slug::NoondayPrayer)}</li>
-                        <li>{self.office_link(Slug::EveningPrayer)}</li>
-                        <li>{self.office_link(Slug::Compline)}</li>
-                    </ul>
-                    {reading_links.view(&self.locale)}
-                </main>
-            </article>
+            <li>{links}</li>
         }
     }
 
-    fn office_link(&self, slug: Slug) -> Node {
-        let href = format!(
-            "/{}/document/office/{}/{:?}/?date={}",
-            self.locale,
-            slug,
-            self.general_settings.liturgy_version,
-            self.day.date.to_padded_string()
-        );
-        view! {
-            <a class="badge" href={href}>{t!(&format!("slug.{}", slug))}</a>
-        }
+    let language = Language::from_locale(locale);
+    let observed = summary.observed;
+
+    let first_lesson = match &observed.tracked_readings {
+        TrackedReadings::Any(readings) => readings
+            .first_lesson
+            .iter()
+            .map(|citation| (None, citation.clone()))
+            .collect::<Vec<_>>(),
+        TrackedReadings::Tracked {
+            track_one,
+            track_two,
+        } => track_one
+            .first_lesson
+            .iter()
+            .map(|citation| (Some(RCLTrack::One), citation.clone()))
+            .chain(
+                track_two
+                    .first_lesson
+                    .iter()
+                    .map(|citation| (Some(RCLTrack::Two), citation.clone())),
+            )
+            .collect(),
+    };
+
+    let psalm = match &observed.tracked_readings {
+        TrackedReadings::Any(readings) => readings
+            .psalm
+            .iter()
+            .filter_map(|doc| doc.as_citation().map(|citation| (None, citation)))
+            .collect::<Vec<_>>(),
+        TrackedReadings::Tracked {
+            track_one,
+            track_two,
+        } => track_one
+            .psalm
+            .iter()
+            .filter_map(|doc| {
+                doc.as_citation()
+                    .map(|citation| (Some(RCLTrack::One), citation))
+            })
+            .chain(track_two.psalm.iter().filter_map(|doc| {
+                doc.as_citation()
+                    .map(|citation| (Some(RCLTrack::Two), citation))
+            }))
+            .collect(),
+    };
+
+    let epistle = observed
+        .epistle
+        .iter()
+        .map(|citation| (None, citation.clone()))
+        .collect::<Vec<_>>();
+    let gospel = observed
+        .gospel
+        .iter()
+        .map(|citation| (None, citation.clone()))
+        .collect::<Vec<_>>();
+
+    view! {
+        <article class={format!("card {:?}", season)}>
+            <header>
+                <h1>{t!("home.sunday")}</h1>
+                <h2>{title_view(&locale, &day.observed, &name)}</h2>
+                <h3>{day.date.to_localized_name(language)}</h3>
+            </header>
+            <main>
+                <ul class="office-links">
+                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::MorningPrayer)}</li>
+                    <li>
+                        <a class="badge" href={format!(
+                            "/{}/document/eucharist/eucharist/{:?}/?date={}",
+                            locale,
+                            settings.liturgy_version,
+                            day.date.to_padded_string()
+                        )}>
+                            {t!("slug.Eucharist")}
+                        </a>
+                    </li>
+                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::EveningPrayer)}</li>
+                </ul>
+
+                <ul class="reading-links">
+                    {reading_link(locale, day.date, settings.bible_version, &first_lesson)}
+                    {reading_link(locale, day.date, settings.bible_version, &psalm)}
+                    {reading_link(locale, day.date, settings.bible_version, &epistle)}
+                    {reading_link(locale, day.date, settings.bible_version, &gospel)}
+                </ul>
+            </main>
+        </article>
+    }
+}
+
+fn holy_day_card(locale: &str, id: Feast, name: String, date: Date, bio: String) -> Node {
+    let language = Language::from_locale(locale);
+    let read_more_link = bio.len() > 450;
+    let truncated_bio = if read_more_link {
+        bio.chars()
+            .take(450)
+            .chain(std::iter::once('…'))
+            .collect::<String>()
+    } else {
+        bio
+    }
+    .split("\n\n")
+    .map(|para| view! {<p>{para}</p>})
+    .collect::<Vec<_>>();
+    let href = format!("/{}/readings/holy-day?id={:?}", locale, id);
+    let bio_href = format!("{}#bio", href);
+
+    view! {
+        <article class="card">
+            <header>
+                <h1><em>{t!("lff")}</em></h1>
+                <h2><a href={href}>{name}</a></h2>
+                <h3>{date.to_localized_name_without_year(language)}</h3>
+            </header>
+            <main>
+                {truncated_bio}
+                {read_more_link.then(|| view! {
+                    <a href={bio_href}>{t!("home.read_more")}</a>
+                })}
+            </main>
+        </article>
     }
 }

@@ -1,9 +1,21 @@
 - [ ] Bugs
+  - [ ] Button font size (iOS)
+  - [ ] Dark mode background doesn't cover whole screen on short pages
+  - [ ] Compline should...
+    - [ ] Not insert P&Ts
+    - [ ] Rotate collects
+    - [ ] Link to a "Nunc dimittis" video search? (as also EP?)
   - [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
   - [ ] Fix weird highlighting offset in search
   - [ ] Readings page
     - [ ] Ember Day readings
     - [ ] Rogation Day readings
+- [ ] Home Page
+  - [ ] today() and current_hour() need to be time-zone sensitive
+  - [ ] favorites/bookmarks
+  - [ ] use GeneralSettings.bible_version in all reading links
+  - [ ] use LiturgySettings in Office/Eucharist links
+  - [ ] create a Track One/Track Two setting, if not already there, and use that as default for Epistle/Gospel
 - [ ] Document page
   - [ ] Include DisplaySettings in DOCX export (here and in Readings page)
   - [ ] Test links between page

@@ -138,7 +138,15 @@ impl Date {
         naive_date.into()
     }
 
-    pub fn to_localized_name(&self, _language: Language) -> String {
+    pub fn to_localized_name(&self, language: Language) -> String {
+        format!(
+            "{}, {}",
+            self.to_localized_name_without_year(language),
+            self.year()
+        )
+    }
+
+    pub fn to_localized_name_without_year(&self, _language: Language) -> String {
         // TODO i18n
         let month = match self.month() {
             1 => "January",
@@ -155,7 +163,7 @@ impl Date {
             12 => "December",
             _ => "",
         };
-        format!("{} {}, {}", month, self.day(), self.year())
+        format!("{} {}", month, self.day())
     }
 
     pub fn to_padded_string(&self) -> String {

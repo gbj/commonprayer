@@ -1,3 +1,7 @@
+:root {
+	--main-width: 60rem;
+}
+
 main {
 	background: var(--background-lightest-grey);
 }
@@ -40,10 +44,17 @@ main {
 
 .card {
 	width: 100%;
+	margin-bottom: 2rem;
 }
 
 @media (min-width: 767px) {
 	.card {
-		max-width: 50%;
+		max-width: calc(50% - 2rem);
 	}
+}
+
+.reading-links {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }

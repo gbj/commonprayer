@@ -281,6 +281,7 @@ impl View for HolyDayView {
                 {reading_links}
 
                 // Bio
+                <a id="bio"></a>
                 {bio}
 
                 // Actual readings

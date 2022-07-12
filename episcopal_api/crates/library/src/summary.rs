@@ -40,6 +40,14 @@ impl CommonPrayer {
     ) -> EucharisticLectionarySummary {
         let psalter = &BCP1979_PSALTER;
         let day = BCP1979_CALENDAR.liturgical_day(*date, false);
+        Self::eucharistic_lectionary_summary_with_day(day, language)
+    }
+
+    pub fn eucharistic_lectionary_summary_with_day(
+        day: LiturgicalDay,
+        language: Language,
+    ) -> EucharisticLectionarySummary {
+        let psalter = &BCP1979_PSALTER;
         let alternates = day
             .alternative_services
             .iter()
