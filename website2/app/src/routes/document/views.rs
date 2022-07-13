@@ -76,99 +76,6 @@ impl<'a> WebView for DocumentView<'a> {
 
         let (header, main) = header_and_main;
 
-        // TODO selections
-        // manage whether this item is being selected
-        /* let dom_ref = Behavior::<Option<web_sys::Element>>::new(None);
-               let selected = Behavior::new(false);
-
-               let selection_change = document_event_stream("selectionchange");
-               selection_change.create_effect({
-                   let dom_ref = dom_ref.clone();
-                   let selected = selected.clone();
-                   let manual_mode = controller.selection_mode.clone();
-                   move |_| {
-                       if manual_mode.get() == SelectionMode::Auto {
-                           if let Ok(selection) = window().get_selection() {
-                               if let Some(selection) = selection {
-                                   if let Some(el) = dom_ref.get() {
-                                       let is_selected = selection.contains_node(&el).unwrap_or(false)
-                                           || descendants(&el).any(|node| {
-                                               selection.contains_node(&node).unwrap_or(false)
-                                           });
-                                       selected.set(is_selected);
-                                   }
-                               } else {
-                                   selected.set(false);
-                               }
-                           }
-                       }
-                   }
-               });
-
-               let is_leaf_doc = self.doc.content.is_leaf();
-               let is_selected = selected
-                   .stream()
-                   .map(move |selected| selected && is_leaf_doc)
-                   .boxed_local();
-
-               let hide_selection_checkbox = controller
-                   .selection_mode
-                   .stream()
-                   .map(|mode| mode != SelectionMode::Manual)
-                   .boxed_local();
-
-               // register selection with root DocumentController
-               if is_leaf_doc {
-                   let controller = controller.clone();
-                   let path = path.clone();
-                   if let Some(selections) = controller.selections {
-                       selected.stream().create_effect(move |selected| {
-                           selections.update(|selections| {
-                               if selected {
-                                   selections.insert(path.clone());
-                               } else {
-                                   selections.remove(&path);
-                               }
-                           })
-                       });
-                   }
-               }
-
-               let checkbox = if let Some(selections) = &controller.selections {
-                   if is_leaf_doc {
-                       view! {
-                           <dyn:input
-                               type="checkbox"
-                               class="manual-select hidden"
-                               class:hidden={hide_selection_checkbox}
-                               on:change={
-                                   let selections = selections.clone();
-                                   let manual_mode = controller.selection_mode.clone();
-                                   move |ev: Event| {
-                                       if manual_mode.get() == SelectionMode::Manual {
-                                           let checked = event_target_checked(ev);
-                                           selections.update(|selections| {
-                                               if checked {
-                                                   selected.set(true);
-                                                   selections.insert(path.clone());
-                                               } else {
-                                                   selected.set(false);
-                                                   selections.remove(&path);
-                                               }
-                                           });
-                                       }
-                                   }
-                               }
-                           />
-                       }
-                   } else {
-                       View::Empty
-                   }
-               } else {
-                   View::Empty
-               };
-        */
-
         let path = self
             .path
             .iter()
@@ -187,8 +94,8 @@ impl<'a> WebView for DocumentView<'a> {
         };
 
         view! {
-            <article class={document_class(self.doc)} data-path={&path} id={&path}>
-                // TODO selection {checkbox}
+            <article tabindex="0" class={document_class(self.doc)} data-path={&path} id={&path}>
+
                 {header}
                 {main}
             </article>
