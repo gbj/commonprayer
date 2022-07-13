@@ -33,8 +33,10 @@ impl UserInfo {
 
     pub async fn verified_id(req: Arc<dyn Request>) -> Option<UserId> {
         if let Some(unverified) = Self::get_untrusted(&req) {
+            eprintln!("unverified = {:#?}", unverified);
             unverified.to_verified_id().await
         } else {
+            eprintln!("no unverified user found");
             None
         }
     }

@@ -3,6 +3,7 @@ members = [
 	"app",
 	"client/auth",
 	"client/date_picker",
+	"client/document_action",
 	"client/export_links",
 	"client/form",
 	"client/media_session",

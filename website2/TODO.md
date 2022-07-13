@@ -10,12 +10,15 @@
   - [ ] Readings page
     - [ ] Ember Day readings
     - [ ] Rogation Day readings
+  - [ ] Doubled magnifying glass in search on Safari
 - [ ] Home Page
   - [ ] today() and current_hour() need to be time-zone sensitive
   - [ ] favorites/bookmarks
+    - [ ] store in & get from cookie if not logged in
   - [ ] use GeneralSettings.bible_version in all reading links
   - [ ] use LiturgySettings in Office/Eucharist links
   - [ ] create a Track One/Track Two setting, if not already there, and use that as default for Epistle/Gospel
+- [ ] Canticle swap
 - [ ] Document page
   - [ ] Include DisplaySettings in DOCX export (here and in Readings page)
   - [ ] Test links between page

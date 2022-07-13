@@ -1,5 +1,6 @@
 pub mod auth;
 pub mod datepicker;
+pub mod document_action;
 pub mod export_links;
 pub mod form;
 pub mod media_session;
@@ -10,6 +11,7 @@ pub mod toggle;
 
 pub use auth::*;
 pub use datepicker::*;
+pub use document_action::*;
 pub use export_links::*;
 pub use form::*;
 pub use media_session::*;

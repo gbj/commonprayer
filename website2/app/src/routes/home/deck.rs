@@ -226,7 +226,7 @@ pub struct HolyDayPreview {
 }
 
 #[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]
-pub struct Favorites(Vec<Favorite>);
+pub struct Favorites(Vec<Document>);
 
 impl Favorites {
     pub async fn from_req(req: &Arc<dyn Request>) -> Self {
@@ -258,21 +258,34 @@ impl Favorites {
             Self::default()
         }
     }
+
+    pub async fn add(req: &Arc<dyn Request>, favorite: Document) -> Result<(), ()> {
+        if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            sqlx::query!(
+                "INSERT INTO favorites (user_id, content) VALUES ($1, $2);",
+                uid.to_string(),
+                serde_json::to_value(favorite).unwrap()
+            )
+            .execute(req.db())
+            .await
+            .map(|_| ())
+            .map_err(|e| {
+                eprintln!("[Favorites::add] {}", e);
+                ()
+            })
+        } else {
+            todo!()
+        }
+    }
 }
 
 impl IntoIterator for Favorites {
-    type Item = Favorite;
+    type Item = Document;
     type IntoIter = std::vec::IntoIter<Self::Item>;
 
     fn into_iter(self) -> Self::IntoIter {
         self.0.into_iter()
     }
-}
-
-#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
-pub enum Favorite {
-    Document(Box<Document>),
-    Path(SlugPath),
 }
 
 #[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]

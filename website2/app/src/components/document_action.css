@@ -1,0 +1,18 @@
+.buttons {
+	display: flex;
+	justify-content: right;
+}
+
+button {
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+.hidden {
+	display: none;
+}
+
+svg.filled path {
+	stroke: gold;
+}

@@ -17,6 +17,7 @@ pub enum Icon {
     Prayer,
     Right,
     Settings,
+    Star,
     Stop,
     Swap,
 }
@@ -44,6 +45,7 @@ impl std::fmt::Display for Icon {
                 Icon::Prayer => "/static/icons/fa-praying-hands.svg",
                 Icon::Right => "/static/icons/tabler-icon-arrow-right.svg",
                 Icon::Settings => "/static/icons/tabler-icon-settings.svg",
+                Icon::Star => "/static/icons/tabler-icon-star.svg",
                 Icon::Stop => "/static/icons/tabler-icon-player-stop.svg",
                 Icon::Swap => "/static/icons/tabler-icon-arrows-left-right.svg",
             }

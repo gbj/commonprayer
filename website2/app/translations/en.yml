@@ -443,3 +443,8 @@ en:
   home: 
     sunday: Sunday
     read_more: Read more.
+    favorites: Favorites
+
+  document_action:
+    mark_favorite: Mark as Favorite
+    remove_favorite: Remove Favorite

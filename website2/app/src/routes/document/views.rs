@@ -1,6 +1,6 @@
 use liturgy::*;
 
-use crate::components::Tabs;
+use crate::components::{DocumentAction, Tabs};
 use crate::routes::readings::reading_loader::ReadingLoader;
 use crate::WebView;
 use leptos2::*;
@@ -94,11 +94,21 @@ impl<'a> WebView for DocumentView<'a> {
         };
 
         view! {
-            <article tabindex="0" class={document_class(self.doc)} data-path={&path} id={&path}>
-
-                {header}
-                {main}
-            </article>
+            <DocumentAction
+                locale={locale.to_string()}
+                prop:document={self.doc.clone()}
+                favoritelabel={t!("document_action.mark_favorite")}
+                removefavoritelabel={t!("document_action.remove_favorite")}
+                tabindex="0"
+            >
+                <article class={document_class(self.doc)}
+                    data-path={&path}
+                    id={&path}
+                >
+                    {header}
+                    {main}
+                </article>
+            </DocumentAction>
         }
     }
 }

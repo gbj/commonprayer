@@ -1,12 +1,12 @@
-use crate::WebView;
+use crate::{routes::document::views::DocumentView, UserInfo, WebView};
 use api::summary::{
     DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary, TrackedReadings,
 };
 use calendar::{Date, Feast, LiturgicalDay, Season, BCP1979_CALENDAR, LFF2018_CALENDAR};
 use language::Language;
 use lectionary::RCLTrack;
-use leptos2::*;
-use library::{summary, CommonPrayer};
+use leptos2::{http::Response, *};
+use library::{summary, CommonPrayer, Library};
 use liturgy::{Document, Slug, Version};
 
 use crate::utils::time::{current_hour, today};
@@ -17,12 +17,18 @@ use super::{
 };
 
 mod deck;
+use crate::api::document_action::*;
 use deck::*;
-
 pub struct HomePage {
     locale: String,
     deck: TodaysDeck,
     general_settings: GeneralSettings,
+}
+
+#[derive(Params)]
+pub struct HomePageAction {
+    pub action: DocumentActionType,
+    pub payload: String,
 }
 
 #[async_trait(?Send)]
@@ -52,6 +58,52 @@ impl Loader for HomePage {
             deck,
             general_settings,
         })
+    }
+
+    async fn action(
+        locale: &str,
+        req: Arc<dyn Request>,
+        params: Self::Params,
+        query: Self::Query,
+    ) -> ActionResponse {
+        if let Some(body) = req.body() {
+            match body.as_form_data::<HomePageAction>() {
+                Err(e) => {
+                    eprintln!("[Home::action] error parsing FormData: {}", e);
+                    ActionResponse::from_error(e)
+                }
+                Ok(data) => match data.action {
+                    DocumentActionType::MarkFavorite => {
+                        match serde_json::from_str::<Document>(&data.payload) {
+                            Err(e) => {
+                                eprintln!("[Home::action] error parsing Document payload: {}", e);
+                                ActionResponse::from_error(e)
+                            }
+                            Ok(favorite) => match Favorites::add(&req, favorite).await {
+                                Ok(_) => ActionResponse::from_response(
+                                    Response::builder()
+                                        .status(http::StatusCode::OK)
+                                        .body(())
+                                        .expect("couldn't build Response"),
+                                ),
+                                Err(e) => {
+                                    eprintln!("[Home::action] error while adding favorite");
+                                    ActionResponse::from_response(
+                                        Response::builder()
+                                            .status(http::StatusCode::INTERNAL_SERVER_ERROR)
+                                            .body(())
+                                            .expect("couldn't build Response"),
+                                    )
+                                }
+                            },
+                        }
+                    }
+                    DocumentActionType::RemoveFavorite => todo!(),
+                },
+            }
+        } else {
+            ActionResponse::None
+        }
     }
 }
 
@@ -106,10 +158,7 @@ impl Card {
                 date,
                 bio,
             } => holy_day_card(locale, id, name, date, bio),
-            Card::Favorites(_) => {
-                Node::default()
-                //view! { <article class="card">/* <main>"TODO favorites"</main> */</article> }
-            }
+            Card::Favorites(favorites) => favorites_view(favorites, locale),
             Card::Bookmarks(_) => {
                 Node::default()
                 //view! {<article class="card">/* <main>"TODO bookmarks"</main> */</article> }
@@ -366,5 +415,29 @@ fn holy_day_card(locale: &str, id: Feast, name: String, date: Date, bio: String)
                 })}
             </main>
         </article>
+    }
+}
+
+fn favorites_view(favorites: Favorites, locale: &str) -> Node {
+    let cards = favorites
+        .into_iter()
+        .map(|favorite| {
+            let doc_view = DocumentView {
+                path: vec![],
+                doc: &favorite,
+            };
+            view! {
+                <article class="card">
+                    {doc_view.view(locale)}
+                </article>
+            }
+        })
+        .collect::<Vec<_>>();
+
+    view! {
+        <section class="favorites">
+            <h2>{t!("home.favorites")}</h2>
+            {cards}
+        </section>
     }
 }

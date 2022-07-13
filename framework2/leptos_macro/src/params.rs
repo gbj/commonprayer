@@ -1,5 +1,5 @@
 use quote::{quote, quote_spanned};
-use syn::{spanned::Spanned};
+use syn::spanned::Spanned;
 
 pub fn impl_params(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
     let name = &ast.ident;
@@ -30,10 +30,10 @@ pub fn impl_params(ast: &syn::DeriveInput) -> proc_macro::TokenStream {
     let gen = quote! {
         impl Params for #name {
             fn from_map(map: &std::collections::HashMap<String, String>) -> Result<Self, leptos2::router::RouterError> {
-				Ok(Self {
-					#(#fields,)*
-				})
-			}
+                Ok(Self {
+                    #(#fields,)*
+                })
+            }
         }
     };
     gen.into()
