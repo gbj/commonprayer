@@ -14,7 +14,6 @@ mod user_info;
 
 #[cfg(feature = "routes")]
 pub mod routes;
-pub use routes::index::UserId;
 pub mod utils;
 
 pub use icon::Icon;

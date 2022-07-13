@@ -12,7 +12,7 @@ pub mod psalm;
 pub mod readings;
 pub mod search;
 pub mod settings;
-pub use index::Index;
+pub use index::{Index, UserId};
 
 use leptos2::*;
 

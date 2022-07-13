@@ -12,7 +12,7 @@ mod display;
 mod general;
 mod liturgy;
 
-use crate::{UserId, UserInfo};
+use crate::{routes::UserId, UserInfo};
 
 pub use self::liturgy::*;
 pub use dark_mode::DarkMode;
