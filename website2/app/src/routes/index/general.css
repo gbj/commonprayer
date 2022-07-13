@@ -55,6 +55,7 @@ body {
     padding: 0;
     max-width: 100vw;
     overflow-x: hidden;
+    min-height: 100vh;
 }
 
 input,
@@ -105,7 +106,7 @@ select {
   .badge {
     background-color: var(--season-lightest);
     border-radius: 3px;
-    color: #101010;
+    color: var(--color);
     display: inline-block;
     font: var(--ui-font);
     padding: 0.25rem;

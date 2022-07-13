@@ -177,3 +177,19 @@ a:visited {
 	--season-light: #acdcac;
 	--season-lightest: #def1de;
 }
+
+.dark-mode-dark .OrdinaryTime {
+	--season: #050505;
+	--season-light: #151515;
+	--season-lightest: #1f1f1f;
+	--season-text: #efefef;
+}
+
+@media (prefers-color-scheme: dark) {
+	.app-shell:not(.dark-mode-light) .OrdinaryTime {
+		--season: #050505;
+		--season-light: #151515;
+		--season-lightest: #1f1f1f;
+		--season-text: #efefef;
+	}
+}

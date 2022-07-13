@@ -2,10 +2,6 @@
 	--main-width: 60rem;
 }
 
-main {
-	background: var(--background-lightest-grey);
-}
-
 .card h1, .card h2, .card h3 {
 	text-align: center;
 }
