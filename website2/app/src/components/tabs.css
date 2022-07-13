@@ -17,6 +17,7 @@
 	background: none;
 	color: var(--color);
 	cursor: pointer;
+	font-size: 0.8rem;
 	position: relative;
 	z-index: 2;
 	top: 2px;
