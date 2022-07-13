@@ -32,7 +32,6 @@
 }
 
 [role="tab"][aria-selected="true"] {
-	background: var(--background);
 	border-bottom: 0.2rem solid var(--link-color);
 	color: var(--link-color);
 }

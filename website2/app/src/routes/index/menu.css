@@ -233,7 +233,7 @@ nav#main-menu li:not(:first-of-type) {
     /* First nested route takes up remaining space */
     .app-shell > div {
         width: calc(100vw - var(--menu-width));
-        position: absolute;
+        position: relative;
         left: var(--menu-width);
     }
 

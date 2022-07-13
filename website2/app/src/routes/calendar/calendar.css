@@ -1,18 +1,18 @@
-  ul.other-notes, ul.black-letter-days {
-    list-style-type: none;
-    padding: 0;
-    font-size: 0.9rem;
-    margin: 0;
-  }
+ul.other-notes, ul.black-letter-days {
+  list-style-type: none;
+  padding: 0;
+  font-size: 0.9rem;
+  margin: 0;
+}
 
-  ul.other-notes {
-    font-variant: small-caps;
-  }
+ul.other-notes {
+  font-variant: small-caps;
+}
 
-    ul.black-letter-days a {
-    color: var(--color);
-    font-style: italic;
-  }
+  ul.black-letter-days a {
+  color: var(--color);
+  font-style: italic;
+}
 
 /* Mobile/phone-size: calendar as rows */
 @media(max-width: 766px) {
@@ -87,6 +87,14 @@
 
   .week, .weekday-labels {
     display: table-row;
+  }
+
+  .week {
+    background-color: var(--background);
+  }
+
+  .padding {
+    background-color: var(--season-lightest);
   }
 
   .day, .weekday-label, .padding {
