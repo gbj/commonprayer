@@ -3,11 +3,13 @@ use std::fmt::{Debug, Display};
 use leptos2::*;
 use serde::de::DeserializeOwned;
 use thiserror::Error;
-use web_sys::{AbortController, AbortSignal};
+use web_sys::{AbortController, AbortSignal, UrlSearchParams};
 
 #[derive(Debug, Default, PartialEq, Clone, Serialize, Deserialize)]
 pub struct Fetch<T> {
     url: String,
+    #[serde(skip)]
+    data: Option<UrlSearchParams>,
     #[serde(skip)]
     abort_controller: Option<AbortController>,
     pub status: FetchStatus<T>,
@@ -20,6 +22,7 @@ where
     pub fn new(url: impl Display) -> Self {
         Self {
             url: url.to_string(),
+            data: None,
             abort_controller: Self::abort_controller(),
             status: FetchStatus::Idle,
         }
@@ -28,6 +31,7 @@ where
     pub fn with_status(status: FetchStatus<T>) -> Self {
         Self {
             url: String::new(),
+            data: None,
             abort_controller: None,
             status,
         }
@@ -58,6 +62,7 @@ where
 pub enum FetchMsg<T> {
     Abort,
     SetUrlAndGet(String),
+    Post(String, UrlSearchParams),
     Success(Box<T>),
     Error(FetchError),
     Noop,
@@ -67,11 +72,6 @@ impl<T> Default for FetchMsg<T> {
     fn default() -> Self {
         Self::Noop
     }
-}
-
-#[derive(Clone, Debug, PartialEq)]
-pub enum FetchCmd {
-    Get(String, Option<AbortController>),
 }
 
 impl<T> State for Fetch<T>
@@ -98,6 +98,16 @@ where
                 self.url = url;
                 self.status = FetchStatus::Loading;
                 return Some(self.get());
+            }
+            FetchMsg::Post(url, data) => {
+                if self.is_loading() {
+                    self.cancel_search();
+                }
+
+                self.url = url;
+                self.data = Some(data);
+                self.status = FetchStatus::Loading;
+                return Some(self.post());
             }
             FetchMsg::Success(data) => self.status = FetchStatus::Success(data),
             FetchMsg::Error(e) => self.status = FetchStatus::Error(e),
@@ -128,6 +138,31 @@ where
                         FetchError::Abort => link.send(&FetchMsg::Noop),
                         _ => link.send(&FetchMsg::Error(e)),
                     },
+                };
+            });
+        })
+    }
+
+    fn post(&self) -> Cmd<Self> {
+        let url = self.url.clone();
+        let controller = self.abort_controller.clone();
+        let data = self.data.clone();
+        Cmd::new(move |_, link| {
+            let abort_signal = controller.as_ref().map(|ac| ac.signal());
+            let link = link.clone();
+            spawn_local(async move {
+                let mut req =
+                    reqwasm::http::Request::post(&url).abort_signal(abort_signal.as_ref());
+                if let Some(data) = data {
+                    req = req.body(data);
+                }
+
+                match req.send().await {
+                    Ok(res) => match res.json::<T>().await {
+                        Ok(res) => link.send(&FetchMsg::Success(Box::new(res))),
+                        Err(e) => link.send(&FetchMsg::Error(FetchError::Json)),
+                    },
+                    Err(e) => link.send(&FetchMsg::Error(FetchError::Server)),
                 };
             });
         })

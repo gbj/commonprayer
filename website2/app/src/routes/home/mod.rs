@@ -1,4 +1,4 @@
-use crate::{routes::document::views::DocumentView, UserInfo, WebView};
+use crate::{routes::document::views::DocumentView, Icon, UserInfo, WebView};
 use api::summary::{
     DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary, TrackedReadings,
 };
@@ -29,6 +29,7 @@ pub struct HomePage {
 pub struct HomePageAction {
     pub action: DocumentActionType,
     pub payload: String,
+    pub date_created: Option<String>,
 }
 
 #[async_trait(?Send)]
@@ -74,31 +75,66 @@ impl Loader for HomePage {
                 }
                 Ok(data) => match data.action {
                     DocumentActionType::MarkFavorite => {
+                        let date_created = data
+                            .date_created
+                            .map(|date| {
+                                Date::parse_from_str(&date, "%Y-%m-%d").unwrap_or_else(|e| {
+                                    eprintln!("[Home::action] error parsing date: {e}");
+                                    today()
+                                })
+                            })
+                            .unwrap_or_else(today);
+
                         match serde_json::from_str::<Document>(&data.payload) {
                             Err(e) => {
                                 eprintln!("[Home::action] error parsing Document payload: {}", e);
                                 ActionResponse::from_error(e)
                             }
-                            Ok(favorite) => match Favorites::add(&req, favorite).await {
-                                Ok(_) => ActionResponse::from_response(
-                                    Response::builder()
-                                        .status(http::StatusCode::OK)
-                                        .body(())
-                                        .expect("couldn't build Response"),
-                                ),
-                                Err(e) => {
-                                    eprintln!("[Home::action] error while adding favorite");
-                                    ActionResponse::from_response(
-                                        Response::builder()
-                                            .status(http::StatusCode::INTERNAL_SERVER_ERROR)
-                                            .body(())
-                                            .expect("couldn't build Response"),
-                                    )
+                            Ok(favorite) => {
+                                match Favorites::add(&req, favorite, date_created).await {
+                                    Ok(id) => ActionResponse::from_json(id),
+                                    Err(e) => {
+                                        eprintln!("[Home::action] error while adding favorite");
+                                        ActionResponse::from_response(
+                                            Response::builder()
+                                                .status(http::StatusCode::INTERNAL_SERVER_ERROR)
+                                                .body(())
+                                                .expect("couldn't build Response"),
+                                        )
+                                    }
                                 }
-                            },
+                            }
                         }
                     }
-                    DocumentActionType::RemoveFavorite => todo!(),
+                    DocumentActionType::RemoveFavorite => {
+                        let id = match serde_json::from_str::<FavoriteId>(&data.payload) {
+                            Ok(id) => id,
+                            Err(e) => {
+                                eprintln!(
+                                    "[Home::action - DocumentActionType::RemoveFavorite] {e}"
+                                );
+                                return ActionResponse::from_error(e);
+                            }
+                        };
+                        match Favorites::remove(&req, id).await {
+                            Ok(_) => ActionResponse::from_response(
+                                Response::builder()
+                                    .status(http::StatusCode::SEE_OTHER)
+                                    .header("Location", format!("/{}", locale))
+                                    .body(())
+                                    .expect("couldn't build Response"),
+                            ),
+                            Err(_) => {
+                                eprintln!("[Home::action] error while removing favorite");
+                                ActionResponse::from_response(
+                                    Response::builder()
+                                        .status(http::StatusCode::INTERNAL_SERVER_ERROR)
+                                        .body(())
+                                        .expect("couldn't build Response"),
+                                )
+                            }
+                        }
+                    }
                 },
             }
         } else {
@@ -421,14 +457,27 @@ fn holy_day_card(locale: &str, id: Feast, name: String, date: Date, bio: String)
 fn favorites_view(favorites: Favorites, locale: &str) -> Node {
     let cards = favorites
         .into_iter()
-        .map(|favorite| {
+        .map(|(id, favorite)| {
             let doc_view = DocumentView {
                 path: vec![],
                 doc: &favorite,
             };
             view! {
                 <article class="card">
-                    {doc_view.view(locale)}
+                    <header>
+                        <div class="buttons">
+                            <form method="POST">
+                                <input type="hidden" name="action" value={DocumentActionType::RemoveFavorite.to_string()}/>
+                                <input type="hidden" name="payload" value={serde_json::to_string(&id).expect("couldn't serialize FavoriteId")}/>
+                                <button type="submit">
+                                    <img src={Icon::Close.to_string()} alt={t!("document_action.remove_favorite")}/>
+                                </button>
+                            </form>
+                        </div>
+                    </header>
+                    <main>
+                        {doc_view.view(locale)}
+                    </main>
                 </article>
             }
         })
@@ -436,7 +485,7 @@ fn favorites_view(favorites: Favorites, locale: &str) -> Node {
 
     view! {
         <section class="favorites">
-            <h2>{t!("home.favorites")}</h2>
+            {(!cards.is_empty()).then(|| view! { <h2>{t!("home.favorites")}</h2>})}
             {cards}
         </section>
     }

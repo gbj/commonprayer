@@ -54,3 +54,18 @@
 	margin: 0;
 	padding: 0;
 }
+
+.favorites h2 {
+	font: var(--ui-font);
+}
+
+.buttons {
+	display: flex;
+	justify-content: right;
+}
+
+.buttons button {
+	background: none;
+	border: none;
+	cursor: pointer;
+}

@@ -50,11 +50,16 @@ pub trait Cookies {
 
 impl Cookies for http::HeaderMap {
     fn cookies(&self) -> Box<dyn Iterator<Item = Result<cookie::Cookie, CookieError>> + '_> {
-        Box::new(self.get_all("Cookie").iter().map(|value| {
-            value
+        Box::new(self.get_all("Cookie").iter().flat_map(|value| {
+            let value = value
                 .to_str()
-                .map_err(|_| CookieError::NonAsciiValue)
-                .and_then(|value| cookie::Cookie::parse(value).map_err(CookieError::Parse))
+                .unwrap_or_else(|e| {
+                    eprintln!("[Cookies::cookies for http::HeaderMap] Sent Cookie header with non-ASCII characters.");
+                    ""
+                });
+                value
+                    .split("; ")
+                    .map(|value| cookie::Cookie::parse(value).map_err(CookieError::Parse))
         }))
     }
 }

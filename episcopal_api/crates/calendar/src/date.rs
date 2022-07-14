@@ -46,6 +46,10 @@ impl std::str::FromStr for Date {
 }
 
 impl Date {
+    pub fn as_chrono(&self) -> chrono::NaiveDate {
+        self.naive_date
+    }
+
     /// Creates Date from a year, month, and day.
     pub fn from_ymd(year: u16, month: u8, day: u8) -> Date {
         let naive_date = chrono::NaiveDate::from_ymd(year.into(), month.into(), day.into());

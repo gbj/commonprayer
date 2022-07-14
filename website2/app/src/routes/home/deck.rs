@@ -12,7 +12,7 @@ use leptos2::*;
 use library::{summary, CommonPrayer};
 use liturgy::{Document, SlugPath};
 
-use crate::UserInfo;
+use crate::{api::document_action::FavoriteId, UserInfo};
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub struct TodaysDeck(Vec<Card>);
@@ -226,13 +226,13 @@ pub struct HolyDayPreview {
 }
 
 #[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]
-pub struct Favorites(Vec<Document>);
+pub struct Favorites(Vec<(FavoriteId, Document)>);
 
 impl Favorites {
     pub async fn from_req(req: &Arc<dyn Request>) -> Self {
         if let Some(uid) = UserInfo::verified_id(req.clone()).await {
             match sqlx::query!(
-                "SELECT content from favorites where user_id = $1",
+                "SELECT id, content from favorites where user_id = $1",
                 uid.to_string()
             )
             .fetch_all(req.db())
@@ -241,7 +241,7 @@ impl Favorites {
                 Ok(res) => Self(
                     res.into_iter()
                         .filter_map(|row| match serde_json::from_value(row.content) {
-                            Ok(content) => Some(content),
+                            Ok(content) => Some((FavoriteId(row.id), content)),
                             Err(e) => {
                                 eprintln!("[Favorites::from_req] {e}");
                                 None
@@ -259,19 +259,41 @@ impl Favorites {
         }
     }
 
-    pub async fn add(req: &Arc<dyn Request>, favorite: Document) -> Result<(), ()> {
+    pub async fn add(
+        req: &Arc<dyn Request>,
+        favorite: Document,
+        date_created: Date,
+    ) -> Result<FavoriteId, ()> {
         if let Some(uid) = UserInfo::verified_id(req.clone()).await {
             sqlx::query!(
-                "INSERT INTO favorites (user_id, content) VALUES ($1, $2);",
+                "INSERT INTO favorites (user_id, content, date_created) VALUES ($1, $2, $3) RETURNING id;",
                 uid.to_string(),
-                serde_json::to_value(favorite).unwrap()
+                serde_json::to_value(favorite).unwrap(),
+                date_created.as_chrono()
+            )
+            .fetch_one(req.db())
+            .await
+            .map(|resp| FavoriteId(resp.id))
+            .map_err(|e| {
+                eprintln!("[Favorites::add] {}", e);
+            })
+        } else {
+            todo!()
+        }
+    }
+
+    pub async fn remove(req: &Arc<dyn Request>, id: FavoriteId) -> Result<(), ()> {
+        if let Some(uid) = UserInfo::verified_id(req.clone()).await {
+            sqlx::query!(
+                "DELETE FROM favorites WHERE id = $1 and user_id = $2;",
+                id.0,
+                uid.to_string(),
             )
             .execute(req.db())
             .await
             .map(|_| ())
             .map_err(|e| {
-                eprintln!("[Favorites::add] {}", e);
-                ()
+                eprintln!("[Favorites::remove] {}", e);
             })
         } else {
             todo!()
@@ -280,7 +302,7 @@ impl Favorites {
 }
 
 impl IntoIterator for Favorites {
-    type Item = Document;
+    type Item = (FavoriteId, Document);
     type IntoIter = std::vec::IntoIter<Self::Item>;
 
     fn into_iter(self) -> Self::IntoIter {
