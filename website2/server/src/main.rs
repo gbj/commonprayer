@@ -133,6 +133,9 @@ async fn main() -> std::io::Result<()> {
                                     let res = ResponseCompat::from(res);
                                     res.into()
                                 }
+                                ActionResponse::Json(json) => HttpResponse::Ok()
+                                    .content_type("application/json")
+                                    .body(json),
                                 ActionResponse::Error(e) => {
                                     HttpResponse::InternalServerError().body(e.to_string())
                                 }
