@@ -297,6 +297,9 @@ impl Index {
                             {nav_link(path, locale, "/psalm", t!("menu.psalter"))}
                         </li>
                         <li>
+                            {nav_link(path, locale, "/document/prayers-and-thanksgivings", t!("toc.prayers_and_thanksgivings"))}
+                        </li>
+                        <li>
                             {nav_link(path, locale, "/hymnal", t!("menu.hymnal"))}
                         </li>
                         <li>
