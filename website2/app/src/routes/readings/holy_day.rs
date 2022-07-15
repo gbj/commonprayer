@@ -274,7 +274,8 @@ impl View for HolyDayView {
                     doc: &Document::from(Choice::from(vec![
                         self.collect_contemporary,
                         self.collect_traditional,
-                    ]))
+                    ])),
+                    url: ""
                 }.view(&self.locale)}
 
                 // Reading Links

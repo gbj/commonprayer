@@ -2,12 +2,14 @@ use liturgy::*;
 
 use crate::components::{DocumentAction, Tabs};
 use crate::routes::readings::reading_loader::ReadingLoader;
+use crate::Icon;
 use crate::WebView;
 use leptos2::*;
 
 pub struct DocumentView<'a> {
     pub doc: &'a Document,
     pub path: Vec<usize>,
+    pub url: &'a str,
 }
 
 impl<'a> WebView for DocumentView<'a> {
@@ -35,18 +37,19 @@ impl<'a> WebView for DocumentView<'a> {
         let header_and_main = {
             let path = self.path.clone();
             match &self.doc.content {
-                Content::Series(content) => series(locale, path, content),
+                Content::Series(content) => series(locale, path, content, self.url),
                 Content::Liturgy(content) => liturgy(
                     locale,
                     path,
                     content,
                     &self.doc.source,
                     &self.doc.alternate_sources,
+                    self.url,
                 ),
                 Content::Rubric(content) => rubric(content),
                 Content::Text(content) => text(content),
-                Content::Choice(content) => choice(locale, path, content),
-                Content::Parallel(content) => parallel(locale, path, content),
+                Content::Choice(content) => choice(locale, path, content, self.url),
+                Content::Parallel(content) => parallel(locale, path, content, self.url),
                 Content::CollectOfTheDay { allow_multiple } => {
                     collect_of_the_day(locale, *allow_multiple, self.doc.version)
                 }
@@ -57,8 +60,12 @@ impl<'a> WebView for DocumentView<'a> {
                 Content::BiblicalCitation(content) => {
                     biblical_citation(locale, path, content, self.doc.version)
                 }
-                Content::BiblicalReading(content) => biblical_reading(locale, path, content),
-                Content::Canticle(content) => canticle(content, self.doc.version, path),
+                Content::BiblicalReading(content) => {
+                    biblical_reading(locale, path, content, self.url)
+                }
+                Content::Canticle(content) => {
+                    canticle(locale, content, self.doc.version, path, self.url)
+                }
                 Content::CanticleTableEntry(content) => canticle_table_entry(locale, content),
                 Content::GloriaPatri(content) => gloria_patri(content),
                 Content::Heading(content) => heading(locale, content),
@@ -70,7 +77,7 @@ impl<'a> WebView for DocumentView<'a> {
                 Content::Psalm(content) => psalm(content),
                 Content::PsalmCitation(content) => psalm_citation(content),
                 Content::ResponsivePrayer(content) => responsive_prayer(content),
-                Content::Sentence(content) => sentence(locale, path, content),
+                Content::Sentence(content) => sentence(locale, path, content, self.url),
             }
         };
 
@@ -172,11 +179,12 @@ pub fn biblical_reading(
     locale: &str,
     path: Vec<usize>,
     reading: &BiblicalReading,
+    url: &str,
 ) -> HeaderAndMain {
     let intro = reading.intro.as_ref().map(|intro| {
         view! {
             <section class="reading-intro">
-                {DocumentView { doc: intro.as_document(), path }.view(locale)}
+                {DocumentView { doc: intro.as_document(), path, url }.view(locale)}
             </section>
         }
     });
@@ -212,158 +220,47 @@ pub fn biblical_reading_verses(reading: &BiblicalReading) -> Vec<Node> {
         .collect::<Vec<_>>()
 }
 
-pub fn canticle(content: &Canticle, default_version: Version, path: Vec<usize>) -> HeaderAndMain {
-    // TODO canticle swap
-    /* let current_content = Behavior::new(content.clone());
-
-    // Canticle swap
-    let canticle_options = Fetch::<Vec<Document>>::new("/api/canticles.json");
-    let show_option_list = Behavior::new(false);
-
-    let change_canticle = {
-        let canticle_options = canticle_options.clone();
-        let show_option_list = show_option_list.clone();
-        move |_ev: Event| {
-            canticle_options.send();
-            show_option_list.set(true);
-        }
-    };
-
-    let version_filter = SegmentButton::new_with_default_value(
-        "canticle-version",
-        Some(t!("settings.version")),
-        [
-            (None, t!("canticle_swap.any"), None),
-            (Some(Version::RiteI), t!("rite_i"), None),
-            (Some(Version::RiteII), t!("rite_ii"), None),
-            (Some(Version::EOW), t!("eow"), None),
-        ],
-        Some(default_version),
-    );
-
-    let option_list = canticle_options
-        .state
-        .stream()
-        .map({
-            let controller = controller.clone();
-            let current_content = current_content.clone();
-            let show_option_list = show_option_list.clone();
-            let version_filter_value = version_filter.value.clone();
-            move |status| match status {
-                FetchStatus::Idle => View::Empty,
-                FetchStatus::Loading => view! { <p class="loading">{t!("loading")}</p> },
-                FetchStatus::Error(e) => {
-                    match e {
-                        FetchError::Connection => view! { <p class="error">{t!("canticle_swap.connection_error")}</p> },
-                        _ => view! { <p class="error">{t!("canticle_swap.error")}</p> }
-                    }
-                }
-                FetchStatus::Success(docs) => {
-                    let docs = View::Fragment(
-                        docs.iter()
-                            .filter_map({
-                                let path = path.clone();
-                                let controller = controller.clone();
-                                let current_content = current_content.clone();
-                                let show_option_list = show_option_list.clone();
-                                let version_filter_value = version_filter_value.clone();
-                                move |doc| {
-                                    if let Content::Canticle(content) = &doc.content {
-                                        let doc_version = doc.version;
-                                        let hidden = version_filter_value.stream().map(move |version| version.is_some() && version.unwrap() != doc_version).boxed_local();
-
-                                        Some(view! {
-                                            <dyn:li
-                                                role="button"
-                                                class:hidden={hidden}
-                                                on:click={
-                                                    let doc = doc.clone();
-                                                    let controller = controller.clone();
-                                                    let path = path.clone();
-                                                    let current_content = current_content.clone();
-                                                    let show_option_list = show_option_list.clone();
-                                                    move |_ev: Event| {
-                                                        let update_result = controller.update_document_at_path(path.clone(), doc.clone());
-                                                        if let Err(e) = update_result {
-                                                            warn(&format!("[error when calling controller.update_document_at_path({:#?}, ..)]\n\n{:#?}", path, e));
-                                                        }
-                                                        show_option_list.set(false);
-                                                        if let Content::Canticle(canticle) = doc.content.clone() {
-                                                            current_content.set(canticle);
-                                                        }
-                                                    }
-                                                }
-                                            >
-                                                {content.number.to_string()} ". " {&content.local_name}
-                                            </dyn:li>
-                                        })
-                                    } else {
-                                        None
-                                    }
-                                }
-                            })
-                            .collect(),
-                    );
-
-                    view! {
-                        <ul>
-                            {docs}
-                        </ul>
-                    }
-                }
-        }})
-        .boxed_local();
-
-    let canticle_swap = view! {
-        <nav class="canticle-swap-menu">
-            <dyn:button
-                on:click=change_canticle
-            >
-                <img src={Icon::Swap.to_string()} alt=""/>
-                {t!("canticle_swap.change_canticle")}
-            </dyn:button>
-            <dyn:div
-                class:overlay={show_option_list.stream().map(|_| true).boxed_local()}
-                class:shown={show_option_list.stream().boxed_local()}
-                on:click={
-                    let show_option_list = show_option_list.clone();
-                    move |_ev: Event| show_option_list.set(false)
-                }
-            >
-            </dyn:div>
-            <dyn:section
-                class:menu_content={show_option_list.stream().map(|_| true).boxed_local()}
-                class:shown={show_option_list.stream().boxed_local()}
-            >
-                <header>
-                    <h1>{t!("canticle_swap.choose")}</h1>
-                    <dyn:button
-                        on:click=move |_ev: Event| show_option_list.set(false)
-                    >
-                        <img src={Icon::Close.to_string()} alt={t!("canticle_swap.close")}/>
-                    </dyn:button>
-                </header>
-                <main>
-                    {version_filter.view()}
-                    {option_list}
-                </main>
-            </dyn:section>
-        </nav>
-    }; */
-
+pub fn canticle(
+    locale: &str,
+    content: &Canticle,
+    default_version: Version,
+    path: Vec<usize>,
+    url: &str,
+) -> HeaderAndMain {
     // Header proper
+    let fragment = format!(
+        "#{}",
+        path.iter()
+            .copied()
+            .map(|n| n.to_string())
+            .intersperse_with(|| String::from("-"))
+            .collect::<String>()
+    );
+    let url = format!("{url}{fragment}");
+    let redirect = base64::encode(url);
+
     let header = view! {
-        // TODO swap
-        <header class="canticle-header">
-            <h3 class="canticle-number">{content.number.to_string()}</h3>
-            <h4 class="local-name">{&content.local_name}</h4>
-            {content.latin_name.as_ref().map(|latin| view! {
-                <em class="latin-name">{latin}</em>
-            })}
-            {content.citation.as_ref().map(|citation| view! {
-                <p class="citation">{citation}</p>
-            })}
-        </header>
+        <div>
+            {content.changeable.map(|changeable| view! { <nav class="canticle-swap-menu">
+                // TODO canticle number
+                <a href={format!("/{locale}/canticle-choice/{default_version:?}?canticle={changeable}&redirect={redirect}")}>
+                    <button>
+                        <img src={Icon::Swap} alt=""/>
+                        {t!("canticle_swap.change_canticle")}
+                    </button>
+                </a>
+            </nav> })}
+            <header class="canticle-header">
+                <h3 class="canticle-number">{content.number.to_string()}</h3>
+                <h4 class="local-name">{&content.local_name}</h4>
+                {content.latin_name.as_ref().map(|latin| view! {
+                    <em class="latin-name">{latin}</em>
+                })}
+                {content.citation.as_ref().map(|citation| view! {
+                    <p class="citation">{citation}</p>
+                })}
+            </header>
+        </div>
     };
 
     // Main
@@ -425,7 +322,7 @@ pub fn canticle(content: &Canticle, default_version: Version, path: Vec<usize>) 
     )
 }
 
-pub fn choice(locale: &str, mut path: Vec<usize>, choice: &Choice) -> HeaderAndMain {
+pub fn choice(locale: &str, mut path: Vec<usize>, choice: &Choice, url: &str) -> HeaderAndMain {
     // TODO choice
     /* let max_idx = choice.options.len() - 1;
 
@@ -579,6 +476,7 @@ pub fn choice(locale: &str, mut path: Vec<usize>, choice: &Choice) -> HeaderAndM
             DocumentView {
                 doc: &choice.options[0],
                 path,
+                url,
             }
             .view(locale),
         )
@@ -636,6 +534,7 @@ pub fn choice(locale: &str, mut path: Vec<usize>, choice: &Choice) -> HeaderAndM
             let view = DocumentView {
                 doc: child,
                 path: new_path,
+                url,
             };
 
             view.view(locale)
@@ -973,8 +872,9 @@ pub fn liturgy(
     liturgy: &Liturgy,
     source: &Option<Reference>,
     alternate_sources: &[Reference],
+    url: &str,
 ) -> HeaderAndMain {
-    let (header, main) = series(locale, path, &liturgy.body);
+    let (header, main) = series(locale, path, &liturgy.body, url);
 
     let source_links = if source.is_some() || !alternate_sources.is_empty() {
         let alternates = alternate_sources
@@ -1039,7 +939,7 @@ pub fn source_link(reference: &Option<Reference>) -> Option<Node> {
     })
 }
 
-pub fn parallel(locale: &str, path: Vec<usize>, parallel: &Parallel) -> HeaderAndMain {
+pub fn parallel(locale: &str, path: Vec<usize>, parallel: &Parallel, url: &str) -> HeaderAndMain {
     let children = parallel
         .iter()
         .enumerate()
@@ -1050,6 +950,7 @@ pub fn parallel(locale: &str, path: Vec<usize>, parallel: &Parallel) -> HeaderAn
                 DocumentView {
                     doc,
                     path: new_path,
+                    url,
                 }
                 .view(locale)
             }
@@ -1269,7 +1170,7 @@ pub fn rubric(rubric: &Rubric) -> HeaderAndMain {
     )
 }
 
-pub fn sentence(locale: &str, path: Vec<usize>, sentence: &Sentence) -> HeaderAndMain {
+pub fn sentence(locale: &str, path: Vec<usize>, sentence: &Sentence, url: &str) -> HeaderAndMain {
     let short_text_response = sentence
         .response
         .as_ref()
@@ -1308,7 +1209,7 @@ pub fn sentence(locale: &str, path: Vec<usize>, sentence: &Sentence) -> HeaderAn
             <div>
                 <p>{text} {citation}</p>
                 " "
-                {DocumentView { doc: response, path }.view(locale)}
+                {DocumentView { doc: response, path, url }.view(locale)}
             </div>
         },
     };
@@ -1320,7 +1221,7 @@ pub fn sentence(locale: &str, path: Vec<usize>, sentence: &Sentence) -> HeaderAn
     (None, main)
 }
 
-pub fn series(locale: &str, path: Vec<usize>, series: &Series) -> HeaderAndMain {
+pub fn series(locale: &str, path: Vec<usize>, series: &Series, url: &str) -> HeaderAndMain {
     (
         None,
         view! {
@@ -1331,7 +1232,7 @@ pub fn series(locale: &str, path: Vec<usize>, series: &Series) -> HeaderAndMain 
                     move |(idx, doc)| {
                         let mut new_path = path.clone();
                         new_path.push(idx);
-                        {DocumentView { doc, path: new_path }.view(locale)}
+                        {DocumentView { doc, path: new_path, url }.view(locale)}
                     }
                 })
                 .collect::<Vec<_>>()

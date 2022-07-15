@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use std::fmt::Display;
 use strum_macros::{AsRefStr, Display, EnumIter, EnumString, IntoStaticStr};
 
-use crate::Version;
+use crate::{Version, SlugPath};
 use lectionary::ReadingType;
 
 /// An explanatory sentence or direction for the liturgy
@@ -41,6 +41,8 @@ pub enum GlobalPref {
     ReadingA,
     ReadingB,
     ReadingC,
+    CanticleOne,
+    CanticleTwo,
     UseBlackLetterCollects,
     /// Whether to insert the Gloria Patri after each psalm in the Daily Office, or only at the end of the psalms
     InsertGloria,
@@ -70,6 +72,7 @@ pub enum PreferenceValue {
     Version(Version),
     Lectionary(Lectionaries),
     CanticleTable(CanticleTables),
+    Canticle(SlugPath),
     ReadingType(ReadingType),
     Local(String),
     Bool(bool),

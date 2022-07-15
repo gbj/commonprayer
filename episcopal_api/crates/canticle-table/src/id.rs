@@ -1,8 +1,9 @@
 use std::fmt::Display;
 
 use serde::{Deserialize, Serialize};
+use strum_macros::{Display, EnumString};
 
-#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize, PartialOrd, Ord)]
 pub enum CanticleId {
     None,
     Canticle1,

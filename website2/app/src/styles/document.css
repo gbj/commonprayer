@@ -53,6 +53,10 @@
   margin: 0;
 }
 
+.document > header > div {
+  width: 100%;
+}
+
 .source-links {
   display: flex;
   flex-direction: row;
@@ -417,34 +421,8 @@ a.source-link > span {
   justify-content: right;
 }
 
-.document .canticle-swap-menu .menu-content.shown {
-  background: var(--background);
-  height: 450px;
-  width: 450px;
-  max-height: calc(90vh - 2rem);
-  max-width: calc(90vw - 2rem);
-  overflow-y: scroll;
-}
-
-.document .canticle-swap-menu .menu-content header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.document .canticle-swap-menu .menu-content main ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.document .canticle-swap-menu .menu-content main ul li {
-  margin: 0;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.document .canticle-swap-menu .menu-content main ul li:hover {
-  cursor: pointer;
-  background: var(--border-color);
+.document .canticle-swap-menu a {
+  text-decoration: none;
 }
 
 .document .canticle-swap-menu button {
@@ -454,7 +432,7 @@ a.source-link > span {
   padding: 0.25rem;
   border: 0;
   color: var(--link-color);
-  background: var(--background);
+  background: none;
   margin-left: auto; /* only for Safari's benefit... */
   font-size: 1rem;
 }
@@ -473,7 +451,7 @@ a.source-link > span {
   margin-right: 0.25rem;
 }
 
-.document header.canticle-header {
+.document .canticle-header {
   grid-template-areas: "number local latin" "number citation citation";
   grid-template-columns: 4rem 0.5fr 0.5fr 3rem;
 }

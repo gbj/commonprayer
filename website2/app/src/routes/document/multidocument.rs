@@ -178,6 +178,7 @@ fn categories(locale: &str, tree: &CategoryTree, search: &str) -> Vec<Node> {
                                             subtitle: None, // don't show subtitle again for every doc
                                             ..(*doc).clone()
                                         },
+                                        url: ""
                                     }
                                     .view(locale);
 

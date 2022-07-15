@@ -1,5 +1,6 @@
 mod about;
 pub mod calendar;
+pub mod canticle_choice;
 mod canticle_table;
 mod contents;
 mod document;
@@ -19,6 +20,7 @@ use leptos2::*;
 use self::{
     about::About,
     calendar::CalendarView,
+    canticle_choice::CanticleChoice,
     canticle_table::CanticleTableView,
     contents::ContentsView,
     document::DocumentPage,
@@ -42,6 +44,8 @@ pub fn router() -> Router<Index> {
             .child(Route::<HomePage>::new(""))
             .child(Route::<About>::new("about"))
             .child(Route::<CalendarView>::new("calendar"))
+            .child(Route::<CanticleChoice>::new("canticle-choice"))
+            .child(Route::<CanticleChoice>::new("canticle-choice/:version"))
             .child(Route::<CanticleTableView>::new("canticle-table"))
             .child(Route::<CanticleTableView>::new("canticle-table/:table"))
             .child(Route::<ContentsView>::new("contents"))

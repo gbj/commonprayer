@@ -333,6 +333,7 @@ impl OfficeView {
                     DocumentView {
                         path: vec![],
                         doc: collects,
+                        url: "",
                     }
                     .view(&self.locale),
                 ]

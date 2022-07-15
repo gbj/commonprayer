@@ -456,6 +456,9 @@ impl ToRustCode for PreferenceValue {
             PreferenceValue::ReadingType(val) => format!("PreferenceValue::ReadingType({val})"),
             PreferenceValue::Local(val) => format!("PreferenceValue::Local({:?}.to_string())", val),
             PreferenceValue::Bool(val) => format!("PreferenceValue::Bool({val})"),
+            PreferenceValue::Canticle(val) => {
+                format!("PreferenceValue::Canticle({val})")
+            }
         }
     }
 }

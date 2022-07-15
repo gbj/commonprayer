@@ -34,6 +34,7 @@ markdown = "0.3"
 # Episcopal API crates
 api = { path = "../../episcopal_api/crates/api" }
 calendar = { path = "../../episcopal_api/crates/calendar" }
+canticle-table = { path = "../../episcopal_api/crates/canticle-table" }
 docx = { path = "../../episcopal_api/crates/export/docx" }
 hymnal = { path = "../../episcopal_api/crates/hymnal" }
 language = { path = "../../episcopal_api/crates/language" }
@@ -52,6 +53,8 @@ rust-i18n = { version = "0.6", optional = true }
 sqlx = { version = "0.6", optional = true, features = ["postgres", "runtime-tokio-native-tls", "json", "chrono"]}
 date_time_parser = "0.1.1"
 tempfile = "3.3.0"
+url = "2.2.2"
+base64 = "0.13.0"
 
 # web-sys settings
 [dependencies.web-sys]

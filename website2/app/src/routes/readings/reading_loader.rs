@@ -160,7 +160,7 @@ impl ReadingLoader {
     fn view_config(self, locale: &str, path: Vec<usize>, with_header: bool) -> Vec<Node> {
         match self {
             ReadingLoader::Sync(reading) => {
-                let (header, main) = biblical_reading(locale, path.clone(), &reading);
+                let (header, main) = biblical_reading(locale, path.clone(), &reading, "");
                 view! {
                     <>
                         <a id={&reading.citation}></a>
@@ -182,7 +182,7 @@ impl ReadingLoader {
                             match reading.await {
                                 Ok(reading) => view! {
                                     <div>
-                                        {biblical_reading(&locale, path.clone(), &reading).1}
+                                        {biblical_reading(&locale, path.clone(), &reading, "").1}
                                         {reading_loaded_script(&path, &reading)}
                                     </div>
                                 },

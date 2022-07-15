@@ -1,0 +1,20 @@
+.canticle-links {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.canticle-links li {
+	border-bottom: 1px solid var(--border-color);
+	margin: 0;
+	padding: 0.25rem;
+}
+
+.canticle-links li:last-child {
+	border-bottom: none;
+}
+
+input {
+	display: block;
+	margin: auto;
+}

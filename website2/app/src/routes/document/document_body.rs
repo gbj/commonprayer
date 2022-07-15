@@ -14,7 +14,9 @@ pub fn document_body(
     document: &Document,
     props: &DocumentPage,
     params: &DocumentPageQuery,
+    path: &str,
 ) -> Vec<Node> {
+    let url = format!("{path}?{}", params.to_query_string());
     /* let date_picker = DatePicker::new(t!("date"), None);
     date_picker
         .date
@@ -147,6 +149,7 @@ pub fn document_body(
     let viewer = DocumentView {
         doc: document,
         path: vec![],
+        url: &url,
     };
 
     view! {

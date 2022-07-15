@@ -19,7 +19,6 @@
   - [ ] use GeneralSettings.bible_version in all reading links
   - [ ] use LiturgySettings in Office/Eucharist links
   - [ ] create a Track One/Track Two setting, if not already there, and use that as default for Epistle/Gospel
-- [ ] Canticle swap
 - [ ] Document page
   - [ ] Include DisplaySettings in DOCX export (here and in Readings page)
   - [ ] Test links between page

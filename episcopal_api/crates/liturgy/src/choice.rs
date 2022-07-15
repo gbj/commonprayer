@@ -262,6 +262,7 @@ mod tests {
         let choice = Choice::from([
             Document::from(Canticle {
                 number: CanticleId::Canticle1,
+                changeable: None,
                 citation: None,
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
@@ -272,6 +273,7 @@ mod tests {
             .version(Version::RiteI),
             Document::from(Canticle {
                 number: CanticleId::Canticle2,
+                changeable: None,
                 citation: None,
                 sections: vec![],
                 local_name: String::from("A Song of Praise"),
@@ -296,6 +298,7 @@ mod tests {
         let choice = Choice::from([
             Document::from(Canticle {
                 number: CanticleId::Canticle1,
+                changeable: None,
                 citation: None,
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
@@ -306,6 +309,7 @@ mod tests {
             .version(Version::RiteI),
             Document::from(Canticle {
                 number: CanticleId::Canticle12,
+                changeable: None,
                 citation: None,
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
@@ -324,6 +328,7 @@ mod tests {
         let choice = Choice::from([
             Document::from(Canticle {
                 number: CanticleId::Canticle12,
+                changeable: None,
                 citation: None,
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
@@ -334,6 +339,7 @@ mod tests {
             .version(Version::RiteII),
             Document::from(Canticle {
                 number: CanticleId::Canticle12,
+                changeable: None,
                 citation: None,
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
@@ -352,6 +358,7 @@ mod tests {
         let choice = Choice::from([
             Document::from(Canticle {
                 number: CanticleId::Canticle1,
+                changeable: None,
                 citation: None,
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
@@ -362,6 +369,7 @@ mod tests {
             .version(Version::RiteI),
             Document::from(Canticle {
                 number: CanticleId::Canticle12,
+                changeable: None,
                 citation: None,
                 sections: vec![],
                 local_name: String::from("A Song of Creation"),
@@ -372,6 +380,7 @@ mod tests {
             .version(Version::RiteII),
             Document::from(Canticle {
                 number: CanticleId::Canticle2,
+                changeable: None,
                 citation: None,
                 sections: vec![],
                 local_name: String::from("A Song of Praise"),

@@ -56,10 +56,12 @@ pub trait View {
         Self: Sized,
     {
         view! {
-            <main class="error-boundary">
-                <h1>"Error!"</h1>
-                <pre class="error">{error.to_string()}</pre>
-            </main>
+            <div>
+                <main class="error error-boundary">
+                    <h1>"Error!"</h1>
+                    <pre class="error">{error.to_string()}</pre>
+                </main>
+            </div>
         }
     }
 }

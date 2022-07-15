@@ -380,7 +380,8 @@ impl View for EucharistView {
                             <h3>{t!("lookup.collect_of_the_day")}</h3>
                             {DocumentView {
                                 path: vec![],
-                                doc
+                                doc,
+                                url: ""
                             }
                             .view(&self.locale)}
                         </div>
@@ -410,7 +411,8 @@ impl View for EucharistView {
                                                             doc.version
                                                         } else {
                                                             self.version
-                                                        })
+                                                        }),
+                                                    url: ""
                                                 }
                                                 .view(&self.locale)
                                             }
@@ -629,7 +631,8 @@ impl EucharistView {
                             <article class="document">
                                 {DocumentView {
                                     path: vec![],
-                                    doc
+                                    doc,
+                                    url: ""
                                 }.view(&self.locale)}
                             </article>
                         </>
@@ -654,7 +657,8 @@ impl EucharistView {
                         <article class="document">
                             {DocumentView {
                                 path: vec![],
-                                doc
+                                doc,
+                                url: ""
                             }.view(&self.locale)}
                         </article>
                     </div>

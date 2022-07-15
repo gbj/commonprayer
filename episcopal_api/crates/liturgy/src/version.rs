@@ -1,13 +1,24 @@
 use language::Language;
-use thiserror::Error;
 use std::{convert::TryFrom, fmt::Display, str::FromStr};
 use strum_macros::{EnumIter, IntoStaticStr};
+use thiserror::Error;
 
 use serde::{Deserialize, Serialize};
 
 /// Different versions that a liturgical [Document](crate::Document) could be (e.g., Rite I, Rite II, EOW)
 #[derive(
-    Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize, EnumIter, IntoStaticStr,
+    Copy,
+    Clone,
+    Debug,
+    Hash,
+    Eq,
+    PartialEq,
+    Serialize,
+    Deserialize,
+    EnumIter,
+    IntoStaticStr,
+    PartialOrd,
+    Ord,
 )]
 pub enum Version {
     /// 1979 Book of Common Prayer
@@ -91,7 +102,7 @@ impl Default for Version {
 #[derive(Error, Debug)]
 pub enum VersionConversionError {
     #[error("invalid version given")]
-    Invalid(String)
+    Invalid(String),
 }
 
 impl TryFrom<&str> for Version {

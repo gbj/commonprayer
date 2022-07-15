@@ -6,6 +6,7 @@ use crate::rite2::GLORIA_PATRI;
 lazy_static! {
     pub static ref CANTICLE_5: Document = Document::from(Canticle {
         number: CanticleId::Canticle5,
+        changeable: None,
         citation: Some(String::from("Luke 2:29-32")),
         local_name: String::from("The Song of Simeon"),
         latin_name: Some(String::from("Nunc Dimittis")),

@@ -90,6 +90,24 @@ pub struct DocumentPageQuery {
     pub alternate: Option<String>,
 }
 
+impl DocumentPageQuery {
+    pub fn to_query_string(&self) -> String {
+        itertools::Itertools::intersperse_with(
+            [
+                ("search", self.search.clone()),
+                ("date", self.date.map(|date| date.to_padded_string())),
+                ("calendar", self.calendar.clone()),
+                ("prefs", self.prefs.clone()),
+                ("alternate", self.alternate.clone()),
+            ]
+            .into_iter()
+            .filter_map(|(k, v)| v.map(|v| format!("{k}={v}"))),
+            || String::from("&"),
+        )
+        .collect::<String>()
+    }
+}
+
 #[async_trait(?Send)]
 impl Loader for DocumentPage {
     type Params = DocumentPageParams;
@@ -336,9 +354,14 @@ impl View for DocumentPage {
             DocumentPageType::Sections { label, contents } => {
                 section_body(&self.locale, &self.slug, label, contents)
             }
-            DocumentPageType::Document(params, document) => {
-                document_body(&self.locale, &self.slug, document, &self, params)
-            }
+            DocumentPageType::Document(params, document) => document_body(
+                &self.locale,
+                &self.slug,
+                document,
+                &self,
+                params,
+                &self.path,
+            ),
             DocumentPageType::ByVersion { label, documents } => {
                 by_version_body(&self.locale, &self.slug, label, documents)
             }

@@ -1,5 +1,6 @@
 use calendar::{Calendar, LiturgicalDay, Rank, Season, Weekday};
 use serde::{Deserialize, Serialize};
+use strum_macros::{Display, EnumString};
 
 #[macro_use]
 extern crate lazy_static;
@@ -129,7 +130,7 @@ impl CanticleTableEntry {
 }
 
 /// Whether this the first or second canticle in the liturgy.
-#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Serialize, Deserialize, EnumString, Display)]
 pub enum CanticleNumber {
     One,
     Two,

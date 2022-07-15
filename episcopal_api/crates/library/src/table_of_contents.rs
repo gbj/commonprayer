@@ -181,7 +181,7 @@ impl<'a> Contents<'a> {
         }
     }
 
-    fn flatten_with_starting_path(
+    pub fn flatten_with_starting_path(
         &self,
         starting_path: &[Slug],
     ) -> impl Iterator<Item = (SlugPath, Contents)> {

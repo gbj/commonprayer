@@ -2,7 +2,7 @@ use std::convert::TryFrom;
 
 use bible::OfflineBible;
 use calendar::{Calendar, LiturgicalDay, LiturgicalDayId, Rank, Weekday};
-use canticle_table::{CanticleId, CanticleTable};
+use canticle_table::{CanticleId, CanticleNumber, CanticleTable};
 use itertools::Itertools;
 use language::Language;
 use lectionary::{rcl_readings, Lectionary, RCLTrack, Reading, ReadingType};
@@ -198,41 +198,89 @@ pub trait Library {
 
                 // Canticle Tables
                 Content::CanticleTableEntry(entry) => {
-                    let chosen_table = match &entry.table {
-                        CanticleTableChoice::Preference(key) => {
-                            match preference_value_for_key(key) {
-                                Some(PreferenceValue::CanticleTable(table)) => *table,
-                                _ => CanticleTables::default(),
+                    let specific_canticle = match (
+                        entry.nth,
+                        prefs.value(&PreferenceKey::Global(GlobalPref::CanticleOne)),
+                        prefs.value(&PreferenceKey::Global(GlobalPref::CanticleTwo)),
+                    ) {
+                        (CanticleNumber::One, Some(canticle), _) => {
+                            if let PreferenceValue::Canticle(path) = canticle {
+                                Some(path)
+                            } else {
+                                None
                             }
                         }
-                        CanticleTableChoice::Selected(table) => *table,
-                    };
+                        (CanticleNumber::Two, _, Some(canticle)) => {
+                            if let PreferenceValue::Canticle(path) = canticle {
+                                Some(path)
+                            } else {
+                                None
+                            }
+                        }
+                        _ => None,
+                    }
+                    .and_then(|path| {
+                        Self::contents()
+                            .contents_at_path(path)
+                            .and_then(|contents| {
+                                if let Contents::Document(document) = contents {
+                                    Some(document.clone())
+                                } else {
+                                    None
+                                }
+                            })
+                    });
 
-                    let table = Self::canticle_table(chosen_table);
-
-                    let entries = table.find(calendar, day, entry.nth, None, false);
-
-                    let mut docs = entries.iter().map(|id| {
-                        let mut canticle =
-                            Self::canticle(*id, document.version).unwrap_or_else(|| {
-                                Document::from(DocumentError::from(format!(
-                                    "{:#?} not available in {:#?}",
-                                    id, document.version
-                                )))
-                            });
-                        // Switch between contemporary and traditional Gloria Patri depending on preference
-                        if prefs.value(&PreferenceKey::from(GlobalPref::GloriaPatriTraditional))
-                            == Some(&PreferenceValue::Bool(true))
-                        {
-                            if let Content::Canticle(ref mut canticle) = &mut canticle.content {
-                                if canticle.gloria_patri.is_some() {
-                                    canticle.gloria_patri = Some(GLORIA_PATRI_TRADITIONAL.clone());
+                    if let Some(mut specific_canticle) = specific_canticle {
+                        // Make it changeable
+                        if let Content::Canticle(canticle) = &mut specific_canticle.content {
+                            canticle.changeable = Some(entry.nth);
+                        }
+                        Some(specific_canticle)
+                    } else {
+                        let chosen_table = match &entry.table {
+                            CanticleTableChoice::Preference(key) => {
+                                match preference_value_for_key(key) {
+                                    Some(PreferenceValue::CanticleTable(table)) => *table,
+                                    _ => CanticleTables::default(),
                                 }
                             }
-                        }
-                        canticle
-                    });
-                    Document::choice_or_document(&mut docs)
+                            CanticleTableChoice::Selected(table) => *table,
+                        };
+
+                        let table = Self::canticle_table(chosen_table);
+
+                        let entries = table.find(calendar, day, entry.nth, None, false);
+
+                        let mut docs = entries.iter().map(|id| {
+                            let mut canticle = Self::canticle(*id, document.version)
+                                .unwrap_or_else(|| {
+                                    Document::from(DocumentError::from(format!(
+                                        "{:#?} not available in {:#?}",
+                                        id, document.version
+                                    )))
+                                });
+
+                            // Make it changeable
+                            if let Content::Canticle(canticle) = &mut canticle.content {
+                                canticle.changeable = Some(entry.nth);
+                            }
+
+                            // Switch between contemporary and traditional Gloria Patri depending on preference
+                            if prefs.value(&PreferenceKey::from(GlobalPref::GloriaPatriTraditional))
+                                == Some(&PreferenceValue::Bool(true))
+                            {
+                                if let Content::Canticle(ref mut canticle) = &mut canticle.content {
+                                    if canticle.gloria_patri.is_some() {
+                                        canticle.gloria_patri =
+                                            Some(GLORIA_PATRI_TRADITIONAL.clone());
+                                    }
+                                }
+                            }
+                            canticle
+                        });
+                        Document::choice_or_document(&mut docs)
+                    }
                 }
 
                 // Switch between contemporary and traditional Gloria Patri depending on preference

@@ -64,6 +64,7 @@ pub fn psalms_view(locale: &str, psalms: &[Psalm]) -> Vec<Node> {
             let doc_view = DocumentView {
                 doc: &Document::from(psalm.clone()),
                 path: vec![],
+                url: "",
             };
             view! {
                 <article class="document" id={id}>
@@ -85,6 +86,7 @@ pub fn readings_view(locale: &str, readings: &[Reading], version: Version) -> Ve
                     doc: &Document::from(BiblicalCitation::from(reading.citation.clone()))
                         .version(version),
                     path: vec![],
+                    url: "",
                 };
 
                 view! {

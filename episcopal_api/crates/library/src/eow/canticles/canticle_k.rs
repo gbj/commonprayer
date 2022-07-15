@@ -4,6 +4,7 @@ use liturgy::{Canticle, CanticleSection, CanticleVerse, Document, Reference, Sou
 lazy_static! {
     pub static ref CANTICLE_K: Document = Document::from(Canticle {
         number: CanticleId::CanticleK,
+        changeable: None,
         citation: Some(String::from("Ephesians 1:3-10")),
         local_name: String::from("A Song of Our Adoption"),
         latin_name: None,

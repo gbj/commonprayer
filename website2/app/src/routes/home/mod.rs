@@ -461,6 +461,7 @@ fn favorites_view(favorites: Favorites, locale: &str) -> Node {
             let doc_view = DocumentView {
                 path: vec![],
                 doc: &favorite,
+                url: ""
             };
             view! {
                 <article class="card">

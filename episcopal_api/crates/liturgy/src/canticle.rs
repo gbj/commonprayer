@@ -25,6 +25,8 @@ pub enum CanticleTableChoice {
 pub struct Canticle {
     /// Unique identifier for the canticle; may be shared between different versions or translations
     pub number: CanticleId,
+    /// If `None`, can’t be changed to another canticle. If `Some`, can be changed (and indicates which canticle it is).
+    pub changeable: Option<CanticleNumber>,
     /// Biblical or other citation for the source of the canticle's text
     pub citation: Option<String>,
     /// Name for the canticle in its own language
