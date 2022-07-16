@@ -1,10 +1,7 @@
 - [ ] Bugs
-  - [ ] Button font size (iOS)
-  - [ ] Dark mode background doesn't cover whole screen on short pages
   - [ ] Compline should...
     - [ ] Not insert P&Ts
     - [ ] Rotate collects
-    - [ ] Link to a "Nunc dimittis" video search? (as also EP?)
   - [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
   - [ ] Fix weird highlighting offset in search
   - [ ] Readings page
@@ -18,18 +15,15 @@
     - [ ] store in & get from cookie if not logged in
   - [ ] use GeneralSettings.bible_version in all reading links
   - [ ] use LiturgySettings in Office/Eucharist links
-  - [ ] create a Track One/Track Two setting, if not already there, and use that as default for Epistle/Gospel
+- Initial public release
+- [ ] create a Track One/Track Two setting, if not already there, and use that as default for Epistle/Gospel
 - [ ] Document page
   - [ ] Include DisplaySettings in DOCX export (here and in Readings page)
   - [ ] Test links between page
   - [ ] Parallel exports
   - [ ] Display Setting to show (psalm and other) page numbers or not
-- [ ] UI improvements
-  - [ ] Index Page cards
 - [ ] Themed pages (Pentecost, etc.)
-- [ ] Finish website2 and merge
-  - [ ] Nested document pages
-- Initial public release
+- [ ] Canticle links to appropriate hymn pages?
 - [ ] Bulletin editor
 - [ ] Integration tests
 - [ ] Features
