@@ -22,6 +22,7 @@ nav#main-menu {
     border: 1px solid var(--border-color);
     border-radius: 3px;
     background-size: auto;
+    -webkit-appearance: textfield;
 }
 nav#main-menu li:not(:first-of-type) {
     font: var(--ui-font);

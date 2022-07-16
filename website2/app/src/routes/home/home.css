@@ -60,8 +60,9 @@
 }
 
 .buttons {
+	align-items: center;
 	display: flex;
-	justify-content: right;
+	justify-content: flex-end;
 }
 
 .buttons button {

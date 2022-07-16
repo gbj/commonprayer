@@ -36,8 +36,11 @@
 }
 
 .card > header {
+	align-items: center;
 	background-color: var(--season-light);
+	display: flex;
 	font: var(--ui-font);
+	justify-content: flex-end;
 	min-height: 3rem;
 }
 

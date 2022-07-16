@@ -1,9 +1,7 @@
 - [ ] Bugs
   - [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
   - [ ] Fix weird highlighting offset in search
-  - [ ] Doubled magnifying glass in search on Safari
 - [ ] Home Page
-  - [ ] Clean up appearance of Favorites in Home page
   - [ ] today() and current_hour() need to be time-zone sensitive
   - [ ] favorites/bookmarks
     - [ ] store in & get from cookie if not logged in

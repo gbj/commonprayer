@@ -11,7 +11,7 @@
 }
 
 .toggle-links.right {
-	justify-content: right;
+	justify-content: flex-end;
 }
 
 .toggle-links a, .toggle-links a:visited {

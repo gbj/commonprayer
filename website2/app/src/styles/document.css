@@ -418,7 +418,7 @@ a.source-link > span {
 /* Canticle */
 .document .canticle-swap-menu {
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
 }
 
 .document .canticle-swap-menu a {
