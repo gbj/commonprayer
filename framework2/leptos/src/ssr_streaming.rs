@@ -115,8 +115,8 @@ fn write_props_with_buf(buf: &mut String, props: Vec<(Vec<usize>, String, String
     buf.push_str("<script>");
     for (shadow_path, prop_name, serialized_value) in props {
         buf.push_str(&format!(
-            "(() => selectEl(document, {:?})[{:?}] = JSON.parse({:?}))();",
-            shadow_path, prop_name, serialized_value
+            "(() => {{ const el = selectEl(document, {:?}); if(el) {{ el[{:?}] = JSON.parse({:?}) }} else {{ console.warn('could not find selectEl(document, {:?})'); }} }})();",
+            shadow_path, prop_name, serialized_value, shadow_path
         ));
     }
     buf.push_str("</script>");
@@ -193,7 +193,7 @@ fn write_element_with_async_nodes(
                     async_nodes,
                     property_id,
                     shadow_root_id,
-                    shadow_root_path.clone(),
+                    shadowless_path.clone(),
                 );
             }
         }

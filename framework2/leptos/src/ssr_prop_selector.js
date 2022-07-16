@@ -6,6 +6,7 @@ function selectEl(root, path) {
 	} else {
 		const nextChild = path[0],
 			nextChildEl = root.querySelector(`[data-leptos-hydrate="${nextChild}"]`);
-		return selectEl(nextChildEl.shadowRoot, path.slice(1));
+		console.log("nextChild", nextChild, "nextChildEl", nextChildEl)
+		return selectEl(nextChildEl ? nextChildEl.shadowRoot : document, path.slice(1));
 	}
 }
