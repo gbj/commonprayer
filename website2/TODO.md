@@ -1,10 +1,9 @@
 - [ ] Bugs
   - [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
   - [ ] Fix weird highlighting offset in search
+  - [ ] Favorites: if not logged in, can only add one between page reloads (because cookie not updated without page reload)
 - [ ] Home Page
   - [ ] today() and current_hour() need to be time-zone sensitive
-  - [ ] favorites/bookmarks
-    - [ ] store in & get from cookie if not logged in
   - [ ] use GeneralSettings.bible_version in all reading links
   - [ ] use LiturgySettings in Office/Eucharist links
 - Initial public release
@@ -12,6 +11,7 @@
     - [ ] Ember Day readings
     - [ ] Rogation Day readings
 - [ ] create a Track One/Track Two setting, if not already there, and use that as default for Epistle/Gospel
+- [ ] Give option to upgrade settings/favorites from cookies when logging in for first time
 - [ ] Document page
   - [ ] Include DisplaySettings in DOCX export (here and in Readings page)
   - [ ] Test links between page

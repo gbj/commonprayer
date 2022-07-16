@@ -133,9 +133,22 @@ async fn main() -> std::io::Result<()> {
                                     let res = ResponseCompat::from(res);
                                     res.into()
                                 }
-                                ActionResponse::Json(json) => HttpResponse::Ok()
-                                    .content_type("application/json")
-                                    .body(json),
+                                ActionResponse::Json(json, headers) => {
+                                    let mut res = HttpResponse::Ok();
+                                    res.content_type("application/json");
+                                    if let Some(headers) = headers {
+                                        for (header_name, header_value) in headers {
+                                            res.append_header((
+                                                header_name.map(|n| n.to_string()).unwrap_or_default(),
+                                                header_value
+                                                    .to_str()
+                                                    .expect("header value should only contain ASCII values")
+                                                    .to_string(),
+                                            ));
+                                        }
+                                    }
+                                    res.body(json)
+                                }
                                 ActionResponse::Error(e) => {
                                     HttpResponse::InternalServerError().body(e.to_string())
                                 }

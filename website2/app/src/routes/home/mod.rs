@@ -5,7 +5,10 @@ use api::summary::{
 use calendar::{Date, Feast, LiturgicalDay, Season, BCP1979_CALENDAR, LFF2018_CALENDAR};
 use language::Language;
 use lectionary::RCLTrack;
-use leptos2::{http::Response, *};
+use leptos2::{
+    http::{HeaderMap, HeaderValue, Response},
+    *,
+};
 use library::{summary, CommonPrayer, Library};
 use liturgy::{Document, Slug, Version};
 
@@ -91,16 +94,20 @@ impl Loader for HomePage {
                                 ActionResponse::from_error(e)
                             }
                             Ok(favorite) => {
-                                match Favorites::add(&req, favorite, date_created).await {
-                                    Ok(id) => ActionResponse::from_json(id),
+                                let mut headers = HeaderMap::new();
+
+                                match Favorites::add(&req, &mut headers, favorite, date_created)
+                                    .await
+                                {
+                                    Ok(id) => ActionResponse::from_json_with_headers(id, headers),
                                     Err(e) => {
                                         eprintln!("[Home::action] error while adding favorite");
-                                        ActionResponse::from_response(
-                                            Response::builder()
-                                                .status(http::StatusCode::INTERNAL_SERVER_ERROR)
-                                                .body(())
-                                                .expect("couldn't build Response"),
-                                        )
+                                        let mut res = Response::builder()
+                                            .status(http::StatusCode::INTERNAL_SERVER_ERROR)
+                                            .body(())
+                                            .expect("couldn't build Response");
+                                        *res.headers_mut() = headers;
+                                        ActionResponse::from_response(res)
                                     }
                                 }
                             }
@@ -116,22 +123,30 @@ impl Loader for HomePage {
                                 return ActionResponse::from_error(e);
                             }
                         };
-                        match Favorites::remove(&req, id).await {
-                            Ok(_) => ActionResponse::from_response(
-                                Response::builder()
+
+                        let mut headers = HeaderMap::new();
+                        headers.insert("Location", format!("/{}", locale).parse().unwrap());
+
+                        match Favorites::remove(&req, &mut headers, id).await {
+                            Ok(_) => {
+                                let mut res = Response::builder()
                                     .status(http::StatusCode::SEE_OTHER)
-                                    .header("Location", format!("/{}", locale))
                                     .body(())
-                                    .expect("couldn't build Response"),
-                            ),
+                                    .expect("couldn't build Response");
+                                *res.headers_mut() = headers;
+
+                                ActionResponse::from_response(res)
+                            }
                             Err(_) => {
                                 eprintln!("[Home::action] error while removing favorite");
-                                ActionResponse::from_response(
-                                    Response::builder()
-                                        .status(http::StatusCode::INTERNAL_SERVER_ERROR)
-                                        .body(())
-                                        .expect("couldn't build Response"),
-                                )
+
+                                let mut res = Response::builder()
+                                    .status(http::StatusCode::INTERNAL_SERVER_ERROR)
+                                    .body(())
+                                    .expect("couldn't build Response");
+                                *res.headers_mut() = headers;
+
+                                ActionResponse::from_response(res)
                             }
                         }
                     }
@@ -259,9 +274,11 @@ fn daily_office_card(
     view! {
         <article class={format!("card {:?}", season)}>
             <header>
-                <h1>{t!("toc.daily_office")}</h1>
-                <h2>{title_view(&locale, &day.observed, &name)}</h2>
-                <h3>{day.date.to_localized_name(language)}</h3>
+                <div>
+                    <h1>{t!("toc.daily_office")}</h1>
+                    <h2>{title_view(locale, &day.observed, &name)}</h2>
+                    <h3>{day.date.to_localized_name(language)}</h3>
+                </div>
             </header>
             <main>
                 {black_letter_days}
@@ -389,9 +406,11 @@ fn sunday_card(
     view! {
         <article class={format!("card {:?}", season)}>
             <header>
-                <h1>{t!("home.sunday")}</h1>
-                <h2>{title_view(&locale, &day.observed, &name)}</h2>
-                <h3>{day.date.to_localized_name(language)}</h3>
+                <div>
+                    <h1>{t!("home.sunday")}</h1>
+                    <h2>{title_view(&locale, &day.observed, &name)}</h2>
+                    <h3>{day.date.to_localized_name(language)}</h3>
+                </div>
             </header>
             <main>
                 <ul class="office-links">
@@ -440,9 +459,11 @@ fn holy_day_card(locale: &str, id: Feast, name: String, date: Date, bio: String)
     view! {
         <article class="card">
             <header>
-                <h1><em>{t!("lff")}</em></h1>
-                <h2><a href={href}>{name}</a></h2>
-                <h3>{date.to_localized_name_without_year(language)}</h3>
+                <div>
+                    <h1><em>{t!("lff")}</em></h1>
+                    <h2><a href={href}>{name}</a></h2>
+                    <h3>{date.to_localized_name_without_year(language)}</h3>
+                </div>
             </header>
             <main>
                 {truncated_bio}
@@ -487,7 +508,9 @@ fn favorites_view(favorites: Favorites, locale: &str) -> Node {
     view! {
         <section class="favorites">
             {(!cards.is_empty()).then(|| view! { <h2>{t!("home.favorites")}</h2>})}
-            {cards}
+            <div class="cards">
+                {cards}
+            </div>
         </section>
     }
 }

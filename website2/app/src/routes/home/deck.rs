@@ -8,7 +8,10 @@ use calendar::{
 };
 use futures::{future::join_all, join, Future};
 use language::Language;
-use leptos2::*;
+use leptos2::{
+    http::{HeaderMap, Response},
+    *,
+};
 use library::{summary, CommonPrayer};
 use liturgy::{Document, SlugPath};
 
@@ -226,7 +229,7 @@ pub struct HolyDayPreview {
 }
 
 #[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]
-pub struct Favorites(Vec<(FavoriteId, Document)>);
+pub struct Favorites(pub Vec<(FavoriteId, Document)>);
 
 impl Favorites {
     pub async fn from_req(req: &Arc<dyn Request>) -> Self {
@@ -255,12 +258,28 @@ impl Favorites {
                 }
             }
         } else {
-            Self::default()
+            req.headers()
+                .cookies()
+                .filter_map(|cookie| match cookie {
+                    Ok(cookie) => Some(cookie),
+                    Err(e) => {
+                        eprintln!("invalid cookie: {:#?}", e);
+                        None
+                    }
+                })
+                .find(|cookie| cookie.name() == "favorites")
+                .and_then(|cookie| {
+                    urlencoding::decode(cookie.value())
+                        .ok()
+                        .and_then(|value| serde_json::from_str(&value).ok())
+                })
+                .unwrap_or_default()
         }
     }
 
     pub async fn add(
         req: &Arc<dyn Request>,
+        headers: &mut HeaderMap,
         favorite: Document,
         date_created: Date,
     ) -> Result<FavoriteId, ()> {
@@ -278,11 +297,37 @@ impl Favorites {
                 eprintln!("[Favorites::add] {}", e);
             })
         } else {
-            todo!()
+            let mut favorites = Favorites::from_req(req).await;
+            let next_id = favorites
+                .0
+                .iter()
+                .map(|(id, _)| id)
+                .max()
+                .map(|id| FavoriteId(id.0 + 1))
+                .unwrap_or_default();
+            favorites.0.push((next_id, favorite));
+
+            let json = serde_json::to_string(&favorites).unwrap_or_default();
+            let favorites_cookie = cookie::Cookie::build("favorites", urlencoding::encode(&json))
+                .path("/")
+                .secure(true)
+                .http_only(true)
+                .max_age(cookie::time::Duration::days(365_000))
+                .finish();
+            headers.insert(
+                "Set-Cookie",
+                http::HeaderValue::from_str(&favorites_cookie.to_string()).unwrap(),
+            );
+
+            Ok(next_id)
         }
     }
 
-    pub async fn remove(req: &Arc<dyn Request>, id: FavoriteId) -> Result<(), ()> {
+    pub async fn remove(
+        req: &Arc<dyn Request>,
+        headers: &mut HeaderMap,
+        id: FavoriteId,
+    ) -> Result<(), ()> {
         if let Some(uid) = UserInfo::verified_id(req.clone()).await {
             sqlx::query!(
                 "DELETE FROM favorites WHERE id = $1 and user_id = $2;",
@@ -296,7 +341,22 @@ impl Favorites {
                 eprintln!("[Favorites::remove] {}", e);
             })
         } else {
-            todo!()
+            let mut favorites = Favorites::from_req(&req).await;
+            favorites.0.retain(|(s_id, favorite)| s_id != &id);
+
+            let json = serde_json::to_string(&favorites).unwrap_or_default();
+            let favorites_cookie = cookie::Cookie::build("favorites", urlencoding::encode(&json))
+                .path("/")
+                .secure(true)
+                .http_only(true)
+                .max_age(cookie::time::Duration::days(365_000))
+                .finish();
+            headers.insert(
+                "Set-Cookie",
+                http::HeaderValue::from_str(&favorites_cookie.to_string()).unwrap(),
+            );
+
+            Ok(())
         }
     }
 }
