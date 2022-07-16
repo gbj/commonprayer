@@ -100,22 +100,34 @@ impl<'a> WebView for DocumentView<'a> {
             }),
         };
 
-        view! {
-            <DocumentAction
-                locale={locale.to_string()}
-                prop:document={self.doc.clone()}
-                favoritelabel={t!("document_action.mark_favorite")}
-                removefavoritelabel={t!("document_action.remove_favorite")}
-                tabindex="0"
-            >
-                <article class={document_class(self.doc)}
-                    data-path={&path}
-                    id={&path}
+        if self.doc.content.is_leaf() {
+            view! {
+                <DocumentAction
+                    locale={locale.to_string()}
+                    prop:document={self.doc.clone()}
+                    favoritelabel={t!("document_action.mark_favorite")}
+                    removefavoritelabel={t!("document_action.remove_favorite")}
+                    tabindex="0"
                 >
-                    {header}
-                    {main}
-                </article>
-            </DocumentAction>
+                    <article class={document_class(self.doc)}
+                        data-path={&path}
+                        id={&path}
+                    >
+                        {header}
+                        {main}
+                    </article>
+                </DocumentAction>
+            }
+        } else {
+            view! {
+                    <article class={document_class(self.doc)}
+                        data-path={&path}
+                        id={&path}
+                    >
+                        {header}
+                        {main}
+                    </article>
+            }
         }
     }
 }
