@@ -1,7 +1,4 @@
 - [ ] Bugs
-  - [ ] Compline should...
-    - [ ] Not insert P&Ts
-    - [ ] Rotate collects
   - [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
   - [ ] Fix weird highlighting offset in search
   - [ ] Readings page
