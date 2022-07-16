@@ -1,9 +1,6 @@
 - [ ] Bugs
   - [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
   - [ ] Fix weird highlighting offset in search
-  - [ ] Readings page
-    - [ ] Ember Day readings
-    - [ ] Rogation Day readings
   - [ ] Doubled magnifying glass in search on Safari
 - [ ] Home Page
   - [ ] Clean up appearance of Favorites in Home page
@@ -13,6 +10,9 @@
   - [ ] use GeneralSettings.bible_version in all reading links
   - [ ] use LiturgySettings in Office/Eucharist links
 - Initial public release
+  - [ ] Readings page
+    - [ ] Ember Day readings
+    - [ ] Rogation Day readings
 - [ ] create a Track One/Track Two setting, if not already there, and use that as default for Epistle/Gospel
 - [ ] Document page
   - [ ] Include DisplaySettings in DOCX export (here and in Readings page)

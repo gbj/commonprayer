@@ -309,11 +309,11 @@ impl<'a> StaticView for &PossibleMatchOwned {
             } => {
                 let before_match = if range.start > MAX_UNTRUNCATED {
                     let mut truncated = String::with_capacity(MAX_UNTRUNCATED);
-                    truncated.push_str("...");
+                    truncated.push('…');
                     for c in original
                         .chars()
-                        .skip(range.start - (MAX_UNTRUNCATED - 3))
-                        .take(MAX_UNTRUNCATED - 3)
+                        .skip(range.start - (MAX_UNTRUNCATED - 1))
+                        .take(MAX_UNTRUNCATED - 1)
                     {
                         truncated.push(c);
                     }
@@ -331,10 +331,10 @@ impl<'a> StaticView for &PossibleMatchOwned {
                 let remaining_after_match_ends = original.len() - range.end;
                 let after_match = if remaining_after_match_ends > MAX_UNTRUNCATED {
                     let mut truncated = String::with_capacity(MAX_UNTRUNCATED);
-                    for c in original.chars().skip(range.end).take(MAX_UNTRUNCATED - 3) {
+                    for c in original.chars().skip(range.end).take(MAX_UNTRUNCATED - 1) {
                         truncated.push(c);
                     }
-                    truncated.push_str("...");
+                    truncated.push('…');
                     truncated
                 } else {
                     original.chars().skip(range.end).collect::<String>()
