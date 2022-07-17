@@ -15,7 +15,11 @@ use leptos2::{
 use library::{summary, CommonPrayer};
 use liturgy::{Document, SlugPath};
 
-use crate::{api::document_action::FavoriteId, UserInfo};
+use crate::{
+    api::document_action::FavoriteId,
+    routes::settings::{CommonLiturgySettings, GeneralSettings},
+    UserInfo,
+};
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub struct TodaysDeck(Vec<Card>);
@@ -47,13 +51,18 @@ impl TodaysDeck {
         };
         let day = calendar.liturgical_day(date, evening);
 
-        let cards = join_all(template.into_iter().map(|card| {
+        let general_settings = Settings::general(req).await;
+        let liturgy_settings =
+            CommonLiturgySettings::from_req(req, general_settings.liturgy_version).await;
+
+        let cards = join_all(template.into_iter().map(move |card| {
             let req = req.clone();
             match card {
                 CardType::DailySummary => {
                     let name = summary::localize_day_name(&day, &day.observed, &calendar, language);
                     let season = calendar.season(&day);
                     let day = day.clone();
+                    let liturgy_settings = liturgy_settings.clone();
                     Box::pin(async move {
                         Some(Card::DailySummary {
                             name,
@@ -62,6 +71,7 @@ impl TodaysDeck {
                             lff,
                             day,
                             summary: Box::new(CommonPrayer::daily_office_summary(&date, language)),
+                            liturgy_settings,
                         })
                     }) as Pin<Box<dyn Future<Output = Option<Card>>>>
                 }
@@ -83,12 +93,14 @@ impl TodaysDeck {
                         sunday_after.clone(),
                         language,
                     );
+                    let liturgy_settings = liturgy_settings.clone();
                     Box::pin(async move {
                         Some(Card::SundaySummary {
                             name,
                             season,
                             day: sunday_after,
                             summary: Box::new(summary),
+                            liturgy_settings,
                         })
                     })
                 }
@@ -137,12 +149,14 @@ pub enum Card {
         lff: bool,
         day: LiturgicalDay,
         summary: Box<DailySummary>,
+        liturgy_settings: CommonLiturgySettings,
     },
     SundaySummary {
         name: String,
         season: Season,
         day: LiturgicalDay,
         summary: Box<EucharisticLectionarySummary>,
+        liturgy_settings: CommonLiturgySettings,
     },
     HolyDayPreview {
         id: Feast,
@@ -342,7 +356,7 @@ impl Favorites {
             })
         } else {
             let mut favorites = Favorites::from_req(&req).await;
-            favorites.0.retain(|(s_id, favorite)| s_id != &id);
+            favorites.0.retain(|(s_id, _)| s_id != &id);
 
             let json = serde_json::to_string(&favorites).unwrap_or_default();
             let favorites_cookie = cookie::Cookie::build("favorites", urlencoding::encode(&json))

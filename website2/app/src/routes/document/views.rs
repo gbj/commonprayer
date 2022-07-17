@@ -178,11 +178,7 @@ pub fn biblical_citation(
 
     let loader = ReadingLoader::new(&citation.citation, version, citation.intro.clone());
 
-    let main = view! {
-        <main class="biblical-reading">
-            {loader.view_without_header(locale, path)}
-        </main>
-    };
+    let main = loader.view_without_header(locale, path);
 
     (Some(header), main)
 }

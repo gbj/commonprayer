@@ -1,7 +1,9 @@
 use std::pin::Pin;
 use std::sync::Arc;
 
-use super::settings::{DarkMode, GeneralSettings, Settings, SettingsForLiturgy};
+use super::settings::{
+    CommonLiturgySettings, DarkMode, GeneralSettings, Settings, SettingsForLiturgy,
+};
 use crate::components::{Auth, Modal};
 use crate::utils::encode_uri;
 use crate::utils::time::{today, TimezoneOffset};
@@ -22,40 +24,8 @@ pub struct Index {
     dark_mode: DarkMode,
     general_settings: GeneralSettings,
     user: Option<UserInfo>,
-    office_prefs: OfficePrefs,
+    liturgy_settings: CommonLiturgySettings,
     verified: Pin<Box<dyn Future<Output = bool> + Send + Sync>>,
-}
-
-#[derive(Default)]
-pub struct OfficePrefs {
-    mp: Option<SettingsForLiturgy>,
-    np: Option<SettingsForLiturgy>,
-    ep: Option<SettingsForLiturgy>,
-    compline: Option<SettingsForLiturgy>,
-}
-
-impl OfficePrefs {
-    pub async fn from_version(req: Arc<dyn Request>, version: Version) -> Self {
-        let (mp, np, ep, compline) = join!(
-            Settings::liturgy(
-                &req,
-                SlugPath::from([Slug::Office, Slug::MorningPrayer, Slug::Version(version)]),
-            ),
-            Settings::liturgy(&req, SlugPath::from([Slug::Office, Slug::NoondayPrayer])),
-            Settings::liturgy(
-                &req,
-                SlugPath::from([Slug::Office, Slug::EveningPrayer, Slug::Version(version)]),
-            ),
-            Settings::liturgy(&req, SlugPath::from([Slug::Office, Slug::Compline])),
-        );
-
-        Self {
-            mp,
-            np,
-            ep,
-            compline,
-        }
-    }
 }
 
 impl Default for Index {
@@ -67,7 +37,7 @@ impl Default for Index {
             dark_mode: DarkMode::Auto,
             general_settings: GeneralSettings::default(),
             user: None,
-            office_prefs: OfficePrefs::default(),
+            liturgy_settings: CommonLiturgySettings::default(),
             verified: Box::pin(async { false }),
         }
     }
@@ -94,8 +64,8 @@ impl Loader for Index {
         } else {
             Box::pin(async { false })
         };
-        let office_prefs =
-            OfficePrefs::from_version(req.clone(), general_settings.liturgy_version).await;
+        let liturgy_settings =
+            CommonLiturgySettings::from_req(&req, general_settings.liturgy_version).await;
 
         Some(Self {
             tzoffset: TimezoneOffset::from(&req),
@@ -104,7 +74,7 @@ impl Loader for Index {
             dark_mode,
             general_settings,
             user,
-            office_prefs,
+            liturgy_settings,
             verified,
         })
     }
@@ -152,7 +122,7 @@ impl View for Index {
             &self.locale,
             self.user.as_ref(),
             &self.general_settings,
-            self.office_prefs,
+            self.liturgy_settings,
             self.verified,
         );
 
@@ -200,7 +170,7 @@ impl Index {
         locale: &str,
         user: Option<&UserInfo>,
         settings: &GeneralSettings,
-        office_prefs: OfficePrefs,
+        liturgy_settings: CommonLiturgySettings,
         verified: Pin<Box<dyn Future<Output = bool> + Send + Sync>>,
     ) -> Node {
         let user_logged_in = view! {
@@ -285,16 +255,16 @@ impl Index {
                             {nav_link(path, locale, "/document/office", t!("toc.daily_office"))}
                             <ul>
                                 <li>
-                                    {office_link(tzoffset, path, locale, settings, office_prefs.mp, Slug::MorningPrayer, t!("toc.morning_prayer"))}
+                                    {office_link(tzoffset, path, locale, settings, liturgy_settings.mp, Slug::MorningPrayer, t!("toc.morning_prayer"))}
                                 </li>
                                 <li>
-                                    {office_link(tzoffset, path, locale, settings, office_prefs.np, Slug::NoondayPrayer, t!("toc.noonday_prayer"))}
+                                    {office_link(tzoffset, path, locale, settings, liturgy_settings.np, Slug::NoondayPrayer, t!("toc.noonday_prayer"))}
                                 </li>
                                 <li>
-                                    {office_link(tzoffset, path, locale, settings, office_prefs.ep, Slug::EveningPrayer, t!("toc.evening_prayer"))}
+                                    {office_link(tzoffset, path, locale, settings, liturgy_settings.ep, Slug::EveningPrayer, t!("toc.evening_prayer"))}
                                 </li>
                                 <li>
-                                    {office_link(tzoffset, path, locale, settings, office_prefs.compline, Slug::Compline, t!("toc.compline"))}
+                                    {office_link(tzoffset, path, locale, settings, liturgy_settings.cp, Slug::Compline, t!("toc.compline"))}
                                 </li>
                                 <li>
                                     {nav_link(path, locale, "/canticle-table", t!("menu.canticle_table"))}
@@ -336,7 +306,7 @@ fn office_link(
     path: &str,
     locale: &str,
     settings: &GeneralSettings,
-    prefs: Option<SettingsForLiturgy>,
+    prefs: SettingsForLiturgy,
     slug: Slug,
     label: String,
 ) -> Node {
@@ -344,33 +314,16 @@ fn office_link(
     let slug = slug.slugify();
     let today = today(tzoffset);
 
-    match prefs {
-        Some(settings) => {
-            let href = office_link_href(&slug, version, today, Some(settings));
-            nav_link(path, locale, &href, label)
-        }
-        None => {
-            let href = office_link_href(&slug, version, today, None);
-            nav_link(path, locale, &href, label)
-        }
-    }
+    let href = office_link_href(&slug, version, today, prefs);
+    nav_link(path, locale, &href, label)
 }
 
-fn office_link_href(
-    slug: &str,
-    version: Version,
-    date: Date,
-    prefs: Option<SettingsForLiturgy>,
-) -> String {
-    if let Some(prefs) = prefs {
-        format!(
-            "/document/office/{}/{:?}?date={}&prefs={}",
-            slug,
-            version,
-            date,
-            urlencoding::encode(&prefs.serialize_non_default_prefs())
-        )
-    } else {
-        format!("/document/office/{}/{:?}?date={}", slug, version, date)
-    }
+fn office_link_href(slug: &str, version: Version, date: Date, prefs: SettingsForLiturgy) -> String {
+    format!(
+        "/document/office/{}/{:?}?date={}&prefs={}",
+        slug,
+        version,
+        date,
+        urlencoding::encode(&prefs.serialize_non_default_prefs())
+    )
 }

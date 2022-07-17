@@ -1,24 +1,19 @@
-use crate::{
-    routes::document::views::DocumentView, utils::time::TimezoneOffset, Icon, UserInfo, WebView,
-};
-use api::summary::{
-    DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary, TrackedReadings,
-};
-use calendar::{Date, Feast, LiturgicalDay, Season, BCP1979_CALENDAR, LFF2018_CALENDAR};
+use crate::{routes::document::views::DocumentView, utils::time::TimezoneOffset, Icon, WebView};
+use api::summary::{DailySummary, EucharisticLectionarySummary, TrackedReadings};
+use calendar::{Date, Feast, LiturgicalDay, Season};
 use language::Language;
 use lectionary::RCLTrack;
 use leptos2::{
-    http::{HeaderMap, HeaderValue, Response},
+    http::{HeaderMap, Response},
     *,
 };
-use library::{summary, CommonPrayer, Library};
 use liturgy::{Document, Slug, Version};
 
 use crate::utils::time::{current_hour, today};
 
 use super::{
     readings::{office::reading_links, views::title_view},
-    settings::{GeneralSettings, Settings},
+    settings::{CommonLiturgySettings, GeneralSettings, Settings},
 };
 
 mod deck;
@@ -28,6 +23,7 @@ pub struct HomePage {
     locale: String,
     deck: TodaysDeck,
     general_settings: GeneralSettings,
+    settings: CommonLiturgySettings,
 }
 
 #[derive(Params)]
@@ -49,6 +45,8 @@ impl Loader for HomePage {
         _query: Self::Query,
     ) -> Option<Self> {
         let general_settings = Settings::general(&req).await;
+        let settings =
+            CommonLiturgySettings::from_req(&req, general_settings.liturgy_version).await;
 
         let tzoffset = TimezoneOffset::from(&req);
 
@@ -65,6 +63,7 @@ impl Loader for HomePage {
             locale: locale.to_string(),
             deck,
             general_settings,
+            settings,
         })
     }
 
@@ -202,13 +201,33 @@ impl Card {
                 lff,
                 day,
                 summary,
-            } => daily_office_card(locale, settings, day, *summary, evening, lff, name, season),
+                liturgy_settings,
+            } => daily_office_card(
+                locale,
+                settings,
+                day,
+                *summary,
+                evening,
+                lff,
+                name,
+                season,
+                liturgy_settings,
+            ),
             Card::SundaySummary {
                 name,
                 season,
                 day,
                 summary,
-            } => sunday_card(locale, name, season, day, settings, *summary),
+                liturgy_settings,
+            } => sunday_card(
+                locale,
+                name,
+                season,
+                day,
+                settings,
+                *summary,
+                liturgy_settings,
+            ),
             Card::HolyDayPreview {
                 id,
                 name,
@@ -233,6 +252,7 @@ fn daily_office_card(
     lff: bool,
     name: String,
     season: Season,
+    liturgy_settings: CommonLiturgySettings,
 ) -> Node {
     let language = Language::from_locale(locale);
 
@@ -289,24 +309,22 @@ fn daily_office_card(
             <main>
                 {black_letter_days}
                 <ul class="office-links">
-                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::MorningPrayer)}</li>
-                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::NoondayPrayer)}</li>
-                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::EveningPrayer)}</li>
-                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::Compline)}</li>
+                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::MorningPrayer, liturgy_settings.mp.serialize_non_default_prefs())}</li>
+                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::NoondayPrayer, liturgy_settings.np.serialize_non_default_prefs())}</li>
+                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::EveningPrayer, liturgy_settings.ep.serialize_non_default_prefs())}</li>
+                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::Compline, liturgy_settings.cp.serialize_non_default_prefs())}</li>
                 </ul>
-                {reading_links.view(&locale)}
+                {reading_links.view(locale)}
             </main>
         </article>
     }
 }
 
-fn office_link(locale: &str, version: Version, date: Date, slug: Slug) -> Node {
+fn office_link(locale: &str, version: Version, date: Date, slug: Slug, prefs: String) -> Node {
     let href = format!(
-        "/{}/document/office/{}/{:?}/?date={}",
-        locale,
-        slug,
-        version,
-        date.to_padded_string()
+        "/{locale}/document/office/{slug}/{version:?}/?date={}&prefs={}",
+        date.to_padded_string(),
+        urlencoding::encode(&prefs)
     );
     view! {
         <a class="badge" href={href}>{t!(&format!("slug.{}", slug))}</a>
@@ -320,6 +338,7 @@ fn sunday_card(
     day: LiturgicalDay,
     settings: &GeneralSettings,
     summary: EucharisticLectionarySummary,
+    liturgy_settings: CommonLiturgySettings,
 ) -> Node {
     fn reading_link(
         locale: &str,
@@ -414,24 +433,25 @@ fn sunday_card(
             <header>
                 <div class="full-width">
                     <h1>{t!("home.sunday")}</h1>
-                    <h2>{title_view(&locale, &day.observed, &name)}</h2>
+                    <h2>{title_view(locale, &day.observed, &name)}</h2>
                     <h3>{day.date.to_localized_name(language)}</h3>
                 </div>
             </header>
             <main>
                 <ul class="office-links">
-                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::MorningPrayer)}</li>
+                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::MorningPrayer, liturgy_settings.mp.serialize_non_default_prefs())}</li>
                     <li>
                         <a class="badge" href={format!(
-                            "/{}/document/eucharist/eucharist/{:?}/?date={}",
+                            "/{}/document/eucharist/eucharist/{:?}/?date={}&prefs={}",
                             locale,
                             settings.liturgy_version,
-                            day.date.to_padded_string()
+                            day.date.to_padded_string(),
+                            liturgy_settings.eucharist.serialize_non_default_prefs()
                         )}>
                             {t!("slug.Eucharist")}
                         </a>
                     </li>
-                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::EveningPrayer)}</li>
+                    <li>{office_link(locale, settings.liturgy_version, day.date, Slug::EveningPrayer, liturgy_settings.ep.serialize_non_default_prefs())}</li>
                 </ul>
 
                 <ul class="reading-links">

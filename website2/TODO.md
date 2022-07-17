@@ -1,7 +1,3 @@
-- [ ] Home Page
-  - [x] today() and current_hour() need to be time-zone sensitive
-  - [ ] use GeneralSettings.bible_version in all reading links
-  - [ ] use LiturgySettings in Office/Eucharist links
 - Initial public release
   - [ ] Re-point DNS
   - [ ] Make sure auth working

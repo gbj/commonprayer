@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use futures::join;
 use http::{Response, StatusCode};
 use itertools::Itertools;
 use leptos2::*;
@@ -33,6 +34,44 @@ impl SettingsForLiturgy {
             .filter(|(k, v)| self.liturgy_prefs.default_value_for_key(k) != Some(v))
             .collect::<Vec<_>>();
         serde_json::to_string(&filtered_as_vec).unwrap()
+    }
+}
+
+#[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub struct CommonLiturgySettings {
+    pub mp: SettingsForLiturgy,
+    pub np: SettingsForLiturgy,
+    pub ep: SettingsForLiturgy,
+    pub cp: SettingsForLiturgy,
+    pub eucharist: SettingsForLiturgy,
+}
+
+impl CommonLiturgySettings {
+    pub async fn from_req(req: &Arc<dyn Request>, version: Version) -> CommonLiturgySettings {
+        // TODO: could this be one call to the database instead of five?
+        let (mp, np, ep, cp, eucharist) = join!(
+            Settings::liturgy(
+                &req,
+                SlugPath::from([Slug::Office, Slug::MorningPrayer, Slug::Version(version)])
+            ),
+            Settings::liturgy(&req, SlugPath::from([Slug::Office, Slug::NoondayPrayer,])),
+            Settings::liturgy(
+                &req,
+                SlugPath::from([Slug::Office, Slug::EveningPrayer, Slug::Version(version)])
+            ),
+            Settings::liturgy(&req, SlugPath::from([Slug::Office, Slug::Compline,])),
+            Settings::liturgy(
+                &req,
+                SlugPath::from([Slug::Eucharist, Slug::Eucharist, Slug::Version(version)])
+            )
+        );
+        Self {
+            mp: mp.unwrap_or_default(),
+            np: np.unwrap_or_default(),
+            ep: ep.unwrap_or_default(),
+            cp: cp.unwrap_or_default(),
+            eucharist: eucharist.unwrap_or_default(),
+        }
     }
 }
 
