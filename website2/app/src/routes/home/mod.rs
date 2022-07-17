@@ -1,4 +1,6 @@
-use crate::{routes::document::views::DocumentView, Icon, UserInfo, WebView};
+use crate::{
+    routes::document::views::DocumentView, utils::time::TimezoneOffset, Icon, UserInfo, WebView,
+};
 use api::summary::{
     DailySummary, EucharisticLectionarySummary, EucharisticObservanceSummary, TrackedReadings,
 };
@@ -48,12 +50,14 @@ impl Loader for HomePage {
     ) -> Option<Self> {
         let general_settings = Settings::general(&req).await;
 
+        let tzoffset = TimezoneOffset::from(&req);
+
         let deck = TodaysDeck::create(
             &req,
             locale,
             general_settings.use_lff,
-            today(),
-            current_hour(),
+            today(&tzoffset),
+            current_hour(&tzoffset),
         )
         .await;
 
@@ -70,6 +74,8 @@ impl Loader for HomePage {
         params: Self::Params,
         query: Self::Query,
     ) -> ActionResponse {
+        let tzoffset = TimezoneOffset::from(&req);
+
         if let Some(body) = req.body() {
             match body.as_form_data::<HomePageAction>() {
                 Err(e) => {
@@ -83,10 +89,10 @@ impl Loader for HomePage {
                             .map(|date| {
                                 Date::parse_from_str(&date, "%Y-%m-%d").unwrap_or_else(|e| {
                                     eprintln!("[Home::action] error parsing date: {e}");
-                                    today()
+                                    today(&tzoffset)
                                 })
                             })
-                            .unwrap_or_else(today);
+                            .unwrap_or_else(|| today(&tzoffset));
 
                         match serde_json::from_str::<Document>(&data.payload) {
                             Err(e) => {

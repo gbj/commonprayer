@@ -1,6 +1,6 @@
 use crate::api::document_action::*;
 use crate::utils::fetch::Fetch;
-use crate::utils::time::today;
+use crate::utils::time::{today, TimezoneOffset};
 use crate::{utils::fetch::FetchStatus, Icon};
 use leptos2::*;
 use liturgy::Document;
@@ -222,7 +222,8 @@ impl DocumentAction {
             "payload",
             &serde_json::to_string(&self.document).expect("couldn't serialize document"),
         );
-        data.append("date_created", &today().to_padded_string());
+        let tzoffset = TimezoneOffset(js_sys::Date::new_0().get_timezone_offset() as i32);
+        data.append("date_created", &today(&tzoffset).to_padded_string());
 
         Ok(Request::post(&format!("/{}", self.locale))
             .header("Content-Type", "application/x-www-form-urlencoded")

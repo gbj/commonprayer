@@ -42,11 +42,11 @@ impl Loader for CalendarView {
 
     async fn loader(
         locale: &str,
-        _req: Arc<dyn Request>,
+        req: Arc<dyn Request>,
         _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
-        let today = today();
+        let today = today(&req.into());
         let year = query.year.unwrap_or_else(|| today.year());
         let month = query.month.unwrap_or_else(|| today.month());
 

@@ -46,7 +46,7 @@ impl Loader for OfficeView {
 
     async fn loader(
         locale: &str,
-        _req: Arc<dyn Request>,
+        req: Arc<dyn Request>,
         _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
@@ -56,7 +56,7 @@ impl Loader for OfficeView {
             .date
             .as_ref()
             .and_then(|date| Date::parse_from_str(date, "%Y-%m-%d").ok())
-            .unwrap_or_else(today);
+            .unwrap_or_else(|| today(&req.into()));
         let use_alternate = query
             .alternate
             .map(|alternate| alternate == "yes")

@@ -10,7 +10,7 @@ use language::Language;
 use leptos2::*;
 use liturgy::Version;
 
-use crate::utils::time::today;
+use crate::utils::time::{today, TimezoneOffset};
 use crate::Icon;
 
 use self::views::bible_version_select_options;
@@ -41,11 +41,12 @@ impl Loader for ReadingsView {
         _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
+        let tzoffset = TimezoneOffset::from(&req);
         let date = query
             .date
             .as_ref()
             .and_then(|date| Date::parse_from_str(date, "%Y-%m-%d").ok())
-            .unwrap_or_else(today);
+            .unwrap_or_else(|| today(&tzoffset));
         let version = query
             .version
             .filter(Version::is_bible_translation)

@@ -2,7 +2,7 @@ use leptos2::*;
 
 use calendar::Date;
 
-use crate::utils::time::today;
+use crate::utils::time::{today, TimezoneOffset};
 
 #[derive(Clone, Debug, Default, PartialEq, Deserialize, Serialize, WebComponent)]
 pub struct DatePicker {
@@ -33,6 +33,8 @@ impl State for DatePicker {
 
 impl Component for DatePicker {
     fn view(&self) -> Host {
+        let tzoffset = TimezoneOffset(js_sys::Date::new_0().get_timezone_offset() as i32);
+
         view! {
             <Host>
                 <style>{include_str!("datepicker.css")}</style>
@@ -48,7 +50,7 @@ impl Component for DatePicker {
                     </label>
                 </fieldset>
                 <button
-                    on:click=|_| Some(today())
+                    on:click=move |_| Some(today(&tzoffset))
                 >
                     {if self.todaylabel.is_empty() {
                         "Today"

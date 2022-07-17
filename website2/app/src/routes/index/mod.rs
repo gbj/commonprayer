@@ -4,7 +4,7 @@ use std::sync::Arc;
 use super::settings::{DarkMode, GeneralSettings, Settings, SettingsForLiturgy};
 use crate::components::{Auth, Modal};
 use crate::utils::encode_uri;
-use crate::utils::time::today;
+use crate::utils::time::{today, TimezoneOffset};
 use calendar::Date;
 use futures::{join, Future};
 use leptos2::{view::View, *};
@@ -16,6 +16,7 @@ use auth::auth_scripts;
 pub use auth::UserId;
 
 pub struct Index {
+    tzoffset: TimezoneOffset,
     locale: String,
     path: String,
     dark_mode: DarkMode,
@@ -60,6 +61,7 @@ impl OfficePrefs {
 impl Default for Index {
     fn default() -> Self {
         Self {
+            tzoffset: TimezoneOffset::default(),
             locale: "en".to_string(),
             path: String::new(),
             dark_mode: DarkMode::Auto,
@@ -96,6 +98,7 @@ impl Loader for Index {
             OfficePrefs::from_version(req.clone(), general_settings.liturgy_version).await;
 
         Some(Self {
+            tzoffset: TimezoneOffset::from(&req),
             locale: locale.to_string(),
             path: req.path().to_string(),
             dark_mode,
@@ -144,6 +147,7 @@ impl View for Index {
 
     fn body(self: Box<Self>, nested_view: Option<Node>) -> Body {
         let menu = Self::menu(
+            &self.tzoffset,
             &self.path,
             &self.locale,
             self.user.as_ref(),
@@ -157,6 +161,9 @@ impl View for Index {
                 {menu}
                 {nested_view.unwrap_or_default()}
                 {body_scripts()}
+
+                // Store timezone offset
+                <script>"document.cookie = `tzoffset=${new Date().getTimezoneOffset()}`"</script>
 
                 // Firebase Auth
                 {auth_scripts()}
@@ -188,6 +195,7 @@ impl View for Index {
 
 impl Index {
     fn menu(
+        tzoffset: &TimezoneOffset,
         path: &str,
         locale: &str,
         user: Option<&UserInfo>,
@@ -277,16 +285,16 @@ impl Index {
                             {nav_link(path, locale, "/document/office", t!("toc.daily_office"))}
                             <ul>
                                 <li>
-                                    {office_link(path, locale, settings, office_prefs.mp, Slug::MorningPrayer, t!("toc.morning_prayer"))}
+                                    {office_link(tzoffset, path, locale, settings, office_prefs.mp, Slug::MorningPrayer, t!("toc.morning_prayer"))}
                                 </li>
                                 <li>
-                                    {office_link(path, locale, settings, office_prefs.np, Slug::NoondayPrayer, t!("toc.noonday_prayer"))}
+                                    {office_link(tzoffset, path, locale, settings, office_prefs.np, Slug::NoondayPrayer, t!("toc.noonday_prayer"))}
                                 </li>
                                 <li>
-                                    {office_link(path, locale, settings, office_prefs.ep, Slug::EveningPrayer, t!("toc.evening_prayer"))}
+                                    {office_link(tzoffset, path, locale, settings, office_prefs.ep, Slug::EveningPrayer, t!("toc.evening_prayer"))}
                                 </li>
                                 <li>
-                                    {office_link(path, locale, settings, office_prefs.compline, Slug::Compline, t!("toc.compline"))}
+                                    {office_link(tzoffset, path, locale, settings, office_prefs.compline, Slug::Compline, t!("toc.compline"))}
                                 </li>
                                 <li>
                                     {nav_link(path, locale, "/canticle-table", t!("menu.canticle_table"))}
@@ -324,6 +332,7 @@ fn nav_link(current_url: &str, locale: &str, href: &str, label: String) -> Node 
 }
 
 fn office_link(
+    tzoffset: &TimezoneOffset,
     path: &str,
     locale: &str,
     settings: &GeneralSettings,
@@ -333,7 +342,7 @@ fn office_link(
 ) -> Node {
     let version = settings.liturgy_version;
     let slug = slug.slugify();
-    let today = today();
+    let today = today(tzoffset);
 
     match prefs {
         Some(settings) => {

@@ -1,0 +1,4 @@
+- [ ] Bugs
+  - [ ] Weekdays after Pentecost ≠ Pentecost season (opening sentences, invitatory antiphons)
+  - [ ] Fix weird highlighting offset in search
+  - [ ] Favorites: if not logged in, can only add one between page reloads (because cookie not updated without page reload)

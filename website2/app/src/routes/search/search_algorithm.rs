@@ -1,4 +1,4 @@
-use crate::utils::time::today;
+use crate::utils::time::{today, TimezoneOffset};
 
 use super::search_result::{
     PossibleMatch, PossibleMatchOwned, SearchResult, SearchResultContent, SearchResultLink,
@@ -214,7 +214,11 @@ impl Searchable for Feast {
             .iter()
             .find(|(_, s_feast, _, _)| s_feast == self)
             .and_then(|(id, _, _, _)| match id {
-                HolyDayId::Date(month, day) => Some(Date::from_ymd(today().year(), *month, *day)),
+                HolyDayId::Date(month, day) => Some(Date::from_ymd(
+                    today(&TimezoneOffset(0)).year(),
+                    *month,
+                    *day,
+                )),
                 _ => None,
             });
 

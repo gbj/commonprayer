@@ -77,7 +77,7 @@ impl Loader for EucharistView {
 
     async fn loader(
         locale: &str,
-        _req: Arc<dyn Request>,
+        req: Arc<dyn Request>,
         _params: Self::Params,
         query: Self::Query,
     ) -> Option<Self> {
@@ -87,7 +87,7 @@ impl Loader for EucharistView {
             .date
             .as_ref()
             .and_then(|date| Date::parse_from_str(date, "%Y-%m-%d").ok())
-            .unwrap_or_else(today);
+            .unwrap_or_else(|| today(&req.into()));
         let alternate = query
             .alternate
             .as_ref()

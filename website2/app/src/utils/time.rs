@@ -1,20 +1,61 @@
 use calendar::Date;
+use leptos2::{Arc, Cookies, Request};
 use liturgy::{Slug, SlugPath};
 
+/// The current timezone offset in minutes, per
+/// [Date.getTimezoneOffset()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset).
+pub struct TimezoneOffset(pub i32);
+
+impl Default for TimezoneOffset {
+    fn default() -> Self {
+        Self(0)
+    }
+}
+
+/// The `tzoffset` cookie stores the current timezone offset in minutes, per
+/// [Date.getTimezoneOffset()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset).
+/// This will only be set if cookies are allowed and you've already loaded a page on the site.
+impl From<&Arc<dyn Request>> for TimezoneOffset {
+    fn from(req: &Arc<dyn Request>) -> Self {
+        TimezoneOffset(
+            req.headers()
+                .cookies()
+                .filter_map(|cookie| match cookie {
+                    Ok(cookie) => Some(cookie),
+                    Err(e) => {
+                        eprintln!("invalid cookie: {:#?}", e);
+                        None
+                    }
+                })
+                .find(|cookie| cookie.name() == "tzoffset")
+                .and_then(|cookie| cookie.value().parse::<i32>().ok())
+                .unwrap_or(0),
+        )
+    }
+}
+
+impl From<Arc<dyn Request>> for TimezoneOffset {
+    fn from(req: Arc<dyn Request>) -> Self {
+        Self::from(&req)
+    }
+}
+
 #[cfg(target_arch = "wasm32")]
-pub fn current_hour() -> u32 {
+pub fn current_hour(_tzoffset: &TimezoneOffset) -> u32 {
     js_sys::Date::new_0().get_hours()
 }
 
 #[cfg(not(target_arch = "wasm32"))]
-pub fn current_hour() -> u32 {
+pub fn current_hour(tzoffset: &TimezoneOffset) -> u32 {
     use chrono::Timelike;
 
-    chrono::Local::now().hour()
+    let utc_now = chrono::Utc::now();
+    let local_now = utc_now - chrono::Duration::minutes(tzoffset.0.into());
+    local_now.hour()
 }
 
 #[cfg(target_arch = "wasm32")]
-pub fn input_date_now() -> String {
+pub fn input_date_now(_tzoffset: &TimezoneOffset) -> String {
     let now = js_sys::Date::new_0();
     format!(
         "{}-{:02}-{:02}",
@@ -24,19 +65,20 @@ pub fn input_date_now() -> String {
     )
 }
 #[cfg(not(target_arch = "wasm32"))]
-pub fn input_date_now() -> String {
+pub fn input_date_now(tzoffset: &TimezoneOffset) -> String {
     use chrono::Datelike;
 
-    let local = chrono::Local::now();
+    let utc_now = chrono::Utc::now();
+    let local = utc_now - chrono::Duration::minutes(tzoffset.0.into());
     format!("{}-{:02}-{:02}", local.year(), local.month(), local.day())
 }
 
-pub fn today() -> Date {
-    Date::parse_from_str(&input_date_now(), "%Y-%m-%d").unwrap()
+pub fn today(tzoffset: &TimezoneOffset) -> Date {
+    Date::parse_from_str(&input_date_now(tzoffset), "%Y-%m-%d").unwrap()
 }
 
 #[cfg(target_arch = "wasm32")]
-pub fn now() -> (u32, u32) {
+pub fn now(_tzoffset: &TimezoneOffset) -> (u32, u32) {
     let now = js_sys::Date::new_0();
     let hours: u32 = now.get_hours().into();
     let minutes: u32 = now.get_minutes().into();
@@ -44,11 +86,12 @@ pub fn now() -> (u32, u32) {
 }
 
 #[cfg(not(target_arch = "wasm32"))]
-pub fn now() -> (u32, u32) {
+pub fn now(tzoffset: &TimezoneOffset) -> (u32, u32) {
     use chrono::Timelike;
 
-    let time = chrono::offset::Local::now();
-    (time.hour(), time.minute())
+    let utc_now = chrono::Utc::now();
+    let local_now = utc_now - chrono::Duration::minutes(tzoffset.0.into());
+    (local_now.hour(), local_now.minute())
 }
 
 pub struct OfficeTimeRanges {
@@ -79,8 +122,8 @@ pub const DEFAULT_OFFICE_TIMES: OfficeTimeRanges = OfficeTimeRanges {
     night: OfficeTimeRange((20, 0), (3, 0)),
 };
 
-pub fn current_preferred_liturgy(ranges: &OfficeTimeRanges) -> SlugPath {
-    let (hour, minute) = now();
+pub fn current_preferred_liturgy(tzoffset: &TimezoneOffset, ranges: &OfficeTimeRanges) -> SlugPath {
+    let (hour, minute) = now(tzoffset);
     if ranges.morning.includes(hour, minute) {
         SlugPath::from([Slug::Office, Slug::MorningPrayer])
     } else if ranges.noon.includes(hour, minute) {
