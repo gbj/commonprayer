@@ -70,3 +70,7 @@
 	border: none;
 	cursor: pointer;
 }
+
+.card.sunday .reading-links {
+	text-align: center;
+}

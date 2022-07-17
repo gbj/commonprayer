@@ -44,6 +44,10 @@
 	min-height: 3rem;
 }
 
+.card > header div.full-width {
+	width: 100%;
+}
+
 .card > main {
 	padding: 0.75rem;
 	padding-top: 0.5rem;

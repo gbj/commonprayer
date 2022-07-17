@@ -280,7 +280,7 @@ fn daily_office_card(
     view! {
         <article class={format!("card {:?}", season)}>
             <header>
-                <div>
+                <div class="full-width">
                     <h1>{t!("toc.daily_office")}</h1>
                     <h2>{title_view(locale, &day.observed, &name)}</h2>
                     <h3>{day.date.to_localized_name(language)}</h3>
@@ -410,9 +410,9 @@ fn sunday_card(
         .collect::<Vec<_>>();
 
     view! {
-        <article class={format!("card {:?}", season)}>
+        <article class={format!("card sunday {:?}", season)}>
             <header>
-                <div>
+                <div class="full-width">
                     <h1>{t!("home.sunday")}</h1>
                     <h2>{title_view(&locale, &day.observed, &name)}</h2>
                     <h3>{day.date.to_localized_name(language)}</h3>
@@ -465,7 +465,7 @@ fn holy_day_card(locale: &str, id: Feast, name: String, date: Date, bio: String)
     view! {
         <article class="card">
             <header>
-                <div>
+                <div class="full-width">
                     <h1><em>{t!("lff")}</em></h1>
                     <h2><a href={href}>{name}</a></h2>
                     <h3>{date.to_localized_name_without_year(language)}</h3>
