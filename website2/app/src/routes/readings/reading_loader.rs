@@ -149,27 +149,23 @@ impl ReadingLoader {
         }
     }
 
-    pub fn view(self, locale: &str, path: Vec<usize>) -> Vec<Node> {
+    pub fn view(self, locale: &str, path: Vec<usize>) -> Node {
         self.view_config(locale, path, true)
     }
 
-    pub fn view_without_header(self, locale: &str, path: Vec<usize>) -> Vec<Node> {
+    pub fn view_without_header(self, locale: &str, path: Vec<usize>) -> Node {
         self.view_config(locale, path, false)
     }
 
-    fn view_config(self, locale: &str, path: Vec<usize>, with_header: bool) -> Vec<Node> {
+    fn view_config(self, locale: &str, path: Vec<usize>, with_header: bool) -> Node {
         match self {
             ReadingLoader::Sync(reading) => {
                 let (header, main) = biblical_reading(locale, path.clone(), &reading, "");
                 view! {
-                    <>
-                        <a id={&reading.citation}></a>
-                        <article class="document">
-                            <header>{header}</header>
-                            <main>{main}</main>
-                        </article>
+                    <div>
+                        {main}
                         {reading_loaded_script(&path, &reading)}
-                    </>
+                    </div>
                 }
             }
             ReadingLoader::Async { citation, reading } => {
@@ -196,16 +192,16 @@ impl ReadingLoader {
 
                 if with_header {
                     view! {
-                        <>
+                        <div>
                             <a id={&citation}></a>
                             <article class="document">
                                 <header><h3 class="citation">{&citation}</h3></header>
                                 <main>{reading}</main>
                             </article>
-                        </>
+                        </div>
                     }
                 } else {
-                    vec![reading]
+                    reading
                 }
             }
         }

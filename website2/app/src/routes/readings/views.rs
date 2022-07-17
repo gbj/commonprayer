@@ -106,7 +106,7 @@ pub fn async_readings_view(locale: &str, readings: Vec<ReadingLoader>) -> Vec<No
     } else if readings.len() == 1 {
         readings
             .into_iter()
-            .flat_map(|reading| reading.view(locale, vec![]))
+            .map(|reading| reading.view(locale, vec![]))
             .collect()
     } else {
         // start with anchors, so that navigation to a hidden tab still works
@@ -140,7 +140,7 @@ pub fn async_readings_serial_view(locale: &str, readings: Vec<ReadingLoader>) ->
     } else if readings.len() == 1 {
         readings
             .into_iter()
-            .flat_map(|reading| reading.view(locale, vec![]))
+            .map(|reading| reading.view(locale, vec![]))
             .collect()
     } else {
         readings
