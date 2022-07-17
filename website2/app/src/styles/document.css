@@ -621,18 +621,6 @@ l-choice-view input[type=radio]:checked+label+div {
   }
 }
 
-.document:not(.selected) {
-  margin: -1px;
-  margin-top: calc(1rem - 1px);
-  padding: 1px;
-}
-
-.document.selected {
-  background: var(--selected-background);
-  border: 1px solid var(--selected-border);
-  margin: -1px;
-}
-
 .multidocument .document {
   margin-top: -1px;
 }
