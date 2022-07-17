@@ -345,7 +345,7 @@ fn strip_entities(text: String) -> String {
         .replace("&#148;", "”")
         .replace("&#149;", "‘")
         .replace("&#150;", "’")
-        .replace("&#151;", "“")
+        .replace("&#151;", "—")
         .replace("&#152;", "”")
         .replace("&#153;", "–")
         .replace("&#154;", "—")
