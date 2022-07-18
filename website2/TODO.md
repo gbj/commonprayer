@@ -1,7 +1,4 @@
-- Initial public release
-  - [ ] Re-point DNS
-  - [ ] Make sure auth working
-  - [ ] Make sure analytics working
+- [ ] Eucharist link in main menu (like Office links)
 - [ ] Readings page
   - [ ] Ember Day readings
   - [ ] Rogation Day readings

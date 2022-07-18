@@ -1,5 +1,5 @@
 use calendar::Date;
-use leptos2::{Arc, Cookies, Request};
+use leptos2::Arc;
 use liturgy::{Slug, SlugPath};
 
 /// The current timezone offset in minutes, per
@@ -15,8 +15,11 @@ impl Default for TimezoneOffset {
 /// The `tzoffset` cookie stores the current timezone offset in minutes, per
 /// [Date.getTimezoneOffset()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset).
 /// This will only be set if cookies are allowed and you've already loaded a page on the site.
-impl From<&Arc<dyn Request>> for TimezoneOffset {
-    fn from(req: &Arc<dyn Request>) -> Self {
+#[cfg(not(target_arch = "wasm32"))]
+impl From<&Arc<dyn leptos2::Request>> for TimezoneOffset {
+    fn from(req: &Arc<dyn leptos2::Request>) -> Self {
+        use leptos2::Cookies;
+
         TimezoneOffset(
             req.headers()
                 .cookies()
@@ -34,8 +37,9 @@ impl From<&Arc<dyn Request>> for TimezoneOffset {
     }
 }
 
-impl From<Arc<dyn Request>> for TimezoneOffset {
-    fn from(req: Arc<dyn Request>) -> Self {
+#[cfg(not(target_arch = "wasm32"))]
+impl From<Arc<dyn leptos2::Request>> for TimezoneOffset {
+    fn from(req: Arc<dyn leptos2::Request>) -> Self {
         Self::from(&req)
     }
 }
