@@ -1,6 +1,7 @@
 use alcoholic_jwt::{validate, ValidJWT, JWKS};
 use anyhow::Result;
 use cached::proc_macro::cached;
+use thiserror::Error;
 
 const FIREBASE_KEY_URL: &str =
     "https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com";
@@ -35,6 +36,14 @@ pub async fn fetch_keys() -> JWKS {
         .expect("Could not parse Firebase JWKS JSON")
 }
 
+#[derive(Error, Debug)]
+pub enum TokenValidationError {
+    #[error("No 'kid' claim present in token")]
+    Kid,
+    #[error("Specified key not found in set")]
+    KeyNotFound,
+}
+
 pub async fn validate_token(token: &str) -> Result<ValidJWT> {
     let jwks: JWKS = fetch_keys().await;
 
@@ -44,11 +53,11 @@ pub async fn validate_token(token: &str) -> Result<ValidJWT> {
 
     // If a JWKS contains multiple keys, the correct KID first
     // needs to be fetched from the token headers.
-    let kid = alcoholic_jwt::token_kid(token)
-        .expect("Failed to decode token headers")
-        .expect("No 'kid' claim present in token");
+    let kid = alcoholic_jwt::token_kid(token)?
+        .ok_or(TokenValidationError::Kid)?
+        .to_string();
 
-    let jwk = jwks.find(&kid).expect("Specified key not found in set");
+    let jwk = jwks.find(&kid).ok_or(TokenValidationError::KeyNotFound)?;
 
     Ok(validate(token, jwk, validations)?)
 }
