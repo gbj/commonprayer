@@ -38,6 +38,10 @@
   font-size: 1rem;
 }
 
+.document > header {
+  margin-top: 1rem;
+}
+
 .document > header,
 .psalm > section > header {
   display: flex;
