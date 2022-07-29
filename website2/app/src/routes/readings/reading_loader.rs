@@ -2,7 +2,7 @@ use std::pin::Pin;
 
 use futures::Future;
 use leptos2::*;
-use liturgy::{BiblicalReading, BiblicalReadingIntro, Document, Version};
+use liturgy::{BiblicalReading, BiblicalReadingIntro, Version};
 use reference_parser::{BibleVerse, BibleVersePart, Book};
 use serde::{Deserialize, Serialize};
 
@@ -162,47 +162,39 @@ impl ReadingLoader {
             ReadingLoader::Sync(reading) => {
                 let (header, main) = biblical_reading(locale, path.clone(), &reading, "");
                 view! {
-                    <div>
+                    <article class="document">
+                        {with_header.then(|| view! { <header>{header}</header> })}
                         {main}
                         {reading_loaded_script(&path, &reading)}
-                    </div>
+                    </article>
                 }
             }
             ReadingLoader::Async { citation, reading } => {
                 let locale = locale.to_string();
-                let reading = Node::AsyncElement(AsyncElement {
+                Node::AsyncElement(AsyncElement {
                     pending: Box::new(view! { <p>{t!("loading")}</p> }),
                     ready: Some(Box::pin({
                         let citation = citation.clone();
                         async move {
                             match reading.await {
-                                Ok(reading) => view! {
-                                    <div>
-                                        {biblical_reading(&locale, path.clone(), &reading, "").1}
-                                        {reading_loaded_script(&path, &reading)}
-                                    </div>
-                                },
+                                Ok(reading) => {
+                                    let (header, main) =
+                                        biblical_reading(&locale, path.clone(), &reading, "");
+                                    view! {
+                                        <article class="document">
+                                            {with_header.then(|| view! { <header>{header}</header> })}
+                                            {main}
+                                            {reading_loaded_script(&path, &reading)}
+                                        </article>
+                                    }
+                                }
                                 Err(_) => view! {
                                     <p class="error">{t!("biblical_citation.error", citation = &citation)}</p>
                                 },
                             }
                         }
                     })),
-                });
-
-                if with_header {
-                    view! {
-                        <div>
-                            <a id={&citation}></a>
-                            <article class="document">
-                                <header><h3 class="citation">{&citation}</h3></header>
-                                <main>{reading}</main>
-                            </article>
-                        </div>
-                    }
-                } else {
-                    reading
-                }
+                })
             }
         }
     }
