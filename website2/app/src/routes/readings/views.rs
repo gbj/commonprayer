@@ -122,7 +122,7 @@ pub fn async_readings_view(locale: &str, readings: Vec<ReadingLoader>) -> Vec<No
             .collect::<Vec<_>>();
         let content = readings
             .into_iter()
-            .map(|loader| view! { <div>{loader.view(locale, vec![])}</div> });
+            .map(|loader| loader.view(locale, vec![]));
         frag.push(view! {
             <Tabs
                 prop:labels={labels.clone()}
@@ -140,12 +140,26 @@ pub fn async_readings_serial_view(locale: &str, readings: Vec<ReadingLoader>) ->
     } else if readings.len() == 1 {
         readings
             .into_iter()
-            .map(|reading| reading.view(locale, vec![]))
+            .flat_map(|reading| {
+                view! {
+                    <>
+                        <a id={reading.as_citation()}></a>
+                        {reading.view(locale, vec![])}
+                    </>
+                }
+            })
             .collect()
     } else {
         readings
             .into_iter()
-            .map(|loader| view! { <div>{loader.view(locale, vec![])}</div> })
+            .flat_map(|loader| {
+                view! {
+                    <>
+                        <a id={loader.as_citation()}></a>
+                        {loader.view(locale, vec![])}
+                    </>
+                }
+            })
             .collect()
     }
 }

@@ -92,6 +92,12 @@ a.source-link > span {
   font-size: 1rem;
 }
 
+.document > header .citation:only-child {
+  font-weight: bold;
+  font-style: normal;
+  margin: 1rem 0;
+}
+
 /* Label/Subtitle */
 .label-and-subtitle {
   display: flex;
