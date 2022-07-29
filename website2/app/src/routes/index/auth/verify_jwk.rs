@@ -53,9 +53,7 @@ pub async fn validate_token(token: &str) -> Result<ValidJWT> {
 
     // If a JWKS contains multiple keys, the correct KID first
     // needs to be fetched from the token headers.
-    let kid = alcoholic_jwt::token_kid(token)?
-        .ok_or(TokenValidationError::Kid)?
-        .to_string();
+    let kid = alcoholic_jwt::token_kid(token)?.ok_or(TokenValidationError::Kid)?;
 
     let jwk = jwks.find(&kid).ok_or(TokenValidationError::KeyNotFound)?;
 
