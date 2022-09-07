@@ -83,6 +83,11 @@ impl ReadingLoader {
     #[cfg(not(target_arch = "wasm32"))]
     pub fn new(citation: &str, version: Version, intro: Option<BiblicalReadingIntro>) -> Self {
         let citation = citation.to_string();
+        let version = if !version.is_bible_translation() {
+            Version::NRSV
+        } else {
+            version
+        };
         match READINGS_CACHE.get(&(citation.clone(), version)) {
             Some(reading) => ReadingLoader::Sync(reading),
             None => {
@@ -91,6 +96,7 @@ impl ReadingLoader {
                 let reading = Box::pin({
                     let citation = citation.clone();
                     async move {
+                        println!("\n\n(load_reading url = ), {url}");
                         let reading = CLIENT
                             .get(&url)
                             .send()
