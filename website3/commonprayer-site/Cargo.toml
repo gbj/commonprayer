@@ -1,0 +1,39 @@
+[package]
+name = "commonprayer-site"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+chrono = { version = "0.4", optional = true }
+console_log = "0.2"
+itertools = "0.10"
+leptos = { path = "../../../leptos-new/leptos/leptos", features = ["csr"]}
+log = "0.4"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+typed-builder = "0.10"
+web-sys = { version = "0.3", optional = true, features = ["HtmlDialogElement"] }
+
+# Episcopal API crates
+api = { path = "../../episcopal_api/crates/api" }
+calendar = { path = "../../episcopal_api/crates/calendar" }
+canticle-table = { path = "../../episcopal_api/crates/canticle-table" }
+docx = { path = "../../episcopal_api/crates/export/docx" }
+hymnal = { path = "../../episcopal_api/crates/hymnal" }
+language = { path = "../../episcopal_api/crates/language" }
+ldf = { path = "../../episcopal_api/crates/export/ldf" }
+lectionary = { path = "../../episcopal_api/crates/lectionary" }
+library = { path = "../../episcopal_api/crates/library" }
+liturgy = { path = "../../episcopal_api/crates/liturgy" }
+psalter = { path = "../../episcopal_api/crates/psalter" }
+reference-parser = { path = "../../episcopal_api/crates/reference-parser" }
+
+[features]
+default = ["csr"]
+csr = ["leptos/csr", "dep:web-sys"]
+ssr = ["leptos/ssr", "dep:chrono"]
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 'z'

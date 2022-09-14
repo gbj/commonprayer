@@ -51,6 +51,7 @@ lazy_static! {
 async fn main() -> std::io::Result<()> {
     let host = std::env::var("HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
     let port = std::env::var("PORT").unwrap_or_else(|_| "1234".to_string());
+    println!("serving at {host}:{port}");
 
     // load TLS keys
     // to create a self-signed temporary cert for testing:
