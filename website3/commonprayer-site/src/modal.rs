@@ -31,21 +31,27 @@ where
 
     let tpl = view! {
         <dialog ref=dialog
+            class="Modal"
             on:close={
                 let on_close = on_close.clone();
                 move |_| { on_close() }
             }
         >
-            <form method="dialog"
-                on:submit=move |_| { on_close() }
-            >
-                <button
-                    aria-label={t("close")}
+            <header class="Modal-header">
+                <form method="dialog"
+                    on:submit=move |_| { on_close() }
                 >
-                    <img src={Icon::Close.to_string()} alt="X" />
-                </button>
-            </form>
-            <main>{children}</main>
+                    <button
+                        class="Modal-header-close"
+                        aria-label={t("close")}
+                    >
+                        <img src={Icon::Close.to_string()} alt="X" />
+                    </button>
+                </form>
+            </header>
+            <main class="Modal-content">
+                {children}
+            </main>
         </dialog>
     };
 
@@ -55,9 +61,12 @@ where
     #[cfg(any(feature = "csr", feature = "hydrate"))]
     create_effect(cx, move |_| {
         if open() {
-            dialog.set_open(true);
+            if dialog.show_modal().is_err() {
+                log::warn!("<Modal/> error while calling HTMLDialogElement.showModal()");
+                dialog.set_open(true);
+            }
         } else {
-            dialog.set_open(false);
+            dialog.close();
         }
     });
 

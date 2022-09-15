@@ -1,0 +1,36 @@
+.Modal {
+	max-width: 70vw;
+	border: 1px solid rgba(0,0,0,.5);;
+	border-radius: var(--border-radius);
+	/* position: relative;
+	z-index: var(--modal-z-index);
+	padding: var(--content-padding);
+	color: var(--body-color);
+	background-color: var(--background);
+	background-clip: padding-box;
+	*/
+}
+
+.Modal::backdrop {
+	background-color: rgba(0,0,0,.5);
+	animation: .5s fade-in;
+}
+
+.Modal-header {
+	display: flex;
+	justify-content: end;
+}
+
+.Modal-header-close {
+	background: none;
+	border: 0;
+}
+
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
+  }
+}

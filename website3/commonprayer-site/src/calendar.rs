@@ -1,9 +1,10 @@
-use calendar::{Calendar, Date, Feast, LiturgicalDay, LiturgicalDayId, Rank, Weekday};
+use calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId, Rank, Weekday};
 use itertools::Itertools;
 use language::Language;
 use leptos::*;
 use library::summary;
 
+use crate::header::set_title;
 use crate::i18n::{use_i18n, use_locale};
 use crate::icon::Icon;
 use crate::modal::*;
@@ -37,7 +38,11 @@ pub struct CalendarDayEntry {
 }
 
 // TODO move to server
-pub fn calendar_data(cx: Scope, params: Memo<ParamsMap>, location: Location) -> Memo<CalendarData> {
+pub fn calendar_data(
+    cx: Scope,
+    _params: Memo<ParamsMap>,
+    _location: Location,
+) -> Memo<CalendarData> {
     use calendar::{BCP1979_CALENDAR, LFF2018_CALENDAR};
 
     create_memo(cx, move |_| {
@@ -45,7 +50,6 @@ pub fn calendar_data(cx: Scope, params: Memo<ParamsMap>, location: Location) -> 
 
         let locale = use_locale(cx).get();
         let query = use_query::<CalendarDayQuery>(cx).get().unwrap_or_default();
-        let (t, _) = use_i18n(cx);
 
         let tz = get_timezone_offset(cx);
         let today = today(&tz);
@@ -162,6 +166,7 @@ pub fn calendar_data(cx: Scope, params: Memo<ParamsMap>, location: Location) -> 
 #[component]
 pub fn Calendar(cx: Scope) -> Element {
     let (t, _) = use_i18n(cx);
+    set_title(cx, t("calendar"));
     let data = use_loader::<Memo<CalendarData>>(cx);
     let (settings_open, set_settings_open) = create_signal(cx, false);
 
@@ -227,9 +232,9 @@ pub fn Calendar(cx: Scope) -> Element {
             </header>
             <main>
                 <div class="controls">
-                    <AdjacentMonth increase={false}/>
+                    <AdjacentMonth increase=false/>
                     <h2>{t(&format!("lectionary.month_{}", data.with(|d| d.month)))}</h2>
-                    <AdjacentMonth increase={true}/>
+                    <AdjacentMonth increase=true/>
                 </div>
                 <time class="month" datetime={format!("{}-{:02}", data.with(|d| d.year), data.with(|d| d.month))}>
                     <div class="weekday-labels">

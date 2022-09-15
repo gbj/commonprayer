@@ -5,6 +5,8 @@ pub struct Locale(ReadSignal<String>, WriteSignal<String>);
 
 #[component]
 pub fn Localizer(cx: Scope) -> impl IntoChild {
+    let navigate = use_navigate(cx);
+
     let params = use_params_map(cx);
     let (locale, set_locale) = create_signal(
         cx,
@@ -14,13 +16,10 @@ pub fn Localizer(cx: Scope) -> impl IntoChild {
             .unwrap_or_else(|| "en".to_string()),
     );
     let locale = Locale(locale, set_locale);
-    provide_context(cx, locale.clone());
+    provide_context(cx, locale);
 
     view! {
-        <div>
-            <p>{move || locale.0.get()}</p>
-            <Outlet/>
-        </div>
+        <Outlet/>
     }
 }
 

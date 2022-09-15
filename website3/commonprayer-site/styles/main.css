@@ -1,0 +1,101 @@
+:root {
+	/* Z indices */
+	--modal-z-index: 3;
+	--menu-z-index: 2;
+	--main-z-index: 1;
+
+	/* Colors */
+	--background: #fafafa;
+	--background-darker: #f0f0f0;
+	--border-color: #c0c0c0;
+
+	/* Padding and border radius */
+	--border-radius: 0.25rem;
+	--content-padding: 1rem;
+}
+
+/* Core layouts */
+body {
+	background-color: var(--background);
+	margin: 0;
+	padding: 0;
+}
+
+#root > header {
+	text-align: center;
+}
+
+#root > main {
+	z-index: var(--main-z-index);
+	padding: 1rem;
+	max-width: 600px;
+	margin: auto;
+}
+
+/* Core UI */
+button {
+	cursor: pointer;
+}
+
+/* Menu */
+.Menu-root {
+	margin: 0;
+	padding: 1rem;
+	position: fixed;
+	max-width: 90vw;
+    width: 20rem;
+	z-index: var(--menu-z-index);
+}
+
+.Menu-root[open] {
+	background-color: var(--background-darker);
+	border-right: 1px solid var(--border-color);
+	height: 100vh;
+}
+
+.Menu-dialog {
+	background-color: var(--background-darker);
+	position: absolute;
+    left: 0;
+    top: 2rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.Menu-search {
+    margin: 0.5rem;
+    width: calc(100% - 1.5rem);
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    background-image: url("/static/icons/tabler-icon-search-input.svg");
+    background-position: left;
+    background-repeat: no-repeat;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    background-size: auto;
+    -webkit-appearance: textfield;
+}
+
+.Menu-content, .Menu-content ul {
+    list-style-type: none;
+    margin: 0 0 0 1rem;
+    padding: 0;
+}
+
+.Menu-content li {
+    margin: 0;
+    padding: 0.25rem;
+}
+
+.Menu-content li h1 {
+    font-size: 1.25rem;
+    height: 2.5rem;
+    flex: 1;
+}
+
+/* Menu: hide summary text on mobile */
+@media(max-width: 400px) {
+	.Menu-label {
+		display: none;
+	}
+}

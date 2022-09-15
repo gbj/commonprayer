@@ -1,5 +1,6 @@
 mod calendar;
-//mod form;
+mod header;
+mod home;
 mod i18n;
 mod icon;
 mod menu;
@@ -8,6 +9,8 @@ mod settings;
 mod time;
 
 use crate::calendar::*;
+use crate::header::*;
+use crate::home::*;
 use crate::menu::*;
 use i18n::*;
 use leptos::*;
@@ -15,12 +18,13 @@ use leptos::*;
 #[component]
 pub fn App(cx: Scope) -> Element {
     view! {
-        <div>
+        <div id="root">
             <Router mode=BrowserIntegration {}>
                 <Routes>
                     <Route path=":lang?" element=|cx| view! { <Localizer/> }>
-                        <Route path="" element=|cx| view! { <Index/> }>
+                        <Route path="" element=|cx| view! { <Layout/> }>
                             <Route path="calendar" element=|cx| view! { <Calendar/> } loader=calendar_data.into()/>
+                            <Route path="" element=|cx| view! { <Home/> } loader=calendar_data.into()/>
                         </Route>
                     </Route>
                 </Routes>
@@ -30,11 +34,12 @@ pub fn App(cx: Scope) -> Element {
 }
 
 #[component]
-fn Index(cx: Scope) -> Element {
+fn Layout(cx: Scope) -> Vec<Element> {
     view! {
-        <div>
+        <>
             <Menu/>
-            <Outlet/>
-        </div>
+            <Header/>
+            <main><Outlet/></main>
+        </>
     }
 }
