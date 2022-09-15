@@ -17,7 +17,7 @@ where
 pub fn Modal<O, C>(cx: Scope, props: ModalProps<O, C>) -> Element
 where
     O: Fn() -> bool,
-    C: Fn() + Clone,
+    C: Fn() + Clone + 'static,
 {
     let ModalProps {
         open,
@@ -32,14 +32,32 @@ where
     let tpl = view! {
         <dialog ref=dialog
             class="Modal"
+            // call the on_close callback when the close event fires
             on:close={
                 let on_close = on_close.clone();
                 move |_| { on_close() }
             }
+            // clicking on ::backdrop should dismiss modal
+            on:click=|ev| {
+                let ev = ev.unchecked_into::<web_sys::MouseEvent>();
+                let rect = dialog
+                    .unchecked_ref::<web_sys::HtmlElement>()
+                    .get_bounding_client_rect();
+                let click_is_in_dialog = rect.top() <= ev.client_y() as f64
+                    && ev.client_y() as f64 <= rect.top() + rect.height()
+                    && rect.left() <= ev.client_x() as f64
+                    && ev.client_x() as f64 <= rect.left() + rect.width();
+                if !click_is_in_dialog {
+                    ev.target().unwrap().unchecked_into::<web_sys::HtmlDialogElement>().close();
+                }
+            }
         >
             <header class="Modal-header">
                 <form method="dialog"
-                    on:submit=move |_| { on_close() }
+                    on:submit={
+                        let on_close = on_close.clone();
+                        move |_| { on_close() }
+                    }
                 >
                     <button
                         class="Modal-header-close"
