@@ -3,6 +3,7 @@ use leptos::Scope;
 
 /// The current timezone offset in minutes, per
 /// [Date.getTimezoneOffset()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset).
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub struct TimezoneOffset(pub i32);
 
 impl Default for TimezoneOffset {
