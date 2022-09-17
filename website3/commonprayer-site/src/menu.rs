@@ -15,7 +15,7 @@ pub fn Menu(cx: Scope) -> Element {
 
     view! {
         <details class="Menu-root">
-            <summary><span class="Menu-label">{t("menu.open_menu")}</span></summary>
+            <summary><span class="Menu-label">{t("menu-open")}</span></summary>
             <dialog open class="Menu-dialog">
                 <nav id="main-menu" role="navigation" class="menu left">
                     <ul class="Menu-content">
@@ -40,7 +40,7 @@ pub fn Menu(cx: Scope) -> Element {
                             <noscript><input type="submit" value={t("search")}/></noscript>
                         </Form>
                         <li>
-                            <LocalizedNavLink to="contents">{t("toc.table_of_contents")}</LocalizedNavLink>
+                            <LocalizedNavLink to="contents">{t("toc-table_of_contents")}</LocalizedNavLink>
                         </li>
                         <li>
                             <LocalizedNavLink to={move || if settings.with(|settings| settings.use_lff) {
@@ -48,52 +48,52 @@ pub fn Menu(cx: Scope) -> Element {
                             } else {
                                 "calendar?calendar=bcp".to_string()
                             }}>
-                                {t("menu.calendar")}
+                                {t("menu-calendar")}
                             </LocalizedNavLink>
 
                         </li>
                         <li>
                             <LocalizedNavLink to={move || format!("readings/office?version={}", settings.with(|settings| settings.bible_version))}>
-                                {t("menu.readings")}
+                                {t("menu-readings")}
                             </LocalizedNavLink>
                         </li>
                         <li>
                             // TODO render fix (wrapper unnecessary)
                             <span>
-                                <LocalizedNavLink to="document/office">{t("toc.daily_office")}</LocalizedNavLink>
+                                <LocalizedNavLink to="document/office">{t("toc-daily_office")}</LocalizedNavLink>
                             </span>
                             <ul>
                                 <li>
-                                    <OfficeLink slug=Slug::MorningPrayer label=t("toc.morning_prayer")/>
+                                    <OfficeLink slug=Slug::MorningPrayer label=t("toc-morning_prayer").into()/>
                                 </li>
                                 <li>
-                                    <OfficeLink slug=Slug::NoondayPrayer label=t("toc.noonday_prayer")/>
+                                    <OfficeLink slug=Slug::NoondayPrayer label=t("toc-noonday_prayer").into()/>
                                 </li>
                                 <li>
-                                    <OfficeLink slug=Slug::EveningPrayer label=t("toc.evening_prayer")/>
+                                    <OfficeLink slug=Slug::EveningPrayer label=t("toc-evening_prayer").into()/>
                                 </li>
                                 <li>
-                                    <OfficeLink slug=Slug::Compline label=t("toc.compline")/>
+                                    <OfficeLink slug=Slug::Compline label=t("toc-compline").into()/>
                                 </li>
                                 <li>
-                                    <LocalizedNavLink to="canticle-table">{t("menu.canticle_table")}</LocalizedNavLink>
+                                    <LocalizedNavLink to="canticle-table">{t("menu-canticle-table")}</LocalizedNavLink>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <LocalizedNavLink to="psalm">{t("menu.psalter")}</LocalizedNavLink>
+                            <LocalizedNavLink to="psalm">{t("menu-psalter")}</LocalizedNavLink>
                         </li>
                         <li>
-                            <LocalizedNavLink to="document/prayers-and-thanksgivings">{t("toc.prayers_and_thanksgivings")}</LocalizedNavLink>
+                            <LocalizedNavLink to="document/prayers-and-thanksgivings">{t("toc-prayers_and_thanksgivings")}</LocalizedNavLink>
                         </li>
                         <li>
-                            <LocalizedNavLink to="hymnal">{t("menu.hymnal")}</LocalizedNavLink>
+                            <LocalizedNavLink to="hymnal">{t("menu-hymnal")}</LocalizedNavLink>
                         </li>
                         <li>
-                            <LocalizedNavLink to="meditation">{t("meditation.title")}</LocalizedNavLink>
+                            <LocalizedNavLink to="meditation">{t("meditation-title")}</LocalizedNavLink>
                         </li>
                         <li>
-                            <LocalizedNavLink to="settings">{t("settings.title")}</LocalizedNavLink>
+                            <LocalizedNavLink to="settings">{t("settings-title")}</LocalizedNavLink>
                         </li>
                     </ul>
                 </nav>
@@ -120,7 +120,7 @@ fn OfficeLink(cx: Scope, slug: Slug, label: String) -> Element {
     };
 
     view! {
-        <LocalizedNavLink to={href}>{label}</LocalizedNavLink>
+        <LocalizedNavLink to=href>{label.clone()}</LocalizedNavLink>
     }
 }
 
@@ -131,13 +131,13 @@ where
     H: ToHref + 'static,
 {
     to: H,
-    children: Vec<C>,
+    children: Box<dyn Fn() -> Vec<C>>,
 }
 
 #[allow(non_snake_case)]
-pub fn LocalizedNavLink<C, H>(cx: Scope, mut props: LocalizedNavLinkProps<C, H>) -> Element
+pub fn LocalizedNavLink<C, H>(cx: Scope, props: LocalizedNavLinkProps<C, H>) -> Element
 where
-    C: IntoChild,
+    C: IntoChild + 'static,
     H: ToHref + 'static,
 {
     let params = use_params_map(cx);
@@ -150,12 +150,13 @@ where
         }
     };
 
-    if props.children.len() != 1 {
-        log::warn!("[LocalizedNavLink] Pass exactly one child to <Link/>. If you want to pass more than one child, next them within an element.");
+    let mut children = (props.children)();
+    if children.len() != 1 {
+        log::warn!("Pass exactly one child to <LocalizedNavLink/>. If you want to pass more than one child, next them within an element.");
     }
-    let child = props.children.remove(0);
+    let child = children.remove(0).into_child(cx);
 
     view! {
-        <NavLink to={localized_href}>{child}</NavLink>
+        <NavLink to=localized_href>{child.clone()}</NavLink>
     }
 }

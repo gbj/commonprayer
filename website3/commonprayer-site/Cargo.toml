@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 chrono = { version = "0.4", optional = true }
 console_log = "0.2"
+fluent-templates = "0.8"
 itertools = "0.10"
 leptos = { path = "../../../leptos-new/leptos/leptos", features = ["csr"]}
 log = "0.4"

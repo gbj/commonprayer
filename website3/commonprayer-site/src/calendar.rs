@@ -8,7 +8,7 @@ use leptos::*;
 use library::summary;
 
 use crate::header::set_title;
-use crate::i18n::{use_i18n, use_locale};
+use crate::i18n::{use_i18n, use_language};
 use crate::icon::Icon;
 use crate::modal::*;
 use crate::time::{get_timezone_offset, today};
@@ -82,7 +82,7 @@ pub fn calendar_data(cx: Scope, _params: Memo<ParamsMap>, location: Location) ->
     });
 
     let days = create_memo(cx, move |_| {
-        let locale = use_locale(cx).get();
+        let locale = use_language(cx).get();
 
         let day_1 = Date::from_ymd(year(), month(), 1);
 
@@ -198,9 +198,9 @@ pub fn Calendar(cx: Scope) -> Element {
         <div>
             <header>
                 <span></span>
-                <h1>{t("menu.calendar")}</h1>
+                <h1>{t("menu-calendar")}</h1>
                 <button on:click=move |_| set_settings_open(|n| *n = !*n)>
-                    <img src={Icon::Settings.to_string()} alt={t("settings.title")}/>
+                    <img src={Icon::Settings.to_string()} alt={t("settings-title")}/>
                 </button>
                 <Modal
                     open=settings_open
@@ -208,13 +208,13 @@ pub fn Calendar(cx: Scope) -> Element {
                 >
                     <Form>
                         <label class="stacked">
-                            {t("calendar.month")}
+                            {t("calendar-month")}
                             <input type="month" name="month" value={move || format!("{:04}-{:02}", (data.year)(), (data.month)())}/>
                         </label>
 
                         // Black Letter Days
                         <fieldset class="horizontal">
-                            <legend>{t("menu.calendar")}</legend>
+                            <legend>{t("menu-calendar")}</legend>
                             <label class="horizontal">
                                 {t("bcp_1979")}
                                 <input type="radio" name="calendar" value="bcp" checked={move || !(data.using_lff)()} />
@@ -227,29 +227,29 @@ pub fn Calendar(cx: Scope) -> Element {
 
                         // Black Letter Days
                         <label class="horizontal">
-                            {t("calendar.omit_black_letter")}
+                            {t("calendar-omit_black_letter")}
                             <input type="checkbox" name="blackletter" value="false" checked={move || !(data.show_black_letter)()} />
                         </label>
 
-                        <input type="submit" slot="close-button" data-modal-close="settings" value={t("settings.submit")}/>
+                        <input type="submit" slot="close-button" data-modal-close="settings" value={t("settings-submit")}/>
                     </Form>
                 </Modal>
             </header>
             <main>
                 <div class="controls">
                     <AdjacentMonth increase=false/>
-                    <h2>{move || t(&format!("lectionary.month_{}", (data.month)()))}</h2>
+                    <h2>{move || t(&format!("lectionary-month_{}", (data.month)()))}</h2>
                     <AdjacentMonth increase=true/>
                 </div>
                 <time class="month" datetime={move || format!("{}-{:02}", (data.year)(), (data.month)())}>
                     <div class="weekday-labels">
-                        <div class="weekday-label">{t("canticle_table.sunday_abbrev")}</div>
-                        <div class="weekday-label">{t("canticle_table.monday_abbrev")}</div>
-                        <div class="weekday-label">{t("canticle_table.tuesday_abbrev")}</div>
-                        <div class="weekday-label">{t("canticle_table.wednesday_abbrev")}</div>
-                        <div class="weekday-label">{t("canticle_table.thursday_abbrev")}</div>
-                        <div class="weekday-label">{t("canticle_table.friday_abbrev")}</div>
-                        <div class="weekday-label">{t("canticle_table.saturday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-sunday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-monday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-tuesday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-wednesday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-thursday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-friday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-saturday_abbrev")}</div>
                     </div>
                     <Weeks/>
                 </time>
@@ -303,13 +303,13 @@ fn AdjacentMonth(cx: Scope, increase: bool) -> Element {
 
     let label = move || {
         if increase && (curr.month)() == 12 {
-            format!("{} {}", t("lectionary.month_1"), (curr.year)() + 1)
+            format!("{} {}", t("lectionary-month_1"), (curr.year)() + 1)
         } else if increase {
-            t(&format!("lectionary.month_{}", (curr.month)() + 1))
+            t(&format!("lectionary-month_{}", (curr.month)() + 1))
         } else if (curr.month)() == 1 {
-            format!("{} {}", t("lectionary.month_12"), (curr.year)() - 1)
+            format!("{} {}", t("lectionary-month_12"), (curr.year)() - 1)
         } else {
-            t(&format!("lectionary.month_{}", (curr.month)() - 1))
+            t(&format!("lectionary-month_{}", (curr.month)() - 1))
         }
     };
 
@@ -421,7 +421,7 @@ fn Listing(
     listing: Option<(String, LiturgicalDay)>,
     alternatives: Vec<(String, Feast)>,
 ) -> Option<Element> {
-    let locale = use_locale(cx);
+    let locale = use_language(cx);
     let (t, _) = use_i18n(cx);
 
     if let Some((day_name, liturgical_day)) = listing {
@@ -472,7 +472,7 @@ fn BlackLetterDays(
     day: u8,
     black_letter_days: Vec<(Feast, String)>,
 ) -> Option<Element> {
-    let locale = use_locale(cx);
+    let locale = use_language(cx);
     if black_letter_days.is_empty() {
         None
     } else {
@@ -508,7 +508,7 @@ fn OtherNotes(
     day: u8,
     other_notes: Vec<(Feast, String)>,
 ) -> Option<Element> {
-    let locale = use_locale(cx);
+    let locale = use_language(cx);
     if other_notes.is_empty() {
         None
     } else {
