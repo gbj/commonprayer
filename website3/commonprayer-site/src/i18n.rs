@@ -31,7 +31,7 @@ pub fn use_i18n(
     cx: Scope,
 ) -> (
     impl Fn(&str) -> String + Copy,
-    impl Fn(&str, &HashMap<String, FluentValue>) -> String + Clone,
+    impl Fn(&str, &HashMap<String, FluentValue>) -> String + Copy,
     impl Fn(&str),
 ) {
     match use_context::<Locale>(cx) {
@@ -71,6 +71,28 @@ pub fn use_i18n(
             (t, t_with_args, set_locale)
         }
     }
+}
+
+#[macro_export]
+macro_rules! i18n_args {
+  (@to_unit $($_:tt)*) => (());
+  (@count $($tail:expr),*) => (
+    <[()]>::len(&[$(i18n_args!(@to_unit $tail)),*])
+  );
+
+  {$($k: expr => $v: expr),* $(,)?} => {
+    {
+      let mut map = std::collections::HashMap::with_capacity(
+        $crate::i18n_args!(@count $($k),*),
+      );
+
+      $(
+        map.insert($k.to_string(), $v.into());
+      )*
+
+      map
+    }
+  };
 }
 
 pub fn use_language(cx: Scope) -> Memo<String> {
