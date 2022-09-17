@@ -17,7 +17,7 @@ pub fn Localizer(cx: Scope, children: Box<dyn Fn() -> Vec<Element>>) -> impl Int
     children
 }
 
-use fluent_templates::{LanguageIdentifier, Loader};
+use fluent_templates::{fluent_bundle::FluentValue, LanguageIdentifier, Loader};
 fluent_templates::static_loader! {
     static LOCALES = {
         // The directory of localisations and fluent resources.
@@ -31,7 +31,7 @@ pub fn use_i18n(
     cx: Scope,
 ) -> (
     impl Fn(&str) -> String + Copy,
-    //impl Fn(&str, &HashMap<String, String>) -> String + Clone,
+    impl Fn(&str, &HashMap<String, FluentValue>) -> String + Clone,
     impl Fn(&str),
 ) {
     match use_context::<Locale>(cx) {
@@ -46,13 +46,18 @@ pub fn use_i18n(
                 if let Some(val) = LOCALES.lookup(&locale.get(), key) {
                     val
                 } else {
-                    debug_warn!("(i18n) key not found: {key}");
+                    debug_warn!("(i18n::t) key not found: {key}");
                     key.to_string()
                 }
             };
-            /* let t_with_args = |key: &str, args: &HashMap<String, String>| {
-                LOCALES.lookup_with_args(&locale.get(), key, args)
-            }; */
+            let t_with_args = move |key: &str, args: &HashMap<String, FluentValue>| {
+                if let Some(val) = LOCALES.lookup_with_args(&locale.get(), key, args) {
+                    val
+                } else {
+                    debug_warn!("(i18n::t_with_args) key not found: {key}");
+                    key.to_string()
+                }
+            };
             let set_locale = move |locale: &str| {
                 set_locale(|n| {
                     if let Ok(langid) = locale.parse() {
@@ -63,7 +68,7 @@ pub fn use_i18n(
                 })
             };
 
-            (t, /* t_with_args, */ set_locale)
+            (t, t_with_args, set_locale)
         }
     }
 }

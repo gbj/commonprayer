@@ -168,7 +168,7 @@ canticle-table-easter = Easter
 canticle-table-please_note = Please Note
 canticle-table-eow_canticle_table_note = The published edition includes a handful of typographical errors in the table of suggested canticles. This page reflects a version of the text which has been corrected and conformed in capitalization and punctuation to the Book of Common Prayer.
 canticle-table-canticles_appointed_for_christmas = "* Canticles appointed for Christmas may be used through the First Sunday after the Epiphany."
-canticle-table-canticle_n = Canticle %{number}
+canticle-table-canticle_n = Canticle { $number }
 
 # Daily Readings
 daily-readings-readings_for_date = Readings for Date
@@ -177,8 +177,8 @@ daily-readings-default = (Default)
 daily-readings-alternate = (Alternate)
 daily-readings-transferred = (Transferred)
 daily-readings-psalms = Psalms
-daily-readings-psalm = Psalm %{number}
-daily-readings-canticle = Canticle %{number}
+daily-readings-psalm = Psalm { $number }
+daily-readings-canticle = Canticle { $number }
 daily-readings-daily_office_readings = Daily Office Readings
 daily-readings-daily_office_psalms = Daily Office Psalms
 daily-readings-thirty_day_psalms = 30-Day Psalm Cycle

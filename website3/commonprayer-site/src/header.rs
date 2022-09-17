@@ -22,7 +22,7 @@ pub struct HeaderContext {
 
 #[component]
 pub fn Header(cx: Scope) -> Element {
-    let (t, _) = use_i18n(cx);
+    let (t, _, _) = use_i18n(cx);
     let (title, set_title) = create_signal(cx, t("common_prayer"));
     provide_context(cx, HeaderContext { title, set_title });
 

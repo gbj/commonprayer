@@ -27,7 +27,7 @@ where
         children,
     } = props;
 
-    let (t, _) = use_i18n(cx);
+    let (t, _, _) = use_i18n(cx);
 
     let dialog: Element;
 

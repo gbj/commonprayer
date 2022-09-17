@@ -1,0 +1,8 @@
+- Porting Pages
+  - [ ] Psalm
+    - [ ] basic port
+    - [ ] replace complex localization with real ordinals using Fluent
+  - [ ] Hymn
+- Leptos Bugfixes
+  - [ ] Rendering of components relative to static nodes (e.g., Search bar in menu)
+  - [ ] Contexts from parent routes not available to child in <Outlet/>
