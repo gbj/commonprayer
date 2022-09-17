@@ -1,6 +1,7 @@
 use crate::i18n::use_i18n;
 use crate::i18n_args;
 use crate::icon::Icon;
+use crate::settings::use_display_settings;
 use crate::{document::*, fetch::fetch};
 use leptos::*;
 use liturgy::{Psalm, Version};
@@ -60,9 +61,10 @@ pub fn Psalter(cx: Scope) -> Element {
         version,
         psalm,
     } = use_loader(cx);
+    let (display_settings, _) = use_display_settings(cx);
 
     view! {
-        <main>
+        <main class={move || display_settings.get().to_class()}>
             <nav class="Psalter-nav">
                 // Prev Psalm
                 {move || (number() > 1).then(|| view! { <Link to={move || format!("?number={}&version={:?}", number() - 1, version())}>

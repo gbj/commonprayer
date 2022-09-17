@@ -8,6 +8,7 @@ search = Search
 today = Today
 close = Close
 calendar = Calendar
+go = Go
 
 # 404
 page-404-title = Page Not Found

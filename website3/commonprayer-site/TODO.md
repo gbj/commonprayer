@@ -3,6 +3,13 @@
     - [ ] basic port
     - [ ] replace complex localization with real ordinals using Fluent
   - [ ] Hymn
+  - [ ] Readings
+    - [ ] action: Word export
+- Metadata
+  - [ ] Leptos-Meta: title, style, etc.
+  - [ ] apply to pages
 - Leptos Bugfixes
-  - [ ] Rendering of components relative to static nodes (e.g., Search bar in menu)
   - [ ] Contexts from parent routes not available to child in <Outlet/>
+    - [ ] set <Header/> title for each page
+  - [ ] Navigating between routes crashes (see Reading page)
+  - [ ] NavLink seems to be matching query params too? (see Reading page + change date)

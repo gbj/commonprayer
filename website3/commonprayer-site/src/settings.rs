@@ -5,6 +5,7 @@ use liturgy::{
     Lectionaries, LiturgyPreferences, PreferenceKey, PreferenceValue, Slug, SlugPath, Version,
 };
 use serde::{Deserialize, Serialize};
+use strum_macros::{Display, EnumString};
 
 #[derive(Debug, Serialize, Deserialize, Clone, Hash, PartialEq, Eq)]
 pub struct GeneralSettings {
@@ -62,4 +63,57 @@ impl SettingsForLiturgy {
 pub fn use_settings_for_liturgy(cx: Scope, slug: Slug) -> SettingsForLiturgy {
     log::warn!("TODO: implement use_settings_for_liturgy");
     Default::default()
+}
+
+#[derive(
+    Copy, Clone, Debug, PartialEq, Eq, Default, Serialize, Deserialize, EnumString, Display, Hash,
+)]
+pub enum DarkMode {
+    #[default]
+    Auto,
+    Dark,
+    Light,
+}
+
+#[derive(Serialize, Deserialize, Params, Default, Debug, Clone, Hash, PartialEq, Eq)]
+pub struct DisplaySettings {
+    pub dark_mode: DarkMode,
+    pub psalm_verse_numbers: bool,
+    pub bible_verse_numbers: bool,
+}
+
+impl DisplaySettings {
+    pub fn to_class(&self) -> String {
+        format!(
+            "{} {}",
+            if self.psalm_verse_numbers {
+                ""
+            } else {
+                "psalm-verses-hidden"
+            },
+            if self.bible_verse_numbers {
+                ""
+            } else {
+                "bible-verses-hidden"
+            }
+        )
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct DisplaySettingsContext(ReadSignal<DisplaySettings>, WriteSignal<DisplaySettings>);
+
+pub fn use_display_settings(
+    cx: Scope,
+) -> (ReadSignal<DisplaySettings>, WriteSignal<DisplaySettings>) {
+    match use_context::<DisplaySettingsContext>(cx) {
+        Some(settings) => {
+            let DisplaySettingsContext(read, write) = settings;
+            (read, write)
+        }
+        None => {
+            log::warn!("DisplaySettingsContext not provided");
+            create_signal(cx, Default::default())
+        }
+    }
 }
