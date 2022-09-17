@@ -1,18 +1,32 @@
 use crate::i18n::use_i18n;
 use crate::icon::Icon;
+use crate::{document::*, fetch::fetch};
 use common_macros::hash_map;
 use leptos::*;
 use liturgy::{Psalm, Version};
-use psalter::{bcp1979::BCP1979_PSALTER, loc::LOC_PSALTER};
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct PsalterData {
     pub number: Memo<u8>,
     pub version: Memo<Version>,
-    pub psalm: Memo<Option<Psalm>>,
+    pub psalm: Resource<(u8, Version), Result<Psalm, ()>>,
 }
 
-// TODO move to server for bundle size?
+async fn fetch_psalm((number, version): (u8, Version)) -> Result<Psalm, ()> {
+    // uncomment to fetch psalms from server
+    /* fetch(&format!("/psalm?number={number}&version={version}"))
+    .await
+    .map_err(|_| ()) */
+
+    // uncomment to include psalters in WASM bundle
+    use psalter::{bcp1979::BCP1979_PSALTER, loc::LOC_PSALTER};
+    if version == Version::LibroDeOracionComun {
+        LOC_PSALTER.psalm_by_number(number).cloned().ok_or(())
+    } else {
+        BCP1979_PSALTER.psalm_by_number(number).cloned().ok_or(())
+    }
+}
+
 pub fn psalter_data(cx: Scope, _params: Memo<ParamsMap>, location: Location) -> PsalterData {
     let number = create_memo(cx, move |_| {
         location
@@ -28,18 +42,8 @@ pub fn psalter_data(cx: Scope, _params: Memo<ParamsMap>, location: Location) -> 
             .unwrap_or_default()
     });
 
-    let psalm = create_memo(cx, move |_| {
-        let number = number();
-        if (1..=150).contains(&number) {
-            if version() == Version::LibroDeOracionComun {
-                LOC_PSALTER.psalm_by_number(number).cloned()
-            } else {
-                BCP1979_PSALTER.psalm_by_number(number).cloned()
-            }
-        } else {
-            None
-        }
-    });
+    // TODO move to server for bundle size
+    let psalm = create_resource(cx, move || (number(), version()), fetch_psalm);
 
     PsalterData {
         number,
@@ -60,16 +64,18 @@ pub fn Psalter(cx: Scope) -> Element {
     view! {
         <main>
             <nav class="Psalter-nav">
-                // TODO render fix
                 {move || (number() > 1).then(|| view! { <Link to={move || format!("?number={}&version={:?}", number() - 1, version())}>
                     <img src={Icon::Left.to_string()} alt={move || t("psalm-prev")}/>
-                </Link> })}
+                </Link>})}
                 <h2>{move || t_with_args("daily-readings-psalm", &hash_map! { "number".to_string() => number.get().into() })}</h2>
                 {move || (number() < 150).then(|| view ! { <Link to={move || format!("?number={}&version={:?}", number() + 1, version())}>
                     <img src={Icon::Right.to_string()} alt={move || t("psalm-next")}/>
                 </Link> })}
             </nav>
-
+            {move || psalm.read().map(|psalm| match psalm {
+                Err(_) => view! { <p class="error">{t("psalm-error")}</p> },
+                Ok(psalm) => view! { <Psalm psalm/> }
+            })}
         </main>
     }
 }

@@ -1,0 +1,95 @@
+/* Psalm */
+/* Psalm/Canticle */
+.Psalm-header, .Canticle-header {
+  display: grid;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.Psalm-header > * {
+  margin: 0;
+  padding: 0;
+}
+
+.Psalm-header {
+  grid-template-areas: "number blank blank" "number latin reference";
+  grid-template-columns: 5rem 0.5fr 0.5fr;
+  vertical-align: bottom;
+}
+
+.Psalm-header-latin-name {
+  padding-bottom: 0.25rem;
+}
+
+.Psalm-section-header {
+  grid-template-columns: 5rem 0.5fr 0.5fr;
+  grid-template-areas: "number number reference" "local latin latin";
+}
+
+.Psalm-section-header-with-local-name {
+  grid-template-columns: 5rem 1fr;
+  grid-template-areas: "local latin";
+}
+
+.Psalm-local-name {
+  grid-area: local;
+  font-size: 1rem;
+}
+
+.Psalm-latin-name, .Psalm-local-name {
+  padding: 0;
+}
+
+.Psalm-latin-name {
+  grid-area: latin;
+}
+
+.Psalm-number {
+  margin: 0;
+  padding: 0;
+  grid-area: number;
+  font-size: 2.5rem;
+  margin-top: -0.25rem;
+}
+
+.Psalm-section-header {
+  margin-bottom: 1rem;
+}
+
+.Psalm-verse-number {
+  display: var(--psalm-number-display);
+  grid-area: number;
+  margin-right: 1em;
+}
+
+.Psalm-verse, .Invitatory-verse {
+  display: grid;
+  grid-template-rows: auto;
+  margin: 0;
+}
+
+.Psalm-verse {
+  grid-template-columns: var(
+    --psalm-verse-grid-template-columns,
+    1.5rem 1.5rem 1fr
+  );
+  grid-template-areas: var(
+    --psalm-verse-grid,
+    "number a a" "spacing spacing b"
+  );
+}
+
+.Invitatory-verse {
+  grid-template-columns: 1.5rem 1fr;
+  grid-template-areas: "a a" "spacing b";
+}
+
+.Psalm-verse-a {
+  display: block;
+  grid-area: a;
+  white-space: pre-wrap;
+}
+.Psalm-verse-b {
+  grid-area: b;
+  white-space: pre-wrap;
+}

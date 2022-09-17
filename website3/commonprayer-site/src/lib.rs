@@ -1,5 +1,9 @@
+#![feature(fn_traits)]
+#![feature(unboxed_closures)]
+
 mod calendar;
 mod document;
+mod fetch;
 mod header;
 mod home;
 mod i18n;

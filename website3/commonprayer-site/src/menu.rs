@@ -34,7 +34,6 @@ pub fn Menu(cx: Scope) -> Element {
                                 <div id="firebase-auth" slot="content"></div>
                             </Modal> */
                         </li>
-                        // TODO render error with placement here
                         <Form action="search".into()>
                             <input class="Menu-search" type="search" name="q" placeholder={t("search")}/>
                             <noscript><input type="submit" value={t("search")}/></noscript>
