@@ -3,21 +3,23 @@ use leptos::*;
 use typed_builder::TypedBuilder;
 
 #[derive(TypedBuilder)]
-pub struct ModalProps<O, C>
+pub struct ModalProps<O, C, D>
 where
     O: Fn() -> bool + 'static,
     C: Fn() + Clone,
+    D: IntoVec<Element> + 'static,
 {
     open: O,
     on_close: C,
-    children: Vec<Element>,
+    children: Box<dyn Fn() -> D>,
 }
 
 #[allow(non_snake_case)]
-pub fn Modal<O, C>(cx: Scope, props: ModalProps<O, C>) -> Element
+pub fn Modal<O, C, D>(cx: Scope, props: ModalProps<O, C, D>) -> Element
 where
     O: Fn() -> bool,
     C: Fn() + Clone + 'static,
+    D: IntoVec<Element> + 'static,
 {
     let ModalProps {
         open,
@@ -68,7 +70,7 @@ where
                 </form>
             </header>
             <main class="Modal-content">
-                {children}
+                {move || children().into_vec()}
             </main>
         </dialog>
     };
