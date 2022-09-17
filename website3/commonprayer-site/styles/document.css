@@ -11,37 +11,25 @@
   padding: 0;
 }
 
-.Psalm-header {
-  grid-template-areas: "number blank blank" "number latin reference";
-  grid-template-columns: 5rem 0.5fr 0.5fr;
-  vertical-align: bottom;
-}
-
-.Psalm-header-latin-name {
-  padding-bottom: 0.25rem;
-}
-
-.Psalm-section-header {
-  grid-template-columns: 5rem 0.5fr 0.5fr;
-  grid-template-areas: "number number reference" "local latin latin";
-}
-
-.Psalm-section-header-with-local-name {
-  grid-template-columns: 5rem 1fr;
-  grid-template-areas: "local latin";
+.Psalm-header, .Psalm-section-header {
+  display: flex;
+  align-items: end;
+  margin: 1rem 0;
 }
 
 .Psalm-local-name {
-  grid-area: local;
   font-size: 1rem;
-}
-
-.Psalm-latin-name, .Psalm-local-name {
+  margin: 0;
   padding: 0;
 }
 
 .Psalm-latin-name {
-  grid-area: latin;
+	margin-left: 1rem;
+}
+
+.Psalm-header .Psalm-latin-name {
+	display: block;
+	margin-bottom: 0.5rem;
 }
 
 .Psalm-number {
@@ -50,10 +38,6 @@
   grid-area: number;
   font-size: 2.5rem;
   margin-top: -0.25rem;
-}
-
-.Psalm-section-header {
-  margin-bottom: 1rem;
 }
 
 .Psalm-verse-number {

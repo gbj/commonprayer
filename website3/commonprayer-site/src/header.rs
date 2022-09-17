@@ -27,6 +27,6 @@ pub fn Header(cx: Scope) -> Element {
     provide_context(cx, HeaderContext { title, set_title });
 
     view! {
-        <header><h1>{title}</h1></header>
+        <header class="Header"><h1>{title}</h1></header>
     }
 }

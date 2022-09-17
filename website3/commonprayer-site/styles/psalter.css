@@ -4,3 +4,21 @@
 	align-items: center;
 	justify-content: space-around;
 }
+
+.Psalter-nav form {
+	margin: 0;
+}
+
+.Psalter-nav-form-title {
+	display: flex;
+	justify-content: space-around;
+}
+
+.Psalter-nav-form-input {
+	background-color: var(--background);
+	font-size: inherit;
+	font-weight: inherit;
+	border: none;
+	text-align: center;
+	width: 3rem;
+}
