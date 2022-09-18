@@ -46,9 +46,11 @@ prop_type!(Psalm); */
 #[component]
 pub fn Psalm(cx: Scope, psalm: Psalm) -> Element {
     let psalm_number = psalm.number;
-    let filtered_sections = psalm.filtered_sections();
 
-    let section_1_header = filtered_sections.get(0).map(|section| {
+    // TODO if you want to filter client-side, will add 500kb of WASM at present
+    let sections = psalm.filtered_sections();
+
+    let section_1_header = sections.get(0).map(|section| {
         view! {
             <div>
                 {section.local_name.is_empty().then(|| view! {
@@ -60,7 +62,7 @@ pub fn Psalm(cx: Scope, psalm: Psalm) -> Element {
         }
     });
 
-    let sections = filtered_sections
+    let sections = sections
         .into_iter()
         .enumerate()
         .map(|(idx, section)| {

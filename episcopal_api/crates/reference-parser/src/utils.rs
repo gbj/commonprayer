@@ -145,7 +145,10 @@ fn parse_single_reference(
     let mut start: BibleReferenceQuery = match first_half {
         Some(cite) => match query_from_re(
             cite,
-            Regex::new(r"([\d\s]*[\w\.]+[a-zA-Z\s]*)\s*(\d+)?:?(\d+)?").expect("Regex invalid."),
+            Regex::new(
+                r"([0-9 \n\t]*[[[:alpha:]]0-9\.]+[a-zA-Z \n\t]*)[\n\t ]*([0-9]+)?:?([0-9]+)?",
+            )
+            .expect("Regex invalid."),
             start_partial_structure,
             None,
         ) {
@@ -218,7 +221,8 @@ fn parse_single_reference(
     let end = match second_half {
         Some(cite) => query_from_re(
             cite,
-            Regex::new(r"([\d\s]*[\w\.]+)\s*(\d+)?:?(\d+)?").expect("Regex invalid."),
+            Regex::new(r"([0-9 \n\t]*[[[:alpha:]]0-9\.]+)[ \n\t]*([0-9]+)?:?([0-9]+)?")
+                .expect("Regex invalid."),
             true,
             augmented_start,
         ),
