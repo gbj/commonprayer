@@ -14,18 +14,31 @@ pub struct PsalterData {
 }
 
 async fn fetch_psalm((number, version): (u8, Version)) -> Result<Psalm, ()> {
+    // uncomment to use static psalm JSON files
+    fetch(&format!(
+        "/static/psalter/{}/psalm-{:03}.json",
+        if version == Version::LibroDeOracionComun {
+            "loc"
+        } else {
+            "bcp1979"
+        },
+        number
+    ))
+    .await
+    .map_err(|_| ())
+
     // uncomment to fetch psalms from server
     /* fetch(&format!("/psalm?number={number}&version={version}"))
     .await
     .map_err(|_| ()) */
 
     // uncomment to include psalters in WASM bundle
-    use psalter::{bcp1979::BCP1979_PSALTER, loc::LOC_PSALTER};
+    /* use psalter::{bcp1979::BCP1979_PSALTER, loc::LOC_PSALTER};
     if version == Version::LibroDeOracionComun {
         LOC_PSALTER.psalm_by_number(number).cloned().ok_or(())
     } else {
         BCP1979_PSALTER.psalm_by_number(number).cloned().ok_or(())
-    }
+    } */
 }
 
 pub fn psalter_data(cx: Scope, _params: Memo<ParamsMap>, location: Location) -> PsalterData {

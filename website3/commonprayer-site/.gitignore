@@ -1,1 +1,4 @@
 dist
+
+# Built automatically by build.rs
+static/psalter/*/*.json
