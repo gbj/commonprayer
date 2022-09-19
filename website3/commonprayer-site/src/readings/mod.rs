@@ -1,6 +1,7 @@
 mod eucharist;
 mod holy_day;
 mod office;
+mod reading_links;
 
 use crate::{i18n::use_language, icon::Icon};
 use calendar::Date;
@@ -69,32 +70,36 @@ pub fn Readings(cx: Scope) -> Element {
                         type="date"
                         name="date"
                         value={move || date().to_padded_string()}
+                        onchange="this.form.requestSubmit()"
                     />
                 </label>
                 <label class="stacked">
                     {t("settings-bible_version")}
-                    <select name="version">
+                    <select name="version"
+                        onchange="this.form.requestSubmit()"
+                    >
                         <BibleVersionOptions version />
                     </select>
                 </label>
-                <input type="submit" value={t("go")}/>
             </Form>
 
             // Select category of readings
             <div class="toggle-links">
-                <NavLink to={move || format!("office/?date={}&version={}", date(), version())}
+                <NavLink to=move || format!("office/?date={}&version={}", date(), version())
                 >
                     {t("toc-daily_office")}
                 </NavLink>
-                <NavLink to={move || format!("eucharist/?date={}&version={}", date(), version())}
+                <NavLink to=move || format!("eucharist/?date={}&version={}", date(), version())
                 >
                     {t("toc-holy_eucharist")}
                 </NavLink>
-                <NavLink to={move || format!("holy-day/?date={}&version={}", date(), version())}
+                <NavLink to=move || format!("holy-day/?date={}&version={}", date(), version())
                 >
                     {t("toc-holy_days")}
                 </NavLink>
             </div>
+
+            <Outlet/>
         </main>
     }
 }

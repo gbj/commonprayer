@@ -32,16 +32,16 @@ pub fn App(cx: Scope) -> Element {
                 <div>
                     <Router mode=BrowserIntegration {}>
                         <Routes>
-                            <Route path=":lang" element=|cx| view! { <Layout/> }>
+                            <Route path=":lang?" element=|cx| view! { <Layout/> }>
                                 <Route path="calendar" element=|cx| view! { <Calendar/> } loader=calendar_data.into()/>
                                 <Route path="psalm" element=|cx| view! { <Psalter/> } loader=psalter_data.into()/>
                                 <Route path="readings" element=|cx| view! { <Readings/> } loader=readings_data.into()>
-                                    <Route path="office" element=|cx| view! { <OfficeReadings/> }/>
+                                    <Route path="office" element=|cx| view! { <OfficeReadings/> } loader=office_readings_data.into()/>
                                     <Route path="eucharist" element=|cx| view! { <EucharistReadings/> }/>
                                     <Route path="holy-day" element=|cx| view! { <HolyDayReadings/> }/>
                                     <Route path="" element=|cx| view! { <OfficeReadings/> }/>
                                 </Route>
-                                <Route path="" element=|cx| view! { <Home/> } loader=calendar_data.into()/>
+                                <Route path="" element=|cx| view! { <Home/> }/>
                             </Route>
                         </Routes>
                     </Router>

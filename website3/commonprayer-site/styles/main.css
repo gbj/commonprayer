@@ -45,8 +45,12 @@ body > div > div > main {
 	margin: auto;
 }
 
+:not(.Header) {
+	scroll-margin-top: 3rem;
+}
+
 /* Core UI */
-button {
+button, label, summary {
 	cursor: pointer;
 }
 

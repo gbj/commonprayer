@@ -89,7 +89,7 @@ pub fn Psalter(cx: Scope) -> Element {
                     <input name="version" type="hidden" value={move || version.get().to_string()}/>
                     <h2 class="Psalter-nav-form-title">
                         <label for="number">{t("lectionary-psalm")}</label>
-                        <input class="Psalter-nav-form-input" name="number" id="number" type="text" value={number()} />
+                        <input class="Psalter-nav-form-input" name="number" id="number" type="text" value={number()} prop:value={number} />
                     </h2>
                 </Form>
 
