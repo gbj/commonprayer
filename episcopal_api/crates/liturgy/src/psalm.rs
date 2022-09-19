@@ -45,6 +45,7 @@ impl Psalm {
     /// assert_eq!(psalm_116.filtered_sections().len(), 1);
     /// assert_eq!(psalm_116.filtered_sections()[0].verses.len(), 9);
     /// ```
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn filtered_sections(&self) -> Vec<PsalmSection> {
         let citation = self.citation.as_ref().map(BibleReference::from);
         if let Some(citation) = citation {
@@ -99,6 +100,7 @@ impl Psalm {
         }
     }
 
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn as_text(&self) -> String {
         let filtered = self.filtered_sections();
         filtered
@@ -110,6 +112,7 @@ impl Psalm {
             .collect()
     }
 
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn as_metadata_text(&self) -> String {
         let filtered = self.filtered_sections();
         self.citation

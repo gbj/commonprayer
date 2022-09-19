@@ -18,3 +18,7 @@ calendar = { path = "../calendar" }
 canticle-table = {path = "../canticle-table" }
 psalter = { path = "../psalter" }
 reference-parser = { path = "../reference-parser" }
+
+[features]
+server = ["liturgy/server", "psalter/server", "reference-parser/regex"]
+browser = ["liturgy/browser", "liturgy/browser", "reference-parser/browser"]

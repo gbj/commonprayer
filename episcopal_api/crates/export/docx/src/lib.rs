@@ -123,13 +123,14 @@ fn add_content(docx: Docx, doc: &Document) -> Docx {
         Content::LectionaryReading(content) => content.add_to_docx(docx),
         Content::Litany(content) => content.add_to_docx(docx),
         Content::Preces(content) => content.add_to_docx(docx),
+        #[cfg(any(feature = "server", feature = "browser"))]
         Content::Psalm(content) => content.add_to_docx(docx),
         Content::PsalmCitation(content) => content.add_to_docx(docx),
         Content::ResponsivePrayer(content) => content.add_to_docx(docx),
         Content::Rubric(content) => content.add_to_docx(docx),
         Content::Sentence(content) => content.add_to_docx(docx),
         Content::Text(content) => content.add_to_docx(docx),
-        Content::HymnLink(_) => docx,
+        _ => docx,
     }
 }
 
@@ -396,6 +397,7 @@ impl AddToDocx for Preces {
     }
 }
 
+#[cfg(any(feature = "server", feature = "browser"))]
 impl AddToDocx for Psalm {
     fn add_to_docx(&self, docx: Docx) -> Docx {
         let header = Paragraph::new().add_run(

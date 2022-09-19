@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[cfg(any(feature = "browser", feature = "regex"))]
 mod tests {
     use reference_parser::{
         parse_reference, BibleReferenceQuery, BibleReferenceRange, BibleVersePart, Book,

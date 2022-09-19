@@ -48,6 +48,7 @@ impl<'a> Psalter<'a> {
     ///        9
     ///    );
     /// ```
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn psalms_by_citation(&self, citation: &str) -> Vec<Psalm> {
         let reference = BibleReference::from(citation);
         reference

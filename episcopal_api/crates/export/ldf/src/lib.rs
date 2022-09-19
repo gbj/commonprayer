@@ -206,6 +206,7 @@ impl IntoValue for Content {
             Content::Litany(c) => c.into_value(),
             Content::Liturgy(c) => c.into_value(),
             Content::Preces(c) => c.into_value(),
+            #[cfg(any(feature = "browser", feature = "server"))]
             Content::Psalm(c) => c.into_value(),
             Content::ResponsivePrayer(c) => c.into_value(),
             Content::Rubric(c) => c.into_value(),
@@ -437,6 +438,7 @@ fn psalm_verse<V: std::fmt::Display>(number: Option<V>, a: String, b: String) ->
     Value::Object(map)
 }
 
+#[cfg(any(feature = "browser", feature = "server"))]
 impl IntoValue for Psalm {
     fn into_value(self) -> Value {
         Value::Array(

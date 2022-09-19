@@ -7,6 +7,8 @@ mod utils;
 pub use books::Book;
 pub use query::*;
 pub use range::BibleReferenceRange;
+
+#[cfg(any(feature = "browser", feature = "regex"))]
 pub use utils::parse_reference;
 
 use serde::{Deserialize, Serialize};
@@ -16,6 +18,7 @@ pub struct BibleReference {
     pub ranges: Vec<BibleReferenceRange>,
 }
 
+#[cfg(any(feature = "browser", feature = "regex"))]
 impl From<&str> for BibleReference {
     fn from(val: &str) -> Self {
         BibleReference {
@@ -24,6 +27,7 @@ impl From<&str> for BibleReference {
     }
 }
 
+#[cfg(any(feature = "browser", feature = "regex"))]
 impl From<String> for BibleReference {
     fn from(val: String) -> Self {
         BibleReference {
@@ -32,6 +36,7 @@ impl From<String> for BibleReference {
     }
 }
 
+#[cfg(any(feature = "browser", feature = "regex"))]
 impl From<&String> for BibleReference {
     fn from(val: &String) -> Self {
         BibleReference {

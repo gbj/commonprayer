@@ -4,7 +4,13 @@ version = "0.1.0"
 edition = "2018"
 
 [dependencies]
-regex = { version = "1", features = ["std"] }
+js-sys = { version = "0.3", optional = true }
+lazy_static = { version = "1", optional = true }
+regex = { version = "1", optional = true }
 strsim = "0.10"
 serde = { version = "1.0", features = ["derive"] }
 language = { path = "../language" }
+
+[features]
+browser = ["dep:js-sys"]
+regex = ["dep:regex", "dep:lazy_static"]

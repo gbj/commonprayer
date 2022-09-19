@@ -9,3 +9,7 @@ serde = { version = "1.0", features = ["derive"]}
 itertools = "0.10"
 liturgy = { path = "../liturgy" }
 reference-parser = { path = "../reference-parser" }
+
+[features]
+server = ["reference-parser/regex"]
+browser = ["reference-parser/browser"]

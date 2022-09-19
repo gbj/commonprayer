@@ -105,6 +105,7 @@ impl BiblicalReadingIntroTemplate {
     ///     ]))
     /// );
     /// ```
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn compile(&self, citation: &str) -> Document {
         let template = *self.0.clone();
         let citation = BibleReference::from(citation);

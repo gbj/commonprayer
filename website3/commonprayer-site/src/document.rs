@@ -48,8 +48,8 @@ pub fn Psalm(cx: Scope, psalm: Psalm) -> Element {
     let psalm_number = psalm.number;
 
     // TODO if you want to filter client-side, will add 500kb of WASM at present
-    // let sections = psalm.filtered_sections();
-    let sections = psalm.sections;
+    let sections = psalm.filtered_sections();
+    //let sections = psalm.sections;
 
     let section_1_header = sections.get(0).map(|section| {
         view! {

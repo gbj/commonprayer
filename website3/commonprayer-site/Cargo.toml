@@ -34,7 +34,7 @@ lectionary = { path = "../../episcopal_api/crates/lectionary" }
 library = { path = "../../episcopal_api/crates/library" }
 liturgy = { path = "../../episcopal_api/crates/liturgy" }
 psalter = { path = "../../episcopal_api/crates/psalter" }
-reference-parser = { path = "../../episcopal_api/crates/reference-parser" }
+reference-parser = { path = "../../episcopal_api/crates/reference-parser", default-features = false, features = ["browser"] }
 
 [build-dependencies]
 serde_json = "1"

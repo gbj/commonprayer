@@ -7,3 +7,7 @@ edition = "2021"
 liturgy = { path = "../../liturgy" }
 serde_json = "1"
 itertools = "0.10"
+
+[features]
+server = ["liturgy/server"]
+browser = ["liturgy/browser"]

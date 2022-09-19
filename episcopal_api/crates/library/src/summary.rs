@@ -21,6 +21,7 @@ use lectionary::{
 use crate::{CommonPrayer, Library};
 
 impl CommonPrayer {
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn daily_office_summary(date: &Date, language: Language) -> DailySummary {
         let psalter = &BCP1979_PSALTER;
 
@@ -34,6 +35,7 @@ impl CommonPrayer {
         }
     }
 
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn eucharistic_lectionary_summary(
         date: &Date,
         language: Language,
@@ -43,6 +45,7 @@ impl CommonPrayer {
         Self::eucharistic_lectionary_summary_with_day(day, language)
     }
 
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn eucharistic_lectionary_summary_with_day(
         day: LiturgicalDay,
         language: Language,
@@ -69,6 +72,7 @@ impl CommonPrayer {
         }
     }
 
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn alternate_service_summary(
         date: &Date,
         language: Language,
@@ -90,6 +94,7 @@ impl CommonPrayer {
     }
 }
 
+#[cfg(any(feature = "browser", feature = "server"))]
 fn summarize_eucharistic_observance(
     day: &LiturgicalDay,
     observance: &LiturgicalDayId,
@@ -148,6 +153,7 @@ fn summarize_eucharistic_observance(
     }
 }
 
+#[cfg(any(feature = "browser", feature = "server"))]
 fn vigil_readings(
     observance: &LiturgicalDayId,
     day: &LiturgicalDay,
@@ -185,6 +191,7 @@ fn vigil_readings(
         .collect()
 }
 
+#[cfg(any(feature = "browser", feature = "server"))]
 fn tracked_readings(
     observance: &LiturgicalDayId,
     day: &LiturgicalDay,
@@ -208,6 +215,7 @@ fn tracked_readings(
     }
 }
 
+#[cfg(any(feature = "browser", feature = "server"))]
 fn psalm_citation_to_documents<L: Library>(
     psalter: &Psalter,
     canticle_version: Version,
@@ -232,6 +240,7 @@ fn psalm_citation_to_documents<L: Library>(
     }
 }
 
+#[cfg(any(feature = "browser", feature = "server"))]
 fn summarize_time(
     date: &Date,
     evening: bool,
@@ -256,6 +265,7 @@ fn summarize_time(
     }
 }
 
+#[cfg(any(feature = "browser", feature = "server"))]
 fn psalms_filtered_by_time(
     psalm_cycle: &'static Lectionary,
     psalter: &Psalter,
@@ -283,6 +293,7 @@ fn psalms_filtered_by_time(
     psalms
 }
 
+#[cfg(any(feature = "browser", feature = "server"))]
 fn summarize_observance(
     day: &LiturgicalDay,
     observance: &LiturgicalDayId,

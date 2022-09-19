@@ -49,6 +49,7 @@ pub trait Library {
 
     fn contents<'a>() -> TableOfContents<'a>;
 
+    #[cfg(any(feature = "browser", feature = "server"))]
     fn compile(
         mut document: Document,
         calendar: &Calendar,

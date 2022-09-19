@@ -266,10 +266,12 @@ impl Document {
         }
     }
 
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn as_text(&self) -> String {
         self.content.as_text()
     }
 
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn as_metadata_text(&self) -> String {
         self.content.as_metadata_text()
     }
@@ -800,6 +802,7 @@ impl Content {
         !self.is_container()
     }
 
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn as_text(&self) -> String {
         match self {
             Content::Error(c) => c.to_string(),
@@ -825,6 +828,7 @@ impl Content {
         }
     }
 
+    #[cfg(any(feature = "browser", feature = "server"))]
     pub fn as_metadata_text(&self) -> String {
         match self {
             Content::BiblicalCitation(c) => c.to_string(),

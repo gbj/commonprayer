@@ -20,3 +20,7 @@ strum_macros = "0.24"
 [dev-dependencies]
 psalter = { path = "../psalter" }
 library = { path = "../library" }
+
+[features]
+server = ["psalter/server"]
+browser = ["psalter/browser"]
