@@ -54,11 +54,11 @@ pub fn Readings(cx: Scope) -> Element {
     let ReadingsData { date, version } = use_loader(cx);
 
     view! {
-        <main class={move || display_settings().to_class()}>
+        <main class=move || display_settings().to_class()>
             // POST to download DOCX
             <form method="POST">
                 <button type="submit">
-                    <img src={Icon::Download.to_string()} alt={t("export-word")}/>
+                    <img src=Icon::Download.to_string() alt=t("export-word")/>
                 </button>
             </form>
 
@@ -69,7 +69,7 @@ pub fn Readings(cx: Scope) -> Element {
                     <input
                         type="date"
                         name="date"
-                        value={move || date().to_padded_string()}
+                        value=move || date().to_padded_string()
                         onchange="this.form.requestSubmit()"
                     />
                 </label>
@@ -130,7 +130,7 @@ fn BibleVersionOptions(cx: Scope, version: Memo<Version>) -> Memo<Vec<Element>> 
         <For each=versions key=|v| *v>{move |cx, version: &Version| {
             let value_str: &'static str = version.into();
             view! {
-                <option value={value_str} selected={value() == *version}>{version.to_string()}</option>
+                <option value=value_str selected=value() == *version>{version.to_string()}</option>
             }
         }}</For>
     }

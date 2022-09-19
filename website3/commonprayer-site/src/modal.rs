@@ -63,9 +63,9 @@ where
                 >
                     <button
                         class="Modal-header-close"
-                        aria-label={t("close")}
+                        aria-label=t("close")
                     >
-                        <img src={Icon::Close.to_string()} alt="X" />
+                        <img src=Icon::Close.to_string() alt="X" />
                     </button>
                 </form>
             </header>

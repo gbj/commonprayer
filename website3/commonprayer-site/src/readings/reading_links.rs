@@ -66,7 +66,7 @@ pub fn ReadingLinksView(cx: Scope, reading_links: Memo<ReadingLinks>) -> Element
                     </td>
                 </tr>
                 <tr>
-                    <td colspan={move || if readings_different() { "1" } else { "2" } }>
+                    <td colspan=move || if readings_different() { "1" } else { "2" }>
                         <LinksView links=Box::new(morning_readings) evening=false />
                     </td>
                     {move || readings_different().then(move || {

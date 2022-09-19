@@ -1,5 +1,4 @@
 use crate::i18n::use_i18n;
-use crate::i18n_args;
 use crate::icon::Icon;
 use crate::settings::use_display_settings;
 use crate::{document::*, fetch::fetch};
@@ -77,25 +76,25 @@ pub fn Psalter(cx: Scope) -> Element {
     let (display_settings, _) = use_display_settings(cx);
 
     view! {
-        <main class={move || display_settings.get().to_class()}>
+        <main class=move || display_settings.get().to_class()>
             <nav class="Psalter-nav">
                 // Prev Psalm
-                {move || (number() > 1).then(|| view! { <Link to={move || format!("?number={}&version={:?}", number() - 1, version())}>
-                    <img src={Icon::Left.to_string()} alt={move || t("psalm-prev")}/>
+                {move || (number() > 1).then(|| view! { <Link to=move || format!("?number={}&version={:?}", number() - 1, version())>
+                    <img src=Icon::Left.to_string() alt=move || t("psalm-prev")/>
                 </Link>})}
 
                 // Psalm header (can be edited)
                 <Form>
-                    <input name="version" type="hidden" value={move || version.get().to_string()}/>
+                    <input name="version" type="hidden" value=move || version.get().to_string()/>
                     <h2 class="Psalter-nav-form-title">
                         <label for="number">{t("lectionary-psalm")}</label>
-                        <input class="Psalter-nav-form-input" name="number" id="number" type="text" value={number()} prop:value={number} />
+                        <input class="Psalter-nav-form-input" name="number" id="number" type="text" value=number() prop:value=number />
                     </h2>
                 </Form>
 
                 // Next Psalm
-                {move || (number() < 150).then(|| view ! { <Link to={move || format!("?number={}&version={:?}", number() + 1, version())}>
-                    <img src={Icon::Right.to_string()} alt={move || t("psalm-next")}/>
+                {move || (number() < 150).then(|| view ! { <Link to=move || format!("?number={}&version={:?}", number() + 1, version())>
+                    <img src=Icon::Right.to_string() alt=move || t("psalm-next")/>
                 </Link> })}
             </nav>
             {move || psalm.read().map(|psalm| match psalm {

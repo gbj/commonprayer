@@ -74,7 +74,7 @@ pub fn Psalm(cx: Scope, psalm: Psalm) -> Element {
 
                     view! {
                         <p class="Psalm-verse">
-                            <a id={format!("{}-{}", psalm_number, number)}></a>
+                            <a id=format!("{}-{}", psalm_number, number)></a>
                             <sup class="Psalm-verse-number">{number.to_string()}</sup>
                             <span class="Psalm-verse-a"><SmallCaps line=verse.a/></span>
                             <span class="Psalm-verse-b"><SmallCaps line=verse.b/></span>

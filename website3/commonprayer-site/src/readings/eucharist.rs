@@ -1,7 +1,7 @@
 use leptos::*;
 
 #[component]
-pub fn EucharistReadings(cx: Scope) -> Element {
+pub fn EucharistReadings(_cx: Scope) -> Element {
     view! {
         <div>"Eucharist TODO"</div>
     }

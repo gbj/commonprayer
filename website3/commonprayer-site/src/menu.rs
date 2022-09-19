@@ -35,8 +35,8 @@ pub fn Menu(cx: Scope) -> Element {
                             </Modal> */
                         </li>
                         <Form action="search".into()>
-                            <input class="Menu-search" type="search" name="q" placeholder={t("search")}/>
-                            <noscript><input type="submit" value={t("search")}/></noscript>
+                            <input class="Menu-search" type="search" name="q" placeholder=t("search")/>
+                            <noscript><input type="submit" value=t("search")/></noscript>
                         </Form>
                         <li>
                             <LocalizedNavLink to="contents">{t("toc-table_of_contents")}</LocalizedNavLink>
@@ -52,7 +52,7 @@ pub fn Menu(cx: Scope) -> Element {
 
                         </li>
                         <li>
-                            <LocalizedNavLink to={move || format!("readings/office?version={}", settings.with(|settings| settings.bible_version))}>
+                            <LocalizedNavLink to=move || format!("readings/office?version={}", settings.with(|settings| settings.bible_version))>
                                 {t("menu-readings")}
                             </LocalizedNavLink>
                         </li>
@@ -63,16 +63,16 @@ pub fn Menu(cx: Scope) -> Element {
                             </span>
                             <ul>
                                 <li>
-                                    <OfficeLink slug=Slug::MorningPrayer label=t("toc-morning_prayer").into()/>
+                                    <OfficeLink slug=Slug::MorningPrayer label=t("toc-morning_prayer")/>
                                 </li>
                                 <li>
-                                    <OfficeLink slug=Slug::NoondayPrayer label=t("toc-noonday_prayer").into()/>
+                                    <OfficeLink slug=Slug::NoondayPrayer label=t("toc-noonday_prayer")/>
                                 </li>
                                 <li>
-                                    <OfficeLink slug=Slug::EveningPrayer label=t("toc-evening_prayer").into()/>
+                                    <OfficeLink slug=Slug::EveningPrayer label=t("toc-evening_prayer")/>
                                 </li>
                                 <li>
-                                    <OfficeLink slug=Slug::Compline label=t("toc-compline").into()/>
+                                    <OfficeLink slug=Slug::Compline label=t("toc-compline")/>
                                 </li>
                                 <li>
                                     <LocalizedNavLink to="canticle-table">{t("menu-canticle-table")}</LocalizedNavLink>

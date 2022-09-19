@@ -1,5 +1,4 @@
 use std::fmt::Debug;
-use std::rc::Rc;
 
 use calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId, Rank, Weekday};
 use itertools::Itertools;
@@ -203,7 +202,7 @@ pub fn Calendar(cx: Scope) -> Element {
                 <Form>
                     <label class="stacked">
                         {t("calendar-month")}
-                        <input type="month" name="month" value={move || format!("{:04}-{:02}", (data.year)(), (data.month)())}/>
+                        <input type="month" name="month" value=move || format!("{:04}-{:02}", (data.year)(), (data.month)())/>
                     </label>
 
                     // Black Letter Days
@@ -211,21 +210,21 @@ pub fn Calendar(cx: Scope) -> Element {
                         <legend>{t("menu-calendar")}</legend>
                         <label class="horizontal">
                             {t("bcp_1979")}
-                            <input type="radio" name="calendar" value="bcp" checked={move || !(data.using_lff)()} />
+                            <input type="radio" name="calendar" value="bcp" checked=move || !(data.using_lff)() />
                         </label>
                         <label class="horizontal">
                             {t("lff_2018")}
-                            <input type="radio" name="calendar" value="lff" checked={move || (data.using_lff)()} />
+                            <input type="radio" name="calendar" value="lff" checked=move || (data.using_lff)() />
                         </label>
                     </fieldset>
 
                     // Black Letter Days
                     <label class="horizontal">
                         {t("calendar-omit_black_letter")}
-                        <input type="checkbox" name="blackletter" value="false" checked={move || !(data.show_black_letter)()} />
+                        <input type="checkbox" name="blackletter" value="false" checked=move || !(data.show_black_letter)() />
                     </label>
 
-                    <input type="submit" slot="close-button" data-modal-close="settings" value={t("settings-submit")}/>
+                    <input type="submit" slot="close-button" data-modal-close="settings" value=t("settings-submit")/>
                 </Form>
             </Modal>
             <div class="controls">
@@ -233,10 +232,10 @@ pub fn Calendar(cx: Scope) -> Element {
                 <h2>{move || t(&format!("lectionary-month_{}", (data.month)()))}</h2>
                 <AdjacentMonth increase=true/>
                 <button on:click=move |_| set_settings_open(|n| *n = !*n)>
-                    <img src={Icon::Settings.to_string()} alt={t("settings-title")}/>
+                    <img src=Icon::Settings.to_string() alt=t("settings-title")/>
                 </button>
             </div>
-            <time class="month" datetime={move || format!("{}-{:02}", (data.year)(), (data.month)())}>
+            <time class="month" datetime=move || format!("{}-{:02}", (data.year)(), (data.month)())>
                 <div class="weekday-labels">
                     <div class="weekday-label">{t("canticle-table-sunday_abbrev")}</div>
                     <div class="weekday-label">{t("canticle-table-monday_abbrev")}</div>
@@ -309,10 +308,10 @@ fn AdjacentMonth(cx: Scope, increase: bool) -> Element {
 
     view! {
         <Form method="GET".into()>
-            <input type="hidden" name="month" value={move || format!("{:04}-{:02}", year(), month())}/>
-            <input type="hidden" name="calendar" value={calendar}/>
-            <input type="hidden" name="blackletter" value={blackletter}/>
-            <input type="submit" value={label}/>
+            <input type="hidden" name="month" value=move || format!("{:04}-{:02}", year(), month())/>
+            <input type="hidden" name="calendar" value=calendar/>
+            <input type="hidden" name="blackletter" value=blackletter/>
+            <input type="submit" value=label/>
         </Form>
     }
 }
@@ -378,7 +377,7 @@ fn Day(cx: Scope, year: u16, day: CalendarDayEntry) -> Element {
 
     view! {
         <time
-            class={class}
+            class=class
             datetime=format!("{}-{:02}-{:02}", year, month, day)
         >
             <a id=format!("{}/{}", month, day)></a>
@@ -438,7 +437,7 @@ fn Listing(
                 .map(|(name, feast)| view! {
                     <a
                         class="alternative"
-                        href={move || format!("/{}/readings/eucharist/?date={}-{}-{}&alternate={}", locale.get(), year, month, day, feast)}
+                        href=move || format!("/{}/readings/eucharist/?date={}-{}-{}&alternate={}", locale.get(), year, month, day, feast)
                     >
                         {name}
                     </a>
@@ -448,7 +447,7 @@ fn Listing(
 
         Some(view! {
             <div class="main-listing">
-                <a class="day-name" href={move || format!("/{}/readings/eucharist/?date={}-{}-{}", locale.get(), year, month, day)}>{day_name}</a>
+                <a class="day-name" href=move || format!("/{}/readings/eucharist/?date={}-{}-{}", locale.get(), year, month, day)>{day_name}</a>
                 {transferred}
                 {alternatives}
             </div>
@@ -484,7 +483,7 @@ fn BlackLetterDays(
                     )
                 };
                 view! {
-                    <li><a href={href}>{name}</a></li>
+                    <li><a href=href>{name}</a></li>
                 }
             })
             .collect::<Vec<_>>();
@@ -519,7 +518,7 @@ fn OtherNotes(
                         id
                     )
                 };
-                view! { <li><a href={href}>{name}</a></li> }
+                view! { <li><a href=href>{name}</a></li> }
             })
             .collect::<Vec<_>>();
         Some(view! {

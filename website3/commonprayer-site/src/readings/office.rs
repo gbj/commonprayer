@@ -125,7 +125,6 @@ pub fn office_readings_data(
     };
 
     let psalms = create_memo(cx, move |_| {
-        let summary = summary();
         // Morning
         if !evening() {
             morning_psalms()
@@ -309,10 +308,10 @@ fn ReadingsView(cx: Scope, readings: Memo<Vec<Reading>>) -> Memo<Vec<Element>> {
     let (settings, _) = use_settings(cx);
     let version = move || settings.with(|s| s.bible_version);
     view! {
-        <For each={readings} key=|reading| reading.citation.clone()>
+        <For each=readings key=|reading| reading.citation.clone()>
             {|cx, reading: &Reading| view! {
                 <div>
-                    <a id={&reading.citation}></a>
+                    <a id=&reading.citation></a>
                     <pre>{&reading.citation}</pre>
                 </div>
             }}

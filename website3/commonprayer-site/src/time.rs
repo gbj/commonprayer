@@ -14,8 +14,6 @@ impl Default for TimezoneOffset {
 
 #[cfg(feature = "csr")]
 pub fn get_timezone_offset(cx: Scope) -> TimezoneOffset {
-    use leptos::Scope;
-
     TimezoneOffset(crate::js_sys::Date::new_0().get_timezone_offset() as i32)
 }
 
