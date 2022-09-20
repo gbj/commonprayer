@@ -43,5 +43,6 @@ pub fn input_date_now(tzoffset: &TimezoneOffset) -> String {
 
 #[cfg(not(any(feature = "ssr", feature = "csr", feature = "hydrate")))]
 pub fn input_date_now(_tzoffset: &TimezoneOffset) -> String {
+    // Every use of the crate should use one of these three features
     unreachable!()
 }

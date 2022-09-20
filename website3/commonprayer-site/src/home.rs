@@ -1,6 +1,6 @@
 use leptos::*;
 #[component]
-pub fn Home(cx: Scope) -> Element {
+pub fn Home(_cx: Scope) -> Element {
     view! {
         <p>
             "Home"

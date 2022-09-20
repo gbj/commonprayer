@@ -1,50 +1,8 @@
+use crate::document::{SmallCaps, SmallCapsProps};
 use leptos::*;
-use liturgy::Psalm;
-
-/*pub enum Prop<T> {
-    Static(T),
-    Dynamic(Box<dyn FnOnce() -> T>),
-}
-
-pub trait IntoProp<T> {
-    fn into_prop(self) -> Prop<T>;
-}
-
-impl<T> FnOnce<()> for Prop<T> {
-    type Output = T;
-
-    extern "rust-call" fn call_once(self, _args: ()) -> Self::Output {
-        match self {
-            Prop::Static(val) => val,
-            Prop::Dynamic(f) => f(),
-        }
-    }
-}
-
-macro_rules! prop_type {
-    ($t:ty) => {
-        impl IntoProp<$t> for $t {
-            fn into_prop(self) -> Prop<$t> {
-                Prop::Static(self)
-            }
-        }
-
-        impl<F> IntoProp<$t> for F
-        where
-            F: FnOnce() -> $t + 'static,
-        {
-            fn into_prop(self) -> Prop<$t> {
-                Prop::Dynamic(Box::new(self))
-            }
-        }
-    };
-}
-
-// Definitions for this one
-prop_type!(Psalm); */
 
 #[component]
-pub fn Psalm(cx: Scope, psalm: Psalm) -> Element {
+pub fn Psalm(cx: Scope, psalm: liturgy::Psalm) -> Element {
     let psalm_number = psalm.number;
     let sections = psalm.filtered_sections();
 
@@ -110,7 +68,7 @@ pub fn Psalm(cx: Scope, psalm: Psalm) -> Element {
         .collect::<Vec<_>>();
 
     view! {
-        <article class="document psalm">
+        <article class="document Psalm">
             <a id=psalm.citation></a>
             <header class="Psalm-header">
                 <h3 class="Psalm-number">{psalm_number.to_string()}</h3>
@@ -119,36 +77,4 @@ pub fn Psalm(cx: Scope, psalm: Psalm) -> Element {
             <main>{sections}</main>
         </article>
     }
-}
-
-#[component]
-pub fn SmallCaps(cx: Scope, line: String) -> Vec<Element> {
-    line.split_inclusive("LORD")
-        .flat_map(|s| s.split_inclusive("GOD"))
-        .flat_map(|s| s.split_inclusive("YAHWEH"))
-        .flat_map(|piece| {
-            if piece.ends_with("LORD") {
-                [
-                    Some(view! { <span>{piece.replace("LORD", "")}</span> }),
-                    Some(view! { <span class="lord">"Lord"</span> }),
-                ]
-                .into_iter()
-            } else if piece.ends_with("GOD") {
-                [
-                    Some(view! { <span>{piece.replace("GOD", "")}</span> }),
-                    Some(view! { <span class="lord">"God"</span> }),
-                ]
-                .into_iter()
-            } else if piece.ends_with("YAHWEH") {
-                [
-                    Some(view! { <span>{piece.replace("YAHWEH", "")}</span> }),
-                    Some(view! { <span class="lord">"Yahweh"</span> }),
-                ]
-                .into_iter()
-            } else {
-                [None, Some(view! { <span>{piece.to_string()}</span> })].into_iter()
-            }
-        })
-        .flatten()
-        .collect::<Vec<_>>()
 }

@@ -72,7 +72,7 @@ pub fn ReadingLinksView(cx: Scope, reading_links: Memo<ReadingLinks>) -> Element
                     {move || readings_different().then(move || {
                         view! {
                             <td>
-                                <LinksView links=Box::new(evening_readings) evening=false />
+                                <LinksView links=Box::new(evening_readings) evening=true />
                             </td>
                         }
                     })}
@@ -84,13 +84,27 @@ pub fn ReadingLinksView(cx: Scope, reading_links: Memo<ReadingLinks>) -> Element
 
 #[component]
 pub fn LinksView(cx: Scope, links: Box<dyn Fn() -> Vec<String>>, evening: bool) -> Element {
+    let query = use_query_map(cx);
+    let base_link = create_memo(cx, move |_| {
+        let mut queries = query.get();
+        if evening {
+            queries.0.insert("time".into(), "evening".into());
+        } else {
+            queries.0.remove("time");
+        }
+        queries.to_query_string()
+    });
+
     view! {
         <ul>
             <For each=links key=|v| v.clone()>
-            {|cx, citation: &String| view! {
-                <li>
-                    <a href=format!("#{citation}")>{citation}</a>
-                </li>
+            {move |cx, citation: &String| {
+                let c = citation.clone();
+                view! {
+                    <li>
+                        <a href=move || format!("{}#{c}", base_link())>{citation}</a>
+                    </li>
+                }
             }}
             </For>
         </ul>

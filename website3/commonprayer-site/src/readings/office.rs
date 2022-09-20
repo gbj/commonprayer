@@ -5,7 +5,7 @@ use leptos::*;
 use liturgy::Version;
 
 use crate::{
-    document::*,
+    document::{biblical_reading::*, psalm::*},
     i18n::{use_i18n, use_language},
     settings::use_settings,
     time::{get_timezone_offset, today},
@@ -287,7 +287,7 @@ pub fn OfficeReadings(cx: Scope) -> Element {
             // Psalms
             <section>
                 <h2>{t("daily-readings-psalms")}</h2>
-                <For each={psalms} key=|psalm| psalm.number>
+                <For each=psalms key=|psalm| psalm.number>
                 {|cx, psalm: &liturgy::Psalm|  view! {
                     <Psalm psalm=psalm.clone()/>
                 }}
@@ -297,24 +297,15 @@ pub fn OfficeReadings(cx: Scope) -> Element {
             // Readings
             <section>
                 <h2>{t("daily-readings-readings")}</h2>
-                <ReadingsView readings />
+                <For each=readings key=|reading| reading.citation.clone()>
+                    {|cx, reading: &Reading| view! {
+                        <div>
+                            <a id=&reading.citation></a>
+                            <BiblicalCitation citation=reading.citation.to_string() intro=None />
+                        </div>
+                    }}
+                </For>
             </section>
         </div>
-    }
-}
-
-#[component]
-fn ReadingsView(cx: Scope, readings: Memo<Vec<Reading>>) -> Memo<Vec<Element>> {
-    let (settings, _) = use_settings(cx);
-    let version = move || settings.with(|s| s.bible_version);
-    view! {
-        <For each=readings key=|reading| reading.citation.clone()>
-            {|cx, reading: &Reading| view! {
-                <div>
-                    <a id=&reading.citation></a>
-                    <pre>{&reading.citation}</pre>
-                </div>
-            }}
-        </For>
     }
 }

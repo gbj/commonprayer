@@ -1,7 +1,7 @@
 use crate::i18n::use_i18n;
 use crate::icon::Icon;
 use crate::settings::use_display_settings;
-use crate::{document::*, fetch::fetch};
+use crate::{document::psalm::*, fetch::fetch};
 use leptos::*;
 use liturgy::{Psalm, Version};
 
