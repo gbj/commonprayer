@@ -10,7 +10,7 @@ fn main() {
         let bcp = psalter::bcp1979::BCP1979_PSALTER
             .psalm_by_number(psalm_number)
             .unwrap();
-        serde_json::to_writer(bcp_file, bcp);
+        _ = serde_json::to_writer(bcp_file, bcp);
 
         let loc_file = std::fs::File::create(&format!(
             "./static/psalter/loc/psalm-{:03}.json",
@@ -20,6 +20,6 @@ fn main() {
         let loc = psalter::loc::LOC_PSALTER
             .psalm_by_number(psalm_number)
             .unwrap();
-        serde_json::to_writer(loc_file, loc);
+        _ = serde_json::to_writer(loc_file, loc);
     }
 }

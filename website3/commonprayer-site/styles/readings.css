@@ -1,0 +1,14 @@
+.reading-link-table {
+	width: 100%;
+	text-align: center;
+}
+
+.reading-link-table tbody {
+	vertical-align: top;
+}
+
+.reading-link-table ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}

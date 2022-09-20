@@ -172,6 +172,7 @@ canticle-table-canticles_appointed_for_christmas = "* Canticles appointed for Ch
 canticle-table-canticle_n = Canticle { $number }
 
 # Daily Readings
+daily-readings-title = Daily Readings
 daily-readings-readings_for_date = Readings for Date
 daily-readings-daily_readings_error = Uh-oh! Something went wrong while loading readings.
 daily-readings-default = (Default)

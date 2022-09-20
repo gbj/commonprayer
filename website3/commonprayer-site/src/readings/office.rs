@@ -301,7 +301,7 @@ pub fn OfficeReadings(cx: Scope) -> Element {
                     {|cx, reading: &Reading| view! {
                         <div>
                             <a id=&reading.citation></a>
-                            <BiblicalCitation citation=reading.citation.to_string() intro=None />
+                            <BiblicalCitation citation=reading.citation.to_string()/>
                         </div>
                     }}
                 </For>

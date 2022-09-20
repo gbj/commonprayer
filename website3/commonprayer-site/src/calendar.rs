@@ -6,11 +6,13 @@ use language::Language;
 use leptos::*;
 use library::summary;
 
-use crate::header::set_title;
-use crate::i18n::{use_i18n, use_language};
-use crate::icon::Icon;
-use crate::modal::*;
-use crate::time::{get_timezone_offset, today};
+use crate::{
+    header::*,
+    i18n::{use_i18n, use_language},
+    icon::Icon,
+    modal::*,
+    time::{get_timezone_offset, today},
+};
 
 #[derive(Params, Debug, Clone, PartialEq, Eq, Default)]
 pub struct CalendarDayQuery {
@@ -187,67 +189,67 @@ pub fn calendar_data(cx: Scope, _params: Memo<ParamsMap>, location: Location) ->
 }
 
 #[component]
-pub fn Calendar(cx: Scope) -> Element {
+pub fn Calendar(cx: Scope) -> Vec<Element> {
     let (t, _, _) = use_i18n(cx);
-    set_title(cx, t("calendar"));
     let data = use_loader::<CalendarData>(cx);
     let (settings_open, set_settings_open) = create_signal(cx, false);
 
     view! {
-        <main>
-            <Modal
-                open=settings_open
-                on_close=move || set_settings_open(|n| *n = false)
-            >
-                <Form>
-                    <label class="stacked">
-                        {t("calendar-month")}
-                        <input type="month" name="month" value=move || format!("{:04}-{:02}", (data.year)(), (data.month)())/>
-                    </label>
-
-                    // Black Letter Days
-                    <fieldset class="horizontal">
-                        <legend>{t("menu-calendar")}</legend>
-                        <label class="horizontal">
-                            {t("bcp_1979")}
-                            <input type="radio" name="calendar" value="bcp" checked=move || !(data.using_lff)() />
-                        </label>
-                        <label class="horizontal">
-                            {t("lff_2018")}
-                            <input type="radio" name="calendar" value="lff" checked=move || (data.using_lff)() />
-                        </label>
-                    </fieldset>
-
-                    // Black Letter Days
-                    <label class="horizontal">
-                        {t("calendar-omit_black_letter")}
-                        <input type="checkbox" name="blackletter" value="false" checked=move || !(data.show_black_letter)() />
-                    </label>
-
-                    <input type="submit" slot="close-button" data-modal-close="settings" value=t("settings-submit")/>
-                </Form>
-            </Modal>
-            <div class="controls">
-                <AdjacentMonth increase=false/>
-                <h2>{move || t(&format!("lectionary-month_{}", (data.month)()))}</h2>
-                <AdjacentMonth increase=true/>
+        <>
+            <Header label=t("calendar")>
                 <button on:click=move |_| set_settings_open(|n| *n = !*n)>
                     <img src=Icon::Settings.to_string() alt=t("settings-title")/>
                 </button>
-            </div>
-            <time class="month" datetime=move || format!("{}-{:02}", (data.year)(), (data.month)())>
-                <div class="weekday-labels">
-                    <div class="weekday-label">{t("canticle-table-sunday_abbrev")}</div>
-                    <div class="weekday-label">{t("canticle-table-monday_abbrev")}</div>
-                    <div class="weekday-label">{t("canticle-table-tuesday_abbrev")}</div>
-                    <div class="weekday-label">{t("canticle-table-wednesday_abbrev")}</div>
-                    <div class="weekday-label">{t("canticle-table-thursday_abbrev")}</div>
-                    <div class="weekday-label">{t("canticle-table-friday_abbrev")}</div>
-                    <div class="weekday-label">{t("canticle-table-saturday_abbrev")}</div>
+            </Header>
+            <main>
+                <Modal
+                    open=settings_open
+                    on_close=move || set_settings_open(|n| *n = false)
+                >
+                    <Form>
+                        <label class="stacked">
+                            {t("calendar-month")}
+                            <input type="month" name="month" value=move || format!("{:04}-{:02}", (data.year)(), (data.month)())/>
+                        </label>
+                        // Black Letter Days
+                        <fieldset class="horizontal">
+                            <legend>{t("menu-calendar")}</legend>
+                            <label class="horizontal">
+                                {t("bcp_1979")}
+                                <input type="radio" name="calendar" value="bcp" checked=move || !(data.using_lff)() />
+                            </label>
+                            <label class="horizontal">
+                                {t("lff_2018")}
+                                <input type="radio" name="calendar" value="lff" checked=move || (data.using_lff)() />
+                            </label>
+                        </fieldset>
+                        // Black Letter Days
+                        <label class="horizontal">
+                            {t("calendar-omit_black_letter")}
+                            <input type="checkbox" name="blackletter" value="false" checked=move || !(data.show_black_letter)() />
+                        </label>
+                        <input type="submit" slot="close-button" data-modal-close="settings" value=t("settings-submit")/>
+                    </Form>
+                </Modal>
+                <div class="Calendar-controls">
+                    <AdjacentMonth increase=false/>
+                    <h2>{move || t(&format!("lectionary-month_{}", (data.month)()))}</h2>
+                    <AdjacentMonth increase=true/>
                 </div>
-                <Weeks/>
-            </time>
-        </main>
+                <time class="month" datetime=move || format!("{}-{:02}", (data.year)(), (data.month)())>
+                    <div class="weekday-labels">
+                        <div class="weekday-label">{t("canticle-table-sunday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-monday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-tuesday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-wednesday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-thursday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-friday_abbrev")}</div>
+                        <div class="weekday-label">{t("canticle-table-saturday_abbrev")}</div>
+                    </div>
+                    <Weeks/>
+                </time>
+            </main>
+        </>
     }
 }
 
@@ -382,13 +384,14 @@ fn Day(cx: Scope, year: u16, day: CalendarDayEntry) -> Element {
         >
             <a id=format!("{}/{}", month, day)></a>
             <div class="month-number">{day}</div>
-            <Listing
-                year
-                month
-                day
-                listing
-                alternatives
-            />
+            {listing.map(|listing| view ! {
+                <Listing
+                    year
+                    month
+                    day
+                    listing
+                    alternatives
+                />})}
             <BlackLetterDays
                 year
                 month
@@ -411,28 +414,28 @@ fn Listing(
     year: u16,
     month: u8,
     day: u8,
-    listing: Option<(String, LiturgicalDay)>,
+    listing: (String, LiturgicalDay),
     alternatives: Vec<(String, Feast)>,
-) -> Option<Element> {
+) -> Element {
     let locale = use_language(cx);
     let (t, _, _) = use_i18n(cx);
 
-    if let Some((day_name, liturgical_day)) = listing {
-        let transferred = if matches!(
-            liturgical_day.observed,
-            LiturgicalDayId::TransferredFeast(_)
-        ) {
-            Some(
-                view! {<span class="transferred">{format!(" {}", t("daily_readings.transferred"))}</span>},
-            )
-        } else {
-            None
-        };
+    let (day_name, liturgical_day) = listing;
+    let transferred = if matches!(
+        liturgical_day.observed,
+        LiturgicalDayId::TransferredFeast(_)
+    ) {
+        Some(
+            view! {<span class="transferred">{format!(" {}", t("daily-readings-transferred"))}</span>},
+        )
+    } else {
+        None
+    };
 
-        let alternatives = if alternatives.is_empty() {
-            vec![]
-        } else {
-            alternatives
+    let alternatives = if alternatives.is_empty() {
+        vec![]
+    } else {
+        alternatives
                 .into_iter()
                 .map(|(name, feast)| view! {
                     <a
@@ -443,17 +446,14 @@ fn Listing(
                     </a>
                 })
                 .collect()
-        };
+    };
 
-        Some(view! {
-            <div class="main-listing">
-                <a class="day-name" href=move || format!("/{}/readings/eucharist/?date={}-{}-{}", locale.get(), year, month, day)>{day_name}</a>
-                {transferred}
-                {alternatives}
-            </div>
-        })
-    } else {
-        None
+    view! {
+        <div class="main-listing">
+            <a class="day-name" href=move || format!("/{}/readings/eucharist/?date={}-{}-{}", locale.get(), year, month, day)>{day_name}</a>
+            {transferred}
+            {alternatives}
+        </div>
     }
 }
 

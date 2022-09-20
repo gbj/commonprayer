@@ -14,6 +14,7 @@ pub use office::*;
 use leptos::*;
 
 use crate::{
+    header::*,
     i18n::use_i18n,
     settings::use_display_settings,
     time::{get_timezone_offset, today},
@@ -48,59 +49,62 @@ pub fn readings_data(cx: Scope, _params: Memo<ParamsMap>, location: Location) ->
 }
 
 #[component]
-pub fn Readings(cx: Scope) -> Element {
+pub fn Readings(cx: Scope) -> Vec<Element> {
     let (display_settings, _) = use_display_settings(cx);
     let (t, _, _) = use_i18n(cx);
     let ReadingsData { date, version } = use_loader(cx);
 
     view! {
-        <main class=move || display_settings().to_class()>
-            // POST to download DOCX
-            <form method="POST">
-                <button type="submit">
-                    <img src=Icon::Download.to_string() alt=t("export-word")/>
-                </button>
-            </form>
+        <>
+            <Header label=t("daily-readings-title")></Header>
+            <main class=move || display_settings().to_class()>
+                // POST to download DOCX
+                <form method="POST">
+                    <button type="submit">
+                        <img src=Icon::Download.to_string() alt=t("export-word")/>
+                    </button>
+                </form>
 
-            // Change date
-            <Form>
-                <label class="stacked">
-                    {t("date")}
-                    <input
-                        type="date"
-                        name="date"
-                        value=move || date().to_padded_string()
-                        onchange="this.form.requestSubmit()"
-                    />
-                </label>
-                <label class="stacked">
-                    {t("settings-bible_version")}
-                    <select name="version"
-                        onchange="this.form.requestSubmit()"
+                // Change date
+                <Form>
+                    <label class="stacked">
+                        {t("date")}
+                        <input
+                            type="date"
+                            name="date"
+                            value=move || date().to_padded_string()
+                            onchange="this.form.requestSubmit()"
+                        />
+                    </label>
+                    <label class="stacked">
+                        {t("settings-bible_version")}
+                        <select name="version"
+                            onchange="this.form.requestSubmit()"
+                        >
+                            <BibleVersionOptions version />
+                        </select>
+                    </label>
+                </Form>
+
+                // Select category of readings
+                <div class="toggle-links">
+                    <NavLink to=move || format!("office/?date={}&version={}", date(), version())
                     >
-                        <BibleVersionOptions version />
-                    </select>
-                </label>
-            </Form>
+                        {t("toc-daily_office")}
+                    </NavLink>
+                    <NavLink to=move || format!("eucharist/?date={}&version={}", date(), version())
+                    >
+                        {t("toc-holy_eucharist")}
+                    </NavLink>
+                    <NavLink to=move || format!("holy-day/?date={}&version={}", date(), version())
+                    >
+                        {t("toc-holy_days")}
+                    </NavLink>
+                </div>
 
-            // Select category of readings
-            <div class="toggle-links">
-                <NavLink to=move || format!("office/?date={}&version={}", date(), version())
-                >
-                    {t("toc-daily_office")}
-                </NavLink>
-                <NavLink to=move || format!("eucharist/?date={}&version={}", date(), version())
-                >
-                    {t("toc-holy_eucharist")}
-                </NavLink>
-                <NavLink to=move || format!("holy-day/?date={}&version={}", date(), version())
-                >
-                    {t("toc-holy_days")}
-                </NavLink>
-            </div>
-
-            <Outlet/>
-        </main>
+                <Outlet/>
+            </main>
+        </>
     }
 }
 

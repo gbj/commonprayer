@@ -58,13 +58,10 @@ fn Layout(cx: Scope) -> impl IntoChild {
     set_locale(&params.get("lang").cloned().unwrap_or_else(|| "en".into()));
 
     view! {
-        <>
+        <div class="Layout">
             <Menu/>
-            <Header/>
-            <main>
-                <Outlet/>
-            </main>
-        </>
+            <div class="Layout-outlet"><Outlet/></div>
+        </div>
     }
 }
 

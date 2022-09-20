@@ -1,4 +1,6 @@
+use crate::header::*;
 use crate::i18n::use_i18n;
+use crate::i18n_args;
 use crate::icon::Icon;
 use crate::settings::use_display_settings;
 use crate::{document::psalm::*, fetch::fetch};
@@ -66,8 +68,8 @@ pub fn psalter_data(cx: Scope, _params: Memo<ParamsMap>, location: Location) -> 
 }
 
 #[component]
-pub fn Psalter(cx: Scope) -> Element {
-    let (t, _, _) = use_i18n(cx);
+pub fn Psalter(cx: Scope) -> Vec<Element> {
+    let (t, t_with_args, _) = use_i18n(cx);
     let PsalterData {
         number,
         version,
@@ -76,31 +78,34 @@ pub fn Psalter(cx: Scope) -> Element {
     let (display_settings, _) = use_display_settings(cx);
 
     view! {
-        <main class=move || display_settings.get().to_class()>
-            <nav class="Psalter-nav">
-                // Prev Psalm
-                {move || (number() > 1).then(|| view! { <Link to=move || format!("?number={}&version={:?}", number() - 1, version())>
-                    <img src=Icon::Left.to_string() alt=move || t("psalm-prev")/>
-                </Link>})}
+        <>
+            <Header label=move || t_with_args("daily-readings-psalm", &i18n_args!("number" => number()))></Header>
+            <main class=move || display_settings.get().to_class()>
+                <nav class="Psalter-nav">
+                    // Prev Psalm
+                    {move || (number() > 1).then(|| view! { <Link to=move || format!("?number={}&version={:?}", number() - 1, version())>
+                        <img src=Icon::Left.to_string() alt=move || t("psalm-prev")/>
+                    </Link>})}
 
-                // Psalm header (can be edited)
-                <Form>
-                    <input name="version" type="hidden" value=move || version.get().to_string()/>
-                    <h2 class="Psalter-nav-form-title">
-                        <label for="number">{t("lectionary-psalm")}</label>
-                        <input class="Psalter-nav-form-input" name="number" id="number" type="text" value=number() prop:value=number />
-                    </h2>
-                </Form>
+                    // Psalm header (can be edited)
+                    <Form>
+                        <input name="version" type="hidden" value=move || version.get().to_string()/>
+                        <h2 class="Psalter-nav-form-title">
+                            <label for="number">{t("lectionary-psalm")}</label>
+                            <input class="Psalter-nav-form-input" name="number" id="number" type="text" value=number() prop:value=number />
+                        </h2>
+                    </Form>
 
-                // Next Psalm
-                {move || (number() < 150).then(|| view ! { <Link to=move || format!("?number={}&version={:?}", number() + 1, version())>
-                    <img src=Icon::Right.to_string() alt=move || t("psalm-next")/>
-                </Link> })}
-            </nav>
-            {move || psalm.read().map(|psalm| match psalm {
-                Err(_) => view! { <p class="error">{t("psalm-error")}</p> },
-                Ok(psalm) => view! { <Psalm psalm/> }
-            })}
-        </main>
+                    // Next Psalm
+                    {move || (number() < 150).then(|| view ! { <Link to=move || format!("?number={}&version={:?}", number() + 1, version())>
+                        <img src=Icon::Right.to_string() alt=move || t("psalm-next")/>
+                    </Link> })}
+                </nav>
+                {move || psalm.read().map(|psalm| match psalm {
+                    Err(_) => view! { <p class="error">{t("psalm-error")}</p> },
+                    Ok(psalm) => view! { <Psalm psalm/> }
+                })}
+            </main>
+        </>
     }
 }

@@ -1,32 +1,35 @@
+// Based on dioxus: https://github.com/DioxusLabs/dioxus/blob/03973f692e89f230eae5b8d7ce0579d3b2b34958/packages/core-macro/src/inlineprops.rs
+
 use leptos::*;
 
-use crate::i18n::use_i18n;
+pub trait IntoLabel {
+    fn into_label(self) -> Box<dyn Fn() -> String>;
+}
 
-pub fn set_title(cx: Scope, title: impl std::fmt::Display) {
-    match use_context::<HeaderContext>(cx) {
-        None => {
-            log::warn!("use_title() called without a <Header/>");
-        }
-        Some(ctx) => {
-            let HeaderContext { set_title, .. } = ctx;
-            set_title.update(|n| *n = title.to_string());
-        }
+impl IntoLabel for String {
+    fn into_label(self) -> Box<dyn Fn() -> String> {
+        Box::new(move || self.clone())
     }
 }
 
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub struct HeaderContext {
-    pub title: ReadSignal<String>,
-    pub set_title: WriteSignal<String>,
+impl<F> IntoLabel for F
+where
+    F: Fn() -> String + 'static,
+{
+    fn into_label(self) -> Box<dyn Fn() -> String> {
+        Box::new(self)
+    }
 }
 
 #[component]
-pub fn Header(cx: Scope) -> Element {
-    let (t, _, _) = use_i18n(cx);
-    let (title, set_title) = create_signal(cx, t("common_prayer"));
-    provide_context(cx, HeaderContext { title, set_title });
-
+pub fn Header<L>(cx: Scope, children: Option<Box<dyn Fn() -> Vec<Element>>>, label: L) -> Element
+where
+    L: IntoLabel,
+{
     view! {
-        <header class="Header"><h1>{title}</h1></header>
+        <header class="Header">
+            <h1>{label.into_label()}</h1>
+            {children.map(|children| view! { <div class="Header-buttons">{children()}</div> })}
+        </header>
     }
 }

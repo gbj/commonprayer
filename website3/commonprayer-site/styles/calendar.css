@@ -161,10 +161,22 @@ ul.black-letter-days a {
 }
 
 /* Navigation/Settings Controls */
-.controls {
+.Calendar-controls {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	width: 100%;
+}
+
+.Calendar-controls form {
+	margin: 0;
+}
+
+.Calendar-controls input[type=submit] {
+	background: none;
+	border: none;
+	color: var(--link-color);
+	text-decoration: underline;
 }
 
 legend {
