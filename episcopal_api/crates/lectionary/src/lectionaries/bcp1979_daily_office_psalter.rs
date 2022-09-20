@@ -1349,7 +1349,7 @@ pub const BCP1979_DAILY_OFFICE_PSALTER: Lectionary = Lectionary {
 		(LiturgicalDayId::Feast(Feast::MaryMagdalene), Year::Any, ReadingType::MorningPsalm, "Psalm 116"),
 		(LiturgicalDayId::Feast(Feast::MaryMagdalene), Year::Any, ReadingType::EveningPsalm, "Psalm 30"),
 		(LiturgicalDayId::Feast(Feast::MaryMagdalene), Year::Any, ReadingType::EveningPsalm, "Psalm 149"),
-		(LiturgicalDayId::Feast(Feast::Matthew), Year::Any, ReadingType::EveningPsalm, "Psalm 119:41-64"),
+		(LiturgicalDayId::Feast(Feast::Matthew), Year::Any, ReadingType::MorningPsalm, "Psalm 119:41-64"),
 		(LiturgicalDayId::Feast(Feast::Matthew), Year::Any, ReadingType::EveningPsalm, "Psalm 19"),
 		(LiturgicalDayId::Feast(Feast::Matthew), Year::Any, ReadingType::EveningPsalm, "Psalm 112"),
 		(LiturgicalDayId::Feast(Feast::Matthias), Year::Any, ReadingType::MorningPsalm, "Psalm 80"),
