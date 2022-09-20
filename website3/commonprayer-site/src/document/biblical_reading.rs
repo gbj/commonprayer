@@ -53,6 +53,8 @@ pub fn BiblicalCitation(
     let (t, t_with_args, _) = use_i18n(cx);
     let (settings, _) = use_settings(cx);
     let bible_version = move || settings.with(|s| s.bible_version);
+
+    // TODO if on server, cache this
     let reading = create_resource(
         cx,
         {

@@ -56,10 +56,7 @@ where
         >
             <header class="Modal-header">
                 <form method="dialog"
-                    on:submit={
-                        let on_close = on_close.clone();
-                        move |_| { on_close() }
-                    }
+                    on:submit=move |_| on_close()
                 >
                     <button
                         class="Modal-header-close"
