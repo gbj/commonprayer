@@ -7,7 +7,7 @@ use leptos::Scope;
 pub struct TimezoneOffset(pub i32);
 
 #[cfg(feature = "csr")]
-pub fn get_timezone_offset(cx: Scope) -> TimezoneOffset {
+pub fn get_timezone_offset(_cx: Scope) -> TimezoneOffset {
     TimezoneOffset(crate::js_sys::Date::new_0().get_timezone_offset() as i32)
 }
 
