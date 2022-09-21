@@ -201,7 +201,7 @@ pub fn Calendar(cx: Scope) -> Vec<Element> {
                     <img src=Icon::Settings.to_string() alt=t("settings-title")/>
                 </button>
             </Header>
-            <main>
+            <main class="Calendar">
                 <Modal
                     open=settings_open
                     on_close=move || set_settings_open(|n| *n = false)

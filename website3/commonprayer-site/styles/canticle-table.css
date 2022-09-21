@@ -1,0 +1,21 @@
+.CanticleTable-table {
+	border-collapse: collapse;
+}
+
+.CanticleTable-table tr {
+	vertical-align: top;
+}
+
+.CanticleTable-table tr td {
+	vertical-align: top;
+	padding: 0.25rem;
+}
+
+.CanticleTable-table tr.day>td {
+	border-top: 1rem solid;
+	border-color: var(--background);
+}
+
+.CanticleTable-table td.day-name {
+	font-weight: bold;
+}

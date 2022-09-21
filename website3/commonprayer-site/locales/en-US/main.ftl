@@ -145,6 +145,7 @@ canticle-swap-error = Something went wrong while loading canticle choices. Try a
 canticle-swap-close = Cancel
 canticle-swap-any = —
 
+canticle-table-title = Table of Suggested Canticles
 canticle-table-canticles_mp = Suggested Canticles at Morning Prayer
 canticle-table-canticles_ep = Suggested Canticles at Evening Prayer
 canticle-table-supplemental_materials = Supplemental Liturgical Materials and Rite II

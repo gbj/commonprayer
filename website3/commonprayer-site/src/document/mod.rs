@@ -2,6 +2,7 @@ use leptos::*;
 
 pub mod biblical_reading;
 pub mod psalm;
+pub mod reference;
 
 #[component]
 pub fn Document(cx: Scope, doc: liturgy::Document) -> Element {

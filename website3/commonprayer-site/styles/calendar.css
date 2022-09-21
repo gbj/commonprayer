@@ -1,55 +1,55 @@
-ul.other-notes,
-ul.black-letter-days {
+.Calendar ul.other-notes,
+.Calendar ul.black-letter-days {
 	list-style-type: none;
 	padding: 0;
 	font-size: 0.9rem;
 	margin: 0;
 }
 
-ul.other-notes {
+.Calendar ul.other-notes {
 	font-variant: small-caps;
 }
 
-ul.black-letter-days a {
+.Calendar ul.black-letter-days a {
 	color: var(--color);
 	font-style: italic;
 }
 
 /* Mobile/phone-size: calendar as rows */
 @media(max-width: 766px) {
-	.weekday-labels {
+	.Calendar .weekday-labels {
 		display: none;
 	}
 
-	.day {
+	.Calendar .day {
 		display: grid;
 		grid-template-areas: "number main other";
 		grid-template-columns: 2rem 1fr 4.5rem;
 		margin-bottom: 0.25rem;
 	}
 
-	.month-number {
+	.Calendar .month-number {
 		grid-area: number;
 	}
 
-	.day-name,
-	.alternative,
-	.black-letter-days,
-	.other-notes {
+	.Calendar .day-name,
+	.Calendar .alternative,
+	.Calendar .black-letter-days,
+	.Calendar .other-notes {
 		display: block;
 	}
 
-	.main-listing,
-	.black-letter-days {
+	.Calendar .main-listing,
+	.Calendar .black-letter-days {
 		grid-area: main;
 	}
 
-	.other-notes {
+	.Calendar .other-notes {
 		grid-area: other;
 		text-align: right;
 	}
 
-	.padding {
+	.Calendar .padding {
 		display: none;
 	}
 }
@@ -60,52 +60,52 @@ ul.black-letter-days a {
 		--main-width: 1000px;
 	}
 
-	h2 {
+	.Calendar h2 {
 		text-align: center;
 	}
 
-	.day.sunday>*,
-	.day>.month-number {
+	.Calendar .day.sunday>*,
+	.Calendar .day>.month-number {
 		padding: 0;
 	}
 
-	.weekday-label {
+	.Calendar .weekday-label {
 		text-align: center;
 		font-weight: bold;
 		margin: 1px;
 	}
 
-	.padding {
+	.Calendar .padding {
 		margin: 1px;
 	}
 
-	.day {
+	.Calendar .day {
 		border: 1px solid var(--border-color);
 		vertical-align: top;
 	}
 
-	.month {
+	.Calendar .month {
 		display: table;
 		border-collapse: collapse;
 		width: 100%;
 	}
 
-	.week,
-	.weekday-labels {
+	.Calendar .week,
+	.Calendar .weekday-labels {
 		display: table-row;
 	}
 
-	.week {
+	.Calendar .week {
 		background-color: var(--background);
 	}
 
-	.padding {
+	.Calendar .padding {
 		background-color: var(--season-lightest);
 	}
 
-	.day,
-	.weekday-label,
-	.padding {
+	.Calendar .day,
+	.Calendar .weekday-label,
+	.Calendar .padding {
 		display: table-cell;
 		padding: 0.5rem;
 		position: relative;
@@ -113,32 +113,28 @@ ul.black-letter-days a {
 		width: calc((var(--main-width) / 7) - 2px - 3rem);
 	}
 
-	.day,
-	.padding {
+	.Calendar .day,
+	.Calendar .padding {
 		height: calc((var(--main-width) / 7) - 2px - 3rem);
 	}
 
-	.day * {
+	.Calendar .day * {
 		display: block;
 		text-align: center;
 	}
 
-	a.alternative {
+	.Calendar a.alternative {
 		margin-top: 0.5rem;
 	}
 
-	body>main.lectionary.calendar {
-		width: calc(var(--main-width) - var(--menu-width));
-	}
-
-	ul.other-notes,
-	ul.black-letter-days {
+		.Calendar ul.other-notes,
+		 .Calendar ul.black-letter-days {
 		text-align: center;
 		display: block;
 		margin-top: 0.5rem;
 	}
 
-	ul.other-notes {
+		.Calendar ul.other-notes {
 		position: absolute;
 		bottom: 0;
 		height: 2rem;
@@ -146,12 +142,12 @@ ul.black-letter-days a {
 		width: calc(100% - 1rem);
 	}
 
-	.alternative {
+		 .Calendar .alternative {
 		display: block;
 	}
 
-	.day-name,
-	ul.black-letter-days a {
+		.Calendar .day-name,
+		.Calendar ul.black-letter-days a {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
@@ -179,7 +175,7 @@ ul.black-letter-days a {
 	text-decoration: underline;
 }
 
-legend {
+.Calendar legend {
 	display: block;
 	font-weight: bold;
 	margin: auto;

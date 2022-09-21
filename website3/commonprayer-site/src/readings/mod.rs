@@ -56,15 +56,15 @@ pub fn Readings(cx: Scope) -> Vec<Element> {
 
     view! {
         <>
-            <Header label=t("daily-readings-title")></Header>
-            <main class=move || display_settings().to_class()>
-                // POST to download DOCX
+            <Header label=t("daily-readings-title")>
+                // TODO POST to download DOCX
                 <form method="POST">
                     <button type="submit">
                         <img src=Icon::Download.to_string() alt=t("export-word")/>
                     </button>
                 </form>
-
+            </Header>
+            <main class=move || display_settings().to_class()>
                 // Change date
                 <Form>
                     <label class="stacked">

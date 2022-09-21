@@ -77,3 +77,10 @@
   grid-area: b;
   white-space: pre-wrap;
 }
+
+.reference {
+  display: block;
+  margin-left: auto;
+  font-size: var(--rubric-size);
+  text-align: right;
+}

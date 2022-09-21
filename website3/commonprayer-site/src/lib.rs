@@ -2,6 +2,7 @@
 #![feature(unboxed_closures)]
 
 mod calendar;
+mod canticle_table;
 mod document;
 mod fetch;
 mod header;
@@ -16,6 +17,7 @@ mod settings;
 mod time;
 
 use crate::calendar::*;
+use crate::canticle_table::*;
 use crate::header::*;
 use crate::home::*;
 use crate::menu::*;
@@ -40,6 +42,11 @@ pub fn App(cx: Scope) -> Element {
                                     <Route path="eucharist" element=|cx| view! { <EucharistReadings/> }/>
                                     <Route path="holy-day" element=|cx| view! { <HolyDayReadings/> }/>
                                     <Route path="" element=|cx| view! { <OfficeReadings/> }/>
+                                </Route>
+                                <Route path="canticle-table" element=|cx| view! { <CanticleTable/> }>
+                                    <Route path="eow" element=|cx| view! { <EOWTable/> }/>
+                                    <Route path="bcp" element=|cx| view! { <BCPTable/> }/>
+                                    <Route path="" element=|cx| view! { <BCPTable/> }/>
                                 </Route>
                                 <Route path="" element=|cx| view! { <Home/> }/>
                             </Route>
