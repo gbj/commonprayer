@@ -25,9 +25,12 @@ use crate::psalter::*;
 use crate::readings::*;
 use i18n::*;
 use leptos::*;
+use leptos_meta::MetaContext;
 
 #[component]
 pub fn App(cx: Scope) -> Element {
+    provide_context(cx, MetaContext::new());
+
     view! {
         <div id="root">
             <Localizer>
@@ -60,12 +63,15 @@ pub fn App(cx: Scope) -> Element {
 
 #[component]
 fn Layout(cx: Scope) -> impl IntoChild {
+    use leptos_meta::*;
+
     let params = use_params_map(cx);
-    let (_, _, set_locale) = use_i18n(cx);
+    let (t, _, set_locale) = use_i18n(cx);
     set_locale(&params.get("lang").cloned().unwrap_or_else(|| "en".into()));
 
     view! {
         <div class="Layout">
+            <Title formatter=(move |title| format!("{} - {}", title, t("common_prayer"))).into()/>
             <Menu/>
             <div class="Layout-outlet"><Outlet/></div>
         </div>

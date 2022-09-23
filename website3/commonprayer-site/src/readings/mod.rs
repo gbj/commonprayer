@@ -8,10 +8,10 @@ use calendar::Date;
 pub use eucharist::*;
 pub use holy_day::*;
 use language::Language;
+use leptos::*;
+use leptos_meta::*;
 use liturgy::Version;
 pub use office::*;
-
-use leptos::*;
 
 use crate::{
     header::*,
@@ -65,6 +65,7 @@ pub fn Readings(cx: Scope) -> Vec<Element> {
                 </form>
             </Header>
             <main class=move || display_settings().to_class()>
+                <Title text=t("daily-readings-title").into()/>
                 // Change date
                 <Form>
                     <label class="stacked">

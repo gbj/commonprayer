@@ -4,6 +4,7 @@ use calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId, Rank, Weekday};
 use itertools::Itertools;
 use language::Language;
 use leptos::*;
+use leptos_meta::*;
 use library::summary;
 
 use crate::{
@@ -202,6 +203,7 @@ pub fn Calendar(cx: Scope) -> Vec<Element> {
                 </button>
             </Header>
             <main class="Calendar">
+                <Title text=t("calendar").into()/>
                 <Modal
                     open=settings_open
                     on_close=move || set_settings_open(|n| *n = false)

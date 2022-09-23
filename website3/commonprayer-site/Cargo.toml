@@ -11,6 +11,7 @@ fluent-templates = "0.8"
 itertools = "0.10"
 gloo-net = { version = "0.2", optional = true }
 leptos = { path = "../../../leptos-new/leptos/leptos", features = ["csr"]}
+leptos_meta = { path = "../../../leptos-new/leptos/meta", features = ["csr"]}
 log = "0.4"
 reqwest = { version = "0.11", optional = true }
 serde = { version = "1", features = ["derive"] }

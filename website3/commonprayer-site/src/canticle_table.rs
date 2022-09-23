@@ -2,6 +2,7 @@ use crate::document::reference::*;
 use crate::header::*;
 use crate::i18n::*;
 use leptos::*;
+use leptos_meta::*;
 use liturgy::Source;
 
 #[component]
@@ -12,9 +13,10 @@ pub fn CanticleTable(cx: Scope) -> Vec<Element> {
         <>
             <Header label=t("canticle-table-title")/>
             <main class="CanticleTable">
+                <Title text=t("canticle-table-title").into()/>
                 <div class="toggle-links">
-                    <NavLink to="bcp">{{t("version-BCP1979")}}</NavLink>
-                    <NavLink to="eow">{{t("version-EOW")}}</NavLink>
+                    <NavLink to="" exact=true>{t("version-BCP1979")}</NavLink>
+                    <NavLink to="eow">{t("version-EOW")}</NavLink>
                 </div>
                 <Outlet/>
             </main>
@@ -247,7 +249,7 @@ pub fn EOWTable(cx: Scope) -> Element {
             }/>
             <details>
                 <summary>{t("canticle-table-please_note")}</summary>
-                <p>{t("canticle-table-eow_canticle-table-note")}</p>
+                <p>{t("canticle-table-eow_canticle_table_note")}</p>
             </details>
             <h3>{t("canticle-table-canticles_mp")}</h3>
             <h4>{t("canticle-table-supplemental_materials")}</h4>
