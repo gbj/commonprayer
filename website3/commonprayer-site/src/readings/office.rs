@@ -7,7 +7,6 @@ use liturgy::Version;
 use crate::{
     document::{biblical_reading::*, psalm::*},
     i18n::{use_i18n, use_language},
-    settings::use_settings,
     time::{get_timezone_offset, today},
 };
 
@@ -184,32 +183,6 @@ pub fn office_readings_data(
             morning_readings()
         }
     });
-
-    /* let summary = if evening {
-        summary.evening
-    } else {
-        summary.morning
-    };
-    let alternates = summary.alternate.as_ref().map(|alternate| {
-        (
-            summary.observed.localized_name.clone(),
-            alternate.localized_name.clone(),
-        )
-    });
-    let summary = if use_alternate {
-        summary.alternate.unwrap_or(summary.observed)
-    } else {
-        summary.observed
-    };
-
-    let readings = if evening {
-        evening_readings
-    } else {
-        morning_readings
-    }
-    .into_iter()
-    .map(|reading| ReadingLoader::new(&reading.citation, version, None))
-    .collect::<Vec<_>>(); */
 
     OfficeReadingsData {
         date,
