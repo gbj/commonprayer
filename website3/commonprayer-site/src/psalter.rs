@@ -42,39 +42,24 @@ async fn fetch_psalm((number, version): (u8, Version)) -> Result<Psalm, ()> {
     } */
 }
 
-pub fn psalter_data(cx: Scope, _params: Memo<ParamsMap>, location: Location) -> PsalterData {
-    let number = create_memo(cx, move |_| {
-        location
-            .query
+#[component]
+pub fn Psalter(cx: Scope) -> Vec<Element> {
+    let (t, t_with_args, _) = use_i18n(cx);
+    let query = use_query_map(cx);
+        let number = create_memo(cx, move |_| {
+            query
             .with(|q| q.get("number").and_then(|n| n.parse::<u8>().ok()))
             .unwrap_or(1)
     });
 
     let version = create_memo(cx, move |_| {
-        location
-            .query
+        query
             .with(|q| q.get("version").and_then(|v| v.parse::<Version>().ok()))
             .unwrap_or_default()
     });
 
-    // TODO move to server for bundle size
     let psalm = create_resource(cx, move || (number(), version()), fetch_psalm);
 
-    PsalterData {
-        number,
-        version,
-        psalm,
-    }
-}
-
-#[component]
-pub fn Psalter(cx: Scope) -> Vec<Element> {
-    let (t, t_with_args, _) = use_i18n(cx);
-    let PsalterData {
-        number,
-        version,
-        psalm,
-    } = use_loader(cx);
     let (display_settings, _) = use_display_settings(cx);
 
     view! {

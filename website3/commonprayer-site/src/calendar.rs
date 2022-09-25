@@ -6,6 +6,7 @@ use language::Language;
 use leptos::*;
 use leptos_meta::*;
 use library::summary;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     header::*,
@@ -22,16 +23,7 @@ pub struct CalendarDayQuery {
     blackletter: Option<String>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct CalendarData {
-    year: Memo<u16>,
-    month: Memo<u8>,
-    days: Memo<Vec<CalendarDayEntry>>,
-    using_lff: Memo<bool>,
-    show_black_letter: Memo<bool>,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct CalendarDayEntry {
     month: u8,
     day: u8,
@@ -41,61 +33,27 @@ pub struct CalendarDayEntry {
     other_notes: Vec<(Feast, String)>,
 }
 
-// TODO move to server?
-pub fn calendar_data(cx: Scope, _params: Memo<ParamsMap>, location: Location) -> CalendarData {
+// It's actually more WASM-efficient to run this on the client entirely than to deserialize the data
+fn calendar_days(
+    cx: Scope,
+    year: Memo<u16>,
+    month: Memo<u8>,
+    using_lff: Memo<bool>,
+    show_black_letter: Memo<bool>,
+) -> Memo<Vec<CalendarDayEntry>> {
     use calendar::{BCP1979_CALENDAR, LFF2018_CALENDAR};
 
-    let tz = get_timezone_offset(cx);
-    let yymm = move || {
-        location
-            .query
-            .with(|q| {
-                q.get("month").and_then(|month| {
-                    month.split_once('-').and_then(|(yyyy, mm)| {
-                        match (yyyy.parse::<u16>().ok(), mm.parse::<u8>().ok()) {
-                            (Some(y), Some(m)) => Some((y, m)),
-                            _ => None,
-                        }
-                    })
-                })
-            })
-            .unwrap_or_else(|| {
-                let today = today(&tz);
-                (today.year(), today.month())
-            })
-    };
-    let year = create_memo(cx, move |_| yymm().0);
-    let month = create_memo(cx, move |_| yymm().1);
-
-    // defaults to `true` unless ?calendar=bcp
-    let using_lff = create_memo(cx, move |_| {
-        location
-            .query
-            .with(|q| q.get("calendar").map(|cal| cal != "bcp"))
-            .unwrap_or(true)
-    });
-
-    // defaults to `true` unless ?blackletter=false
-    let show_black_letter = create_memo(cx, move |_| {
-        location
-            .query
-            .with(|q| q.get("blackletter").map(|bl| bl != "false"))
-            .unwrap_or(true)
-    });
-
-    let days = create_memo(cx, move |_| {
-        let locale = use_language(cx).get();
-
-        let day_1 = Date::from_ymd(year(), month(), 1);
-
+    create_memo(cx, move |_| {
         let calendar = if using_lff() {
             LFF2018_CALENDAR
         } else {
             BCP1979_CALENDAR
         };
 
+        let locale = use_language(cx).get();
         let language = Language::from_locale(&locale);
 
+        let day_1 = Date::from_ymd(year(), month(), 1);
         (0..=31)
             .filter_map(|offset| {
                 let current_date = day_1.add_days(offset);
@@ -178,22 +136,43 @@ pub fn calendar_data(cx: Scope, _params: Memo<ParamsMap>, location: Location) ->
                 }
             })
             .collect()
-    });
-
-    CalendarData {
-        year,
-        month,
-        days,
-        using_lff,
-        show_black_letter,
-    }
+    })
 }
 
 #[component]
 pub fn Calendar(cx: Scope) -> Vec<Element> {
     let (t, _, _) = use_i18n(cx);
-    let data = use_loader::<CalendarData>(cx);
     let (settings_open, set_settings_open) = create_signal(cx, false);
+
+    let query = use_query_map(cx);
+    let tz = get_timezone_offset(cx);
+    let yymm = move || {
+        query
+            .with(|q| {
+                q.get("month").and_then(|month| {
+                    month.split_once('-').and_then(|(yyyy, mm)| {
+                        match (yyyy.parse::<u16>().ok(), mm.parse::<u8>().ok()) {
+                            (Some(y), Some(m)) => Some((y, m)),
+                            _ => None,
+                        }
+                    })
+                })
+            })
+            .unwrap_or_else(|| {
+                let today = today(&tz);
+                (today.year(), today.month())
+            })
+    };
+    let year = create_memo(cx, move |_| yymm().0);
+    let month = create_memo(cx, move |_| yymm().1);
+    // defaults to `true` unless ?calendar=bcp
+    let using_lff = create_memo(cx, move |_| {
+        query.with(|q| q.get("calendar").map(|cal| cal != "bcp").unwrap_or(true))
+    });
+    // defaults to `true` unless ?blackletter=false
+    let show_black_letter = create_memo(cx, move |_| {
+        query.with(|q| q.get("blackletter").map(|bl| bl != "false").unwrap_or(true))
+    });
 
     view! {
         <>
@@ -211,34 +190,34 @@ pub fn Calendar(cx: Scope) -> Vec<Element> {
                     <Form>
                         <label class="stacked">
                             {t("calendar-month")}
-                            <input type="month" name="month" value=move || format!("{:04}-{:02}", (data.year)(), (data.month)())/>
+                            <input type="month" name="month" value=move || format!("{:04}-{:02}", year(), month())/>
                         </label>
                         // Black Letter Days
                         <fieldset class="horizontal">
                             <legend>{t("menu-calendar")}</legend>
                             <label class="horizontal">
                                 {t("bcp_1979")}
-                                <input type="radio" name="calendar" value="bcp" checked=move || !(data.using_lff)() />
+                                <input type="radio" name="calendar" value="bcp" checked=move || !using_lff() />
                             </label>
                             <label class="horizontal">
                                 {t("lff_2018")}
-                                <input type="radio" name="calendar" value="lff" checked=move || (data.using_lff)() />
+                                <input type="radio" name="calendar" value="lff" checked=using_lff />
                             </label>
                         </fieldset>
                         // Black Letter Days
                         <label class="horizontal">
                             {t("calendar-omit_black_letter")}
-                            <input type="checkbox" name="blackletter" value="false" checked=move || !(data.show_black_letter)() />
+                            <input type="checkbox" name="blackletter" value="false" checked=move || !show_black_letter() />
                         </label>
                         <input type="submit" slot="close-button" data-modal-close="settings" value=t("settings-submit")/>
                     </Form>
                 </Modal>
                 <div class="Calendar-controls">
-                    <AdjacentMonth increase=false/>
-                    <h2>{move || t(&format!("lectionary-month_{}", (data.month)()))}</h2>
-                    <AdjacentMonth increase=true/>
+                    <AdjacentMonth year month using_lff show_black_letter increase=false/>
+                    <h2>{move || t(&format!("lectionary-month_{}", month()))}</h2>
+                    <AdjacentMonth year month using_lff show_black_letter  increase=true/>
                 </div>
-                <time class="month" datetime=move || format!("{}-{:02}", (data.year)(), (data.month)())>
+                <time class="month" datetime=move || format!("{}-{:02}", year(), month())>
                     <div class="weekday-labels">
                         <div class="weekday-label">{t("canticle-table-sunday_abbrev")}</div>
                         <div class="weekday-label">{t("canticle-table-monday_abbrev")}</div>
@@ -248,7 +227,7 @@ pub fn Calendar(cx: Scope) -> Vec<Element> {
                         <div class="weekday-label">{t("canticle-table-friday_abbrev")}</div>
                         <div class="weekday-label">{t("canticle-table-saturday_abbrev")}</div>
                     </div>
-                    <Weeks/>
+                    <Weeks year month using_lff show_black_letter />
                 </time>
             </main>
         </>
@@ -256,34 +235,40 @@ pub fn Calendar(cx: Scope) -> Vec<Element> {
 }
 
 #[component]
-fn AdjacentMonth(cx: Scope, increase: bool) -> Element {
+fn AdjacentMonth(
+    cx: Scope,
+    year: Memo<u16>,
+    month: Memo<u8>,
+    using_lff: Memo<bool>,
+    show_black_letter: Memo<bool>,
+    increase: bool,
+) -> Element {
     let (t, _, _) = use_i18n(cx);
-    let curr = use_loader::<CalendarData>(cx);
 
     let year = move || {
-        if (curr.month)() == 1 && !increase {
-            (curr.year)() - 1
-        } else if (curr.month)() == 12 && increase {
-            (curr.year)() + 1
+        if (month)() == 1 && !increase {
+            (year)() - 1
+        } else if (month)() == 12 && increase {
+            (year)() + 1
         } else {
-            (curr.year)()
+            (year)()
         }
     };
 
     let month = move || {
-        if (curr.month)() == 1 && !increase {
+        if (month)() == 1 && !increase {
             12
-        } else if (curr.month)() == 12 && increase {
+        } else if (month)() == 12 && increase {
             1
         } else if !increase {
-            (curr.month)() - 1
+            (month)() - 1
         } else {
-            (curr.month)() + 1
+            (month)() + 1
         }
     };
 
     let calendar = move || {
-        if (curr.using_lff)() {
+        if (using_lff)() {
             Some("lff2018".to_string())
         } else {
             None
@@ -291,7 +276,7 @@ fn AdjacentMonth(cx: Scope, increase: bool) -> Element {
     };
 
     let blackletter = move || {
-        if (curr.show_black_letter)() {
+        if (show_black_letter)() {
             None
         } else {
             Some("false".to_string())
@@ -299,14 +284,14 @@ fn AdjacentMonth(cx: Scope, increase: bool) -> Element {
     };
 
     let label = move || {
-        if increase && (curr.month)() == 12 {
-            format!("{} {}", t("lectionary-month_1"), (curr.year)() + 1)
+        if increase && (month)() == 12 {
+            format!("{} {}", t("lectionary-month_1"), (year)() + 1)
         } else if increase {
-            t(&format!("lectionary-month_{}", (curr.month)() + 1))
-        } else if (curr.month)() == 1 {
-            format!("{} {}", t("lectionary-month_12"), (curr.year)() - 1)
+            t(&format!("lectionary-month_{}", (month)() + 1))
+        } else if (month)() == 1 {
+            format!("{} {}", t("lectionary-month_12"), (year)() - 1)
         } else {
-            t(&format!("lectionary-month_{}", (curr.month)() - 1))
+            t(&format!("lectionary-month_{}", (month)() - 1))
         }
     };
 
@@ -321,12 +306,18 @@ fn AdjacentMonth(cx: Scope, increase: bool) -> Element {
 }
 
 #[component]
-fn Weeks(cx: Scope) -> impl IntoChild {
-    let data = use_loader::<CalendarData>(cx);
+fn Weeks(
+    cx: Scope,
+    year: Memo<u16>,
+    month: Memo<u8>,
+    using_lff: Memo<bool>,
+    show_black_letter: Memo<bool>,
+) -> impl IntoChild {
+    let data = calendar_days(cx, year, month, using_lff, show_black_letter);
     move || {
-        let year = (data.year)();
-        data.days.with(|days| {
-            let padding_days = Date::from_ymd(year, (data.month)(), 1)
+        let year = year();
+        data.with(|days| {
+            let padding_days = Date::from_ymd(year, month(), 1)
                 .weekday()
                 .num_days_from_sunday();
 

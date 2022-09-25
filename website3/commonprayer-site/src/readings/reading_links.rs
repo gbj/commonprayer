@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::i18n::use_i18n;
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 pub struct ReadingLinks {
     morning_psalms: Vec<String>,
     evening_psalms: Vec<String>,
@@ -98,7 +98,7 @@ pub fn LinksView(cx: Scope, links: Box<dyn Fn() -> Vec<String>>, evening: bool) 
     view! {
         <ul>
             <For each=links key=|v| v.clone()>
-            {move |cx, citation: &String| {
+            {move |cx: Scope, citation: &String| {
                 let c = citation.clone();
                 view! {
                     <li>

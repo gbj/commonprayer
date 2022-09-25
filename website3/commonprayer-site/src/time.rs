@@ -6,16 +6,22 @@ use leptos::Scope;
 #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub struct TimezoneOffset(pub i32);
 
-#[cfg(feature = "csr")]
+#[cfg(any(feature = "csr", feature = "hydrate"))]
 pub fn get_timezone_offset(_cx: Scope) -> TimezoneOffset {
     TimezoneOffset(crate::js_sys::Date::new_0().get_timezone_offset() as i32)
+}
+
+#[cfg(feature = "ssr")]
+pub fn get_timezone_offset(_cx: Scope) -> TimezoneOffset {
+    // TODO real timezone offset from user
+    TimezoneOffset(0)
 }
 
 pub fn today(tzoffset: &TimezoneOffset) -> Date {
     Date::parse_from_str(&input_date_now(tzoffset), "%Y-%m-%d").unwrap()
 }
 
-#[cfg(feature = "csr")]
+#[cfg(any(feature = "csr", feature = "hydrate"))]
 pub fn input_date_now(_tzoffset: &TimezoneOffset) -> String {
     let now = crate::js_sys::Date::new_0();
     format!(

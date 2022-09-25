@@ -140,9 +140,9 @@ where
     H: ToHref + 'static,
 {
     let params = use_params_map(cx);
-    let locale_in_path = params.get("lang").cloned();
+    let locale_in_path = move || params.with(|p| p.get("lang").cloned());
     let localized_href = move || {
-        if locale_in_path.is_some() {
+        if locale_in_path().is_some() {
             props.to.to_href()()
         } else {
             format!("/en/{}", props.to.to_href()())

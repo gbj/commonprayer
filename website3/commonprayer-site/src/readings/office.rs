@@ -3,6 +3,7 @@ use language::Language;
 use lectionary::Reading;
 use leptos::*;
 use liturgy::Version;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     document::{biblical_reading::*, psalm::*},
@@ -12,177 +13,130 @@ use crate::{
 
 use super::reading_links::*;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct OfficeReadingsData {
-    date: Memo<Date>,
-    version: Memo<Version>,
-    evening: Memo<bool>,
-    use_lff: Memo<bool>,
-    use_thirty: Memo<bool>,
-    use_alternate: Memo<bool>,
-    reading_links: Memo<ReadingLinks>,
-    alternates: Memo<Option<(String, String)>>,
-    psalms: Memo<Vec<liturgy::Psalm>>,
-    readings: Memo<Vec<Reading>>,
+    date: Date,
+    version: Version,
+    evening: bool,
+    use_lff: bool,
+    use_thirty: bool,
+    use_alternate: bool,
+    reading_links: ReadingLinks,
+    alternates: Option<(String, String)>,
+    psalms: Vec<liturgy::Psalm>,
+    readings: Vec<Reading>,
 }
 
-pub fn office_readings_data(
-    cx: Scope,
-    _params: Memo<ParamsMap>,
-    location: Location,
-) -> OfficeReadingsData {
+pub async fn office_readings_data(cx: Scope, _params: ParamsMap, url: Url) -> OfficeReadingsData {
     // Reactive query params
     let tzoffset = get_timezone_offset(cx);
 
-    let date = create_memo(cx, move |_| {
-        location.query.with(|q| {
-            q.get("date")
-                .and_then(|date| date.parse::<Date>().ok())
-                .unwrap_or_else(|| today(&tzoffset))
-        })
-    });
+    let q = url.search_params();
 
-    let version = create_memo(cx, move |_| {
-        location.query.with(|q| {
-            q.get("version")
-                .and_then(|version| version.parse::<Version>().ok())
-                .unwrap_or(Version::NRSV)
-        })
-    });
+    let date = q
+        .get("date")
+        .and_then(|date| date.parse::<Date>().ok())
+        .unwrap_or_else(|| today(&tzoffset));
 
-    let evening = create_memo(cx, move |_| {
-        location.query.with(|q| {
-            q.get("time")
-                .map(|value| value == "evening")
-                .unwrap_or(false)
-        })
-    });
+    let version = q
+        .get("version")
+        .and_then(|version| version.parse::<Version>().ok())
+        .unwrap_or(Version::NRSV);
 
-    let use_lff = create_memo(cx, move |_| {
-        location.query.with(|q| {
-            q.get("calendar")
-                .map(|value| value == "lff")
-                .unwrap_or(false)
-        })
-    });
+    let evening = q
+        .get("time")
+        .map(|value| value == "evening")
+        .unwrap_or(false);
 
-    let use_thirty = create_memo(cx, move |_| {
-        location
-            .query
-            .with(|q| q.get("psalms").map(|value| value == "30").unwrap_or(false))
-    });
+    let use_lff = q
+        .get("calendar")
+        .map(|value| value == "lff")
+        .unwrap_or(false);
 
-    let use_alternate = create_memo(cx, move |_| {
-        location.query.with(|q| {
-            q.get("alternate")
-                .map(|value| value == "yes")
-                .unwrap_or(false)
-        })
-    });
+    let use_thirty = q.get("psalms").map(|value| value == "30").unwrap_or(false);
+
+    let use_alternate = q
+        .get("alternate")
+        .map(|value| value == "yes")
+        .unwrap_or(false);
 
     // Data
-    // TODO: server side for bundle size
     let language = move || Language::from_locale(&use_language(cx)());
-    let summary = create_memo(cx, move |_| {
-        library::CommonPrayer::daily_office_summary(&date(), language())
-    });
+    let summary = library::CommonPrayer::daily_office_summary(&date, language());
 
-    let morning_psalms = move || {
-        summary.with(|summary| {
-            if use_thirty() {
-                summary.morning.thirty_day_psalms.clone()
-            } else if use_alternate() {
-                summary
-                    .morning
-                    .alternate
-                    .as_ref()
-                    .unwrap_or(&summary.morning.observed)
-                    .daily_office_psalms
-                    .clone()
-            } else {
-                summary.morning.observed.daily_office_psalms.clone()
-            }
-        })
+    let morning_psalms = if use_thirty {
+        summary.morning.thirty_day_psalms.clone()
+    } else if use_alternate {
+        summary
+            .morning
+            .alternate
+            .as_ref()
+            .unwrap_or(&summary.morning.observed)
+            .daily_office_psalms
+            .clone()
+    } else {
+        summary.morning.observed.daily_office_psalms.clone()
     };
 
-    let evening_psalms = move || {
-        summary.with(|summary| {
-            if use_thirty() {
-                summary.evening.thirty_day_psalms.clone()
-            } else if use_alternate() {
-                summary
-                    .evening
-                    .alternate
-                    .as_ref()
-                    .unwrap_or(&summary.evening.observed)
-                    .daily_office_psalms
-                    .clone()
-            } else {
-                summary.evening.observed.daily_office_psalms.clone()
-            }
-        })
+    let evening_psalms = if use_thirty {
+        summary.evening.thirty_day_psalms.clone()
+    } else if use_alternate {
+        summary
+            .evening
+            .alternate
+            .as_ref()
+            .unwrap_or(&summary.evening.observed)
+            .daily_office_psalms
+            .clone()
+    } else {
+        summary.evening.observed.daily_office_psalms.clone()
     };
 
-    let psalms = create_memo(cx, move |_| {
-        // Morning
-        if !evening() {
-            morning_psalms()
-        }
-        // Evening
-        else {
-            evening_psalms()
-        }
-    });
-    let alternates = create_memo(cx, |_| None);
+    // TODO
+    let alternates = None;
 
-    let morning_readings = move || {
-        summary.with(|summary| {
-            if use_alternate() {
-                summary
-                    .morning
-                    .alternate
-                    .as_ref()
-                    .unwrap_or(&summary.morning.observed)
-                    .daily_office_readings
-                    .clone()
-            } else {
-                summary.morning.observed.daily_office_readings.clone()
-            }
-        })
+    let morning_readings = if use_alternate {
+        summary
+            .morning
+            .alternate
+            .as_ref()
+            .unwrap_or(&summary.morning.observed)
+            .daily_office_readings
+            .clone()
+    } else {
+        summary.morning.observed.daily_office_readings.clone()
     };
 
-    let evening_readings = move || {
-        summary.with(|summary| {
-            if use_alternate() {
-                summary
-                    .evening
-                    .alternate
-                    .as_ref()
-                    .unwrap_or(&summary.evening.observed)
-                    .daily_office_readings
-                    .clone()
-            } else {
-                summary.evening.observed.daily_office_readings.clone()
-            }
-        })
+    let evening_readings = if use_alternate {
+        summary
+            .evening
+            .alternate
+            .as_ref()
+            .unwrap_or(&summary.evening.observed)
+            .daily_office_readings
+            .clone()
+    } else {
+        summary.evening.observed.daily_office_readings.clone()
     };
 
-    let reading_links = create_memo(cx, move |_| {
-        reading_links(
-            &morning_readings(),
-            &evening_readings(),
-            &morning_psalms(),
-            &evening_psalms(),
-        )
-    });
+    let reading_links = reading_links(
+        &morning_readings,
+        &evening_readings,
+        &morning_psalms,
+        &evening_psalms,
+    );
 
-    let readings = create_memo(cx, move |_| {
-        if evening() {
-            evening_readings()
-        } else {
-            morning_readings()
-        }
-    });
+    let readings = if evening {
+        evening_readings
+    } else {
+        morning_readings
+    };
+
+    let psalms = if evening {
+        evening_psalms
+    } else {
+        morning_psalms
+    };
 
     OfficeReadingsData {
         date,
@@ -201,18 +155,67 @@ pub fn office_readings_data(
 #[component]
 pub fn OfficeReadings(cx: Scope) -> Element {
     let (t, _, _) = use_i18n(cx);
-    let OfficeReadingsData {
-        date,
-        version,
-        evening,
-        use_lff,
-        use_alternate,
-        use_thirty,
-        alternates,
-        psalms,
-        reading_links,
-        readings,
-    } = use_loader(cx);
+    let data = use_loader::<OfficeReadingsData>(cx);
+
+    let tzoffset = get_timezone_offset(cx);
+    let query = use_query_map(cx);
+    let date = create_memo(cx, move |_| {
+        query.with(|q| {
+            q.get("date")
+                .and_then(|date| date.parse::<Date>().ok())
+                .unwrap_or_else(|| today(&tzoffset))
+        })
+    });
+
+    let version = create_memo(cx, move |_| {
+        query.with(|q| {
+            q.get("version")
+                .and_then(|version| version.parse::<Version>().ok())
+                .unwrap_or(Version::NRSV)
+        })
+    });
+
+    let evening = create_memo(cx, move |_| {
+        query.with(|q| {
+            q.get("time")
+                .map(|value| value == "evening")
+                .unwrap_or(false)
+        })
+    });
+
+    let use_lff = create_memo(cx, move |_| {
+        query.with(|q| {
+            q.get("calendar")
+                .map(|value| value == "lff")
+                .unwrap_or(false)
+        })
+    });
+
+    let use_thirty = create_memo(cx, move |_| {
+        query.with(|q| q.get("psalms").map(|value| value == "30").unwrap_or(false))
+    });
+
+    let use_alternate = create_memo(cx, move |_| {
+        query.with(|q| {
+            q.get("alternate")
+                .map(|value| value == "yes")
+                .unwrap_or(false)
+        })
+    });
+
+    let reading_links = create_memo(cx, move |_| {
+        data.read()
+            .map(|data| data.reading_links)
+            .unwrap_or_default()
+    });
+
+    let psalms = create_memo(cx, move |_| {
+        data.read().map(|d| d.psalms).unwrap_or_default()
+    });
+
+    let readings = create_memo(cx, move |_| {
+        data.read().map(|d| d.readings).unwrap_or_default()
+    });
 
     view! {
         <div>
@@ -240,7 +243,8 @@ pub fn OfficeReadings(cx: Scope) -> Element {
                     <input id="30" type="radio" name="psalms" value="30" checked=use_thirty onchange="this.form.requestSubmit()"/>
                     <label for="30">{t("daily-readings-thirty_day_psalms")}</label>
                 </fieldset>
-                <div>
+                // TODO alternates
+                /* <div>
                     {move || alternates().as_ref().map(|(observed, alternate)| {
                         view! {
                             <fieldset class="toggle">
@@ -251,7 +255,7 @@ pub fn OfficeReadings(cx: Scope) -> Element {
                             </fieldset>
                         }
                     })}
-                </div>
+                </div> */
             </Form>
 
             // Reading Links
@@ -261,7 +265,7 @@ pub fn OfficeReadings(cx: Scope) -> Element {
             <section>
                 <h2>{t("daily-readings-psalms")}</h2>
                 <For each=psalms key=|psalm| psalm.number>
-                {|cx, psalm: &liturgy::Psalm|  view! {
+                {|cx: Scope, psalm: &liturgy::Psalm|  view! {
                     <Psalm psalm=psalm.clone()/>
                 }}
                 </For>
@@ -271,7 +275,7 @@ pub fn OfficeReadings(cx: Scope) -> Element {
             <section>
                 <h2>{t("daily-readings-readings")}</h2>
                 <For each=readings key=|reading| reading.citation.clone()>
-                    {|cx, reading: &Reading| view! {
+                    {|cx: Scope, reading: &Reading| view! {
                         <div>
                             <a id=&reading.citation></a>
                             <BiblicalCitation citation=reading.citation.to_string()/>
