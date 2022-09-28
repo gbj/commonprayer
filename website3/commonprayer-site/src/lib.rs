@@ -9,6 +9,7 @@ mod header;
 mod home;
 mod i18n;
 mod icon;
+mod locales;
 mod menu;
 mod modal;
 mod psalter;
@@ -30,13 +31,16 @@ use leptos_meta::MetaContext;
 
 #[component]
 pub fn App(cx: Scope) -> Vec<Branch> {
+    let (locale, set_locale) = create_signal(cx, "en-US".to_string());
+    let locale = Locale(locale, set_locale);
+    provide_context::<Locale>(cx, locale);
     provide_context(cx, MetaContext::new());
 
     view! {
         <Routes>
             <Route path=":lang?" element=|cx| view! { <Layout/> }>
                 <Route path="calendar" element=|cx| view! { <Calendar/> }/>
-                <Route path="psalm" element=|cx| view! { <Psalter/> }/>
+                <Route path="psalm" element=|cx| view! { <Psalter/> } loader=psalter_data.into()/>
                 <Route path="readings" element=|cx| view! { <Readings/> }>
                     <Route path="office" element=|cx| view! { <OfficeReadings/> } loader=office_readings_data.into()/>
                     <Route path="eucharist" element=|cx| view! { <EucharistReadings/> }/>

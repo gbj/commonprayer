@@ -2,9 +2,9 @@ use crate::{
     document::{Document, DocumentProps, SmallCaps, SmallCapsProps},
     fetch::fetch,
     i18n::use_i18n,
-    i18n_args,
     settings::use_settings,
 };
+use common_macros::hash_map;
 use leptos::*;
 
 #[component]
@@ -81,7 +81,7 @@ pub fn BiblicalCitation(
                             let citation = citation.clone();
                             let intro = intro.clone();
                             move |res| match res {
-                                Err(_) => view! { <p class="error">{t_with_args("biblical-citation-error", &i18n_args!("citation" => citation))}</p> },
+                                Err(_) => view! { <p class="error">{t_with_args("biblical-citation-error", hash_map!("citation" => citation))}</p> },
                                 Ok(reading) => {
                                     let reading = reading.to_biblical_reading(&citation, &intro);
                                     view! { <BiblicalReading reading/> }
