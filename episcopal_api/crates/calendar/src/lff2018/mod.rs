@@ -30,7 +30,7 @@ pub const LFF2018_CALENDAR: Calendar = Calendar {
 };
 
 // Array of all observances listed in Lesser Feasts & Fasts (2018)
-pub const LFF2018_FEASTS: [KalendarEntry; 270] = [
+pub const LFF2018_FEASTS: [KalendarEntry; 269] = [
     (HolyDayId::Date(1, 1), Feast::HolyName, Time::AllDay, None),
     (
         HolyDayId::Date(1, 4),
@@ -893,12 +893,6 @@ pub const LFF2018_FEASTS: [KalendarEntry; 270] = [
     ),
     (HolyDayId::Date(8, 15), Feast::Mary, Time::AllDay, None),
     (
-        HolyDayId::Date(8, 18),
-        Feast::WilliamPorcherDubose,
-        Time::AllDay,
-        None,
-    ),
-    (
         HolyDayId::Date(8, 20),
         Feast::BernardOfClairvaux,
         Time::AllDay,
@@ -1423,7 +1417,7 @@ pub const LFF2018_FEASTS: [KalendarEntry; 270] = [
     ),
 ];
 
-pub const LFF2018_FEAST_NAMES: [(Feast, Language, &str, Status); 270] = [
+pub const LFF2018_FEAST_NAMES: [(Feast, Language, &str, Status); 269] = [
     (Feast::AbsalomJones, Language::En, "Absalom Jones, Priest, 1818", Status::Authorized),
 	(Feast::AdelaideTeagueCase, Language::En, "Adelaide Teague Case, Educator, 1948", Status::TrialUse),
 	(Feast::AelredOfRievaulx, Language::En, "Aelred of Rievaulx, Monastic and Theologian, 1167", Status::Authorized),
@@ -1684,7 +1678,6 @@ pub const LFF2018_FEAST_NAMES: [(Feast, Language, &str, Status); 270] = [
 	(Feast::WilliamAugustusMuhlenberg, Language::En, "William Augustus Muhlenberg, Priest, 1877", Status::Authorized),
 	(Feast::WilliamLaud, Language::En, "William Laud, Archbishop of Canterbury, 1645", Status::Authorized),
 	(Feast::WilliamLaw, Language::En, "William Law, Priest, 1761", Status::Authorized),
-	(Feast::WilliamPorcherDubose, Language::En, "William Porcher Dubose, Priest, 1918", Status::Authorized),
 	(Feast::WilliamReedHuntington, Language::En, "William Reed Huntington, Priest, 1909", Status::Authorized),
 	(Feast::WilliamTemple, Language::En, "William Temple, Archbishop of Canterbury, 1944", Status::Authorized),
 	(Feast::WilliamTyndale, Language::En, "William Tyndale, Priest, 1536", Status::Authorized),
@@ -1696,7 +1689,7 @@ pub const LFF2018_FEAST_NAMES: [(Feast, Language, &str, Status); 270] = [
 	(Feast::ZitaOfTuscany, Language::En, "Zita of Tuscany, Worker of Charity, 1271", Status::TrialUse),
 ];
 
-pub const LFF_BIOS: [(Feast, &str); 270] = [
+pub const LFF_BIOS: [(Feast, &str); 269] = [
     (
         Feast::AbsalomJones,
         "Absalom Jones was born enslaved to Abraham Wynkoop a wealthy Anglican planter in 1746 in Delaware. He was working in the fields when Abraham recognized that he was an intelligent child and ordered that he be trained to work in the house. Absalom eagerly accepted instruction in reading, and saved money he was given to buy books. Abraham Wynkoop died in 1753. When Absalom was sixteen, Abraham’s son Benjamin Wynkoop sold the plantation and Absalom’s mother, sister, and five brothers. He brought Absalom to Philadelphia where he opened a store and joined St. Peter’s Church. \n\nWith the permission of their masters, Absalom married Mary Thomas who was enslaved to Sarah King who also worshipped at St. Peter’s. Absalom and his father-in-law, John Thomas, used their savings, and sought donations and loans primarily from prominent Quakers, in order to purchase Mary’s freedom. Absalom and Mary worked hard to repay the money borrowed to buy her freedom. They saved enough money to buy property and to buy Absalom’s freedom. Although he repeatedly asked Benjamin Wynkoop to allow him to buy his freedom, Wynkoop had refused. Finally, in 1784, he freed Absalom by granting him a manumission. Absalom continued to work in Wynkoop’s store as a paid employee.\n\nAbsalom then left St. Peter’s Church and began worshipping at St. George’s Methodist Episcopal Church. He met Richard Allen who had been engaged to preach at St. George’s and the two became lifelong friends. Together, in 1787, they founded the Free African Society a mutual aid benevolent organization that was the first of its kind organized by and for black people. At St George’s, Absalom and Richard served as lay ministers for the black membership. The black members worked hard to help raise money to build an upstairs gallery intended to enlarge the church. The church leadership decided to segregate the black worshippers in the gallery, without notifying them. During a Sunday morning service, a dispute arose over the seats black members had been instructed to take in the gallery, and ushers attempted to physically remove them by first accosting Absalom Jones. Most of the black members indignantly walked out in protest.\n\nIn 1792 the Free African Society began to build the African Church of Philadelphia. The church membership took a vote and decided to affiliate with the Episcopal Church. Absalom Jones was asked to provide pastoral leadership and after prayer and reflection he accepted the call. The African Church was dedicated on July 17th, 1794. Soon thereafter the congregation applied for membership in the Episcopal Diocese of Pennsylvania on the following conditions: 1) that they be received as an organized body; 2) that they have control over their own local affairs; 3) that Absalom Jones be licensed as layreader, and, if qualified, be ordained as a priest. In October 1794 it was admitted as the African Episcopal Church of St Thomas. Bishop William White ordained Jones as deacon in 1795 and as priest on September 21st, 1802.\n\nJones was an earnest preacher. He denounced slavery, and warned the oppressors to “clean their hands of slaves.” To him, God was the Father, who always acted on “behalf of the oppressed and distressed.” But it was his constant visiting and mild manner that made him beloved by his congregation and by the community. St Thomas Church grew to over 500 members during its first year. Known as “the Black Bishop of the Episcopal Church,” Jones was an example of persistent faith in God and in the Church as God’s instrument. Jones died on February 13th, 1818.",
@@ -2736,10 +2729,6 @@ pub const LFF_BIOS: [(Feast, &str); 270] = [
     (
         Feast::WilliamLaw,
         "“If we are to follow Christ, it must be in our common way of spending every day. If we are to live unto God at any time or in any place, we are to live unto him in all times and in all places. If we are to use anything as the gift of God, we are to use everything as his gift.” So wrote William Law in 1728 in A Serious Call to a Devout and Holy Life. \n\nThis quiet schoolmaster of Putney, England could hardly be considered a revolutionary, and yet his book had near-revolutionary repercussions. His challenge to take Christian living very seriously received a more enthusiastic response than he could ever have imagined, especially in the lives of Henry Venn, George Whitefield, and John Wesley, all of whom he strongly influenced. More than any other man, William Law laid the foundation for the religious revival of the eighteenth century, the Evangelical Movement in England, and the Great Awakening in America. \n\nLaw came to typify the devout priest in the eyes of many. His life was characterized by simplicity, devotion, and works of charity. Becausehe was a Non-juror, who refused to swear allegiance to the House of Hanover, he was deprived of the usual means of making a living as a clergyman in the Church of England. He therefore worked as a tutor to the father of the historian Edward Gibbon from 1727 to 1737. \n\nLaw also organized schools and homes for the poor. He stoutly defended the sacraments and scriptures against attacks by the Deists, and he spoke out eloquently against the warfare of his day. His richly inspired sermons and writings have gained him a permanent place in Christian literature. \n\nLaw died at Kings Cliffe on April 9th, 1761. ",
-    ),
-    (
-        Feast::WilliamPorcherDubose,
-        "William Porcher DuBose was among the most original and creative thinkers that the Episcopal Church has ever produced. He spent most of his life as a professor at The University of the South, in Sewanee, Tennessee. He was not widely traveled, and not widely known, until, at the age of 56, he published the first of several books on theology that made him respected, not only in his own country, but also in England and France. \n\nDuBose was born in 1836 in South Carolina, into a wealthy and cultured Huguenot family. At the University of Virginia, he acquired a fluent knowledge of Greek and other languages, which helped him lay the foundation for a profound understanding of the New Testament. His theological studies were begun at the Episcopal seminary in Camden, South Carolina. He was ordained in 1861, and became an officer and chaplain in the Confederate Army.\n\nDoctrine and life were always in close conversation for DuBose. In a series of books, he probed the inner meaning of the Gospels, the Epistles of Paul, and the Epistle to the Hebrews. He treated life and doctrine as a dramatic dialogue, fusing the best of contemporary thought and criticism with his own strong inner faith. The result was both a personal and scriptural catholic theology. He reflected, as he acknowledged, the great religious movements of the nineteenth century: the Tractarianism of Oxford; the liberalism of F.D. Maurice; the scholarship of the Germans; and the evangelical spirit that was so pervasive at the time.\n\nThe richness and complexity of DuBose’s thought are not easily captured in a few words, but the following passage, written shortly before his death in 1918, is a characteristic sample of his theology: “God has placed forever before our eyes, not the image but the Very Person of the Spiritual Man. We have not to ascend into Heaven to bring Him down, nor to descend into the abyss to bring Him up, for He is with us, and near us, and in us. We have only to confess with our mouths that He is Lord, and believe in our hearts that God has raised Him from the dead—and raised us in Him—and we shall live.”",
     ),
     (
         Feast::WilliamReedHuntington,
