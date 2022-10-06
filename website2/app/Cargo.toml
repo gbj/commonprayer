@@ -6,6 +6,9 @@ edition = "2021"
 [features]
 default = ["routes"]
 routes = ["leptos2/router", "leptos2/backend", "alcoholic_jwt", "cached", "moka", "rust-i18n", "sqlx"]
+browser = ["library/browser", "liturgy/browser", "psalter/browser", "reference-parser/browser"]
+server = ["library/server", "liturgy/server", "psalter/server", "reference-parser/regex"]
+
 
 [dependencies]
 anyhow = "1"

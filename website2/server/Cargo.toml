@@ -13,7 +13,7 @@ actix-cors = "0.6"
 futures = "0.3"
 http = "0.2"
 tempfile = "3"
-app = { path = "../app" }
+app = { path = "../app",  features = ["server"] }
 leptos2 = { path = "../../framework2/leptos" }
 minifier = "0.2"
 serde = "1"
