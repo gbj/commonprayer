@@ -4,6 +4,7 @@
     - [ ] replace complex localization with real ordinals using Fluent
   - [ ] Hymn
   - [ ] Readings
+    - [ ] page navigations broken?
     - [ ] action: Word export
 - Metadata
   - [ ] Leptos-Meta: title, style, etc.

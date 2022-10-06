@@ -1204,7 +1204,7 @@ pub const BCP1979_FEASTS: [KalendarEntry; 215] = [
         None,
     ),
     (
-        HolyDayId::Date(10, 15),
+        HolyDayId::Date(10, 14),
         Feast::SamuelIsaacJosephScherechewsky,
         Time::AllDay,
         None,
