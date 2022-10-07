@@ -50,7 +50,6 @@ pub fn Psalter(cx: Scope) -> Element {
             .unwrap_or_default()
     });
 
-    //let psalm = create_resource(cx, move || (number(), version()), fetch_psalm);
     let psalm = use_loader::<Option<Psalm>>(cx);
 
     let (display_settings, _) = use_display_settings(cx);
@@ -83,10 +82,12 @@ pub fn Psalter(cx: Scope) -> Element {
                         <img src=Icon::Right.to_string() alt=move || t("psalm-next")/>
                     </Link> })}
                 </nav>
-                {move || psalm.read().map(|psalm| match psalm {
-                    Some(psalm) => view! { <Psalm psalm/> },
-                    _ => view! { <p class="error">{t("psalm-error")}</p> },
-                })}
+                <div class:pending={move || psalm.loading()}>
+                    {move || psalm.read().map(|psalm| match psalm {
+                        Some(psalm) => view! { <Psalm psalm/> },
+                        _ => view! { <p class="error">{t("psalm-error")}</p> },
+                    })}
+                </div>
             </main>
         </div>
     }

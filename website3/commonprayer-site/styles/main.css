@@ -58,7 +58,7 @@ body {
 	padding: 0.5rem;
 }
 
-#root>main {
+#root>main, #root > div > main {
 	z-index: var(--main-z-index);
 	padding: 1rem;
 	max-width: 600px;
@@ -119,6 +119,7 @@ input[type=submit] {
 	border: 1px solid var(--border-color);
 	border-radius: 3px;
 	background-size: auto;
+	appearance: textfield;
 	-webkit-appearance: textfield;
 }
 
