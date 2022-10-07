@@ -9,7 +9,6 @@ common_macros = "0.1"
 console_log = "0.2"
 date_time_parser = "0.2"
 itertools = "0.10"
-gloo-net = { version = "0.2", optional = true }
 lazy_static = "1"
 leptos = { path = "../../../leptos-new/leptos/leptos" }
 leptos_meta = { path = "../../../leptos-new/leptos/meta" }
@@ -46,8 +45,8 @@ psalter = { path = "../../episcopal_api/crates/psalter" }
 
 [features]
 default = ["hydrate"]
-csr = ["leptos/csr", "leptos_meta/csr", "dep:gloo-net", "dep:serde-wasm-bindgen", "dep:wasm-bindgen-futures", "dep:web-sys", "reference-parser/browser", "liturgy/browser", "library/browser"]
-hydrate = ["leptos/hydrate", "leptos_meta/hydrate", "dep:gloo-net", "dep:serde-wasm-bindgen", "dep:wasm-bindgen-futures", "dep:web-sys", "reference-parser/browser", "liturgy/browser", "library/browser"]
+csr = ["leptos/csr", "leptos_meta/csr", "dep:serde-wasm-bindgen", "dep:wasm-bindgen-futures", "dep:web-sys", "reference-parser/browser", "liturgy/browser", "library/browser"]
+hydrate = ["leptos/hydrate", "leptos_meta/hydrate", "dep:serde-wasm-bindgen", "dep:wasm-bindgen-futures", "dep:web-sys", "reference-parser/browser", "liturgy/browser", "library/browser"]
 ssr = ["leptos/ssr", "leptos_meta/ssr", "dep:chrono", "dep:reqwest", "reference-parser/regex", "liturgy/server", "library/server"]
 
 [profile.release]

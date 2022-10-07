@@ -5,7 +5,6 @@
 mod calendar;
 mod canticle_table;
 mod document;
-mod fetch;
 mod header;
 mod home;
 mod i18n;
