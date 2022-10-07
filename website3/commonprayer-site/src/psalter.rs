@@ -1,10 +1,11 @@
+use crate::document::psalm::*;
 use crate::header::*;
 use crate::i18n::use_i18n;
-use crate::i18n_args;
 use crate::icon::Icon;
 use crate::settings::use_display_settings;
-use crate::{document::psalm::*, fetch::fetch};
+use common_macros::hash_map;
 use leptos::*;
+use leptos_meta::*;
 use liturgy::{Psalm, Version};
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -14,40 +15,31 @@ pub struct PsalterData {
     pub psalm: Resource<(u8, Version), Result<Psalm, ()>>,
 }
 
-async fn fetch_psalm((number, version): (u8, Version)) -> Result<Psalm, ()> {
-    // uncomment to use static psalm JSON files
-    fetch(&format!(
-        "/static/psalter/{}/psalm-{:03}.json",
-        if version == Version::LibroDeOracionComun {
-            "loc"
-        } else {
-            "bcp1979"
-        },
-        number
-    ))
-    .await
-    .map_err(|_| ())
-
-    // uncomment to fetch psalms from server
-    /* fetch(&format!("/psalm?number={number}&version={version}"))
-    .await
-    .map_err(|_| ()) */
-
-    // uncomment to include psalters in WASM bundle
-    /* use psalter::{bcp1979::BCP1979_PSALTER, loc::LOC_PSALTER};
-    if version == Version::LibroDeOracionComun {
-        LOC_PSALTER.psalm_by_number(number).cloned().ok_or(())
+pub async fn psalter_data(cx: Scope, _params: ParamsMap, url: Url) -> Option<Psalm> {
+    log::debug!("<Psalter/> psalter_data()");
+    let q = url.search_params();
+    let number = q
+        .get("number")
+        .and_then(|n| n.parse::<u8>().ok())
+        .unwrap_or(1);
+    let version = q
+        .get("version")
+        .and_then(|v| v.parse::<Version>().ok())
+        .unwrap_or_default();
+    let psalter = if version == Version::LibroDeOracionComun {
+        &*psalter::loc::LOC_PSALTER
     } else {
-        BCP1979_PSALTER.psalm_by_number(number).cloned().ok_or(())
-    } */
+        &*psalter::bcp1979::BCP1979_PSALTER
+    };
+    psalter.psalm_by_number(number).cloned()
 }
 
 #[component]
-pub fn Psalter(cx: Scope) -> Vec<Element> {
+pub fn Psalter(cx: Scope) -> Element {
     let (t, t_with_args, _) = use_i18n(cx);
     let query = use_query_map(cx);
-        let number = create_memo(cx, move |_| {
-            query
+    let number = create_memo(cx, move |_| {
+        query
             .with(|q| q.get("number").and_then(|n| n.parse::<u8>().ok()))
             .unwrap_or(1)
     });
@@ -58,14 +50,19 @@ pub fn Psalter(cx: Scope) -> Vec<Element> {
             .unwrap_or_default()
     });
 
-    let psalm = create_resource(cx, move || (number(), version()), fetch_psalm);
+    //let psalm = create_resource(cx, move || (number(), version()), fetch_psalm);
+    let psalm = use_loader::<Option<Psalm>>(cx);
 
     let (display_settings, _) = use_display_settings(cx);
 
     view! {
-        <>
-            <Header label=move || t_with_args("daily-readings-psalm", &i18n_args!("number" => number()))></Header>
+        <div>
+            <Header label=move || t_with_args("daily-readings-psalm", hash_map!("number" => number().to_string()))></Header>
+            //<Header label={t}
             <main class=move || display_settings.get().to_class()>
+                <Title text=(move || t_with_args("daily-readings-psalm", hash_map!("number" => number().to_string()))).into() />
+                <Stylesheet href="/styles/document.css".into() />
+                <Stylesheet href="/styles/psalter.css".into() />
                 <nav class="Psalter-nav">
                     // Prev Psalm
                     {move || (number() > 1).then(|| view! { <Link to=move || format!("?number={}&version={:?}", number() - 1, version())>
@@ -87,10 +84,10 @@ pub fn Psalter(cx: Scope) -> Vec<Element> {
                     </Link> })}
                 </nav>
                 {move || psalm.read().map(|psalm| match psalm {
-                    Err(_) => view! { <p class="error">{t("psalm-error")}</p> },
-                    Ok(psalm) => view! { <Psalm psalm/> }
+                    Some(psalm) => view! { <Psalm psalm/> },
+                    _ => view! { <p class="error">{t("psalm-error")}</p> },
                 })}
             </main>
-        </>
+        </div>
     }
 }

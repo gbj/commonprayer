@@ -41,7 +41,7 @@ pub fn en() -> LocaleData {
             "auth-logout" => Rc::new(|_| "Sign Out".to_string()),
 
             //  Biblical Citation Loader
-            "biblical-citation-error" => Rc::new(|_| "Something went wrong while loading { $citation }.".to_string()),
+            "biblical-citation-error" => Rc::new(|args| format!("Something went wrong while loading {}.", args.unwrap().get("citation").cloned().unwrap_or_else(|| "the reading".into()))),
             "biblical-citation-try-again" => Rc::new(|_| "Try Again.".to_string()),
 
             // // Table of Contents
@@ -186,7 +186,7 @@ pub fn en() -> LocaleData {
             "daily-readings-alternate" => Rc::new(|_| "(Alternate)".to_string()),
             "daily-readings-transferred" => Rc::new(|_| "(Transferred)".to_string()),
             "daily-readings-psalms" => Rc::new(|_| "Psalms".to_string()),
-            "daily-readings-psalm" => Rc::new(|_| "Psalm { $number }".to_string()),
+            "daily-readings-psalm" => Rc::new(|args| format!("Psalm {}", args.unwrap().get("number").cloned().unwrap_or_default())),
             "daily-readings-canticle" => Rc::new(|_| "Canticle { $number }".to_string()),
             "daily-readings-daily_office_readings" => Rc::new(|_| "Daily Office Readings".to_string()),
             "daily-readings-daily_office_psalms" => Rc::new(|_| "Daily Office Psalms".to_string()),
@@ -245,18 +245,21 @@ pub fn en() -> LocaleData {
 
             //  Lectionary
             "lectionary-the_lectionary" => Rc::new(|_| "The Lectionary".to_string()),
-            "lectionary-month_1" => Rc::new(|_| "January".to_string()),
-            "lectionary-month_2" => Rc::new(|_| "February".to_string()),
-            "lectionary-month_3" => Rc::new(|_| "March".to_string()),
-            "lectionary-month_4" => Rc::new(|_| "April".to_string()),
-            "lectionary-month_5" => Rc::new(|_| "May".to_string()),
-            "lectionary-month_6" => Rc::new(|_| "June".to_string()),
-            "lectionary-month_7" => Rc::new(|_| "July".to_string()),
-            "lectionary-month_8" => Rc::new(|_| "August".to_string()),
-            "lectionary-month_9" => Rc::new(|_| "September".to_string()),
-            "lectionary-month_10" => Rc::new(|_| "October".to_string()),
-            "lectionary-month_11" => Rc::new(|_| "November".to_string()),
-            "lectionary-month_12" => Rc::new(|_| "December".to_string()),
+            "lectionary-month" => Rc::new(|args| match args.unwrap().get("month").unwrap().as_str() {
+                "1" => "January",
+                "2" => "February",
+                "3" => "March",
+                "4" => "April",
+                "5" => "May",
+                "6" => "June",
+                "7" => "July",
+                "8" => "August",
+                "9" => "September",
+                "10" => "October",
+                "11" => "November",
+                "12" => "December",
+                _ => panic!()
+            }.to_string()),
             "lectionary-collect_not_found" => Rc::new(|_| "Collect not found for this day.".to_string()),
             "lectionary-reading_not_found" => Rc::new(|_| "Reading not found.".to_string()),
             "lectionary-track_one" => Rc::new(|_| "Track One".to_string()),

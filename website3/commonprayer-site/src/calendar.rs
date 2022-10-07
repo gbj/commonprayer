@@ -1,6 +1,7 @@
 use std::fmt::Debug;
 
 use calendar::{Date, Feast, LiturgicalDay, LiturgicalDayId, Rank, Weekday};
+use common_macros::hash_map;
 use itertools::Itertools;
 use language::Language;
 use leptos::*;
@@ -140,8 +141,8 @@ fn calendar_days(
 }
 
 #[component]
-pub fn Calendar(cx: Scope) -> Vec<Element> {
-    let (t, _, _) = use_i18n(cx);
+pub fn Calendar(cx: Scope) -> Element {
+    let (t, t_with_args, _) = use_i18n(cx);
     let (settings_open, set_settings_open) = create_signal(cx, false);
 
     let query = use_query_map(cx);
@@ -175,47 +176,56 @@ pub fn Calendar(cx: Scope) -> Vec<Element> {
     });
 
     view! {
-        <>
-            <Header label=t("calendar")>
+        <div>
+            /* <Header label=t("calendar")>
                 <button on:click=move |_| set_settings_open(|n| *n = !*n)>
                     <img src=Icon::Settings.to_string() alt=t("settings-title")/>
                 </button>
-            </Header>
+            </Header> */
             <main class="Calendar">
-                <Title text=t("calendar").into()/>
-                <Modal
-                    open=settings_open
-                    on_close=move || set_settings_open(|n| *n = false)
-                >
-                    <Form>
-                        <label class="stacked">
-                            {t("calendar-month")}
-                            <input type="month" name="month" value=move || format!("{:04}-{:02}", year(), month())/>
-                        </label>
-                        // Black Letter Days
-                        <fieldset class="horizontal">
-                            <legend>{t("menu-calendar")}</legend>
-                            <label class="horizontal">
-                                {t("bcp_1979")}
-                                <input type="radio" name="calendar" value="bcp" checked=move || !using_lff() />
+                // TODO fix components as siblings of elements
+                <div>
+                    <Title text=t("calendar").into()/>
+                    <Stylesheet href="/styles/calendar.css".into()/>
+                    <Modal
+                        open=settings_open
+                        on_close=move || set_settings_open(|n| *n = false)
+                    >
+                        <Form>
+                            <label class="stacked">
+                                {t("calendar-month")}
+                                <input type="month" name="month" value=move || format!("{:04}-{:02}", year(), month())/>
                             </label>
+                            // Black Letter Days
+                            <fieldset class="horizontal">
+                                <legend>{t("menu-calendar")}</legend>
+                                <label class="horizontal">
+                                    {t("bcp_1979")}
+                                    <input type="radio" name="calendar" value="bcp" checked=move || !using_lff() />
+                                </label>
+                                <label class="horizontal">
+                                    {t("lff_2018")}
+                                    <input type="radio" name="calendar" value="lff" checked=using_lff />
+                                </label>
+                            </fieldset>
+                            // Black Letter Days
                             <label class="horizontal">
-                                {t("lff_2018")}
-                                <input type="radio" name="calendar" value="lff" checked=using_lff />
+                                {t("calendar-omit_black_letter")}
+                                <input type="checkbox" name="blackletter" value="false" checked=move || !show_black_letter() />
                             </label>
-                        </fieldset>
-                        // Black Letter Days
-                        <label class="horizontal">
-                            {t("calendar-omit_black_letter")}
-                            <input type="checkbox" name="blackletter" value="false" checked=move || !show_black_letter() />
-                        </label>
-                        <input type="submit" slot="close-button" data-modal-close="settings" value=t("settings-submit")/>
-                    </Form>
-                </Modal>
+                            <input type="submit" slot="close-button" data-modal-close="settings" value=t("settings-submit")/>
+                        </Form>
+                    </Modal>
+                </div>
                 <div class="Calendar-controls">
-                    <AdjacentMonth year month using_lff show_black_letter increase=false/>
-                    <h2>{move || t(&format!("lectionary-month_{}", month()))}</h2>
-                    <AdjacentMonth year month using_lff show_black_letter  increase=true/>
+                    // TODO component sibling of element
+                    <div>
+                        <AdjacentMonth year month using_lff show_black_letter increase=false/>
+                    </div>
+                    <h2>{move || t_with_args("lectionary-month", hash_map! { "month" => month().to_string() })}</h2>
+                    <div>
+                        <AdjacentMonth year month using_lff show_black_letter  increase=true/>
+                    </div>
                 </div>
                 <time class="month" datetime=move || format!("{}-{:02}", year(), month())>
                     <div class="weekday-labels">
@@ -230,7 +240,7 @@ pub fn Calendar(cx: Scope) -> Vec<Element> {
                     <Weeks year month using_lff show_black_letter />
                 </time>
             </main>
-        </>
+        </div>
     }
 }
 
@@ -243,7 +253,7 @@ fn AdjacentMonth(
     show_black_letter: Memo<bool>,
     increase: bool,
 ) -> Element {
-    let (t, _, _) = use_i18n(cx);
+    let (t, t_with_args, _) = use_i18n(cx);
 
     let year = move || {
         if (month)() == 1 && !increase {
@@ -285,13 +295,19 @@ fn AdjacentMonth(
 
     let label = move || {
         if increase && (month)() == 12 {
-            format!("{} {}", t("lectionary-month_1"), (year)() + 1)
+            format!("{} {}", t("lectionary-month_1"), year() + 1)
         } else if increase {
-            t(&format!("lectionary-month_{}", (month)() + 1))
+            t_with_args(
+                "lectionary-month",
+                hash_map! { "month" => month().to_string() },
+            )
         } else if (month)() == 1 {
-            format!("{} {}", t("lectionary-month_12"), (year)() - 1)
+            format!("{} {}", t("lectionary-month_12"), year() - 1)
         } else {
-            t(&format!("lectionary-month_{}", (month)() - 1))
+            t_with_args(
+                "lectionary-month",
+                hash_map! { "month" => month().to_string() },
+            )
         }
     };
 
@@ -444,8 +460,9 @@ fn Listing(
     view! {
         <div class="main-listing">
             <a class="day-name" href=move || format!("/{}/readings/eucharist/?date={}-{}-{}", locale.get(), year, month, day)>{day_name}</a>
-            {transferred}
-            {alternatives}
+            // TODO
+            /* {transferred}
+            {alternatives} */
         </div>
     }
 }

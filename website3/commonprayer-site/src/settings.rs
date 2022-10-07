@@ -27,7 +27,10 @@ impl Default for GeneralSettings {
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub struct GeneralSettingsContext(ReadSignal<GeneralSettings>, WriteSignal<GeneralSettings>);
+pub struct GeneralSettingsContext(
+    pub ReadSignal<GeneralSettings>,
+    pub WriteSignal<GeneralSettings>,
+);
 
 pub fn use_settings(cx: Scope) -> (ReadSignal<GeneralSettings>, WriteSignal<GeneralSettings>) {
     match use_context::<GeneralSettingsContext>(cx) {

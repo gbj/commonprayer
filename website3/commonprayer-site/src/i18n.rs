@@ -28,12 +28,19 @@ impl std::fmt::Debug for LocaleData {
 pub struct Locale(pub ReadSignal<String>, pub WriteSignal<String>);
 
 #[component]
-pub fn Localizer(cx: Scope, children: Box<dyn Fn() -> Vec<Element>>) -> impl IntoChild {
+pub fn Localizer(cx: Scope, children: Box<dyn Fn() -> Vec<Element>>) -> Element {
+    //impl IntoChild {
     let (locale, set_locale) = create_signal(cx, "en-US".to_string());
     let locale = Locale(locale, set_locale);
     provide_context::<Locale>(cx, locale);
 
-    children
+    view! {<div>{children}</div>}
+}
+
+pub fn provide_localization(cx: Scope) {
+    let (locale, set_locale) = create_signal(cx, "en-US".to_string());
+    let locale = Locale(locale, set_locale);
+    provide_context::<Locale>(cx, locale);
 }
 
 pub fn use_i18n(

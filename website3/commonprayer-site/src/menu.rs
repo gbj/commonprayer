@@ -34,10 +34,12 @@ pub fn Menu(cx: Scope) -> Element {
                                 <div id="firebase-auth" slot="content"></div>
                             </Modal> */
                         </li>
-                        <Form action="search".into()>
-                            <input class="Menu-search" type="search" name="q" placeholder=t("search")/>
-                            <noscript><input type="submit" value=t("search")/></noscript>
-                        </Form>
+                        <div>
+                            <Form action="search".into()>
+                                <input class="Menu-search" type="search" name="q" placeholder=t("search")/>
+                                <noscript><input type="submit" value=t("search")/></noscript>
+                            </Form>
+                        </div>
                         <li>
                             <LocalizedNavLink to="contents">{t("toc-table_of_contents")}</LocalizedNavLink>
                         </li>
