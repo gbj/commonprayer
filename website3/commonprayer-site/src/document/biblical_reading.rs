@@ -6,6 +6,7 @@ use crate::{
 };
 use common_macros::hash_map;
 use leptos::*;
+use leptos_router::escape;
 
 #[component]
 pub fn BiblicalReading(cx: Scope, reading: liturgy::BiblicalReading) -> Element {

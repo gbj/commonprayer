@@ -6,6 +6,7 @@ use commonprayer_site::*;
 use futures::{stream::FuturesUnordered, Future, StreamExt};
 use leptos::*;
 use leptos_meta::*;
+use leptos_router::*;
 use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 
 #[derive(Copy, Clone, Debug)]
@@ -55,7 +56,7 @@ async fn render_app(req: HttpRequest) -> impl Responder {
 
                 let shell = view! { <App/> };
 
-                let mut route = use_context::<leptos::RouteContext>(cx)?;
+                let mut route = use_context::<leptos_router::RouteContext>(cx)?;
                 // get the innermost route matched by this path
                 while let Some(child) = route.child() {
                     route = child;

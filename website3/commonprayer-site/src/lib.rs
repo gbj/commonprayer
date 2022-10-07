@@ -5,6 +5,7 @@
 mod calendar;
 mod canticle_table;
 mod document;
+mod fetch;
 mod header;
 mod home;
 mod i18n;
@@ -29,6 +30,7 @@ use i18n::*;
 pub use i18n::{Localizer, LocalizerProps};
 use leptos::*;
 use leptos_meta::*;
+use leptos_router::*;
 use settings::GeneralSettings;
 
 #[component]

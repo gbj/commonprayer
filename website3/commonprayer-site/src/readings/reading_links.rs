@@ -1,4 +1,5 @@
 use leptos::*;
+use leptos_router::*;
 use serde::{Deserialize, Serialize};
 
 use crate::i18n::use_i18n;

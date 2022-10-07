@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use leptos::*;
+use leptos_router::*;
 use liturgy::{
     Lectionaries, LiturgyPreferences, PreferenceKey, PreferenceValue, Slug, SlugPath, Version,
 };

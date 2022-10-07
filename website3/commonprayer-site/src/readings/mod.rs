@@ -10,6 +10,7 @@ pub use eucharist::*;
 use language::Language;
 use leptos::*;
 use leptos_meta::*;
+use leptos_router::*;
 use liturgy::Version;
 pub use office::*;
 

@@ -6,6 +6,7 @@ use crate::settings::use_display_settings;
 use common_macros::hash_map;
 use leptos::*;
 use leptos_meta::*;
+use leptos_router::*;
 use liturgy::{Psalm, Version};
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]

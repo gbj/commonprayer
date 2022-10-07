@@ -340,7 +340,7 @@ pub fn en() -> LocaleData {
             "search-enter_query" => Rc::new(|_| "Enter a query in the search bar above to search the Common Prayer library.".to_string()),
             "search-no_results" => Rc::new(|_| "No results were found for your query.".to_string()),
             "search-results_singular" => Rc::new(|_| "Found 1 result.".to_string()),
-            "search-results_plural" => Rc::new(|args| format!("Found {} results.", args.get("number").unwrap_or(0))),
+            "search-results_plural" => Rc::new(|args| format!("Found {} results.", args.and_then(|a| a.get("number").cloned()).unwrap_or_default())),
             "search-hymn" => Rc::new(|_| "Hymn".to_string()),
             "search-holy_day" => Rc::new(|_| "Holy Day".to_string()),
             "search-document" => Rc::new(|_| "Document".to_string()),
