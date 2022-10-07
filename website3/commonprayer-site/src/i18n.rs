@@ -46,8 +46,8 @@ pub fn provide_localization(cx: Scope) {
 pub fn use_i18n(
     cx: Scope,
 ) -> (
-    impl Fn(&'static str) -> String + Copy,
-    impl Fn(&'static str, HashMap<&'static str, String>) -> String + Copy,
+    impl Fn(&str) -> String + Copy,
+    impl Fn(&str, HashMap<&'static str, String>) -> String + Copy,
     impl Fn(&str),
 ) {
     match use_context::<Locale>(cx) {
@@ -67,7 +67,7 @@ pub fn use_i18n(
                     key.to_string()
                 }
             };
-            let t_with_args = move |key: &'static str, args: I18nArgs| {
+            let t_with_args = move |key: &str, args: I18nArgs| {
                 if let Some(val) = locale_data.with(|d| d.1.get(key).map(Rc::clone)) {
                     val(Some(args))
                 } else {

@@ -1,4 +1,5 @@
 #![feature(fn_traits)]
+#![feature(iter_intersperse)]
 #![feature(unboxed_closures)]
 
 mod calendar;
@@ -14,16 +15,17 @@ mod menu;
 mod modal;
 mod psalter;
 mod readings;
+mod search;
 mod settings;
 mod time;
 
 use crate::calendar::*;
 use crate::canticle_table::*;
-use crate::header::*;
 use crate::home::*;
 use crate::menu::*;
 use crate::psalter::*;
 use crate::readings::*;
+use crate::search::*;
 use i18n::*;
 pub use i18n::{Localizer, LocalizerProps};
 use leptos::*;
@@ -65,6 +67,7 @@ pub fn App(cx: Scope) -> Element {
                         <Route path="bcp" element=|cx| view! { <BCPTable/> }/>
                         <Route path="" element=|cx| view! { <BCPTable/> }/>
                     </Route>
+                    <Route path="search" element=|cx| view! { <Search/> } loader=search_data.into() />
                     <Route path="" element=|cx| view! { <Home/> }/>
                 </Route>
             </Routes>

@@ -15,7 +15,7 @@ pub struct PsalterData {
     pub psalm: Resource<(u8, Version), Result<Psalm, ()>>,
 }
 
-pub async fn psalter_data(cx: Scope, _params: ParamsMap, url: Url) -> Option<Psalm> {
+pub async fn psalter_data(_cx: Scope, _params: ParamsMap, url: Url) -> Option<Psalm> {
     log::debug!("<Psalter/> psalter_data()");
     let q = url.search_params();
     let number = q

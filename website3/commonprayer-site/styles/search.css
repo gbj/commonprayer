@@ -1,0 +1,66 @@
+.match {
+	display: inline-block;
+	background: var(--search-match-color);
+	border: 1px solid var(--search-match-border);
+}
+
+.results-number {
+	text-align: center;
+}
+
+.results {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.search-result {
+	display: flex;
+	align-items: top;
+}
+
+.search-result .content {
+	width: 100%;
+}
+
+.search-result .icon {
+	height: auto;
+	width: 1rem;
+	margin-right: 0.5rem;
+}
+
+/* Expanded because includes hymnal abbrev. as well as number */
+.hymn-listing .number {
+	width: 6rem;
+}
+
+.search-result .primary {
+	display: flex;
+	vertical-align: top;
+}
+
+.search-result .hymn-listing {
+	border-bottom: none;
+}
+
+.search-result {
+	padding: 0.5rem;
+	border-bottom: 1px solid var(--border-color)
+}
+
+.search-result .date {
+	font-style: italic;
+	margin-left: auto;
+}
+
+.search-result .bio,
+.search-result .text,
+.search-result .collect,
+.search-result .metadata {
+	padding-left: 1.5rem;
+}
+
+.search-result .citation {
+	font-style: italic;
+	margin-left: auto;
+}
