@@ -154,7 +154,7 @@ pub fn holy_day_readings_data(
 
 #[component]
 pub fn HolyDayReadings(_cx: Scope) -> Element {
-    view! {
+    view! { cx, 
         <div>
             "Holy Day TODO"
         </div>

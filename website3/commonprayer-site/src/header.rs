@@ -26,10 +26,10 @@ pub fn Header<L>(cx: Scope, children: Option<Box<dyn Fn() -> Vec<Element>>>, lab
 where
     L: IntoLabel,
 {
-    view! {
+    view! { cx, 
         <header class="Header">
             <h1>{label.into_label()}</h1>
-            {children.map(|children| view! { <div class="Header-buttons">{children()}</div> })}
+            {children.map(|children| view! { cx,  <div class="Header-buttons">{children()}</div> })}
         </header>
     }
 }

@@ -1,7 +1,7 @@
 use leptos::*;
 #[component]
 pub fn Home(cx: Scope) -> Element {
-    view! {
+    view! { cx, 
         <p>
             "Home"
         </p>

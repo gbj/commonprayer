@@ -176,7 +176,7 @@ pub fn Calendar(cx: Scope) -> Element {
         query.with(|q| q.get("blackletter").map(|bl| bl != "false").unwrap_or(true))
     });
 
-    view! {
+    view! { cx, 
         <div>
             /* <Header label=t("calendar")>
                 <button on:click=move |_| set_settings_open(|n| *n = !*n)>
@@ -190,7 +190,7 @@ pub fn Calendar(cx: Scope) -> Element {
                     <Stylesheet href="/styles/calendar.css".into()/>
                     <Modal
                         open=settings_open
-                        on_close=move || set_settings_open(|n| *n = false)
+                        on_close=move || set_settings_open(false)
                     >
                         <Form>
                             <label class="stacked">
@@ -312,7 +312,7 @@ fn AdjacentMonth(
         }
     };
 
-    view! {
+    view! { cx, 
         <Form method="GET".into()>
             <input type="hidden" name="month" value=move || format!("{:04}-{:02}", year(), month())/>
             <input type="hidden" name="calendar" value=calendar/>
@@ -346,7 +346,7 @@ fn Weeks(
                 .into_iter()
                 .map(|chunk| {
                     let week = chunk.collect::<Vec<_>>();
-                    view! {
+                    view! { cx, 
                         <Week year week />
                     }
                 })
@@ -360,12 +360,12 @@ fn Week(cx: Scope, year: u16, week: Vec<Option<CalendarDayEntry>>) -> Element {
     let days = week
         .into_iter()
         .map(|day| match day {
-            None => view! { <div class="padding"></div> },
-            Some(day) => view! { <Day year day /> },
+            None => view! { cx,  <div class="padding"></div> },
+            Some(day) => view! { cx,  <Day year day /> },
         })
         .collect::<Vec<_>>();
 
-    view! { <div class="week">{days}</div>}
+    view! { cx,  <div class="week">{days}</div>}
 }
 
 #[component]
@@ -387,21 +387,23 @@ fn Day(cx: Scope, year: u16, day: CalendarDayEntry) -> Element {
         "day"
     };
 
-    view! {
+    view! { cx, 
         <time
             class=class
             datetime=format!("{}-{:02}-{:02}", year, month, day)
         >
             <a id=format!("{}/{}", month, day)></a>
             <div class="month-number">{day}</div>
-            {listing.map(|listing| view ! {
+            {listing.map(|listing| view! {
+                cx,
                 <Listing
                     year
                     month
                     day
                     listing
                     alternatives
-                />})}
+                />
+            })}
             <BlackLetterDays
                 year
                 month
@@ -436,7 +438,7 @@ fn Listing(
         LiturgicalDayId::TransferredFeast(_)
     ) {
         Some(
-            view! {<span class="transferred">{format!(" {}", t("daily-readings-transferred"))}</span>},
+            view! { cx, <span class="transferred">{format!(" {}", t("daily-readings-transferred"))}</span>},
         )
     } else {
         None
@@ -447,7 +449,7 @@ fn Listing(
     } else {
         alternatives
                 .into_iter()
-                .map(|(name, feast)| view! {
+                .map(|(name, feast)| view! { cx, 
                     <a
                         class="alternative"
                         href=move || format!("/{}/readings/eucharist/?date={}-{}-{}&alternate={}", locale.get(), year, month, day, feast)
@@ -458,7 +460,7 @@ fn Listing(
                 .collect()
     };
 
-    view! {
+    view! { cx, 
         <div class="main-listing">
             <a class="day-name" href=move || format!("/{}/readings/eucharist/?date={}-{}-{}", locale.get(), year, month, day)>{day_name}</a>
             // TODO
@@ -493,12 +495,12 @@ fn BlackLetterDays(
                         feast
                     )
                 };
-                view! {
+                view! { cx, 
                     <li><a href=href>{name}</a></li>
                 }
             })
             .collect::<Vec<_>>();
-        Some(view! {
+        Some(view! { cx, 
             <ul class="black-letter-days">{days}</ul>
         })
     }
@@ -529,10 +531,10 @@ fn OtherNotes(
                         id
                     )
                 };
-                view! { <li><a href=href>{name}</a></li> }
+                view! { cx,  <li><a href=href>{name}</a></li> }
             })
             .collect::<Vec<_>>();
-        Some(view! {
+        Some(view! { cx, 
             <ul class="other-notes">{others}</ul>
         })
     }

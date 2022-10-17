@@ -1,5 +1,6 @@
 use commonprayer_site::*;
 use leptos::*;
+use leptos_router::*;
 use std::rc::Rc;
 use wasm_bindgen::prelude::wasm_bindgen;
 
@@ -14,8 +15,6 @@ pub fn main() {
     leptos::hydrate(body().unwrap(), move |cx| {
         provide_context(cx, RouterIntegrationContext(Rc::new(BrowserIntegration {})));
 
-        view! {
-            <App/>
-        }
+        view! { cx, <App/> }
     });
 }

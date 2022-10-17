@@ -31,7 +31,7 @@ where
 
     let dialog: Element;
 
-    let tpl = view! {
+    let tpl = view! { cx,
         <dialog ref=dialog
             class="Modal"
             // call the on_close callback when the close event fires
@@ -40,17 +40,20 @@ where
                 move |_| { on_close() }
             }
             // clicking on ::backdrop should dismiss modal
-            on:click=|ev| {
-                let ev = ev.unchecked_into::<web_sys::MouseEvent>();
-                let rect = dialog
-                    .unchecked_ref::<web_sys::HtmlElement>()
-                    .get_bounding_client_rect();
-                let click_is_in_dialog = rect.top() <= ev.client_y() as f64
-                    && ev.client_y() as f64 <= rect.top() + rect.height()
-                    && rect.left() <= ev.client_x() as f64
-                    && ev.client_x() as f64 <= rect.left() + rect.width();
-                if !click_is_in_dialog {
-                    ev.target().unwrap().unchecked_into::<web_sys::HtmlDialogElement>().close();
+            on:click={
+                let dialog = dialog.clone();
+                move |ev| {
+                    let ev = ev.unchecked_into::<web_sys::MouseEvent>();
+                    let rect = dialog
+                        .unchecked_ref::<web_sys::HtmlElement>()
+                        .get_bounding_client_rect();
+                    let click_is_in_dialog = rect.top() <= ev.client_y() as f64
+                        && ev.client_y() as f64 <= rect.top() + rect.height()
+                        && rect.left() <= ev.client_x() as f64
+                        && ev.client_x() as f64 <= rect.left() + rect.width();
+                    if !click_is_in_dialog {
+                        ev.target().unwrap().unchecked_into::<web_sys::HtmlDialogElement>().close();
+                    }
                 }
             }
         >

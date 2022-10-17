@@ -44,7 +44,7 @@ pub fn Readings(cx: Scope) -> Vec<Element> {
         })
     });
 
-    view! {
+    view! { cx,
         <>
             <Header label=t("daily-readings-title")>
                 // TODO POST to download DOCX
@@ -79,18 +79,18 @@ pub fn Readings(cx: Scope) -> Vec<Element> {
 
                 // Select category of readings
                 <div class="toggle-links">
-                    <NavLink to=move || format!("office/?date={}&version={}", date(), version())
+                    <A href=move || format!("office/?date={}&version={}", date(), version())
                     >
                         {t("toc-daily_office")}
-                    </NavLink>
-                    <NavLink to=move || format!("eucharist/?date={}&version={}", date(), version())
+                    </A>
+                    <A href=move || format!("eucharist/?date={}&version={}", date(), version())
                     >
                         {t("toc-holy_eucharist")}
-                    </NavLink>
-                    <NavLink to=move || format!("holy-day/?date={}&version={}", date(), version())
+                    </A>
+                    <A href=move || format!("holy-day/?date={}&version={}", date(), version())
                     >
                         {t("toc-holy_days")}
-                    </NavLink>
+                    </A>
                 </div>
 
                 <Outlet/>
@@ -121,10 +121,10 @@ fn BibleVersionOptions(cx: Scope, version: Memo<Version>) -> Memo<Vec<Element>> 
         ],
     };
 
-    view! {
+    view! { cx,
         <For each=versions key=|v| *v>{move |cx: Scope, version: &Version| {
             let value_str: &'static str = version.into();
-            view! {
+            view! { cx,
                 <option value=value_str selected=value() == *version>{version.to_string()}</option>
             }
         }}</For>

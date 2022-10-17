@@ -48,28 +48,28 @@ pub fn App(cx: Scope) -> Element {
     let settings = create_signal(cx, GeneralSettings::default());
     provide_context(cx, settings::GeneralSettingsContext(settings.0, settings.1));
 
-    view! {
+    view! { cx, 
         <div id="root">
             <Title formatter=(move |title| format!("{} - {}", title, t("common_prayer"))).into() text="Home".into()/>
             <Stylesheet href="/styles/main.css".into() />
             <Menu/>
             <Routes>
-                <Route path=":lang?" element=|cx| view! { <Outlet/> }>
-                    <Route path="calendar" element=|cx| view! { <Calendar/> }/>
-                    <Route path="psalm" element=|cx| view! { <Psalter/> } loader=psalter_data.into()/>
-                    <Route path="readings" element=|cx| view! { <Readings/> }>
-                        <Route path="office" element=|cx| view! { <OfficeReadings/> } loader=office_readings_data.into()/>
-                        <Route path="eucharist" element=|cx| view! { <EucharistReadings/> }/>
-                        //<Route path="holy-day" element=|cx| view! { <HolyDayReadings/> }/>
-                        <Route path="" element=|cx| view! { <OfficeReadings/> } loader=office_readings_data.into()/>
+                <Route path=":lang?" element=|cx| view! { cx,  <Outlet/> }>
+                    <Route path="calendar" element=|cx| view! { cx,  <Calendar/> }/>
+                    <Route path="psalm" element=|cx| view! { cx,  <Psalter/> } loader=psalter_data.into()/>
+                    <Route path="readings" element=|cx| view! { cx,  <Readings/> }>
+                        <Route path="office" element=|cx| view! { cx,  <OfficeReadings/> } loader=office_readings_data.into()/>
+                        <Route path="eucharist" element=|cx| view! { cx,  <EucharistReadings/> }/>
+                        //<Route path="holy-day" element=|cx| view! { cx,  <HolyDayReadings/> }/>
+                        <Route path="" element=|cx| view! { cx,  <OfficeReadings/> } loader=office_readings_data.into()/>
                     </Route>
-                    <Route path="canticle-table" element=|cx| view! { <CanticleTable/> }>
-                        <Route path="eow" element=|cx| view! { <EOWTable/> }/>
-                        <Route path="bcp" element=|cx| view! { <BCPTable/> }/>
-                        <Route path="" element=|cx| view! { <BCPTable/> }/>
+                    <Route path="canticle-table" element=|cx| view! { cx,  <CanticleTable/> }>
+                        <Route path="eow" element=|cx| view! { cx,  <EOWTable/> }/>
+                        <Route path="bcp" element=|cx| view! { cx,  <BCPTable/> }/>
+                        <Route path="" element=|cx| view! { cx,  <BCPTable/> }/>
                     </Route>
-                    <Route path="search" element=|cx| view! { <Search/> } loader=search_data.into() />
-                    <Route path="" element=|cx| view! { <Home/> }/>
+                    <Route path="search" element=|cx| view! { cx,  <Search/> } loader=search_data.into() />
+                    <Route path="" element=|cx| view! { cx,  <Home/> }/>
                 </Route>
             </Routes>
         </div>

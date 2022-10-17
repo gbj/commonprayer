@@ -9,7 +9,8 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 console_log = "0.2"
 commonprayer-site = { path = "../commonprayer-site", default-features = false, features = ["hydrate"] }
-leptos = { path = "../../../leptos-new/leptos/leptos", features = ["hydrate"] }
+leptos = { path = "../../../leptos-new/leptos/leptos", default-features = false, features = ["hydrate"] }
+leptos_router = { path = "../../../leptos-new/leptos/router", default-features = false, features = ["hydrate"] }
 log = "0.4"
 wee_alloc = "0.4"
 

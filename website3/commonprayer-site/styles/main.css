@@ -201,7 +201,7 @@ input[type=submit] {
 	border-bottom-right-radius: var(--border-radius);
 }
 
-.toggle-links a.active {
+.toggle-links a[aria-current] {
 	background: var(--ui-toggle-checked-background);
 	box-shadow: 0 0 10px rgba(var(--ui-toggle-checked-background), 0.5);
 	color: var(--ui-toggle-checked-color);

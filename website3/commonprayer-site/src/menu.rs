@@ -14,7 +14,7 @@ pub fn Menu(cx: Scope) -> Element {
     let (t, _, _) = use_i18n(cx);
     let (settings, _) = use_settings(cx);
 
-    view! {
+    view! { cx,
         <details class="Menu-root">
             <summary><span class="Menu-label">{t("menu-open")}</span></summary>
             <dialog open class="Menu-dialog">
@@ -22,7 +22,7 @@ pub fn Menu(cx: Scope) -> Element {
                     <ul class="Menu-content">
                         <li class="title horizontal">
                             <h1>
-                                <LocalizedNavLink to="/">{t("common_prayer")}</LocalizedNavLink>
+                                <LocalizedNavLink href="/">{t("common_prayer")}</LocalizedNavLink>
                             </h1>
                             /* <Auth
                                 prop:user={user.cloned()}
@@ -42,10 +42,10 @@ pub fn Menu(cx: Scope) -> Element {
                             </Form>
                         </div>
                         <li>
-                            <LocalizedNavLink to="contents">{t("toc-table_of_contents")}</LocalizedNavLink>
+                            <LocalizedNavLink href="contents">{t("toc-table_of_contents")}</LocalizedNavLink>
                         </li>
                         <li>
-                            <LocalizedNavLink to={move || if settings.with(|settings| settings.use_lff) {
+                            <LocalizedNavLink href={move || if settings.with(|settings| settings.use_lff) {
                                 "calendar".to_string()
                             } else {
                                 "calendar?calendar=bcp".to_string()
@@ -55,14 +55,14 @@ pub fn Menu(cx: Scope) -> Element {
 
                         </li>
                         <li>
-                            <LocalizedNavLink to=move || format!("readings/office?version={}", settings.with(|settings| settings.bible_version))>
+                            <LocalizedNavLink href=move || format!("readings/office?version={}", settings.with(|settings| settings.bible_version))>
                                 {t("menu-readings")}
                             </LocalizedNavLink>
                         </li>
                         <li>
                             // TODO render fix (wrapper unnecessary)
                             <span>
-                                <LocalizedNavLink to="document/office">{t("toc-daily_office")}</LocalizedNavLink>
+                                <LocalizedNavLink href="document/office">{t("toc-daily_office")}</LocalizedNavLink>
                             </span>
                             <ul>
                                 <li>
@@ -78,24 +78,24 @@ pub fn Menu(cx: Scope) -> Element {
                                     <OfficeLink slug=Slug::Compline label=t("toc-compline")/>
                                 </li>
                                 <li>
-                                    <LocalizedNavLink to="canticle-table">{t("menu-canticle-table")}</LocalizedNavLink>
+                                    <LocalizedNavLink href="canticle-table">{t("menu-canticle-table")}</LocalizedNavLink>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <LocalizedNavLink to="psalm">{t("menu-psalter")}</LocalizedNavLink>
+                            <LocalizedNavLink href="psalm">{t("menu-psalter")}</LocalizedNavLink>
                         </li>
                         <li>
-                            <LocalizedNavLink to="document/prayers-and-thanksgivings">{t("toc-prayers_and_thanksgivings")}</LocalizedNavLink>
+                            <LocalizedNavLink href="document/prayers-and-thanksgivings">{t("toc-prayers_and_thanksgivings")}</LocalizedNavLink>
                         </li>
                         <li>
-                            <LocalizedNavLink to="hymnal">{t("menu-hymnal")}</LocalizedNavLink>
+                            <LocalizedNavLink href="hymnal">{t("menu-hymnal")}</LocalizedNavLink>
                         </li>
                         <li>
-                            <LocalizedNavLink to="meditation">{t("meditation-title")}</LocalizedNavLink>
+                            <LocalizedNavLink href="meditation">{t("meditation-title")}</LocalizedNavLink>
                         </li>
                         <li>
-                            <LocalizedNavLink to="settings">{t("settings-title")}</LocalizedNavLink>
+                            <LocalizedNavLink href="settings">{t("settings-title")}</LocalizedNavLink>
                         </li>
                     </ul>
                 </nav>
@@ -121,8 +121,8 @@ fn OfficeLink(cx: Scope, slug: Slug, label: String) -> Element {
         )
     };
 
-    view! {
-        <LocalizedNavLink to=href>{label.clone()}</LocalizedNavLink>
+    view! { cx,
+        <LocalizedNavLink href=href>{label.clone()}</LocalizedNavLink>
     }
 }
 
@@ -132,7 +132,7 @@ where
     C: IntoChild,
     H: ToHref + 'static,
 {
-    to: H,
+    href: H,
     children: Box<dyn Fn() -> Vec<C>>,
 }
 
@@ -146,9 +146,9 @@ where
     let locale_in_path = move || params.with(|p| p.get("lang").cloned());
     let localized_href = move || {
         if locale_in_path().is_some() {
-            props.to.to_href()()
+            props.href.to_href()()
         } else {
-            format!("/en/{}", props.to.to_href()())
+            format!("/en/{}", props.href.to_href()())
         }
     };
 
@@ -158,7 +158,7 @@ where
     }
     let child = children.remove(0).into_child(cx);
 
-    view! {
-        <NavLink to=localized_href>{child.clone()}</NavLink>
+    view! { cx,
+        <A href=localized_href>{child.clone()}</A>
     }
 }

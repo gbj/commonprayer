@@ -11,7 +11,7 @@ use leptos_router::escape;
 #[component]
 pub fn BiblicalReading(cx: Scope, reading: liturgy::BiblicalReading) -> Element {
     let intro = reading.intro.as_ref().map(|intro| {
-        view! {
+        view! { cx, 
             <section class="reading-intro">
                 <Document doc=intro.as_document().clone()/>
             </section>
@@ -22,7 +22,7 @@ pub fn BiblicalReading(cx: Scope, reading: liturgy::BiblicalReading) -> Element 
         .text
         .into_iter()
         .flat_map(|(number, line)| {
-            view! {
+            view! { cx, 
                 <>
                     <sup class="BiblicalReading-verse-number">{number.verse.to_string()} " "</sup>
                     <span><SmallCaps line/></span>
@@ -31,7 +31,7 @@ pub fn BiblicalReading(cx: Scope, reading: liturgy::BiblicalReading) -> Element 
         })
         .collect::<Vec<_>>();
 
-    view! {
+    view! { cx, 
         <article class="document BiblicalReading">
             <a id=&reading.citation></a>
             <header>
@@ -71,9 +71,9 @@ pub fn BiblicalCitation(
         },
     );
 
-    view! {
+    view! { cx, 
         <div>
-            <Suspense fallback=move || view! { <p class="loading">{t("loading")}</p> }>
+            <Suspense fallback=move || view! { cx,  <p class="loading">{t("loading")}</p> }>
                 {
                     let citation = citation.clone();
                     let intro = intro.clone();
@@ -82,10 +82,10 @@ pub fn BiblicalCitation(
                             let citation = citation.clone();
                             let intro = intro.clone();
                             move |res| match res {
-                                Err(_) => view! { <p class="error">{t_with_args("biblical-citation-error", hash_map!("citation" => citation))}</p> },
+                                Err(_) => view! { cx,  <p class="error">{t_with_args("biblical-citation-error", hash_map!("citation" => citation))}</p> },
                                 Ok(reading) => {
                                     let reading = reading.to_biblical_reading(&citation, &intro);
-                                    view! { <BiblicalReading reading/> }
+                                    view! { cx,  <BiblicalReading reading/> }
                                 }
                             }
                         })

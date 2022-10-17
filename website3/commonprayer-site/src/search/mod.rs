@@ -69,7 +69,7 @@ pub fn Search(cx: Scope) -> Element {
         _ => Vec::new(),
     };
 
-    view! {
+    view! { cx, 
         <div>
             <Header label=t("search")/>
             <main class="Search">
@@ -90,7 +90,7 @@ pub fn Search(cx: Scope) -> Element {
                 <p class="Search-status" class:pending=loading>{status}</p>
                 <ol class:pending=loading>
                     <For each=results key=|res: &SearchResult| (res.link.clone(), res.score)>
-                        {|cx: Scope, res: &SearchResult| view! { <ShowSearchResult content=res.clone() /> }}
+                        {|cx: Scope, res: &SearchResult| view! { cx,  <ShowSearchResult content=res.clone() /> }}
                     </For>
                 </ol>
             </main>

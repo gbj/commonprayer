@@ -49,7 +49,7 @@ pub fn ReadingLinksView(cx: Scope, reading_links: Memo<ReadingLinks>) -> Element
     let evening_psalms = move || reading_links.with(|l| l.evening_psalms.clone());
     let readings_different = move || morning_readings() != evening_readings();
 
-    view! {
+    view! { cx, 
         <table class="reading-link-table">
             <thead>
                 <tr>
@@ -71,7 +71,7 @@ pub fn ReadingLinksView(cx: Scope, reading_links: Memo<ReadingLinks>) -> Element
                         <LinksView links=Box::new(morning_readings) evening=false />
                     </td>
                     {move || readings_different().then(move || {
-                        view! {
+                        view! { cx, 
                             <td>
                                 <LinksView links=Box::new(evening_readings) evening=true />
                             </td>
@@ -96,12 +96,12 @@ pub fn LinksView(cx: Scope, links: Box<dyn Fn() -> Vec<String>>, evening: bool) 
         queries.to_query_string()
     });
 
-    view! {
+    view! { cx, 
         <ul>
             <For each=links key=|v| v.clone()>
             {move |cx: Scope, citation: &String| {
                 let c = citation.clone();
-                view! {
+                view! { cx, 
                     <li>
                         <a href=move || format!("{}#{c}", base_link())>{citation}</a>
                     </li>

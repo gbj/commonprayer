@@ -10,14 +10,14 @@ use liturgy::Source;
 pub fn CanticleTable(cx: Scope) -> Vec<Element> {
     let (t, _, _) = use_i18n(cx);
 
-    view! {
+    view! { cx,
         <>
             <Header label=t("canticle-table-title")/>
             <main class="CanticleTable">
                 <Title text=t("canticle-table-title").into()/>
                 <div class="toggle-links">
-                    <NavLink to="" exact=true>{t("version-BCP1979")}</NavLink>
-                    <NavLink to="eow">{t("version-EOW")}</NavLink>
+                    <A href="" exact=true>{t("version-BCP1979")}</A>
+                    <A href="eow">{t("version-EOW")}</A>
                 </div>
                 <Outlet/>
             </main>
@@ -29,7 +29,7 @@ pub fn CanticleTable(cx: Scope) -> Vec<Element> {
 pub fn BCPTable(cx: Scope) -> Element {
     let (t, _, _) = use_i18n(cx);
 
-    view! {
+    view! { cx,
         // BCP 1979 Canticle Table
         <section id="BCP1979">
         <h2>{t("bcp_1979")}</h2>
@@ -240,7 +240,7 @@ pub fn BCPTable(cx: Scope) -> Element {
 pub fn EOWTable(cx: Scope) -> Element {
     let (t, _, _) = use_i18n(cx);
 
-    view! {
+    view! { cx,
         // EOW 1 Canticle Table
         <section id="EOW1">
             <h2>{t("eow_1")}</h2>
@@ -543,7 +543,7 @@ fn CanticleLink(
     label: &'static str,
 ) -> Element {
     let locale = use_language(cx);
-    view! {
+    view! { cx,
         <a href=move || format!("/{}/document/office/canticles/{}/{}", locale(), number, version)>
             {label}
         </a>
@@ -562,9 +562,9 @@ fn AorB(
     let separator = if a_label.len() < 5 {
         None
     } else {
-        Some(view! { <br/> })
+        Some(view! { cx,  <br/> })
     };
-    view! {
+    view! { cx,
         <td>
             <CanticleLink number=a_number version=a_version label=a_label/>
             " "

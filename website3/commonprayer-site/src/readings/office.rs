@@ -218,7 +218,7 @@ pub fn OfficeReadings(cx: Scope) -> Element {
         data.read().map(|d| d.readings).unwrap_or_default()
     });
 
-    view! {
+    view! { cx, 
         <div>
             // Controls
             <Form>
@@ -247,7 +247,7 @@ pub fn OfficeReadings(cx: Scope) -> Element {
                 // TODO alternates
                 /* <div>
                     {move || alternates().as_ref().map(|(observed, alternate)| {
-                        view! {
+                        view! { cx, 
                             <fieldset class="toggle">
                                 <input id="observed" type="radio" name="alternate" value="no" checked=move || !use_alternate() onchange="this.form.requestSubmit()"/>
                                 <label for="observed">{observed}</label>
@@ -266,7 +266,7 @@ pub fn OfficeReadings(cx: Scope) -> Element {
             <section>
                 <h2>{t("daily-readings-psalms")}</h2>
                 <For each=psalms key=|psalm| psalm.number>
-                {|cx: Scope, psalm: &liturgy::Psalm|  view! {
+                {|cx: Scope, psalm: &liturgy::Psalm|  view! { cx, 
                     <Psalm psalm=psalm.clone()/>
                 }}
                 </For>
@@ -276,7 +276,7 @@ pub fn OfficeReadings(cx: Scope) -> Element {
             <section>
                 <h2>{t("daily-readings-readings")}</h2>
                 <For each=readings key=|reading| reading.citation.clone()>
-                    {|cx: Scope, reading: &Reading| view! {
+                    {|cx: Scope, reading: &Reading| view! { cx, 
                         <div>
                             <a id=&reading.citation></a>
                             <BiblicalCitation citation=reading.citation.to_string()/>

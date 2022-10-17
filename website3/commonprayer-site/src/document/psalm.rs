@@ -7,9 +7,9 @@ pub fn Psalm(cx: Scope, psalm: liturgy::Psalm) -> Element {
     let sections = psalm.filtered_sections();
 
     let section_1_header = sections.get(0).map(|section| {
-        view! {
+        view! { cx, 
             <div>
-                {section.local_name.is_empty().then(|| view! {
+                {section.local_name.is_empty().then(|| view! { cx, 
                     <h3 class="Psalm-local-name">{&section.local_name}</h3>
                 })}
                 <em class="Psalm-latin-name">{&section.latin_name}</em>
@@ -30,7 +30,7 @@ pub fn Psalm(cx: Scope, psalm: liturgy::Psalm) -> Element {
                 .map(|verse| {
                     let number = verse.number;
 
-                    view! {
+                    view! { cx, 
                         <p class="Psalm-verse">
                             <a id=format!("{}-{}", psalm_number, number)></a>
                             <sup class="Psalm-verse-number">{number.to_string()}</sup>
@@ -42,12 +42,12 @@ pub fn Psalm(cx: Scope, psalm: liturgy::Psalm) -> Element {
                 .collect::<Vec<_>>();
 
             let header = if idx > 0 {
-                Some(view! {
+                Some(view! { cx, 
                     <header class="Psalm-section-header">
                         {if local.is_empty() {
                             None
                         } else {
-                            Some(view! {
+                            Some(view! { cx, 
                                 <h3 class="Psalm-local-name">{local}</h3>
                             })
                         }}
@@ -58,7 +58,7 @@ pub fn Psalm(cx: Scope, psalm: liturgy::Psalm) -> Element {
                 None
             };
 
-            view! {
+            view! { cx, 
                 <section>
                     {header}
                     <main>{verses}</main>
@@ -67,7 +67,7 @@ pub fn Psalm(cx: Scope, psalm: liturgy::Psalm) -> Element {
         })
         .collect::<Vec<_>>();
 
-    view! {
+    view! { cx, 
         <article class="document Psalm">
             <a id=psalm.citation></a>
             <header class="Psalm-header">

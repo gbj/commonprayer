@@ -6,7 +6,7 @@ pub mod reference;
 
 #[component]
 pub fn Document(cx: Scope, doc: liturgy::Document) -> Element {
-    view! {
+    view! { cx, 
         <p>"TODO generic <Document/> implementation"</p>
     }
 }
@@ -19,24 +19,24 @@ pub fn SmallCaps(cx: Scope, line: String) -> Vec<Element> {
         .flat_map(|piece| {
             if piece.ends_with("LORD") {
                 [
-                    Some(view! { <span>{piece.replace("LORD", "")}</span> }),
-                    Some(view! { <span class="lord">"Lord"</span> }),
+                    Some(view! { cx,  <span>{piece.replace("LORD", "")}</span> }),
+                    Some(view! { cx,  <span class="lord">"Lord"</span> }),
                 ]
                 .into_iter()
             } else if piece.ends_with("GOD") {
                 [
-                    Some(view! { <span>{piece.replace("GOD", "")}</span> }),
-                    Some(view! { <span class="lord">"God"</span> }),
+                    Some(view! { cx,  <span>{piece.replace("GOD", "")}</span> }),
+                    Some(view! { cx,  <span class="lord">"God"</span> }),
                 ]
                 .into_iter()
             } else if piece.ends_with("YAHWEH") {
                 [
-                    Some(view! { <span>{piece.replace("YAHWEH", "")}</span> }),
-                    Some(view! { <span class="lord">"Yahweh"</span> }),
+                    Some(view! { cx,  <span>{piece.replace("YAHWEH", "")}</span> }),
+                    Some(view! { cx,  <span class="lord">"Yahweh"</span> }),
                 ]
                 .into_iter()
             } else {
-                [None, Some(view! { <span>{piece.to_string()}</span> })].into_iter()
+                [None, Some(view! { cx,  <span>{piece.to_string()}</span> })].into_iter()
             }
         })
         .flatten()

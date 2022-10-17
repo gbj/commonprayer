@@ -54,7 +54,7 @@ async fn render_app(req: HttpRequest) -> impl Responder {
                 };
                 provide_context(cx, RouterIntegrationContext(std::rc::Rc::new(integration)));
 
-                let shell = view! { <App/> };
+                let shell = view! { cx, <App/> };
 
                 let mut route = use_context::<leptos_router::RouteContext>(cx)?;
                 // get the innermost route matched by this path
@@ -94,7 +94,7 @@ async fn render_app(req: HttpRequest) -> impl Responder {
 
                         // the actual app body/template code
                         // this does NOT contain any of the data being loaded asynchronously in resources
-                        let shell = view! { <App/> };
+                        let shell = view! { cx, <App/> };
 
                         let mut head = String::from(
                             r#"<!DOCTYPE html>

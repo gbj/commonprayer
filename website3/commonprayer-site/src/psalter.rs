@@ -55,7 +55,7 @@ pub fn Psalter(cx: Scope) -> Element {
 
     let (display_settings, _) = use_display_settings(cx);
 
-    view! {
+    view! { cx,
         <div>
             <Header label=move || t_with_args("daily-readings-psalm", hash_map!("number" => number().to_string()))></Header>
             //<Header label={t}
@@ -65,9 +65,9 @@ pub fn Psalter(cx: Scope) -> Element {
                 <Stylesheet href="/styles/psalter.css".into() />
                 <nav class="Psalter-nav">
                     // Prev Psalm
-                    {move || (number() > 1).then(|| view! { <Link to=move || format!("?number={}&version={:?}", number() - 1, version())>
+                    {move || (number() > 1).then(|| view! { cx,  <A href=move || format!("?number={}&version={:?}", number() - 1, version())>
                         <img src=Icon::Left.to_string() alt=move || t("psalm-prev")/>
-                    </Link>})}
+                    </A>})}
 
                     // Psalm header (can be edited)
                     <Form>
@@ -79,14 +79,14 @@ pub fn Psalter(cx: Scope) -> Element {
                     </Form>
 
                     // Next Psalm
-                    {move || (number() < 150).then(|| view ! { <Link to=move || format!("?number={}&version={:?}", number() + 1, version())>
+                    {move || (number() < 150).then(|| view! { cx, <A href=move || format!("?number={}&version={:?}", number() + 1, version())>
                         <img src=Icon::Right.to_string() alt=move || t("psalm-next")/>
-                    </Link> })}
+                    </A> })}
                 </nav>
                 <div class:pending={move || psalm.loading()}>
                     {move || psalm.read().map(|psalm| match psalm {
-                        Some(psalm) => view! { <Psalm psalm/> },
-                        _ => view! { <p class="error">{t("psalm-error")}</p> },
+                        Some(psalm) => view! { cx,  <Psalm psalm/> },
+                        _ => view! { cx,  <p class="error">{t("psalm-error")}</p> },
                     })}
                 </div>
             </main>

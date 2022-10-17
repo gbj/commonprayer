@@ -34,7 +34,7 @@ pub fn Localizer(cx: Scope, children: Box<dyn Fn() -> Vec<Element>>) -> Element 
     let locale = Locale(locale, set_locale);
     provide_context::<Locale>(cx, locale);
 
-    view! {<div>{children}</div>}
+    view! { cx, <div>{children}</div>}
 }
 
 pub fn provide_localization(cx: Scope) {
@@ -76,7 +76,7 @@ pub fn use_i18n(
                 }
             };
             let set_locale = move |locale: &str| {
-                set_locale(|n| {
+                set_locale.update(|n| {
                     if let Ok(langid) = locale.parse() {
                         *n = langid;
                     } else {
