@@ -1,6 +1,11 @@
 use std::collections::HashMap;
 
-use super::breadcrumbs::breadcrumbs;
+use crate::WebView;
+
+use super::{
+    breadcrumbs::breadcrumbs,
+    views::{source_link, DocumentView},
+};
 use leptos2::*;
 use liturgy::{parallel_table::ParallelDocument, Document, Slug, SlugPath, Version};
 
@@ -11,7 +16,61 @@ pub fn parallels_body(
     initial_text: &str,
     parallels: &[Vec<(ParallelDocument, usize)>],
 ) -> Vec<Node> {
-    todo!()
+    let parallels_view = parallels
+        .iter()
+        .enumerate()
+        .map(|(row_idx, row)| {
+            let cols = row
+                .iter()
+                .enumerate()
+                .map(|(col_idx, (child, width))| {
+                    let view = match child {
+                        ParallelDocument::Source(reference) => source_link(reference),
+                        ParallelDocument::Link { label, slug } => Some(view! {
+                            <a href={format!("/{}/document/{}", locale, slug)}>{label}</a>
+                        }),
+                        ParallelDocument::Explainer(Some(explainer)) => Some(view! {
+                            <p class="explainer">{explainer}</p>
+                        }),
+                        ParallelDocument::Explainer(None) => None,
+                        ParallelDocument::Document(doc) => {
+                            let viewer = DocumentView {
+                                doc: &doc,
+                                path: vec![],
+                                url: "",
+                            };
+
+                            Some(viewer.view(locale))
+                        }
+                    };
+
+                    view! {
+                        <td colspan={width.to_string()}>{view}</td>
+                    }
+                })
+                .collect::<Vec<_>>();
+            view! {
+                <tr>{cols}</tr>
+            }
+        })
+        .collect::<Vec<_>>();
+
+    view! {
+        <>
+            <header><h1>{label}</h1></header>
+            <main
+                class="parallels"
+                //class={display_settings_menu.current_settings().stream().map(|settings| format!("parallels {}", settings.to_class())).boxed_local()}
+            >
+                {breadcrumbs(locale, base_slug)}
+                {initial_text}
+                <table>
+                    {parallels_view}
+                </table>
+            </main>
+        </>
+    }
+
     /* let selecting = Behavior::new(false);
     let parallel_selections: Behavior<HashMap<(usize, usize), Document>> =
         Behavior::new(HashMap::new());
