@@ -2092,7 +2092,7 @@ lazy_static! {
         CollectId::Feast(Feast::SamuelSeabury),
         CollectData::from(
             Document::from(
-                Text::from("We give you thanks, O Lord our God, for your goodness in bestowing upon this church thegift of the episcopate; and we pray that, joined together inunity with our bishops and nourished by yourholy sacraments, we may proclaim the Gospelof redemption with apostolic zeal; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
+                Text::from("We give you thanks, O Lord our God, for your goodness in bestowing upon this church the gift of the episcopate; and we pray that, joined together in unity with our bishops and nourished by your holy sacraments, we may proclaim the Gospel of redemption with apostolic zeal; through Jesus Christ our Lord, who lives and reigns with you and the Holy Spirit, one God, now and for ever.")
                     .response("Amen.")
                 )
                 .label("")
