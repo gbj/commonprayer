@@ -273,7 +273,7 @@ fn daily_office_card(
         let days = black_letter_days
             .iter()
             .map(|(feast, name)| {
-                let url = format!("/{}/holy-day/{:#?}", locale, feast);
+                let url = format!("/{}/readings/holy-day?id={:?}", locale, feast);
                 view! {
                     <li>
                         <a href={url}>{name}</a>
