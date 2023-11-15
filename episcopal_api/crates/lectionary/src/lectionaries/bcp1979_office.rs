@@ -14890,7 +14890,7 @@ pub const BCP1979_DAILY_OFFICE_LECTIONARY: Lectionary = Lectionary {
             LiturgicalDayId::ProperAndDay(Proper::Proper27, Weekday::Sat),
             Year::DailyOffice(DailyOfficeYear::One),
             ReadingType::Gospel,
-            "Mark 16:21-28",
+            "Matt. 16:21-28",
         ),
         (
             LiturgicalDayId::ProperAndDay(Proper::Proper27, Weekday::Sat),
