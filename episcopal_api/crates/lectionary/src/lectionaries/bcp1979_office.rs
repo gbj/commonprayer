@@ -1119,12 +1119,6 @@ pub const BCP1979_DAILY_OFFICE_LECTIONARY: Lectionary = Lectionary {
         (
             LiturgicalDayId::Feast(Feast::Mark),
             Year::Any,
-            ReadingType::SecondReading,
-            "2 Tim. 4:1-11",
-        ),
-        (
-            LiturgicalDayId::Feast(Feast::Mark),
-            Year::Any,
             ReadingType::Morning1,
             "Ecclus. 2:1-11",
         ),

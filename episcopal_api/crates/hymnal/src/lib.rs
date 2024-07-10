@@ -24,6 +24,18 @@ pub enum Hymnals {
     ElHimnario
 }
 
+impl Hymnals {
+    /// Returns an ID for the hymnal on Hymnary.org.
+    pub fn hymnary_id(&self) -> &'static str {
+        match self {
+            Hymnals::Hymnal1982 => "EH1982",
+            Hymnals::LEVAS => "LEVS1993",
+            Hymnals::WLP => "WLP1997",
+            Hymnals::ElHimnario => "EH1998",
+        }
+    }
+}
+
 impl std::fmt::Display for Hymnals {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
@@ -189,6 +201,48 @@ impl Hymn {
         let text_empty = self.text.is_empty();
         let Hymn { source, number, title, tune, copyright_restriction, authors, composers, meter, tags, .. } = self.clone();
         HymnMetadata { source, number, title, tune, copyright_restriction, text_empty, authors, composers, meter, tags }
+    }
+
+    /// Returns the URL of an entry for this hymn on RiteSong.
+    pub fn rite_song_link(&self) -> Option<String> {
+        let hymnal = self.source;
+        let number = self.number;
+        let id = match (hymnal, number) {
+            (Hymnals::Hymnal1982, HymnNumber::S(n)) => Some(1353 + (n - 1)),
+            (Hymnals::Hymnal1982, HymnNumber::H(n)) => Some(193 + (n - 1)),
+            (Hymnals::LEVAS, HymnNumber::H(n)) => Some(913 + (n - 1)),
+            (Hymnals::LEVAS, HymnNumber::S(n)) => Some(913 + (n - 1)),
+            (Hymnals::WLP, HymnNumber::H(n)) => Some(1968 + (n - 721)),
+            (Hymnals::WLP, HymnNumber::S(n)) => Some(1968 + (n - 721)),
+            (Hymnals::ElHimnario, _) => None,
+        };
+
+        let base = match (hymnal, number) {
+            (Hymnals::Hymnal1982, HymnNumber::S(_n)) => {
+                Some("https://www.riteseries.org/song/Hymnal1982ServiceMusic/")
+            }
+            (Hymnals::Hymnal1982, HymnNumber::H(_n)) => {
+                Some("https://www.riteseries.org/song/Hymnal1982/")
+            }
+            (Hymnals::LEVAS, _) => Some("https://www.riteseries.org/song/levs/"),
+            (Hymnals::WLP, _) => Some("https://www.riteseries.org/song/wlp/"),
+            (Hymnals::ElHimnario, _) => None,
+        };
+
+        if let (Some(base), Some(id)) = (base, id) {
+            Some(format!("{}{}/", base, id))
+        } else {
+            None
+        }
+    }
+
+    /// Returns the URL of an entry for this hymn on Hymnary.org.
+    pub fn hymnary_link(&self) -> String {
+        let hymnal_id = self.source.hymnary_id();
+        let page = self.page_number;
+        format!(
+            "https://hymnary.org/page/fetch/{hymnal_id}/{page}/high",
+        )
     }
 }
 
