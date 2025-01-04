@@ -44,7 +44,7 @@ impl Loader for SettingsView {
 
 impl View for SettingsView {
     fn title(&self) -> String {
-        t!("settings.title")
+        t!("settings.title").to_string()
     }
 
     fn styles(&self) -> Styles {

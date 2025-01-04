@@ -87,7 +87,7 @@ impl View for HymnalView {
         format!(
             "{} – {}",
             if self.hymnals.len() == 1 {
-                self.hymnals[0].title.clone()
+                self.hymnals[0].title.clone().into()
             } else {
                 t!("menu.hymnal")
             },

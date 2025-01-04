@@ -25,7 +25,7 @@ where
         Self(
             moka::sync::Cache::builder()
                 .time_to_idle(std::time::Duration::from_secs(604_800)) // after one week without get() or insert(), will expire
-                .max_capacity(50) // if we have more than 50 cached readings, start dropping them based on use
+                .max_capacity(500) // if we have more than 50 cached readings, start dropping them based on use
                 .build(),
         )
     }

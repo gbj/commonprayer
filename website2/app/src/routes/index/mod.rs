@@ -82,7 +82,7 @@ impl Loader for Index {
 
 impl View for Index {
     fn title(&self) -> String {
-        t!("common_prayer")
+        t!("common_prayer").to_string()
     }
 
     fn meta(&self) -> MetaTags {
@@ -293,11 +293,11 @@ impl Index {
     }
 }
 
-fn nav_link(current_url: &str, locale: &str, href: &str, label: String) -> Node {
+fn nav_link(current_url: &str, locale: &str, href: &str, label: impl ToString) -> Node {
     let localized_href = format!("/{}{}", locale, href);
     let active = !href.is_empty() && current_url.starts_with(&localized_href);
     view! {
-        <a href={localized_href} class:current={active}>{label}</a>
+        <a href={localized_href} class:current={active}>{label.to_string()}</a>
     }
 }
 
@@ -308,7 +308,7 @@ fn office_link(
     settings: &GeneralSettings,
     prefs: SettingsForLiturgy,
     slug: Slug,
-    label: String,
+    label: impl ToString,
 ) -> Node {
     let version = settings.liturgy_version;
     let slug = slug.slugify();

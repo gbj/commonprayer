@@ -144,9 +144,10 @@ impl Loader for CalendarView {
 
 impl View for CalendarView {
     fn title(&self) -> String {
+        let key = format!("lectionary.month_{}", self.month);
         format!(
             "{} {} – {}",
-            t!(&format!("lectionary.month_{}", self.month)),
+            t!(&key),
             self.year,
             t!("common_prayer")
         )
@@ -217,7 +218,10 @@ impl View for CalendarView {
 				<main>
                     <div class="controls">
                         <a href={format!("?{}", self.link_to_adjacent_month(false))}>{self.previous_month_name()}</a>
-                        <h2>{t!(&format!("lectionary.month_{}", self.month))}</h2>
+                        <h2>{
+                            let key = format!("lectionary.month_{}", self.month);
+                            t!(&key).to_string()
+                        }</h2>
                         <a href={format!("?{}", self.link_to_adjacent_month(true))}>{self.next_month_name()}</a>
                     </div>
 					<time class="month" datetime={format!("{}-{:02}", self.year, self.month)}>
@@ -243,7 +247,8 @@ impl CalendarView {
         if self.month == 1 {
             format!("{} {}", t!("lectionary.month_12"), self.year - 1)
         } else {
-            t!(&format!("lectionary.month_{}", self.month - 1))
+            let key = format!("lectionary.month_{}", self.month - 1);
+            t!(&key).to_string()
         }
     }
 
@@ -251,7 +256,8 @@ impl CalendarView {
         if self.month == 12 {
             format!("{} {}", t!("lectionary.month_1"), self.year + 1)
         } else {
-            t!(&format!("lectionary.month_{}", self.month + 1))
+            let key = format!("lectionary.month_{}", self.month + 1);
+            t!(&key).to_string()
         }
     }
 

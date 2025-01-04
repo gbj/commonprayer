@@ -11,7 +11,10 @@ pub fn breadcrumbs(locale: &str, path: &SlugPath) -> Node {
             let label = match slug {
                 Slug::Version(version) => version.to_string(),
                 Slug::Canticle(id) => id.to_string(),
-                _ => t!(&format!("slug.{slug}")),
+                _ => {
+                    let key = format!("slug.{slug}");
+                    t!(&key).to_string()
+                }
             };
             view! {
                 <li>

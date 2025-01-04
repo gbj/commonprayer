@@ -176,7 +176,7 @@ impl View for CanticleChoice {
                                     (None, Version::RiteI) => t!("rite_i"),
                                     (None, Version::RiteII) => t!("rite_ii"),
                                     (None, Version::EOW) => t!("eow"),
-                                    _ => "".to_string()
+                                    _ => "".into()
                                 };
 
                                 view! {

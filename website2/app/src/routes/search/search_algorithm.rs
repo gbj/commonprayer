@@ -416,9 +416,12 @@ impl Searchable for Document {
                         .map(|slug| match slug {
                             Slug::Version(version) => version.to_string(),
                             Slug::Canticle(id) => {
-                                t!("daily_readings.canticle", number = &id.to_string())
+                                t!("daily_readings.canticle", number = &id.to_string()).to_string()
                             }
-                            _ => t!(&format!("slug.{:?}", slug)),
+                            _ => {
+                                let key = format!("slug.{:?}", slug);
+                                t!(&key).to_string()
+                            }
                         }),
                     || String::from(" 〉"),
                 )

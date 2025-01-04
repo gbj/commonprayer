@@ -165,7 +165,7 @@ impl Loader for HomePage {
 
 impl View for HomePage {
     fn title(&self) -> String {
-        t!("common_prayer")
+        t!("common_prayer").to_string()
     }
 
     fn styles(&self) -> Styles {
@@ -326,8 +326,9 @@ fn office_link(locale: &str, version: Version, date: Date, slug: Slug, prefs: St
         date.to_padded_string(),
         urlencoding::encode(&prefs)
     );
+    let key = format!("slug.{}", slug);
     view! {
-        <a class="badge" href={href}>{t!(&format!("slug.{}", slug))}</a>
+        <a class="badge" href={href}>{t!(&key).to_string()}</a>
     }
 }
 

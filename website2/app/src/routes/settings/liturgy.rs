@@ -225,9 +225,9 @@ impl View for LiturgySettingsView {
 }
 
 impl LiturgySettingsView {
-    fn liturgy_setting_link(&self, path: SlugPath, label: String) -> Node {
+    fn liturgy_setting_link(&self, path: SlugPath, label: impl ToString) -> Node {
         let href = format!("/{}/settings/liturgy/{}", self.locale, path);
-        view! { <a href={href} class:current={path == self.settings.liturgy}>{label}</a> }
+        view! { <a href={href} class:current={path == self.settings.liturgy}>{label.to_string()}</a> }
     }
 
     fn liturgy_preferences_view(&self) -> Vec<Node> {

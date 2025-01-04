@@ -47,6 +47,17 @@ lazy_static! {
     pub static ref ROUTER: Router<app::routes::Index> = router();
 }
 
+async fn robots() -> HttpResponse {
+    HttpResponse::Ok().body(
+        r#"
+User-agent: *
+Disallow: /en/document/office/morning-prayer/
+Disallow: /en/document/office/evening-prayer/
+Disallow: /en/canticle-choice
+"#,
+    )
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let host = std::env::var("HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
@@ -86,6 +97,8 @@ async fn main() -> std::io::Result<()> {
                 .wrap(Cors::permissive())
                 .app_data(web::FormConfig::default().limit(256 * 1024)) // increase max form size for DOCX export
                 .app_data(web::Data::new(pool.clone()))
+                .route("/robots.txt", web::get().to(robots))
+                .service(health_check)
                 .service(health_check)
                 //.service(daily_summary)
                 .service(export_docx)
@@ -116,10 +129,10 @@ async fn main() -> std::io::Result<()> {
                         .service(Files::new("", &format!("{}/app/static", *PROJECT_ROOT))),
                 )
                 .default_service(web::route().to(
-                    async move |req_raw: HttpRequest,
+                    move |req_raw: HttpRequest,
                                 body: web::Bytes,
                                 multipart: actix_multipart::Multipart,
-                                db: web::Data<Pool<Postgres>>| {
+                                db: web::Data<Pool<Postgres>>| async move {
                         let req = RequestCompat::new(
                             req_raw.clone(),
                             body.as_ref().to_vec(),

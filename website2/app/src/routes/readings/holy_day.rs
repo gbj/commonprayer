@@ -361,7 +361,11 @@ impl HolyDayView {
                 .iter()
                 .map(|psalm| {
                     psalm.citation.clone().unwrap_or_else(|| {
-                        t!("daily_readings.psalm", number = &psalm.number.to_string())
+                        t!(
+                            "daily_readings.psalm",
+                            number = &psalm.number.to_string().to_string()
+                        )
+                        .to_string()
                     })
                 })
                 .map(|citation| view! { <a href={format!("#{}", citation)}>{citation}</a> }),
@@ -397,9 +401,9 @@ impl HolyDayView {
                 .iter()
                 .enumerate()
                 .map(|(idx, doc)| {
-                    doc.citation
-                        .clone()
-                        .unwrap_or_else(|| t!("daily_readings.option", n = &idx.to_string()))
+                    doc.citation.clone().unwrap_or_else(|| {
+                        t!("daily_readings.option", n = &idx.to_string()).to_string()
+                    })
                 })
                 .collect::<Vec<_>>();
             let psalms = self.psalm.iter().map(|doc| {

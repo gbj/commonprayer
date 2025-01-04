@@ -334,7 +334,7 @@ impl View for DocumentPage {
         };
         match label {
             Some(label) => format!("{} – {}", label, t!("common_prayer")),
-            None => t!("common_prayer"),
+            None => t!("common_prayer").to_string(),
         }
     }
 

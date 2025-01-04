@@ -52,7 +52,7 @@ reference-parser = { path = "../../episcopal_api/crates/reference-parser" }
 alcoholic_jwt = { version = "4091", optional = true }
 cached = { version = "0.34", features = ["async"], optional = true }
 moka = { version = "0.8", optional = true }
-rust-i18n = { version = "0.6", optional = true }
+rust-i18n = { version = "3", optional = true }
 sqlx = { version = "0.6", optional = true, features = ["postgres", "runtime-tokio-native-tls", "json", "chrono"]}
 date_time_parser = "0.1.1"
 tempfile = "3.3.0"

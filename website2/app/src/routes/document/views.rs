@@ -732,12 +732,12 @@ pub fn hymn_link(locale: &str, content: &HymnLink) -> HeaderAndMain {
     };
 
     let label = match content {
-        HymnLink::Hymnals => t!("menu.hymnal"),
+        HymnLink::Hymnals => t!("menu.hymnal").to_string(),
         HymnLink::Hymnal(hymnal_id) => hymnal_id.to_string(),
         HymnLink::Hymn(hymnal_id, number) => {
             format!("{} {}", hymnal_id, number)
         }
-        HymnLink::Tag(tag) => t!("hymnal.category_lookup", category = tag),
+        HymnLink::Tag(tag) => t!("hymnal.category_lookup", category = tag).to_string(),
         HymnLink::TagWithLabel(_, label) => label.clone(),
     };
 

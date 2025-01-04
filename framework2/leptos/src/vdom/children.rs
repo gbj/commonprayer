@@ -53,6 +53,12 @@ impl IntoChildren for String {
     }
 }
 
+impl<'a> IntoChildren for std::borrow::Cow<'a, str> {
+    fn into_children(self) -> Box<dyn Iterator<Item = Node>> {
+        Box::new(std::iter::once(text(self)))
+    }
+}
+
 impl<F> IntoChildren for (Node, F)
 where
     F: Future<Output = Node> + 'static,

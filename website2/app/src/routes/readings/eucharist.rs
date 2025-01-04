@@ -594,13 +594,17 @@ impl EucharistView {
                     Content::Psalm(psalm) => Some(psalm.citation.clone().unwrap_or_else(|| {
                         doc.label.clone().unwrap_or_else(|| {
                             t!("daily_readings.psalm", number = &psalm.number.to_string())
+                                .to_string()
                         })
                     })),
                     Content::PsalmCitation(citation) => Some(citation.0.clone()),
-                    Content::Canticle(canticle) => Some(t!(
-                        "daily_readings.canticle",
-                        number = &canticle.number.to_string()
-                    )),
+                    Content::Canticle(canticle) => Some(
+                        t!(
+                            "daily_readings.canticle",
+                            number = &canticle.number.to_string()
+                        )
+                        .to_string(),
+                    ),
                     _ => None,
                 };
                 let citation = doc.as_citation();
@@ -645,8 +649,9 @@ impl EucharistView {
                 .iter()
                 .enumerate()
                 .map(|(idx, doc)| {
-                    Document::as_citation(doc)
-                        .unwrap_or_else(|| t!("daily_readings.option", n = &idx.to_string()))
+                    Document::as_citation(doc).unwrap_or_else(|| {
+                        t!("daily_readings.option", n = &idx.to_string()).to_string()
+                    })
                 })
                 .collect::<Vec<_>>();
             let psalms = self.psalm.iter().map(|doc| {

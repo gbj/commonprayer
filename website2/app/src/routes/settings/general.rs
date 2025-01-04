@@ -81,7 +81,7 @@ impl Loader for GeneralSettingsView {
 
 impl View for GeneralSettingsView {
     fn title(&self) -> String {
-        t!("settings.general")
+        t!("settings.general").to_string()
     }
 
     fn styles(&self) -> Styles {

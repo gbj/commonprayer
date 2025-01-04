@@ -82,7 +82,7 @@ impl Loader for DisplaySettingsView {
 
 impl View for DisplaySettingsView {
     fn title(&self) -> String {
-        t!("settings.display_settings.title")
+        t!("settings.display_settings.title").to_string()
     }
 
     fn styles(&self) -> Styles {

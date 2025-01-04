@@ -113,7 +113,7 @@ impl View for SearchView {
                 <header>
                     <h1>
                         {if self.search.is_empty() {
-                            t!("search")
+                            t!("search").to_string()
                         } else {
                             format!("“{}”", self.search)
                         }}
