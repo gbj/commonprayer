@@ -1,450 +1,449 @@
-en:
-  common_prayer: Common Prayer
-  loading: Loading...
-  or: or
-  search: Search
-  today: Today
+common_prayer: Common Prayer
+loading: Loading...
+or: or
+search: Search
+today: Today
 
-  auth:
-    title: User Authentication
-    logout: Sign Out
+auth:
+  title: User Authentication
+  logout: Sign Out
 
-  page_404:
-    title: Page Not Found
-    uh_oh: Uh-oh!
-    explanation: It seems that the page you’re looking for is missing. If you think this is a mistake, please send me a message using the link below. Otherwise, try again!
-    email_greg: Email Me
-    button_text: Go to the Table of Contents
+page_404:
+  title: Page Not Found
+  uh_oh: Uh-oh!
+  explanation: It seems that the page you’re looking for is missing. If you think this is a mistake, please send me a message using the link below. Otherwise, try again!
+  email_greg: Email Me
+  button_text: Go to the Table of Contents
 
-  menu:
-    open_menu: Open Menu
-    home: Home
-    calendar: Calendar
-    readings: Readings
-    canticle_table: Canticle Table
-    hymnal: Hymnal
-    psalter: Psalter
-    about: About
-
-  hymnal:
-    any: —
-    h82: The Hymnal 1982
-    levas: Lift Every Voice and Sing
-    wlp: Wonder, Love, and Praise
-    el_himnario: El Himnario
-    h82_abbrev: 1982
-    levas_abbrev: LEVAS
-    wlp_abbrev: WLP
-    more_info: More information available on
-    alt_text: Page Scan from Hymnary.org.
-    copyright_restriction: "[This page is unavailable due to copyright.]"
-    copyright_footer: All data and images for this page are taken from publicly-available data from Hymnary.org. To the best of my knowledge, no copyrighted material is reproduced on this page.
-    tune: Tune
-    first_line: First Line
-    text_title: Text Title
-    refrain_first_line: First Line of Refrain
-    authors: Author(s)
-    composers: Composer(s)
-    meter: Meter
-    text_sources: Text Source(s)
-    tune_sources: Tune Source(s)
-    music_available: Music Available
-    page_back: Turn Back One Page
-    page_forward: Turn Forward One Page
-    page_n: Page %{number}
-    text: Words
-    music: Music
-    text_view: Text
-    music_view: Music
-    video_view: Videos
-    video_error: Oops! Something went wrong when we tried to load videos for this hymn.
-    more_results: Click here for more search results.
-    category_lookup: "%{category} Hymns"
-    search_by_bing: Search results provided by the Bing Video Search API.
-    search_instruction: Begin by searching for a hymn.
-
-  liturgy: Liturgy
-  date: Date
-  pray: Pray
+menu:
+  open_menu: Open Menu
+  home: Home
+  calendar: Calendar
+  readings: Readings
+  canticle_table: Canticle Table
+  hymnal: Hymnal
   psalter: Psalter
-  traditional: Traditional
-  contemporary: Contemporary
-  rite_i: Rite I
-  rite_ii: Rite II
-  eow: EOW
+  about: About
 
-  bible_version:
-    NRSV_full: New Revised Standard Version (NRSV)
-    ESV_full: English Standard Version (ESV)
-    CEB_full: Common English Bible (CEB)
-    KJV_full: King James Version (KJV)
-    RV_full: Reina-Valera (1909)
-    NRSV: NRSV
-    ESV: ESV
-    CEB: CEB
-    KJV: KJV
-    RV: RV
+hymnal:
+  any: —
+  h82: The Hymnal 1982
+  levas: Lift Every Voice and Sing
+  wlp: Wonder, Love, and Praise
+  el_himnario: El Himnario
+  h82_abbrev: 1982
+  levas_abbrev: LEVAS
+  wlp_abbrev: WLP
+  more_info: More information available on
+  alt_text: Page Scan from Hymnary.org.
+  copyright_restriction: "[This page is unavailable due to copyright.]"
+  copyright_footer: All data and images for this page are taken from publicly-available data from Hymnary.org. To the best of my knowledge, no copyrighted material is reproduced on this page.
+  tune: Tune
+  first_line: First Line
+  text_title: Text Title
+  refrain_first_line: First Line of Refrain
+  authors: Author(s)
+  composers: Composer(s)
+  meter: Meter
+  text_sources: Text Source(s)
+  tune_sources: Tune Source(s)
+  music_available: Music Available
+  page_back: Turn Back One Page
+  page_forward: Turn Forward One Page
+  page_n: Page %{number}
+  text: Words
+  music: Music
+  text_view: Text
+  music_view: Music
+  video_view: Videos
+  video_error: Oops! Something went wrong when we tried to load videos for this hymn.
+  more_results: Click here for more search results.
+  category_lookup: "%{category} Hymns"
+  search_by_bing: Search results provided by the Bing Video Search API.
+  search_instruction: Begin by searching for a hymn.
 
-  calendar:
-    omit_black_letter: Omit Days of Optional Observance (“Black-Letter Days”)
-    month: Month
-    year: Year
+liturgy: Liturgy
+date: Date
+pray: Pray
+psalter: Psalter
+traditional: Traditional
+contemporary: Contemporary
+rite_i: Rite I
+rite_ii: Rite II
+eow: EOW
 
-  source: Source
-  reference: "%{source} p. %{page}"
-  version:
-    BCP1979: Book of Common Prayer (1979)
-    EOW: Enriching Our Worship
-    Expansive: Expansive-Language
-    RiteI: Rite I (Traditional Language)
-    RiteII: Rite II (Contemporary Language)
-    Parallel: Parallels
+bible_version:
+  NRSV_full: New Revised Standard Version (NRSV)
+  ESV_full: English Standard Version (ESV)
+  CEB_full: Common English Bible (CEB)
+  KJV_full: King James Version (KJV)
+  RV_full: Reina-Valera (1909)
+  NRSV: NRSV
+  ESV: ESV
+  CEB: CEB
+  KJV: KJV
+  RV: RV
 
-  settings:
-    dark_mode:
-      label: Dark Mode
-      auto: Auto
-      auto_explanation: Site will match your device’s mode.
-      light: Light
-      light_explanation: Site will always use light mode.
-      dark: Dark
-      dark_explanation: Site will always use dark mode.
-    submit: Save Settings
-    title: Settings
-    general: General Settings
-    liturgy: Liturgy Settings
-    advanced: Advanced Settings
-    version: Version
-    calendar: Calendar
-    psalm_cycle: Psalm Cycle
-    bible_version: Bible Version
-    no_bible_version: The Bible version can be set for each liturgy below, or a global preference can be chosen here.
-    use_black_letter_collects: Use Collects for Black-Letter Days
-    gloria_patri: Gloria Patri
-    gloria_patri_2: Glory to the Father...
-    gloria_patri_1: Glory be to the Father...
-    yes: Yes
-    no: No
-    rite_i: Rite I (Traditional Language)
-    rite_ii: Rite II (Contemporary Language)
-    success: "Your settings have been updated."
-    error: "Something went wrong while updating your preferences. Try again later."
-    not_available: "We were unable to save your settings in your browser’s local storage. Is it possible your privacy settings have this disabled?"
-    display_settings:
-      title: Display Settings
-      liturgy: Liturgy Display Settings
-      bible_verses: Show Bible Verse Numbers
-      psalm_verses: Show Psalm Verse Numbers
-    use_preferences: View Current Liturgy with Selected Preferences
+calendar:
+  omit_black_letter: Omit Days of Optional Observance (“Black-Letter Days”)
+  month: Month
+  year: Year
 
-  toc:
-    table_of_contents: Table of Contents
-    work_in_progress: (Work in Progress)
-    calendar_full: The Calendar of the Church Year
-    readings: Readings
-    daily_readings: Daily Readings
-    holy_days: Holy Days
-    daily_office: Daily Office
-    pray_daily_office: Pray the Office
-    daily_office_lectionary: Daily Office Lectionary
-    morning_prayer: Morning Prayer
-    noonday_prayer: Noonday Prayer
-    evening_prayer: Evening Prayer
-    compline: Compline
-    canticle_table: Table of Suggested Canticles
-    great_litany: Great Litany
-    proper_liturgies: Proper Liturgies for Special Days
-    holy_baptism: Holy Baptism
-    holy_eucharist: Holy Eucharist
-    pastoral_offices: Pastoral Offices
-    marriage: Marriage
-    burial: Burial
-    episcopal_services: Episcopal Services
-    occasional_services: Occasional Services
-    psalter_full: The Psalter, or Psalms of David
-    prayers_and_thanksgivings: Prayers and Thanksgivings
-    catechism_full: An Outline of the Faith, or Catechism
-    historical_documents: Historical Documents of the Church
+source: Source
+reference: "%{source} p. %{page}"
+version:
+  BCP1979: Book of Common Prayer (1979)
+  EOW: Enriching Our Worship
+  Expansive: Expansive-Language
+  RiteI: Rite I (Traditional Language)
+  RiteII: Rite II (Contemporary Language)
+  Parallel: Parallels
 
-  category:
-    OpeningSentences: Opening Sentences
-    ClosingSentences: Closing Sentences
-    OffertorySentences: Offertory Sentences
-    InvitatoryAntiphons: Invitatory Antiphons
-    PrayersAndThanksgivings: Prayers and Thanksgivings
-    AdditionalPrayers: Additional Prayers
-    ServiceOfLight: Service of Light
-    office: Daily Office
-    burial: Burial
-    canticle: Canticles
-    collects: Collects
-    opening-sentences: Opening Sentences
-    closing-sentences: Closing Sentences
-    eucharist: Eucharist
-    offertory-sentences: Offertory Sentences
-    invitatory-antiphons: Invitatory Antiphons
-    marriage: Marriage
-    prayers-and-thanksgivings: Prayers and Thanksgivings
+settings:
+  dark_mode:
+    label: Dark Mode
+    auto: Auto
+    auto_explanation: Site will match your device’s mode.
+    light: Light
+    light_explanation: Site will always use light mode.
+    dark: Dark
+    dark_explanation: Site will always use dark mode.
+  submit: Save Settings
+  title: Settings
+  general: General Settings
+  liturgy: Liturgy Settings
+  advanced: Advanced Settings
+  version: Version
+  calendar: Calendar
+  psalm_cycle: Psalm Cycle
+  bible_version: Bible Version
+  no_bible_version: The Bible version can be set for each liturgy below, or a global preference can be chosen here.
+  use_black_letter_collects: Use Collects for Black-Letter Days
+  gloria_patri: Gloria Patri
+  gloria_patri_2: Glory to the Father...
+  gloria_patri_1: Glory be to the Father...
+  yes: Yes
+  no: No
+  rite_i: Rite I (Traditional Language)
+  rite_ii: Rite II (Contemporary Language)
+  success: "Your settings have been updated."
+  error: "Something went wrong while updating your preferences. Try again later."
+  not_available: "We were unable to save your settings in your browser’s local storage. Is it possible your privacy settings have this disabled?"
+  display_settings:
+    title: Display Settings
+    liturgy: Liturgy Display Settings
+    bible_verses: Show Bible Verse Numbers
+    psalm_verses: Show Psalm Verse Numbers
+  use_preferences: View Current Liturgy with Selected Preferences
 
+toc:
+  table_of_contents: Table of Contents
+  work_in_progress: (Work in Progress)
+  calendar_full: The Calendar of the Church Year
+  readings: Readings
+  daily_readings: Daily Readings
+  holy_days: Holy Days
+  daily_office: Daily Office
+  pray_daily_office: Pray the Office
+  daily_office_lectionary: Daily Office Lectionary
+  morning_prayer: Morning Prayer
+  noonday_prayer: Noonday Prayer
+  evening_prayer: Evening Prayer
+  compline: Compline
+  canticle_table: Table of Suggested Canticles
+  great_litany: Great Litany
+  proper_liturgies: Proper Liturgies for Special Days
+  holy_baptism: Holy Baptism
+  holy_eucharist: Holy Eucharist
+  pastoral_offices: Pastoral Offices
+  marriage: Marriage
+  burial: Burial
+  episcopal_services: Episcopal Services
+  occasional_services: Occasional Services
+  psalter_full: The Psalter, or Psalms of David
+  prayers_and_thanksgivings: Prayers and Thanksgivings
+  catechism_full: An Outline of the Faith, or Catechism
+  historical_documents: Historical Documents of the Church
 
-  lookup:
-    canticle_table: Table of Suggested Canticles
-    collect_of_the_day: The Collect of the Day
-    lectionary_reading: Lectionary Readings
-
-  biblical_citation:
-    error: Something went wrong while loading %{citation}.
-    try_again: Try Again.
-
-  daily_readings:
-    readings_for_date: Readings for Date
-    daily_readings_error: Uh-oh! Something went wrong while loading readings.
-    default: (Default)
-    alternate: (Alternate)
-    transferred: (Transferred)
-    psalms: Psalms
-    psalm: Psalm %{number}
-    canticle: Canticle %{number}
-    daily_office_readings: Daily Office Readings
-    daily_office_psalms: Daily Office Psalms
-    thirty_day_psalms: 30-Day Psalm Cycle
-    morning: Morning
-    evening: Evening
-    todays_readings: Click here for today’s readings.
-    or: or
-    vigil_readings: At the Liturgy of the Word
-    eucharist_readings: At the Eucharist
-    option: Option %{n}
-
-  canticle_swap:
-    change_canticle: Change Canticle
-    choose: Choose a Canticle
-    connection_error: There was an error connecting to our server. Are you connected to the Internet?
-    error: Something went wrong while loading canticle choices. Try again later?
-    close: Cancel
-    any: —
-
-  canticle_table:
-    canticles_mp: Suggested Canticles at Morning Prayer
-    canticles_ep: Suggested Canticles at Evening Prayer
-    supplemental_materials: Supplemental Liturgical Materials and Rite II
-    after_ot: After the Old Testament Reading
-    after_nt: After the New Testament Reading
-    sunday_abbrev: Sun.
-    monday_abbrev: Mon.
-    tuesday_abbrev: Tue.
-    wednesday_abbrev: Wed.
-    thursday_abbrev: Thu.
-    friday_abbrev: Fri.
-    saturday_abbrev: Sat.
-    on_feasts: On Feasts of our Lord and other Major Feasts
-    magnificat_note: "* If only one Reading is used, the suggested Canticle is the Magnificat."
-    magnificat_note_eow: "** If only one reading is used, the suggested canticle is The Song of Mary."
-    or: or
-    lent: Lent
-    advent: Advent
-    advent_and_lent: Advent and Lent
-    christmas: Christmas
-    easter: Easter
-    please_note: Please Note
-    eow_canticle_table_note: The published edition includes a handful of typographical errors in the table of suggested canticles. This page reflects a version of the text which has been corrected and conformed in capitalization and punctuation to the Book of Common Prayer.
-    canticles_appointed_for_christmas: "* Canticles appointed for Christmas may be used through the First Sunday after the Epiphany."
-    canticle_n: Canticle %{number}
-
-  export:
-    export: Export
-    link: Share Link
-    embed: Embed Code
-    word: Open in Word
-    venite: Copy to Venite.app
-    json: Download (JSON)
-    clipboard_success: Copied to Clipboard
-    clipboard_error: "Could not copy to clipboard. Try copying and pasting manually: "
-    selections: Selected Text
-    whole_doc: Whole Document
-    select: Select Items to Export
-
-  bcp_1979: Book of Common Prayer (1979)
-  bcp_1979_abbrev: BCP (1979)
-  lff: Lesser Feasts & Fasts
-  lff_2018: Lesser Feasts & Fasts (2018)
-  lff_2018_abbrev: LFF (2018)
-  eow_1: Enriching Our Worship
-
+category:
+  OpeningSentences: Opening Sentences
+  ClosingSentences: Closing Sentences
+  OffertorySentences: Offertory Sentences
+  InvitatoryAntiphons: Invitatory Antiphons
+  PrayersAndThanksgivings: Prayers and Thanksgivings
+  AdditionalPrayers: Additional Prayers
+  ServiceOfLight: Service of Light
+  office: Daily Office
+  burial: Burial
+  canticle: Canticles
   collects: Collects
-  collects_contemporary: "Collects: Contemporary"
-  collects_traditional: "Collects: Traditional"
+  opening-sentences: Opening Sentences
+  closing-sentences: Closing Sentences
+  eucharist: Eucharist
+  offertory-sentences: Offertory Sentences
+  invitatory-antiphons: Invitatory Antiphons
+  marriage: Marriage
+  prayers-and-thanksgivings: Prayers and Thanksgivings
 
-  about:
-    title: Common Prayer Online
-    subtitle: An unofficial source for The Episcopal Church’s authorized liturgies.
-    email: Email Me
 
-  psalter:
-    full_title: The Psalter, or Psalms of David
-    book_one: Book One
-    book_two: Book Two
-    book_three: Book Three
-    book_four: Book Four
-    book_five: Book Five
-    morning: Morning Prayer
-    evening: Evening Prayer
-    day: "%{nth} Day"
-    ord_1: First
-    ord_2: Second
-    ord_3: Third
-    ord_4: Fourth
-    ord_5: Fifth
-    ord_6: Sixth
-    ord_7: Seventh
-    ord_8: Eighth
-    ord_9: Ninth
-    ord_10: Tenth
-    ord_11: Eleventh
-    ord_12: Twelfth
-    ord_13: Thirteenth
-    ord_14: Fourteenth
-    ord_15: Fifteenth
-    ord_16: Sixteenth
-    ord_17: Seventeenth
-    ord_18: Eighteenth
-    ord_19: Nineteenth
-    ord_20: Twentieth
-    ord_21: Twenty-First
-    ord_22: Twenty-Second
-    ord_23: Twenty-Third
-    ord_24: Twenty-Fourth
-    ord_25: Twenty-Fifth
-    ord_26: Twenty-Sixth
-    ord_27: Twenty-Seventh
-    ord_28: Twenty-Eighth
-    ord_29: Twenty-Ninth
-    ord_30: Thirtieth
+lookup:
+  canticle_table: Table of Suggested Canticles
+  collect_of_the_day: The Collect of the Day
+  lectionary_reading: Lectionary Readings
 
-  lectionary:
-    the_lectionary: The Lectionary
-    month_1: January
-    month_2: February
-    month_3: March
-    month_4: April
-    month_5: May
-    month_6: June
-    month_7: July
-    month_8: August
-    month_9: September
-    month_10: October
-    month_11: November
-    month_12: December
-    collect_not_found: Collect not found for this day.
-    reading_not_found: Reading not found.
-    track_one: Track One
-    track_two: Track Two
-    lessons_and_psalm: Lessons and Psalm
-    palms: Liturgy of the Palms
-    vigil: Vigil Readings
-    first_lesson: First Lesson
-    psalm: Psalm
-    epistle: Epistle
-    gospel: Gospel
-    no_readings: There were no readings found for this date in the Revised Common Lectionary. Would you like to look at the 
-    no_readings_lff: There was no holy day found on this date. Would you like to look at the 
-    no_readings_end: "?"
-    go: Go
+biblical_citation:
+  error: Something went wrong while loading %{citation}.
+  try_again: Try Again.
 
-  slug:
-    Version: Version
-    ConcerningTheService: Concerning the Service
-    AdditionalDirections: Additional Directions
-    AdditionalPrayers: Additional Prayers
-    Order: Order
-    Readings: Readings
-    Parallels: Parallels
-    Office: Daily Office
-    MorningPrayer: Morning Prayer
-    NoondayPrayer: Noonday Prayer
-    ServiceOfLight: Service of Light
-    EveningPrayer: Evening Prayer
-    Compline: Compline
-    Canticles: Canticles
-    SuggestedCanticles: Suggested Canticles
-    OpeningSentences: Opening Sentences
-    InvitatoryAntiphons: Invitatory Antiphons
-    ClosingSentences: Closing Sentences
-    Canticle: Canticle
-    GreatLitany: The Great Litany
-    Collects: Collects
-    Baptism: Baptism
-    Eucharist: Eucharist
-    PrayersOfThePeople: Prayers of the People
-    OffertorySentences: Offertory Sentences
-    GreatThanksgiving: Great Thanksgiving
-    ProperPrefaces: Proper Prefaces
-    PenitentialSentences: Penitential Sentences
-    ConsecratingAdditional: Consecrating Additional Bread and Wine
-    PrayerA: Prayer A
-    PrayerB: Prayer B
-    PrayerC: Prayer C
-    PrayerD: Prayer D
-    PrayerI: Prayer I
-    PrayerII: Prayer II
-    Prayer1: Prayer 1
-    Prayer2: Prayer 2
-    Prayer3: Prayer 3
-    PrayersAndThanksgivings: Prayers and Thanksgivings
-    PastoralOffices: Pastoral Offices
-    Marriage: Marriage
-    CelebrationAndBlessing: Celebration and Blessing of a Marriage
-    CivilMarriage: Blessing of a Civil Marriage
-    WitnessingAndBlessing: Witnessing and Blessing of a Marriage
-    WitnessingAndBlessingLifelongCovenant: Witnessing and Blessing of a Lifelong Covenant
-    Burial: Burial
-    BurialOfAChild: Burial of aChild
-    BurialOfANonChristian: Burial of a Non-Christian
-    OccasionalServices: Occasional Services
-    Guadalupe: Our Lady of Guadalupe
-    Renaming: Renaming
-    Creeds: Creeds
-    ApostlesCreed: Apostles’ Creed
-    NiceneCreed: Nicene Creed
-  
-  meditation:
-    title: Meditation
-    minutes: Minutes
-    seconds: Seconds
-    use_bell: Play bell sound to begin and end meditation.
-    begin: Begin
-    pause: Pause
-    resume: Resume
-    stop: Finish
-    bell_error: Error while trying to play audio.
-    interval_error: Error while trying to set timer.
-    no_script: The Meditation Timer cannot run if JavaScript is disabled.
+daily_readings:
+  readings_for_date: Readings for Date
+  daily_readings_error: Uh-oh! Something went wrong while loading readings.
+  default: (Default)
+  alternate: (Alternate)
+  transferred: (Transferred)
+  psalms: Psalms
+  psalm: Psalm %{number}
+  canticle: Canticle %{number}
+  daily_office_readings: Daily Office Readings
+  daily_office_psalms: Daily Office Psalms
+  thirty_day_psalms: 30-Day Psalm Cycle
+  morning: Morning
+  evening: Evening
+  todays_readings: Click here for today’s readings.
+  or: or
+  vigil_readings: At the Liturgy of the Word
+  eucharist_readings: At the Eucharist
+  option: Option %{n}
 
-  search_page:
-    enter_query: Enter a query in the search bar above to search the Common Prayer library.
-    no_results: No results were found for your query.
-    results_singular: Found 1 result.
-    results_plural: Found %{number} results.
-    hymn: Hymn
-    holy_day: Holy Day
-    document: Document
-    category: Category
-    psalm: Psalm
-    fragment: (liturgical text)
+canticle_swap:
+  change_canticle: Change Canticle
+  choose: Choose a Canticle
+  connection_error: There was an error connecting to our server. Are you connected to the Internet?
+  error: Something went wrong while loading canticle choices. Try again later?
+  close: Cancel
+  any: —
 
-  psalm:
-    psalm: Psalm
-    prev: Previous
-    next: Next
-    en: English (BCP 1979)
-    es: Spanish (LOC 1979)
-    error: Something went wrong while trying to load the psalm. Please try to choose a psalm again using the menu.
+canticle_table:
+  canticles_mp: Suggested Canticles at Morning Prayer
+  canticles_ep: Suggested Canticles at Evening Prayer
+  supplemental_materials: Supplemental Liturgical Materials and Rite II
+  after_ot: After the Old Testament Reading
+  after_nt: After the New Testament Reading
+  sunday_abbrev: Sun.
+  monday_abbrev: Mon.
+  tuesday_abbrev: Tue.
+  wednesday_abbrev: Wed.
+  thursday_abbrev: Thu.
+  friday_abbrev: Fri.
+  saturday_abbrev: Sat.
+  on_feasts: On Feasts of our Lord and other Major Feasts
+  magnificat_note: "* If only one Reading is used, the suggested Canticle is the Magnificat."
+  magnificat_note_eow: "** If only one reading is used, the suggested canticle is The Song of Mary."
+  or: or
+  lent: Lent
+  advent: Advent
+  advent_and_lent: Advent and Lent
+  christmas: Christmas
+  easter: Easter
+  please_note: Please Note
+  eow_canticle_table_note: The published edition includes a handful of typographical errors in the table of suggested canticles. This page reflects a version of the text which has been corrected and conformed in capitalization and punctuation to the Book of Common Prayer.
+  canticles_appointed_for_christmas: "* Canticles appointed for Christmas may be used through the First Sunday after the Epiphany."
+  canticle_n: Canticle %{number}
 
-  home: 
-    sunday: Sunday
-    read_more: Read more.
-    favorites: Favorites
+export:
+  export: Export
+  link: Share Link
+  embed: Embed Code
+  word: Open in Word
+  venite: Copy to Venite.app
+  json: Download (JSON)
+  clipboard_success: Copied to Clipboard
+  clipboard_error: "Could not copy to clipboard. Try copying and pasting manually: "
+  selections: Selected Text
+  whole_doc: Whole Document
+  select: Select Items to Export
 
-  document_action:
-    mark_favorite: Mark as Favorite
-    remove_favorite: Remove Favorite
+bcp_1979: Book of Common Prayer (1979)
+bcp_1979_abbrev: BCP (1979)
+lff: Lesser Feasts & Fasts
+lff_2018: Lesser Feasts & Fasts (2018)
+lff_2018_abbrev: LFF (2018)
+eow_1: Enriching Our Worship
+
+collects: Collects
+collects_contemporary: "Collects: Contemporary"
+collects_traditional: "Collects: Traditional"
+
+about:
+  title: Common Prayer Online
+  subtitle: An unofficial source for The Episcopal Church’s authorized liturgies.
+  email: Email Me
+
+psalter:
+  full_title: The Psalter, or Psalms of David
+  book_one: Book One
+  book_two: Book Two
+  book_three: Book Three
+  book_four: Book Four
+  book_five: Book Five
+  morning: Morning Prayer
+  evening: Evening Prayer
+  day: "%{nth} Day"
+  ord_1: First
+  ord_2: Second
+  ord_3: Third
+  ord_4: Fourth
+  ord_5: Fifth
+  ord_6: Sixth
+  ord_7: Seventh
+  ord_8: Eighth
+  ord_9: Ninth
+  ord_10: Tenth
+  ord_11: Eleventh
+  ord_12: Twelfth
+  ord_13: Thirteenth
+  ord_14: Fourteenth
+  ord_15: Fifteenth
+  ord_16: Sixteenth
+  ord_17: Seventeenth
+  ord_18: Eighteenth
+  ord_19: Nineteenth
+  ord_20: Twentieth
+  ord_21: Twenty-First
+  ord_22: Twenty-Second
+  ord_23: Twenty-Third
+  ord_24: Twenty-Fourth
+  ord_25: Twenty-Fifth
+  ord_26: Twenty-Sixth
+  ord_27: Twenty-Seventh
+  ord_28: Twenty-Eighth
+  ord_29: Twenty-Ninth
+  ord_30: Thirtieth
+
+lectionary:
+  the_lectionary: The Lectionary
+  month_1: January
+  month_2: February
+  month_3: March
+  month_4: April
+  month_5: May
+  month_6: June
+  month_7: July
+  month_8: August
+  month_9: September
+  month_10: October
+  month_11: November
+  month_12: December
+  collect_not_found: Collect not found for this day.
+  reading_not_found: Reading not found.
+  track_one: Track One
+  track_two: Track Two
+  lessons_and_psalm: Lessons and Psalm
+  palms: Liturgy of the Palms
+  vigil: Vigil Readings
+  first_lesson: First Lesson
+  psalm: Psalm
+  epistle: Epistle
+  gospel: Gospel
+  no_readings: There were no readings found for this date in the Revised Common Lectionary. Would you like to look at the 
+  no_readings_lff: There was no holy day found on this date. Would you like to look at the 
+  no_readings_end: "?"
+  go: Go
+
+slug:
+  Version: Version
+  ConcerningTheService: Concerning the Service
+  AdditionalDirections: Additional Directions
+  AdditionalPrayers: Additional Prayers
+  Order: Order
+  Readings: Readings
+  Parallels: Parallels
+  Office: Daily Office
+  MorningPrayer: Morning Prayer
+  NoondayPrayer: Noonday Prayer
+  ServiceOfLight: Service of Light
+  EveningPrayer: Evening Prayer
+  Compline: Compline
+  Canticles: Canticles
+  SuggestedCanticles: Suggested Canticles
+  OpeningSentences: Opening Sentences
+  InvitatoryAntiphons: Invitatory Antiphons
+  ClosingSentences: Closing Sentences
+  Canticle: Canticle
+  GreatLitany: The Great Litany
+  Collects: Collects
+  Baptism: Baptism
+  Eucharist: Eucharist
+  PrayersOfThePeople: Prayers of the People
+  OffertorySentences: Offertory Sentences
+  GreatThanksgiving: Great Thanksgiving
+  ProperPrefaces: Proper Prefaces
+  PenitentialSentences: Penitential Sentences
+  ConsecratingAdditional: Consecrating Additional Bread and Wine
+  PrayerA: Prayer A
+  PrayerB: Prayer B
+  PrayerC: Prayer C
+  PrayerD: Prayer D
+  PrayerI: Prayer I
+  PrayerII: Prayer II
+  Prayer1: Prayer 1
+  Prayer2: Prayer 2
+  Prayer3: Prayer 3
+  PrayersAndThanksgivings: Prayers and Thanksgivings
+  PastoralOffices: Pastoral Offices
+  Marriage: Marriage
+  CelebrationAndBlessing: Celebration and Blessing of a Marriage
+  CivilMarriage: Blessing of a Civil Marriage
+  WitnessingAndBlessing: Witnessing and Blessing of a Marriage
+  WitnessingAndBlessingLifelongCovenant: Witnessing and Blessing of a Lifelong Covenant
+  Burial: Burial
+  BurialOfAChild: Burial of aChild
+  BurialOfANonChristian: Burial of a Non-Christian
+  OccasionalServices: Occasional Services
+  Guadalupe: Our Lady of Guadalupe
+  Renaming: Renaming
+  Creeds: Creeds
+  ApostlesCreed: Apostles’ Creed
+  NiceneCreed: Nicene Creed
+
+meditation:
+  title: Meditation
+  minutes: Minutes
+  seconds: Seconds
+  use_bell: Play bell sound to begin and end meditation.
+  begin: Begin
+  pause: Pause
+  resume: Resume
+  stop: Finish
+  bell_error: Error while trying to play audio.
+  interval_error: Error while trying to set timer.
+  no_script: The Meditation Timer cannot run if JavaScript is disabled.
+
+search_page:
+  enter_query: Enter a query in the search bar above to search the Common Prayer library.
+  no_results: No results were found for your query.
+  results_singular: Found 1 result.
+  results_plural: Found %{number} results.
+  hymn: Hymn
+  holy_day: Holy Day
+  document: Document
+  category: Category
+  psalm: Psalm
+  fragment: (liturgical text)
+
+psalm:
+  psalm: Psalm
+  prev: Previous
+  next: Next
+  en: English (BCP 1979)
+  es: Spanish (LOC 1979)
+  error: Something went wrong while trying to load the psalm. Please try to choose a psalm again using the menu.
+
+home: 
+  sunday: Sunday
+  read_more: Read more.
+  favorites: Favorites
+
+document_action:
+  mark_favorite: Mark as Favorite
+  remove_favorite: Remove Favorite
