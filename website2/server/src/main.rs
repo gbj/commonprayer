@@ -53,6 +53,7 @@ async fn robots() -> HttpResponse {
 User-agent: *
 Disallow: /en/document/office/morning-prayer/
 Disallow: /en/document/office/evening-prayer/
+Disallow: /en/readings
 Disallow: /en/canticle-choice
 "#,
     )
