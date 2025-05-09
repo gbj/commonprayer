@@ -285,6 +285,18 @@ async fn daily_summary(params: web::Path<(String, String)>) -> Result<web::Json<
     Ok(web::Json(summary))
 }
 
+#[get("/api/eucharistic_summary/{locale}/{date}.json")]
+async fn eucharistic_summary(
+    params: web::Path<(String, String)>,
+) -> Result<web::Json<DailySummary>> {
+    let (locale, date) = params.into_inner();
+    let date = Date::parse_from_str(&date, "%Y-%m-%d").map_err(DateError)?;
+    let language = locale_to_language(&locale);
+    let summary =
+        episcopal_api::library::CommonPrayer::eucharistic_lectionary_summary(&date, language);
+    Ok(web::Json(summary))
+}
+
 // Canticle List API
 #[get("/api/canticles.json")]
 async fn canticle_list_api() -> Result<web::Json<Vec<Document>>> {
